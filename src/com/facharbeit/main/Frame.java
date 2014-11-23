@@ -597,22 +597,22 @@ public class Frame extends javax.swing.JFrame
     @SuppressWarnings("empty-statement")
     private void savePathBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_savePathBtnActionPerformed
     {//GEN-HEADEREND:event_savePathBtnActionPerformed
-        SettingHandler.savePathBtnActionPerformed(sourceTxt, backupTxt, destArea, evt);
+        SettingHandler.savePathBtnActionPerformed(sourceTxt, backupTxt, destArea);
     }//GEN-LAST:event_savePathBtnActionPerformed
 
     private void setSpeedPlanBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_setSpeedPlanBtnActionPerformed
     {//GEN-HEADEREND:event_setSpeedPlanBtnActionPerformed
-        SettingHandler.setSpeedPlanBtnActionPerformed(speedPlanTxt, evt);
+        SettingHandler.setSpeedPlanBtnActionPerformed(speedPlanTxt);
     }//GEN-LAST:event_setSpeedPlanBtnActionPerformed
 
     private void setSpeedMotdBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_setSpeedMotdBtnActionPerformed
     {//GEN-HEADEREND:event_setSpeedMotdBtnActionPerformed
-        SettingHandler.setSpeedMotdBtnActionPerformed(speedMotdTxt, evt);
+        SettingHandler.setSpeedMotdBtnActionPerformed(speedMotdTxt);
     }//GEN-LAST:event_setSpeedMotdBtnActionPerformed
 
     private void addColorBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_addColorBtnActionPerformed
     {//GEN-HEADEREND:event_addColorBtnActionPerformed
-        SettingHandler.addColorBtnActionPerformed(jColorChooser1, colorNameTxt, colorPlanCombo, colorMotdCombo, evt);
+        SettingHandler.addColorBtnActionPerformed(jColorChooser1, colorNameTxt, colorPlanCombo, colorMotdCombo);
     }//GEN-LAST:event_addColorBtnActionPerformed
 
     private void colorPlanComboItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_colorPlanComboItemStateChanged
@@ -622,7 +622,7 @@ public class Frame extends javax.swing.JFrame
 
     private void setColorPlanBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_setColorPlanBtnActionPerformed
     {//GEN-HEADEREND:event_setColorPlanBtnActionPerformed
-        SettingHandler.setColorPlanBtnActionPerformed(colorPlanCombo, evt);
+        SettingHandler.setColorPlanBtnActionPerformed(colorPlanCombo);
     }//GEN-LAST:event_setColorPlanBtnActionPerformed
 
     private void colorMotdComboItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_colorMotdComboItemStateChanged
@@ -632,7 +632,7 @@ public class Frame extends javax.swing.JFrame
 
     private void setColorMotdBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_setColorMotdBtnActionPerformed
     {//GEN-HEADEREND:event_setColorMotdBtnActionPerformed
-        SettingHandler.setColorMotdBtnActionPerformed(colorMotdCombo, evt);
+        SettingHandler.setColorMotdBtnActionPerformed(colorMotdCombo);
     }//GEN-LAST:event_setColorMotdBtnActionPerformed
 
     private void colorNameTxtFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_colorNameTxtFocusGained
@@ -649,7 +649,7 @@ public class Frame extends javax.swing.JFrame
 
     private void deleteColorActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deleteColorActionPerformed
     {//GEN-HEADEREND:event_deleteColorActionPerformed
-        SettingHandler.deleteColorBtnActionPerformed(colorNameTxt, colorPlanCombo, colorMotdCombo, evt);
+        SettingHandler.deleteColorBtnActionPerformed(colorNameTxt, colorPlanCombo, colorMotdCombo);
     }//GEN-LAST:event_deleteColorActionPerformed
 
     private void useSQLCheckStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_useSQLCheckStateChanged
