@@ -72,7 +72,7 @@ public class Application
 
             try
             {
-                Thread.sleep(1000);
+                Thread.sleep(100);
             } catch(InterruptedException ex)
             {
                 System.out.println("MAIN-SCHLEIFE KONNTE NICHT PAUSIEREN!");
