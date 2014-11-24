@@ -1,11 +1,8 @@
 package com.facharbeit.sql;
 
-import com.facharbeit.tools.Logger;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
+import com.facharbeit.tools.*;
+import java.sql.*;
+import java.util.*;
 
 /**
  * Schreibt in eine Datenbank.
@@ -24,6 +21,7 @@ public class sqlWriter
 
     /**
      * Erstellt einen neuen Writer. Mit Verbindung zu einer Datenbank.
+     *
      * @param dbHost     Host zur Datenbank
      * @param dbPort     Port der Datenbank
      * @param dbName     Name der Datenbank
@@ -46,6 +44,7 @@ public class sqlWriter
 
     /**
      * Fügt Zeilen zu einer Tabelle hinzu.
+     *
      * @param tableName    Name der Tabelle
      * @param tableColumms Spalten, die es in den Zeilen geben soll
      * @param data         Inhalt, der geschrieben werden soll
@@ -86,6 +85,7 @@ public class sqlWriter
 
     /**
      * Fügt nur eine Zeile zur Tabelle hinzu.
+     *
      * @param tableName    Name der Tabelle
      * @param tableColumms Spalten, die es in der Zeile geben soll
      * @param data         Inhalt, der geschrieben werden soll
@@ -99,6 +99,7 @@ public class sqlWriter
 
     /**
      * Fügt nur eine Zeile mit einer Zelle hinzu.
+     *
      * @param tableName   Name der Tabelle
      * @param tableColumm Spalte, die es in der Zeile geben soll
      * @param data        Inhalt, der geschrieben werden soll

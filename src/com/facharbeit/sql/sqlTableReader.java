@@ -1,6 +1,6 @@
 package com.facharbeit.sql;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Liest immer aus der selben SQL-Tabelle.
@@ -19,6 +19,7 @@ public class sqlTableReader extends sqlReader
 
     /**
      * Erstellt einen Table-Reader.
+     *
      * @param dbHost       Host zur Datenbank
      * @param dbPort       Port der Datenbank
      * @param dbName       Name der Datenbank
@@ -36,6 +37,7 @@ public class sqlTableReader extends sqlReader
 
     /**
      * Liest eine ganze Tabelle.
+     *
      * @return Inhalt der Tabelle
      */
     public ArrayList<String[]> readAll()
@@ -52,7 +54,9 @@ public class sqlTableReader extends sqlReader
 
     /**
      * Liest eine Zeile einer Tabelle.
+     *
      * @param line Zeile, die gelesen werden soll
+     *
      * @return Inhalt der Zeile
      */
     public String[] read(int line)
@@ -62,8 +66,10 @@ public class sqlTableReader extends sqlReader
 
     /**
      * Liest eine Spalte aus einer Zeile einer Tabelle.
+     *
      * @param tableColumm Spalte, die gelesen werden soll
      * @param line        Zeile, die gelesen werden soll
+     *
      * @return Inhalt der Zelle
      */
     public String read(String tableColumm, int line)

@@ -5,7 +5,7 @@
  */
 package com.facharbeit.main;
 
-import com.facharbeit.io.Settings;
+import com.facharbeit.io.*;
 
 /**
  *
@@ -31,8 +31,7 @@ public class Input
         if(Settings.load("useSQL").equals("true"))
         {
             //krasse SQL Eskalation
-        }
-        else
+        } else
         {
             //nicht so krasse String umwandel Eskalation
         }

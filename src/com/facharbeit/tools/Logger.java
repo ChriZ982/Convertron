@@ -1,12 +1,9 @@
 package com.facharbeit.tools;
 
-import java.awt.Color;
-import java.util.Calendar;
-import javax.swing.JTextPane;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
+import java.awt.*;
+import java.util.*;
+import javax.swing.*;
+import javax.swing.text.*;
 
 /**
  * Klasse, die alle Aktionen registriert und im Programm ausgibt.
@@ -20,6 +17,7 @@ public class Logger
 
     /**
      * "Konstruktor".
+     *
      * @param out Textfeld für die Ausgabe
      */
     public static void init(JTextPane out)
@@ -29,6 +27,7 @@ public class Logger
 
     /**
      * Standard zur Ausgabe von Fehlern oder Informationen.
+     *
      * @param text Ausgegebener Text
      * @param prio Priorität des Textes. 0-INFO, 1-PROBLEM, 2-FEHLER
      */
@@ -79,16 +78,17 @@ public class Logger
 
     /**
      * Erstellt einen benutzerdefinierten Zeitstempel.
+     *
      * @return Datum u. Zeit als String
      */
     private static String timestamp()
     {
         Calendar c = Calendar.getInstance();
         return c.get(Calendar.DAY_OF_MONTH) + "."
-                + c.get(Calendar.MONTH) + "."
-                + String.valueOf(c.get(Calendar.YEAR)).substring(2) + " "
-                + c.get(Calendar.HOUR_OF_DAY) + ":"
-                + c.get(Calendar.MINUTE) + ":"
-                + c.get(Calendar.SECOND);
+               + c.get(Calendar.MONTH) + "."
+               + String.valueOf(c.get(Calendar.YEAR)).substring(2) + " "
+               + c.get(Calendar.HOUR_OF_DAY) + ":"
+               + c.get(Calendar.MINUTE) + ":"
+               + c.get(Calendar.SECOND);
     }
 }

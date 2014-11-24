@@ -1,6 +1,6 @@
 package com.facharbeit.sql;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Schreibt immer in die selbe Tabelle.
@@ -19,6 +19,7 @@ public class sqlTableWriter extends sqlWriter
 
     /**
      * Erstellt einen neuen Table-Writer.
+     *
      * @param dbHost       Host zur Datenbank
      * @param dbPort       Port der Datenbank
      * @param dbName       Name der Datenbank
@@ -36,6 +37,7 @@ public class sqlTableWriter extends sqlWriter
 
     /**
      * Fügt mehrere Zeilen zu der Tabelle hinzu.
+     *
      * @param data Inhalt der Zeilen
      */
     public void addAll(ArrayList<String[]> data)
@@ -45,6 +47,7 @@ public class sqlTableWriter extends sqlWriter
 
     /**
      * Fügt eine Zeile zu der Tabelle hinzu.
+     *
      * @param data Inhalt der Zeile
      */
     public void add(String[] data)
@@ -54,6 +57,7 @@ public class sqlTableWriter extends sqlWriter
 
     /**
      * Fügt eine Zeile mit einer Spalte zu der Tabelle hinzu.
+     *
      * @param tableColumm Name der Zelle
      * @param data        Inhalt der Zelle
      */

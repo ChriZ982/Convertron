@@ -1,10 +1,7 @@
 package com.facharbeit.io;
 
-import com.facharbeit.tools.Logger;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import com.facharbeit.tools.*;
+import java.io.*;
 
 /**
  * Lies ganze Text-Dateien aus.
@@ -18,6 +15,7 @@ public class Reader
 
     /**
      * Erstellt einen neuen Reader.
+     *
      * @param pFilename Name der Datei
      */
     public Reader(String pFilename)
@@ -27,7 +25,9 @@ public class Reader
 
     /**
      * Liest eine Zeile der Datei.
+     *
      * @param line Zeile, die gelesen werden soll
+     *
      * @return Inhalt dieser Zeile
      */
     public String read(int line)
@@ -47,6 +47,7 @@ public class Reader
 
     /**
      * Liest ganze Datei aus.
+     *
      * @return Ganze Datei als String Array
      */
     public String[] readAll()
@@ -71,6 +72,7 @@ public class Reader
 
     /**
      * Konvertiert das Array in einen einzelnen String.
+     *
      * @return Ganze Datei als String
      */
     @Override
@@ -87,7 +89,9 @@ public class Reader
 
     /**
      * Liest eine Zeile als Zahl.
+     *
      * @param line Zeile, die gelesen werden soll
+     *
      * @return Zahl, die die angegebene Zeile repräsentiert
      */
     public int readAsNumber(int line)
@@ -104,6 +108,7 @@ public class Reader
 
     /**
      * Prüft ob die Datei existiert.
+     *
      * @return Existiert die Datei?
      */
     public boolean exists()
@@ -114,6 +119,7 @@ public class Reader
 
     /**
      * Gibt die Zeilenanzahl zurück.
+     *
      * @return Anzahl der Zeilen
      */
     public int getLines()
