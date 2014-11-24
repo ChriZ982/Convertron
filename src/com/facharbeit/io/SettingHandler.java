@@ -36,9 +36,12 @@ public class SettingHandler
     public static void addColorBtnActionPerformed(JColorChooser colorChooser, JTextField colorNameTxt, JComboBox colorPlanCombo, JComboBox colorMotdCombo)
     {
         Color c = JColorChooser.showDialog(colorChooser, "Neue Farbe anlegen", Color.BLUE);
-        Settings.save("color" + colorNameTxt.getText(), "#" + Integer.toHexString(c.getRGB()).substring(2));
 
-        loadColors(colorPlanCombo, colorMotdCombo);
+        if(c != null)
+        {
+            Settings.save("color" + colorNameTxt.getText(), "#" + Integer.toHexString(c.getRGB()).substring(2));
+            loadColors(colorPlanCombo, colorMotdCombo);
+        }
     }
 
     public static void deleteColorBtnActionPerformed(JTextField colorNameTxt, JComboBox colorPlanCombo, JComboBox colorMotdCombo)

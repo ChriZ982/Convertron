@@ -213,6 +213,7 @@ public class Frame extends javax.swing.JFrame
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
 
+        log.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         log.setFocusable(false);
         jScrollPane1.setViewportView(log);
 
@@ -699,8 +700,6 @@ public class Frame extends javax.swing.JFrame
     {//GEN-HEADEREND:event_selectSourceBtnActionPerformed
         jFileChooser1.showOpenDialog(null);
         sourceTxt.setText(jFileChooser1.getSelectedFile().getPath());
-
-        Application.addToQueue("selectSourceBtnActionPerformed", jFileChooser1, sourceTxt, evt);
     }//GEN-LAST:event_selectSourceBtnActionPerformed
 
     private void selectBackupBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_selectBackupBtnActionPerformed

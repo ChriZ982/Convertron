@@ -33,33 +33,33 @@ public class Logger
      */
     public static void log(String text, int prio)
     {
-        String priority;
+        //String priority;
         Color color;
 
         switch(prio)
         {
             case 0:
-                priority = "INFO";
+                //priority = "INFO";
                 color = new Color(0, 100, 0);
                 break;
 
             case 1:
-                priority = "PROBLEM";
+                //priority = "PROBLEM";
                 color = new Color(200, 165, 0);
                 break;
 
             case 2:
-                priority = "FEHLER";
+                //priority = "FEHLER";
                 color = new Color(160, 0, 0);
                 break;
 
             default:
-                priority = "UNBEKANNT";
+                //priority = "UNBEKANNT";
                 color = Color.BLACK;
                 break;
         }
 
-        String content = "[" + timestamp() + "] " + priority + ": " + text + "\n"; //Ausgabe-String wird zusammengestellt.
+        String content = "[" + timestamp() + "] " /* + priority + ": " */ + text + "\n"; //Ausgabe-String wird zusammengestellt.
 
         SimpleAttributeSet set = new SimpleAttributeSet(); //Attribut-Set zur verwaltung der Farbe wird erstellt.
         StyleConstants.setForeground(set, color); //Farbe wird gesetzt.
@@ -84,10 +84,7 @@ public class Logger
     private static String timestamp()
     {
         Calendar c = Calendar.getInstance();
-        return c.get(Calendar.DAY_OF_MONTH) + "."
-               + c.get(Calendar.MONTH) + "."
-               + String.valueOf(c.get(Calendar.YEAR)).substring(2) + " "
-               + c.get(Calendar.HOUR_OF_DAY) + ":"
+        return c.get(Calendar.HOUR_OF_DAY) + ":"
                + c.get(Calendar.MINUTE) + ":"
                + c.get(Calendar.SECOND);
     }
