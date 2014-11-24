@@ -1,12 +1,8 @@
 package com.facharbeit.sql;
 
-import com.facharbeit.tools.Logger;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
+import com.facharbeit.tools.*;
+import java.sql.*;
+import java.util.*;
 
 /**
  * Liest Daten aus einer SQL-Datenbank.
@@ -20,6 +16,7 @@ public class sqlReader
 
     /**
      * Erstellt einen neuen Reader. Mit Verbindung zu einer Datenbank.
+     *
      * @param dbHost     Host zur Datenbank
      * @param dbPort     Port der Datenbank
      * @param dbName     Name der Datenbank
@@ -40,8 +37,10 @@ public class sqlReader
 
     /**
      * Liest alle Zeilen aus einer Datenbank.
+     *
      * @param tableName    Name der Tabelle, die gelesen werden soll
      * @param tableColumms Array der Spalten, die gelesen werden solen
+     *
      * @return Alle Zeilen der Tabelle
      */
     public ArrayList<String[]> readAll(String tableName, String[] tableColumms)
@@ -86,9 +85,11 @@ public class sqlReader
 
     /**
      * Liest eine Zeile aus einer Datenbank.
+     *
      * @param tableName    Name der Tabelle, die gelesen werden soll
      * @param tableColumms Spalten, die gelesen werden sollen
      * @param line         Nummer der Zeile, die gelesen werden soll
+     *
      * @return Inhalt der Zeile
      */
     public String[] readLine(String tableName, String[] tableColumms, int line)
@@ -98,9 +99,11 @@ public class sqlReader
 
     /**
      * Liest eine Zelle aus einer Datenbank.
+     *
      * @param tableName   Name der Tabelle, die gelesen werden soll
      * @param tableColumm Spalte, die gelesen werden soll
      * @param line        Zeile, aus der gelesen werden soll
+     *
      * @return Inhalt der Zelle
      */
     public String readCell(String tableName, String tableColumm, int line)

@@ -1,20 +1,14 @@
 package com.facharbeit.io;
 
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ItemEvent;
-import java.util.ArrayList;
-import java.util.Arrays;
-import javax.swing.JColorChooser;
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
+import javax.swing.*;
 
 public class SettingHandler
 {
     @SuppressWarnings("empty-statement")
-    public static void savePathBtnActionPerformed(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea, ActionEvent evt)
+    public static void savePathBtnActionPerformed(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea)
     {
         saveIfNotNull(sourceTxt, "sourcePath");
         saveIfNotNull(backupTxt, "backupPath");
@@ -29,25 +23,28 @@ public class SettingHandler
                 Settings.save("destPath" + (i + 1), destPaths.get(i));
     }
 
-    public static void setSpeedPlanBtnActionPerformed(JTextField speedPlanTxt, ActionEvent evt)
+    public static void setSpeedPlanBtnActionPerformed(JTextField speedPlanTxt)
     {
         Settings.save("planSpeed", speedPlanTxt.getText());
     }
 
-    public static void setSpeedMotdBtnActionPerformed(JTextField speedMotdTxt, ActionEvent evt)
+    public static void setSpeedMotdBtnActionPerformed(JTextField speedMotdTxt)
     {
         Settings.save("motdSpeed", speedMotdTxt.getText());
     }
 
-    public static void addColorBtnActionPerformed(JColorChooser colorChooser, JTextField colorNameTxt, JComboBox colorPlanCombo, JComboBox colorMotdCombo, ActionEvent evt)
+    public static void addColorBtnActionPerformed(JColorChooser colorChooser, JTextField colorNameTxt, JComboBox colorPlanCombo, JComboBox colorMotdCombo)
     {
         Color c = JColorChooser.showDialog(colorChooser, "Neue Farbe anlegen", Color.BLUE);
-        Settings.save("color" + colorNameTxt.getText(), "#" + Integer.toHexString(c.getRGB()).substring(2));
 
-        loadColors(colorPlanCombo, colorMotdCombo);
+        if(c != null)
+        {
+            Settings.save("color" + colorNameTxt.getText(), "#" + Integer.toHexString(c.getRGB()).substring(2));
+            loadColors(colorPlanCombo, colorMotdCombo);
+        }
     }
 
-    public static void deleteColorBtnActionPerformed(JTextField colorNameTxt, JComboBox colorPlanCombo, JComboBox colorMotdCombo, ActionEvent evt)
+    public static void deleteColorBtnActionPerformed(JTextField colorNameTxt, JComboBox colorPlanCombo, JComboBox colorMotdCombo)
     {
         Settings.delete("color" + colorNameTxt.getText());
 
@@ -60,7 +57,7 @@ public class SettingHandler
             colorPlanPanel.setBackground(Color.decode(Settings.load("color" + colorPlanCombo.getSelectedItem().toString())));
     }
 
-    public static void setColorPlanBtnActionPerformed(JComboBox colorPlanCombo, ActionEvent evt)
+    public static void setColorPlanBtnActionPerformed(JComboBox colorPlanCombo)
     {
         Settings.save("colorPlan", colorPlanCombo.getSelectedItem().toString());
     }
@@ -71,7 +68,7 @@ public class SettingHandler
             colorMotdPanel.setBackground(Color.decode(Settings.load("color" + colorMotdCombo.getSelectedItem().toString())));
     }
 
-    public static void setColorMotdBtnActionPerformed(JComboBox colorMotdCombo, ActionEvent evt)
+    public static void setColorMotdBtnActionPerformed(JComboBox colorMotdCombo)
     {
         Settings.save("colorMotd", colorMotdCombo.getSelectedItem().toString());
     }

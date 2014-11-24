@@ -1,8 +1,7 @@
 package com.facharbeit.main;
 
-import com.facharbeit.tools.Logger;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import com.facharbeit.tools.*;
+import java.lang.reflect.*;
 
 public class QueueElement
 {

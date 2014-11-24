@@ -1,10 +1,8 @@
 package com.facharbeit.io;
 
-import com.facharbeit.tools.Logger;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
+import com.facharbeit.io.Reader;
+import com.facharbeit.tools.*;
+import java.io.*;
 
 /**
  * Klasse zum schreiben ganzer Text-Dateien.
@@ -19,6 +17,7 @@ public class Writer
 
     /**
      * Erstellt einen neuen Schreiber.
+     *
      * @param pFilename Name der Datei
      */
     public Writer(String pFilename)
@@ -28,6 +27,7 @@ public class Writer
 
     /**
      * Schreibt eine ganze Datei neu.
+     *
      * @param data Daten, die in die Datei geschrieben werder sollen
      */
     public void writeAll(String[] data)
@@ -47,6 +47,7 @@ public class Writer
 
     /**
      * Schreibt nur eine Zeile einer Datei neu.
+     *
      * @param line    Zeile, die neu geschrieben werden soll
      * @param content Text, der geschrieben werden soll
      */

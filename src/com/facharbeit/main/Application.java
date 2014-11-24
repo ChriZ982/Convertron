@@ -1,13 +1,10 @@
 package com.facharbeit.main;
 
-import com.facharbeit.io.SettingHandler;
-import com.facharbeit.io.Settings;
-import com.facharbeit.tools.Logger;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Random;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import com.facharbeit.io.*;
+import com.facharbeit.tools.*;
+import java.lang.reflect.*;
+import java.util.*;
+import javax.swing.*;
 
 /**
  * Verwaltet alle Aktionen, die im Programm geschehen sollen.
@@ -55,6 +52,7 @@ public class Application
 
     /**
      * Ruft die "main-Methode" der Anwendung auf.
+     *
      * @param args Parameter, die beim Aufruf des Programms übergeben wurden
      */
     public static void main(String[] args)
@@ -74,7 +72,7 @@ public class Application
 
             try
             {
-                Thread.sleep(1000);
+                Thread.sleep(100);
             } catch(InterruptedException ex)
             {
                 System.out.println("MAIN-SCHLEIFE KONNTE NICHT PAUSIEREN!");
@@ -108,6 +106,7 @@ public class Application
 
     /**
      * Generiert einen zufälligen "Satz".
+     *
      * @deprecated
      * @return "Zufalls-Satz"
      */
@@ -122,7 +121,7 @@ public class Application
             if(rand.nextInt(5) == 0)
                 s += " ";
 
-            s += Character.toLowerCase((char) (rand.nextInt(26) + 65));
+            s += Character.toLowerCase((char)(rand.nextInt(26) + 65));
         }
 
         return s;

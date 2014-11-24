@@ -52,8 +52,7 @@ public class TextTool
         {
             char[] toCut = cutFromExcl(input, toFind).toCharArray();
             char[] toReturn = new char[toCut.length - toFind.length()];
-            for(int i = 0; i < toReturn.length; i++)
-                toReturn[i] = toCut[i];
+            System.arraycopy(toCut, 0, toReturn, 0, toReturn.length);
             return String.copyValueOf(toReturn);
         } else
             return input;
@@ -79,8 +78,7 @@ public class TextTool
             }
 
             toReturn = new char[foundIndex];
-            for(int i = 0; i < toReturn.length; i++)
-                toReturn[i] = inputAsArray[i];
+            System.arraycopy(inputAsArray, 0, toReturn, 0, toReturn.length);
         }
         return String.copyValueOf(toReturn);
     }
