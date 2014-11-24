@@ -15,15 +15,18 @@ public class SchoolClass
 {
 
     private ArrayList<Entry> entrys;
+    private String name;
 
-    public SchoolClass()
+    public SchoolClass(String name)
     {
         entrys = new ArrayList<Entry>();
+        this.name = name;
     }
 
-    public SchoolClass(ArrayList<Entry> entrys)
+    public SchoolClass(String name, ArrayList<Entry> entrys)
     {
         this.entrys = entrys;
+        this.name = name;
     }
 
     public ArrayList<Entry> getEntrys()
@@ -34,6 +37,16 @@ public class SchoolClass
     public void setEntrys(ArrayList<Entry> entrys)
     {
         this.entrys = entrys;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
     }
 
     public boolean isEmpty()
