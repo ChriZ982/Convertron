@@ -1,0 +1,32 @@
+.datum
+{
+    font-size: 40px;
+    text-align:center;
+}
+
+.stufeTab
+{
+   width: 100%;
+   border-width: 3px;
+   border-style: groove;
+   border-color: #474747;
+   background-color: #E7E7E7;
+}
+
+.stufeTab tr td
+{
+    text-align: center;
+}
+
+.stufe
+{
+    font-size: 40px;
+}
+
+.laufschrift
+{
+    width: 100%;
+    font-size: 50px;
+    vertical-align: top;
+    padding-left: 50px;
+}

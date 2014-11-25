@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <script type="text/javascript">
+            var scrollDelay = GESCHW;
+            var height = 0;
+            var feineinstellung = 8;
+            var reloadcounter = 0;
+
+            function scroll()
+            {
+                var position = window.pageYOffset;
+
+                if (position + feineinstellung < (height + window.innerHeight) / 2)
+                    window.scrollBy(0, 1);
+                else
+                {
+                    window.scrollTo(0, 0);
+                    if (reloadcounter < 4)
+                        reloadcounter = reloadcounter + 1;
+                    else
+                    {
+                        window.history.go(0);
+                        reloadcounter = 0;
+                    }
+                }
+            }
+
+            function start()
+            {
+                window.scrollBy(0, 100000);
+                height = window.pageYOffset;
+                window.setInterval("scroll()", scrollDelay);
+            }
+        </script>
+
+        <title>Vertretungsplan - Heute</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <meta charset="UTF-8"> 
+    </head>
+    <body bgcolor="BGFARBE" onLoad="start()">
+
+        <table width="100%" >
+            <tr>
+                <td ><img src="antonianumLogo.png" height="130" alt="Gymnasium Antonianum - Logo" /></td>
+                <td width="100%"><div class="datum"><b>TAG</b></div></td>
+            </tr>
+        </table>
+
+        VERTRETUNGEN
+
+        <table width="100%" >
+            <tr>
+                <td ><img src="antonianumLogo.png" height="130" alt="Gymnasium Antonianum - Logo" /></td>
+                <td width="100%"><div class="datum"><b>TAG</b></div></td>
+            </tr>
+        </table>
+
+        VERTRETUNGEN
+
+    </body>
+</html>
