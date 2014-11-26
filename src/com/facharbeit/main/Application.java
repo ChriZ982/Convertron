@@ -66,13 +66,18 @@ public class Application
      */
     public void run()
     {
+        long time;
+        long cTime;
         while(running)
         {
+            time = System.currentTimeMillis();
             runOneElementOfQueue();
+            cTime = System.currentTimeMillis();
 
             try
             {
-                Thread.sleep(100);
+                if(cTime < time + 100 && cTime > time)
+                    Thread.sleep((time - cTime) + 100);
             } catch(InterruptedException ex)
             {
                 System.out.println("MAIN-SCHLEIFE KONNTE NICHT PAUSIEREN!");
