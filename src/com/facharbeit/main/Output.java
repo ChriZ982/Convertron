@@ -129,7 +129,6 @@ public class Output
         }
 
         Reader reader = new Reader("TEMPLATE heute morgen.html");
-        Writer writer = new Writer("heute.html");
 
         String[] file = reader.readAll();
 
@@ -141,7 +140,23 @@ public class Output
             file[i] = file[i].replaceAll("VERTRETUNGEN", classes);
         }
 
-        writer.writeAll(file);
+        Writer writer1 = new Writer("heute.html");
+        writer1.writeAll(file);
+
+        Writer writer2 = new Writer("morgen.html");
+
+        Writer writer3 = new Writer("laufschrift.html");
+
+        Writer writer4 = new Writer("beide.html");
+
+        String[] dest = Settings.giveMultiple("destPath");
+        for(String s : dest)
+        {
+            writer1.copy(s + "\\");
+            writer2.copy(s + "\\");
+            writer3.copy(s + "\\");
+            writer4.copy(s + "\\");
+        }
     }
 
     public static void generatePlanTomorrow(SchoolClass[] schoolClasses)
@@ -160,7 +175,6 @@ public class Output
         }
 
         Reader reader = new Reader("TEMPLATE heute morgen.html");
-        Writer writer = new Writer("morgen.html");
 
         String[] file = reader.readAll();
 
@@ -172,7 +186,23 @@ public class Output
             file[i] = file[i].replaceAll("VERTRETUNGEN", classes);
         }
 
-        writer.writeAll(file);
+        Writer writer1 = new Writer("heute.html");
+
+        Writer writer2 = new Writer("morgen.html");
+        writer2.writeAll(file);
+
+        Writer writer3 = new Writer("laufschrift.html");
+
+        Writer writer4 = new Writer("beide.html");
+
+        String[] dest = Settings.giveMultiple("destPath");
+        for(String s : dest)
+        {
+            writer1.copy(s + "\\");
+            writer2.copy(s + "\\");
+            writer3.copy(s + "\\");
+            writer4.copy(s + "\\");
+        }
     }
 
     public static void generateModt()
@@ -188,7 +218,6 @@ public class Output
         }
 
         Reader reader = new Reader("TEMPLATE laufschrift.html");
-        Writer writer = new Writer("laufschrift.html");
 
         String[] file = reader.readAll();
 
@@ -199,6 +228,22 @@ public class Output
             file[i] = file[i].replaceAll("BGFARBE", farbe);
         }
 
-        writer.writeAll(file);
+        Writer writer1 = new Writer("heute.html");
+
+        Writer writer2 = new Writer("morgen.html");
+
+        Writer writer3 = new Writer("laufschrift.html");
+        writer3.writeAll(file);
+
+        Writer writer4 = new Writer("beide.html");
+
+        String[] dest = Settings.giveMultiple("destPath");
+        for(String s : dest)
+        {
+            writer1.copy(s + "\\");
+            writer2.copy(s + "\\");
+            writer3.copy(s + "\\");
+            writer4.copy(s + "\\");
+        }
     }
 }
