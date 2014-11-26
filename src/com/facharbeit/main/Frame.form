@@ -41,7 +41,7 @@
                       <Group type="102" attributes="0">
                           <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
-                          <Component id="dbHostText" min="-2" pref="245" max="-2" attributes="0"/>
+                          <Component id="dbHostTxt" min="-2" pref="245" max="-2" attributes="0"/>
                           <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
                           <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
@@ -79,7 +79,7 @@
               <Group type="102" attributes="0">
                   <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="dbHostText" min="-2" max="-2" attributes="0"/>
+                      <Component id="dbHostTxt" min="-2" max="-2" attributes="0"/>
                       <Component id="dbPortTxt" min="-2" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
                           <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
@@ -133,7 +133,7 @@
             <Property name="text" type="java.lang.String" value=":"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="dbHostText">
+        <Component class="javax.swing.JTextField" name="dbHostTxt">
           <Properties>
             <Property name="text" type="java.lang.String" value="www.antonianum.de"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -176,6 +176,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="speichern"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SQLsaveBtnActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="SQLabortBtn">
           <Properties>
@@ -247,28 +250,28 @@
                           <Component id="jSeparator1" max="32767" attributes="0"/>
                           <Component id="jSeparator2" max="32767" attributes="0"/>
                           <Component id="jLabel5" max="32767" attributes="0"/>
-                          <Component id="MOTD" alignment="0" max="32767" attributes="0"/>
+                          <Component id="motdTxt" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="createBackup" min="-2" pref="147" max="-2" attributes="0"/>
+                                      <Component id="createBackupBtn" min="-2" pref="147" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="deleteSource" min="-2" pref="147" max="-2" attributes="0"/>
+                                      <Component id="deleteSourceBtn" min="-2" pref="147" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
-                                      <Component id="genAll" min="-2" pref="120" max="-2" attributes="0"/>
+                                      <Component id="genAllBtn" min="-2" pref="120" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="genToday" max="32767" attributes="0"/>
-                                          <Component id="genTomorrow" pref="174" max="32767" attributes="0"/>
+                                          <Component id="genTodayBtn" max="32767" attributes="0"/>
+                                          <Component id="genTomorrowBtn" pref="174" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="genMOTD" min="-2" pref="147" max="-2" attributes="0"/>
+                                      <Component id="genMotdBtn" min="-2" pref="147" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="deleteMOTD" min="-2" pref="147" max="-2" attributes="0"/>
+                                      <Component id="deleteMotdBtn" min="-2" pref="147" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -278,7 +281,7 @@
                       <Component id="jSeparator6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jProgressBar1" pref="287" max="32767" attributes="0"/>
+                          <Component id="progBar" pref="287" max="32767" attributes="0"/>
                           <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -302,30 +305,30 @@
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="genAll" alignment="1" min="-2" pref="52" max="-2" attributes="0"/>
+                                  <Component id="genAllBtn" alignment="1" min="-2" pref="52" max="-2" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="genToday" min="-2" max="-2" attributes="0"/>
+                                      <Component id="genTodayBtn" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="genTomorrow" min="-2" max="-2" attributes="0"/>
+                                      <Component id="genTomorrowBtn" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                               <Component id="jSeparator2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="createBackup" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="deleteSource" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="createBackupBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="deleteSourceBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                               <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
-                              <Component id="MOTD" min="-2" max="-2" attributes="0"/>
+                              <Component id="motdTxt" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="genMOTD" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="deleteMOTD" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="genMotdBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="deleteMotdBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
@@ -335,7 +338,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
-                              <Component id="jProgressBar1" min="-2" max="-2" attributes="0"/>
+                              <Component id="progBar" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -366,20 +369,29 @@
                 <Property name="text" type="java.lang.String" value="Status:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="genToday">
+            <Component class="javax.swing.JButton" name="genTodayBtn">
               <Properties>
                 <Property name="text" type="java.lang.String" value="heutigen Plan generieren"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="genTodayBtnActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="genTomorrow">
+            <Component class="javax.swing.JButton" name="genTomorrowBtn">
               <Properties>
                 <Property name="text" type="java.lang.String" value="morgigen Plan generieren"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="genTomorrowBtnActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="genAll">
+            <Component class="javax.swing.JButton" name="genAllBtn">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pl&#xe4;ne generieren"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="genAllBtnActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JSeparator" name="jSeparator1">
             </Component>
@@ -393,32 +405,41 @@
                 <Property name="text" type="java.lang.String" value="Laufschrift:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="MOTD">
+            <Component class="javax.swing.JTextField" name="motdTxt">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Laufschrift"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="genMOTD">
+            <Component class="javax.swing.JButton" name="genMotdBtn">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Laufschrift generieren"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="genMotdBtnActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JProgressBar" name="jProgressBar1">
+            <Component class="javax.swing.JProgressBar" name="progBar">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Fortschritt:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="createBackup">
+            <Component class="javax.swing.JButton" name="createBackupBtn">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Backup erstellen"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="createBackupBtnActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="deleteSource">
+            <Component class="javax.swing.JButton" name="deleteSourceBtn">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Quellpl&#xe4;ne l&#xf6;schen"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteSourceBtnActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JSeparator" name="jSeparator2">
             </Component>
@@ -429,10 +450,13 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="deleteMOTD">
+            <Component class="javax.swing.JButton" name="deleteMotdBtn">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Laufschrift l&#xf6;schen"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteMotdBtnActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JSeparator" name="jSeparator6">
               <Properties>
@@ -491,8 +515,13 @@
                                       </Group>
                                       <EmptySpace min="-2" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="speedPlanTxt" max="32767" attributes="0"/>
-                                          <Component id="speedMotdTxt" pref="63" max="32767" attributes="0"/>
+                                          <Component id="speedPlanTxt" pref="28" max="32767" attributes="0"/>
+                                          <Component id="speedMotdTxt" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -625,12 +654,14 @@
                                   <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="speedPlanTxt" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="setSpeedPlanBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="speedMotdTxt" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="setSpeedMotdBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
@@ -804,7 +835,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="speedPlanTxt">
               <Properties>
-                <Property name="text" type="java.lang.String" value="10"/>
+                <Property name="text" type="java.lang.String" value="100"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="setSpeedPlanBtn">
@@ -822,7 +853,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="speedMotdTxt">
               <Properties>
-                <Property name="text" type="java.lang.String" value="10"/>
+                <Property name="text" type="java.lang.String" value="100"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="setSpeedMotdBtn">
@@ -913,6 +944,16 @@
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="configureSQLBtn.setEnabled(useSQLCheck.isSelected());&#xd;&#xa;"/>
               </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel20">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="%"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel21">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="%"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

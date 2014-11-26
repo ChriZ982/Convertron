@@ -24,7 +24,7 @@ public class Frame extends javax.swing.JFrame
         SQLFrame = new javax.swing.JFrame();
         jLabel12 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        dbHostText = new javax.swing.JTextField();
+        dbHostTxt = new javax.swing.JTextField();
         dbPortTxt = new javax.swing.JTextField();
         dbPwTxt = new javax.swing.JPasswordField();
         jLabel16 = new javax.swing.JLabel();
@@ -41,21 +41,21 @@ public class Frame extends javax.swing.JFrame
         jScrollPane1 = new javax.swing.JScrollPane();
         log = new javax.swing.JTextPane();
         jLabel1 = new javax.swing.JLabel();
-        genToday = new javax.swing.JButton();
-        genTomorrow = new javax.swing.JButton();
-        genAll = new javax.swing.JButton();
+        genTodayBtn = new javax.swing.JButton();
+        genTomorrowBtn = new javax.swing.JButton();
+        genAllBtn = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        MOTD = new javax.swing.JTextField();
-        genMOTD = new javax.swing.JButton();
-        jProgressBar1 = new javax.swing.JProgressBar();
+        motdTxt = new javax.swing.JTextField();
+        genMotdBtn = new javax.swing.JButton();
+        progBar = new javax.swing.JProgressBar();
         jLabel4 = new javax.swing.JLabel();
-        createBackup = new javax.swing.JButton();
-        deleteSource = new javax.swing.JButton();
+        createBackupBtn = new javax.swing.JButton();
+        deleteSourceBtn = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
-        deleteMOTD = new javax.swing.JButton();
+        deleteMotdBtn = new javax.swing.JButton();
         jSeparator6 = new javax.swing.JSeparator();
         SettingsPanel = new javax.swing.JPanel();
         sourceTxt = new javax.swing.JTextField();
@@ -94,6 +94,8 @@ public class Frame extends javax.swing.JFrame
         autoDeleteSourceCheck = new javax.swing.JCheckBox();
         useSQLCheck = new javax.swing.JCheckBox();
         configureSQLBtn = new javax.swing.JButton();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
 
         jFileChooser1.setFileHidingEnabled(true);
         jFileChooser1.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
@@ -110,8 +112,8 @@ public class Frame extends javax.swing.JFrame
 
         jLabel15.setText(":");
 
-        dbHostText.setText("www.antonianum.de");
-        dbHostText.setToolTipText("");
+        dbHostTxt.setText("www.antonianum.de");
+        dbHostTxt.setToolTipText("");
 
         dbPortTxt.setText("1433");
 
@@ -124,6 +126,13 @@ public class Frame extends javax.swing.JFrame
         jLabel19.setText("Tabellenname:");
 
         SQLsaveBtn.setText("speichern");
+        SQLsaveBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                SQLsaveBtnActionPerformed(evt);
+            }
+        });
 
         SQLabortBtn.setText("abbrechen");
         SQLabortBtn.addActionListener(new java.awt.event.ActionListener()
@@ -144,7 +153,7 @@ public class Frame extends javax.swing.JFrame
                     .addGroup(SQLFrameLayout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addGap(5, 5, 5)
-                        .addComponent(dbHostText, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dbHostTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(4, 4, 4)
                         .addComponent(jLabel15)
                         .addGap(4, 4, 4)
@@ -175,7 +184,7 @@ public class Frame extends javax.swing.JFrame
             .addGroup(SQLFrameLayout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addGroup(SQLFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dbHostText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dbHostTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dbPortTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(SQLFrameLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
@@ -219,29 +228,78 @@ public class Frame extends javax.swing.JFrame
 
         jLabel1.setText("Status:");
 
-        genToday.setText("heutigen Plan generieren");
+        genTodayBtn.setText("heutigen Plan generieren");
+        genTodayBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                genTodayBtnActionPerformed(evt);
+            }
+        });
 
-        genTomorrow.setText("morgigen Plan generieren");
+        genTomorrowBtn.setText("morgigen Plan generieren");
+        genTomorrowBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                genTomorrowBtnActionPerformed(evt);
+            }
+        });
 
-        genAll.setText("Pläne generieren");
+        genAllBtn.setText("Pläne generieren");
+        genAllBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                genAllBtnActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Vertretungplan:");
 
         jLabel3.setText("Laufschrift:");
 
-        MOTD.setText("Laufschrift");
+        motdTxt.setText("Laufschrift");
 
-        genMOTD.setText("Laufschrift generieren");
+        genMotdBtn.setText("Laufschrift generieren");
+        genMotdBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                genMotdBtnActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Fortschritt:");
 
-        createBackup.setText("Backup erstellen");
+        createBackupBtn.setText("Backup erstellen");
+        createBackupBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                createBackupBtnActionPerformed(evt);
+            }
+        });
 
-        deleteSource.setText("Quellpläne löschen");
+        deleteSourceBtn.setText("Quellpläne löschen");
+        deleteSourceBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                deleteSourceBtnActionPerformed(evt);
+            }
+        });
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/facharbeit/ressources/antonianumLogo.jpg"))); // NOI18N
 
-        deleteMOTD.setText("Laufschrift löschen");
+        deleteMotdBtn.setText("Laufschrift löschen");
+        deleteMotdBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                deleteMotdBtnActionPerformed(evt);
+            }
+        });
 
         jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -255,31 +313,31 @@ public class Frame extends javax.swing.JFrame
                     .addComponent(jSeparator1)
                     .addComponent(jSeparator2)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MOTD)
+                    .addComponent(motdTxt)
                     .addGroup(ControlPanelLayout.createSequentialGroup()
                         .addGroup(ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
                             .addGroup(ControlPanelLayout.createSequentialGroup()
-                                .addComponent(createBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(createBackupBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(deleteSource, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(deleteSourceBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(ControlPanelLayout.createSequentialGroup()
-                                .addComponent(genAll, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(genAllBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(genToday, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(genTomorrow, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)))
+                                    .addComponent(genTodayBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(genTomorrowBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)))
                             .addGroup(ControlPanelLayout.createSequentialGroup()
-                                .addComponent(genMOTD, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(genMotdBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(deleteMOTD, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(deleteMotdBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
+                    .addComponent(progBar, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
                     .addComponent(jScrollPane1)
                     .addGroup(ControlPanelLayout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -299,27 +357,27 @@ public class Frame extends javax.swing.JFrame
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(genAll, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(genAllBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ControlPanelLayout.createSequentialGroup()
-                                .addComponent(genToday)
+                                .addComponent(genTodayBtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(genTomorrow)))
+                                .addComponent(genTomorrowBtn)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(createBackup)
-                            .addComponent(deleteSource))
+                            .addComponent(createBackupBtn)
+                            .addComponent(deleteSourceBtn))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(MOTD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(motdTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(genMOTD)
-                            .addComponent(deleteMOTD)))
+                            .addComponent(genMotdBtn)
+                            .addComponent(deleteMotdBtn)))
                     .addGroup(ControlPanelLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -327,7 +385,7 @@ public class Frame extends javax.swing.JFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(progBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -438,7 +496,7 @@ public class Frame extends javax.swing.JFrame
 
         jLabel14.setText("Scrollgeschwindigkeit");
 
-        speedPlanTxt.setText("10");
+        speedPlanTxt.setText("100");
 
         setSpeedPlanBtn.setText("setze Geschw.");
         setSpeedPlanBtn.addActionListener(new java.awt.event.ActionListener()
@@ -451,7 +509,7 @@ public class Frame extends javax.swing.JFrame
 
         jLabel7.setText("Laufschriftgeschw.");
 
-        speedMotdTxt.setText("10");
+        speedMotdTxt.setText("100");
 
         setSpeedMotdBtn.setText("setze Geschw.");
         setSpeedMotdBtn.addActionListener(new java.awt.event.ActionListener()
@@ -525,6 +583,10 @@ public class Frame extends javax.swing.JFrame
             }
         });
 
+        jLabel20.setText("%");
+
+        jLabel21.setText("%");
+
         javax.swing.GroupLayout SettingsPanelLayout = new javax.swing.GroupLayout(SettingsPanel);
         SettingsPanel.setLayout(SettingsPanelLayout);
         SettingsPanelLayout.setHorizontalGroup(
@@ -560,8 +622,12 @@ public class Frame extends javax.swing.JFrame
                                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(speedPlanTxt)
-                                    .addComponent(speedMotdTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE))
+                                    .addComponent(speedPlanTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                                    .addComponent(speedMotdTxt))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel20)
+                                    .addComponent(jLabel21))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(setSpeedPlanBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -661,12 +727,14 @@ public class Frame extends javax.swing.JFrame
                         .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14)
                             .addComponent(speedPlanTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(setSpeedPlanBtn))
+                            .addComponent(setSpeedPlanBtn)
+                            .addComponent(jLabel20))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(speedMotdTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
-                            .addComponent(setSpeedMotdBtn)))
+                            .addComponent(setSpeedMotdBtn)
+                            .addComponent(jLabel21)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SettingsPanelLayout.createSequentialGroup()
                         .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(autoBackupCheck)
@@ -791,9 +859,54 @@ public class Frame extends javax.swing.JFrame
         SQLFrame.setVisible(false);
     }//GEN-LAST:event_SQLabortBtnActionPerformed
 
+    private void genAllBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_genAllBtnActionPerformed
+    {//GEN-HEADEREND:event_genAllBtnActionPerformed
+        Application.addToQueue("genAllBtnActionPerformed");
+    }//GEN-LAST:event_genAllBtnActionPerformed
+
+    private void genTodayBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_genTodayBtnActionPerformed
+    {//GEN-HEADEREND:event_genTodayBtnActionPerformed
+        Application.addToQueue("genTodayBtnActionPerformed");
+    }//GEN-LAST:event_genTodayBtnActionPerformed
+
+    private void genTomorrowBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_genTomorrowBtnActionPerformed
+    {//GEN-HEADEREND:event_genTomorrowBtnActionPerformed
+        Application.addToQueue("genTomorrowBtnActionPerformed");
+    }//GEN-LAST:event_genTomorrowBtnActionPerformed
+
+    private void createBackupBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_createBackupBtnActionPerformed
+    {//GEN-HEADEREND:event_createBackupBtnActionPerformed
+        Application.addToQueue("createBackupBtnActionPerformed");
+    }//GEN-LAST:event_createBackupBtnActionPerformed
+
+    private void deleteSourceBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deleteSourceBtnActionPerformed
+    {//GEN-HEADEREND:event_deleteSourceBtnActionPerformed
+        Application.addToQueue("deleteSourceBtnActionPerformed");
+    }//GEN-LAST:event_deleteSourceBtnActionPerformed
+
+    private void genMotdBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_genMotdBtnActionPerformed
+    {//GEN-HEADEREND:event_genMotdBtnActionPerformed
+        Application.addToQueue("genMotdBtnActionPerformed", motdTxt);
+    }//GEN-LAST:event_genMotdBtnActionPerformed
+
+    private void deleteMotdBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deleteMotdBtnActionPerformed
+    {//GEN-HEADEREND:event_deleteMotdBtnActionPerformed
+        Application.addToQueue("deleteMotdBtnActionPerformed", motdTxt);
+    }//GEN-LAST:event_deleteMotdBtnActionPerformed
+
+    private void SQLsaveBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_SQLsaveBtnActionPerformed
+    {//GEN-HEADEREND:event_SQLsaveBtnActionPerformed
+        Application.addToQueue("SQLsaveBtnActionPerformed", dbHostTxt, dbPortTxt, dbNameTxt, dbUserTxt, dbPwTxt, dbTableNameTxt);
+    }//GEN-LAST:event_SQLsaveBtnActionPerformed
+
     public JTextPane getStatusPane()
     {
         return log;
+    }
+
+    public JProgressBar getProgBar()
+    {
+        return progBar;
     }
 
     public void loadSettings()
@@ -803,7 +916,6 @@ public class Frame extends javax.swing.JFrame
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ControlPanel;
-    private javax.swing.JTextField MOTD;
     private javax.swing.JFrame SQLFrame;
     private javax.swing.JButton SQLabortBtn;
     private javax.swing.JButton SQLsaveBtn;
@@ -819,21 +931,21 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JComboBox colorPlanCombo;
     private javax.swing.JPanel colorPlanPanel;
     private javax.swing.JButton configureSQLBtn;
-    private javax.swing.JButton createBackup;
-    private javax.swing.JTextField dbHostText;
+    private javax.swing.JButton createBackupBtn;
+    private javax.swing.JTextField dbHostTxt;
     private javax.swing.JTextField dbNameTxt;
     private javax.swing.JTextField dbPortTxt;
     private javax.swing.JPasswordField dbPwTxt;
     private javax.swing.JTextField dbTableNameTxt;
     private javax.swing.JTextField dbUserTxt;
     private javax.swing.JButton deleteColor;
-    private javax.swing.JButton deleteMOTD;
-    private javax.swing.JButton deleteSource;
+    private javax.swing.JButton deleteMotdBtn;
+    private javax.swing.JButton deleteSourceBtn;
     private javax.swing.JTextArea destArea;
-    private javax.swing.JButton genAll;
-    private javax.swing.JButton genMOTD;
-    private javax.swing.JButton genToday;
-    private javax.swing.JButton genTomorrow;
+    private javax.swing.JButton genAllBtn;
+    private javax.swing.JButton genMotdBtn;
+    private javax.swing.JButton genTodayBtn;
+    private javax.swing.JButton genTomorrowBtn;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JFileChooser jFileChooser1;
@@ -849,6 +961,8 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -856,7 +970,6 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
@@ -867,6 +980,8 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextPane log;
+    private javax.swing.JTextField motdTxt;
+    private javax.swing.JProgressBar progBar;
     private javax.swing.JButton savePathBtn;
     private javax.swing.JButton selectBackupBtn;
     private javax.swing.JButton selectDestBtn;
