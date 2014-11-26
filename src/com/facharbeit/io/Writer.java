@@ -68,6 +68,24 @@ public class Writer
         writeAll(data);
     }
 
+    public void copy(String path)
+    {
+        Reader reader = new Reader(filename);
+        String[] data = reader.readAll();
+
+        try(PrintWriter writer = new PrintWriter(new FileOutputStream(path + filename)))
+        {
+            for(int i = 0; i < data.length; i++)
+                if(i + 1 < data.length)
+                    writer.println(data[i]);
+                else
+                    writer.print(data[i]);
+        } catch(IOException ex)
+        {
+            Logger.log("\"" + filename + "\" konnte nicht geladen werden.", 2);
+        }
+    }
+
     /**
      * Erstellt eine neue Datei.
      */

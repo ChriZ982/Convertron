@@ -1,11 +1,12 @@
 package com.facharbeit.io;
 
+import com.facharbeit.main.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 
-public class SettingHandler
+public class QueueableMethods
 {
     @SuppressWarnings("empty-statement")
     public static void savePathBtnActionPerformed(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea)
@@ -111,6 +112,65 @@ public class SettingHandler
 
         colorPlanCombo.setSelectedItem(Settings.load("colorPlan"));
         colorMotdCombo.setSelectedItem(Settings.load("colorMotd"));
+    }
+
+    public static void genAllBtnActionPerformed()
+    {
+        Output.generatePlanToday(Input.readInToday());
+        Output.generatePlanTomorrow(Input.readInTomorrow());
+        Output.generateModt();
+    }
+
+    public static void genTodayBtnActionPerformed()
+    {
+        Output.generatePlanToday(Input.readInToday());
+    }
+
+    public static void genTomorrowBtnActionPerformed()
+    {
+        Output.generatePlanTomorrow(Input.readInTomorrow());
+    }
+
+    public static void createBackupBtnActionPerformed()
+    {
+        String path = Settings.load("backupPath") + "\\";
+
+        Writer writer1 = new Writer("heute.html");
+        writer1.copy(path);
+
+        Writer writer2 = new Writer("morgen.html");
+        writer2.copy(path);
+
+        Writer writer3 = new Writer("laufschrift.html");
+        writer3.copy(path);
+    }
+
+    public static void deleteSourceBtnActionPerformed()
+    {
+        //TODO
+    }
+
+    public static void genMotdBtnActionPerformed(JTextField motdTxt)
+    {
+        Output.generateModt();
+
+        Settings.save("motdText", motdTxt.getText());
+    }
+
+    public static void deleteMotdBtnActionPerformed(JTextField motdTxt)
+    {
+        motdTxt.setText("");
+        Settings.save("motdText", motdTxt.getText());
+    }
+
+    public static void SQLsaveBtnActionPerformed(JTextField dbHostTxt, JTextField dbPortTxt, JTextField dbNameTxt, JTextField dbUserTxt, JTextField dbPwTxt, JTextField dbTableNameTxt)
+    {
+        Settings.save("dbHost", dbHostTxt.getText());
+        Settings.save("dbPort", dbPortTxt.getText());
+        Settings.save("dbName", dbNameTxt.getText());
+        Settings.save("dbUser", dbUserTxt.getText());
+        Settings.save("dbPassw", dbPwTxt.getText());
+        Settings.save("dbTableName", dbTableNameTxt.getText());
     }
 
     private static void saveIfNotNull(JTextField field, String name)

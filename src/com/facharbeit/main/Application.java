@@ -87,7 +87,7 @@ public class Application
 
     public static void addToQueue(String methodName, Object... args)
     {
-        Method[] methods = SettingHandler.class.getMethods();
+        Method[] methods = QueueableMethods.class.getMethods();
         Method theMethod = null;
 
         for(Method method : methods)
