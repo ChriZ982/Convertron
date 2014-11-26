@@ -55,7 +55,12 @@ public class Writer
     {
         Reader reader = new Reader(filename);
         String[] temp = reader.readAll();
-        String[] data = new String[line + 1];
+        String[] data;
+
+        if(line + 1 > temp.length)
+            data = new String[line + 1];
+        else
+            data = new String[temp.length];
 
         for(int i = 0; i < data.length; i++)
             if(i < temp.length)
