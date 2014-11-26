@@ -1,28 +1,37 @@
 package com.facharbeit.io;
 
-import com.facharbeit.io.Reader;
+import com.facharbeit.io.FileReader;
+import com.facharbeit.io.FileWriter;
 import com.facharbeit.tools.*;
 import java.io.*;
 
 /**
  * Klasse zum schreiben ganzer Text-Dateien.
  */
-public class Writer
+public class FileWriter
 {
 
     /**
      * Name der Datei.
      */
     private String filename;
+    private String path;
 
     /**
      * Erstellt einen neuen Schreiber.
      *
+     * @param pPath
      * @param pFilename Name der Datei
      */
-    public Writer(String pFilename)
+    public FileWriter(String pPath, String pFilename)
     {
         filename = pFilename;
+        path = pPath;
+
+        FileReader reader = new FileReader(pPath, pFilename);
+
+        if(!reader.exists())
+            create();
     }
 
     /**
@@ -32,7 +41,7 @@ public class Writer
      */
     public void writeAll(String[] data)
     {
-        try(PrintWriter writer = new PrintWriter(new FileOutputStream("Data/" + filename)))
+        try(PrintWriter writer = new PrintWriter(new FileOutputStream(path + filename)))
         {
             for(int i = 0; i < data.length; i++)
                 if(i + 1 < data.length)
@@ -53,7 +62,7 @@ public class Writer
      */
     public void write(int line, String content)
     {
-        Reader reader = new Reader(filename);
+        FileReader reader = new FileReader(path, filename);
         String[] temp = reader.readAll();
         String[] data;
 
@@ -73,22 +82,17 @@ public class Writer
         writeAll(data);
     }
 
-    public void copy(String path)
+    public void copy(String pPath)
     {
-        Reader reader = new Reader(filename);
+        FileReader reader = new FileReader(path, filename);
+        FileWriter writer = new FileWriter(pPath, filename);
+
         String[] data = reader.readAll();
 
-        try(PrintWriter writer = new PrintWriter(new FileOutputStream(path + filename)))
-        {
-            for(int i = 0; i < data.length; i++)
-                if(i + 1 < data.length)
-                    writer.println(data[i]);
-                else
-                    writer.print(data[i]);
-        } catch(IOException ex)
-        {
-            Logger.log("\"" + filename + "\" konnte nicht geladen werden.", 2);
-        }
+        if(!new FileReader(pPath, filename).exists())
+            writer.create();
+
+        writer.writeAll(data);
     }
 
     /**
@@ -96,22 +100,11 @@ public class Writer
      */
     public void create()
     {
-//        try
-//        {
-//            PrintWriter writer = new PrintWriter(new FileOutputStream("Data/" + filename));
-//            writer.close();
-//
-//            Logger.log("\"" + filename + "\" wurde erstellt.", 0);
-//        } catch(IOException ex)
-//        {
-//            Logger.log("\"" + filename + "\" konnte nicht erstellt werden.", 2);
-//        }
-
-        File thisFile = new File("Data/");
+        File thisFile = new File(path);
 
         thisFile.mkdirs();
 
-        thisFile = new File("Data/" + filename);
+        thisFile = new File(path + filename);
 
         try
         {

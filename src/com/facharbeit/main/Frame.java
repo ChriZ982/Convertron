@@ -911,7 +911,7 @@ public class Frame extends javax.swing.JFrame
 
     public void loadSettings()
     {
-        Application.addToQueue("loadSettings", sourceTxt, backupTxt, destArea, speedPlanTxt, speedMotdTxt, colorPlanCombo, colorMotdCombo);
+        Application.addToQueue("loadSettings", sourceTxt, backupTxt, destArea, speedPlanTxt, speedMotdTxt, colorPlanCombo, colorMotdCombo, motdTxt);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

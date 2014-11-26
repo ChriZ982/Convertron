@@ -6,21 +6,24 @@ import java.io.*;
 /**
  * Lies ganze Text-Dateien aus.
  */
-public class Reader
+public class FileReader
 {
     /**
      * Name der Datei.
      */
     private String filename;
+    private String path;
 
     /**
      * Erstellt einen neuen Reader.
      *
+     * @param pPath
      * @param pFilename Name der Datei
      */
-    public Reader(String pFilename)
+    public FileReader(String pPath, String pFilename)
     {
         filename = pFilename;
+        path = pPath;
     }
 
     /**
@@ -32,7 +35,7 @@ public class Reader
      */
     public String read(int line)
     {
-        try(BufferedReader reader = new BufferedReader(new FileReader("Data/" + filename)))
+        try(BufferedReader reader = new BufferedReader(new java.io.FileReader(path + filename)))
         {
             for(int i = 0; i < line; i++) //Läuft Zeilen durch bis die gewünschte Zeile erreicht ist.
                 reader.readLine();
@@ -55,7 +58,7 @@ public class Reader
         int length = getLines();
         String[] data = new String[length];
 
-        try(BufferedReader reader = new BufferedReader(new FileReader("Data/" + filename)))
+        try(BufferedReader reader = new BufferedReader(new java.io.FileReader(path + filename)))
         {
             for(int i = 0; i < length; i++)
                 data[i] = reader.readLine();
@@ -113,7 +116,7 @@ public class Reader
      */
     public boolean exists()
     {
-        File file = new File("Data/" + filename);
+        File file = new File(path + filename);
         return file.exists();
     }
 
@@ -124,7 +127,7 @@ public class Reader
      */
     public int getLines()
     {
-        try(BufferedReader reader = new BufferedReader(new FileReader("Data/" + filename)))
+        try(BufferedReader reader = new BufferedReader(new java.io.FileReader(path + filename)))
         {
             int lines = 0;
             while(reader.readLine() != null)

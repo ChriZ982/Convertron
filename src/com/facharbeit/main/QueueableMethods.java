@@ -1,5 +1,9 @@
-package com.facharbeit.io;
+package com.facharbeit.main;
 
+import com.facharbeit.io.FileWriter;
+import com.facharbeit.io.HtmlReader;
+import com.facharbeit.io.HtmlWriter;
+import com.facharbeit.io.Settings;
 import com.facharbeit.main.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -74,10 +78,11 @@ public class QueueableMethods
         Settings.save("colorMotd", colorMotdCombo.getSelectedItem().toString());
     }
 
-    public static void loadSettings(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea, JTextField speedPlanTxt, JTextField speedMotdTxt, JComboBox colorPlanCombo, JComboBox colorMotdCombo)
+    public static void loadSettings(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea, JTextField speedPlanTxt, JTextField speedMotdTxt, JComboBox colorPlanCombo, JComboBox colorMotdCombo, JTextField motdTxt)
     {
         load(sourceTxt, "sourcePath");
         load(backupTxt, "backupPath");
+        load(motdTxt, "motdText");
 
         String name = "destPath1";
         if(Settings.getLineOf(name) == -1)
@@ -116,33 +121,42 @@ public class QueueableMethods
 
     public static void genAllBtnActionPerformed()
     {
-        Output.generatePlanToday(Input.readInToday());
-        Output.generatePlanTomorrow(Input.readInTomorrow());
-        Output.generateModt();
+        HtmlWriter.generatePlanToday(HtmlReader.readInToday());
+        HtmlWriter.generatePlanTomorrow(HtmlReader.readInTomorrow());
+        HtmlWriter.generateModt();
     }
 
     public static void genTodayBtnActionPerformed()
     {
-        Output.generatePlanToday(Input.readInToday());
+        HtmlWriter.generatePlanToday(HtmlReader.readInToday());
     }
 
     public static void genTomorrowBtnActionPerformed()
     {
-        Output.generatePlanTomorrow(Input.readInTomorrow());
+        HtmlWriter.generatePlanTomorrow(HtmlReader.readInTomorrow());
     }
 
     public static void createBackupBtnActionPerformed()
     {
         String path = Settings.load("backupPath") + "\\";
 
-        Writer writer1 = new Writer("heute.html");
+        FileWriter writer1 = new FileWriter("Data/", "heute.html");
         writer1.copy(path);
 
-        Writer writer2 = new Writer("morgen.html");
+        FileWriter writer2 = new FileWriter("Data/", "morgen.html");
         writer2.copy(path);
 
-        Writer writer3 = new Writer("laufschrift.html");
+        FileWriter writer3 = new FileWriter("Data/", "laufschrift.html");
         writer3.copy(path);
+
+        FileWriter writer4 = new FileWriter("Data/", "beide.html");
+        writer4.copy(path);
+
+        FileWriter writer5 = new FileWriter("Data/", "style.css");
+        writer5.copy(path);
+
+        FileWriter writer6 = new FileWriter("Data/", "settings.ini");
+        writer6.copy(path);
     }
 
     public static void deleteSourceBtnActionPerformed()
@@ -152,9 +166,9 @@ public class QueueableMethods
 
     public static void genMotdBtnActionPerformed(JTextField motdTxt)
     {
-        Output.generateModt();
-
         Settings.save("motdText", motdTxt.getText());
+
+        HtmlWriter.generateModt();
     }
 
     public static void deleteMotdBtnActionPerformed(JTextField motdTxt)

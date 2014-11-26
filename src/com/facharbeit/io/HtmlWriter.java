@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.facharbeit.main;
+package com.facharbeit.io;
 
 import com.facharbeit.io.*;
+import com.facharbeit.tools.Entry;
+import com.facharbeit.tools.SchoolClass;
 import com.facharbeit.tools.*;
 import java.util.*;
 
-public class Output
+public class HtmlWriter
 {
 
     private static String generateClasses(SchoolClass[] schoolClasses)
@@ -128,7 +130,7 @@ public class Output
             return;
         }
 
-        Reader reader = new Reader("TEMPLATE heute morgen.html");
+        FileReader reader = new FileReader("Data/", "TEMPLATE heute morgen.html");
 
         String[] file = reader.readAll();
 
@@ -140,22 +142,23 @@ public class Output
             file[i] = file[i].replaceAll("VERTRETUNGEN", classes);
         }
 
-        Writer writer1 = new Writer("heute.html");
+        FileWriter writer1 = new FileWriter("Data/", "heute.html");
         writer1.writeAll(file);
-
-        Writer writer2 = new Writer("morgen.html");
-
-        Writer writer3 = new Writer("laufschrift.html");
-
-        Writer writer4 = new Writer("beide.html");
+        FileWriter writer2 = new FileWriter("Data/", "morgen.html");
+        FileWriter writer3 = new FileWriter("Data/", "laufschrift.html");
+        FileWriter writer4 = new FileWriter("Data/", "beide.html");
+        FileWriter writer5 = new FileWriter("Data/", "style.css");
+        FileWriter writer6 = new FileWriter("Data/", "settings.ini");
 
         String[] dest = Settings.giveMultiple("destPath");
         for(String s : dest)
         {
-            writer1.copy(s + "\\");
-            writer2.copy(s + "\\");
-            writer3.copy(s + "\\");
-            writer4.copy(s + "\\");
+            writer1.copy(Settings.load(s) + "\\");
+            writer2.copy(Settings.load(s) + "\\");
+            writer3.copy(Settings.load(s) + "\\");
+            writer4.copy(Settings.load(s) + "\\");
+            writer5.copy(Settings.load(s) + "\\");
+            writer6.copy(Settings.load(s) + "\\");
         }
     }
 
@@ -174,7 +177,7 @@ public class Output
             return;
         }
 
-        Reader reader = new Reader("TEMPLATE heute morgen.html");
+        FileReader reader = new FileReader("Data/", "TEMPLATE heute morgen.html");
 
         String[] file = reader.readAll();
 
@@ -186,22 +189,23 @@ public class Output
             file[i] = file[i].replaceAll("VERTRETUNGEN", classes);
         }
 
-        Writer writer1 = new Writer("heute.html");
-
-        Writer writer2 = new Writer("morgen.html");
+        FileWriter writer1 = new FileWriter("Data/", "heute.html");
+        FileWriter writer2 = new FileWriter("Data/", "morgen.html");
         writer2.writeAll(file);
-
-        Writer writer3 = new Writer("laufschrift.html");
-
-        Writer writer4 = new Writer("beide.html");
+        FileWriter writer3 = new FileWriter("Data/", "laufschrift.html");
+        FileWriter writer4 = new FileWriter("Data/", "beide.html");
+        FileWriter writer5 = new FileWriter("Data/", "style.css");
+        FileWriter writer6 = new FileWriter("Data/", "settings.ini");
 
         String[] dest = Settings.giveMultiple("destPath");
         for(String s : dest)
         {
-            writer1.copy(s + "\\");
-            writer2.copy(s + "\\");
-            writer3.copy(s + "\\");
-            writer4.copy(s + "\\");
+            writer1.copy(Settings.load(s) + "\\");
+            writer2.copy(Settings.load(s) + "\\");
+            writer3.copy(Settings.load(s) + "\\");
+            writer4.copy(Settings.load(s) + "\\");
+            writer5.copy(Settings.load(s) + "\\");
+            writer6.copy(Settings.load(s) + "\\");
         }
     }
 
@@ -217,7 +221,7 @@ public class Output
             return;
         }
 
-        Reader reader = new Reader("TEMPLATE laufschrift.html");
+        FileReader reader = new FileReader("Data/", "TEMPLATE laufschrift.html");
 
         String[] file = reader.readAll();
 
@@ -228,22 +232,23 @@ public class Output
             file[i] = file[i].replaceAll("BGFARBE", farbe);
         }
 
-        Writer writer1 = new Writer("heute.html");
-
-        Writer writer2 = new Writer("morgen.html");
-
-        Writer writer3 = new Writer("laufschrift.html");
+        FileWriter writer1 = new FileWriter("Data/", "heute.html");
+        FileWriter writer2 = new FileWriter("Data/", "morgen.html");
+        FileWriter writer3 = new FileWriter("Data/", "laufschrift.html");
         writer3.writeAll(file);
-
-        Writer writer4 = new Writer("beide.html");
+        FileWriter writer4 = new FileWriter("Data/", "beide.html");
+        FileWriter writer5 = new FileWriter("Data/", "style.css");
+        FileWriter writer6 = new FileWriter("Data/", "settings.ini");
 
         String[] dest = Settings.giveMultiple("destPath");
         for(String s : dest)
         {
-            writer1.copy(s + "\\");
-            writer2.copy(s + "\\");
-            writer3.copy(s + "\\");
-            writer4.copy(s + "\\");
+            writer1.copy(Settings.load(s) + "\\");
+            writer2.copy(Settings.load(s) + "\\");
+            writer3.copy(Settings.load(s) + "\\");
+            writer4.copy(Settings.load(s) + "\\");
+            writer5.copy(Settings.load(s) + "\\");
+            writer6.copy(Settings.load(s) + "\\");
         }
     }
 }

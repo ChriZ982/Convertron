@@ -1,18 +1,17 @@
 package com.facharbeit.io;
 
-import com.facharbeit.tools.Logger;
-import java.util.ArrayList;
-import java.util.Arrays;
+import com.facharbeit.tools.*;
+import java.util.*;
 
 public class Settings
 {
-    private static Writer writer;
-    private static Reader reader;
+    private static FileWriter writer;
+    private static FileReader reader;
 
     public static void init()
     {
-        writer = new Writer("settings.ini");
-        reader = new Reader("settings.ini");
+        writer = new FileWriter("Data/", "settings.ini");
+        reader = new FileReader("Data/", "settings.ini");
 
         if(!reader.exists())
             writer.create();

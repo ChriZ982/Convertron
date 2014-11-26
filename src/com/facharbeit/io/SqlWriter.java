@@ -1,4 +1,4 @@
-package com.facharbeit.sql;
+package com.facharbeit.io;
 
 import com.facharbeit.tools.*;
 import java.sql.*;
@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * Schreibt in eine Datenbank.
  */
-public class sqlWriter
+public class SqlWriter
 {
     /**
      * Verbindung zur Datenbank.
@@ -28,7 +28,7 @@ public class sqlWriter
      * @param dbUser     Nutername der Datenbank
      * @param dbPassword Passwort der Datenbank
      */
-    public sqlWriter(String dbHost, int dbPort, String dbName, String dbUser, String dbPassword)
+    public SqlWriter(String dbHost, int dbPort, String dbName, String dbUser, String dbPassword)
     {
         this.dbName = dbName;
 

@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.facharbeit.main;
+package com.facharbeit.io;
 
+import com.facharbeit.tools.SchoolClass;
 import com.facharbeit.io.*;
 
 /**
  *
  * @author Mirko
  */
-public class Input
+public class HtmlReader
 {
 
     public static SchoolClass[] readInToday()
