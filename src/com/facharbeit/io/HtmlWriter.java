@@ -13,55 +13,105 @@ public class HtmlWriter
 
     private static String generateClasses(SchoolClass[] schoolClasses)
     {
+        Calendar c = Calendar.getInstance();
         String s = "";
         for(SchoolClass sc : schoolClasses)
         {
-            s += "        <br/>\n"
-                 + "\n"
-                 + "        <table class=\"stufeTab\" rules=\"all\">\n"
-                 + "            <colgroup>\n"
-                 + "                <col width=\"7%\">\n"
-                 + "                <col width=\"6%\">\n"
-                 + "                <col width=\"10%\">\n"
-                 + "                <col width=\"10%\">\n"
-                 + "                <col width=\"12%\">\n"
-                 + "                <col width=\"7%\">\n"
-                 + "                <col width=\"10%\">\n"
-                 + "                <col width=\"10%\">\n"
-                 + "                <col width=\"28%\">\n"
-                 + "            </colgroup>\n"
-                 + "            <tr >\n"
-                 + "                <td rowspan=\"" + (sc.getEntrys().size() + 1) + "\" valign=\"top\"><div class=\"stufe\"><b>" + sc.getName() + "</b></div></td>\n"
-                 + "                <td>Std</td>\n"
-                 + "                <td>Vertreter</td>\n"
-                 + "                <td>Raum</td>\n"
-                 + "                <td>Art</td>\n"
-                 + "                <td>Fach</td>\n"
-                 + "                <td>Lehrer</td>\n"
-                 + "                <td>Verl. von</td>\n"
-                 + "                <td>Hinweise</td>\n"
-                 + "            </tr>\n";
-
+            Settings.logging(false);
+            boolean show = false;
             for(Entry e : sc.getEntrys())
-            {
-                s += "            <tr >\n";
-
                 if(e.isNextEqual())
-                    s += "                <td>" + e.getHour() + "-" + (e.getHour() + 1) + "</td>\n";
-                else
-                    s += "                <td>" + e.getHour() + "</td>\n";
+                {
+                    if(c.get(Calendar.HOUR_OF_DAY) == Integer.valueOf(Settings.load("cutLesson" + (e.getHour() + 1)).split(":")[0]))
+                        if(c.get(Calendar.MINUTE) <= Integer.valueOf(Settings.load("cutLesson" + (e.getHour() + 1)).split(":")[1]))
+                            show = true;
 
-                s += "                <td>" + e.getContent()[0] + "</td>\n"
-                     + "                <td>" + e.getContent()[1] + "</td>\n"
-                     + "                <td>" + e.getContent()[2] + "</td>\n"
-                     + "                <td>" + e.getContent()[3] + "</td>\n"
-                     + "                <td>" + e.getContent()[4] + "</td>\n"
-                     + "                <td>" + e.getContent()[5] + "</td>\n"
-                     + "                <td>" + e.getContent()[6] + "</td>\n"
+                    if(c.get(Calendar.HOUR_OF_DAY) < Integer.valueOf(Settings.load("cutLesson" + (e.getHour() + 1)).split(":")[0]))
+                        show = true;
+                } else
+                {
+                    if(c.get(Calendar.HOUR_OF_DAY) == Integer.valueOf(Settings.load("cutLesson" + e.getHour()).split(":")[0]))
+                        if(c.get(Calendar.MINUTE) <= Integer.valueOf(Settings.load("cutLesson" + e.getHour()).split(":")[1]))
+                            show = true;
+
+                    if(c.get(Calendar.HOUR_OF_DAY) < Integer.valueOf(Settings.load("cutLesson" + e.getHour()).split(":")[0]))
+                        show = true;
+                }
+            Settings.logging(true);
+
+            if(show)
+            {
+                s += "        <br/>\n"
+                     + "\n"
+                     + "        <table class=\"stufeTab\" rules=\"all\">\n"
+                     + "            <colgroup>\n"
+                     + "                <col width=\"7%\">\n"
+                     + "                <col width=\"6%\">\n"
+                     + "                <col width=\"10%\">\n"
+                     + "                <col width=\"10%\">\n"
+                     + "                <col width=\"12%\">\n"
+                     + "                <col width=\"7%\">\n"
+                     + "                <col width=\"10%\">\n"
+                     + "                <col width=\"10%\">\n"
+                     + "                <col width=\"28%\">\n"
+                     + "            </colgroup>\n"
+                     + "            <tr >\n"
+                     + "                <td rowspan=\"" + (sc.getEntrys().size() + 1) + "\" valign=\"top\"><div class=\"stufe\"><b>" + sc.getName() + "</b></div></td>\n"
+                     + "                <td>Std</td>\n"
+                     + "                <td>Vertreter</td>\n"
+                     + "                <td>Raum</td>\n"
+                     + "                <td>Art</td>\n"
+                     + "                <td>Fach</td>\n"
+                     + "                <td>Lehrer</td>\n"
+                     + "                <td>Verl. von</td>\n"
+                     + "                <td>Hinweise</td>\n"
                      + "            </tr>\n";
-            }
 
-            s += "        </table>\n\n";
+                for(Entry e : sc.getEntrys())
+                {
+                    Settings.logging(false);
+                    show = false;
+                    if(e.isNextEqual())
+                    {
+                        if(c.get(Calendar.HOUR_OF_DAY) == Integer.valueOf(Settings.load("cutLesson" + (e.getHour() + 1)).split(":")[0]))
+                            if(c.get(Calendar.MINUTE) <= Integer.valueOf(Settings.load("cutLesson" + (e.getHour() + 1)).split(":")[1]))
+                                show = true;
+
+                        if(c.get(Calendar.HOUR_OF_DAY) < Integer.valueOf(Settings.load("cutLesson" + (e.getHour() + 1)).split(":")[0]))
+                            show = true;
+                    } else
+                    {
+                        if(c.get(Calendar.HOUR_OF_DAY) == Integer.valueOf(Settings.load("cutLesson" + e.getHour()).split(":")[0]))
+                            if(c.get(Calendar.MINUTE) <= Integer.valueOf(Settings.load("cutLesson" + e.getHour()).split(":")[1]))
+                                show = true;
+
+                        if(c.get(Calendar.HOUR_OF_DAY) < Integer.valueOf(Settings.load("cutLesson" + e.getHour()).split(":")[0]))
+                            show = true;
+                    }
+                    Settings.logging(true);
+
+                    if(show)
+                    {
+                        s += "            <tr >\n";
+
+                        if(e.isNextEqual())
+                            s += "                <td>" + e.getHour() + "-" + (e.getHour() + 1) + "</td>\n";
+                        else
+                            s += "                <td>" + e.getHour() + "</td>\n";
+
+                        s += "                <td>" + e.getContent()[0] + "</td>\n"
+                             + "                <td>" + e.getContent()[1] + "</td>\n"
+                             + "                <td>" + e.getContent()[2] + "</td>\n"
+                             + "                <td>" + e.getContent()[3] + "</td>\n"
+                             + "                <td>" + e.getContent()[4] + "</td>\n"
+                             + "                <td>" + e.getContent()[5] + "</td>\n"
+                             + "                <td>" + e.getContent()[6] + "</td>\n"
+                             + "            </tr>\n";
+                    }
+                }
+
+                s += "        </table>\n\n";
+            }
         }
 
         return s;
@@ -73,10 +123,11 @@ public class HtmlWriter
 
         if(!today)
             c.add(Calendar.DAY_OF_MONTH, 1);
+        c.add(Calendar.MONTH, 1);
 
         String s = c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.GERMANY) + " "
-                   + c.get(Calendar.DAY_OF_MONTH) + "."
-                   + (c.get(Calendar.MONTH) + 1) + ". ";
+                   + String.format("%02d", c.get(Calendar.DAY_OF_MONTH)) + "."
+                   + String.format("%02d", c.get(Calendar.MONTH)) + ". ";
 
         if(c.get(Calendar.WEEK_OF_YEAR) % 2 == 0)
             s += "B-Woche";

@@ -79,8 +79,8 @@ public class Logger
     private static String timestamp()
     {
         Calendar c = Calendar.getInstance();
-        return c.get(Calendar.HOUR_OF_DAY) + ":"
-               + c.get(Calendar.MINUTE) + ":"
-               + c.get(Calendar.SECOND);
+        return String.format("%02d", c.get(Calendar.HOUR_OF_DAY)) + ":"
+               + String.format("%02d", c.get(Calendar.MINUTE)) + ":"
+               + String.format("%02d", c.get(Calendar.SECOND));
     }
 }
