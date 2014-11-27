@@ -123,11 +123,10 @@ public class HtmlWriter
 
         if(!today)
             c.add(Calendar.DAY_OF_MONTH, 1);
-        c.add(Calendar.MONTH, 1);
 
         String s = c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.GERMANY) + " "
                    + String.format("%02d", c.get(Calendar.DAY_OF_MONTH)) + "."
-                   + String.format("%02d", c.get(Calendar.MONTH)) + ". ";
+                   + String.format("%02d", c.get(Calendar.MONTH) + 1) + ". ";
 
         if(c.get(Calendar.WEEK_OF_YEAR) % 2 == 0)
             s += "B-Woche";
