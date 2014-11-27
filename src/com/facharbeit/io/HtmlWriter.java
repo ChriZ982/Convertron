@@ -5,9 +5,6 @@
  */
 package com.facharbeit.io;
 
-import com.facharbeit.io.*;
-import com.facharbeit.tools.Entry;
-import com.facharbeit.tools.SchoolClass;
 import com.facharbeit.tools.*;
 import java.util.*;
 
@@ -131,9 +128,9 @@ public class HtmlWriter
         }
 
         FileReader reader = new FileReader("Data/", "TEMPLATE heute morgen.html");
+        FileWriter writer = new FileWriter("Data/", "heute.html");
 
         String[] file = reader.readAll();
-
         for(int i = 0; i < file.length; i++)
         {
             file[i] = file[i].replaceAll("GESCHW", speed);
@@ -141,25 +138,9 @@ public class HtmlWriter
             file[i] = file[i].replaceAll("BGFARBE", farbe);
             file[i] = file[i].replaceAll("VERTRETUNGEN", classes);
         }
+        writer.writeAll(file);
 
-        FileWriter writer1 = new FileWriter("Data/", "heute.html");
-        writer1.writeAll(file);
-        FileWriter writer2 = new FileWriter("Data/", "morgen.html");
-        FileWriter writer3 = new FileWriter("Data/", "laufschrift.html");
-        FileWriter writer4 = new FileWriter("Data/", "beide.html");
-        FileWriter writer5 = new FileWriter("Data/", "style.css");
-        FileWriter writer6 = new FileWriter("Data/", "settings.ini");
-
-        String[] dest = Settings.giveMultiple("destPath");
-        for(String s : dest)
-        {
-            writer1.copy(Settings.load(s) + "\\");
-            writer2.copy(Settings.load(s) + "\\");
-            writer3.copy(Settings.load(s) + "\\");
-            writer4.copy(Settings.load(s) + "\\");
-            writer5.copy(Settings.load(s) + "\\");
-            writer6.copy(Settings.load(s) + "\\");
-        }
+        Logger.log("Plan von heute wurde generiert", 0);
     }
 
     public static void generatePlanTomorrow(SchoolClass[] schoolClasses)
@@ -178,9 +159,9 @@ public class HtmlWriter
         }
 
         FileReader reader = new FileReader("Data/", "TEMPLATE heute morgen.html");
+        FileWriter writer = new FileWriter("Data/", "morgen.html");
 
         String[] file = reader.readAll();
-
         for(int i = 0; i < file.length; i++)
         {
             file[i] = file[i].replaceAll("GESCHW", speed);
@@ -188,25 +169,9 @@ public class HtmlWriter
             file[i] = file[i].replaceAll("BGFARBE", farbe);
             file[i] = file[i].replaceAll("VERTRETUNGEN", classes);
         }
+        writer.writeAll(file);
 
-        FileWriter writer1 = new FileWriter("Data/", "heute.html");
-        FileWriter writer2 = new FileWriter("Data/", "morgen.html");
-        writer2.writeAll(file);
-        FileWriter writer3 = new FileWriter("Data/", "laufschrift.html");
-        FileWriter writer4 = new FileWriter("Data/", "beide.html");
-        FileWriter writer5 = new FileWriter("Data/", "style.css");
-        FileWriter writer6 = new FileWriter("Data/", "settings.ini");
-
-        String[] dest = Settings.giveMultiple("destPath");
-        for(String s : dest)
-        {
-            writer1.copy(Settings.load(s) + "\\");
-            writer2.copy(Settings.load(s) + "\\");
-            writer3.copy(Settings.load(s) + "\\");
-            writer4.copy(Settings.load(s) + "\\");
-            writer5.copy(Settings.load(s) + "\\");
-            writer6.copy(Settings.load(s) + "\\");
-        }
+        Logger.log("Plan von morgen wurde generiert", 0);
     }
 
     public static void generateModt()
@@ -222,33 +187,17 @@ public class HtmlWriter
         }
 
         FileReader reader = new FileReader("Data/", "TEMPLATE laufschrift.html");
+        FileWriter writer = new FileWriter("Data/", "laufschrift.html");
 
         String[] file = reader.readAll();
-
         for(int i = 0; i < file.length; i++)
         {
             file[i] = file[i].replaceAll("GESCHW", speed);
             file[i] = file[i].replaceAll("TEXT", text);
             file[i] = file[i].replaceAll("BGFARBE", farbe);
         }
+        writer.writeAll(file);
 
-        FileWriter writer1 = new FileWriter("Data/", "heute.html");
-        FileWriter writer2 = new FileWriter("Data/", "morgen.html");
-        FileWriter writer3 = new FileWriter("Data/", "laufschrift.html");
-        writer3.writeAll(file);
-        FileWriter writer4 = new FileWriter("Data/", "beide.html");
-        FileWriter writer5 = new FileWriter("Data/", "style.css");
-        FileWriter writer6 = new FileWriter("Data/", "settings.ini");
-
-        String[] dest = Settings.giveMultiple("destPath");
-        for(String s : dest)
-        {
-            writer1.copy(Settings.load(s) + "\\");
-            writer2.copy(Settings.load(s) + "\\");
-            writer3.copy(Settings.load(s) + "\\");
-            writer4.copy(Settings.load(s) + "\\");
-            writer5.copy(Settings.load(s) + "\\");
-            writer6.copy(Settings.load(s) + "\\");
-        }
+        Logger.log("Laufschrift wurde generiert", 0);
     }
 }

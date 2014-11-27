@@ -847,6 +847,7 @@ public class Frame extends javax.swing.JFrame
     private void useSQLCheckStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_useSQLCheckStateChanged
     {//GEN-HEADEREND:event_useSQLCheckStateChanged
         configureSQLBtn.setEnabled(useSQLCheck.isSelected());
+        Application.addToQueue("useSQLCheckStateChanged", useSQLCheck);
     }//GEN-LAST:event_useSQLCheckStateChanged
 
     private void configureSQLBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_configureSQLBtnActionPerformed
@@ -911,7 +912,7 @@ public class Frame extends javax.swing.JFrame
 
     public void loadSettings()
     {
-        Application.addToQueue("loadSettings", sourceTxt, backupTxt, destArea, speedPlanTxt, speedMotdTxt, colorPlanCombo, colorMotdCombo, motdTxt);
+        Application.addToQueue("loadSettings", sourceTxt, backupTxt, destArea, speedPlanTxt, speedMotdTxt, colorPlanCombo, colorMotdCombo, motdTxt, useSQLCheck);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

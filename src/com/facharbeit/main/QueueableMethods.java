@@ -1,12 +1,11 @@
 package com.facharbeit.main;
 
-import com.facharbeit.io.FileWriter;
-import com.facharbeit.io.HtmlReader;
-import com.facharbeit.io.HtmlWriter;
-import com.facharbeit.io.Settings;
-import com.facharbeit.main.*;
+import com.facharbeit.io.*;
+import com.facharbeit.tools.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
+import java.nio.file.*;
 import java.util.*;
 import javax.swing.*;
 
@@ -30,12 +29,12 @@ public class QueueableMethods
 
     public static void setSpeedPlanBtnActionPerformed(JTextField speedPlanTxt)
     {
-        Settings.save("planSpeed", speedPlanTxt.getText());
+        saveIfNotNull(speedPlanTxt, "planSpeed");
     }
 
     public static void setSpeedMotdBtnActionPerformed(JTextField speedMotdTxt)
     {
-        Settings.save("motdSpeed", speedMotdTxt.getText());
+        saveIfNotNull(speedMotdTxt, "motdSpeed");
     }
 
     public static void addColorBtnActionPerformed(JColorChooser colorChooser, JTextField colorNameTxt, JComboBox colorPlanCombo, JComboBox colorMotdCombo)
@@ -78,11 +77,15 @@ public class QueueableMethods
         Settings.save("colorMotd", colorMotdCombo.getSelectedItem().toString());
     }
 
-    public static void loadSettings(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea, JTextField speedPlanTxt, JTextField speedMotdTxt, JComboBox colorPlanCombo, JComboBox colorMotdCombo, JTextField motdTxt)
+    public static void loadSettings(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea, JTextField speedPlanTxt, JTextField speedMotdTxt, JComboBox colorPlanCombo, JComboBox colorMotdCombo, JTextField motdTxt, JCheckBox useSQLCheck)
     {
         load(sourceTxt, "sourcePath");
         load(backupTxt, "backupPath");
         load(motdTxt, "motdText");
+        load(speedPlanTxt, "planSpeed");
+        load(speedMotdTxt, "motdSpeed");
+
+        useSQLCheck.setSelected(Boolean.valueOf(Settings.load("useSQL")));
 
         String name = "destPath1";
         if(Settings.getLineOf(name) == -1)
@@ -95,9 +98,6 @@ public class QueueableMethods
             name = "destPath" + (i + 1);
         }
 
-        load(speedPlanTxt, "planSpeed");
-        load(speedMotdTxt, "motdSpeed");
-
         loadColors(colorPlanCombo, colorMotdCombo);
     }
 
@@ -106,7 +106,7 @@ public class QueueableMethods
         colorPlanCombo.removeAllItems();
         colorMotdCombo.removeAllItems();
 
-        String[] colors = Settings.giveMultiple("color");
+        String[] colors = Settings.giveMultipleNames("color");
         for(String s : colors)
             if(!s.equals("colorPlan") && !s.equals("colorMotd"))
             {
@@ -119,44 +119,42 @@ public class QueueableMethods
         colorMotdCombo.setSelectedItem(Settings.load("colorMotd"));
     }
 
+    public static void useSQLCheckStateChanged(JCheckBox useSQLCheck)
+    {
+        Settings.logging(false);
+        if(!Settings.load("useSQL").equals(String.valueOf(useSQLCheck.isSelected())))
+        {
+            Settings.logging(true);
+            Settings.save("useSQL", String.valueOf(useSQLCheck.isSelected()));
+        }
+        Settings.logging(true);
+    }
+
     public static void genAllBtnActionPerformed()
     {
         HtmlWriter.generatePlanToday(HtmlReader.readInToday());
         HtmlWriter.generatePlanTomorrow(HtmlReader.readInTomorrow());
         HtmlWriter.generateModt();
+        backupToDestPaths();
     }
 
     public static void genTodayBtnActionPerformed()
     {
         HtmlWriter.generatePlanToday(HtmlReader.readInToday());
+        backupToDestPaths();
     }
 
     public static void genTomorrowBtnActionPerformed()
     {
         HtmlWriter.generatePlanTomorrow(HtmlReader.readInTomorrow());
+        backupToDestPaths();
     }
 
     public static void createBackupBtnActionPerformed()
     {
-        String path = Settings.load("backupPath") + "\\";
-
-        FileWriter writer1 = new FileWriter("Data/", "heute.html");
-        writer1.copy(path);
-
-        FileWriter writer2 = new FileWriter("Data/", "morgen.html");
-        writer2.copy(path);
-
-        FileWriter writer3 = new FileWriter("Data/", "laufschrift.html");
-        writer3.copy(path);
-
-        FileWriter writer4 = new FileWriter("Data/", "beide.html");
-        writer4.copy(path);
-
-        FileWriter writer5 = new FileWriter("Data/", "style.css");
-        writer5.copy(path);
-
-        FileWriter writer6 = new FileWriter("Data/", "settings.ini");
-        writer6.copy(path);
+        String path = Settings.load("backupPath");
+        backupAll(path);
+        Logger.log("Backup wurde fertiggestellt", 0);
     }
 
     public static void deleteSourceBtnActionPerformed()
@@ -166,7 +164,7 @@ public class QueueableMethods
 
     public static void genMotdBtnActionPerformed(JTextField motdTxt)
     {
-        Settings.save("motdText", motdTxt.getText());
+        saveIfNotNull(motdTxt, "motdText");
 
         HtmlWriter.generateModt();
     }
@@ -174,17 +172,17 @@ public class QueueableMethods
     public static void deleteMotdBtnActionPerformed(JTextField motdTxt)
     {
         motdTxt.setText("");
-        Settings.save("motdText", motdTxt.getText());
+        Settings.delete("motdText");
     }
 
     public static void SQLsaveBtnActionPerformed(JTextField dbHostTxt, JTextField dbPortTxt, JTextField dbNameTxt, JTextField dbUserTxt, JTextField dbPwTxt, JTextField dbTableNameTxt)
     {
-        Settings.save("dbHost", dbHostTxt.getText());
-        Settings.save("dbPort", dbPortTxt.getText());
-        Settings.save("dbName", dbNameTxt.getText());
-        Settings.save("dbUser", dbUserTxt.getText());
-        Settings.save("dbPassw", dbPwTxt.getText());
-        Settings.save("dbTableName", dbTableNameTxt.getText());
+        saveIfNotNull(dbHostTxt, "dbHost");
+        saveIfNotNull(dbPortTxt, "dbPort");
+        saveIfNotNull(dbNameTxt, "dbName");
+        saveIfNotNull(dbUserTxt, "dbUser");
+        saveIfNotNull(dbPwTxt, "dbPassw");
+        saveIfNotNull(dbTableNameTxt, "dbTableName");
     }
 
     private static void saveIfNotNull(JTextField field, String name)
@@ -198,5 +196,39 @@ public class QueueableMethods
     private static void load(JTextField field, String name)
     {
         field.setText(Settings.load(name));
+    }
+
+    private static void backupToDestPaths()
+    {
+        String[] paths = Settings.giveMultipleValues("destPath");
+        for(String path : paths)
+            backupAll(path);
+    }
+
+    private static void backupAll(String path)
+    {
+        backup(path, "heute.html", "morgen.html", "laufschrift.html",
+               "beide.html", "TEMPLATE heute morgen.html", "TEMPLATE laufschrift.html",
+               "settings.ini", "style.css", "antonianumLogo.png");
+    }
+
+    private static void backup(String path, String... files)
+    {
+        for(String file : files)
+            copy(file, path);
+    }
+
+    private static void copy(String file, String path)
+    {
+        try
+        {
+            if(!Files.exists(Paths.get(path)))
+                Files.createDirectories(Paths.get(path));
+
+            Files.copy(Paths.get("Data\\" + file), Paths.get(path + "\\" + file), StandardCopyOption.REPLACE_EXISTING);
+        } catch(IOException ex)
+        {
+            Logger.log("\"" + file + "\" konnte nicht kopiert werden !", 2);
+        }
     }
 }
