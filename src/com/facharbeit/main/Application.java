@@ -42,7 +42,7 @@ public class Application
         frame = new Frame();
         frame.setVisible(true);
 
-        Logger.init(frame.getStatusPane());
+        Logger.init(frame.getStatusPane(), frame.getProgBar());
         Settings.init();
 
         frame.loadSettings();

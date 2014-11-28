@@ -14,7 +14,7 @@ public class HtmlWriter
     private static String generateClasses(SchoolClass[] schoolClasses)
     {
         Calendar c = Calendar.getInstance();
-        String s = "";
+        String s = "<br/><br/><br/>KEINE VERTRETUNGEN";
         for(SchoolClass sc : schoolClasses)
         {
             Settings.logging(false);
@@ -41,6 +41,9 @@ public class HtmlWriter
 
             if(show)
             {
+                if(s.equals("<br/><br/><br/>KEINE VERTRETUNGEN"))
+                    s = "";
+
                 s += "        <br/>\n"
                      + "\n"
                      + "        <table class=\"stufeTab\" rules=\"all\">\n"

@@ -15,14 +15,18 @@ public class Logger
      */
     public static JTextPane textPane;
 
+    public static JProgressBar progressBar;
+
     /**
      * "Konstruktor".
      *
-     * @param out Textfeld für die Ausgabe
+     * @param out  Textfeld für die Ausgabe
+     * @param prog
      */
-    public static void init(JTextPane out)
+    public static void init(JTextPane out, JProgressBar prog)
     {
         textPane = out;
+        progressBar = prog;
     }
 
     /**
@@ -69,6 +73,11 @@ public class Logger
         }
 
         textPane.setCaretPosition(doc.getLength());
+    }
+
+    public static void setProgress(int value)
+    {
+        progressBar.setValue(value);
     }
 
     /**

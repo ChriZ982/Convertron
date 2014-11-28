@@ -77,13 +77,35 @@ public class QueueableMethods
         Settings.save("colorMotd", colorMotdCombo.getSelectedItem().toString());
     }
 
-    public static void loadSettings(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea, JTextField speedPlanTxt, JTextField speedMotdTxt, JComboBox colorPlanCombo, JComboBox colorMotdCombo, JTextField motdTxt, JCheckBox useSQLCheck)
+    public static void loadSettings(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea, JTextField speedPlanTxt,
+                                    JTextField speedMotdTxt, JComboBox colorPlanCombo, JComboBox colorMotdCombo,
+                                    JTextField motdTxt, JCheckBox useSQLCheck, JTextField dbHostTxt, JTextField dbPortTxt,
+                                    JTextField dbNameTxt, JTextField dbUserTxt, JTextField dbPwTxt, JTextField dbTableNameTxt,
+                                    JTextField hour1Txt, JTextField hour2Txt, JTextField hour3Txt, JTextField hour4Txt,
+                                    JTextField hour5Txt, JTextField hour6Txt, JTextField hour7Txt, JTextField hour8Txt,
+                                    JTextField hour9Txt, JTextField hour10Txt)
     {
         load(sourceTxt, "sourcePath");
         load(backupTxt, "backupPath");
         load(motdTxt, "motdText");
         load(speedPlanTxt, "planSpeed");
         load(speedMotdTxt, "motdSpeed");
+        load(dbHostTxt, "dbHost");
+        load(dbPortTxt, "dbPort");
+        load(dbNameTxt, "dbName");
+        load(dbUserTxt, "dbUser");
+        load(dbPwTxt, "dbPassw");
+        load(dbTableNameTxt, "dbTableName");
+        load(hour1Txt, "cutLesson1");
+        load(hour2Txt, "cutLesson2");
+        load(hour3Txt, "cutLesson3");
+        load(hour4Txt, "cutLesson4");
+        load(hour5Txt, "cutLesson5");
+        load(hour6Txt, "cutLesson6");
+        load(hour7Txt, "cutLesson7");
+        load(hour8Txt, "cutLesson8");
+        load(hour9Txt, "cutLesson9");
+        load(hour10Txt, "cutLesson10");
 
         useSQLCheck.setSelected(Boolean.valueOf(Settings.load("useSQL")));
 
@@ -183,6 +205,20 @@ public class QueueableMethods
         saveIfNotNull(dbUserTxt, "dbUser");
         saveIfNotNull(dbPwTxt, "dbPassw");
         saveIfNotNull(dbTableNameTxt, "dbTableName");
+    }
+
+    public static void hoursSaveBtnActionPerformed(JTextField hour1Txt, JTextField hour2Txt, JTextField hour3Txt, JTextField hour4Txt, JTextField hour5Txt, JTextField hour6Txt, JTextField hour7Txt, JTextField hour8Txt, JTextField hour9Txt, JTextField hour10Txt)
+    {
+        saveIfNotNull(hour1Txt, "cutLesson1");
+        saveIfNotNull(hour2Txt, "cutLesson2");
+        saveIfNotNull(hour3Txt, "cutLesson3");
+        saveIfNotNull(hour4Txt, "cutLesson4");
+        saveIfNotNull(hour5Txt, "cutLesson5");
+        saveIfNotNull(hour6Txt, "cutLesson6");
+        saveIfNotNull(hour7Txt, "cutLesson7");
+        saveIfNotNull(hour8Txt, "cutLesson8");
+        saveIfNotNull(hour9Txt, "cutLesson9");
+        saveIfNotNull(hour10Txt, "cutLesson10");
     }
 
     private static void saveIfNotNull(JTextField field, String name)
