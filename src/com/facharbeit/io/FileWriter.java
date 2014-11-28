@@ -14,8 +14,9 @@ public class FileWriter
     /**
      * Name der Datei.
      */
-    private String filename;
-    private String path;
+//    private String filename;
+//    private String path;
+    File file;
 
     /**
      * Erstellt einen neuen Schreiber.
@@ -25,10 +26,19 @@ public class FileWriter
      */
     public FileWriter(String pPath, String pFilename)
     {
-        filename = pFilename;
-        path = pPath;
+        file = new File(pPath + pFilename);
 
-        FileReader reader = new FileReader(pPath, pFilename);
+        FileReader reader = new FileReader(file);
+
+        if(!reader.exists())
+            create();
+    }
+
+    public FileWriter(File f)
+    {
+        file = f;
+
+        FileReader reader = new FileReader(file);
 
         if(!reader.exists())
             create();
@@ -41,7 +51,7 @@ public class FileWriter
      */
     public void writeAll(String[] data)
     {
-        try(PrintWriter writer = new PrintWriter(new FileOutputStream(path + filename)))
+        try(PrintWriter writer = new PrintWriter(new FileOutputStream(file)))
         {
             for(int i = 0; i < data.length; i++)
                 if(i + 1 < data.length)
@@ -50,7 +60,7 @@ public class FileWriter
                     writer.print(data[i]);
         } catch(IOException ex)
         {
-            Logger.log("\"" + filename + "\" konnte nicht geladen werden.", 2);
+            Logger.log("\"" + file.getName() + "\" konnte nicht geladen werden.", 2);
         }
     }
 
@@ -62,7 +72,7 @@ public class FileWriter
      */
     public void write(int line, String content)
     {
-        FileReader reader = new FileReader(path, filename);
+        FileReader reader = new FileReader(file);
         String[] temp = reader.readAll();
         String[] data;
 
@@ -84,12 +94,12 @@ public class FileWriter
 
     public void copy(String pPath)
     {
-        FileReader reader = new FileReader(path, filename);
-        FileWriter writer = new FileWriter(pPath, filename);
+        FileReader reader = new FileReader(file);
+        FileWriter writer = new FileWriter(file);
 
         String[] data = reader.readAll();
 
-        if(!new FileReader(pPath, filename).exists())
+        if(!new FileReader(pPath, file.getName()).exists())
             writer.create();
 
         writer.writeAll(data);
@@ -100,19 +110,17 @@ public class FileWriter
      */
     public void create()
     {
-        File thisFile = new File(path);
+        File thisFile = new File(file.getPath());
 
         thisFile.mkdirs();
 
-        thisFile = new File(path + filename);
-
         try
         {
-            if(thisFile.createNewFile())
-                Logger.log("\"" + filename + "\" wurde erstellt.", 0);
+            if(file.createNewFile())
+                Logger.log("\"" + file.getName() + "\" wurde erstellt.", 0);
         } catch(IOException ex)
         {
-            Logger.log("\"" + filename + "\" konnte nicht erstellt werden.", 2);
+            Logger.log("\"" + file.getName() + "\" konnte nicht erstellt werden.", 2);
         }
 
     }
