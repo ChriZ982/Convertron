@@ -72,8 +72,27 @@ public class Entry
 
         this.nextIsEqual = false;
 
+        this.content = new String[content.length - 1];
+
         for(int i = 1; i < content.length; i++)
             this.content[i - 1] = content[i];
     }
 
+    public Entry(boolean nextIsEqual, String... content)
+    {
+        try
+        {
+            this.hour = Integer.parseInt(content[0]);
+        } catch(NumberFormatException n)
+        {
+            this.hour = -1;
+        }
+
+        this.nextIsEqual = nextIsEqual;
+
+        this.content = new String[content.length - 1];
+
+        for(int i = 1; i < content.length; i++)
+            this.content[i - 1] = content[i];
+    }
 }
