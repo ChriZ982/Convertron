@@ -108,7 +108,7 @@ public class HtmlReader
                 }
 
                 boolean nextIsEqual = false;
-                System.out.println(thisEntry[0]);
+
                 try
                 {
                     Integer.parseInt(thisEntry[0]);
@@ -117,7 +117,6 @@ public class HtmlReader
                     nextIsEqual = true;
                     thisEntry[0] = thisEntry[0].substring(0, thisEntry[0].indexOf("-") - 1);
                 }
-                System.out.println(thisEntry[0]);
 
                 outcome[i].getEntrys().add(new Entry(nextIsEqual, thisEntry));
 
