@@ -139,36 +139,8 @@ public class HtmlWriter
         return s;
     }
 
-    /**
-     * TEMPORÄR.
-     *
-     * @deprecated
-     */
-    private static SchoolClass[] generateTEMP()
-    {
-        SchoolClass[] sca = new SchoolClass[10];
-
-        for(int i = 0; i < sca.length; i++)
-        {
-            sca[i] = new SchoolClass("Q1");
-
-            ArrayList<Entry> list = new ArrayList<Entry>();
-            for(int j = 0; j < 2; j++)
-                list.add(new Entry(3, false, "ker", "info1", "EVA", "Informatik", "ker", "-", ""));
-
-            for(int j = 0; j < 2; j++)
-                list.add(new Entry(5, true, "ker", "info1", "EVA", "Informatik", "ker", "-", ""));
-
-            sca[i].setEntrys(list);
-        }
-
-        return sca;
-    }
-
     public static void generatePlanToday(SchoolClass[] schoolClasses)
     {
-        schoolClasses = generateTEMP();
-
         String day = generateDay(true);
         String speed = Integer.toString((int)((1.0 / (Double.parseDouble(Settings.load("planSpeed")) / 100.0)) * 12.0));
         String farbe = Settings.load("color" + Settings.load("colorPlan"));
@@ -198,8 +170,6 @@ public class HtmlWriter
 
     public static void generatePlanTomorrow(SchoolClass[] schoolClasses)
     {
-        schoolClasses = generateTEMP();
-
         String day = generateDay(false);
         String speed = Integer.toString((int)((1.0 / (Double.parseDouble(Settings.load("planSpeed")) / 100.0)) * 12.0));
         String farbe = Settings.load("color" + Settings.load("colorPlan"));
