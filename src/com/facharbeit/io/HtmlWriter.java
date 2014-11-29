@@ -128,9 +128,9 @@ public class HtmlWriter
         if(today)
             s = HtmlReader.readHeadToday();
         else
-            s = HtmlReader.readHeadTomorrom();
+            s = HtmlReader.readHeadTomorrow();
 
-        s = s.substring(s.lastIndexOf("Vertretungen  "));
+        s = s.substring(s.indexOf("Vertretungen  ") + "Vertretungen  ".length());
         s += " (" + c.get(Calendar.WEEK_OF_YEAR) + ")";
         return s;
     }

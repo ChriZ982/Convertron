@@ -49,14 +49,11 @@ public class Settings
             String setting = reader.read(line);
             setting = setting.replaceFirst(name + ": \"", "");
             setting = setting.substring(0, setting.length() - 1);
-
-            if(logging)
-                Logger.log("Einstellung '" + name + "' geladen.", 3);
             return setting;
         }
     }
 
-    public static String[] giveMultipleNames(String name)
+    public static String[] loadNames(String name)
     {
         ArrayList<String> names = new ArrayList<String>();
         String[] file = reader.readAll();
@@ -70,7 +67,7 @@ public class Settings
         });
     }
 
-    public static String[] giveMultipleValues(String name)
+    public static String[] loadValues(String name)
     {
         logging = false;
         ArrayList<String> values = new ArrayList<String>();

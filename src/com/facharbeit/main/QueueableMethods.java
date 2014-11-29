@@ -146,7 +146,7 @@ public class QueueableMethods
         colorPlanCombo.removeAllItems();
         colorMotdCombo.removeAllItems();
 
-        String[] colors = Settings.giveMultipleNames("color");
+        String[] colors = Settings.loadNames("color");
         for(String s : colors)
             if(!s.equals("colorPlan") && !s.equals("colorMotd"))
             {
@@ -261,7 +261,7 @@ public class QueueableMethods
 
     private static void backupToDestPaths()
     {
-        String[] paths = Settings.giveMultipleValues("destPath");
+        String[] paths = Settings.loadValues("destPath");
         for(String path : paths)
             backupAll(path);
     }
