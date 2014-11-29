@@ -121,12 +121,32 @@ public class HtmlReader
         return outcome;
     }
 
-    private static SchoolClass[] sortArray(SchoolClass[] p)
+    public static SchoolClass[] sortArray(SchoolClass[] p)
     {
         for(SchoolClass s : p)
         {
-            ArrayList<Entry> e = new ArrayList<>();
+            ArrayList<Entry> out = new ArrayList<>();
+            while(s.getEntrys().size() > 0)
+            {
+                double lowestHour = 1000;
+                Entry lowestEntry = s.getEntrys().get(0);
+                for(Entry entry : s.getEntrys())
+                {
+                    double thisHour = entry.getHour() + 0.0;
+                    if(entry.isNextEqual())
+                        thisHour += 0.5;
 
+                    if(thisHour < lowestHour)
+                    {
+                        lowestHour = thisHour;
+                        lowestEntry = entry;
+                    }
+                }
+                s.getEntrys().remove(lowestEntry);
+                out.add(lowestEntry);
+
+            }
+            s.setEntrys(out);
         }
         return p;
     }
