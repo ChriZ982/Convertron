@@ -472,36 +472,26 @@
                               <Component id="genAllBtn" min="-2" pref="120" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="genTodayBtn" max="32767" attributes="0"/>
-                                          <Component id="genTomorrowBtn" pref="174" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Component id="genMotdBtn" min="-2" pref="174" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="createBackupBtn" min="-2" pref="147" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="deleteSourceBtn" min="-2" pref="130" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jSeparator5" min="-2" pref="302" max="-2" attributes="0"/>
+                                      <Component id="genTodayBtn" max="32767" attributes="0"/>
+                                      <Component id="genTomorrowBtn" pref="174" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="motdTxt" alignment="0" min="-2" pref="300" max="-2" attributes="0"/>
-                                  <Component id="jLabel5" alignment="0" min="-2" pref="302" max="-2" attributes="0"/>
+                                  <Component id="genMotdBtn" min="-2" pref="174" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="unrelated" max="32767" attributes="0"/>
                           </Group>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="createBackupBtn" min="-2" pref="147" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="deleteSourceBtn" min="-2" pref="130" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jSeparator5" min="-2" pref="302" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="motdTxt" alignment="0" min="-2" pref="300" max="-2" attributes="0"/>
+                          <Component id="jLabel5" alignment="0" min="-2" pref="302" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jSeparator6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -790,7 +780,7 @@
                                       </Group>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="jButton1" max="32767" attributes="0"/>
+                                  <Component id="configureHoursBtn" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -876,7 +866,6 @@
                                   <Component id="autoBackupCheck" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="autoDeleteSourceCheck" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                                       <Component id="useSQLCheck" min="-2" max="-2" attributes="0"/>
@@ -890,7 +879,7 @@
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                              <Component id="configureHoursBtn" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -1175,12 +1164,12 @@
                 <Property name="text" type="java.lang.String" value="SQL schreiben"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="configureHoursBtn">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ausblendung konfigurieren"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="configureHoursBtnActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
