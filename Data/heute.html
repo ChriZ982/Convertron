@@ -1,0 +1,214 @@
+<html>
+    <head>
+        <script type="text/javascript">
+            var scrollDelay = 12;
+            var height = 0;
+            var feineinstellung = 8;
+            var reloadcounter = 0;
+
+            function scroll()
+            {
+                var position = window.pageYOffset;
+
+                if (position + feineinstellung < (height + window.innerHeight) / 2)
+                    window.scrollBy(0, 1);
+                else
+                {
+                    window.scrollTo(0, 0);
+                    if (reloadcounter < 4)
+                        reloadcounter = reloadcounter + 1;
+                    else
+                    {
+                        window.history.go(0);
+                        reloadcounter = 0;
+                    }
+                }
+            }
+
+            function start()
+            {
+                window.scrollBy(0, 100000);
+                height = window.pageYOffset;
+                window.setInterval("scroll()", scrollDelay);
+            }
+        </script>
+
+        <title>Vertretungsplan</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <meta charset="utf-8">
+    </head>
+    <body bgcolor="#026398" onLoad="start()">
+
+        <script type="text/javascript">
+
+            body();
+            
+            window.scrollBy(0,10);
+            
+            if(window.pageYOffset != 0)
+                body();
+            
+            function body()
+            {
+                document.open();
+                document.write('<table width="100%" >' +
+                        '<tr>' +
+                        '<td ><img src="antonianumLogo.png" height="130" alt="Gymnasium Antonianum - Logo" /></td>' +
+                        '<td width="100%"><div class="datum"><b>27.11. / Donnerstag Woche-B (48)</b></div></td>' +
+                        '</tr>' +
+                        '</table>' +
+                        '' +
+                        '        <br/>'+
+''+
+'        <table class="stufeTab" rules="all">'+
+'            <colgroup>'+
+'                <col width="7%">'+
+'                <col width="6%">'+
+'                <col width="10%">'+
+'                <col width="10%">'+
+'                <col width="12%">'+
+'                <col width="7%">'+
+'                <col width="10%">'+
+'                <col width="10%">'+
+'                <col width="28%">'+
+'            </colgroup>'+
+'            <tr >'+
+'                <td rowspan="3" valign="top"><div class="stufe"><b>05f</b></div></td>'+
+'                <td>Std</td>'+
+'                <td>Vertreter</td>'+
+'                <td>Raum</td>'+
+'                <td>Art</td>'+
+'                <td>Fach</td>'+
+'                <td>Lehrer</td>'+
+'                <td>Verl. von</td>'+
+'                <td>Hinweise</td>'+
+'            </tr>'+
+'            <tr >'+
+'                <td>3-4</td>'+
+'                <td>mil</td>'+
+'                <td>sp2</td>'+
+'                <td>Vertretung</td>'+
+'                <td>SP</td>'+
+'                <td>ber</td>'+
+'                <td></td>'+
+'                <td></td>'+
+'            </tr>'+
+'            <tr >'+
+'                <td>5-6</td>'+
+'                <td>krs</td>'+
+'                <td>r103</td>'+
+'                <td>Vertretung</td>'+
+'                <td>M</td>'+
+'                <td>drk</td>'+
+'                <td></td>'+
+'                <td></td>'+
+'            </tr>'+
+'        </table>'+'        <br/>'+
+''+
+'        <table class="stufeTab" rules="all">'+
+'            <colgroup>'+
+'                <col width="7%">'+
+'                <col width="6%">'+
+'                <col width="10%">'+
+'                <col width="10%">'+
+'                <col width="12%">'+
+'                <col width="7%">'+
+'                <col width="10%">'+
+'                <col width="10%">'+
+'                <col width="28%">'+
+'            </colgroup>'+
+'            <tr >'+
+'                <td rowspan="3" valign="top"><div class="stufe"><b>06b</b></div></td>'+
+'                <td>Std</td>'+
+'                <td>Vertreter</td>'+
+'                <td>Raum</td>'+
+'                <td>Art</td>'+
+'                <td>Fach</td>'+
+'                <td>Lehrer</td>'+
+'                <td>Verl. von</td>'+
+'                <td>Hinweise</td>'+
+'            </tr>'+
+'            <tr >'+
+'                <td>5</td>'+
+'                <td>mue</td>'+
+'                <td>r005</td>'+
+'                <td>Vertretung</td>'+
+'                <td>L</td>'+
+'                <td>leh</td>'+
+'                <td></td>'+
+'                <td></td>'+
+'            </tr>'+
+'            <tr >'+
+'                <td>6</td>'+
+'                <td>hav</td>'+
+'                <td>r005</td>'+
+'                <td>Vertretung</td>'+
+'                <td>L</td>'+
+'                <td>leh</td>'+
+'                <td></td>'+
+'                <td></td>'+
+'            </tr>'+
+'        </table>'+'        <br/>'+
+''+
+'        <table class="stufeTab" rules="all">'+
+'            <colgroup>'+
+'                <col width="7%">'+
+'                <col width="6%">'+
+'                <col width="10%">'+
+'                <col width="10%">'+
+'                <col width="12%">'+
+'                <col width="7%">'+
+'                <col width="10%">'+
+'                <col width="10%">'+
+'                <col width="28%">'+
+'            </colgroup>'+
+'            <tr >'+
+'                <td rowspan="4" valign="top"><div class="stufe"><b>06c</b></div></td>'+
+'                <td>Std</td>'+
+'                <td>Vertreter</td>'+
+'                <td>Raum</td>'+
+'                <td>Art</td>'+
+'                <td>Fach</td>'+
+'                <td>Lehrer</td>'+
+'                <td>Verl. von</td>'+
+'                <td>Hinweise</td>'+
+'            </tr>'+
+'            <tr >'+
+'                <td>3</td>'+
+'                <td>jn</td>'+
+'                <td>r225</td>'+
+'                <td>Raum-Vtr.</td>'+
+'                <td>EK</td>'+
+'                <td>jn</td>'+
+'                <td></td>'+
+'                <td>Raumänderung</td>'+
+'            </tr>'+
+'            <tr >'+
+'                <td>5</td>'+
+'                <td>mue</td>'+
+'                <td>r005</td>'+
+'                <td>Vertretung</td>'+
+'                <td>L</td>'+
+'                <td>leh</td>'+
+'                <td></td>'+
+'                <td></td>'+
+'            </tr>'+
+'            <tr >'+
+'                <td>6</td>'+
+'                <td>hav</td>'+
+'                <td>r005</td>'+
+'                <td>Vertretung</td>'+
+'                <td>L</td>'+
+'                <td>leh</td>'+
+'                <td></td>'+
+'                <td></td>'+
+'            </tr>'+
+'        </table>'+
+                        'generated of a program made by Christopher Zinda and Mirko Rüther <br/><br/>' +
+                        '');
+                document.close();
+            }
+        </script>
+
+    </body>
+</html>

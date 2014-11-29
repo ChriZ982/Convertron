@@ -1,11 +1,11 @@
-package com.facharbeit.sql;
+package com.facharbeit.io;
 
 import java.util.*;
 
 /**
  * Liest immer aus der selben SQL-Tabelle.
  */
-public class sqlTableReader extends sqlReader
+public class SqlTableReader extends SqlReader
 {
     /**
      * Name der Tabelle.
@@ -28,7 +28,7 @@ public class sqlTableReader extends sqlReader
      * @param tableName    Name der Tabelle
      * @param tableColumms Spalten, die es geben soll
      */
-    public sqlTableReader(String dbHost, int dbPort, String dbName, String dbUser, String dbPassword, String tableName, String[] tableColumms)
+    public SqlTableReader(String dbHost, int dbPort, String dbName, String dbUser, String dbPassword, String tableName, String[] tableColumms)
     {
         super(dbHost, dbPort, dbName, dbUser, dbPassword);
         this.tableColumms = tableColumms;

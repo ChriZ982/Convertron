@@ -6,21 +6,38 @@ import java.io.*;
 /**
  * Lies ganze Text-Dateien aus.
  */
-public class Reader
+public class FileReader
 {
     /**
      * Name der Datei.
      */
-    private String filename;
+//    private String filename;
+//    private String path;
+
+    private File file;
+    private String charset = "UTF-8";
+
+    public void setCharset(String charset)
+    {
+        this.charset = charset;
+    }
 
     /**
      * Erstellt einen neuen Reader.
      *
+     * @param pPath
      * @param pFilename Name der Datei
      */
-    public Reader(String pFilename)
+    public FileReader(String pPath, String pFilename)
     {
-        filename = pFilename;
+//        filename = pFilename;
+//        path = pPath;
+        file = new File(pPath + pFilename);
+    }
+
+    public FileReader(File f)
+    {
+        file = f;
     }
 
     /**
@@ -32,7 +49,7 @@ public class Reader
      */
     public String read(int line)
     {
-        try(BufferedReader reader = new BufferedReader(new FileReader("Data/" + filename)))
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charset)))
         {
             for(int i = 0; i < line; i++) //Läuft Zeilen durch bis die gewünschte Zeile erreicht ist.
                 reader.readLine();
@@ -40,7 +57,7 @@ public class Reader
             return reader.readLine();
         } catch(IOException e)
         {
-            Logger.log("\"" + filename + "\" konnte nicht geladen werden.", 2);
+            Logger.log("\"" + file.getName() + "\" konnte nicht geladen werden.", 2);
             return "";
         }
     }
@@ -55,7 +72,7 @@ public class Reader
         int length = getLines();
         String[] data = new String[length];
 
-        try(BufferedReader reader = new BufferedReader(new FileReader("Data/" + filename)))
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charset)))
         {
             for(int i = 0; i < length; i++)
                 data[i] = reader.readLine();
@@ -64,7 +81,7 @@ public class Reader
             return data;
         } catch(IOException ex)
         {
-            Logger.log("\"" + filename + "\" konnte nicht geladen werden.", 2);
+            Logger.log("\"" + file.getName() + "\" konnte nicht geladen werden.", 2);
             data[0] = "";
             return data;
         }
@@ -101,7 +118,7 @@ public class Reader
             return Integer.parseInt(read(line));
         } catch(NumberFormatException ex)
         {
-            System.out.println("ZEILE AUS \"" + filename + "\" KONNTE NICHT ALS ZAHL GELESEN WERDEN!");
+            System.out.println("ZEILE AUS \"" + file.getName() + "\" KONNTE NICHT ALS ZAHL GELESEN WERDEN!");
             return -1;
         }
     }
@@ -113,7 +130,6 @@ public class Reader
      */
     public boolean exists()
     {
-        File file = new File("Data/" + filename);
         return file.exists();
     }
 
@@ -124,7 +140,7 @@ public class Reader
      */
     public int getLines()
     {
-        try(BufferedReader reader = new BufferedReader(new FileReader("Data/" + filename)))
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charset)))
         {
             int lines = 0;
             while(reader.readLine() != null)
@@ -134,7 +150,7 @@ public class Reader
             return lines;
         } catch(IOException ex)
         {
-            Logger.log("\"" + filename + "\" konnte nicht geladen werden.", 2);
+            Logger.log("\"" + file.getName() + "\" konnte nicht geladen werden.", 2);
             return -1;
         }
     }

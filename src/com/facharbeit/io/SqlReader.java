@@ -1,4 +1,4 @@
-package com.facharbeit.sql;
+package com.facharbeit.io;
 
 import com.facharbeit.tools.*;
 import java.sql.*;
@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * Liest Daten aus einer SQL-Datenbank.
  */
-public class sqlReader
+public class SqlReader
 {
     /**
      * Verbindung zur Datenbank.
@@ -23,7 +23,7 @@ public class sqlReader
      * @param dbUser     Nutername der Datenbank
      * @param dbPassword Passwort der Datenbank
      */
-    public sqlReader(String dbHost, int dbPort, String dbName, String dbUser, String dbPassword)
+    public SqlReader(String dbHost, int dbPort, String dbName, String dbUser, String dbPassword)
     {
         try
         {

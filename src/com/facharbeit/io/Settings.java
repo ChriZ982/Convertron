@@ -1,18 +1,19 @@
 package com.facharbeit.io;
 
-import com.facharbeit.tools.Logger;
-import java.util.ArrayList;
-import java.util.Arrays;
+import com.facharbeit.tools.*;
+import java.util.*;
 
 public class Settings
 {
-    private static Writer writer;
-    private static Reader reader;
+    private static FileWriter writer;
+    private static FileReader reader;
+    private static boolean logging;
 
     public static void init()
     {
-        writer = new Writer("settings.ini");
-        reader = new Reader("settings.ini");
+        writer = new FileWriter("Data/", "settings.ini");
+        reader = new FileReader("Data/", "settings.ini");
+        logging = true;
 
         if(!reader.exists())
             writer.create();
@@ -30,7 +31,8 @@ public class Settings
         else
             writer.write(line, settings);
 
-        Logger.log("Einstellung ' " + settings + " ' gespeichert.", 0);
+        if(logging)
+            Logger.log("Einstellung '" + name + "' gespeichert.", 0);
     }
 
     public static String load(String name)
@@ -39,20 +41,19 @@ public class Settings
 
         if(line == -1)
         {
-            Logger.log("Einstellung ' " + name + " ' nicht vorhanden.", 1);
+            if(logging)
+                Logger.log("Einstellung '" + name + "' nicht vorhanden.", 1);
             return "";
         } else
         {
             String setting = reader.read(line);
             setting = setting.replaceFirst(name + ": \"", "");
             setting = setting.substring(0, setting.length() - 1);
-
-            Logger.log("Einstellung ' " + name + ": \"" + setting + "\"" + " ' geladen.", 0);
             return setting;
         }
     }
 
-    public static String[] giveMultiple(String name)
+    public static String[] loadNames(String name)
     {
         ArrayList<String> names = new ArrayList<String>();
         String[] file = reader.readAll();
@@ -62,6 +63,22 @@ public class Settings
                 names.add(s.split(": \"")[0].trim());
 
         return names.toArray(new String[]
+        {
+        });
+    }
+
+    public static String[] loadValues(String name)
+    {
+        logging = false;
+        ArrayList<String> values = new ArrayList<String>();
+        String[] file = reader.readAll();
+
+        for(String s : file)
+            if(s.startsWith(name))
+                values.add(Settings.load(s.split(": \"")[0].trim()));
+
+        logging = true;
+        return values.toArray(new String[]
         {
         });
     }
@@ -80,7 +97,8 @@ public class Settings
             {
             }));
 
-            Logger.log("Einstellung ' " + name + " ' gelöscht.", 0);
+            if(logging)
+                Logger.log("Einstellung '" + name + "' gelöscht.", 0);
             return true;
         }
 
@@ -100,5 +118,10 @@ public class Settings
             }
 
         return line;
+    }
+
+    public static void logging(boolean pLogging)
+    {
+        logging = pLogging;
     }
 }

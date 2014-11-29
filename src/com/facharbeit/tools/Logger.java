@@ -1,7 +1,6 @@
 package com.facharbeit.tools;
 
 import java.awt.*;
-import java.util.*;
 import javax.swing.*;
 import javax.swing.text.*;
 
@@ -13,16 +12,19 @@ public class Logger
     /**
      * Textfeld zur Ausgabe des Logs.
      */
-    public static JTextPane textPane;
+    private static JTextPane textPane;
+    private static JProgressBar progressBar;
 
     /**
      * "Konstruktor".
      *
-     * @param out Textfeld für die Ausgabe
+     * @param out  Textfeld für die Ausgabe
+     * @param prog
      */
-    public static void init(JTextPane out)
+    public static void init(JTextPane out, JProgressBar prog)
     {
         textPane = out;
+        progressBar = prog;
     }
 
     /**
@@ -33,41 +35,36 @@ public class Logger
      */
     public static void log(String text, int prio)
     {
-        //String priority;
         Color color;
 
         switch(prio)
         {
             case 0:
-                //priority = "INFO";
                 color = new Color(0, 100, 0);
                 break;
 
             case 1:
-                //priority = "PROBLEM";
                 color = new Color(200, 165, 0);
                 break;
 
             case 2:
-                //priority = "FEHLER";
                 color = new Color(160, 0, 0);
                 break;
 
             default:
-                //priority = "UNBEKANNT";
                 color = Color.BLACK;
                 break;
         }
 
-        String content = "[" + timestamp() + "] " /* + priority + ": " */ + text + "\n"; //Ausgabe-String wird zusammengestellt.
+        String content = Time.forLogging() + text + "\n";
 
-        SimpleAttributeSet set = new SimpleAttributeSet(); //Attribut-Set zur verwaltung der Farbe wird erstellt.
-        StyleConstants.setForeground(set, color); //Farbe wird gesetzt.
+        SimpleAttributeSet set = new SimpleAttributeSet();
+        StyleConstants.setForeground(set, color);
         Document doc = textPane.getStyledDocument();
 
         try
         {
-            doc.insertString(doc.getLength(), content, set); //Text wird mit Farbe ausgegeben.
+            doc.insertString(doc.getLength(), content, set);
         } catch(BadLocationException ex)
         {
             System.out.println("KONNTE LOG NICHT ERWEITERN!");
@@ -76,16 +73,8 @@ public class Logger
         textPane.setCaretPosition(doc.getLength());
     }
 
-    /**
-     * Erstellt einen benutzerdefinierten Zeitstempel.
-     *
-     * @return Datum u. Zeit als String
-     */
-    private static String timestamp()
+    public static void setProgress(int value)
     {
-        Calendar c = Calendar.getInstance();
-        return c.get(Calendar.HOUR_OF_DAY) + ":"
-               + c.get(Calendar.MINUTE) + ":"
-               + c.get(Calendar.SECOND);
+        progressBar.setValue(value);
     }
 }

@@ -1,11 +1,11 @@
-package com.facharbeit.sql;
+package com.facharbeit.io;
 
 import java.util.*;
 
 /**
  * Schreibt immer in die selbe Tabelle.
  */
-public class sqlTableWriter extends sqlWriter
+public class SqlTableWriter extends SqlWriter
 {
     /**
      * Name der Tabelle.
@@ -28,7 +28,7 @@ public class sqlTableWriter extends sqlWriter
      * @param tableName    Name der Tabelle
      * @param tableColumms Spalten, die es geben soll
      */
-    public sqlTableWriter(String dbHost, int dbPort, String dbName, String dbUser, String dbPassword, String tableName, String[] tableColumms)
+    public SqlTableWriter(String dbHost, int dbPort, String dbName, String dbUser, String dbPassword, String tableName, String[] tableColumms)
     {
         super(dbHost, dbPort, dbName, dbUser, dbPassword);
         this.tableColumms = tableColumms;
