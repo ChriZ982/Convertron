@@ -17,6 +17,11 @@ import java.util.*;
 public class HtmlReader
 {
 
+    final static String[] extraGrades =
+    {
+        "EF", "Q1", "Q2", "___"
+    };
+
     public static SchoolClass[] readInToday()
     {
         if(Settings.load("useSQL").equals("true"))
@@ -36,34 +41,13 @@ public class HtmlReader
     private static SchoolClass[] readInHtml(String path)
     {
 
-        final String[] extraGrades =
-        {
-            "EF", "Q1", "Q2", "___"
-        };
-
         final String cellStartsWith = "<TD align=center>";
         final String cellStartsWith2 = "<font size=\"3\" face=\"Arial\">";
         final String cellStartsWith2a = "<font size=\"3\" face=\"Arial\" color=\"#000000\">";
         final String cellEndsWith = "</TD>";
         final String cellEndsWith2 = "</font> ";
 
-        ArrayList<File> files = new ArrayList<>();
-        File f;
-        for(int grade = 5; grade <= 9; grade++)
-            for(int c = 97; c <= 122; c++)
-            {
-                f = new File(path + "/" + "Druck_Klasse_0" + grade + "" + (char)c + ".htm");
-
-                if(f.exists())
-                    files.add(f);
-            }
-
-        for(String s : extraGrades)
-        {
-            f = new File(path + "/" + "Druck_Klasse_" + s + ".htm");
-            if(f.exists())
-                files.add(f);
-        }
+        ArrayList<File> files = getFiles(path);
 
         SchoolClass[] outcome = new SchoolClass[files.size()];
 
@@ -145,5 +129,64 @@ public class HtmlReader
 
         }
         return p;
+    }
+
+    private static ArrayList<File> getFiles(String path)
+    {
+        ArrayList<File> files = new ArrayList<>();
+        File f;
+        for(int grade = 5; grade <= 9; grade++)
+            for(int c = 97; c <= 122; c++)
+            {
+                f = new File(path + "/" + "Druck_Klasse_0" + grade + "" + (char)c + ".htm");
+
+                if(f.exists())
+                    files.add(f);
+            }
+
+        for(String s : extraGrades)
+        {
+            f = new File(path + "/" + "Druck_Klasse_" + s + ".htm");
+            if(f.exists())
+                files.add(f);
+        }
+
+        return files;
+    }
+
+    public static String readHeadToday()
+    {
+        String path = (Settings.load("sourcePath") + "/heute");
+
+        final String beforeHead = "</TABLE><BR><font size=\"5\" face=\"Arial\">\n<B>";
+
+        File theFile = getFiles(path).get(0);
+
+        FileReader read = new FileReader(theFile);
+        read.setCharset("ISO-8859-1");
+        String fileAsString = read.toString();
+
+        fileAsString = fileAsString.substring(fileAsString.indexOf(beforeHead) + beforeHead.length());
+        fileAsString = fileAsString.substring(0, fileAsString.indexOf("</B>"));
+
+        return fileAsString;
+    }
+
+    public static String readHeadTomorrow()
+    {
+        String path = (Settings.load("sourcePath") + "/morgen");
+
+        final String beforeHead = "</TABLE><BR><font size=\"5\" face=\"Arial\">\n<B>";
+
+        File theFile = getFiles(path).get(0);
+
+        FileReader read = new FileReader(theFile);
+        read.setCharset("ISO-8859-1");
+        String fileAsString = read.toString();
+
+        fileAsString = fileAsString.substring(fileAsString.indexOf(beforeHead) + beforeHead.length());
+        fileAsString = fileAsString.substring(0, fileAsString.indexOf("</B>"));
+
+        return fileAsString;
     }
 }
