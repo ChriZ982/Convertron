@@ -75,7 +75,9 @@ public class HtmlReader
             if(outcome[i].isEmpty())
                 outcome[i].setEntrys(new ArrayList<Entry>());
 
-            String fileAsString = new FileReader(files.get(i)).toString();
+            FileReader read = new FileReader(files.get(i));
+            read.setCharset("ISO-8859-1");
+            String fileAsString = read.toString();
             fileAsString = fileAsString.substring(fileAsString.indexOf("<TABLE border=\"3\" rules=\"all\" bgcolor=\"#E7E7E7\" cellpadding=\"1\" cellspacing=\"1\">"));
             fileAsString = fileAsString.substring(0, fileAsString.indexOf("<TABLE cellspacing=\"1\" cellpadding=\"1\">") - 13);
             fileAsString = fileAsString.substring(fileAsString.indexOf("<TR>") + 4);
