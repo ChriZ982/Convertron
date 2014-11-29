@@ -14,7 +14,7 @@ public class HtmlWriter
     private static String generateClasses(SchoolClass[] schoolClasses)
     {
         Calendar c = Calendar.getInstance();
-        String s = "<br/><br/><br/>KEINE VERTRETUNGEN";
+        String s = "'<br/><br/><br/>KEINE VERTRETUNGEN'+\n";
         for(SchoolClass sc : schoolClasses)
         {
             Settings.logging(false);
@@ -41,34 +41,34 @@ public class HtmlWriter
 
             if(show)
             {
-                if(s.equals("<br/><br/><br/>KEINE VERTRETUNGEN"))
+                if(s.equals("'<br/><br/><br/>KEINE VERTRETUNGEN'+\n"))
                     s = "";
 
-                s += "        <br/>\n"
-                     + "\n"
-                     + "        <table class=\"stufeTab\" rules=\"all\">\n"
-                     + "            <colgroup>\n"
-                     + "                <col width=\"7%\">\n"
-                     + "                <col width=\"6%\">\n"
-                     + "                <col width=\"10%\">\n"
-                     + "                <col width=\"10%\">\n"
-                     + "                <col width=\"12%\">\n"
-                     + "                <col width=\"7%\">\n"
-                     + "                <col width=\"10%\">\n"
-                     + "                <col width=\"10%\">\n"
-                     + "                <col width=\"28%\">\n"
-                     + "            </colgroup>\n"
-                     + "            <tr >\n"
-                     + "                <td rowspan=\"" + (sc.getEntrys().size() + 1) + "\" valign=\"top\"><div class=\"stufe\"><b>" + sc.getName() + "</b></div></td>\n"
-                     + "                <td>Std</td>\n"
-                     + "                <td>Vertreter</td>\n"
-                     + "                <td>Raum</td>\n"
-                     + "                <td>Art</td>\n"
-                     + "                <td>Fach</td>\n"
-                     + "                <td>Lehrer</td>\n"
-                     + "                <td>Verl. von</td>\n"
-                     + "                <td>Hinweise</td>\n"
-                     + "            </tr>\n";
+                s += "'        <br/>'+\n"
+                     + "''+\n"
+                     + "'        <table class=\"stufeTab\" rules=\"all\">'+\n"
+                     + "'            <colgroup>'+\n"
+                     + "'                <col width=\"7%\">'+\n"
+                     + "'                <col width=\"6%\">'+\n"
+                     + "'                <col width=\"10%\">'+\n"
+                     + "'                <col width=\"10%\">'+\n"
+                     + "'                <col width=\"12%\">'+\n"
+                     + "'                <col width=\"7%\">'+\n"
+                     + "'                <col width=\"10%\">'+\n"
+                     + "'                <col width=\"10%\">'+\n"
+                     + "'                <col width=\"28%\">'+\n"
+                     + "'            </colgroup>'+\n"
+                     + "'            <tr >'+\n"
+                     + "'                <td rowspan=\"" + (sc.getEntrys().size() + 1) + "\" valign=\"top\"><div class=\"stufe\"><b>" + sc.getName() + "</b></div></td>'+\n"
+                     + "'                <td>Std</td>'+\n"
+                     + "'                <td>Vertreter</td>'+\n"
+                     + "'                <td>Raum</td>'+\n"
+                     + "'                <td>Art</td>'+\n"
+                     + "'                <td>Fach</td>'+\n"
+                     + "'                <td>Lehrer</td>'+\n"
+                     + "'                <td>Verl. von</td>'+\n"
+                     + "'                <td>Hinweise</td>'+\n"
+                     + "'            </tr>'+\n";
 
                 for(Entry e : sc.getEntrys())
                 {
@@ -95,25 +95,25 @@ public class HtmlWriter
 
                     if(show)
                     {
-                        s += "            <tr >\n";
+                        s += "'            <tr >'+\n";
 
                         if(e.isNextEqual())
-                            s += "                <td>" + e.getHour() + "-" + (e.getHour() + 1) + "</td>\n";
+                            s += "'                <td>" + e.getHour() + "-" + (e.getHour() + 1) + "</td>'+\n";
                         else
-                            s += "                <td>" + e.getHour() + "</td>\n";
+                            s += "'                <td>" + e.getHour() + "</td>'+\n";
 
-                        s += "                <td>" + e.getContent()[0] + "</td>\n"
-                             + "                <td>" + e.getContent()[1] + "</td>\n"
-                             + "                <td>" + e.getContent()[2] + "</td>\n"
-                             + "                <td>" + e.getContent()[3] + "</td>\n"
-                             + "                <td>" + e.getContent()[4] + "</td>\n"
-                             + "                <td>" + e.getContent()[5] + "</td>\n"
-                             + "                <td>" + e.getContent()[6] + "</td>\n"
-                             + "            </tr>\n";
+                        s += "'                <td>" + e.getContent()[0] + "</td>'+\n"
+                             + "'                <td>" + e.getContent()[1] + "</td>'+\n"
+                             + "'                <td>" + e.getContent()[2] + "</td>'+\n"
+                             + "'                <td>" + e.getContent()[3] + "</td>'+\n"
+                             + "'                <td>" + e.getContent()[4] + "</td>'+\n"
+                             + "'                <td>" + e.getContent()[5] + "</td>'+\n"
+                             + "'                <td>" + e.getContent()[6] + "</td>'+\n"
+                             + "'            </tr>'+\n";
                     }
                 }
 
-                s += "        </table>\n\n";
+                s += "'        </table>'+";
             }
         }
 

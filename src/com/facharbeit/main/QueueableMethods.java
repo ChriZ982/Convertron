@@ -172,8 +172,8 @@ public class QueueableMethods
 
     public static void genAllBtnActionPerformed()
     {
-        HtmlWriter.generatePlanToday(HtmlReader.readInToday(), 50, 65);
-        HtmlWriter.generatePlanTomorrow(HtmlReader.readInTomorrow(), 65, 80);
+        HtmlWriter.generatePlanToday(HtmlReader.sortArray(HtmlReader.readInToday()), 50, 65);
+        HtmlWriter.generatePlanTomorrow(HtmlReader.sortArray(HtmlReader.readInTomorrow()), 65, 80);
         HtmlWriter.generateModt(80, 95);
         backupToDestPaths();
         Logger.setProgress(100);
@@ -182,7 +182,7 @@ public class QueueableMethods
 
     public static void genTodayBtnActionPerformed()
     {
-        HtmlWriter.generatePlanToday(HtmlReader.readInToday(), 50, 95);
+        HtmlWriter.generatePlanToday(HtmlReader.sortArray(HtmlReader.readInToday()), 50, 95);
         backupToDestPaths();
         Logger.setProgress(100);
         Logger.setProgress(0);
@@ -190,7 +190,7 @@ public class QueueableMethods
 
     public static void genTomorrowBtnActionPerformed()
     {
-        HtmlWriter.generatePlanTomorrow(HtmlReader.readInTomorrow(), 50, 95);
+        HtmlWriter.generatePlanTomorrow(HtmlReader.sortArray(HtmlReader.readInTomorrow()), 50, 95);
         backupToDestPaths();
         Logger.setProgress(100);
         Logger.setProgress(0);

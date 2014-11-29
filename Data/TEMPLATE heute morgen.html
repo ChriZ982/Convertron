@@ -39,24 +39,31 @@
     </head>
     <body bgcolor="BGFARBE" onLoad="start()">
 
-        <table width="100%" >
-            <tr>
-                <td ><img src="antonianumLogo.png" height="130" alt="Gymnasium Antonianum - Logo" /></td>
-                <td width="100%"><div class="datum"><b>TAG</b></div></td>
-            </tr>
-        </table>
+        <script type="text/javascript">
 
-        VERTRETUNGEN
-        generated of a program made by Christopher Zinda and Mirko Rüther <br/><br/>
-
-        <table width="100%" >
-            <tr>
-                <td ><img src="antonianumLogo.png" height="130" alt="Gymnasium Antonianum - Logo" /></td>
-                <td width="100%"><div class="datum"><b>TAG</b></div></td>
-            </tr>
-        </table>
-
-        VERTRETUNGEN
+            body();
+            
+            window.scrollBy(0,10);
+            
+            if(window.pageYOffset != 0)
+                body();
+            
+            function body()
+            {
+                document.open();
+                document.write('<table width="100%" >' +
+                        '<tr>' +
+                        '<td ><img src="antonianumLogo.png" height="130" alt="Gymnasium Antonianum - Logo" /></td>' +
+                        '<td width="100%"><div class="datum"><b>TAG</b></div></td>' +
+                        '</tr>' +
+                        '</table>' +
+                        '' +
+                        VERTRETUNGEN
+                        'generated of a program made by Christopher Zinda and Mirko Rüther <br/><br/>' +
+                        '');
+                document.close();
+            }
+        </script>
 
     </body>
 </html>
