@@ -123,28 +123,29 @@ public class HtmlWriter
     private static String generateDay(boolean today)
     {
         Calendar c = Calendar.getInstance();
+        String s = "FEHLER";
 
-        if(!today)
-            c.add(Calendar.DAY_OF_MONTH, 1);
-
-        String s = c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.GERMANY) + " "
-                   + String.format("%02d", c.get(Calendar.DAY_OF_MONTH)) + "."
-                   + String.format("%02d", c.get(Calendar.MONTH) + 1) + ". ";
-
-        if(c.get(Calendar.WEEK_OF_YEAR) % 2 == 0)
-            s += "B-Woche";
+        if(today)
+            s = HtmlReader.readHeadToday();
         else
-            s += "A-Woche";
+            s = HtmlReader.readHeadTomorrom();
 
+        s = s.substring(s.lastIndexOf("Vertretungen  "));
+        s += " (" + c.get(Calendar.WEEK_OF_YEAR) + ")";
         return s;
     }
 
-    public static void generatePlanToday(SchoolClass[] schoolClasses)
+    public static void generatePlanToday(SchoolClass[] schoolClasses, int start, int end)
     {
+        int part = end - start;
         String day = generateDay(true);
+        Logger.setProgress(start + 1 * (part / 7));
         String speed = Integer.toString((int)((1.0 / (Double.parseDouble(Settings.load("planSpeed")) / 100.0)) * 12.0));
+        Logger.setProgress(start + 2 * (part / 7));
         String farbe = Settings.load("color" + Settings.load("colorPlan"));
+        Logger.setProgress(start + 3 * (part / 7));
         String classes = generateClasses(schoolClasses);
+        Logger.setProgress(start + 4 * (part / 7));
 
         if(day.equals("") || speed.equals("") || farbe.equals("") || classes.equals(""))
         {
@@ -154,8 +155,10 @@ public class HtmlWriter
 
         FileReader reader = new FileReader("Data/", "TEMPLATE heute morgen.html");
         FileWriter writer = new FileWriter("Data/", "heute.html");
+        Logger.setProgress(start + 5 * (part / 7));
 
         String[] file = reader.readAll();
+        Logger.setProgress(start + 6 * (part / 7));
         for(int i = 0; i < file.length; i++)
         {
             file[i] = file[i].replaceAll("GESCHW", speed);
@@ -164,16 +167,22 @@ public class HtmlWriter
             file[i] = file[i].replaceAll("VERTRETUNGEN", classes);
         }
         writer.writeAll(file);
+        Logger.setProgress(start + 7 * (part / 7));
 
         Logger.log("Plan von heute wurde generiert", 0);
     }
 
-    public static void generatePlanTomorrow(SchoolClass[] schoolClasses)
+    public static void generatePlanTomorrow(SchoolClass[] schoolClasses, int start, int end)
     {
+        int part = end - start;
         String day = generateDay(false);
+        Logger.setProgress(start + 1 * (part / 7));
         String speed = Integer.toString((int)((1.0 / (Double.parseDouble(Settings.load("planSpeed")) / 100.0)) * 12.0));
+        Logger.setProgress(start + 2 * (part / 7));
         String farbe = Settings.load("color" + Settings.load("colorPlan"));
+        Logger.setProgress(start + 3 * (part / 7));
         String classes = generateClasses(schoolClasses);
+        Logger.setProgress(start + 4 * (part / 7));
 
         if(day.equals("") || speed.equals("") || farbe.equals("") || classes.equals(""))
         {
@@ -183,8 +192,10 @@ public class HtmlWriter
 
         FileReader reader = new FileReader("Data/", "TEMPLATE heute morgen.html");
         FileWriter writer = new FileWriter("Data/", "morgen.html");
+        Logger.setProgress(start + 5 * (part / 7));
 
         String[] file = reader.readAll();
+        Logger.setProgress(start + 6 * (part / 7));
         for(int i = 0; i < file.length; i++)
         {
             file[i] = file[i].replaceAll("GESCHW", speed);
@@ -193,15 +204,20 @@ public class HtmlWriter
             file[i] = file[i].replaceAll("VERTRETUNGEN", classes);
         }
         writer.writeAll(file);
+        Logger.setProgress(start + 7 * (part / 7));
 
         Logger.log("Plan von morgen wurde generiert", 0);
     }
 
-    public static void generateModt()
+    public static void generateModt(int start, int end)
     {
+        int part = end - start;
         String speed = Integer.toString((int)(Double.parseDouble(Settings.load("motdSpeed")) / 100.0 * 15.0));
+        Logger.setProgress(start + 1 * (part / 6));
         String text = Settings.load("motdText");
+        Logger.setProgress(start + 2 * (part / 6));
         String farbe = Settings.load("color" + Settings.load("colorMotd"));
+        Logger.setProgress(start + 3 * (part / 6));
 
         if(speed.equals("") || text.equals("") || farbe.equals(""))
         {
@@ -211,8 +227,10 @@ public class HtmlWriter
 
         FileReader reader = new FileReader("Data/", "TEMPLATE laufschrift.html");
         FileWriter writer = new FileWriter("Data/", "laufschrift.html");
+        Logger.setProgress(start + 4 * (part / 6));
 
         String[] file = reader.readAll();
+        Logger.setProgress(start + 5 * (part / 6));
         for(int i = 0; i < file.length; i++)
         {
             file[i] = file[i].replaceAll("GESCHW", speed);
@@ -220,6 +238,7 @@ public class HtmlWriter
             file[i] = file[i].replaceAll("BGFARBE", farbe);
         }
         writer.writeAll(file);
+        Logger.setProgress(start + 6 * (part / 6));
 
         Logger.log("Laufschrift wurde generiert", 0);
     }

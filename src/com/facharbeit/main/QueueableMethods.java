@@ -79,14 +79,14 @@ public class QueueableMethods
 
     public static void SQLModeBtnActionPerformed(JButton SQLModeBtn)
     {
-        if(SQLModeBtn.getText().equals("read"))
+        if(SQLModeBtn.getText().equals("lesen"))
         {
             Settings.save("SQLMode", "write");
             SQLModeBtn.setText("schreiben");
         } else
         {
-            Settings.save("SQLMode", "write");
-            SQLModeBtn.setText("schreiben");
+            Settings.save("SQLMode", "read");
+            SQLModeBtn.setText("lesen");
         }
     }
 
@@ -172,22 +172,28 @@ public class QueueableMethods
 
     public static void genAllBtnActionPerformed()
     {
-        HtmlWriter.generatePlanToday(HtmlReader.readInToday());
-        HtmlWriter.generatePlanTomorrow(HtmlReader.readInTomorrow());
-        HtmlWriter.generateModt();
+        HtmlWriter.generatePlanToday(HtmlReader.readInToday(), 50, 65);
+        HtmlWriter.generatePlanTomorrow(HtmlReader.readInTomorrow(), 65, 80);
+        HtmlWriter.generateModt(80, 95);
         backupToDestPaths();
+        Logger.setProgress(100);
+        Logger.setProgress(0);
     }
 
     public static void genTodayBtnActionPerformed()
     {
-        HtmlWriter.generatePlanToday(HtmlReader.readInToday());
+        HtmlWriter.generatePlanToday(HtmlReader.readInToday(), 50, 95);
         backupToDestPaths();
+        Logger.setProgress(100);
+        Logger.setProgress(0);
     }
 
     public static void genTomorrowBtnActionPerformed()
     {
-        HtmlWriter.generatePlanTomorrow(HtmlReader.readInTomorrow());
+        HtmlWriter.generatePlanTomorrow(HtmlReader.readInTomorrow(), 50, 95);
         backupToDestPaths();
+        Logger.setProgress(100);
+        Logger.setProgress(0);
     }
 
     public static void createBackupBtnActionPerformed()
@@ -206,7 +212,8 @@ public class QueueableMethods
     {
         saveIfNotNull(motdTxt, "motdText");
 
-        HtmlWriter.generateModt();
+        HtmlWriter.generateModt(0, 100);
+        Logger.setProgress(0);
     }
 
     public static void deleteMotdBtnActionPerformed(JTextField motdTxt)
