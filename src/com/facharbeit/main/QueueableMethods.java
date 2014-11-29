@@ -77,13 +77,26 @@ public class QueueableMethods
         Settings.save("colorMotd", colorMotdCombo.getSelectedItem().toString());
     }
 
+    public static void SQLModeBtnActionPerformed(JButton SQLModeBtn)
+    {
+        if(SQLModeBtn.getText().equals("read"))
+        {
+            Settings.save("SQLMode", "write");
+            SQLModeBtn.setText("schreiben");
+        } else
+        {
+            Settings.save("SQLMode", "write");
+            SQLModeBtn.setText("schreiben");
+        }
+    }
+
     public static void loadSettings(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea, JTextField speedPlanTxt,
                                     JTextField speedMotdTxt, JComboBox colorPlanCombo, JComboBox colorMotdCombo,
                                     JTextField motdTxt, JCheckBox useSQLCheck, JTextField dbHostTxt, JTextField dbPortTxt,
                                     JTextField dbNameTxt, JTextField dbUserTxt, JTextField dbPwTxt, JTextField dbTableNameTxt,
                                     JTextField hour1Txt, JTextField hour2Txt, JTextField hour3Txt, JTextField hour4Txt,
                                     JTextField hour5Txt, JTextField hour6Txt, JTextField hour7Txt, JTextField hour8Txt,
-                                    JTextField hour9Txt, JTextField hour10Txt)
+                                    JTextField hour9Txt, JTextField hour10Txt, JButton SQLModeBtn)
     {
         load(sourceTxt, "sourcePath");
         load(backupTxt, "backupPath");
@@ -121,6 +134,11 @@ public class QueueableMethods
         }
 
         loadColors(colorPlanCombo, colorMotdCombo);
+
+        if(Settings.load("SQLMode").equals("write"))
+            SQLModeBtn.setText("schreiben");
+        else
+            SQLModeBtn.setText("lesen");
     }
 
     private static void loadColors(JComboBox colorPlanCombo, JComboBox colorMotdCombo)
