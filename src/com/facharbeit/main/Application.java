@@ -30,6 +30,9 @@ public class Application
      */
     public Application()
     {
+        Time.forHtmlReading(true);
+        Time.forHtmlReading(false);
+        Time.forHtmlReading(true);
         queue = new ArrayList<QueueElement>();
 
         try

@@ -1,7 +1,6 @@
 package com.facharbeit.tools;
 
 import java.awt.*;
-import java.util.*;
 import javax.swing.*;
 import javax.swing.text.*;
 
@@ -13,9 +12,8 @@ public class Logger
     /**
      * Textfeld zur Ausgabe des Logs.
      */
-    public static JTextPane textPane;
-
-    public static JProgressBar progressBar;
+    private static JTextPane textPane;
+    private static JProgressBar progressBar;
 
     /**
      * "Konstruktor".
@@ -58,7 +56,7 @@ public class Logger
                 break;
         }
 
-        String content = "[" + timestamp() + "] " + text + "\n";
+        String content = Time.forLogging() + text + "\n";
 
         SimpleAttributeSet set = new SimpleAttributeSet();
         StyleConstants.setForeground(set, color);
@@ -78,18 +76,5 @@ public class Logger
     public static void setProgress(int value)
     {
         progressBar.setValue(value);
-    }
-
-    /**
-     * Erstellt einen benutzerdefinierten Zeitstempel.
-     *
-     * @return Datum u. Zeit als String
-     */
-    private static String timestamp()
-    {
-        Calendar c = Calendar.getInstance();
-        return String.format("%02d", c.get(Calendar.HOUR_OF_DAY)) + ":"
-               + String.format("%02d", c.get(Calendar.MINUTE)) + ":"
-               + String.format("%02d", c.get(Calendar.SECOND));
     }
 }
