@@ -122,17 +122,12 @@ public class HtmlWriter
 
     private static String generateDay(boolean today)
     {
-        Calendar c = Calendar.getInstance();
-        String s = "FEHLER";
-
+        String s;
         if(today)
             s = HtmlReader.readHeadToday();
         else
             s = HtmlReader.readHeadTomorrow();
-
-        s = s.substring(s.indexOf("Vertretungen  ") + "Vertretungen  ".length());
-        s += " (" + c.get(Calendar.WEEK_OF_YEAR) + ")";
-        return s;
+        return s.substring(s.indexOf("Vertretungen  ") + "Vertretungen  ".length()) + Time.forHtmlWriting();
     }
 
     public static void generatePlanToday(SchoolClass[] schoolClasses, int start, int end)
