@@ -269,7 +269,7 @@ public class QueueableMethods
     private static void backupAll(String path)
     {
         backup(path, "heute.html", "morgen.html", "laufschrift.html",
-               "beide.html", "TEMPLATE heute morgen.html", "TEMPLATE laufschrift.html",
+               "VERTRETUNGSPLAN.html", "TEMPLATE heute morgen.html", "TEMPLATE laufschrift.html",
                "settings.ini", "style.css", "antonianumLogo.png");
     }
 

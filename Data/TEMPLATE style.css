@@ -1,0 +1,60 @@
+.datum
+{
+    font: DATUMTYPE DATUMSIZEpx DATUMFAMILY;
+    text-align: center;
+    width: 100%;
+}
+
+.body1
+{
+    background-color: PLANFARBE;
+}
+
+.body2
+{
+    background-color: SCHRIFTFARBE;
+}
+
+.stufe
+{
+    font: STUFETYPE STUFESIZEpx STUFEFAMILY;
+}
+
+.stufeTab
+{
+    font: TABELLETYPE TABELLESIZEpx TABELLEFAMILY;
+    width: 99.5%;
+    border-width: 3px;
+    border-style: groove;
+    border-color: TABELLEBORDER;
+    background-color: TABELLEFARBE;
+}
+
+.stufeTab .one
+{
+    background-color: TABELLEVERTRFARBE;
+}
+
+.stufeTab .two
+{
+    background-color: TABELLEANDEREFARBE;
+}
+
+.stufeTab tr td
+{
+    text-align: center;
+}
+
+.laufschrift
+{
+    font: SCHRIFTTYPE SCHRIFTSIZEpx SCHRIFTFAMILY;
+    width: 100%;
+    vertical-align: top;
+    padding-left: 50px;
+}
+
+.frames frame
+{
+    border-style: groove;
+    border-color: FRAMEFARBE;
+}
