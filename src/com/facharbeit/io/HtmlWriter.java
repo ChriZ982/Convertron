@@ -6,14 +6,12 @@
 package com.facharbeit.io;
 
 import com.facharbeit.tools.*;
-import java.util.*;
 
 public class HtmlWriter
 {
 
     private static String generateClasses(SchoolClass[] schoolClasses)
     {
-        Calendar c = Calendar.getInstance();
         String s = "'<br/><br/><br/>KEINE VERTRETUNGEN'+\n";
         for(SchoolClass sc : schoolClasses)
         {
@@ -21,22 +19,15 @@ public class HtmlWriter
             boolean show = false;
             for(Entry e : sc.getEntrys())
                 if(e.isNextEqual())
-                {
-                    if(c.get(Calendar.HOUR_OF_DAY) == Integer.valueOf(Settings.load("cutLesson" + (e.getHour() + 1)).split(":")[0]))
-                        if(c.get(Calendar.MINUTE) <= Integer.valueOf(Settings.load("cutLesson" + (e.getHour() + 1)).split(":")[1]))
-                            show = true;
-
-                    if(c.get(Calendar.HOUR_OF_DAY) < Integer.valueOf(Settings.load("cutLesson" + (e.getHour() + 1)).split(":")[0]))
-                        show = true;
-                } else
-                {
-                    if(c.get(Calendar.HOUR_OF_DAY) == Integer.valueOf(Settings.load("cutLesson" + e.getHour()).split(":")[0]))
-                        if(c.get(Calendar.MINUTE) <= Integer.valueOf(Settings.load("cutLesson" + e.getHour()).split(":")[1]))
-                            show = true;
-
-                    if(c.get(Calendar.HOUR_OF_DAY) < Integer.valueOf(Settings.load("cutLesson" + e.getHour()).split(":")[0]))
-                        show = true;
-                }
+                    show = isAfter(Integer.valueOf(Settings.load("cutLesson" + (e.getHour() + 1)).split(":")[0]),
+                                   Integer.valueOf(Settings.load("cutLesson" + (e.getHour() + 1)).split(":")[1]),
+                                   Time.hour(),
+                                   Time.minute());
+                else
+                    show = isAfter(Integer.valueOf(Settings.load("cutLesson" + e.getHour()).split(":")[0]),
+                                   Integer.valueOf(Settings.load("cutLesson" + e.getHour()).split(":")[1]),
+                                   Time.hour(),
+                                   Time.minute());
             Settings.logging(true);
 
             if(show)
@@ -73,24 +64,16 @@ public class HtmlWriter
                 for(Entry e : sc.getEntrys())
                 {
                     Settings.logging(false);
-                    show = false;
                     if(e.isNextEqual())
-                    {
-                        if(c.get(Calendar.HOUR_OF_DAY) == Integer.valueOf(Settings.load("cutLesson" + (e.getHour() + 1)).split(":")[0]))
-                            if(c.get(Calendar.MINUTE) <= Integer.valueOf(Settings.load("cutLesson" + (e.getHour() + 1)).split(":")[1]))
-                                show = true;
-
-                        if(c.get(Calendar.HOUR_OF_DAY) < Integer.valueOf(Settings.load("cutLesson" + (e.getHour() + 1)).split(":")[0]))
-                            show = true;
-                    } else
-                    {
-                        if(c.get(Calendar.HOUR_OF_DAY) == Integer.valueOf(Settings.load("cutLesson" + e.getHour()).split(":")[0]))
-                            if(c.get(Calendar.MINUTE) <= Integer.valueOf(Settings.load("cutLesson" + e.getHour()).split(":")[1]))
-                                show = true;
-
-                        if(c.get(Calendar.HOUR_OF_DAY) < Integer.valueOf(Settings.load("cutLesson" + e.getHour()).split(":")[0]))
-                            show = true;
-                    }
+                        show = isAfter(Integer.valueOf(Settings.load("cutLesson" + (e.getHour() + 1)).split(":")[0]),
+                                       Integer.valueOf(Settings.load("cutLesson" + (e.getHour() + 1)).split(":")[1]),
+                                       Time.hour(),
+                                       Time.minute());
+                    else
+                        show = isAfter(Integer.valueOf(Settings.load("cutLesson" + e.getHour()).split(":")[0]),
+                                       Integer.valueOf(Settings.load("cutLesson" + e.getHour()).split(":")[1]),
+                                       Time.hour(),
+                                       Time.minute());
                     Settings.logging(true);
 
                     if(show)
@@ -121,6 +104,20 @@ public class HtmlWriter
         }
 
         return s;
+    }
+
+    public static boolean isAfter(int afterHour, int afterMinute, int beforeHour, int beforeMinute)
+    {
+        boolean b = false;
+
+        if(beforeHour == afterHour)
+            if(beforeMinute <= afterMinute)
+                b = true;
+
+        if(beforeHour < afterHour)
+            b = true;
+
+        return b;
     }
 
     private static String generateDay(boolean today)

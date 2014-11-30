@@ -72,18 +72,27 @@ public class Application
      */
     public void run()
     {
-        long time;
-        long cTime;
+        long beforeTime;
+        long afterTime;
+        long lastTime = System.currentTimeMillis();
+        long currentTime;
         while(running)
         {
-            time = System.currentTimeMillis();
+            beforeTime = System.currentTimeMillis();
             runOneElementOfQueue();
-            cTime = System.currentTimeMillis();
+            afterTime = System.currentTimeMillis();
+            currentTime = System.currentTimeMillis();
 
             try
             {
-                if(cTime < time + 100 && cTime > time)
-                    Thread.sleep((time - cTime) + 100);
+                if(afterTime < beforeTime + 100 && afterTime > beforeTime)
+                    Thread.sleep((beforeTime - afterTime) + 100);
+
+                if(lastTime < currentTime - 300000)
+                {
+                    lastTime = System.currentTimeMillis();
+                    Application.addToQueue("genAllBtnActionPerformed");
+                }
             } catch(InterruptedException ex)
             {
                 System.out.println("MAIN-SCHLEIFE KONNTE NICHT PAUSIEREN!");
