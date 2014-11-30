@@ -90,8 +90,8 @@ public class Frame extends javax.swing.JFrame
         jSeparator2 = new javax.swing.JSeparator();
         PathPanel = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        sourceTxt = new javax.swing.JTextField();
-        selectSourceBtn = new javax.swing.JButton();
+        sourceTodayTxt = new javax.swing.JTextField();
+        selectSourceTodayBtn = new javax.swing.JButton();
         selectBackupBtn = new javax.swing.JButton();
         selectDestBtn = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -100,6 +100,10 @@ public class Frame extends javax.swing.JFrame
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         savePathBtn = new javax.swing.JButton();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jLabel10 = new javax.swing.JLabel();
+        sourceTomorrowTxt = new javax.swing.JTextField();
+        selectSourceTomorrowBtn = new javax.swing.JButton();
         DesignPanel = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         colorPlanCombo = new javax.swing.JComboBox();
@@ -531,14 +535,14 @@ public class Frame extends javax.swing.JFrame
 
         Tabs.addTab("Einstellungen", SettingsPanel);
 
-        jLabel6.setText("Quellpfad");
+        jLabel6.setText("Quellpfad heute");
 
-        selectSourceBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/facharbeit/ressources/ordner.png"))); // NOI18N
-        selectSourceBtn.addActionListener(new java.awt.event.ActionListener()
+        selectSourceTodayBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/facharbeit/ressources/ordner.png"))); // NOI18N
+        selectSourceTodayBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                selectSourceBtnActionPerformed(evt);
+                selectSourceTodayBtnActionPerformed(evt);
             }
         });
 
@@ -578,6 +582,19 @@ public class Frame extends javax.swing.JFrame
             }
         });
 
+        jCheckBox1.setText("An Quellpfad Datum anhängen (Format: Quellpfad/JJMMTT)");
+
+        jLabel10.setText("Quellpfad morgen");
+
+        selectSourceTomorrowBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/facharbeit/ressources/ordner.png"))); // NOI18N
+        selectSourceTomorrowBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                selectSourceTomorrowBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PathPanelLayout = new javax.swing.GroupLayout(PathPanel);
         PathPanel.setLayout(PathPanelLayout);
         PathPanelLayout.setHorizontalGroup(
@@ -585,25 +602,34 @@ public class Frame extends javax.swing.JFrame
             .addGroup(PathPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(savePathBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(PathPanelLayout.createSequentialGroup()
-                        .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(PathPanelLayout.createSequentialGroup()
-                                .addComponent(sourceTxt)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(selectSourceBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jCheckBox1)
+                                .addGap(0, 208, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PathPanelLayout.createSequentialGroup()
                                 .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(backupTxt)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE))
+                                    .addComponent(sourceTomorrowTxt)
+                                    .addComponent(sourceTodayTxt))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(selectBackupBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(selectDestBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(savePathBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(selectSourceTodayBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(selectSourceTomorrowBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PathPanelLayout.createSequentialGroup()
+                                .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(backupTxt))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(selectDestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(selectBackupBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap())
         );
         PathPanelLayout.setVerticalGroup(
@@ -613,20 +639,28 @@ public class Frame extends javax.swing.JFrame
                 .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(sourceTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(selectSourceBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(sourceTodayTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(selectSourceTodayBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel10)
+                        .addComponent(sourceTomorrowTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(selectSourceTomorrowBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(backupTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel8))
                     .addComponent(selectBackupBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
-                    .addComponent(selectDestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                    .addComponent(selectDestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCheckBox1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addComponent(savePathBtn)
                 .addContainerGap())
         );
@@ -1120,11 +1154,11 @@ public class Frame extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void selectSourceBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_selectSourceBtnActionPerformed
-    {//GEN-HEADEREND:event_selectSourceBtnActionPerformed
+    private void selectSourceTodayBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_selectSourceTodayBtnActionPerformed
+    {//GEN-HEADEREND:event_selectSourceTodayBtnActionPerformed
         jFileChooser1.showOpenDialog(null);
-        sourceTxt.setText(jFileChooser1.getSelectedFile().getPath());
-    }//GEN-LAST:event_selectSourceBtnActionPerformed
+        sourceTodayTxt.setText(jFileChooser1.getSelectedFile().getPath());
+    }//GEN-LAST:event_selectSourceTodayBtnActionPerformed
 
     private void selectBackupBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_selectBackupBtnActionPerformed
     {//GEN-HEADEREND:event_selectBackupBtnActionPerformed
@@ -1145,7 +1179,7 @@ public class Frame extends javax.swing.JFrame
     @SuppressWarnings("empty-statement")
     private void savePathBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_savePathBtnActionPerformed
     {//GEN-HEADEREND:event_savePathBtnActionPerformed
-        Application.addToQueue("savePathBtnActionPerformed", sourceTxt, backupTxt, destArea);
+        Application.addToQueue("savePathBtnActionPerformed", sourceTodayTxt, backupTxt, destArea);
     }//GEN-LAST:event_savePathBtnActionPerformed
 
     private void setSpeedMotdBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_setSpeedMotdBtnActionPerformed
@@ -1260,6 +1294,12 @@ public class Frame extends javax.swing.JFrame
         backgroundColorPanel.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
     }//GEN-LAST:event_typeToEditComboItemStateChanged
 
+    private void selectSourceTomorrowBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_selectSourceTomorrowBtnActionPerformed
+    {//GEN-HEADEREND:event_selectSourceTomorrowBtnActionPerformed
+        jFileChooser1.showOpenDialog(null);
+        sourceTomorrowTxt.setText(jFileChooser1.getSelectedFile().getPath());
+    }//GEN-LAST:event_selectSourceTomorrowBtnActionPerformed
+
     public JTextPane getStatusPane()
     {
         return log;
@@ -1272,7 +1312,7 @@ public class Frame extends javax.swing.JFrame
 
     public void loadSettings()
     {
-        Application.addToQueue("loadSettings", sourceTxt, backupTxt, destArea, speedPlanTxt, speedMotdTxt,
+        Application.addToQueue("loadSettings", sourceTodayTxt, backupTxt, destArea, speedPlanTxt, speedMotdTxt,
                                colorPlanCombo, colorMotdCombo, motdTxt, useSQLCheck, dbHostTxt, dbPortTxt,
                                dbNameTxt, dbUserTxt, dbPwTxt, dbTableNameTxt, hour1Txt, hour2Txt, hour3Txt,
                                hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt, sqlModeBtn);
@@ -1352,10 +1392,12 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JTextField hour9Txt;
     private javax.swing.JLabel hoursHeadLabel;
     private javax.swing.JCheckBox italicCheck;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JComboBox jComboBox4;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -1391,11 +1433,13 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JButton savePathBtn;
     private javax.swing.JButton selectBackupBtn;
     private javax.swing.JButton selectDestBtn;
-    private javax.swing.JButton selectSourceBtn;
+    private javax.swing.JButton selectSourceTodayBtn;
+    private javax.swing.JButton selectSourceTomorrowBtn;
     private javax.swing.JButton setSpeedMotdBtn;
     private javax.swing.JButton setSpeedPlanBtn;
     private javax.swing.JButton settingsSaveBtn;
-    private javax.swing.JTextField sourceTxt;
+    private javax.swing.JTextField sourceTodayTxt;
+    private javax.swing.JTextField sourceTomorrowTxt;
     private javax.swing.JTextField speedMotdTxt;
     private javax.swing.JTextField speedPlanTxt;
     private javax.swing.JButton sqlModeBtn;
