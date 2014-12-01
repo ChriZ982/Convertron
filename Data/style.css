@@ -1,6 +1,7 @@
 .datum
 {
     font: bold 40px calibri;
+    color: #000000;
     text-align: center;
     width: 100%;
 }
@@ -18,27 +19,21 @@
 .stufe
 {
     font: bold 30px calibri;
+    color: #000000;
 }
 
 .stufeTab
 {
-    font: normal 16px calibri;
+    font:  16px calibri;
+    color: #000000;
     width: 99.5%;
     border-width: 3px;
     border-style: groove;
     border-color: #474747;
-    background-color: #E7E7E7;
+    background-color: #e7e7e7;
 }
 
-.stufeTab .one
-{
-    background-color: #D1D1D1;
-}
-
-.stufeTab .two
-{
-    background-color: #E7E7E7;
-}
+.stufeTab .Raum-Vtr{  font:  16px calibri;  color: #000000;  background-color: #d1d1d1;}
 
 .stufeTab tr td
 {
@@ -48,6 +43,7 @@
 .laufschrift
 {
     font: bold 50px calibri;
+    color: #000000;
     width: 100%;
     vertical-align: top;
     padding-left: 50px;
@@ -56,5 +52,5 @@
 .frames frame
 {
     border-style: groove;
-    border-color: #011A28;
+    border-color: #011a28;
 }

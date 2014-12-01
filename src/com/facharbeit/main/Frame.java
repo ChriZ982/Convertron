@@ -142,7 +142,6 @@ public class Frame extends javax.swing.JFrame
         fontSizeTxt = new javax.swing.JTextField();
         boldCheck = new javax.swing.JCheckBox();
         italicCheck = new javax.swing.JCheckBox();
-        underlinedCheck = new javax.swing.JCheckBox();
         SQLPanel = new javax.swing.JPanel();
         useSQLCheck = new javax.swing.JCheckBox();
         sqlModeBtn = new javax.swing.JButton();
@@ -768,7 +767,7 @@ public class Frame extends javax.swing.JFrame
 
         jLabel17.setText("Text");
 
-        typeToEditCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Überschrift", "Klassenname", "Laufschrift", "Tabelle", "Art: Raum-Vtr." }));
+        typeToEditCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Überschrift", "Stufenname", "Laufschrift", "Tabelle" }));
         typeToEditCombo.addItemListener(new java.awt.event.ItemListener()
         {
             public void itemStateChanged(java.awt.event.ItemEvent evt)
@@ -780,8 +779,22 @@ public class Frame extends javax.swing.JFrame
         typeToEditTxt.setText("Vertretungsart");
 
         addTypeBtn.setText("hinzufügen");
+        addTypeBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                addTypeBtnActionPerformed(evt);
+            }
+        });
 
         deleteTypeBtn.setText("löschen");
+        deleteTypeBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                deleteTypeBtnActionPerformed(evt);
+            }
+        });
 
         label.setText("Schriftfarbe");
 
@@ -809,6 +822,13 @@ public class Frame extends javax.swing.JFrame
         jLabel23.setText("Schriftart");
 
         fontTypeTxt.setText("Schriftart");
+        fontTypeTxt.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseExited(java.awt.event.MouseEvent evt)
+            {
+                fontTypeTxtMouseExited(evt);
+            }
+        });
 
         fontSizeLabel.setText("Schriftgröße");
 
@@ -836,12 +856,31 @@ public class Frame extends javax.swing.JFrame
         );
 
         fontSizeTxt.setText("12");
+        fontSizeTxt.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseExited(java.awt.event.MouseEvent evt)
+            {
+                fontSizeTxtMouseExited(evt);
+            }
+        });
 
         boldCheck.setText("Fett");
+        boldCheck.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                boldCheckActionPerformed(evt);
+            }
+        });
 
         italicCheck.setText("Kursiv");
-
-        underlinedCheck.setText("Unterstrichen");
+        italicCheck.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                italicCheckActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout DesignPanelLayout = new javax.swing.GroupLayout(DesignPanel);
         DesignPanel.setLayout(DesignPanelLayout);
@@ -898,9 +937,7 @@ public class Frame extends javax.swing.JFrame
                                         .addGap(18, 18, 18)
                                         .addComponent(boldCheck)
                                         .addGap(18, 18, 18)
-                                        .addComponent(italicCheck)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(underlinedCheck))
+                                        .addComponent(italicCheck))
                                     .addGroup(DesignPanelLayout.createSequentialGroup()
                                         .addComponent(backgroundColorLabel)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -928,7 +965,7 @@ public class Frame extends javax.swing.JFrame
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(colorBorderPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel19))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 147, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         DesignPanelLayout.setVerticalGroup(
@@ -1001,8 +1038,7 @@ public class Frame extends javax.swing.JFrame
                             .addComponent(fontSizeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(fontSizeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(boldCheck)
-                            .addComponent(italicCheck)
-                            .addComponent(underlinedCheck))
+                            .addComponent(italicCheck))
                         .addGap(67, 67, 67))
                     .addGroup(DesignPanelLayout.createSequentialGroup()
                         .addComponent(backgroundColorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1174,12 +1210,14 @@ public class Frame extends javax.swing.JFrame
 
     private void savePathBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_savePathBtnActionPerformed
     {//GEN-HEADEREND:event_savePathBtnActionPerformed
-        Application.addToQueue("savePathBtnActionPerformed", sourceTxt, backupTxt, destArea, sourceTodayTxt, sourceTomorrowTxt, customSourceCheck);
+        Application.addToQueue("savePathBtnActionPerformed", sourceTxt, backupTxt, destArea, sourceTodayTxt, sourceTomorrowTxt,
+                               customSourceCheck);
     }//GEN-LAST:event_savePathBtnActionPerformed
 
     private void addColorBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_addColorBtnActionPerformed
     {//GEN-HEADEREND:event_addColorBtnActionPerformed
-        Application.addToQueue("addColorBtnActionPerformed", jColorChooser1, colorNameTxt, colorPlanCombo, colorMotdCombo, colorTableCombo, colorBorderCombo);
+        Application.addToQueue("addColorBtnActionPerformed", jColorChooser1, colorNameTxt, colorPlanCombo, colorMotdCombo,
+                               colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo);
     }//GEN-LAST:event_addColorBtnActionPerformed
 
     private void colorPlanComboItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_colorPlanComboItemStateChanged
@@ -1262,6 +1300,10 @@ public class Frame extends javax.swing.JFrame
 
     private void typeToEditComboItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_typeToEditComboItemStateChanged
     {//GEN-HEADEREND:event_typeToEditComboItemStateChanged
+        Application.addToQueue("typeToEditComboItemStateChanged", typeToEditCombo, fontColorCombo, fontColorPanel,
+                               backgroundColorCombo, backgroundColorPanel, fontTypeTxt, fontSizeTxt, boldCheck,
+                               italicCheck, evt);
+
         backgroundColorLabel.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
         backgroundColorCombo.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
         backgroundColorPanel.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
@@ -1293,8 +1335,38 @@ public class Frame extends javax.swing.JFrame
     private void backgroundColorComboItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_backgroundColorComboItemStateChanged
     {//GEN-HEADEREND:event_backgroundColorComboItemStateChanged
         Application.addToQueue("backgroundColorComboItemStateChanged", backgroundColorPanel, backgroundColorCombo,
-                               typeToEditCombo, typeToEditCombo, evt);
+                               typeToEditCombo, evt);
     }//GEN-LAST:event_backgroundColorComboItemStateChanged
+
+    private void boldCheckActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_boldCheckActionPerformed
+    {//GEN-HEADEREND:event_boldCheckActionPerformed
+        Application.addToQueue("styleCheckActionPerformed", boldCheck, italicCheck, typeToEditCombo);
+    }//GEN-LAST:event_boldCheckActionPerformed
+
+    private void italicCheckActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_italicCheckActionPerformed
+    {//GEN-HEADEREND:event_italicCheckActionPerformed
+        Application.addToQueue("styleCheckActionPerformed", boldCheck, italicCheck, typeToEditCombo);
+    }//GEN-LAST:event_italicCheckActionPerformed
+
+    private void fontSizeTxtMouseExited(java.awt.event.MouseEvent evt)//GEN-FIRST:event_fontSizeTxtMouseExited
+    {//GEN-HEADEREND:event_fontSizeTxtMouseExited
+        Application.addToQueue("fontSizeTxtActionPerformed", fontSizeTxt, typeToEditCombo);
+    }//GEN-LAST:event_fontSizeTxtMouseExited
+
+    private void fontTypeTxtMouseExited(java.awt.event.MouseEvent evt)//GEN-FIRST:event_fontTypeTxtMouseExited
+    {//GEN-HEADEREND:event_fontTypeTxtMouseExited
+        Application.addToQueue("fontTypeTxtActionPerformed", fontTypeTxt, typeToEditCombo);
+    }//GEN-LAST:event_fontTypeTxtMouseExited
+
+    private void addTypeBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_addTypeBtnActionPerformed
+    {//GEN-HEADEREND:event_addTypeBtnActionPerformed
+        Application.addToQueue("addTypeBtnActionPerformed", typeToEditTxt, typeToEditCombo);
+    }//GEN-LAST:event_addTypeBtnActionPerformed
+
+    private void deleteTypeBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deleteTypeBtnActionPerformed
+    {//GEN-HEADEREND:event_deleteTypeBtnActionPerformed
+        Application.addToQueue("deleteTypeBtnActionPerformed", typeToEditTxt, typeToEditCombo);
+    }//GEN-LAST:event_deleteTypeBtnActionPerformed
 
     public JTextPane getStatusPane()
     {
@@ -1313,7 +1385,8 @@ public class Frame extends javax.swing.JFrame
                                dbNameTxt, dbUserTxt, dbPwTxt, dbTableNameTxt, hour1Txt, hour2Txt, hour3Txt,
                                hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt, sqlModeBtn,
                                autoBackupCheck, autoDeleteSourceCheck, useHoursCheck, customSourceCheck, sourceTodayTxt,
-                               sourceTomorrowTxt, colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo);
+                               sourceTomorrowTxt, colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo,
+                               fontTypeTxt, fontSizeTxt, boldCheck, italicCheck, typeToEditCombo);
 
         sourceTodayTxt.setEnabled(customSourceCheck.isSelected());
         sourceTomorrowTxt.setEnabled(customSourceCheck.isSelected());
@@ -1456,7 +1529,6 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JButton sqlSaveBtn;
     private javax.swing.JComboBox typeToEditCombo;
     private javax.swing.JTextField typeToEditTxt;
-    private javax.swing.JCheckBox underlinedCheck;
     private javax.swing.JCheckBox useHoursCheck;
     private javax.swing.JCheckBox useSQLCheck;
     // End of variables declaration//GEN-END:variables

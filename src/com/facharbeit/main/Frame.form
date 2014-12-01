@@ -852,8 +852,6 @@
                                               <Component id="boldCheck" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Component id="italicCheck" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="underlinedCheck" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" attributes="0">
                                               <Component id="backgroundColorLabel" min="-2" max="-2" attributes="0"/>
@@ -889,7 +887,7 @@
                                   </Group>
                                   <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="147" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -982,7 +980,6 @@
                                   <Component id="fontSizeTxt" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="boldCheck" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="italicCheck" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="underlinedCheck" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
                           </Group>
@@ -1189,12 +1186,11 @@
             <Component class="javax.swing.JComboBox" name="typeToEditCombo">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="5">
+                  <StringArray count="4">
                     <StringItem index="0" value="&#xdc;berschrift"/>
-                    <StringItem index="1" value="Klassenname"/>
+                    <StringItem index="1" value="Stufenname"/>
                     <StringItem index="2" value="Laufschrift"/>
                     <StringItem index="3" value="Tabelle"/>
-                    <StringItem index="4" value="Art: Raum-Vtr."/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -1211,11 +1207,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="hinzuf&#xfc;gen"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addTypeBtnActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="deleteTypeBtn">
               <Properties>
                 <Property name="text" type="java.lang.String" value="l&#xf6;schen"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteTypeBtnActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel19">
             </Component>
@@ -1265,6 +1267,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Schriftart"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="fontTypeTxtMouseExited"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="fontSizeLabel">
               <Properties>
@@ -1315,21 +1320,25 @@
               <AccessibilityProperties>
                 <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
               </AccessibilityProperties>
+              <Events>
+                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="fontSizeTxtMouseExited"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JCheckBox" name="boldCheck">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Fett"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="boldCheckActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JCheckBox" name="italicCheck">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Kursiv"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="underlinedCheck">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Unterstrichen"/>
-              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="italicCheckActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

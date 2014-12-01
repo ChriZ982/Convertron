@@ -6,6 +6,7 @@
 package com.facharbeit.io;
 
 import com.facharbeit.tools.*;
+import java.util.*;
 
 public class HtmlWriter
 {
@@ -19,13 +20,13 @@ public class HtmlWriter
             boolean show = false;
             for(Entry e : sc.getEntrys())
                 if(e.isNextEqual())
-                    show = isAfter(Integer.valueOf(Settings.load("cutLesson" + (e.getHour() + 1)).split(":")[0]),
-                                   Integer.valueOf(Settings.load("cutLesson" + (e.getHour() + 1)).split(":")[1]),
+                    show = isAfter(Integer.valueOf(Settings.load("lesson" + (e.getHour() + 1)).split(":")[0]),
+                                   Integer.valueOf(Settings.load("lesson" + (e.getHour() + 1)).split(":")[1]),
                                    Time.hour(),
                                    Time.minute());
                 else
-                    show = isAfter(Integer.valueOf(Settings.load("cutLesson" + e.getHour()).split(":")[0]),
-                                   Integer.valueOf(Settings.load("cutLesson" + e.getHour()).split(":")[1]),
+                    show = isAfter(Integer.valueOf(Settings.load("lesson" + e.getHour()).split(":")[0]),
+                                   Integer.valueOf(Settings.load("lesson" + e.getHour()).split(":")[1]),
                                    Time.hour(),
                                    Time.minute());
             Settings.logging(true);
@@ -65,24 +66,20 @@ public class HtmlWriter
                 {
                     Settings.logging(false);
                     if(e.isNextEqual())
-                        show = isAfter(Integer.valueOf(Settings.load("cutLesson" + (e.getHour() + 1)).split(":")[0]),
-                                       Integer.valueOf(Settings.load("cutLesson" + (e.getHour() + 1)).split(":")[1]),
+                        show = isAfter(Integer.valueOf(Settings.load("lesson" + (e.getHour() + 1)).split(":")[0]),
+                                       Integer.valueOf(Settings.load("lesson" + (e.getHour() + 1)).split(":")[1]),
                                        Time.hour(),
                                        Time.minute());
                     else
-                        show = isAfter(Integer.valueOf(Settings.load("cutLesson" + e.getHour()).split(":")[0]),
-                                       Integer.valueOf(Settings.load("cutLesson" + e.getHour()).split(":")[1]),
+                        show = isAfter(Integer.valueOf(Settings.load("lesson" + e.getHour()).split(":")[0]),
+                                       Integer.valueOf(Settings.load("lesson" + e.getHour()).split(":")[1]),
                                        Time.hour(),
                                        Time.minute());
                     Settings.logging(true);
 
                     if(show)
                     {
-                        if(e.getContent()[2].equals("Raum-Vtr."))
-                            s += "'            <tr class=\"one\">'+\n";
-                        else
-                            s += "'            <tr class=\"two\">'+\n";
-
+                        s += "'            <tr class=\"" + e.getContent()[2].replaceAll("\\.", "") + "\">'+\n";
                         if(e.isNextEqual())
                             s += "'                <td>" + e.getHour() + "-" + (e.getHour() + 1) + "</td>'+\n";
                         else
@@ -132,31 +129,48 @@ public class HtmlWriter
 
     public static void generateStyle()
     {
-        String datumtype = Settings.load("typeDatum");
-        String datumsize = Settings.load("sizeDatum");
-        String datumfamily = Settings.load("familyDatum");
-        String planfarbe = Settings.load(Settings.load("colorPlan"));
-        String schriftfarbe = Settings.load(Settings.load("colorMotd"));
-        String stufetype = Settings.load("typeStufe");
-        String stufesize = Settings.load("sizeStufe");
-        String stufefamily = Settings.load("familyStufe");
-        String tabelletype = Settings.load("typeTabelle");
-        String tabellesize = Settings.load("sizeTabelle");
-        String tabellefamily = Settings.load("familyTabelle");
-        String tabelleborder = Settings.load("borderTabelle");
-        String tabellefarbe = Settings.load(Settings.load("colorTable"));
-        String tabellevertrfarbe = Settings.load(Settings.load("colorTableVertr"));
-        String tabelleanderefarbe = Settings.load(Settings.load("colorTableOther"));
-        String schrifttype = Settings.load("typeMotd");
-        String schriftsize = Settings.load("sizeMotd");
-        String schriftfamily = Settings.load("familyMotd");
-        String framefarbe = Settings.load(Settings.load("colorFrame"));
+        String datum1 = Settings.load("überschriftFontStyle") + " " + Settings.load("überschriftFontSize") + "px " + Settings.load("überschriftFontFamily");
+        String datum2 = Settings.load("color" + Settings.load("überschriftFontColor"));
+        String stufe1 = Settings.load("stufennameFontStyle") + " " + Settings.load("stufennameFontSize") + "px " + Settings.load("stufennameFontFamily");
+        String stufe2 = Settings.load("color" + Settings.load("stufennameFontColor"));
+        String tabelle1 = Settings.load("tabelleFontStyle") + " " + Settings.load("tabelleFontSize") + "px " + Settings.load("tabelleFontFamily");
+        String tabelle2 = Settings.load("color" + Settings.load("tabelleFontColor"));
+        String schrift1 = Settings.load("laufschriftFontStyle") + " " + Settings.load("laufschriftFontSize") + "px " + Settings.load("laufschriftFontFamily");
+        String schrift2 = Settings.load("color" + Settings.load("laufschriftFontColor"));
+        String plan = Settings.load("color" + Settings.load("planColor"));
+        String schrift = Settings.load("color" + Settings.load("motdColor"));
+        String tabelle = Settings.load("color" + Settings.load("tableColor"));
+        String frame = Settings.load("color" + Settings.load("borderColor"));
 
-        if(datumtype.equals("") || datumsize.equals("") || datumfamily.equals("") || planfarbe.equals("")
-           || schriftfarbe.equals("") || stufetype.equals("") || stufesize.equals("") || stufefamily.equals("")
-           || tabelletype.equals("") || tabellesize.equals("") || tabellefamily.equals("") || tabelleborder.equals("")
-           || tabellefarbe.equals("") || tabellevertrfarbe.equals("") || tabelleanderefarbe.equals("") || schrifttype.equals("")
-           || schriftsize.equals("") || schriftfamily.equals("") || framefarbe.equals(""))
+        String[] setting = Settings.loadNames("art");
+        ArrayList<String> variants = new ArrayList<String>();
+        for(String s : setting)
+            if(s.contains("FontColor"))
+                variants.add(s.substring(0, s.indexOf("FontColor")));
+
+        String other = "";
+        for(String s : variants)
+        {
+            other += "\n.stufeTab ." + s.substring(3)
+                     + "{"
+                     + "  font: " + Settings.load(s + "FontStyle") + " " + Settings.load(s + "FontSize") + "px " + Settings.load(s + "FontFamily") + ";"
+                     + "  color: " + Settings.load("color" + Settings.load(s + "FontColor")) + ";"
+                     + "  background-color: " + Settings.load("color" + Settings.load(s + "BackColor")) + ";"
+                     + "}";
+
+            if(Settings.load(s + "FontSize").equals("") || Settings.load(s + "FontFamily").equals("")
+               || Settings.load("color" + Settings.load(s + "FontColor")).equals("")
+               || Settings.load("color" + Settings.load(s + "BackColor")).equals(""))
+            {
+                Logger.log("Eine Einstellung wurde noch nicht gemacht - Style kann nicht generiert werden!", 2);
+                return;
+            }
+        }
+
+        if(datum1.equals("") || datum2.equals("") || stufe1.equals("") || stufe2.equals("")
+           || tabelle1.equals("") || tabelle2.equals("") || schrift1.equals("") || schrift2.equals("")
+           || plan.equals("") || schrift.equals("") || tabelle.equals("") || frame.equals("")
+           || other.equals(""))
         {
             Logger.log("Eine Einstellung wurde noch nicht gemacht - Style kann nicht generiert werden!", 2);
             return;
@@ -168,29 +182,21 @@ public class HtmlWriter
         String[] file = reader.readAll();
         for(int i = 0; i < file.length; i++)
         {
-            file[i] = file[i].replaceAll("DATUMTYPE", datumtype);
-            file[i] = file[i].replaceAll("DATUMSIZE", datumsize);
-            file[i] = file[i].replaceAll("DATUMFAMILY", datumfamily);
-            file[i] = file[i].replaceAll("PLANFARBE", planfarbe);
-            file[i] = file[i].replaceAll("SCHRIFTFARBE", schriftfarbe);
-            file[i] = file[i].replaceAll("STUFETYPE", stufetype);
-            file[i] = file[i].replaceAll("STUFESIZE", stufesize);
-            file[i] = file[i].replaceAll("STUFEFAMILY", stufefamily);
-            file[i] = file[i].replaceAll("TABELLETYPE", tabelletype);
-            file[i] = file[i].replaceAll("TABELLESIZE", tabellesize);
-            file[i] = file[i].replaceAll("TABELLEFAMILY", tabellefamily);
-            file[i] = file[i].replaceAll("TABELLEBORDER", tabelleborder);
-            file[i] = file[i].replaceAll("TABELLEFARBE", tabellefarbe);
-            file[i] = file[i].replaceAll("TABELLEVERTRFARBE", tabellevertrfarbe);
-            file[i] = file[i].replaceAll("TABELLEANDEREFARBE", tabelleanderefarbe);
-            file[i] = file[i].replaceAll("SCHRIFTTYPE", schrifttype);
-            file[i] = file[i].replaceAll("SCHRIFTSIZE", schriftsize);
-            file[i] = file[i].replaceAll("SCHRIFTFAMILY", schriftfamily);
-            file[i] = file[i].replaceAll("FRAMEFARBE", framefarbe);
+            file[i] = file[i].replaceAll("DATUM1", datum1);
+            file[i] = file[i].replaceAll("DATUM2", datum2);
+            file[i] = file[i].replaceAll("STUFE1", stufe1);
+            file[i] = file[i].replaceAll("STUFE2", stufe2);
+            file[i] = file[i].replaceAll("TABELLE1", tabelle1);
+            file[i] = file[i].replaceAll("TABELLE2", tabelle2);
+            file[i] = file[i].replaceAll("SCHRIFT1", schrift1);
+            file[i] = file[i].replaceAll("SCHRIFT2", schrift2);
+            file[i] = file[i].replaceAll("PLAN", plan);
+            file[i] = file[i].replaceAll("SCHRIFT", schrift);
+            file[i] = file[i].replaceAll("TABELLE", tabelle);
+            file[i] = file[i].replaceAll("FRAME", frame);
+            file[i] = file[i].replaceAll("OTHER", other);
         }
         writer.writeAll(file);
-
-        Logger.log("Style wurde generiert", 0);
     }
 
     public static void generatePlanToday(SchoolClass[] schoolClasses, int start, int end)
