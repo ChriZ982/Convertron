@@ -152,11 +152,11 @@ public class HtmlWriter
         for(String s : variants)
         {
             other += "\n.stufeTab ." + s.substring(3)
-                     + "{"
-                     + "  font: " + Settings.load(s + "FontStyle") + " " + Settings.load(s + "FontSize") + "px " + Settings.load(s + "FontFamily") + ";"
-                     + "  color: " + Settings.load("color" + Settings.load(s + "FontColor")) + ";"
-                     + "  background-color: " + Settings.load("color" + Settings.load(s + "BackColor")) + ";"
-                     + "}";
+                     + "\n{"
+                     + "\n  font: " + Settings.load(s + "FontStyle") + " " + Settings.load(s + "FontSize") + "px " + Settings.load(s + "FontFamily") + ";"
+                     + "\n  color: " + Settings.load("color" + Settings.load(s + "FontColor")) + ";"
+                     + "\n  background-color: " + Settings.load("color" + Settings.load(s + "BackColor")) + ";"
+                     + "\n}";
 
             if(Settings.load(s + "FontSize").equals("") || Settings.load(s + "FontFamily").equals("")
                || Settings.load("color" + Settings.load(s + "FontColor")).equals("")

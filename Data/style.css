@@ -33,7 +33,12 @@
     background-color: #e7e7e7;
 }
 
-.stufeTab .Raum-Vtr{  font:  16px calibri;  color: #000000;  background-color: #d1d1d1;}
+.stufeTab .Raum-Vtr
+{
+  font:  16px calibri;
+  color: #000000;
+  background-color: #d1d1d1;
+}
 
 .stufeTab tr td
 {
