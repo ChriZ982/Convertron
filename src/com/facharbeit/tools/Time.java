@@ -52,4 +52,18 @@ public class Time
         instance();
         return c.get(Calendar.MINUTE);
     }
+
+    public static boolean isAfter(int afterHour, int afterMinute, int beforeHour, int beforeMinute)
+    {
+        boolean b = false;
+
+        if(beforeHour == afterHour)
+            if(beforeMinute <= afterMinute)
+                b = true;
+
+        if(beforeHour < afterHour)
+            b = true;
+
+        return b;
+    }
 }
