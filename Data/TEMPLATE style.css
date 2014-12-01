@@ -1,44 +1,39 @@
 .datum
 {
-    font: DATUMTYPE DATUMSIZEpx DATUMFAMILY;
+    font: DATUM1;
+    color: DATUM2;
     text-align: center;
     width: 100%;
 }
 
 .body1
 {
-    background-color: PLANFARBE;
+    background-color: PLAN;
 }
 
 .body2
 {
-    background-color: SCHRIFTFARBE;
+    background-color: SCHRIFT;
 }
 
 .stufe
 {
-    font: STUFETYPE STUFESIZEpx STUFEFAMILY;
+    font: STUFE1;
+    color: STUFE2;
 }
 
 .stufeTab
 {
-    font: TABELLETYPE TABELLESIZEpx TABELLEFAMILY;
+    font: TABELLE1;
+    color: TABELLE2;
     width: 99.5%;
     border-width: 3px;
     border-style: groove;
-    border-color: TABELLEBORDER;
-    background-color: TABELLEFARBE;
+    border-color: #474747;
+    background-color: TABELLE;
 }
 
-.stufeTab .one
-{
-    background-color: TABELLEVERTRFARBE;
-}
-
-.stufeTab .two
-{
-    background-color: TABELLEANDEREFARBE;
-}
+OTHER
 
 .stufeTab tr td
 {
@@ -47,7 +42,8 @@
 
 .laufschrift
 {
-    font: SCHRIFTTYPE SCHRIFTSIZEpx SCHRIFTFAMILY;
+    font: SCHRIFT1;
+    color: SCHRIFT2;
     width: 100%;
     vertical-align: top;
     padding-left: 50px;
@@ -56,5 +52,5 @@
 .frames frame
 {
     border-style: groove;
-    border-color: FRAMEFARBE;
+    border-color: FRAME;
 }
