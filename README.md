@@ -9,10 +9,7 @@ Facharbeit 2014
 * Automatisches Generieren
 * Automatisches Backup
 * Automatisches Quellen löschen
-* Daten (Pfade) für heute und morgen manuell festlegen
-* Alle Schriftarten und Größen konfigurierbar
-* Raumänderungen und Vertretungen andere Farben
-* Anwendung in Tray integrieren
-* Tabs: Allgemeines/Einstellungen/Pfade/Farben/Ausblendungen/SQL
+* Generierung in SchoolClass auslagern
+* Ressourcen speichern
 * Aufräumen
 * Dokumentation
