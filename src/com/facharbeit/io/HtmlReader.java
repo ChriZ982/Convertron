@@ -24,18 +24,18 @@ public class HtmlReader
 
     public static SchoolClass[] readInToday()
     {
-        if(Settings.load("useSQL").equals("true"))
+        if(Settings.load("sqlUse").equals("true"))
             return readInSql();
         else
-            return readInHtml(Settings.load("sourcePath") + "/heute");
+            return readInHtml(Settings.load("pathSource") + "/heute");
     }
 
     public static SchoolClass[] readInTomorrow()
     {
-        if(Settings.load("useSQL").equals("true"))
+        if(Settings.load("sqlUse").equals("true"))
             return readInSql();
         else
-            return readInHtml(Settings.load("sourcePath") + "/morgen");
+            return readInHtml(Settings.load("pathSource") + "/morgen");
     }
 
     private static SchoolClass[] readInHtml(String path)
@@ -176,7 +176,7 @@ public class HtmlReader
 
     public static String readHeadToday()
     {
-        String path = (Settings.load("sourcePath") + "/heute");
+        String path = (Settings.load("pathSource") + "/heute");
 
         final String beforeHead = "</TABLE><BR><font size=\"5\" face=\"Arial\">\n<B>";
 
@@ -194,7 +194,7 @@ public class HtmlReader
 
     public static String readHeadTomorrow()
     {
-        String path = (Settings.load("sourcePath") + "/morgen");
+        String path = (Settings.load("pathSource") + "/morgen");
 
         final String beforeHead = "</TABLE><BR><font size=\"5\" face=\"Arial\">\n<B>";
 

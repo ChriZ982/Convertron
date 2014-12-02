@@ -2034,8 +2034,8 @@ index 0000000..f83272f
 +    @SuppressWarnings("empty-statement")
 +    public static void savePathBtnActionPerformed(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea, ActionEvent evt)
 +    {
-+        saveIfNotNull(sourceTxt, "sourcePath");
-+        saveIfNotNull(backupTxt, "backupPath");
++        saveIfNotNull(sourceTxt, "pathSource");
++        saveIfNotNull(backupTxt, "pathBackup");
 +
 +        ArrayList<String> destPaths = new ArrayList<String>();
 +        destPaths.addAll(Arrays.asList(destArea.getText().split("\n")));
@@ -2096,8 +2096,8 @@ index 0000000..f83272f
 +
 +    public static void loadSettings(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea, JTextField speedPlanTxt, JTextField speedMotdTxt, JComboBox colorPlanCombo, JComboBox colorMotdCombo)
 +    {
-+        load(sourceTxt, "sourcePath");
-+        load(backupTxt, "backupPath");
++        load(sourceTxt, "pathSource");
++        load(backupTxt, "pathBackup");
 +
 +        String name = "destPath1";
 +        if(Settings.getLineOf(name) == -1)
@@ -4117,8 +4117,8 @@ index 0000000..1394de2
 +
 +    public void loadSettings()
 +    {
-+        load(sourceTxt, "sourcePath");
-+        load(backupTxt, "backupPath");
++        load(sourceTxt, "pathSource");
++        load(backupTxt, "pathBackup");
 +
 +        String name = "destPath1";
 +        if(Settings.getLineOf(name) == -1)
@@ -4248,12 +4248,12 @@ index 0000000..6021dd5
 +
 +    public static SchoolClass[] readInToday()
 +    {
-+        return readInPath(Settings.load("sourcePath") + "/heute");
++        return readInPath(Settings.load("pathSource") + "/heute");
 +    }
 +
 +    public static SchoolClass[] readInTomorrow()
 +    {
-+        return readInPath(Settings.load("sourcePath") + "/morgen");
++        return readInPath(Settings.load("pathSource") + "/morgen");
 +    }
 +
 +    private static SchoolClass[] readInPath(String path)
