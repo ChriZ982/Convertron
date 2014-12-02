@@ -568,9 +568,9 @@ public class Frame extends javax.swing.JFrame
         jLabel10.setText("Heute");
         jLabel10.setEnabled(false);
 
-        sourceTodayTxt.setEditable(false);
+        sourceTodayTxt.setEnabled(false);
 
-        sourceTomorrowTxt.setEditable(false);
+        sourceTomorrowTxt.setEnabled(false);
 
         jLabel22.setText("Morgen");
         jLabel22.setEnabled(false);

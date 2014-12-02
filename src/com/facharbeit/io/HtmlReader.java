@@ -175,7 +175,11 @@ public class HtmlReader
 
     public static String readHeadToday()
     {
-        String path = (Settings.load("pathSource") + "/heute");
+        String path;
+        if(Settings.load("sourceCustom").equals("true"))
+            path = (Settings.load("pathSource") + "/" + Settings.load("sourceTodayPath"));
+        else
+            path = findPath(true);
 
         final String beforeHead = "</TABLE><BR><font size=\"5\" face=\"Arial\">\n<B>";
 
@@ -192,7 +196,11 @@ public class HtmlReader
 
     public static String readHeadTomorrow()
     {
-        String path = (Settings.load("pathSource") + "/morgen");
+        String path;
+        if(Settings.load("sourceCustom").equals("true"))
+            path = (Settings.load("pathSource") + "/" + Settings.load("sourceTodayPath"));
+        else
+            path = findPath(true);
 
         final String beforeHead = "</TABLE><BR><font size=\"5\" face=\"Arial\">\n<B>";
 
@@ -205,5 +213,10 @@ public class HtmlReader
         fileAsString = fileAsString.substring(0, fileAsString.indexOf("</B>"));
 
         return fileAsString;
+    }
+
+    private static String findPath(boolean today)
+    {
+        return Time.forHtmlReading(today);
     }
 }
