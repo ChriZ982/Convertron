@@ -78,7 +78,7 @@ public class Application
                 InputStream is = getClass().getResourceAsStream("/com/facharbeit/ressources/stdData/" + name);
                 os = new FileOutputStream(new File(".\\Data\\" + name));
 
-                for(int read = 0; (read = is.read()) != -1;)
+                for(int read; (read = is.read()) != -1;)
                     os.write(read);
 
                 os.flush();

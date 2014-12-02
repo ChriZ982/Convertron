@@ -8,12 +8,6 @@ import java.io.*;
  */
 public class FileReader
 {
-    /**
-     * Name der Datei.
-     */
-//    private String filename;
-//    private String path;
-
     private File file;
 
     /**
@@ -24,8 +18,6 @@ public class FileReader
      */
     public FileReader(String pPath, String pFilename)
     {
-//        filename = pFilename;
-//        path = pPath;
         file = new File(pPath + pFilename);
     }
 
@@ -45,7 +37,7 @@ public class FileReader
     {
         try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file))))
         {
-            for(int i = 0; i < line; i++) //Läuft Zeilen durch bis die gewünschte Zeile erreicht ist.
+            for(int i = 0; i < line; i++)
                 reader.readLine();
 
             return reader.readLine();
@@ -90,10 +82,10 @@ public class FileReader
     public String toString()
     {
         String data = "";
-        String[] file = readAll();
+        String[] newFile = readAll();
 
-        for(int i = 0; i < file.length - 1; i++)
-            data += "\n" + file[i];
+        for(int i = 0; i < newFile.length - 1; i++)
+            data += "\n" + newFile[i];
 
         return data;
     }

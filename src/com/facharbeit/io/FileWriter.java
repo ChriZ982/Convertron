@@ -10,12 +10,6 @@ import java.io.*;
  */
 public class FileWriter
 {
-
-    /**
-     * Name der Datei.
-     */
-//    private String filename;
-//    private String path;
     File file;
 
     /**
