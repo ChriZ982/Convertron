@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.nio.file.*;
+import java.nio.file.attribute.*;
 import java.util.*;
 import javax.swing.*;
 
@@ -17,32 +18,52 @@ public class QueueableMethods
         HtmlWriter.generatePlanToday(HtmlReader.sortArray(HtmlReader.readInToday()), 50, 65);
         HtmlWriter.generatePlanTomorrow(HtmlReader.sortArray(HtmlReader.readInTomorrow()), 65, 80);
         HtmlWriter.generateModt(80, 95);
+        HtmlWriter.generateStyle();
         backupToDestPaths();
         Logger.setProgress(100);
+        if(Settings.load("autoBackup").equals("true"))
+            createBackupBtnActionPerformed();
+        if(Settings.load("autoDeleteSources").equals("true"))
+            deleteSourceBtnActionPerformed();
         Logger.setProgress(0);
     }
 
     public static void genTodayBtnActionPerformed()
     {
         HtmlWriter.generatePlanToday(HtmlReader.sortArray(HtmlReader.readInToday()), 50, 95);
+        HtmlWriter.generateStyle();
         backupToDestPaths();
         Logger.setProgress(100);
+        if(Settings.load("autoBackup").equals("true"))
+            createBackupBtnActionPerformed();
+        if(Settings.load("autoDeleteSources").equals("true"))
+            deleteSourceBtnActionPerformed();
         Logger.setProgress(0);
     }
 
     public static void genTomorrowBtnActionPerformed()
     {
         HtmlWriter.generatePlanTomorrow(HtmlReader.sortArray(HtmlReader.readInTomorrow()), 50, 95);
+        HtmlWriter.generateStyle();
         backupToDestPaths();
         Logger.setProgress(100);
+        if(Settings.load("autoBackup").equals("true"))
+            createBackupBtnActionPerformed();
+        if(Settings.load("autoDeleteSources").equals("true"))
+            deleteSourceBtnActionPerformed();
         Logger.setProgress(0);
     }
 
     public static void genMotdBtnActionPerformed(JTextField motdTxt)
     {
         Settings.save("motdText", motdTxt.getText());
-
         HtmlWriter.generateModt(0, 100);
+        HtmlWriter.generateStyle();
+        backupToDestPaths();
+        if(Settings.load("autoBackup").equals("true"))
+            createBackupBtnActionPerformed();
+        if(Settings.load("autoDeleteSources").equals("true"))
+            deleteSourceBtnActionPerformed();
         Logger.setProgress(0);
     }
 
@@ -55,7 +76,37 @@ public class QueueableMethods
 
     public static void deleteSourceBtnActionPerformed()
     {
-        //TODO
+        try
+        {
+            Files.walkFileTree(Paths.get(Settings.load("pathSource") + "\\"), new SimpleFileVisitor<Path>()
+                       {
+                           @Override
+                           public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
+                                   throws IOException
+                           {
+                               Files.delete(file);
+                               return FileVisitResult.CONTINUE;
+                           }
+
+                           @Override
+                           public FileVisitResult postVisitDirectory(Path dir, IOException e)
+                                   throws IOException
+                           {
+                               if(e == null)
+                               {
+                                   Files.delete(dir);
+                                   return FileVisitResult.CONTINUE;
+                               } else
+                                   // directory iteration failed
+                                   throw e;
+                           }
+            });
+        } catch(IOException ex)
+        {
+            Logger.log("Quellpläne konnten nicht gelöscht werden!", 2);
+            return;
+        }
+        Logger.log("Quellpläne wurden gelöscht", 0);
     }
 
     // Einstellungen
@@ -85,6 +136,7 @@ public class QueueableMethods
     }
 
     // Pfade
+    @SuppressWarnings("empty-statement")
     public static void savePathBtnActionPerformed(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea,
                                                   JTextField sourceTodayTxt, JTextField sourceTomorrowTxt,
                                                   JCheckBox customSourceCheck)
@@ -123,8 +175,6 @@ public class QueueableMethods
             colorTableCombo.setSelectedItem(Settings.load("tableColor"));
             colorBorderCombo.setSelectedItem(Settings.load("borderColor"));
         }
-
-        HtmlWriter.generateStyle();
     }
 
     public static void deleteColorBtnActionPerformed(JTextField colorNameTxt, JComboBox colorPlanCombo, JComboBox colorMotdCombo,
@@ -138,8 +188,6 @@ public class QueueableMethods
         colorMotdCombo.setSelectedItem(Settings.load("motdColor"));
         colorTableCombo.setSelectedItem(Settings.load("tableColor"));
         colorBorderCombo.setSelectedItem(Settings.load("borderColor"));
-
-        HtmlWriter.generateStyle();
     }
 
     public static void colorPlanComboItemStateChanged(JPanel colorPlanPanel, JComboBox colorPlanCombo, ItemEvent evt)
@@ -151,8 +199,6 @@ public class QueueableMethods
             if(!Settings.load("planColor").equals(colorPlanCombo.getSelectedItem().toString()))
                 Settings.save("planColor", colorPlanCombo.getSelectedItem().toString());
         }
-
-        HtmlWriter.generateStyle();
     }
 
     public static void colorMotdComboItemStateChanged(JPanel colorMotdPanel, JComboBox colorMotdCombo, ItemEvent evt)
@@ -164,8 +210,6 @@ public class QueueableMethods
             if(!Settings.load("motdColor").equals(colorMotdCombo.getSelectedItem().toString()))
                 Settings.save("motdColor", colorMotdCombo.getSelectedItem().toString());
         }
-
-        HtmlWriter.generateStyle();
     }
 
     public static void colorTableComboItemStateChanged(JPanel colorTablePanel, JComboBox colorTableCombo, ItemEvent evt)
@@ -177,8 +221,6 @@ public class QueueableMethods
             if(!Settings.load("tableColor").equals(colorTableCombo.getSelectedItem().toString()))
                 Settings.save("tableColor", colorTableCombo.getSelectedItem().toString());
         }
-
-        HtmlWriter.generateStyle();
     }
 
     public static void colorBorderComboItemStateChanged(JPanel colorBorderPanel, JComboBox colorBorderCombo, ItemEvent evt)
@@ -190,8 +232,6 @@ public class QueueableMethods
             if(!Settings.load("borderColor").equals(colorBorderCombo.getSelectedItem().toString()))
                 Settings.save("borderColor", colorBorderCombo.getSelectedItem().toString());
         }
-
-        HtmlWriter.generateStyle();
     }
 
     public static void typeToEditComboItemStateChanged(JComboBox typeToEditCombo, JComboBox fontColorCombo,
@@ -243,8 +283,6 @@ public class QueueableMethods
             else if(Settings.getLineOf(Character.toLowerCase(s.charAt(0)) + s.substring(1)) == -1)
                 Settings.save(Character.toLowerCase(s.charAt(0)) + s.substring(1), "");
         }
-
-        HtmlWriter.generateStyle();
     }
 
     public static void fontColorComboItemStateChanged(JPanel fontColorPanel, JComboBox fontColorCombo, JComboBox typeToEditCombo, ItemEvent evt)
@@ -261,8 +299,6 @@ public class QueueableMethods
             if(!Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)).equals(fontColorCombo.getSelectedItem().toString()))
                 Settings.save(Character.toLowerCase(s.charAt(0)) + s.substring(1), fontColorCombo.getSelectedItem().toString());
         }
-
-        HtmlWriter.generateStyle();
     }
 
     public static void backgroundColorComboItemStateChanged(JPanel backgroundColorPanel, JComboBox backgroundColorCombo, JComboBox typeToEditCombo, ItemEvent evt)
@@ -279,8 +315,6 @@ public class QueueableMethods
             if(!Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)).equals(backgroundColorCombo.getSelectedItem().toString()))
                 Settings.save(Character.toLowerCase(s.charAt(0)) + s.substring(1), backgroundColorCombo.getSelectedItem().toString());
         }
-
-        HtmlWriter.generateStyle();
     }
 
     public static void fontTypeTxtActionPerformed(JTextField fontTypeTxt, JComboBox typeToEditCombo)
@@ -293,8 +327,6 @@ public class QueueableMethods
 
         if(!Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)).equals(fontTypeTxt.getText()))
             Settings.save(Character.toLowerCase(s.charAt(0)) + s.substring(1), fontTypeTxt.getText());
-
-        HtmlWriter.generateStyle();
     }
 
     public static void fontSizeTxtActionPerformed(JTextField fontSizeTxt, JComboBox typeToEditCombo)
@@ -307,8 +339,6 @@ public class QueueableMethods
 
         if(!Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)).equals(fontSizeTxt.getText()))
             Settings.save(Character.toLowerCase(s.charAt(0)) + s.substring(1), fontSizeTxt.getText());
-
-        HtmlWriter.generateStyle();
     }
 
     public static void styleCheckActionPerformed(JCheckBox boldCheck, JCheckBox italicCheck, JComboBox typeToEditCombo)
@@ -333,8 +363,6 @@ public class QueueableMethods
             boldCheck.setSelected(false);
             italicCheck.setSelected(false);
         }
-
-        HtmlWriter.generateStyle();
     }
 
     public static void addTypeBtnActionPerformed(JTextField typeToEditTxt, JComboBox typeToEditCombo)
@@ -349,6 +377,11 @@ public class QueueableMethods
         String[] setting = Settings.loadNames("art" + typeToEditTxt.getText());
         for(String s : setting)
             Settings.delete(s);
+    }
+
+    public static void saveDesignBtnActionPerformed()
+    {
+        HtmlWriter.generateStyle();
     }
 
     // SQL

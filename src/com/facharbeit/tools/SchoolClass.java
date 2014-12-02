@@ -94,13 +94,13 @@ public class SchoolClass
         for(Entry e : entrys)
         {
             if(e.isNextEqual())
-                show = Time.isAfter(Integer.valueOf(Settings.load("cutLesson" + (e.getHour() + 1)).split(":")[0]),
-                                    Integer.valueOf(Settings.load("cutLesson" + (e.getHour() + 1)).split(":")[1]),
+                show = Time.isAfter(Integer.valueOf(Settings.load("lesson" + (e.getHour() + 1)).split(":")[0]),
+                                    Integer.valueOf(Settings.load("lesson" + (e.getHour() + 1)).split(":")[1]),
                                     Time.hour(),
                                     Time.minute());
             else
-                show = Time.isAfter(Integer.valueOf(Settings.load("cutLesson" + e.getHour()).split(":")[0]),
-                                    Integer.valueOf(Settings.load("cutLesson" + e.getHour()).split(":")[1]),
+                show = Time.isAfter(Integer.valueOf(Settings.load("lesson" + e.getHour()).split(":")[0]),
+                                    Integer.valueOf(Settings.load("lesson" + e.getHour()).split(":")[1]),
                                     Time.hour(),
                                     Time.minute());
             if(!show)
@@ -119,7 +119,8 @@ public class SchoolClass
                  + "''+\n"
                  + "'        <table class=\"stufeTab\" rules=\"all\">'+\n"
                  + "'            <colgroup>'+\n"
-                 + "'                <col width=\"" + 7 + "%\">'+\n";
+                 + "'                <col width=\"" + 7 + "%\">'+\n"
+                 + "'                <col width=\"" + 6 + "%\">'+\n";
 
             for(String cc : contentColumms)
             {
@@ -156,13 +157,14 @@ public class SchoolClass
                  + "'            <tr >'+\n"
                  + "'                <td rowspan=\"" + (entrys.size() + 1) + "\" valign=\"top\"><div class=\"stufe\">" + name + "</div></td>'+\n";
 
+            s += "'                <td>Std</td>'+\n";
             for(String cc : contentColumms)
                 s += "'                <td>" + cc + "</td>'+\n";
 
             s += "'            </tr>'+\n";
 
             for(Entry e : entrys)
-                s += e.toString("type" + e.getContent()[getIndexOfStringInArray(contentColumms, "Art")]);
+                s += e.toString(e.getContent()[getIndexOfStringInArray(contentColumms, "Art")].replaceAll("\\.", ""));
 
             s += "'        </table>'+";
         }

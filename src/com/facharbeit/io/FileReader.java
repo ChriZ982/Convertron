@@ -15,12 +15,6 @@ public class FileReader
 //    private String path;
 
     private File file;
-    private String charset = "UTF-8";
-
-    public void setCharset(String charset)
-    {
-        this.charset = charset;
-    }
 
     /**
      * Erstellt einen neuen Reader.
@@ -49,7 +43,7 @@ public class FileReader
      */
     public String read(int line)
     {
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charset)))
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file))))
         {
             for(int i = 0; i < line; i++) //Läuft Zeilen durch bis die gewünschte Zeile erreicht ist.
                 reader.readLine();
@@ -72,7 +66,7 @@ public class FileReader
         int length = getLines();
         String[] data = new String[length];
 
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charset)))
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file))))
         {
             for(int i = 0; i < length; i++)
                 data[i] = reader.readLine();
@@ -130,7 +124,7 @@ public class FileReader
      */
     public boolean exists()
     {
-        return file.exists();
+        return file.isFile() && file.exists();
     }
 
     /**
@@ -140,7 +134,7 @@ public class FileReader
      */
     public int getLines()
     {
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charset)))
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file))))
         {
             int lines = 0;
             while(reader.readLine() != null)

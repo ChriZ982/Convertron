@@ -60,7 +60,6 @@ public class HtmlReader
                 outcome[i].setEntrys(new ArrayList<Entry>());
 
             FileReader read = new FileReader(files.get(i));
-            read.setCharset("ISO-8859-1");
             String fileAsString = read.toString();
             fileAsString = fileAsString.substring(fileAsString.indexOf("<TABLE border=\"3\" rules=\"all\" bgcolor=\"#E7E7E7\" cellpadding=\"1\" cellspacing=\"1\">"));
             fileAsString = fileAsString.substring(0, fileAsString.indexOf("<TABLE cellspacing=\"1\" cellpadding=\"1\">") - 13);
@@ -183,7 +182,6 @@ public class HtmlReader
         File theFile = getFiles(path).get(0);
 
         FileReader read = new FileReader(theFile);
-        read.setCharset("ISO-8859-1");
         String fileAsString = read.toString();
 
         fileAsString = fileAsString.substring(fileAsString.indexOf(beforeHead) + beforeHead.length());
@@ -201,7 +199,6 @@ public class HtmlReader
         File theFile = getFiles(path).get(0);
 
         FileReader read = new FileReader(theFile);
-        read.setCharset("ISO-8859-1");
         String fileAsString = read.toString();
 
         fileAsString = fileAsString.substring(fileAsString.indexOf(beforeHead) + beforeHead.length());

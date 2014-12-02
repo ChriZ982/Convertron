@@ -142,6 +142,7 @@ public class Frame extends javax.swing.JFrame
         fontSizeTxt = new javax.swing.JTextField();
         boldCheck = new javax.swing.JCheckBox();
         italicCheck = new javax.swing.JCheckBox();
+        saveDesignBtn = new javax.swing.JButton();
         SQLPanel = new javax.swing.JPanel();
         useSQLCheck = new javax.swing.JCheckBox();
         sqlModeBtn = new javax.swing.JButton();
@@ -501,7 +502,7 @@ public class Frame extends javax.swing.JFrame
                             .addComponent(jLabel7)
                             .addComponent(jLabel21)))
                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(settingsSaveBtn)
                 .addContainerGap())
         );
@@ -642,7 +643,7 @@ public class Frame extends javax.swing.JFrame
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
                     .addComponent(selectDestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                 .addComponent(savePathBtn)
                 .addContainerGap())
         );
@@ -882,6 +883,8 @@ public class Frame extends javax.swing.JFrame
             }
         });
 
+        saveDesignBtn.setText("speichern");
+
         javax.swing.GroupLayout DesignPanelLayout = new javax.swing.GroupLayout(DesignPanel);
         DesignPanel.setLayout(DesignPanelLayout);
         DesignPanelLayout.setHorizontalGroup(
@@ -965,7 +968,8 @@ public class Frame extends javax.swing.JFrame
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(colorBorderPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel19))
-                        .addGap(0, 147, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(saveDesignBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         DesignPanelLayout.setVerticalGroup(
@@ -1039,10 +1043,12 @@ public class Frame extends javax.swing.JFrame
                             .addComponent(fontSizeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(boldCheck)
                             .addComponent(italicCheck))
-                        .addGap(67, 67, 67))
+                        .addGap(27, 27, 27))
                     .addGroup(DesignPanelLayout.createSequentialGroup()
                         .addComponent(backgroundColorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(saveDesignBtn)
+                .addGap(28, 28, 28))
         );
 
         fontSizeTxt.getAccessibleContext().setAccessibleName("");
@@ -1165,7 +1171,7 @@ public class Frame extends javax.swing.JFrame
                 .addGroup(SQLPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sqlModeBtn)
                     .addComponent(sqlModeLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
                 .addComponent(sqlSaveBtn)
                 .addContainerGap())
         );
@@ -1514,6 +1520,7 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JTextPane log;
     private javax.swing.JTextField motdTxt;
     private javax.swing.JProgressBar progBar;
+    private javax.swing.JButton saveDesignBtn;
     private javax.swing.JButton savePathBtn;
     private javax.swing.JButton selectBackupBtn;
     private javax.swing.JButton selectDestBtn;
