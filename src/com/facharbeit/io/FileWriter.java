@@ -10,12 +10,6 @@ import java.io.*;
  */
 public class FileWriter
 {
-
-    /**
-     * Name der Datei.
-     */
-//    private String filename;
-//    private String path;
     File file;
 
     /**
@@ -110,10 +104,8 @@ public class FileWriter
      */
     public void create()
     {
-        File thisFile = new File(file.getPath());
-
+        File thisFile = new File(file.getParent());
         thisFile.mkdirs();
-
         try
         {
             if(file.createNewFile())

@@ -56,10 +56,8 @@ public class Frame extends javax.swing.JFrame
         SettingsPanel = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         speedPlanTxt = new javax.swing.JTextField();
-        setSpeedPlanBtn = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         speedMotdTxt = new javax.swing.JTextField();
-        setSpeedMotdBtn = new javax.swing.JButton();
         autoBackupCheck = new javax.swing.JCheckBox();
         autoDeleteSourceCheck = new javax.swing.JCheckBox();
         jLabel20 = new javax.swing.JLabel();
@@ -91,7 +89,7 @@ public class Frame extends javax.swing.JFrame
         PathPanel = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         sourceTxt = new javax.swing.JTextField();
-        selectSourceBtn = new javax.swing.JButton();
+        selectSourceTodayBtn = new javax.swing.JButton();
         selectBackupBtn = new javax.swing.JButton();
         selectDestBtn = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -100,6 +98,11 @@ public class Frame extends javax.swing.JFrame
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         savePathBtn = new javax.swing.JButton();
+        customSourceCheck = new javax.swing.JCheckBox();
+        jLabel10 = new javax.swing.JLabel();
+        sourceTodayTxt = new javax.swing.JTextField();
+        sourceTomorrowTxt = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
         DesignPanel = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         colorPlanCombo = new javax.swing.JComboBox();
@@ -110,10 +113,40 @@ public class Frame extends javax.swing.JFrame
         colorNameTxt = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         colorMotdCombo = new javax.swing.JComboBox();
+        jLabel3 = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
+        jSeparator4 = new javax.swing.JSeparator();
+        jLabel12 = new javax.swing.JLabel();
+        colorTableCombo = new javax.swing.JComboBox();
+        colorTablePanel = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        colorBorderCombo = new javax.swing.JComboBox();
+        colorBorderPanel = new javax.swing.JPanel();
+        jSeparator7 = new javax.swing.JSeparator();
+        jLabel17 = new javax.swing.JLabel();
+        typeToEditCombo = new javax.swing.JComboBox();
+        typeToEditTxt = new javax.swing.JTextField();
+        addTypeBtn = new javax.swing.JButton();
+        deleteTypeBtn = new javax.swing.JButton();
+        jLabel19 = new javax.swing.JLabel();
+        label = new javax.swing.JLabel();
+        fontColorPanel = new javax.swing.JPanel();
+        fontColorCombo = new javax.swing.JComboBox();
+        jLabel23 = new javax.swing.JLabel();
+        fontTypeTxt = new javax.swing.JTextField();
+        fontSizeLabel = new javax.swing.JLabel();
+        backgroundColorLabel = new javax.swing.JLabel();
+        backgroundColorCombo = new javax.swing.JComboBox();
+        backgroundColorPanel = new javax.swing.JPanel();
+        fontSizeTxt = new javax.swing.JTextField();
+        boldCheck = new javax.swing.JCheckBox();
+        italicCheck = new javax.swing.JCheckBox();
+        saveDesignBtn = new javax.swing.JButton();
         SQLPanel = new javax.swing.JPanel();
         useSQLCheck = new javax.swing.JCheckBox();
         sqlModeBtn = new javax.swing.JButton();
-        SQLsaveBtn = new javax.swing.JButton();
+        sqlSaveBtn = new javax.swing.JButton();
         dbTableNameTxt = new javax.swing.JTextField();
         dbTableNameLabel = new javax.swing.JLabel();
         dbNameTxt = new javax.swing.JTextField();
@@ -235,7 +268,7 @@ public class Frame extends javax.swing.JFrame
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(progBar, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
+                    .addComponent(progBar, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
                     .addComponent(jScrollPane1)
                     .addGroup(ControlPanelLayout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -287,27 +320,9 @@ public class Frame extends javax.swing.JFrame
 
         speedPlanTxt.setText("100");
 
-        setSpeedPlanBtn.setText("setze Geschwindigkeit");
-        setSpeedPlanBtn.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                setSpeedPlanBtnActionPerformed(evt);
-            }
-        });
-
         jLabel7.setText("Laufschriftgeschw.");
 
         speedMotdTxt.setText("100");
-
-        setSpeedMotdBtn.setText("setze Geschwindigkeit");
-        setSpeedMotdBtn.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                setSpeedMotdBtnActionPerformed(evt);
-            }
-        });
 
         autoBackupCheck.setText("Automatisches Backup");
 
@@ -367,69 +382,71 @@ public class Frame extends javax.swing.JFrame
             .addGroup(SettingsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(hoursHeadLabel)
-                    .addComponent(settingsSaveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(SettingsPanelLayout.createSequentialGroup()
-                            .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(hour9Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(hour7Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(hour5Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(hour3Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(hour1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(hour3Txt)
-                                .addComponent(hour5Txt)
-                                .addComponent(hour7Txt)
-                                .addComponent(hour9Txt)
-                                .addComponent(hour1Txt, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(SettingsPanelLayout.createSequentialGroup()
-                                    .addComponent(hour8Label, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(hour8Txt, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(SettingsPanelLayout.createSequentialGroup()
-                                    .addComponent(hour10Label)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(hour10Txt, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(SettingsPanelLayout.createSequentialGroup()
-                                    .addComponent(hour6Label, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(hour6Txt, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(SettingsPanelLayout.createSequentialGroup()
-                                    .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(hour2Label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(hour4Label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(hour2Txt)
-                                        .addComponent(hour4Txt, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)))))
-                        .addGroup(SettingsPanelLayout.createSequentialGroup()
-                            .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(speedPlanTxt)
-                                .addComponent(speedMotdTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel20)
-                                .addComponent(jLabel21))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(setSpeedPlanBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(setSpeedMotdBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(SettingsPanelLayout.createSequentialGroup()
-                        .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(useHoursCheck, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
-                            .addComponent(autoDeleteSourceCheck, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(autoBackupCheck, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(6, 6, 6)))
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(317, 317, 317))
+                        .addComponent(settingsSaveBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(SettingsPanelLayout.createSequentialGroup()
+                        .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(SettingsPanelLayout.createSequentialGroup()
+                                .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(autoDeleteSourceCheck, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(autoBackupCheck, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE))
+                                .addGap(6, 6, 6))
+                            .addGroup(SettingsPanelLayout.createSequentialGroup()
+                                .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(speedPlanTxt)
+                                    .addComponent(speedMotdTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel20)
+                                    .addComponent(jLabel21))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(hoursHeadLabel)
+                            .addGroup(SettingsPanelLayout.createSequentialGroup()
+                                .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(hour9Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(hour7Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(hour5Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(hour3Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(hour1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(hour3Txt)
+                                    .addComponent(hour5Txt)
+                                    .addComponent(hour7Txt)
+                                    .addComponent(hour9Txt)
+                                    .addComponent(hour1Txt, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(SettingsPanelLayout.createSequentialGroup()
+                                        .addComponent(hour8Label, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(hour8Txt, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(SettingsPanelLayout.createSequentialGroup()
+                                        .addComponent(hour10Label)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(hour10Txt, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(SettingsPanelLayout.createSequentialGroup()
+                                        .addComponent(hour6Label, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(hour6Txt, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(SettingsPanelLayout.createSequentialGroup()
+                                        .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(hour2Label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(hour4Label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(hour2Txt)
+                                            .addComponent(hour4Txt, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(useHoursCheck, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE))
+                        .addGap(14, 14, 14))))
         );
         SettingsPanelLayout.setVerticalGroup(
             SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -437,10 +454,6 @@ public class Frame extends javax.swing.JFrame
                 .addContainerGap()
                 .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(SettingsPanelLayout.createSequentialGroup()
-                        .addComponent(autoBackupCheck)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(autoDeleteSourceCheck)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(useHoursCheck)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(hoursHeadLabel)
@@ -473,22 +486,24 @@ public class Frame extends javax.swing.JFrame
                             .addComponent(hour9Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(hour9Label)
                             .addComponent(hour10Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(hour10Label))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(hour10Label)))
+                    .addGroup(SettingsPanelLayout.createSequentialGroup()
+                        .addComponent(autoBackupCheck)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(autoDeleteSourceCheck)
+                        .addGap(18, 18, 18)
                         .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14)
                             .addComponent(speedPlanTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(setSpeedPlanBtn)
                             .addComponent(jLabel20))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(speedMotdTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
-                            .addComponent(setSpeedMotdBtn)
-                            .addComponent(jLabel21))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(settingsSaveBtn))
-                    .addComponent(jSeparator2))
+                            .addComponent(jLabel21)))
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(settingsSaveBtn)
                 .addContainerGap())
         );
 
@@ -496,12 +511,12 @@ public class Frame extends javax.swing.JFrame
 
         jLabel6.setText("Quellpfad");
 
-        selectSourceBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/facharbeit/ressources/ordner.png"))); // NOI18N
-        selectSourceBtn.addActionListener(new java.awt.event.ActionListener()
+        selectSourceTodayBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/facharbeit/ressources/ordner.png"))); // NOI18N
+        selectSourceTodayBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                selectSourceBtnActionPerformed(evt);
+                selectSourceTodayBtnActionPerformed(evt);
             }
         });
 
@@ -541,6 +556,25 @@ public class Frame extends javax.swing.JFrame
             }
         });
 
+        customSourceCheck.setText("Benutzerdefiniert");
+        customSourceCheck.addChangeListener(new javax.swing.event.ChangeListener()
+        {
+            public void stateChanged(javax.swing.event.ChangeEvent evt)
+            {
+                customSourceCheckStateChanged(evt);
+            }
+        });
+
+        jLabel10.setText("Heute");
+        jLabel10.setEnabled(false);
+
+        sourceTodayTxt.setEnabled(false);
+
+        sourceTomorrowTxt.setEnabled(false);
+
+        jLabel22.setText("Morgen");
+        jLabel22.setEnabled(false);
+
         javax.swing.GroupLayout PathPanelLayout = new javax.swing.GroupLayout(PathPanel);
         PathPanel.setLayout(PathPanelLayout);
         PathPanelLayout.setHorizontalGroup(
@@ -548,25 +582,38 @@ public class Frame extends javax.swing.JFrame
             .addGroup(PathPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(savePathBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(PathPanelLayout.createSequentialGroup()
-                        .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(PathPanelLayout.createSequentialGroup()
-                                .addComponent(sourceTxt)
+                                .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(sourceTxt)
+                                    .addGroup(PathPanelLayout.createSequentialGroup()
+                                        .addComponent(customSourceCheck)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(sourceTodayTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel22)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(sourceTomorrowTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(selectSourceBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PathPanelLayout.createSequentialGroup()
+                                .addComponent(selectSourceTodayBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(PathPanelLayout.createSequentialGroup()
                                 .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(backupTxt)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE))
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(backupTxt))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(selectBackupBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(selectDestBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(savePathBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(selectDestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(selectBackupBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap())
         );
         PathPanelLayout.setVerticalGroup(
@@ -577,19 +624,26 @@ public class Frame extends javax.swing.JFrame
                     .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(sourceTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(selectSourceBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(selectSourceTodayBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(customSourceCheck)
+                    .addComponent(jLabel10)
+                    .addComponent(sourceTodayTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel22)
+                    .addComponent(sourceTomorrowTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(backupTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel8))
                     .addComponent(selectBackupBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
-                    .addComponent(selectDestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                    .addComponent(selectDestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                 .addComponent(savePathBtn)
                 .addContainerGap())
         );
@@ -606,26 +660,30 @@ public class Frame extends javax.swing.JFrame
             }
         });
 
+        colorPlanPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         javax.swing.GroupLayout colorPlanPanelLayout = new javax.swing.GroupLayout(colorPlanPanel);
         colorPlanPanel.setLayout(colorPlanPanelLayout);
         colorPlanPanelLayout.setHorizontalGroup(
             colorPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 24, Short.MAX_VALUE)
+            .addGap(0, 18, Short.MAX_VALUE)
         );
         colorPlanPanelLayout.setVerticalGroup(
             colorPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 23, Short.MAX_VALUE)
+            .addGap(0, 18, Short.MAX_VALUE)
         );
+
+        colorMotdPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout colorMotdPanelLayout = new javax.swing.GroupLayout(colorMotdPanel);
         colorMotdPanel.setLayout(colorMotdPanelLayout);
         colorMotdPanelLayout.setHorizontalGroup(
             colorMotdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 24, Short.MAX_VALUE)
+            .addGap(0, 18, Short.MAX_VALUE)
         );
         colorMotdPanelLayout.setVerticalGroup(
             colorMotdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 23, Short.MAX_VALUE)
+            .addGap(0, 18, Short.MAX_VALUE)
         );
 
         deleteColor.setText("Farbe löschen");
@@ -637,7 +695,7 @@ public class Frame extends javax.swing.JFrame
             }
         });
 
-        addColorBtn.setText("Farbe wählen");
+        addColorBtn.setText("Farbe bearbeiten/hinzufügen");
         addColorBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -647,17 +705,6 @@ public class Frame extends javax.swing.JFrame
         });
 
         colorNameTxt.setText("Farbenname");
-        colorNameTxt.addFocusListener(new java.awt.event.FocusAdapter()
-        {
-            public void focusGained(java.awt.event.FocusEvent evt)
-            {
-                colorNameTxtFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt)
-            {
-                colorNameTxtFocusLost(evt);
-            }
-        });
 
         jLabel13.setText("Laufschrift");
 
@@ -669,6 +716,175 @@ public class Frame extends javax.swing.JFrame
             }
         });
 
+        jLabel3.setText("Hintergrundfarben");
+
+        jLabel12.setText("Tabelle");
+
+        colorTableCombo.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
+                colorTableComboItemStateChanged(evt);
+            }
+        });
+
+        colorTablePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout colorTablePanelLayout = new javax.swing.GroupLayout(colorTablePanel);
+        colorTablePanel.setLayout(colorTablePanelLayout);
+        colorTablePanelLayout.setHorizontalGroup(
+            colorTablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 18, Short.MAX_VALUE)
+        );
+        colorTablePanelLayout.setVerticalGroup(
+            colorTablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 18, Short.MAX_VALUE)
+        );
+
+        jLabel15.setText("andere Farben");
+
+        jLabel16.setText("Rahmen");
+
+        colorBorderCombo.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
+                colorBorderComboItemStateChanged(evt);
+            }
+        });
+
+        colorBorderPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout colorBorderPanelLayout = new javax.swing.GroupLayout(colorBorderPanel);
+        colorBorderPanel.setLayout(colorBorderPanelLayout);
+        colorBorderPanelLayout.setHorizontalGroup(
+            colorBorderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 18, Short.MAX_VALUE)
+        );
+        colorBorderPanelLayout.setVerticalGroup(
+            colorBorderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 18, Short.MAX_VALUE)
+        );
+
+        jLabel17.setText("Text");
+
+        typeToEditCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Überschrift", "Stufenname", "Laufschrift", "Tabelle" }));
+        typeToEditCombo.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
+                typeToEditComboItemStateChanged(evt);
+            }
+        });
+
+        typeToEditTxt.setText("Vertretungsart");
+
+        addTypeBtn.setText("hinzufügen");
+        addTypeBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                addTypeBtnActionPerformed(evt);
+            }
+        });
+
+        deleteTypeBtn.setText("löschen");
+        deleteTypeBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                deleteTypeBtnActionPerformed(evt);
+            }
+        });
+
+        label.setText("Schriftfarbe");
+
+        fontColorPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout fontColorPanelLayout = new javax.swing.GroupLayout(fontColorPanel);
+        fontColorPanel.setLayout(fontColorPanelLayout);
+        fontColorPanelLayout.setHorizontalGroup(
+            fontColorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 18, Short.MAX_VALUE)
+        );
+        fontColorPanelLayout.setVerticalGroup(
+            fontColorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        fontColorCombo.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
+                fontColorComboItemStateChanged(evt);
+            }
+        });
+
+        jLabel23.setText("Schriftart");
+
+        fontTypeTxt.setText("Schriftart");
+        fontTypeTxt.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseExited(java.awt.event.MouseEvent evt)
+            {
+                fontTypeTxtMouseExited(evt);
+            }
+        });
+
+        fontSizeLabel.setText("Schriftgröße");
+
+        backgroundColorLabel.setText("Hintergrundfarbe");
+
+        backgroundColorCombo.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
+                backgroundColorComboItemStateChanged(evt);
+            }
+        });
+
+        backgroundColorPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout backgroundColorPanelLayout = new javax.swing.GroupLayout(backgroundColorPanel);
+        backgroundColorPanel.setLayout(backgroundColorPanelLayout);
+        backgroundColorPanelLayout.setHorizontalGroup(
+            backgroundColorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 20, Short.MAX_VALUE)
+        );
+        backgroundColorPanelLayout.setVerticalGroup(
+            backgroundColorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 20, Short.MAX_VALUE)
+        );
+
+        fontSizeTxt.setText("12");
+        fontSizeTxt.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseExited(java.awt.event.MouseEvent evt)
+            {
+                fontSizeTxtMouseExited(evt);
+            }
+        });
+
+        boldCheck.setText("Fett");
+        boldCheck.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                boldCheckActionPerformed(evt);
+            }
+        });
+
+        italicCheck.setText("Kursiv");
+        italicCheck.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                italicCheckActionPerformed(evt);
+            }
+        });
+
+        saveDesignBtn.setText("speichern");
+
         javax.swing.GroupLayout DesignPanelLayout = new javax.swing.GroupLayout(DesignPanel);
         DesignPanel.setLayout(DesignPanelLayout);
         DesignPanelLayout.setHorizontalGroup(
@@ -676,48 +892,166 @@ public class Frame extends javax.swing.JFrame
             .addGroup(DesignPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(DesignPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator7, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator3)
+                    .addComponent(jSeparator4)
                     .addGroup(DesignPanelLayout.createSequentialGroup()
-                        .addComponent(colorNameTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(addColorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deleteColor))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DesignPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(colorMotdCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(colorMotdPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DesignPanelLayout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(colorPlanCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(colorPlanCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(colorPlanPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 33, Short.MAX_VALUE)
+                        .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(colorPlanPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(319, 319, 319))
+                        .addComponent(colorMotdCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(colorMotdPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                        .addComponent(jLabel12)
+                        .addGap(10, 10, 10)
+                        .addComponent(colorTableCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(colorTablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(DesignPanelLayout.createSequentialGroup()
+                        .addGroup(DesignPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(DesignPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel17)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(typeToEditCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(DesignPanelLayout.createSequentialGroup()
+                                .addGroup(DesignPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(DesignPanelLayout.createSequentialGroup()
+                                        .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(fontTypeTxt))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DesignPanelLayout.createSequentialGroup()
+                                        .addComponent(label)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(fontColorCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(fontColorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(DesignPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(DesignPanelLayout.createSequentialGroup()
+                                        .addComponent(fontSizeLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(fontSizeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(boldCheck)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(italicCheck))
+                                    .addGroup(DesignPanelLayout.createSequentialGroup()
+                                        .addComponent(backgroundColorLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(backgroundColorCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(backgroundColorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(DesignPanelLayout.createSequentialGroup()
+                                        .addComponent(typeToEditTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(addTypeBtn)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(deleteTypeBtn))))
+                            .addComponent(jLabel3)
+                            .addGroup(DesignPanelLayout.createSequentialGroup()
+                                .addComponent(colorNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(addColorBtn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(deleteColor))
+                            .addComponent(jLabel15)
+                            .addGroup(DesignPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(colorBorderCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(colorBorderPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel19))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(saveDesignBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         DesignPanelLayout.setVerticalGroup(
             DesignPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DesignPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(DesignPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(DesignPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel11)
-                        .addComponent(colorPlanCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(colorPlanPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(DesignPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(DesignPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel13)
-                        .addComponent(colorMotdCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(colorMotdPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
                 .addGroup(DesignPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(colorNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addColorBtn)
-                    .addComponent(deleteColor)
-                    .addComponent(colorNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(243, Short.MAX_VALUE))
+                    .addComponent(deleteColor))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(DesignPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(DesignPanelLayout.createSequentialGroup()
+                        .addGroup(DesignPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(DesignPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(colorMotdCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(DesignPanelLayout.createSequentialGroup()
+                                .addGroup(DesignPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(DesignPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(colorPlanCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(colorTablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(colorPlanPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(colorMotdPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(DesignPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(DesignPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel16)
+                                .addComponent(colorBorderCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(colorBorderPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(DesignPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel17)
+                            .addComponent(typeToEditCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(typeToEditTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addTypeBtn)
+                            .addComponent(deleteTypeBtn)))
+                    .addGroup(DesignPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(colorTableCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(DesignPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(DesignPanelLayout.createSequentialGroup()
+                        .addGroup(DesignPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(DesignPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(backgroundColorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(backgroundColorCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(fontColorPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(DesignPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(fontColorCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(DesignPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel23)
+                            .addComponent(fontTypeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fontSizeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(fontSizeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(boldCheck)
+                            .addComponent(italicCheck))
+                        .addGap(27, 27, 27))
+                    .addGroup(DesignPanelLayout.createSequentialGroup()
+                        .addComponent(backgroundColorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(saveDesignBtn)
+                .addGap(28, 28, 28))
         );
+
+        fontSizeTxt.getAccessibleContext().setAccessibleName("");
 
         Tabs.addTab("Design", DesignPanel);
 
@@ -739,12 +1073,12 @@ public class Frame extends javax.swing.JFrame
             }
         });
 
-        SQLsaveBtn.setText("speichern");
-        SQLsaveBtn.addActionListener(new java.awt.event.ActionListener()
+        sqlSaveBtn.setText("speichern");
+        sqlSaveBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                SQLsaveBtnActionPerformed(evt);
+                sqlSaveBtnActionPerformed(evt);
             }
         });
 
@@ -774,7 +1108,7 @@ public class Frame extends javax.swing.JFrame
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SQLPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(SQLPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(SQLsaveBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(sqlSaveBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(useSQLCheck, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dbHostLabel, javax.swing.GroupLayout.Alignment.LEADING)
@@ -837,8 +1171,8 @@ public class Frame extends javax.swing.JFrame
                 .addGroup(SQLPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sqlModeBtn)
                     .addComponent(sqlModeLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
-                .addComponent(SQLsaveBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
+                .addComponent(sqlSaveBtn)
                 .addContainerGap())
         );
 
@@ -858,11 +1192,11 @@ public class Frame extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void selectSourceBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_selectSourceBtnActionPerformed
-    {//GEN-HEADEREND:event_selectSourceBtnActionPerformed
+    private void selectSourceTodayBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_selectSourceTodayBtnActionPerformed
+    {//GEN-HEADEREND:event_selectSourceTodayBtnActionPerformed
         jFileChooser1.showOpenDialog(null);
         sourceTxt.setText(jFileChooser1.getSelectedFile().getPath());
-    }//GEN-LAST:event_selectSourceBtnActionPerformed
+    }//GEN-LAST:event_selectSourceTodayBtnActionPerformed
 
     private void selectBackupBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_selectBackupBtnActionPerformed
     {//GEN-HEADEREND:event_selectBackupBtnActionPerformed
@@ -880,20 +1214,16 @@ public class Frame extends javax.swing.JFrame
         destArea.append(jFileChooser1.getSelectedFile().getPath() + "\n");
     }//GEN-LAST:event_selectDestBtnActionPerformed
 
-    @SuppressWarnings("empty-statement")
     private void savePathBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_savePathBtnActionPerformed
     {//GEN-HEADEREND:event_savePathBtnActionPerformed
-        Application.addToQueue("savePathBtnActionPerformed", sourceTxt, backupTxt, destArea);
+        Application.addToQueue("savePathBtnActionPerformed", sourceTxt, backupTxt, destArea, sourceTodayTxt, sourceTomorrowTxt,
+                               customSourceCheck);
     }//GEN-LAST:event_savePathBtnActionPerformed
-
-    private void setSpeedMotdBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_setSpeedMotdBtnActionPerformed
-    {//GEN-HEADEREND:event_setSpeedMotdBtnActionPerformed
-        Application.addToQueue("setSpeedMotdBtnActionPerformed", speedMotdTxt);
-    }//GEN-LAST:event_setSpeedMotdBtnActionPerformed
 
     private void addColorBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_addColorBtnActionPerformed
     {//GEN-HEADEREND:event_addColorBtnActionPerformed
-        Application.addToQueue("addColorBtnActionPerformed", jColorChooser1, colorNameTxt, colorPlanCombo, colorMotdCombo);
+        Application.addToQueue("addColorBtnActionPerformed", jColorChooser1, colorNameTxt, colorPlanCombo, colorMotdCombo,
+                               colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo);
     }//GEN-LAST:event_addColorBtnActionPerformed
 
     private void colorPlanComboItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_colorPlanComboItemStateChanged
@@ -906,29 +1236,15 @@ public class Frame extends javax.swing.JFrame
         Application.addToQueue("colorMotdComboItemStateChanged", colorMotdPanel, colorMotdCombo, evt);
     }//GEN-LAST:event_colorMotdComboItemStateChanged
 
-    private void colorNameTxtFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_colorNameTxtFocusGained
-    {//GEN-HEADEREND:event_colorNameTxtFocusGained
-        if(colorNameTxt.getText().equals("Farbenname"))
-            colorNameTxt.setText("");
-    }//GEN-LAST:event_colorNameTxtFocusGained
-
-    private void colorNameTxtFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_colorNameTxtFocusLost
-    {//GEN-HEADEREND:event_colorNameTxtFocusLost
-        if(colorNameTxt.getText().equals(""))
-            colorNameTxt.setText("Farbenname");
-    }//GEN-LAST:event_colorNameTxtFocusLost
-
     private void deleteColorActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deleteColorActionPerformed
     {//GEN-HEADEREND:event_deleteColorActionPerformed
-        Application.addToQueue("deleteColorBtnActionPerformed", colorNameTxt, colorPlanCombo, colorMotdCombo);
+        Application.addToQueue("deleteColorBtnActionPerformed", colorNameTxt, colorPlanCombo, colorMotdCombo, colorTableCombo, colorBorderCombo);
     }//GEN-LAST:event_deleteColorActionPerformed
 
     private void useSQLCheckStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_useSQLCheckStateChanged
     {//GEN-HEADEREND:event_useSQLCheckStateChanged
         for(JComponent j : sqlComponents)
             j.setEnabled(useSQLCheck.isSelected());
-
-        Application.addToQueue("useSQLCheckStateChanged", useSQLCheck);
     }//GEN-LAST:event_useSQLCheckStateChanged
 
     private void genAllBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_genAllBtnActionPerformed
@@ -961,35 +1277,102 @@ public class Frame extends javax.swing.JFrame
         Application.addToQueue("genMotdBtnActionPerformed", motdTxt);
     }//GEN-LAST:event_genMotdBtnActionPerformed
 
-    private void SQLsaveBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_SQLsaveBtnActionPerformed
-    {//GEN-HEADEREND:event_SQLsaveBtnActionPerformed
+    private void sqlSaveBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_sqlSaveBtnActionPerformed
+    {//GEN-HEADEREND:event_sqlSaveBtnActionPerformed
         Application.addToQueue("SQLsaveBtnActionPerformed", dbHostTxt, dbPortTxt, dbNameTxt,
-                               dbUserTxt, dbPwTxt, dbTableNameTxt);
-    }//GEN-LAST:event_SQLsaveBtnActionPerformed
+                               dbUserTxt, dbPwTxt, dbTableNameTxt, useSQLCheck, sqlModeBtn);
+    }//GEN-LAST:event_sqlSaveBtnActionPerformed
 
     private void settingsSaveBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_settingsSaveBtnActionPerformed
     {//GEN-HEADEREND:event_settingsSaveBtnActionPerformed
-        Application.addToQueue("hoursSaveBtnActionPerformed", hour1Txt, hour2Txt, hour3Txt,
-                               hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt);
+        Application.addToQueue("settingsSaveBtnActionPerformed", hour1Txt, hour2Txt, hour3Txt,
+                               hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt,
+                               useHoursCheck, autoBackupCheck, autoDeleteSourceCheck, speedPlanTxt, speedMotdTxt);
     }//GEN-LAST:event_settingsSaveBtnActionPerformed
 
     private void sqlModeBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_sqlModeBtnActionPerformed
     {//GEN-HEADEREND:event_sqlModeBtnActionPerformed
-        Application.addToQueue("SQLModeBtnActionPerformed", sqlModeBtn);
+        if(sqlModeBtn.getText().equals("lesen"))
+            sqlModeBtn.setText("schreiben");
+        else
+            sqlModeBtn.setText("lesen");
     }//GEN-LAST:event_sqlModeBtnActionPerformed
-
-    private void setSpeedPlanBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_setSpeedPlanBtnActionPerformed
-    {//GEN-HEADEREND:event_setSpeedPlanBtnActionPerformed
-        Application.addToQueue("setSpeedPlanBtnActionPerformed", speedPlanTxt);
-    }//GEN-LAST:event_setSpeedPlanBtnActionPerformed
 
     private void useHoursCheckStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_useHoursCheckStateChanged
     {//GEN-HEADEREND:event_useHoursCheckStateChanged
         for(JComponent j : hoursComponents)
             j.setEnabled(useHoursCheck.isSelected());
-
-        Application.addToQueue("useHoursCheckStateChanged", useSQLCheck);
     }//GEN-LAST:event_useHoursCheckStateChanged
+
+    private void typeToEditComboItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_typeToEditComboItemStateChanged
+    {//GEN-HEADEREND:event_typeToEditComboItemStateChanged
+        Application.addToQueue("typeToEditComboItemStateChanged", typeToEditCombo, fontColorCombo, fontColorPanel,
+                               backgroundColorCombo, backgroundColorPanel, fontTypeTxt, fontSizeTxt, boldCheck,
+                               italicCheck, evt);
+
+        backgroundColorLabel.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
+        backgroundColorCombo.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
+        backgroundColorPanel.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
+    }//GEN-LAST:event_typeToEditComboItemStateChanged
+
+    private void customSourceCheckStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_customSourceCheckStateChanged
+    {//GEN-HEADEREND:event_customSourceCheckStateChanged
+        sourceTodayTxt.setEnabled(customSourceCheck.isSelected());
+        sourceTomorrowTxt.setEnabled(customSourceCheck.isSelected());
+        jLabel10.setEnabled(customSourceCheck.isSelected());
+        jLabel22.setEnabled(customSourceCheck.isSelected());
+    }//GEN-LAST:event_customSourceCheckStateChanged
+
+    private void colorTableComboItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_colorTableComboItemStateChanged
+    {//GEN-HEADEREND:event_colorTableComboItemStateChanged
+        Application.addToQueue("colorTableComboItemStateChanged", colorTablePanel, colorTableCombo, evt);
+    }//GEN-LAST:event_colorTableComboItemStateChanged
+
+    private void colorBorderComboItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_colorBorderComboItemStateChanged
+    {//GEN-HEADEREND:event_colorBorderComboItemStateChanged
+        Application.addToQueue("colorBorderComboItemStateChanged", colorBorderPanel, colorBorderCombo, evt);
+    }//GEN-LAST:event_colorBorderComboItemStateChanged
+
+    private void fontColorComboItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_fontColorComboItemStateChanged
+    {//GEN-HEADEREND:event_fontColorComboItemStateChanged
+        Application.addToQueue("fontColorComboItemStateChanged", fontColorPanel, fontColorCombo, typeToEditCombo, evt);
+    }//GEN-LAST:event_fontColorComboItemStateChanged
+
+    private void backgroundColorComboItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_backgroundColorComboItemStateChanged
+    {//GEN-HEADEREND:event_backgroundColorComboItemStateChanged
+        Application.addToQueue("backgroundColorComboItemStateChanged", backgroundColorPanel, backgroundColorCombo,
+                               typeToEditCombo, evt);
+    }//GEN-LAST:event_backgroundColorComboItemStateChanged
+
+    private void boldCheckActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_boldCheckActionPerformed
+    {//GEN-HEADEREND:event_boldCheckActionPerformed
+        Application.addToQueue("styleCheckActionPerformed", boldCheck, italicCheck, typeToEditCombo);
+    }//GEN-LAST:event_boldCheckActionPerformed
+
+    private void italicCheckActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_italicCheckActionPerformed
+    {//GEN-HEADEREND:event_italicCheckActionPerformed
+        Application.addToQueue("styleCheckActionPerformed", boldCheck, italicCheck, typeToEditCombo);
+    }//GEN-LAST:event_italicCheckActionPerformed
+
+    private void fontSizeTxtMouseExited(java.awt.event.MouseEvent evt)//GEN-FIRST:event_fontSizeTxtMouseExited
+    {//GEN-HEADEREND:event_fontSizeTxtMouseExited
+        Application.addToQueue("fontSizeTxtActionPerformed", fontSizeTxt, typeToEditCombo);
+    }//GEN-LAST:event_fontSizeTxtMouseExited
+
+    private void fontTypeTxtMouseExited(java.awt.event.MouseEvent evt)//GEN-FIRST:event_fontTypeTxtMouseExited
+    {//GEN-HEADEREND:event_fontTypeTxtMouseExited
+        Application.addToQueue("fontTypeTxtActionPerformed", fontTypeTxt, typeToEditCombo);
+    }//GEN-LAST:event_fontTypeTxtMouseExited
+
+    private void addTypeBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_addTypeBtnActionPerformed
+    {//GEN-HEADEREND:event_addTypeBtnActionPerformed
+        Application.addToQueue("addTypeBtnActionPerformed", typeToEditTxt, typeToEditCombo);
+    }//GEN-LAST:event_addTypeBtnActionPerformed
+
+    private void deleteTypeBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deleteTypeBtnActionPerformed
+    {//GEN-HEADEREND:event_deleteTypeBtnActionPerformed
+        Application.addToQueue("deleteTypeBtnActionPerformed", typeToEditTxt, typeToEditCombo);
+    }//GEN-LAST:event_deleteTypeBtnActionPerformed
 
     public JTextPane getStatusPane()
     {
@@ -1006,7 +1389,24 @@ public class Frame extends javax.swing.JFrame
         Application.addToQueue("loadSettings", sourceTxt, backupTxt, destArea, speedPlanTxt, speedMotdTxt,
                                colorPlanCombo, colorMotdCombo, motdTxt, useSQLCheck, dbHostTxt, dbPortTxt,
                                dbNameTxt, dbUserTxt, dbPwTxt, dbTableNameTxt, hour1Txt, hour2Txt, hour3Txt,
-                               hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt, sqlModeBtn);
+                               hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt, sqlModeBtn,
+                               autoBackupCheck, autoDeleteSourceCheck, useHoursCheck, customSourceCheck, sourceTodayTxt,
+                               sourceTomorrowTxt, colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo,
+                               fontTypeTxt, fontSizeTxt, boldCheck, italicCheck, typeToEditCombo);
+
+        sourceTodayTxt.setEnabled(customSourceCheck.isSelected());
+        sourceTomorrowTxt.setEnabled(customSourceCheck.isSelected());
+        jLabel10.setEnabled(customSourceCheck.isSelected());
+        jLabel22.setEnabled(customSourceCheck.isSelected());
+        backgroundColorLabel.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
+        backgroundColorCombo.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
+        backgroundColorPanel.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
+
+        for(JComponent j : sqlComponents)
+            j.setEnabled(useSQLCheck.isSelected());
+
+        for(JComponent j : hoursComponents)
+            j.setEnabled(useHoursCheck.isSelected());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1014,19 +1414,28 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JPanel DesignPanel;
     private javax.swing.JPanel PathPanel;
     private javax.swing.JPanel SQLPanel;
-    private javax.swing.JButton SQLsaveBtn;
     private javax.swing.JPanel SettingsPanel;
     private javax.swing.JTabbedPane Tabs;
     private javax.swing.JButton addColorBtn;
+    private javax.swing.JButton addTypeBtn;
     private javax.swing.JCheckBox autoBackupCheck;
     private javax.swing.JCheckBox autoDeleteSourceCheck;
+    private javax.swing.JComboBox backgroundColorCombo;
+    private javax.swing.JLabel backgroundColorLabel;
+    private javax.swing.JPanel backgroundColorPanel;
     private javax.swing.JTextField backupTxt;
+    private javax.swing.JCheckBox boldCheck;
+    private javax.swing.JComboBox colorBorderCombo;
+    private javax.swing.JPanel colorBorderPanel;
     private javax.swing.JComboBox colorMotdCombo;
     private javax.swing.JPanel colorMotdPanel;
     private javax.swing.JTextField colorNameTxt;
     private javax.swing.JComboBox colorPlanCombo;
     private javax.swing.JPanel colorPlanPanel;
+    private javax.swing.JComboBox colorTableCombo;
+    private javax.swing.JPanel colorTablePanel;
     private javax.swing.JButton createBackupBtn;
+    private javax.swing.JCheckBox customSourceCheck;
     private javax.swing.JLabel dbHostLabel;
     private javax.swing.JTextField dbHostTxt;
     private javax.swing.JLabel dbNameLabel;
@@ -1041,7 +1450,13 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JTextField dbUserTxt;
     private javax.swing.JButton deleteColor;
     private javax.swing.JButton deleteSourceBtn;
+    private javax.swing.JButton deleteTypeBtn;
     private javax.swing.JTextArea destArea;
+    private javax.swing.JComboBox fontColorCombo;
+    private javax.swing.JPanel fontColorPanel;
+    private javax.swing.JLabel fontSizeLabel;
+    private javax.swing.JTextField fontSizeTxt;
+    private javax.swing.JTextField fontTypeTxt;
     private javax.swing.JButton genAllBtn;
     private javax.swing.JButton genMotdBtn;
     private javax.swing.JButton genTodayBtn;
@@ -1067,15 +1482,25 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JLabel hour9Label;
     private javax.swing.JTextField hour9Txt;
     private javax.swing.JLabel hoursHeadLabel;
+    private javax.swing.JCheckBox italicCheck;
     private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1086,23 +1511,31 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JLabel label;
     private javax.swing.JTextPane log;
     private javax.swing.JTextField motdTxt;
     private javax.swing.JProgressBar progBar;
+    private javax.swing.JButton saveDesignBtn;
     private javax.swing.JButton savePathBtn;
     private javax.swing.JButton selectBackupBtn;
     private javax.swing.JButton selectDestBtn;
-    private javax.swing.JButton selectSourceBtn;
-    private javax.swing.JButton setSpeedMotdBtn;
-    private javax.swing.JButton setSpeedPlanBtn;
+    private javax.swing.JButton selectSourceTodayBtn;
     private javax.swing.JButton settingsSaveBtn;
+    private javax.swing.JTextField sourceTodayTxt;
+    private javax.swing.JTextField sourceTomorrowTxt;
     private javax.swing.JTextField sourceTxt;
     private javax.swing.JTextField speedMotdTxt;
     private javax.swing.JTextField speedPlanTxt;
     private javax.swing.JButton sqlModeBtn;
     private javax.swing.JLabel sqlModeLabel;
+    private javax.swing.JButton sqlSaveBtn;
+    private javax.swing.JComboBox typeToEditCombo;
+    private javax.swing.JTextField typeToEditTxt;
     private javax.swing.JCheckBox useHoursCheck;
     private javax.swing.JCheckBox useSQLCheck;
     // End of variables declaration//GEN-END:variables

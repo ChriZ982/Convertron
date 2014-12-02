@@ -8,19 +8,7 @@ import java.io.*;
  */
 public class FileReader
 {
-    /**
-     * Name der Datei.
-     */
-//    private String filename;
-//    private String path;
-
     private File file;
-    private String charset = "UTF-8";
-
-    public void setCharset(String charset)
-    {
-        this.charset = charset;
-    }
 
     /**
      * Erstellt einen neuen Reader.
@@ -30,8 +18,6 @@ public class FileReader
      */
     public FileReader(String pPath, String pFilename)
     {
-//        filename = pFilename;
-//        path = pPath;
         file = new File(pPath + pFilename);
     }
 
@@ -49,9 +35,9 @@ public class FileReader
      */
     public String read(int line)
     {
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charset)))
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file))))
         {
-            for(int i = 0; i < line; i++) //Läuft Zeilen durch bis die gewünschte Zeile erreicht ist.
+            for(int i = 0; i < line; i++)
                 reader.readLine();
 
             return reader.readLine();
@@ -72,7 +58,7 @@ public class FileReader
         int length = getLines();
         String[] data = new String[length];
 
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charset)))
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file))))
         {
             for(int i = 0; i < length; i++)
                 data[i] = reader.readLine();
@@ -96,10 +82,10 @@ public class FileReader
     public String toString()
     {
         String data = "";
-        String[] file = readAll();
+        String[] newFile = readAll();
 
-        for(int i = 0; i < file.length - 1; i++)
-            data += "\n" + file[i];
+        for(int i = 0; i < newFile.length - 1; i++)
+            data += "\n" + newFile[i];
 
         return data;
     }
@@ -130,7 +116,7 @@ public class FileReader
      */
     public boolean exists()
     {
-        return file.exists();
+        return file.isFile() && file.exists();
     }
 
     /**
@@ -140,7 +126,7 @@ public class FileReader
      */
     public int getLines()
     {
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charset)))
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file))))
         {
             int lines = 0;
             while(reader.readLine() != null)

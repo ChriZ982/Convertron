@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.image.*;
 import java.io.*;
 import java.lang.reflect.*;
+import java.nio.file.*;
 import java.util.*;
 import javax.imageio.*;
 import javax.swing.*;
@@ -52,8 +53,42 @@ public class Application
         frame.loadSettings();
 
         initTray();
+        initData();
 
         running = true;
+    }
+
+    private void initData()
+    {
+        copy("antonianumLogo.png");
+        copy("TEMPLATE heute morgen.html");
+        copy("TEMPLATE laufschrift.html");
+        copy("VERTRETUNGSPLAN.html");
+        copy("TEMPLATE style.css");
+    }
+
+    private void copy(String name)
+    {
+        if(!Files.exists(Paths.get(".\\Data\\" + name)))
+        {
+            FileOutputStream os;
+            try
+            {
+                Files.createDirectories(Paths.get(".\\Data\\"));
+                InputStream is = getClass().getResourceAsStream("/com/facharbeit/ressources/stdData/" + name);
+                os = new FileOutputStream(new File(".\\Data\\" + name));
+
+                for(int read; (read = is.read()) != -1;)
+                    os.write(read);
+
+                os.flush();
+
+                Logger.log(name + " wurde initialisiert", 0);
+            } catch(IOException ex)
+            {
+                Logger.log(name + " konnte nicht initialisiert werden", 2);
+            }
+        }
     }
 
     /**
@@ -72,18 +107,27 @@ public class Application
      */
     public void run()
     {
-        long time;
-        long cTime;
+        long beforeTime;
+        long afterTime;
+        long lastTime = System.currentTimeMillis();
+        long currentTime;
         while(running)
         {
-            time = System.currentTimeMillis();
+            beforeTime = System.currentTimeMillis();
             runOneElementOfQueue();
-            cTime = System.currentTimeMillis();
+            afterTime = System.currentTimeMillis();
+            currentTime = System.currentTimeMillis();
 
             try
             {
-                if(cTime < time + 100 && cTime > time)
-                    Thread.sleep((time - cTime) + 100);
+                if(afterTime < beforeTime + 100 && afterTime > beforeTime)
+                    Thread.sleep((beforeTime - afterTime) + 100);
+
+                if(lastTime < currentTime - 300000)
+                {
+                    lastTime = System.currentTimeMillis();
+                    Application.addToQueue("genAllBtnActionPerformed");
+                }
             } catch(InterruptedException ex)
             {
                 System.out.println("MAIN-SCHLEIFE KONNTE NICHT PAUSIEREN!");

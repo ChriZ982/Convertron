@@ -1,17 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.facharbeit.tools;
 
-/**
- *
- * @author Mirko
- */
 public class Entry
 {
-
     private int hour;
     private boolean nextIsEqual;
     private String[] content;
@@ -94,5 +84,23 @@ public class Entry
 
         for(int i = 1; i < content.length; i++)
             this.content[i - 1] = content[i];
+    }
+
+    public String toString(String cssClass)
+    {
+        String s = "";
+
+        s += "'            <tr class=\"" + cssClass + "\">'+\n";
+
+        if(nextIsEqual)
+            s += "'                <td>" + hour + "-" + (hour + 1) + "</td>'+\n";
+        else
+            s += "'                <td>" + hour + "</td>'+\n";
+
+        for(String c : content)
+            s += "'                <td>" + c + "</td>'+\n";
+
+        s += "'            </tr>'+\n";
+        return s;
     }
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.facharbeit.io;
 
 import com.facharbeit.io.FileReader;
@@ -10,10 +5,6 @@ import com.facharbeit.tools.*;
 import java.io.*;
 import java.util.*;
 
-/**
- *
- * @author Mirko
- */
 public class HtmlReader
 {
 
@@ -24,18 +15,18 @@ public class HtmlReader
 
     public static SchoolClass[] readInToday()
     {
-        if(Settings.load("useSQL").equals("true"))
+        if(Settings.load("sqlUse").equals("true"))
             return readInSql();
         else
-            return readInHtml(Settings.load("sourcePath") + "/heute");
+            return readInHtml(Settings.load("pathSource") + "/heute");
     }
 
     public static SchoolClass[] readInTomorrow()
     {
-        if(Settings.load("useSQL").equals("true"))
+        if(Settings.load("sqlUse").equals("true"))
             return readInSql();
         else
-            return readInHtml(Settings.load("sourcePath") + "/morgen");
+            return readInHtml(Settings.load("pathSource") + "/morgen");
     }
 
     private static SchoolClass[] readInHtml(String path)
@@ -60,7 +51,6 @@ public class HtmlReader
                 outcome[i].setEntrys(new ArrayList<Entry>());
 
             FileReader read = new FileReader(files.get(i));
-            read.setCharset("ISO-8859-1");
             String fileAsString = read.toString();
             fileAsString = fileAsString.substring(fileAsString.indexOf("<TABLE border=\"3\" rules=\"all\" bgcolor=\"#E7E7E7\" cellpadding=\"1\" cellspacing=\"1\">"));
             fileAsString = fileAsString.substring(0, fileAsString.indexOf("<TABLE cellspacing=\"1\" cellpadding=\"1\">") - 13);
@@ -176,14 +166,17 @@ public class HtmlReader
 
     public static String readHeadToday()
     {
-        String path = (Settings.load("sourcePath") + "/heute");
+        String path;
+        if(Settings.load("sourceCustom").equals("true"))
+            path = (Settings.load("pathSource") + "/" + Settings.load("sourceTodayPath"));
+        else
+            path = findPath(true);
 
         final String beforeHead = "</TABLE><BR><font size=\"5\" face=\"Arial\">\n<B>";
 
         File theFile = getFiles(path).get(0);
 
         FileReader read = new FileReader(theFile);
-        read.setCharset("ISO-8859-1");
         String fileAsString = read.toString();
 
         fileAsString = fileAsString.substring(fileAsString.indexOf(beforeHead) + beforeHead.length());
@@ -194,19 +187,27 @@ public class HtmlReader
 
     public static String readHeadTomorrow()
     {
-        String path = (Settings.load("sourcePath") + "/morgen");
+        String path;
+        if(Settings.load("sourceCustom").equals("true"))
+            path = (Settings.load("pathSource") + "/" + Settings.load("sourceTodayPath"));
+        else
+            path = findPath(true);
 
         final String beforeHead = "</TABLE><BR><font size=\"5\" face=\"Arial\">\n<B>";
 
         File theFile = getFiles(path).get(0);
 
         FileReader read = new FileReader(theFile);
-        read.setCharset("ISO-8859-1");
         String fileAsString = read.toString();
 
         fileAsString = fileAsString.substring(fileAsString.indexOf(beforeHead) + beforeHead.length());
         fileAsString = fileAsString.substring(0, fileAsString.indexOf("</B>"));
 
         return fileAsString;
+    }
+
+    private static String findPath(boolean today)
+    {
+        return Time.forHtmlReading(today);
     }
 }

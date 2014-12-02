@@ -1,16 +1,43 @@
 .datum
 {
-    font-size: 40px;
-    text-align:center;
+    font: bold 40px calibri;
+    color: #000000;
+    text-align: center;
+    width: 100%;
+}
+
+.body1
+{
+    background-color: #026398;
+}
+
+.body2
+{
+    background-color: #517c94;
+}
+
+.stufe
+{
+    font: bold 30px calibri;
+    color: #000000;
 }
 
 .stufeTab
 {
-   width: 100%;
-   border-width: 3px;
-   border-style: groove;
-   border-color: #474747;
-   background-color: #E7E7E7;
+    font:  16px calibri;
+    color: #000000;
+    width: 99.5%;
+    border-width: 3px;
+    border-style: groove;
+    border-color: #474747;
+    background-color: #e7e7e7;
+}
+
+.stufeTab .Raum-Vtr
+{
+  font:  16px calibri;
+  color: #000000;
+  background-color: #d1d1d1;
 }
 
 .stufeTab tr td
@@ -18,15 +45,17 @@
     text-align: center;
 }
 
-.stufe
-{
-    font-size: 30px;
-}
-
 .laufschrift
 {
+    font: bold 50px calibri;
+    color: #000000;
     width: 100%;
-    font-size: 50px;
     vertical-align: top;
     padding-left: 50px;
+}
+
+.frames frame
+{
+    border-style: groove;
+    border-color: #011a28;
 }
