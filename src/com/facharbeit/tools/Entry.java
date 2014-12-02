@@ -1,17 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.facharbeit.tools;
 
-/**
- *
- * @author Mirko
- */
 public class Entry
 {
-
     private int hour;
     private boolean nextIsEqual;
     private String[] content;
