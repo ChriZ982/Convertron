@@ -95,4 +95,22 @@ public class Entry
         for(int i = 1; i < content.length; i++)
             this.content[i - 1] = content[i];
     }
+
+    public String toString(String cssClass)
+    {
+        String s = "";
+
+        s += "'            <tr class=\"" + cssClass + "\">'+\n";
+
+        if(nextIsEqual)
+            s += "'                <td>" + hour + "-" + (hour + 1) + "</td>'+\n";
+        else
+            s += "'                <td>" + hour + "</td>'+\n";
+
+        for(String c : content)
+            s += "'                <td>" + c + "</td>'+\n";
+
+        s += "'            </tr>'+\n";
+        return s;
+    }
 }
