@@ -35,6 +35,7 @@ public class Application
      */
     public Application()
     {
+        System.setProperty("file.encoding", "ISO-8859-1");
         queue = new ArrayList<QueueElement>();
 
         try

@@ -115,7 +115,7 @@ public class QueueableMethods
                                                       JTextField hour7Txt, JTextField hour8Txt, JTextField hour9Txt,
                                                       JTextField hour10Txt, JCheckBox useHoursCheck, JCheckBox autoBackupCheck,
                                                       JCheckBox autoDeleteSourceCheck, JTextField speedPlanTxt,
-                                                      JTextField speedMotdTxt)
+                                                      JTextField speedMotdTxt, JTable table)
     {
         saveIfNotNull(hour1Txt, "lesson1");
         saveIfNotNull(hour2Txt, "lesson2");
@@ -130,6 +130,45 @@ public class QueueableMethods
         saveIfNotNull(speedPlanTxt, "planSpeed");
         saveIfNotNull(speedMotdTxt, "motdSpeed");
 
+        String[] order = new String[7];
+        for(int i = 0; i < 7; i++)
+            switch(table.getColumnName(i))
+            {
+                case "Vertreter":
+                    order[i] = "0";
+                    break;
+                case "Raum":
+                    order[i] = "1";
+                    break;
+                case "Art":
+                    order[i] = "2";
+                    break;
+                case "Fach":
+                    order[i] = "3";
+                    break;
+                case "Lehrer":
+                    order[i] = "4";
+                    break;
+                case "Verl. von":
+                    order[i] = "5";
+                    break;
+                case "Hinweise":
+                    order[i] = "6";
+                    break;
+                default:
+                    Logger.log("Fehler beim sortieren der Daten!", 2);
+                    return;
+            }
+
+        String setting = order[0] + ","
+                         + order[1] + ","
+                         + order[2] + ","
+                         + order[3] + ","
+                         + order[4] + ","
+                         + order[5] + ","
+                         + order[6];
+
+        Settings.save("lessonOrder", setting);
         Settings.save("lessonUse", String.valueOf(useHoursCheck.isSelected()));
         Settings.save("autoBackup", String.valueOf(autoBackupCheck.isSelected()));
         Settings.save("autoDeleteSources", String.valueOf(autoDeleteSourceCheck.isSelected()));
@@ -412,7 +451,7 @@ public class QueueableMethods
                                     JTextField sourceTodayTxt, JTextField sourceTomorrowTxt, JComboBox colorTableCombo,
                                     JComboBox colorBorderCombo, JComboBox fontColorCombo, JComboBox backgroundColorCombo,
                                     JTextField fontTypeTxt, JTextField fontSizeTxt, JCheckBox boldCheck, JCheckBox italicCheck,
-                                    JComboBox typeToEditCombo)
+                                    JComboBox typeToEditCombo, JTable table)
     {
         load(sourceTxt, "pathSource");
         load(backupTxt, "pathBackup");
@@ -483,6 +522,41 @@ public class QueueableMethods
             SQLModeBtn.setText("schreiben");
         else
             SQLModeBtn.setText("lesen");
+
+        String[] order = Settings.load("lessonOrder").split(",");
+        if(order.length == 7)
+            for(int i = 0; i < 7; i++)
+                switch(order[i])
+                {
+                    case "0":
+                        table.getColumnModel().getColumn(i).setHeaderValue("Vertreter");
+                        table.getColumnModel().getColumn(i).setModelIndex(0);
+                        break;
+                    case "1":
+                        table.getColumnModel().getColumn(i).setHeaderValue("Raum");
+                        table.getColumnModel().getColumn(i).setModelIndex(1);
+                        break;
+                    case "2":
+                        table.getColumnModel().getColumn(i).setHeaderValue("Art");
+                        table.getColumnModel().getColumn(i).setModelIndex(2);
+                        break;
+                    case "3":
+                        table.getColumnModel().getColumn(i).setHeaderValue("Fach");
+                        table.getColumnModel().getColumn(i).setModelIndex(3);
+                        break;
+                    case "4":
+                        table.getColumnModel().getColumn(i).setHeaderValue("Lehrer");
+                        table.getColumnModel().getColumn(i).setModelIndex(4);
+                        break;
+                    case "5":
+                        table.getColumnModel().getColumn(i).setHeaderValue("Verl. von");
+                        table.getColumnModel().getColumn(i).setModelIndex(5);
+                        break;
+                    case "6":
+                        table.getColumnModel().getColumn(i).setHeaderValue("Hinweise");
+                        table.getColumnModel().getColumn(i).setModelIndex(6);
+                        break;
+                }
     }
 
     private static void loadColors(JComboBox... colorCombos)

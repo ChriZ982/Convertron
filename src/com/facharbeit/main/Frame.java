@@ -86,6 +86,8 @@ public class Frame extends javax.swing.JFrame
         hoursHeadLabel = new javax.swing.JLabel();
         useHoursCheck = new javax.swing.JCheckBox();
         jSeparator2 = new javax.swing.JSeparator();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        table = new javax.swing.JTable();
         PathPanel = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         sourceTxt = new javax.swing.JTextField();
@@ -161,6 +163,7 @@ public class Frame extends javax.swing.JFrame
         dbHostLabel = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         sqlModeLabel = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
 
         jFileChooser1.setFileHidingEnabled(true);
         jFileChooser1.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
@@ -375,6 +378,29 @@ public class Frame extends javax.swing.JFrame
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][]
+            {
+                {null, null, null, null, null, null, null}
+            },
+            new String []
+            {
+                "Vertreter", "Raum", "Art", "Fach", "Lehrer", "Verl. von", "Hinweise"
+            }
+        )
+        {
+            boolean[] canEdit = new boolean []
+            {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(table);
+
         javax.swing.GroupLayout SettingsPanelLayout = new javax.swing.GroupLayout(SettingsPanel);
         SettingsPanel.setLayout(SettingsPanelLayout);
         SettingsPanelLayout.setHorizontalGroup(
@@ -404,7 +430,7 @@ public class Frame extends javax.swing.JFrame
                                 .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel20)
                                     .addComponent(jLabel21))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -447,12 +473,16 @@ public class Frame extends javax.swing.JFrame
                                             .addComponent(hour4Txt, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addComponent(useHoursCheck, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE))
                         .addGap(14, 14, 14))))
+            .addGroup(SettingsPanelLayout.createSequentialGroup()
+                .addGap(131, 131, 131)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         SettingsPanelLayout.setVerticalGroup(
             SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SettingsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(SettingsPanelLayout.createSequentialGroup()
                         .addComponent(useHoursCheck)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -501,8 +531,10 @@ public class Frame extends javax.swing.JFrame
                             .addComponent(speedMotdTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
                             .addComponent(jLabel21)))
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                    .addComponent(jSeparator2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
                 .addComponent(settingsSaveBtn)
                 .addContainerGap())
         );
@@ -643,7 +675,7 @@ public class Frame extends javax.swing.JFrame
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
                     .addComponent(selectDestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                 .addComponent(savePathBtn)
                 .addContainerGap())
         );
@@ -1171,12 +1203,25 @@ public class Frame extends javax.swing.JFrame
                 .addGroup(SQLPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sqlModeBtn)
                     .addComponent(sqlModeLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
                 .addComponent(sqlSaveBtn)
                 .addContainerGap())
         );
 
         Tabs.addTab("SQL", SQLPanel);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 638, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 360, Short.MAX_VALUE)
+        );
+
+        Tabs.addTab("tab6", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1287,7 +1332,8 @@ public class Frame extends javax.swing.JFrame
     {//GEN-HEADEREND:event_settingsSaveBtnActionPerformed
         Application.addToQueue("settingsSaveBtnActionPerformed", hour1Txt, hour2Txt, hour3Txt,
                                hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt,
-                               useHoursCheck, autoBackupCheck, autoDeleteSourceCheck, speedPlanTxt, speedMotdTxt);
+                               useHoursCheck, autoBackupCheck, autoDeleteSourceCheck, speedPlanTxt, speedMotdTxt,
+                               table);
     }//GEN-LAST:event_settingsSaveBtnActionPerformed
 
     private void sqlModeBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_sqlModeBtnActionPerformed
@@ -1392,7 +1438,7 @@ public class Frame extends javax.swing.JFrame
                                hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt, sqlModeBtn,
                                autoBackupCheck, autoDeleteSourceCheck, useHoursCheck, customSourceCheck, sourceTodayTxt,
                                sourceTomorrowTxt, colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo,
-                               fontTypeTxt, fontSizeTxt, boldCheck, italicCheck, typeToEditCombo);
+                               fontTypeTxt, fontSizeTxt, boldCheck, italicCheck, typeToEditCombo, table);
 
         sourceTodayTxt.setEnabled(customSourceCheck.isSelected());
         sourceTomorrowTxt.setEnabled(customSourceCheck.isSelected());
@@ -1507,8 +1553,10 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
@@ -1534,6 +1582,7 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JButton sqlModeBtn;
     private javax.swing.JLabel sqlModeLabel;
     private javax.swing.JButton sqlSaveBtn;
+    private javax.swing.JTable table;
     private javax.swing.JComboBox typeToEditCombo;
     private javax.swing.JTextField typeToEditTxt;
     private javax.swing.JCheckBox useHoursCheck;

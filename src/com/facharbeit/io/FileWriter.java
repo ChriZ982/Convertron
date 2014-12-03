@@ -45,7 +45,7 @@ public class FileWriter
      */
     public void writeAll(String[] data)
     {
-        try(PrintWriter writer = new PrintWriter(new FileOutputStream(file)))
+        try(PrintWriter writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file), "ISO-8859-1")))
         {
             for(int i = 0; i < data.length; i++)
                 if(i + 1 < data.length)

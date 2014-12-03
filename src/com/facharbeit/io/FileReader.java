@@ -35,7 +35,7 @@ public class FileReader
      */
     public String read(int line)
     {
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file))))
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "ISO-8859-1")))
         {
             for(int i = 0; i < line; i++)
                 reader.readLine();
@@ -58,7 +58,7 @@ public class FileReader
         int length = getLines();
         String[] data = new String[length];
 
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file))))
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "ISO-8859-1")))
         {
             for(int i = 0; i < length; i++)
                 data[i] = reader.readLine();
@@ -126,7 +126,7 @@ public class FileReader
      */
     public int getLines()
     {
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file))))
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "ISO-8859-1")))
         {
             int lines = 0;
             while(reader.readLine() != null)
