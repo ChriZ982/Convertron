@@ -3,6 +3,28 @@ package com.facharbeit.tools;
 public class Entry
 {
     private int hour;
+    private String date;
+    private String dayOfWeek;
+
+    public String getDate()
+    {
+        return date;
+    }
+
+    public void setDate(String date)
+    {
+        this.date = date;
+    }
+
+    public String getDayOfWeek()
+    {
+        return dayOfWeek;
+    }
+
+    public void setDayOfWeek(String dayOfWeek)
+    {
+        this.dayOfWeek = dayOfWeek;
+    }
     private boolean nextIsEqual;
     private String[] content;
 
