@@ -8,6 +8,9 @@ import java.util.*;
 public class HtmlReader
 {
 
+    final static int indexOfDateColumm = 1;
+    final static int indexOfDayOfWeekColumm = 2;
+
     final static String[] extraGrades =
     {
         "EF", "Q1", "Q2", "___"
@@ -18,7 +21,21 @@ public class HtmlReader
         if(Settings.load("sqlUse").equals("true"))
             return readInSql();
         else
-            return readInHtml(Settings.load("pathSource") + "/heute");
+        {
+            SchoolClass[] scs = readInHtml(Settings.load("pathSource"));
+            boolean found = false;
+            for(SchoolClass sc : scs)
+            {
+                if(sc.containsEntrysOfDate((Time.day() + "." + Time.month())))
+                    found = true;
+
+                sc.onlyDate((Time.day() + "." + Time.month()));
+            }
+            if(found)
+                return scs;
+            return null;
+        }
+
     }
 
     public static SchoolClass[] readInTomorrow()
@@ -26,7 +43,25 @@ public class HtmlReader
         if(Settings.load("sqlUse").equals("true"))
             return readInSql();
         else
-            return readInHtml(Settings.load("pathSource") + "/morgen");
+        {
+            SchoolClass[] scs = readInHtml(Settings.load("pathSource"));
+            boolean found = false;
+            int i = 0;
+            while(i < 10 && !found)
+            {
+                i++;
+                for(SchoolClass sc : scs)
+                    if(sc.containsEntrysOfDate((Time.addDays(i).get(Calendar.DAY_OF_MONTH)) + "." + Time.addDays(i).get(Calendar.MONTH)))
+                        found = true;
+            }
+            if(found)
+            {
+                for(SchoolClass sc : scs)
+                    sc.onlyDate((Time.addDays(i).get(Calendar.DAY_OF_MONTH)) + "." + Time.addDays(i).get(Calendar.MONTH));
+                return scs;
+            }
+            return null;
+        }
     }
 
     private static SchoolClass[] readInHtml(String path)
@@ -57,29 +92,43 @@ public class HtmlReader
             fileAsString = fileAsString.substring(fileAsString.indexOf("<TR>") + 4);
             boolean endOfFile = false;
 
+            int skippedColumms = 0;
+
             while(!endOfFile)
             {
                 fileAsString = fileAsString.substring(fileAsString.indexOf("<TR>") + 4);
 
                 String[] thisEntry = new String[8];
+                String date = "";
+                String dayOfWeek = "";
 
                 for(int t = 0; t < thisEntry.length; t++)
-                {
-                    fileAsString = fileAsString.substring(fileAsString.indexOf(cellStartsWith) + cellStartsWith.length());
-                    if(fileAsString.startsWith(cellStartsWith2a))
+                    switch(t)
                     {
-                        fileAsString = fileAsString.substring(fileAsString.indexOf(cellStartsWith2a) + cellStartsWith2a.length());
-                        thisEntry[t] = fileAsString.substring(1, fileAsString.indexOf(cellEndsWith2) - 1); //1 bzw -1 um die Absätze nicht mitzukopieren
-                        fileAsString = fileAsString.substring(fileAsString.indexOf(cellEndsWith2) + cellEndsWith2.length());
+                        default:
+                            fileAsString = fileAsString.substring(fileAsString.indexOf(cellStartsWith) + cellStartsWith.length());
+                            if(fileAsString.startsWith(cellStartsWith2a))
+                            {
+                                fileAsString = fileAsString.substring(fileAsString.indexOf(cellStartsWith2a) + cellStartsWith2a.length());
+                                thisEntry[t] = fileAsString.substring(1, fileAsString.indexOf(cellEndsWith2) - 1); //1 bzw -1 um die Absätze nicht mitzukopieren
+                                fileAsString = fileAsString.substring(fileAsString.indexOf(cellEndsWith2) + cellEndsWith2.length());
 
-                    } else if(fileAsString.startsWith(cellStartsWith2))
-                    {
-                        fileAsString = fileAsString.substring(fileAsString.indexOf(cellStartsWith2) + cellStartsWith2.length());
-                        thisEntry[t] = fileAsString.substring(1, fileAsString.indexOf(cellEndsWith2) - 1); //1 bzw -1 um die Absätze nicht mitzukopieren
-                        fileAsString = fileAsString.substring(fileAsString.indexOf(cellEndsWith2) + cellEndsWith2.length());
-                    } else
-                        thisEntry[t] = "";
-                }
+                            } else if(fileAsString.startsWith(cellStartsWith2))
+                            {
+                                fileAsString = fileAsString.substring(fileAsString.indexOf(cellStartsWith2) + cellStartsWith2.length());
+                                thisEntry[t] = fileAsString.substring(1, fileAsString.indexOf(cellEndsWith2) - 1); //1 bzw -1 um die Absätze nicht mitzukopieren
+                                fileAsString = fileAsString.substring(fileAsString.indexOf(cellEndsWith2) + cellEndsWith2.length());
+                            } else
+                                thisEntry[t] = "";
+                            break;
+
+                        case indexOfDateColumm:
+                            skippedColumms++;
+                            break;
+                        case indexOfDayOfWeekColumm:
+                            skippedColumms++;
+                            break;
+                    }
 
                 boolean nextIsEqual = false;
                 try
@@ -90,8 +139,10 @@ public class HtmlReader
                     nextIsEqual = true;
                     thisEntry[0] = thisEntry[0].substring(0, thisEntry[0].indexOf("-") - 1);
                 }
-
-                outcome[i].getEntrys().add(new Entry(nextIsEqual, thisEntry));
+                Entry e = new Entry(nextIsEqual, thisEntry);
+                e.setDate(date);
+                e.setDayOfWeek(dayOfWeek);
+                outcome[i].getEntrys().add(e);
 
                 fileAsString = fileAsString.substring(fileAsString.indexOf(cellEndsWith) + cellEndsWith.length());
 

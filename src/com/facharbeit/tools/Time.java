@@ -41,6 +41,18 @@ public class Time
         return " (" + c.get(Calendar.WEEK_OF_YEAR) + ")";
     }
 
+    public static int month()
+    {
+        instance();
+        return c.get(Calendar.MONTH);
+    }
+
+    public static int day()
+    {
+        instance();
+        return c.get(Calendar.DAY_OF_MONTH);
+    }
+
     public static int hour()
     {
         instance();
@@ -51,6 +63,14 @@ public class Time
     {
         instance();
         return c.get(Calendar.MINUTE);
+    }
+
+    public static Calendar addDays(int amount)
+    {
+        instance();
+        Calendar nc = (Calendar)c.clone();
+        nc.add(Calendar.DATE, amount);
+        return nc;
     }
 
     public static boolean isAfter(int afterHour, int afterMinute, int beforeHour, int beforeMinute)

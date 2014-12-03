@@ -174,4 +174,19 @@ public class SchoolClass
 
         return index;
     }
+
+    public boolean containsEntrysOfDate(String date)
+    {
+        for(Entry e : entrys)
+            if(e.getDate().equals(date))
+                return true;
+        return false;
+    }
+
+    public void onlyDate(String date)
+    {
+        for(Entry e : entrys)
+            if(!e.getDate().equals(date))
+                entrys.remove(e);
+    }
 }
