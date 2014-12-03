@@ -167,6 +167,16 @@ public class HtmlWriter
         {
             if(Settings.load("lessonUse").equals("true"))
                 sc.cutLessons();
+
+            String[] or = Settings.load("lessonOrder").split(",");
+            sc.sortEntrys(Integer.parseInt(or[0]),
+                          Integer.parseInt(or[1]),
+                          Integer.parseInt(or[2]),
+                          Integer.parseInt(or[3]),
+                          Integer.parseInt(or[4]),
+                          Integer.parseInt(or[5]),
+                          Integer.parseInt(or[6]));
+
             s += sc.toString();
         }
 
