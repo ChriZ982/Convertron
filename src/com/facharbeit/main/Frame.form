@@ -205,9 +205,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="motdTxt">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Laufschrift"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="genMotdBtn">
               <Properties>
@@ -284,20 +281,39 @@
                                       </Group>
                                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jLabel14" max="32767" attributes="0"/>
-                                          <Component id="jLabel7" min="-2" pref="100" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="speedPlanTxt" max="32767" attributes="0"/>
-                                          <Component id="speedMotdTxt" min="-2" pref="28" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="sourceTodayTxt" min="-2" pref="150" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="customSourceCheck" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="jLabel14" max="32767" attributes="0"/>
+                                                      <Component id="jLabel7" min="-2" pref="100" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="speedPlanTxt" max="32767" attributes="0"/>
+                                                  <Component id="speedMotdTxt" pref="28" max="32767" attributes="0"/>
+                                                  <Component id="weekTxt" max="32767" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="sourceTomorrowTxt" min="-2" pref="150" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                       <EmptySpace max="32767" attributes="0"/>
                                   </Group>
@@ -356,12 +372,12 @@
                               </Group>
                               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                           </Group>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="jScrollPane3" min="-2" pref="377" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="131" max="-2" attributes="0"/>
-                      <Component id="jScrollPane3" min="-2" pref="377" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -369,48 +385,56 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="useHoursCheck" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="hoursHeadLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="hour1Txt" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="hour1Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="hour2Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="hour2Txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="useHoursCheck" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="hoursHeadLabel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="hour1Txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="hour1Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="hour2Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="hour2Txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="hour3Txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="hour3Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="hour4Txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="hour4Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="hour5Txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="hour5Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="hour6Txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="hour6Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="hour7Txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="hour7Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="hour8Txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="hour8Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="hour9Txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="hour9Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="hour10Txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="hour10Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Component id="jSeparator2" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="hour3Txt" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="hour3Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="hour4Txt" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="hour4Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="hour5Txt" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="hour5Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="hour6Txt" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="hour6Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="hour7Txt" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="hour7Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="hour8Txt" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="hour8Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="hour9Txt" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="hour9Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="hour10Txt" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="hour10Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <EmptySpace pref="63" max="32767" attributes="0"/>
+                              <Component id="jScrollPane3" min="-2" pref="43" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <Component id="autoBackupCheck" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="autoDeleteSourceCheck" min="-2" max="-2" attributes="0"/>
@@ -426,12 +450,26 @@
                                   <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="weekTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="customSourceCheck" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="sourceTodayTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="sourceTomorrowTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel22" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
-                          <Component id="jSeparator2" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="44" max="32767" attributes="0"/>
-                      <Component id="jScrollPane3" min="-2" pref="43" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                       <Component id="settingsSaveBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -445,9 +483,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="speedPlanTxt">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="100"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
               <Properties>
@@ -455,9 +490,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="speedMotdTxt">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="100"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JCheckBox" name="autoBackupCheck">
               <Properties>
@@ -600,6 +632,43 @@
                 </Component>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JLabel" name="jLabel18">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Gerade Woche"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="weekTxt">
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="customSourceCheck">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Benutzerdefiniertes Datum"/>
+              </Properties>
+              <Events>
+                <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="customSourceCheckStateChanged"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel10">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Heute"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="sourceTodayTxt">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel22">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Morgen"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="sourceTomorrowTxt">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="PathPanel">
@@ -619,42 +688,29 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="savePathBtn" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jLabel6" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jLabel8" max="32767" attributes="0"/>
-                                  <Component id="jLabel9" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jLabel6" alignment="0" pref="56" max="32767" attributes="0"/>
+                                      <Component id="jLabel9" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="jLabel8" pref="59" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="backupTxt" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="selectBackupBtn" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
                                   <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="sourceTxt" max="32767" attributes="0"/>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="customSourceCheck" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="sourceTodayTxt" min="-2" pref="150" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="sourceTomorrowTxt" min="-2" pref="150" max="-2" attributes="0"/>
-                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                          </Group>
-                                      </Group>
+                                      <Component id="sourceTxt" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="selectSourceTodayBtn" min="-2" pref="30" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="backupTxt" max="32767" attributes="0"/>
-                                      </Group>
+                                      <Component id="jScrollPane2" pref="519" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="selectDestBtn" min="-2" pref="30" max="-2" attributes="0"/>
-                                          <Component id="selectBackupBtn" min="-2" pref="30" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="selectDestBtn" min="-2" pref="30" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -674,29 +730,21 @@
                           </Group>
                           <Component id="selectSourceTodayBtn" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="customSourceCheck" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="sourceTodayTxt" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel22" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="sourceTomorrowTxt" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
+                          <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                               <Component id="backupTxt" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="selectBackupBtn" min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane2" min="-2" pref="135" max="-2" attributes="0"/>
                           <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                           <Component id="selectDestBtn" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="jScrollPane2" alignment="0" pref="219" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="102" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Component id="savePathBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -781,36 +829,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="savePathBtnActionPerformed"/>
               </Events>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="customSourceCheck">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Benutzerdefiniert"/>
-              </Properties>
-              <Events>
-                <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="customSourceCheckStateChanged"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel10">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Heute"/>
-                <Property name="enabled" type="boolean" value="false"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="sourceTodayTxt">
-              <Properties>
-                <Property name="enabled" type="boolean" value="false"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="sourceTomorrowTxt">
-              <Properties>
-                <Property name="enabled" type="boolean" value="false"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel22">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Morgen"/>
-                <Property name="enabled" type="boolean" value="false"/>
-              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -1298,9 +1316,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="fontTypeTxt">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Schriftart"/>
-              </Properties>
               <Events>
                 <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="fontTypeTxtMouseExited"/>
               </Events>
@@ -1348,9 +1363,6 @@
               </Layout>
             </Container>
             <Component class="javax.swing.JTextField" name="fontSizeTxt">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="12"/>
-              </Properties>
               <AccessibilityProperties>
                 <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
               </AccessibilityProperties>
@@ -1376,7 +1388,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="saveDesignBtn">
               <Properties>
-                <Property name="text" type="java.lang.String" value="speichern"/>
+                <Property name="text" type="java.lang.String" value="Style anwenden"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -1536,9 +1548,6 @@
             <Component class="javax.swing.JPasswordField" name="dbPwTxt">
             </Component>
             <Component class="javax.swing.JTextField" name="dbPortTxt">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="1433"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="dbPortLabel">
               <Properties>
@@ -1547,7 +1556,6 @@
             </Component>
             <Component class="javax.swing.JTextField" name="dbHostTxt">
               <Properties>
-                <Property name="text" type="java.lang.String" value="www.antonianum.de"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
             </Component>

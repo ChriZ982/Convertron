@@ -14,50 +14,45 @@ public class HtmlReader
 
     public static SchoolClass[] readInToday()
     {
-        if(Settings.load("sqlUse").equals("true"))
-            return readInSql();
-        else
+        if(Settings.load("sqlUse").equals("false"))
         {
-            SchoolClass[] scs = readInHtml(getPathToday());
+            SchoolClass[] scs = readInHtml(Settings.load("pathSource"));
             boolean found = false;
             for(SchoolClass sc : scs)
             {
-                if(sc.containsEntrysOfDate((Time.day() + "." + Time.month())))
+                if(sc.containsEntrysOfDate(Time.forHtmlReading(true)))
                     found = true;
 
-                sc.onlyDate((Time.day() + "." + Time.month()));
+                sc.onlyDate(Time.forHtmlReading(true));
             }
             if(found)
                 return scs;
-            return null;
         }
-
+        return null;
     }
 
     public static SchoolClass[] readInTomorrow()
     {
-        if(Settings.load("sqlUse").equals("true"))
-            return readInSql();
-        else
+        if(Settings.load("sqlUse").equals("false"))
         {
-            SchoolClass[] scs = readInHtml(getPathTomorrow());
+            SchoolClass[] scs = readInHtml(Settings.load("pathSource"));
             boolean found = false;
             int i = 0;
             while(i < 10 && !found)
             {
                 i++;
                 for(SchoolClass sc : scs)
-                    if(sc.containsEntrysOfDate((Time.addDays(i).get(Calendar.DAY_OF_MONTH)) + "." + Time.addDays(i).get(Calendar.MONTH)))
+                    if(sc.containsEntrysOfDate(Time.forHtmlReading(false)))
                         found = true;
             }
             if(found)
             {
                 for(SchoolClass sc : scs)
-                    sc.onlyDate((Time.addDays(i).get(Calendar.DAY_OF_MONTH)) + "." + Time.addDays(i).get(Calendar.MONTH));
+                    sc.onlyDate(Time.forHtmlReading(false));
                 return scs;
             }
-            return null;
         }
+        return null;
     }
 
     private static SchoolClass[] readInHtml(String path)
@@ -120,23 +115,16 @@ public class HtmlReader
                     endOfFile = true;
 
             }
-
-            outcome[i].setFoot(readFoot(read));
-
         }
         Logger.setProgress(50);
         return outcome;
     }
 
-    private static SchoolClass[] readInSql()
-    {
-        SchoolClass[] outcome = new SchoolClass[1];
-
-        return outcome;
-    }
-
     public static SchoolClass[] sortArray(SchoolClass[] p)
     {
+        if(p == null)
+            return null;
+
         for(SchoolClass s : p)
         {
             ArrayList<Entry> out = new ArrayList<>();
@@ -186,68 +174,5 @@ public class HtmlReader
         }
 
         return files;
-    }
-
-    public static HtmlFoot readFootToday()
-    {
-        return readFoot(getFiles(getPathToday()).get(0));
-    }
-
-    public static HtmlFoot readFootTomorrow()
-    {
-        return readFoot(getFiles(getPathTomorrow()).get(0));
-    }
-
-    private static HtmlFoot readFoot(File f)
-    {
-        return readFoot(new FileReader(f));
-    }
-
-    private static HtmlFoot readFoot(FileReader read)
-    {
-        final String beforeFoot = "</TABLE><font size=\"3\" face=\"Arial\"  color=\"#000000\">\n";
-        final String afterFoot = "\n</font>";
-        String fileAsString = read.toString();
-        String foot = "";
-        if(fileAsString.contains(beforeFoot))
-        {
-            foot = fileAsString.substring(fileAsString.indexOf(beforeFoot) + beforeFoot.length());
-            foot = foot.substring(0, foot.indexOf(afterFoot));
-        }
-
-        return new HtmlFoot(foot);
-    }
-
-    private static String findPath(boolean today)
-    {
-        return Time.forHtmlReading(today);
-    }
-
-    private static String getPathToday()
-    {
-        String path = Settings.load("pathSource");
-
-        if(Settings.load("sourceCustom").equals("true"))
-        {
-            if(!path.endsWith("\\"))
-                path += "\\";
-            path += Settings.load("sourceTodayPath");
-        }
-
-        return path;
-    }
-
-    private static String getPathTomorrow()
-    {
-        String path = Settings.load("pathSource");
-
-        if(Settings.load("sourceCustom").equals("true"))
-        {
-            if(!path.endsWith("\\"))
-                path += "\\";
-            path += Settings.load("sourceTomorrowPath");
-        }
-
-        return path;
     }
 }
