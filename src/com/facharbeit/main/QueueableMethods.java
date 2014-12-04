@@ -23,8 +23,6 @@ public class QueueableMethods
         Logger.setProgress(100);
         if(Settings.load("autoBackup").equals("true"))
             createBackupBtnActionPerformed();
-        if(Settings.load("autoDeleteSources").equals("true"))
-            deleteSourceBtnActionPerformed();
         Logger.setProgress(0);
     }
 
@@ -36,8 +34,6 @@ public class QueueableMethods
         Logger.setProgress(100);
         if(Settings.load("autoBackup").equals("true"))
             createBackupBtnActionPerformed();
-        if(Settings.load("autoDeleteSources").equals("true"))
-            deleteSourceBtnActionPerformed();
         Logger.setProgress(0);
     }
 
@@ -49,8 +45,6 @@ public class QueueableMethods
         Logger.setProgress(100);
         if(Settings.load("autoBackup").equals("true"))
             createBackupBtnActionPerformed();
-        if(Settings.load("autoDeleteSources").equals("true"))
-            deleteSourceBtnActionPerformed();
         Logger.setProgress(0);
     }
 
@@ -62,8 +56,6 @@ public class QueueableMethods
         backupToDestPaths();
         if(Settings.load("autoBackup").equals("true"))
             createBackupBtnActionPerformed();
-        if(Settings.load("autoDeleteSources").equals("true"))
-            deleteSourceBtnActionPerformed();
         Logger.setProgress(0);
     }
 
@@ -114,8 +106,9 @@ public class QueueableMethods
                                                       JTextField hour4Txt, JTextField hour5Txt, JTextField hour6Txt,
                                                       JTextField hour7Txt, JTextField hour8Txt, JTextField hour9Txt,
                                                       JTextField hour10Txt, JCheckBox useHoursCheck, JCheckBox autoBackupCheck,
-                                                      JCheckBox autoDeleteSourceCheck, JTextField speedPlanTxt,
-                                                      JTextField speedMotdTxt)
+                                                      JTextField speedPlanTxt, JTextField speedMotdTxt, JTable table,
+                                                      JTextField weekTxt, JTextField sourceTodayTxt, JTextField sourceTomorrowTxt,
+                                                      JCheckBox customSourceCheck)
     {
         saveIfNotNull(hour1Txt, "lesson1");
         saveIfNotNull(hour2Txt, "lesson2");
@@ -129,24 +122,61 @@ public class QueueableMethods
         saveIfNotNull(hour10Txt, "lesson10");
         saveIfNotNull(speedPlanTxt, "planSpeed");
         saveIfNotNull(speedMotdTxt, "motdSpeed");
+        saveIfNotNull(weekTxt, "customWeek");
+        saveIfNotNull(sourceTodayTxt, "customToday");
+        saveIfNotNull(sourceTomorrowTxt, "customTomorrow");
 
+        Settings.save("customDate", String.valueOf(customSourceCheck.isSelected()));
+
+        String[] order = new String[7];
+        for(int i = 0; i < 7; i++)
+            switch(table.getColumnName(i))
+            {
+                case "Vertreter":
+                    order[i] = "0";
+                    break;
+                case "Raum":
+                    order[i] = "1";
+                    break;
+                case "Art":
+                    order[i] = "2";
+                    break;
+                case "Fach":
+                    order[i] = "3";
+                    break;
+                case "Lehrer":
+                    order[i] = "4";
+                    break;
+                case "Verl. von":
+                    order[i] = "5";
+                    break;
+                case "Hinweise":
+                    order[i] = "6";
+                    break;
+                default:
+                    Logger.log("Fehler beim sortieren der Daten!", 2);
+                    return;
+            }
+
+        String setting = order[0] + ","
+                         + order[1] + ","
+                         + order[2] + ","
+                         + order[3] + ","
+                         + order[4] + ","
+                         + order[5] + ","
+                         + order[6];
+
+        Settings.save("lessonOrder", setting);
         Settings.save("lessonUse", String.valueOf(useHoursCheck.isSelected()));
         Settings.save("autoBackup", String.valueOf(autoBackupCheck.isSelected()));
-        Settings.save("autoDeleteSources", String.valueOf(autoDeleteSourceCheck.isSelected()));
     }
 
     // Pfade
     @SuppressWarnings("empty-statement")
-    public static void savePathBtnActionPerformed(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea,
-                                                  JTextField sourceTodayTxt, JTextField sourceTomorrowTxt,
-                                                  JCheckBox customSourceCheck)
+    public static void savePathBtnActionPerformed(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea)
     {
-        Settings.save("sourceCustom", String.valueOf(customSourceCheck.isSelected()));
-
         saveIfNotNull(sourceTxt, "pathSource");
         saveIfNotNull(backupTxt, "pathBackup");
-        saveIfNotNull(sourceTodayTxt, "sourceTodayPath");
-        saveIfNotNull(sourceTomorrowTxt, "sourceTomorrowPath");
 
         ArrayList<String> destPaths = new ArrayList<String>();
         destPaths.addAll(Arrays.asList(destArea.getText().split("\n")));
@@ -408,11 +438,11 @@ public class QueueableMethods
                                     JTextField hour1Txt, JTextField hour2Txt, JTextField hour3Txt, JTextField hour4Txt,
                                     JTextField hour5Txt, JTextField hour6Txt, JTextField hour7Txt, JTextField hour8Txt,
                                     JTextField hour9Txt, JTextField hour10Txt, JButton SQLModeBtn, JCheckBox autoBackupCheck,
-                                    JCheckBox autoDeleteSourceCheck, JCheckBox useHoursCheck, JCheckBox customSourceCheck,
-                                    JTextField sourceTodayTxt, JTextField sourceTomorrowTxt, JComboBox colorTableCombo,
-                                    JComboBox colorBorderCombo, JComboBox fontColorCombo, JComboBox backgroundColorCombo,
-                                    JTextField fontTypeTxt, JTextField fontSizeTxt, JCheckBox boldCheck, JCheckBox italicCheck,
-                                    JComboBox typeToEditCombo)
+                                    JCheckBox useHoursCheck, JCheckBox customSourceCheck, JTextField sourceTodayTxt,
+                                    JTextField sourceTomorrowTxt, JComboBox colorTableCombo, JComboBox colorBorderCombo,
+                                    JComboBox fontColorCombo, JComboBox backgroundColorCombo, JTextField fontTypeTxt,
+                                    JTextField fontSizeTxt, JCheckBox boldCheck, JCheckBox italicCheck, JComboBox typeToEditCombo,
+                                    JTable table, JTextField weekTxt)
     {
         load(sourceTxt, "pathSource");
         load(backupTxt, "pathBackup");
@@ -435,14 +465,14 @@ public class QueueableMethods
         load(hour8Txt, "lesson8");
         load(hour9Txt, "lesson9");
         load(hour10Txt, "lesson10");
-        load(sourceTodayTxt, "sourceTodayPath");
-        load(sourceTomorrowTxt, "sourceTomorrowPath");
+        load(sourceTodayTxt, "customToday");
+        load(sourceTomorrowTxt, "customTomorrow");
+        load(weekTxt, "customWeek");
 
         useSQLCheck.setSelected(Boolean.valueOf(Settings.load("sqlUse")));
         autoBackupCheck.setSelected(Boolean.valueOf(Settings.load("autoBackup")));
-        autoDeleteSourceCheck.setSelected(Boolean.valueOf(Settings.load("autoDeleteSources")));
         useHoursCheck.setSelected(Boolean.valueOf(Settings.load("lessonUse")));
-        customSourceCheck.setSelected(Boolean.valueOf(Settings.load("sourceCustom")));
+        customSourceCheck.setSelected(Boolean.valueOf(Settings.load("customDate")));
 
         String name = "pathDest1";
         if(Settings.getLineOf(name) == -1)
@@ -483,6 +513,41 @@ public class QueueableMethods
             SQLModeBtn.setText("schreiben");
         else
             SQLModeBtn.setText("lesen");
+
+        String[] order = Settings.load("lessonOrder").split(",");
+        if(order.length == 7)
+            for(int i = 0; i < 7; i++)
+                switch(order[i])
+                {
+                    case "0":
+                        table.getColumnModel().getColumn(i).setHeaderValue("Vertreter");
+                        table.getColumnModel().getColumn(i).setModelIndex(0);
+                        break;
+                    case "1":
+                        table.getColumnModel().getColumn(i).setHeaderValue("Raum");
+                        table.getColumnModel().getColumn(i).setModelIndex(1);
+                        break;
+                    case "2":
+                        table.getColumnModel().getColumn(i).setHeaderValue("Art");
+                        table.getColumnModel().getColumn(i).setModelIndex(2);
+                        break;
+                    case "3":
+                        table.getColumnModel().getColumn(i).setHeaderValue("Fach");
+                        table.getColumnModel().getColumn(i).setModelIndex(3);
+                        break;
+                    case "4":
+                        table.getColumnModel().getColumn(i).setHeaderValue("Lehrer");
+                        table.getColumnModel().getColumn(i).setModelIndex(4);
+                        break;
+                    case "5":
+                        table.getColumnModel().getColumn(i).setHeaderValue("Verl. von");
+                        table.getColumnModel().getColumn(i).setModelIndex(5);
+                        break;
+                    case "6":
+                        table.getColumnModel().getColumn(i).setHeaderValue("Hinweise");
+                        table.getColumnModel().getColumn(i).setModelIndex(6);
+                        break;
+                }
     }
 
     private static void loadColors(JComboBox... colorCombos)

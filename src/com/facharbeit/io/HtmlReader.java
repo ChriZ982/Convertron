@@ -7,7 +7,6 @@ import java.util.*;
 
 public class HtmlReader
 {
-
     final static String[] extraGrades =
     {
         "EF", "Q1", "Q2", "___"
@@ -15,18 +14,45 @@ public class HtmlReader
 
     public static SchoolClass[] readInToday()
     {
-        if(Settings.load("sqlUse").equals("true"))
-            return readInSql();
-        else
-            return readInHtml(Settings.load("pathSource") + "/heute");
+        if(Settings.load("sqlUse").equals("false"))
+        {
+            SchoolClass[] scs = readInHtml(Settings.load("pathSource"));
+            boolean found = false;
+            for(SchoolClass sc : scs)
+            {
+                if(sc.containsEntrysOfDate(Time.forHtmlReading(0)))
+                    found = true;
+
+                sc.onlyDate(Time.forHtmlReading(0));
+            }
+            if(found)
+                return scs;
+        }
+        return null;
     }
 
     public static SchoolClass[] readInTomorrow()
     {
-        if(Settings.load("sqlUse").equals("true"))
-            return readInSql();
-        else
-            return readInHtml(Settings.load("pathSource") + "/morgen");
+        if(Settings.load("sqlUse").equals("false"))
+        {
+            SchoolClass[] scs = readInHtml(Settings.load("pathSource"));
+            boolean found = false;
+            int i = 0;
+            while(i < 10 && !found)
+            {
+                i++;
+                for(SchoolClass sc : scs)
+                    if(sc.containsEntrysOfDate(Time.forHtmlReading(i)))
+                        found = true;
+            }
+            if(found)
+            {
+                for(SchoolClass sc : scs)
+                    sc.onlyDate(Time.forHtmlReading(i));
+                return scs;
+            }
+        }
+        return null;
     }
 
     private static SchoolClass[] readInHtml(String path)
@@ -61,7 +87,7 @@ public class HtmlReader
             {
                 fileAsString = fileAsString.substring(fileAsString.indexOf("<TR>") + 4);
 
-                String[] thisEntry = new String[8];
+                String[] thisEntry = new String[10];
 
                 for(int t = 0; t < thisEntry.length; t++)
                 {
@@ -81,38 +107,24 @@ public class HtmlReader
                         thisEntry[t] = "";
                 }
 
-                boolean nextIsEqual = false;
-                try
-                {
-                    Integer.parseInt(thisEntry[0]);
-                } catch(NumberFormatException ex)
-                {
-                    nextIsEqual = true;
-                    thisEntry[0] = thisEntry[0].substring(0, thisEntry[0].indexOf("-") - 1);
-                }
-
-                outcome[i].getEntrys().add(new Entry(nextIsEqual, thisEntry));
+                outcome[i].getEntrys().add(new Entry(thisEntry));
 
                 fileAsString = fileAsString.substring(fileAsString.indexOf(cellEndsWith) + cellEndsWith.length());
 
                 if(!fileAsString.contains("<TR>"))
                     endOfFile = true;
-            }
 
+            }
         }
         Logger.setProgress(50);
         return outcome;
     }
 
-    private static SchoolClass[] readInSql()
-    {
-        SchoolClass[] outcome = new SchoolClass[1];
-
-        return outcome;
-    }
-
     public static SchoolClass[] sortArray(SchoolClass[] p)
     {
+        if(p == null)
+            return null;
+
         for(SchoolClass s : p)
         {
             ArrayList<Entry> out = new ArrayList<>();
@@ -162,52 +174,5 @@ public class HtmlReader
         }
 
         return files;
-    }
-
-    public static String readHeadToday()
-    {
-        String path;
-        if(Settings.load("sourceCustom").equals("true"))
-            path = (Settings.load("pathSource") + "/" + Settings.load("sourceTodayPath"));
-        else
-            path = findPath(true);
-
-        final String beforeHead = "</TABLE><BR><font size=\"5\" face=\"Arial\">\n<B>";
-
-        File theFile = getFiles(path).get(0);
-
-        FileReader read = new FileReader(theFile);
-        String fileAsString = read.toString();
-
-        fileAsString = fileAsString.substring(fileAsString.indexOf(beforeHead) + beforeHead.length());
-        fileAsString = fileAsString.substring(0, fileAsString.indexOf("</B>"));
-
-        return fileAsString;
-    }
-
-    public static String readHeadTomorrow()
-    {
-        String path;
-        if(Settings.load("sourceCustom").equals("true"))
-            path = (Settings.load("pathSource") + "/" + Settings.load("sourceTodayPath"));
-        else
-            path = findPath(true);
-
-        final String beforeHead = "</TABLE><BR><font size=\"5\" face=\"Arial\">\n<B>";
-
-        File theFile = getFiles(path).get(0);
-
-        FileReader read = new FileReader(theFile);
-        String fileAsString = read.toString();
-
-        fileAsString = fileAsString.substring(fileAsString.indexOf(beforeHead) + beforeHead.length());
-        fileAsString = fileAsString.substring(0, fileAsString.indexOf("</B>"));
-
-        return fileAsString;
-    }
-
-    private static String findPath(boolean today)
-    {
-        return Time.forHtmlReading(today);
     }
 }

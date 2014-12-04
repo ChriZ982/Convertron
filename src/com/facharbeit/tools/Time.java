@@ -1,5 +1,6 @@
 package com.facharbeit.tools;
 
+import com.facharbeit.io.*;
 import java.util.*;
 
 public class Time
@@ -19,26 +20,30 @@ public class Time
                + String.format("%02d", c.get(Calendar.SECOND)) + "] ";
     }
 
-    public static String forHtmlReading(boolean today)
+    public static String forHtmlReading(int addDays)
     {
         instance();
-        if(!today)
-            c.add(Calendar.DAY_OF_MONTH, 1);
-
-        String s = String.format("%02d", c.get(Calendar.YEAR) % 100)
-                   + String.format("%02d", (c.get(Calendar.MONTH) + 1))
-                   + String.format("%02d", c.get(Calendar.DAY_OF_MONTH));
-
-        if(!today)
-            c.add(Calendar.DAY_OF_MONTH, -1);
-
-        return s;
+        if(Settings.load("customDate").equals("true"))
+            if(addDays == 0)
+                return Settings.load("customToday");
+            else
+                return Settings.load("customTomorrow");
+        else if(addDays == 0)
+            return day() + "\\." + month() + "\\.";
+        else
+            return addDays(addDays).get(Calendar.DATE) + "\\." + addDays(1).get(Calendar.MONTH) + "\\.";
     }
 
-    public static String forHtmlWriting()
+    public static int month()
     {
         instance();
-        return " (" + c.get(Calendar.WEEK_OF_YEAR) + ")";
+        return c.get(Calendar.MONTH);
+    }
+
+    public static int day()
+    {
+        instance();
+        return c.get(Calendar.DAY_OF_MONTH);
     }
 
     public static int hour()
@@ -53,6 +58,14 @@ public class Time
         return c.get(Calendar.MINUTE);
     }
 
+    public static Calendar addDays(int amount)
+    {
+        instance();
+        Calendar nc = (Calendar)c.clone();
+        nc.add(Calendar.DATE, amount);
+        return nc;
+    }
+
     public static boolean isAfter(int afterHour, int afterMinute, int beforeHour, int beforeMinute)
     {
         boolean b = false;
@@ -65,5 +78,28 @@ public class Time
             b = true;
 
         return b;
+    }
+
+    public static String forHtmlWriting(String date)
+    {
+        instance();
+        c.set(Calendar.DATE, Integer.parseInt(date.split("\\.")[0]));
+        c.set(Calendar.MONTH, Integer.parseInt(date.split("\\.")[1]));
+
+        String gerade = Settings.load("customWeek");
+        String ungerade;
+        String week;
+
+        if(gerade.equals("A"))
+            ungerade = "B";
+        else
+            ungerade = "A";
+
+        if(c.get(Calendar.WEEK_OF_YEAR) % 2 == 0)
+            week = gerade;
+        else
+            week = ungerade;
+
+        return "Vertretungen " + c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.GERMANY) + " " + date + "<br/>Woche-" + week + " (" + c.get(Calendar.WEEK_OF_YEAR) + ")";
     }
 }

@@ -5,12 +5,13 @@ import java.util.*;
 
 public class SchoolClass
 {
+    private String name;
+    private String curDate;
     private ArrayList<Entry> entrys;
     private String[] contentColumms =
     {
         "Vertreter", "Raum", "Art", "Fach", "Lehrer", "Verl. von", "Hinweise"
     };
-    private String name;
 
     public SchoolClass(String name)
     {
@@ -173,5 +174,28 @@ public class SchoolClass
             }
 
         return index;
+    }
+
+    public boolean containsEntrysOfDate(String date)
+    {
+        for(Entry e : entrys)
+            if(e.getDate().equals(date))
+                return true;
+        return false;
+    }
+
+    public void onlyDate(String date)
+    {
+        curDate = date;
+        ArrayList<Entry> newEntrys = new ArrayList<Entry>();
+        for(Entry e : entrys)
+            if(e.getDate().equals(date))
+                newEntrys.add(e);
+        entrys = newEntrys;
+    }
+
+    public String getCurDate()
+    {
+        return curDate;
     }
 }
