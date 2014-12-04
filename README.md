@@ -4,9 +4,8 @@ Facharbeit 2014
 
 ### TODO ###
 
-* Ordner sind nach ihrem Datum gespeichert "141128"
-* Programm sucht heutigen Ordner und nächsten, wenn nicht vorhanden leeres Array
+* Fehler finden
 * Aufräumen
 * Dokumentation
 
-4284 Zeilen
+4480 Zeilen
