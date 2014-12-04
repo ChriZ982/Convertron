@@ -8,7 +8,7 @@ public class HtmlWriter
     public static void generatePlanToday(SchoolClass[] schoolClasses, int start, int end)
     {
         int part = end - start;
-        String day = generateDay(true);
+        String day = generateDay(schoolClasses);
         Logger.setProgress(start + 1 * (part / 6));
         String speed = Integer.toString((int)((1.0 / (Double.parseDouble(Settings.load("planSpeed")) / 100.0)) * 12.0));
         Logger.setProgress(start + 2 * (part / 6));
@@ -39,7 +39,7 @@ public class HtmlWriter
     public static void generatePlanTomorrow(SchoolClass[] schoolClasses, int start, int end)
     {
         int part = end - start;
-        String day = generateDay(false);
+        String day = generateDay(schoolClasses);
         Logger.setProgress(start + 1 * (part / 6));
         String speed = Integer.toString((int)((1.0 / (Double.parseDouble(Settings.load("planSpeed")) / 100.0)) * 12.0));
         Logger.setProgress(start + 2 * (part / 6));
@@ -162,6 +162,9 @@ public class HtmlWriter
 
     private static String generateClasses(SchoolClass[] schoolClasses)
     {
+        if(schoolClasses == null)
+            return "'<b>Keine Vertretungen</b><br /><br />'+";
+
         String s = "";
         for(SchoolClass sc : schoolClasses)
         {
@@ -197,14 +200,12 @@ public class HtmlWriter
         return b;
     }
 
-    private static String generateDay(boolean today)
+    private static String generateDay(SchoolClass[] sc)
     {
-        String s;
-        if(today)
-            s = HtmlReader.readHeadToday();
-        else
-            s = HtmlReader.readHeadTomorrow();
-        return s.substring(s.indexOf("Vertretungen  ") + "Vertretungen  ".length()) + Time.forHtmlWriting();
+        if(sc == null)
+            return "Keine Vertretungen";
+
+        return Time.forHtmlWriting(sc[0].getCurDate());
     }
 
     private static boolean validate(String... test)

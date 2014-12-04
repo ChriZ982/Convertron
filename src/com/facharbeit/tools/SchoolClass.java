@@ -5,24 +5,13 @@ import java.util.*;
 
 public class SchoolClass
 {
+    private String name;
+    private String curDate;
     private ArrayList<Entry> entrys;
-    private HtmlFoot foot;
     private String[] contentColumms =
     {
         "Vertreter", "Raum", "Art", "Fach", "Lehrer", "Verl. von", "Hinweise"
     };
-
-    public HtmlFoot getFoot()
-    {
-        return foot;
-    }
-
-    public void setFoot(HtmlFoot foot)
-    {
-        this.foot = foot;
-    }
-
-    private String name;
 
     public SchoolClass(String name)
     {
@@ -197,8 +186,16 @@ public class SchoolClass
 
     public void onlyDate(String date)
     {
+        curDate = date;
+        ArrayList<Entry> newEntrys = new ArrayList<Entry>();
         for(Entry e : entrys)
-            if(!e.getDate().equals(date))
-                entrys.remove(e);
+            if(e.getDate().equals(date))
+                newEntrys.add(e);
+        entrys = newEntrys;
+    }
+
+    public String getCurDate()
+    {
+        return curDate;
     }
 }

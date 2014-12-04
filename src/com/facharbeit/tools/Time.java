@@ -1,5 +1,6 @@
 package com.facharbeit.tools;
 
+import com.facharbeit.io.*;
 import java.util.*;
 
 public class Time
@@ -22,23 +23,19 @@ public class Time
     public static String forHtmlReading(boolean today)
     {
         instance();
-        if(!today)
-            c.add(Calendar.DAY_OF_MONTH, 1);
-
-        String s = String.format("%02d", c.get(Calendar.YEAR) % 100)
-                   + String.format("%02d", (c.get(Calendar.MONTH) + 1))
-                   + String.format("%02d", c.get(Calendar.DAY_OF_MONTH));
-
-        if(!today)
-            c.add(Calendar.DAY_OF_MONTH, -1);
-
-        return s;
-    }
-
-    public static String forHtmlWriting()
-    {
-        instance();
-        return " (" + c.get(Calendar.WEEK_OF_YEAR) + ")";
+        if(Settings.load("customDate").equals("true"))
+            if(today)
+                return Settings.load("customToday");
+            else
+                return Settings.load("customTomorrow");
+        else
+            if(today)
+                return day() + "\\." + month() + "\\.";
+            else
+                if(c.getDisplayName(Calendar.DATE, Calendar.SHORT, Locale.GERMANY).equals("Fr"))
+                    return addDays(3).get(Calendar.DATE) + "\\." + addDays(3).get(Calendar.MONTH) + "\\.";
+                else
+                    return addDays(1).get(Calendar.DATE) + "\\." + addDays(1).get(Calendar.MONTH) + "\\.";
     }
 
     public static int month()
@@ -85,5 +82,28 @@ public class Time
             b = true;
 
         return b;
+    }
+
+    public static String forHtmlWriting(String date)
+    {
+        instance();
+        c.set(Calendar.DATE, Integer.parseInt(date.split("\\.")[0]));
+        c.set(Calendar.MONTH, Integer.parseInt(date.split("\\.")[1]));
+
+        String gerade = Settings.load("customWeek");
+        String ungerade;
+        String week;
+
+        if(gerade.equals("A"))
+            ungerade = "B";
+        else
+            ungerade = "A";
+
+        if(c.get(Calendar.WEEK_OF_YEAR) % 2 == 0)
+            week = gerade;
+        else
+            week = ungerade;
+
+        return "Vertretungen " + date + " Woche-" + week + " (" + c.get(Calendar.WEEK_OF_YEAR) + ")";
     }
 }

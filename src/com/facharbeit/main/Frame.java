@@ -59,7 +59,6 @@ public class Frame extends javax.swing.JFrame
         jLabel7 = new javax.swing.JLabel();
         speedMotdTxt = new javax.swing.JTextField();
         autoBackupCheck = new javax.swing.JCheckBox();
-        autoDeleteSourceCheck = new javax.swing.JCheckBox();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         settingsSaveBtn = new javax.swing.JButton();
@@ -88,6 +87,13 @@ public class Frame extends javax.swing.JFrame
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane3 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
+        jLabel18 = new javax.swing.JLabel();
+        weekTxt = new javax.swing.JTextField();
+        customSourceCheck = new javax.swing.JCheckBox();
+        jLabel10 = new javax.swing.JLabel();
+        sourceTodayTxt = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        sourceTomorrowTxt = new javax.swing.JTextField();
         PathPanel = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         sourceTxt = new javax.swing.JTextField();
@@ -100,11 +106,6 @@ public class Frame extends javax.swing.JFrame
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         savePathBtn = new javax.swing.JButton();
-        customSourceCheck = new javax.swing.JCheckBox();
-        jLabel10 = new javax.swing.JLabel();
-        sourceTodayTxt = new javax.swing.JTextField();
-        sourceTomorrowTxt = new javax.swing.JTextField();
-        jLabel22 = new javax.swing.JLabel();
         DesignPanel = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         colorPlanCombo = new javax.swing.JComboBox();
@@ -172,13 +173,19 @@ public class Frame extends javax.swing.JFrame
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
 
+        Tabs.setToolTipText("");
+
+        ControlPanel.setToolTipText("");
+
         log.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        log.setToolTipText("Zeigt den Status des Programms an");
         log.setFocusable(false);
         jScrollPane1.setViewportView(log);
 
         jLabel1.setText("Status:");
 
         genTodayBtn.setText("heutigen Plan generieren");
+        genTodayBtn.setToolTipText("Generiert nur den heutigen Plan");
         genTodayBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -188,6 +195,7 @@ public class Frame extends javax.swing.JFrame
         });
 
         genTomorrowBtn.setText("morgigen Plan generieren");
+        genTomorrowBtn.setToolTipText("Generiert nur den morgigen Plan");
         genTomorrowBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -197,6 +205,7 @@ public class Frame extends javax.swing.JFrame
         });
 
         genAllBtn.setText("Alles generieren");
+        genAllBtn.setToolTipText("Generiert den kompletten Plan");
         genAllBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -207,9 +216,10 @@ public class Frame extends javax.swing.JFrame
 
         jLabel2.setText("Vertretungplan:");
 
-        motdTxt.setText("Laufschrift");
+        motdTxt.setToolTipText("Text, der als Laufschrift angezeigt werden soll z.B. \"Dies ist eine Laufschrift\"");
 
         genMotdBtn.setText("Laufschrift generieren");
+        genMotdBtn.setToolTipText("Generiert nur die Laufschrift");
         genMotdBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -218,9 +228,12 @@ public class Frame extends javax.swing.JFrame
             }
         });
 
+        progBar.setToolTipText("Zeigt den Fortschritt der Generierung an");
+
         jLabel4.setText("Fortschritt:");
 
         createBackupBtn.setText("Backup erstellen");
+        createBackupBtn.setToolTipText("Erstellt ein Backup des aktuellen Plans");
         createBackupBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -230,6 +243,7 @@ public class Frame extends javax.swing.JFrame
         });
 
         deleteSourceBtn.setText("Quellpläne löschen");
+        deleteSourceBtn.setToolTipText("Löscht die Quellpläne aus dem eingestellten Ordner");
         deleteSourceBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -239,6 +253,7 @@ public class Frame extends javax.swing.JFrame
         });
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/facharbeit/ressources/antonianumLogo.jpg"))); // NOI18N
+        jLabel5.setToolTipText("Antonianum Logo");
 
         jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -320,22 +335,21 @@ public class Frame extends javax.swing.JFrame
 
         jLabel14.setText("Scrollgeschwindigkeit");
 
-        speedPlanTxt.setText("100");
+        speedPlanTxt.setToolTipText("Scrollgeschwindigkeit des Plans in % z.B. \"100\"");
 
         jLabel7.setText("Laufschriftgeschw.");
 
-        speedMotdTxt.setText("100");
+        speedMotdTxt.setToolTipText("Scrollgeschwindigkeit der Laufschrift in % z.B. \"100\"");
 
         autoBackupCheck.setText("Automatisches Backup");
-
-        autoDeleteSourceCheck.setText("Auto Quellen löschen");
+        autoBackupCheck.setToolTipText("Soll ein automatisches Backup beim Generieren erstellt werden?");
 
         jLabel20.setText("%");
 
         jLabel21.setText("%");
 
         settingsSaveBtn.setText("speichern");
-        settingsSaveBtn.setToolTipText("");
+        settingsSaveBtn.setToolTipText("Speichert die Einstellungen der gesamten Seite, wendet sie aber nicht an");
         settingsSaveBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -344,11 +358,31 @@ public class Frame extends javax.swing.JFrame
             }
         });
 
+        hour10Txt.setToolTipText("Zeit, nach der die zehnte Stunde gelöscht wird z.B. \"9:25\"");
+
         hour10Label.setText("10. Stunde");
+
+        hour9Txt.setToolTipText("Zeit, nach der die neunte Stunde gelöscht wird z.B. \"9:25\"");
 
         hour9Label.setText("9. Stunde");
 
         hour7Label.setText("7. Stunde");
+
+        hour7Txt.setToolTipText("Zeit, nach der die siebte Stunde gelöscht wird z.B. \"9:25\"");
+
+        hour8Txt.setToolTipText("Zeit, nach der die achte Stunde gelöscht wird z.B. \"9:25\"");
+
+        hour6Txt.setToolTipText("Zeit, nach der die sechste Stunde gelöscht wird z.B. \"9:25\"");
+
+        hour4Txt.setToolTipText("Zeit, nach der die vierte Stunde gelöscht wird z.B. \"9:25\"");
+
+        hour2Txt.setToolTipText("Zeit, nach der die zweite Stunde gelöscht wird z.B. \"9:25\"");
+
+        hour1Txt.setToolTipText("Zeit, nach der die erste Stunde gelöscht wird z.B. \"9:25\"");
+
+        hour3Txt.setToolTipText("Zeit, nach der die dritte Stunde gelöscht wird z.B. \"9:25\"");
+
+        hour5Txt.setToolTipText("Zeit, nach der die fünfte Stunde gelöscht wird z.B. \"9:25\"");
 
         hour5Label.setText("5. Stunde");
 
@@ -367,6 +401,7 @@ public class Frame extends javax.swing.JFrame
         hoursHeadLabel.setText("Stunden ausblenden ab:");
 
         useHoursCheck.setText("Vergangene Vertretungen automatisch ausblenden");
+        useHoursCheck.setToolTipText("Sollen vergangene Stunden ausgeblendet werden?");
         useHoursCheck.addChangeListener(new javax.swing.event.ChangeListener()
         {
             public void stateChanged(javax.swing.event.ChangeEvent evt)
@@ -398,7 +433,34 @@ public class Frame extends javax.swing.JFrame
                 return canEdit [columnIndex];
             }
         });
+        table.setToolTipText("Verschieben der Tabellen-Sortierung auf dem Vertretungsplan");
         jScrollPane3.setViewportView(table);
+
+        jLabel18.setText("Gerade Woche");
+
+        weekTxt.setToolTipText("Buchstaben für die Gerade Woche definieren z.B. \"B\"");
+
+        customSourceCheck.setText("Benutzerdefiniertes Datum");
+        customSourceCheck.setToolTipText("Soll ein benutzerdefiniertes Datum für heute und morgen angenommen werden?");
+        customSourceCheck.addChangeListener(new javax.swing.event.ChangeListener()
+        {
+            public void stateChanged(javax.swing.event.ChangeEvent evt)
+            {
+                customSourceCheckStateChanged(evt);
+            }
+        });
+
+        jLabel10.setText("Heute");
+        jLabel10.setEnabled(false);
+
+        sourceTodayTxt.setToolTipText("Neues Datum für den heutigen Plan z.B. \"24.12.\"");
+        sourceTodayTxt.setEnabled(false);
+
+        jLabel22.setText("Morgen");
+        jLabel22.setEnabled(false);
+
+        sourceTomorrowTxt.setToolTipText("Neues Datum für den morgigen Plan z.B. \"25.12.\"");
+        sourceTomorrowTxt.setEnabled(false);
 
         javax.swing.GroupLayout SettingsPanelLayout = new javax.swing.GroupLayout(SettingsPanel);
         SettingsPanel.setLayout(SettingsPanelLayout);
@@ -413,22 +475,34 @@ public class Frame extends javax.swing.JFrame
                     .addGroup(SettingsPanelLayout.createSequentialGroup()
                         .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(SettingsPanelLayout.createSequentialGroup()
-                                .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(autoDeleteSourceCheck, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(autoBackupCheck, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE))
+                                .addComponent(autoBackupCheck, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
                                 .addGap(6, 6, 6))
                             .addGroup(SettingsPanelLayout.createSequentialGroup()
-                                .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(speedPlanTxt)
-                                    .addComponent(speedMotdTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel20)
-                                    .addComponent(jLabel21))
+                                    .addGroup(SettingsPanelLayout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(sourceTodayTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(customSourceCheck)
+                                    .addGroup(SettingsPanelLayout.createSequentialGroup()
+                                        .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jLabel18))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(speedPlanTxt)
+                                            .addComponent(speedMotdTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                                            .addComponent(weekTxt))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel20)
+                                            .addComponent(jLabel21)))
+                                    .addGroup(SettingsPanelLayout.createSequentialGroup()
+                                        .addComponent(jLabel22)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(sourceTomorrowTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -471,56 +545,60 @@ public class Frame extends javax.swing.JFrame
                                             .addComponent(hour2Txt)
                                             .addComponent(hour4Txt, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addComponent(useHoursCheck, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE))
-                        .addGap(14, 14, 14))))
-            .addGroup(SettingsPanelLayout.createSequentialGroup()
-                .addGap(131, 131, 131)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(14, 14, 14))
+                    .addGroup(SettingsPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         SettingsPanelLayout.setVerticalGroup(
             SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SettingsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(SettingsPanelLayout.createSequentialGroup()
-                        .addComponent(useHoursCheck)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(hoursHeadLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(hour1Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(hour1Label)
-                            .addComponent(hour2Label)
-                            .addComponent(hour2Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(hour3Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(hour3Label)
-                            .addComponent(hour4Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(hour4Label))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(hour5Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(hour5Label)
-                            .addComponent(hour6Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(hour6Label))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(hour7Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(hour7Label)
-                            .addComponent(hour8Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(hour8Label))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(hour9Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(hour9Label)
-                            .addComponent(hour10Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(hour10Label)))
+                        .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(SettingsPanelLayout.createSequentialGroup()
+                                .addComponent(useHoursCheck)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(hoursHeadLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(hour1Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(hour1Label)
+                                    .addComponent(hour2Label)
+                                    .addComponent(hour2Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(hour3Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(hour3Label)
+                                    .addComponent(hour4Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(hour4Label))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(hour5Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(hour5Label)
+                                    .addComponent(hour6Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(hour6Label))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(hour7Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(hour7Label)
+                                    .addComponent(hour8Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(hour8Label))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(hour9Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(hour9Label)
+                                    .addComponent(hour10Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(hour10Label)))
+                            .addComponent(jSeparator2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40))
                     .addGroup(SettingsPanelLayout.createSequentialGroup()
                         .addComponent(autoBackupCheck)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(autoDeleteSourceCheck)
-                        .addGap(18, 18, 18)
+                        .addGap(41, 41, 41)
                         .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14)
                             .addComponent(speedPlanTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -529,11 +607,22 @@ public class Frame extends javax.swing.JFrame
                         .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(speedMotdTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel21)))
-                    .addComponent(jSeparator2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59)
+                            .addComponent(jLabel21))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel18)
+                            .addComponent(weekTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(customSourceCheck)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(sourceTodayTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sourceTomorrowTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel22))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(settingsSaveBtn)
                 .addContainerGap())
         );
@@ -542,7 +631,10 @@ public class Frame extends javax.swing.JFrame
 
         jLabel6.setText("Quellpfad");
 
+        sourceTxt.setToolTipText("Quellpfad für die Vertretungs-Dateien");
+
         selectSourceTodayBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/facharbeit/ressources/ordner.png"))); // NOI18N
+        selectSourceTodayBtn.setToolTipText("Quellpfad auswählen");
         selectSourceTodayBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -552,6 +644,7 @@ public class Frame extends javax.swing.JFrame
         });
 
         selectBackupBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/facharbeit/ressources/ordner.png"))); // NOI18N
+        selectBackupBtn.setToolTipText("Backuppfad auswählen");
         selectBackupBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -561,6 +654,7 @@ public class Frame extends javax.swing.JFrame
         });
 
         selectDestBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/facharbeit/ressources/ordner.png"))); // NOI18N
+        selectDestBtn.setToolTipText("Zielpfad hinzufügen");
         selectDestBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -572,13 +666,17 @@ public class Frame extends javax.swing.JFrame
         destArea.setColumns(20);
         destArea.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         destArea.setRows(5);
+        destArea.setToolTipText("Zielpfade in die der Plan automatisch kopiert wird");
         jScrollPane2.setViewportView(destArea);
+
+        backupTxt.setToolTipText("Backuppfad für den generierten Plan");
 
         jLabel8.setText("Backuppfad");
 
         jLabel9.setText("Zielpfade");
 
         savePathBtn.setText("speichern");
+        savePathBtn.setToolTipText("Speichert alle Pfade");
         savePathBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -586,25 +684,6 @@ public class Frame extends javax.swing.JFrame
                 savePathBtnActionPerformed(evt);
             }
         });
-
-        customSourceCheck.setText("Benutzerdefiniert");
-        customSourceCheck.addChangeListener(new javax.swing.event.ChangeListener()
-        {
-            public void stateChanged(javax.swing.event.ChangeEvent evt)
-            {
-                customSourceCheckStateChanged(evt);
-            }
-        });
-
-        jLabel10.setText("Heute");
-        jLabel10.setEnabled(false);
-
-        sourceTodayTxt.setEnabled(false);
-
-        sourceTomorrowTxt.setEnabled(false);
-
-        jLabel22.setText("Morgen");
-        jLabel22.setEnabled(false);
 
         javax.swing.GroupLayout PathPanelLayout = new javax.swing.GroupLayout(PathPanel);
         PathPanel.setLayout(PathPanelLayout);
@@ -615,36 +694,25 @@ public class Frame extends javax.swing.JFrame
                 .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(savePathBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(PathPanelLayout.createSequentialGroup()
-                        .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PathPanelLayout.createSequentialGroup()
+                                .addComponent(backupTxt)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(selectBackupBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(PathPanelLayout.createSequentialGroup()
-                                .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(sourceTxt)
-                                    .addGroup(PathPanelLayout.createSequentialGroup()
-                                        .addComponent(customSourceCheck)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel10)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(sourceTodayTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel22)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(sourceTomorrowTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(sourceTxt)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(selectSourceTodayBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(PathPanelLayout.createSequentialGroup()
-                                .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(backupTxt))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(selectDestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(selectBackupBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                .addComponent(selectDestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         PathPanelLayout.setVerticalGroup(
@@ -656,25 +724,18 @@ public class Frame extends javax.swing.JFrame
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(sourceTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(selectSourceTodayBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(customSourceCheck)
-                    .addComponent(jLabel10)
-                    .addComponent(sourceTodayTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel22)
-                    .addComponent(sourceTomorrowTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(backupTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel8))
                     .addComponent(selectBackupBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(20, 20, 20)
                 .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
-                    .addComponent(selectDestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                    .addComponent(selectDestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addComponent(savePathBtn)
                 .addContainerGap())
         );
@@ -683,6 +744,7 @@ public class Frame extends javax.swing.JFrame
 
         jLabel11.setText("Vertretungplan");
 
+        colorPlanCombo.setToolTipText("Hintergrundfarbe des Vertretungsplans");
         colorPlanCombo.addItemListener(new java.awt.event.ItemListener()
         {
             public void itemStateChanged(java.awt.event.ItemEvent evt)
@@ -718,6 +780,7 @@ public class Frame extends javax.swing.JFrame
         );
 
         deleteColor.setText("Farbe löschen");
+        deleteColor.setToolTipText("Angegebene Farbe löschen");
         deleteColor.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -727,6 +790,7 @@ public class Frame extends javax.swing.JFrame
         });
 
         addColorBtn.setText("Farbe bearbeiten/hinzufügen");
+        addColorBtn.setToolTipText("Angegebene Farbe bearbeiten/hinzufügen");
         addColorBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -736,9 +800,11 @@ public class Frame extends javax.swing.JFrame
         });
 
         colorNameTxt.setText("Farbenname");
+        colorNameTxt.setToolTipText("Name der Farbe, die hinzugefügt/bearbeitet werden soll z.B. \"Antonsblau\"");
 
         jLabel13.setText("Laufschrift");
 
+        colorMotdCombo.setToolTipText("Hintergrundfarbe der Laufschrift");
         colorMotdCombo.addItemListener(new java.awt.event.ItemListener()
         {
             public void itemStateChanged(java.awt.event.ItemEvent evt)
@@ -751,6 +817,7 @@ public class Frame extends javax.swing.JFrame
 
         jLabel12.setText("Tabelle");
 
+        colorTableCombo.setToolTipText("Hintergrundfarbe der Tabelle");
         colorTableCombo.addItemListener(new java.awt.event.ItemListener()
         {
             public void itemStateChanged(java.awt.event.ItemEvent evt)
@@ -776,6 +843,7 @@ public class Frame extends javax.swing.JFrame
 
         jLabel16.setText("Rahmen");
 
+        colorBorderCombo.setToolTipText("Farbe des Rahmens, der um die Frames angezeigt wird");
         colorBorderCombo.addItemListener(new java.awt.event.ItemListener()
         {
             public void itemStateChanged(java.awt.event.ItemEvent evt)
@@ -800,6 +868,7 @@ public class Frame extends javax.swing.JFrame
         jLabel17.setText("Text");
 
         typeToEditCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Überschrift", "Stufenname", "Laufschrift", "Tabelle" }));
+        typeToEditCombo.setToolTipText("Bereich des Designs der bearbeitet werden soll");
         typeToEditCombo.addItemListener(new java.awt.event.ItemListener()
         {
             public void itemStateChanged(java.awt.event.ItemEvent evt)
@@ -809,8 +878,10 @@ public class Frame extends javax.swing.JFrame
         });
 
         typeToEditTxt.setText("Vertretungsart");
+        typeToEditTxt.setToolTipText("Name einer neuen, zu differenzierenden, Vertretungsart z.B. \"Raum-Vtr.\"");
 
         addTypeBtn.setText("hinzufügen");
+        addTypeBtn.setToolTipText("Eine neue, zu differenzierende, Vertretungsart erstellen");
         addTypeBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -820,6 +891,7 @@ public class Frame extends javax.swing.JFrame
         });
 
         deleteTypeBtn.setText("löschen");
+        deleteTypeBtn.setToolTipText("Eine Vertretungsart löschen");
         deleteTypeBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -843,6 +915,7 @@ public class Frame extends javax.swing.JFrame
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        fontColorCombo.setToolTipText("Schriftfarbe für den gewählten Bereich festlegen");
         fontColorCombo.addItemListener(new java.awt.event.ItemListener()
         {
             public void itemStateChanged(java.awt.event.ItemEvent evt)
@@ -853,7 +926,7 @@ public class Frame extends javax.swing.JFrame
 
         jLabel23.setText("Schriftart");
 
-        fontTypeTxt.setText("Schriftart");
+        fontTypeTxt.setToolTipText("Schriftart für den gewählten Bereich festlegen z.B. \"calibri\"");
         fontTypeTxt.addMouseListener(new java.awt.event.MouseAdapter()
         {
             public void mouseExited(java.awt.event.MouseEvent evt)
@@ -866,6 +939,7 @@ public class Frame extends javax.swing.JFrame
 
         backgroundColorLabel.setText("Hintergrundfarbe");
 
+        backgroundColorCombo.setToolTipText("Hintergrundfarbe für den gewählten Bereich festlegen");
         backgroundColorCombo.addItemListener(new java.awt.event.ItemListener()
         {
             public void itemStateChanged(java.awt.event.ItemEvent evt)
@@ -887,7 +961,7 @@ public class Frame extends javax.swing.JFrame
             .addGap(0, 20, Short.MAX_VALUE)
         );
 
-        fontSizeTxt.setText("12");
+        fontSizeTxt.setToolTipText("Schriftgröße für den gewählten Bereich festlegen z.B. \"12\"");
         fontSizeTxt.addMouseListener(new java.awt.event.MouseAdapter()
         {
             public void mouseExited(java.awt.event.MouseEvent evt)
@@ -897,6 +971,7 @@ public class Frame extends javax.swing.JFrame
         });
 
         boldCheck.setText("Fett");
+        boldCheck.setToolTipText("Soll die Schrift des gewählten Bereichs fett gedruckt werden?");
         boldCheck.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -906,6 +981,7 @@ public class Frame extends javax.swing.JFrame
         });
 
         italicCheck.setText("Kursiv");
+        italicCheck.setToolTipText("Soll die Schrift des gewählten Bereichs kursiv gedruckt werden?");
         italicCheck.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -914,7 +990,8 @@ public class Frame extends javax.swing.JFrame
             }
         });
 
-        saveDesignBtn.setText("speichern");
+        saveDesignBtn.setText("Style anwenden");
+        saveDesignBtn.setToolTipText("Den, oben eingestellten, Style für den Plan anwenden");
 
         javax.swing.GroupLayout DesignPanelLayout = new javax.swing.GroupLayout(DesignPanel);
         DesignPanel.setLayout(DesignPanelLayout);
@@ -1087,6 +1164,7 @@ public class Frame extends javax.swing.JFrame
         Tabs.addTab("Design", DesignPanel);
 
         useSQLCheck.setText("SQL benutzen");
+        useSQLCheck.setToolTipText("Soll die SQL-Unterstützung aktiviert werden?");
         useSQLCheck.addChangeListener(new javax.swing.event.ChangeListener()
         {
             public void stateChanged(javax.swing.event.ChangeEvent evt)
@@ -1096,6 +1174,7 @@ public class Frame extends javax.swing.JFrame
         });
 
         sqlModeBtn.setText("schreiben");
+        sqlModeBtn.setToolTipText("SQL Modus, der verwendet werden soll");
         sqlModeBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -1105,6 +1184,7 @@ public class Frame extends javax.swing.JFrame
         });
 
         sqlSaveBtn.setText("speichern");
+        sqlSaveBtn.setToolTipText("Speichert die SQL Einstellungen");
         sqlSaveBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -1113,20 +1193,27 @@ public class Frame extends javax.swing.JFrame
             }
         });
 
+        dbTableNameTxt.setToolTipText("Tabellen Name z.B. \"Vertretungen\"");
+
         dbTableNameLabel.setText("Tabellenname:");
+
+        dbNameTxt.setToolTipText("Datenbank Name z.B. \"Schuldatenbank\"");
 
         dbNameLabel.setText("Datenbankname:");
 
         dbUserLabel.setText("Benutzername:");
 
+        dbUserTxt.setToolTipText("Benutzername z.B. \"admin\"");
+
         dbPwLabel.setText("Passwort:");
 
-        dbPortTxt.setText("1433");
+        dbPwTxt.setToolTipText("Passwort z.B. \"passw\"");
+
+        dbPortTxt.setToolTipText("Datenbank Port z.B. \"1344\"");
 
         dbPortLabel.setText("Port:");
 
-        dbHostTxt.setText("www.antonianum.de");
-        dbHostTxt.setToolTipText("");
+        dbHostTxt.setToolTipText("Datenbank Host z.B. \"www.antonianum.de\"");
 
         dbHostLabel.setText("Datenbank Host:");
 
@@ -1247,8 +1334,7 @@ public class Frame extends javax.swing.JFrame
 
     private void savePathBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_savePathBtnActionPerformed
     {//GEN-HEADEREND:event_savePathBtnActionPerformed
-        Application.addToQueue("savePathBtnActionPerformed", sourceTxt, backupTxt, destArea, sourceTodayTxt, sourceTomorrowTxt,
-                               customSourceCheck);
+        Application.addToQueue("savePathBtnActionPerformed", sourceTxt, backupTxt, destArea);
     }//GEN-LAST:event_savePathBtnActionPerformed
 
     private void addColorBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_addColorBtnActionPerformed
@@ -1318,8 +1404,8 @@ public class Frame extends javax.swing.JFrame
     {//GEN-HEADEREND:event_settingsSaveBtnActionPerformed
         Application.addToQueue("settingsSaveBtnActionPerformed", hour1Txt, hour2Txt, hour3Txt,
                                hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt,
-                               useHoursCheck, autoBackupCheck, autoDeleteSourceCheck, speedPlanTxt, speedMotdTxt,
-                               table);
+                               useHoursCheck, autoBackupCheck, speedPlanTxt, speedMotdTxt,
+                               table, weekTxt, sourceTodayTxt, sourceTomorrowTxt, customSourceCheck);
     }//GEN-LAST:event_settingsSaveBtnActionPerformed
 
     private void sqlModeBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_sqlModeBtnActionPerformed
@@ -1422,9 +1508,9 @@ public class Frame extends javax.swing.JFrame
                                colorPlanCombo, colorMotdCombo, motdTxt, useSQLCheck, dbHostTxt, dbPortTxt,
                                dbNameTxt, dbUserTxt, dbPwTxt, dbTableNameTxt, hour1Txt, hour2Txt, hour3Txt,
                                hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt, sqlModeBtn,
-                               autoBackupCheck, autoDeleteSourceCheck, useHoursCheck, customSourceCheck, sourceTodayTxt,
+                               autoBackupCheck, useHoursCheck, customSourceCheck, sourceTodayTxt,
                                sourceTomorrowTxt, colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo,
-                               fontTypeTxt, fontSizeTxt, boldCheck, italicCheck, typeToEditCombo, table);
+                               fontTypeTxt, fontSizeTxt, boldCheck, italicCheck, typeToEditCombo, table, weekTxt);
 
         sourceTodayTxt.setEnabled(customSourceCheck.isSelected());
         sourceTomorrowTxt.setEnabled(customSourceCheck.isSelected());
@@ -1451,7 +1537,6 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JButton addColorBtn;
     private javax.swing.JButton addTypeBtn;
     private javax.swing.JCheckBox autoBackupCheck;
-    private javax.swing.JCheckBox autoDeleteSourceCheck;
     private javax.swing.JComboBox backgroundColorCombo;
     private javax.swing.JLabel backgroundColorLabel;
     private javax.swing.JPanel backgroundColorPanel;
@@ -1526,6 +1611,7 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -1572,5 +1658,6 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JTextField typeToEditTxt;
     private javax.swing.JCheckBox useHoursCheck;
     private javax.swing.JCheckBox useSQLCheck;
+    private javax.swing.JTextField weekTxt;
     // End of variables declaration//GEN-END:variables
 }

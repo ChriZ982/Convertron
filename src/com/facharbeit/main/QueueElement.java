@@ -22,6 +22,7 @@ public class QueueElement
         } catch(IllegalAccessException | IllegalArgumentException | InvocationTargetException ex)
         {
             Logger.log(method.getName() + " konnte nicht ausgeführt werden.", 2);
+            ex.printStackTrace();
         }
     }
 }
