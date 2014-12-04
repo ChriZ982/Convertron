@@ -18,7 +18,7 @@ public class HtmlReader
             return readInSql();
         else
         {
-            SchoolClass[] scs = readInHtml(Settings.load("pathSource"));
+            SchoolClass[] scs = readInHtml(getPathToday());
             boolean found = false;
             for(SchoolClass sc : scs)
             {
@@ -40,7 +40,7 @@ public class HtmlReader
             return readInSql();
         else
         {
-            SchoolClass[] scs = readInHtml(Settings.load("pathSource"));
+            SchoolClass[] scs = readInHtml(getPathTomorrow());
             boolean found = false;
             int i = 0;
             while(i < 10 && !found)
@@ -121,6 +121,8 @@ public class HtmlReader
 
             }
 
+            outcome[i].setFoot(readFoot(read));
+
         }
         Logger.setProgress(50);
         return outcome;
@@ -186,50 +188,66 @@ public class HtmlReader
         return files;
     }
 
-    public static String readHeadToday()
+    public static HtmlFoot readFootToday()
     {
-        String path;
-        if(Settings.load("sourceCustom").equals("true"))
-            path = (Settings.load("pathSource") + "/" + Settings.load("sourceTodayPath"));
-        else
-            path = findPath(true);
-
-        final String beforeHead = "</TABLE><BR><font size=\"5\" face=\"Arial\">\n<B>";
-
-        File theFile = getFiles(path).get(0);
-
-        FileReader read = new FileReader(theFile);
-        String fileAsString = read.toString();
-
-        fileAsString = fileAsString.substring(fileAsString.indexOf(beforeHead) + beforeHead.length());
-        fileAsString = fileAsString.substring(0, fileAsString.indexOf("</B>"));
-
-        return fileAsString;
+        return readFoot(getFiles(getPathToday()).get(0));
     }
 
-    public static String readHeadTomorrow()
+    public static HtmlFoot readFootTomorrow()
     {
-        String path;
-        if(Settings.load("sourceCustom").equals("true"))
-            path = (Settings.load("pathSource") + "/" + Settings.load("sourceTodayPath"));
-        else
-            path = findPath(true);
+        return readFoot(getFiles(getPathTomorrow()).get(0));
+    }
 
-        final String beforeHead = "</TABLE><BR><font size=\"5\" face=\"Arial\">\n<B>";
+    private static HtmlFoot readFoot(File f)
+    {
+        return readFoot(new FileReader(f));
+    }
 
-        File theFile = getFiles(path).get(0);
-
-        FileReader read = new FileReader(theFile);
+    private static HtmlFoot readFoot(FileReader read)
+    {
+        final String beforeFoot = "</TABLE><font size=\"3\" face=\"Arial\"  color=\"#000000\">\n";
+        final String afterFoot = "\n</font>";
         String fileAsString = read.toString();
+        String foot = "";
+        if(fileAsString.contains(beforeFoot))
+        {
+            foot = fileAsString.substring(fileAsString.indexOf(beforeFoot) + beforeFoot.length());
+            foot = foot.substring(0, foot.indexOf(afterFoot));
+        }
 
-        fileAsString = fileAsString.substring(fileAsString.indexOf(beforeHead) + beforeHead.length());
-        fileAsString = fileAsString.substring(0, fileAsString.indexOf("</B>"));
-
-        return fileAsString;
+        return new HtmlFoot(foot);
     }
 
     private static String findPath(boolean today)
     {
         return Time.forHtmlReading(today);
+    }
+
+    private static String getPathToday()
+    {
+        String path = Settings.load("pathSource");
+
+        if(Settings.load("sourceCustom").equals("true"))
+        {
+            if(!path.endsWith("\\"))
+                path += "\\";
+            path += Settings.load("sourceTodayPath");
+        }
+
+        return path;
+    }
+
+    private static String getPathTomorrow()
+    {
+        String path = Settings.load("pathSource");
+
+        if(Settings.load("sourceCustom").equals("true"))
+        {
+            if(!path.endsWith("\\"))
+                path += "\\";
+            path += Settings.load("sourceTomorrowPath");
+        }
+
+        return path;
     }
 }
