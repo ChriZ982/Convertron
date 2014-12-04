@@ -15,11 +15,11 @@
                 else
                 {
                     window.scrollTo(0, 0);
-                    if (reloadcounter < 4)
+                    if (reloadcounter < 5)
                         reloadcounter = reloadcounter + 1;
                     else
                     {
-                        window.history.go(0);
+                        location.reload(true);
                         reloadcounter = 0;
                     }
                 }
@@ -53,7 +53,7 @@
                 document.write('<table width="100%" >' +
                         '<tr>' +
                         '<td ><img src="antonianumLogo.png" height="130" alt="Gymnasium Antonianum - Logo" /></td>' +
-                        '<td class="datum">Vertretungen 17.11. Woche-A (51)</td>' +
+                        '<td class="datum">Vertretungen Mittwoch 17.11.<br/>Woche-A (51)</td>' +
                         '</tr>' +
                         '</table>' +
                         '' +
