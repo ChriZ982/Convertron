@@ -59,7 +59,6 @@ public class Frame extends javax.swing.JFrame
         jLabel7 = new javax.swing.JLabel();
         speedMotdTxt = new javax.swing.JTextField();
         autoBackupCheck = new javax.swing.JCheckBox();
-        autoDeleteSourceCheck = new javax.swing.JCheckBox();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         settingsSaveBtn = new javax.swing.JButton();
@@ -174,13 +173,19 @@ public class Frame extends javax.swing.JFrame
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
 
+        Tabs.setToolTipText("");
+
+        ControlPanel.setToolTipText("");
+
         log.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        log.setToolTipText("Zeigt den Status des Programms an");
         log.setFocusable(false);
         jScrollPane1.setViewportView(log);
 
         jLabel1.setText("Status:");
 
         genTodayBtn.setText("heutigen Plan generieren");
+        genTodayBtn.setToolTipText("Generiert nur den heutigen Plan");
         genTodayBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -190,6 +195,7 @@ public class Frame extends javax.swing.JFrame
         });
 
         genTomorrowBtn.setText("morgigen Plan generieren");
+        genTomorrowBtn.setToolTipText("Generiert nur den morgigen Plan");
         genTomorrowBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -199,6 +205,7 @@ public class Frame extends javax.swing.JFrame
         });
 
         genAllBtn.setText("Alles generieren");
+        genAllBtn.setToolTipText("Generiert den kompletten Plan");
         genAllBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -209,7 +216,10 @@ public class Frame extends javax.swing.JFrame
 
         jLabel2.setText("Vertretungplan:");
 
+        motdTxt.setToolTipText("Text, der als Laufschrift angezeigt werden soll z.B. \"Dies ist eine Laufschrift\"");
+
         genMotdBtn.setText("Laufschrift generieren");
+        genMotdBtn.setToolTipText("Generiert nur die Laufschrift");
         genMotdBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -218,9 +228,12 @@ public class Frame extends javax.swing.JFrame
             }
         });
 
+        progBar.setToolTipText("Zeigt den Fortschritt der Generierung an");
+
         jLabel4.setText("Fortschritt:");
 
         createBackupBtn.setText("Backup erstellen");
+        createBackupBtn.setToolTipText("Erstellt ein Backup des aktuellen Plans");
         createBackupBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -230,6 +243,7 @@ public class Frame extends javax.swing.JFrame
         });
 
         deleteSourceBtn.setText("Quellpläne löschen");
+        deleteSourceBtn.setToolTipText("Löscht die Quellpläne aus dem eingestellten Ordner");
         deleteSourceBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -239,6 +253,7 @@ public class Frame extends javax.swing.JFrame
         });
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/facharbeit/ressources/antonianumLogo.jpg"))); // NOI18N
+        jLabel5.setToolTipText("Antonianum Logo");
 
         jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -320,18 +335,21 @@ public class Frame extends javax.swing.JFrame
 
         jLabel14.setText("Scrollgeschwindigkeit");
 
+        speedPlanTxt.setToolTipText("Scrollgeschwindigkeit des Plans in % z.B. \"100\"");
+
         jLabel7.setText("Laufschriftgeschw.");
 
-        autoBackupCheck.setText("Automatisches Backup");
+        speedMotdTxt.setToolTipText("Scrollgeschwindigkeit der Laufschrift in % z.B. \"100\"");
 
-        autoDeleteSourceCheck.setText("Auto Quellen löschen");
+        autoBackupCheck.setText("Automatisches Backup");
+        autoBackupCheck.setToolTipText("Soll ein automatisches Backup beim Generieren erstellt werden?");
 
         jLabel20.setText("%");
 
         jLabel21.setText("%");
 
         settingsSaveBtn.setText("speichern");
-        settingsSaveBtn.setToolTipText("");
+        settingsSaveBtn.setToolTipText("Speichert die Einstellungen der gesamten Seite, wendet sie aber nicht an");
         settingsSaveBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -340,11 +358,31 @@ public class Frame extends javax.swing.JFrame
             }
         });
 
+        hour10Txt.setToolTipText("Zeit, nach der die zehnte Stunde gelöscht wird z.B. \"9:25\"");
+
         hour10Label.setText("10. Stunde");
+
+        hour9Txt.setToolTipText("Zeit, nach der die neunte Stunde gelöscht wird z.B. \"9:25\"");
 
         hour9Label.setText("9. Stunde");
 
         hour7Label.setText("7. Stunde");
+
+        hour7Txt.setToolTipText("Zeit, nach der die siebte Stunde gelöscht wird z.B. \"9:25\"");
+
+        hour8Txt.setToolTipText("Zeit, nach der die achte Stunde gelöscht wird z.B. \"9:25\"");
+
+        hour6Txt.setToolTipText("Zeit, nach der die sechste Stunde gelöscht wird z.B. \"9:25\"");
+
+        hour4Txt.setToolTipText("Zeit, nach der die vierte Stunde gelöscht wird z.B. \"9:25\"");
+
+        hour2Txt.setToolTipText("Zeit, nach der die zweite Stunde gelöscht wird z.B. \"9:25\"");
+
+        hour1Txt.setToolTipText("Zeit, nach der die erste Stunde gelöscht wird z.B. \"9:25\"");
+
+        hour3Txt.setToolTipText("Zeit, nach der die dritte Stunde gelöscht wird z.B. \"9:25\"");
+
+        hour5Txt.setToolTipText("Zeit, nach der die fünfte Stunde gelöscht wird z.B. \"9:25\"");
 
         hour5Label.setText("5. Stunde");
 
@@ -363,6 +401,7 @@ public class Frame extends javax.swing.JFrame
         hoursHeadLabel.setText("Stunden ausblenden ab:");
 
         useHoursCheck.setText("Vergangene Vertretungen automatisch ausblenden");
+        useHoursCheck.setToolTipText("Sollen vergangene Stunden ausgeblendet werden?");
         useHoursCheck.addChangeListener(new javax.swing.event.ChangeListener()
         {
             public void stateChanged(javax.swing.event.ChangeEvent evt)
@@ -394,11 +433,15 @@ public class Frame extends javax.swing.JFrame
                 return canEdit [columnIndex];
             }
         });
+        table.setToolTipText("Verschieben der Tabellen-Sortierung auf dem Vertretungsplan");
         jScrollPane3.setViewportView(table);
 
         jLabel18.setText("Gerade Woche");
 
+        weekTxt.setToolTipText("Buchstaben für die Gerade Woche definieren z.B. \"B\"");
+
         customSourceCheck.setText("Benutzerdefiniertes Datum");
+        customSourceCheck.setToolTipText("Soll ein benutzerdefiniertes Datum für heute und morgen angenommen werden?");
         customSourceCheck.addChangeListener(new javax.swing.event.ChangeListener()
         {
             public void stateChanged(javax.swing.event.ChangeEvent evt)
@@ -410,11 +453,13 @@ public class Frame extends javax.swing.JFrame
         jLabel10.setText("Heute");
         jLabel10.setEnabled(false);
 
+        sourceTodayTxt.setToolTipText("Neues Datum für den heutigen Plan z.B. \"24.12.\"");
         sourceTodayTxt.setEnabled(false);
 
         jLabel22.setText("Morgen");
         jLabel22.setEnabled(false);
 
+        sourceTomorrowTxt.setToolTipText("Neues Datum für den morgigen Plan z.B. \"25.12.\"");
         sourceTomorrowTxt.setEnabled(false);
 
         javax.swing.GroupLayout SettingsPanelLayout = new javax.swing.GroupLayout(SettingsPanel);
@@ -430,9 +475,7 @@ public class Frame extends javax.swing.JFrame
                     .addGroup(SettingsPanelLayout.createSequentialGroup()
                         .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(SettingsPanelLayout.createSequentialGroup()
-                                .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(autoDeleteSourceCheck, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(autoBackupCheck, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE))
+                                .addComponent(autoBackupCheck, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
                                 .addGap(6, 6, 6))
                             .addGroup(SettingsPanelLayout.createSequentialGroup()
                                 .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -555,9 +598,7 @@ public class Frame extends javax.swing.JFrame
                         .addGap(40, 40, 40))
                     .addGroup(SettingsPanelLayout.createSequentialGroup()
                         .addComponent(autoBackupCheck)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(autoDeleteSourceCheck)
-                        .addGap(18, 18, 18)
+                        .addGap(41, 41, 41)
                         .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14)
                             .addComponent(speedPlanTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -590,7 +631,10 @@ public class Frame extends javax.swing.JFrame
 
         jLabel6.setText("Quellpfad");
 
+        sourceTxt.setToolTipText("Quellpfad für die Vertretungs-Dateien");
+
         selectSourceTodayBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/facharbeit/ressources/ordner.png"))); // NOI18N
+        selectSourceTodayBtn.setToolTipText("Quellpfad auswählen");
         selectSourceTodayBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -600,6 +644,7 @@ public class Frame extends javax.swing.JFrame
         });
 
         selectBackupBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/facharbeit/ressources/ordner.png"))); // NOI18N
+        selectBackupBtn.setToolTipText("Backuppfad auswählen");
         selectBackupBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -609,6 +654,7 @@ public class Frame extends javax.swing.JFrame
         });
 
         selectDestBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/facharbeit/ressources/ordner.png"))); // NOI18N
+        selectDestBtn.setToolTipText("Zielpfad hinzufügen");
         selectDestBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -620,13 +666,17 @@ public class Frame extends javax.swing.JFrame
         destArea.setColumns(20);
         destArea.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         destArea.setRows(5);
+        destArea.setToolTipText("Zielpfade in die der Plan automatisch kopiert wird");
         jScrollPane2.setViewportView(destArea);
+
+        backupTxt.setToolTipText("Backuppfad für den generierten Plan");
 
         jLabel8.setText("Backuppfad");
 
         jLabel9.setText("Zielpfade");
 
         savePathBtn.setText("speichern");
+        savePathBtn.setToolTipText("Speichert alle Pfade");
         savePathBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -694,6 +744,7 @@ public class Frame extends javax.swing.JFrame
 
         jLabel11.setText("Vertretungplan");
 
+        colorPlanCombo.setToolTipText("Hintergrundfarbe des Vertretungsplans");
         colorPlanCombo.addItemListener(new java.awt.event.ItemListener()
         {
             public void itemStateChanged(java.awt.event.ItemEvent evt)
@@ -729,6 +780,7 @@ public class Frame extends javax.swing.JFrame
         );
 
         deleteColor.setText("Farbe löschen");
+        deleteColor.setToolTipText("Angegebene Farbe löschen");
         deleteColor.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -738,6 +790,7 @@ public class Frame extends javax.swing.JFrame
         });
 
         addColorBtn.setText("Farbe bearbeiten/hinzufügen");
+        addColorBtn.setToolTipText("Angegebene Farbe bearbeiten/hinzufügen");
         addColorBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -747,9 +800,11 @@ public class Frame extends javax.swing.JFrame
         });
 
         colorNameTxt.setText("Farbenname");
+        colorNameTxt.setToolTipText("Name der Farbe, die hinzugefügt/bearbeitet werden soll z.B. \"Antonsblau\"");
 
         jLabel13.setText("Laufschrift");
 
+        colorMotdCombo.setToolTipText("Hintergrundfarbe der Laufschrift");
         colorMotdCombo.addItemListener(new java.awt.event.ItemListener()
         {
             public void itemStateChanged(java.awt.event.ItemEvent evt)
@@ -762,6 +817,7 @@ public class Frame extends javax.swing.JFrame
 
         jLabel12.setText("Tabelle");
 
+        colorTableCombo.setToolTipText("Hintergrundfarbe der Tabelle");
         colorTableCombo.addItemListener(new java.awt.event.ItemListener()
         {
             public void itemStateChanged(java.awt.event.ItemEvent evt)
@@ -787,6 +843,7 @@ public class Frame extends javax.swing.JFrame
 
         jLabel16.setText("Rahmen");
 
+        colorBorderCombo.setToolTipText("Farbe des Rahmens, der um die Frames angezeigt wird");
         colorBorderCombo.addItemListener(new java.awt.event.ItemListener()
         {
             public void itemStateChanged(java.awt.event.ItemEvent evt)
@@ -811,6 +868,7 @@ public class Frame extends javax.swing.JFrame
         jLabel17.setText("Text");
 
         typeToEditCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Überschrift", "Stufenname", "Laufschrift", "Tabelle" }));
+        typeToEditCombo.setToolTipText("Bereich des Designs der bearbeitet werden soll");
         typeToEditCombo.addItemListener(new java.awt.event.ItemListener()
         {
             public void itemStateChanged(java.awt.event.ItemEvent evt)
@@ -820,8 +878,10 @@ public class Frame extends javax.swing.JFrame
         });
 
         typeToEditTxt.setText("Vertretungsart");
+        typeToEditTxt.setToolTipText("Name einer neuen, zu differenzierenden, Vertretungsart z.B. \"Raum-Vtr.\"");
 
         addTypeBtn.setText("hinzufügen");
+        addTypeBtn.setToolTipText("Eine neue, zu differenzierende, Vertretungsart erstellen");
         addTypeBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -831,6 +891,7 @@ public class Frame extends javax.swing.JFrame
         });
 
         deleteTypeBtn.setText("löschen");
+        deleteTypeBtn.setToolTipText("Eine Vertretungsart löschen");
         deleteTypeBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -854,6 +915,7 @@ public class Frame extends javax.swing.JFrame
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        fontColorCombo.setToolTipText("Schriftfarbe für den gewählten Bereich festlegen");
         fontColorCombo.addItemListener(new java.awt.event.ItemListener()
         {
             public void itemStateChanged(java.awt.event.ItemEvent evt)
@@ -864,6 +926,7 @@ public class Frame extends javax.swing.JFrame
 
         jLabel23.setText("Schriftart");
 
+        fontTypeTxt.setToolTipText("Schriftart für den gewählten Bereich festlegen z.B. \"calibri\"");
         fontTypeTxt.addMouseListener(new java.awt.event.MouseAdapter()
         {
             public void mouseExited(java.awt.event.MouseEvent evt)
@@ -876,6 +939,7 @@ public class Frame extends javax.swing.JFrame
 
         backgroundColorLabel.setText("Hintergrundfarbe");
 
+        backgroundColorCombo.setToolTipText("Hintergrundfarbe für den gewählten Bereich festlegen");
         backgroundColorCombo.addItemListener(new java.awt.event.ItemListener()
         {
             public void itemStateChanged(java.awt.event.ItemEvent evt)
@@ -897,6 +961,7 @@ public class Frame extends javax.swing.JFrame
             .addGap(0, 20, Short.MAX_VALUE)
         );
 
+        fontSizeTxt.setToolTipText("Schriftgröße für den gewählten Bereich festlegen z.B. \"12\"");
         fontSizeTxt.addMouseListener(new java.awt.event.MouseAdapter()
         {
             public void mouseExited(java.awt.event.MouseEvent evt)
@@ -906,6 +971,7 @@ public class Frame extends javax.swing.JFrame
         });
 
         boldCheck.setText("Fett");
+        boldCheck.setToolTipText("Soll die Schrift des gewählten Bereichs fett gedruckt werden?");
         boldCheck.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -915,6 +981,7 @@ public class Frame extends javax.swing.JFrame
         });
 
         italicCheck.setText("Kursiv");
+        italicCheck.setToolTipText("Soll die Schrift des gewählten Bereichs kursiv gedruckt werden?");
         italicCheck.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -924,6 +991,7 @@ public class Frame extends javax.swing.JFrame
         });
 
         saveDesignBtn.setText("Style anwenden");
+        saveDesignBtn.setToolTipText("Den, oben eingestellten, Style für den Plan anwenden");
 
         javax.swing.GroupLayout DesignPanelLayout = new javax.swing.GroupLayout(DesignPanel);
         DesignPanel.setLayout(DesignPanelLayout);
@@ -1096,6 +1164,7 @@ public class Frame extends javax.swing.JFrame
         Tabs.addTab("Design", DesignPanel);
 
         useSQLCheck.setText("SQL benutzen");
+        useSQLCheck.setToolTipText("Soll die SQL-Unterstützung aktiviert werden?");
         useSQLCheck.addChangeListener(new javax.swing.event.ChangeListener()
         {
             public void stateChanged(javax.swing.event.ChangeEvent evt)
@@ -1105,6 +1174,7 @@ public class Frame extends javax.swing.JFrame
         });
 
         sqlModeBtn.setText("schreiben");
+        sqlModeBtn.setToolTipText("SQL Modus, der verwendet werden soll");
         sqlModeBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -1114,6 +1184,7 @@ public class Frame extends javax.swing.JFrame
         });
 
         sqlSaveBtn.setText("speichern");
+        sqlSaveBtn.setToolTipText("Speichert die SQL Einstellungen");
         sqlSaveBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -1122,17 +1193,27 @@ public class Frame extends javax.swing.JFrame
             }
         });
 
+        dbTableNameTxt.setToolTipText("Tabellen Name z.B. \"Vertretungen\"");
+
         dbTableNameLabel.setText("Tabellenname:");
+
+        dbNameTxt.setToolTipText("Datenbank Name z.B. \"Schuldatenbank\"");
 
         dbNameLabel.setText("Datenbankname:");
 
         dbUserLabel.setText("Benutzername:");
 
+        dbUserTxt.setToolTipText("Benutzername z.B. \"admin\"");
+
         dbPwLabel.setText("Passwort:");
+
+        dbPwTxt.setToolTipText("Passwort z.B. \"passw\"");
+
+        dbPortTxt.setToolTipText("Datenbank Port z.B. \"1344\"");
 
         dbPortLabel.setText("Port:");
 
-        dbHostTxt.setToolTipText("");
+        dbHostTxt.setToolTipText("Datenbank Host z.B. \"www.antonianum.de\"");
 
         dbHostLabel.setText("Datenbank Host:");
 
@@ -1323,7 +1404,7 @@ public class Frame extends javax.swing.JFrame
     {//GEN-HEADEREND:event_settingsSaveBtnActionPerformed
         Application.addToQueue("settingsSaveBtnActionPerformed", hour1Txt, hour2Txt, hour3Txt,
                                hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt,
-                               useHoursCheck, autoBackupCheck, autoDeleteSourceCheck, speedPlanTxt, speedMotdTxt,
+                               useHoursCheck, autoBackupCheck, speedPlanTxt, speedMotdTxt,
                                table, weekTxt, sourceTodayTxt, sourceTomorrowTxt, customSourceCheck);
     }//GEN-LAST:event_settingsSaveBtnActionPerformed
 
@@ -1427,7 +1508,7 @@ public class Frame extends javax.swing.JFrame
                                colorPlanCombo, colorMotdCombo, motdTxt, useSQLCheck, dbHostTxt, dbPortTxt,
                                dbNameTxt, dbUserTxt, dbPwTxt, dbTableNameTxt, hour1Txt, hour2Txt, hour3Txt,
                                hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt, sqlModeBtn,
-                               autoBackupCheck, autoDeleteSourceCheck, useHoursCheck, customSourceCheck, sourceTodayTxt,
+                               autoBackupCheck, useHoursCheck, customSourceCheck, sourceTodayTxt,
                                sourceTomorrowTxt, colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo,
                                fontTypeTxt, fontSizeTxt, boldCheck, italicCheck, typeToEditCombo, table, weekTxt);
 
@@ -1456,7 +1537,6 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JButton addColorBtn;
     private javax.swing.JButton addTypeBtn;
     private javax.swing.JCheckBox autoBackupCheck;
-    private javax.swing.JCheckBox autoDeleteSourceCheck;
     private javax.swing.JComboBox backgroundColorCombo;
     private javax.swing.JLabel backgroundColorLabel;
     private javax.swing.JPanel backgroundColorPanel;
