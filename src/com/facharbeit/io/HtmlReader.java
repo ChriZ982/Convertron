@@ -20,10 +20,10 @@ public class HtmlReader
             boolean found = false;
             for(SchoolClass sc : scs)
             {
-                if(sc.containsEntrysOfDate(Time.forHtmlReading(true)))
+                if(sc.containsEntrysOfDate(Time.forHtmlReading(0)))
                     found = true;
 
-                sc.onlyDate(Time.forHtmlReading(true));
+                sc.onlyDate(Time.forHtmlReading(0));
             }
             if(found)
                 return scs;
@@ -42,13 +42,13 @@ public class HtmlReader
             {
                 i++;
                 for(SchoolClass sc : scs)
-                    if(sc.containsEntrysOfDate(Time.forHtmlReading(false)))
+                    if(sc.containsEntrysOfDate(Time.forHtmlReading(i)))
                         found = true;
             }
             if(found)
             {
                 for(SchoolClass sc : scs)
-                    sc.onlyDate(Time.forHtmlReading(false));
+                    sc.onlyDate(Time.forHtmlReading(i));
                 return scs;
             }
         }

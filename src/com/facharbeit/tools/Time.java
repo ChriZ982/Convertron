@@ -20,22 +20,18 @@ public class Time
                + String.format("%02d", c.get(Calendar.SECOND)) + "] ";
     }
 
-    public static String forHtmlReading(boolean today)
+    public static String forHtmlReading(int addDays)
     {
         instance();
         if(Settings.load("customDate").equals("true"))
-            if(today)
+            if(addDays == 0)
                 return Settings.load("customToday");
             else
                 return Settings.load("customTomorrow");
+        else if(addDays == 0)
+            return day() + "\\." + month() + "\\.";
         else
-            if(today)
-                return day() + "\\." + month() + "\\.";
-            else
-                if(c.getDisplayName(Calendar.DATE, Calendar.SHORT, Locale.GERMANY).equals("Fr"))
-                    return addDays(3).get(Calendar.DATE) + "\\." + addDays(3).get(Calendar.MONTH) + "\\.";
-                else
-                    return addDays(1).get(Calendar.DATE) + "\\." + addDays(1).get(Calendar.MONTH) + "\\.";
+            return addDays(addDays).get(Calendar.DATE) + "\\." + addDays(1).get(Calendar.MONTH) + "\\.";
     }
 
     public static int month()
@@ -104,6 +100,6 @@ public class Time
         else
             week = ungerade;
 
-        return "Vertretungen " + date + " Woche-" + week + " (" + c.get(Calendar.WEEK_OF_YEAR) + ")";
+        return "Vertretungen " + c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.GERMANY) + " " + date + "<br/>Woche-" + week + " (" + c.get(Calendar.WEEK_OF_YEAR) + ")";
     }
 }
