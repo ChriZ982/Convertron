@@ -2,9 +2,9 @@ package com.facharbeit.tools;
 
 public class Entry
 {
-    private int hour;
-    private String date;
-    private String dayOfWeek;
+    private int hour = -1;
+    private String date = null;
+    private String dayOfWeek = null;
 
     public String getDate()
     {
@@ -58,54 +58,70 @@ public class Entry
         this.content = content;
     }
 
-    public Entry(int hour, boolean nextIsEqual, String... content)
-    {
-        this.hour = hour;
-        this.nextIsEqual = nextIsEqual;
-        this.content = content;
-    }
-
-    public Entry(int hour, String... content)
-    {
-        this.hour = hour;
-        this.nextIsEqual = false;
-        this.content = content;
-    }
-
+//    public Entry(int hour, boolean nextIsEqual, String... content)
+//    {
+//        this.hour = hour;
+//        this.nextIsEqual = nextIsEqual;
+//        this.content = content;
+//    }
+//    public Entry(int hour, String... content)
+//    {
+//        this.hour = hour;
+//        this.nextIsEqual = false;
+//        this.content = content;
+//    }
+//    public Entry(String... content)
+//    {
+//        try
+//        {
+//            this.hour = Integer.parseInt(content[0]);
+//        } catch(NumberFormatException n)
+//        {
+//            this.hour = -1;
+//        }
+//
+//        this.nextIsEqual = false;
+//
+//        this.content = new String[content.length - 1];
+//
+//        for(int i = 1; i < content.length; i++)
+//            this.content[i - 1] = content[i];
+//    }
     public Entry(String... content)
     {
+
+        boolean nextIsEqual = false;
         try
         {
             this.hour = Integer.parseInt(content[0]);
-        } catch(NumberFormatException n)
+        } catch(NumberFormatException ex)
         {
-            this.hour = -1;
-        }
 
-        this.nextIsEqual = false;
+            if(content[0].indexOf("-") > 0)
+            {
+                nextIsEqual = true;
+                try
+                {
+                    this.hour = Integer.parseInt(content[0].substring(0, content[0].indexOf("-") - 1));
+                } catch(NumberFormatException e)
+                {
+                }
 
-        this.content = new String[content.length - 1];
-
-        for(int i = 1; i < content.length; i++)
-            this.content[i - 1] = content[i];
-    }
-
-    public Entry(boolean nextIsEqual, String... content)
-    {
-        try
-        {
-            this.hour = Integer.parseInt(content[0]);
-        } catch(NumberFormatException n)
-        {
-            this.hour = -1;
+            } else
+            {
+                //Fehler
+            }
         }
 
         this.nextIsEqual = nextIsEqual;
 
-        this.content = new String[content.length - 1];
+        this.date = content[1];
+        this.dayOfWeek = content[2];
 
-        for(int i = 1; i < content.length; i++)
-            this.content[i - 1] = content[i];
+        this.content = new String[content.length - 3];
+
+        for(int i = 3; i < content.length; i++)
+            this.content[i - 3] = content[i];
     }
 
     public String toString(String cssClass)
