@@ -7,10 +7,6 @@ import java.util.*;
 
 public class HtmlReader
 {
-
-    final static int indexOfDateColumm = 1;
-    final static int indexOfDayOfWeekColumm = 2;
-
     final static String[] extraGrades =
     {
         "EF", "Q1", "Q2", "___"
@@ -22,7 +18,7 @@ public class HtmlReader
             return readInSql();
         else
         {
-            SchoolClass[] scs = readInHtml(Settings.load("pathSource"));
+            SchoolClass[] scs = readInHtml(getPathToday());
             boolean found = false;
             for(SchoolClass sc : scs)
             {
@@ -44,7 +40,7 @@ public class HtmlReader
             return readInSql();
         else
         {
-            SchoolClass[] scs = readInHtml(Settings.load("pathSource"));
+            SchoolClass[] scs = readInHtml(getPathTomorrow());
             boolean found = false;
             int i = 0;
             while(i < 10 && !found)
@@ -92,63 +88,40 @@ public class HtmlReader
             fileAsString = fileAsString.substring(fileAsString.indexOf("<TR>") + 4);
             boolean endOfFile = false;
 
-            int skippedColumms = 0;
-
             while(!endOfFile)
             {
                 fileAsString = fileAsString.substring(fileAsString.indexOf("<TR>") + 4);
 
-                String[] thisEntry = new String[8];
-                String date = "";
-                String dayOfWeek = "";
+                String[] thisEntry = new String[10];
 
                 for(int t = 0; t < thisEntry.length; t++)
-                    switch(t)
+                {
+                    fileAsString = fileAsString.substring(fileAsString.indexOf(cellStartsWith) + cellStartsWith.length());
+                    if(fileAsString.startsWith(cellStartsWith2a))
                     {
-                        default:
-                            fileAsString = fileAsString.substring(fileAsString.indexOf(cellStartsWith) + cellStartsWith.length());
-                            if(fileAsString.startsWith(cellStartsWith2a))
-                            {
-                                fileAsString = fileAsString.substring(fileAsString.indexOf(cellStartsWith2a) + cellStartsWith2a.length());
-                                thisEntry[t] = fileAsString.substring(1, fileAsString.indexOf(cellEndsWith2) - 1); //1 bzw -1 um die Absätze nicht mitzukopieren
-                                fileAsString = fileAsString.substring(fileAsString.indexOf(cellEndsWith2) + cellEndsWith2.length());
+                        fileAsString = fileAsString.substring(fileAsString.indexOf(cellStartsWith2a) + cellStartsWith2a.length());
+                        thisEntry[t] = fileAsString.substring(1, fileAsString.indexOf(cellEndsWith2) - 1); //1 bzw -1 um die Absätze nicht mitzukopieren
+                        fileAsString = fileAsString.substring(fileAsString.indexOf(cellEndsWith2) + cellEndsWith2.length());
 
-                            } else if(fileAsString.startsWith(cellStartsWith2))
-                            {
-                                fileAsString = fileAsString.substring(fileAsString.indexOf(cellStartsWith2) + cellStartsWith2.length());
-                                thisEntry[t] = fileAsString.substring(1, fileAsString.indexOf(cellEndsWith2) - 1); //1 bzw -1 um die Absätze nicht mitzukopieren
-                                fileAsString = fileAsString.substring(fileAsString.indexOf(cellEndsWith2) + cellEndsWith2.length());
-                            } else
-                                thisEntry[t] = "";
-                            break;
-
-                        case indexOfDateColumm:
-                            skippedColumms++;
-                            break;
-                        case indexOfDayOfWeekColumm:
-                            skippedColumms++;
-                            break;
-                    }
-
-                boolean nextIsEqual = false;
-                try
-                {
-                    Integer.parseInt(thisEntry[0]);
-                } catch(NumberFormatException ex)
-                {
-                    nextIsEqual = true;
-                    thisEntry[0] = thisEntry[0].substring(0, thisEntry[0].indexOf("-") - 1);
+                    } else if(fileAsString.startsWith(cellStartsWith2))
+                    {
+                        fileAsString = fileAsString.substring(fileAsString.indexOf(cellStartsWith2) + cellStartsWith2.length());
+                        thisEntry[t] = fileAsString.substring(1, fileAsString.indexOf(cellEndsWith2) - 1); //1 bzw -1 um die Absätze nicht mitzukopieren
+                        fileAsString = fileAsString.substring(fileAsString.indexOf(cellEndsWith2) + cellEndsWith2.length());
+                    } else
+                        thisEntry[t] = "";
                 }
-                Entry e = new Entry(nextIsEqual, thisEntry);
-                e.setDate(date);
-                e.setDayOfWeek(dayOfWeek);
-                outcome[i].getEntrys().add(e);
+
+                outcome[i].getEntrys().add(new Entry(thisEntry));
 
                 fileAsString = fileAsString.substring(fileAsString.indexOf(cellEndsWith) + cellEndsWith.length());
 
                 if(!fileAsString.contains("<TR>"))
                     endOfFile = true;
+
             }
+
+            outcome[i].setFoot(readFoot(read));
 
         }
         Logger.setProgress(50);
@@ -215,50 +188,66 @@ public class HtmlReader
         return files;
     }
 
-    public static String readHeadToday()
+    public static HtmlFoot readFootToday()
     {
-        String path;
-        if(Settings.load("sourceCustom").equals("true"))
-            path = (Settings.load("pathSource") + "/" + Settings.load("sourceTodayPath"));
-        else
-            path = findPath(true);
-
-        final String beforeHead = "</TABLE><BR><font size=\"5\" face=\"Arial\">\n<B>";
-
-        File theFile = getFiles(path).get(0);
-
-        FileReader read = new FileReader(theFile);
-        String fileAsString = read.toString();
-
-        fileAsString = fileAsString.substring(fileAsString.indexOf(beforeHead) + beforeHead.length());
-        fileAsString = fileAsString.substring(0, fileAsString.indexOf("</B>"));
-
-        return fileAsString;
+        return readFoot(getFiles(getPathToday()).get(0));
     }
 
-    public static String readHeadTomorrow()
+    public static HtmlFoot readFootTomorrow()
     {
-        String path;
-        if(Settings.load("sourceCustom").equals("true"))
-            path = (Settings.load("pathSource") + "/" + Settings.load("sourceTodayPath"));
-        else
-            path = findPath(true);
+        return readFoot(getFiles(getPathTomorrow()).get(0));
+    }
 
-        final String beforeHead = "</TABLE><BR><font size=\"5\" face=\"Arial\">\n<B>";
+    private static HtmlFoot readFoot(File f)
+    {
+        return readFoot(new FileReader(f));
+    }
 
-        File theFile = getFiles(path).get(0);
-
-        FileReader read = new FileReader(theFile);
+    private static HtmlFoot readFoot(FileReader read)
+    {
+        final String beforeFoot = "</TABLE><font size=\"3\" face=\"Arial\"  color=\"#000000\">\n";
+        final String afterFoot = "\n</font>";
         String fileAsString = read.toString();
+        String foot = "";
+        if(fileAsString.contains(beforeFoot))
+        {
+            foot = fileAsString.substring(fileAsString.indexOf(beforeFoot) + beforeFoot.length());
+            foot = foot.substring(0, foot.indexOf(afterFoot));
+        }
 
-        fileAsString = fileAsString.substring(fileAsString.indexOf(beforeHead) + beforeHead.length());
-        fileAsString = fileAsString.substring(0, fileAsString.indexOf("</B>"));
-
-        return fileAsString;
+        return new HtmlFoot(foot);
     }
 
     private static String findPath(boolean today)
     {
         return Time.forHtmlReading(today);
+    }
+
+    private static String getPathToday()
+    {
+        String path = Settings.load("pathSource");
+
+        if(Settings.load("sourceCustom").equals("true"))
+        {
+            if(!path.endsWith("\\"))
+                path += "\\";
+            path += Settings.load("sourceTodayPath");
+        }
+
+        return path;
+    }
+
+    private static String getPathTomorrow()
+    {
+        String path = Settings.load("pathSource");
+
+        if(Settings.load("sourceCustom").equals("true"))
+        {
+            if(!path.endsWith("\\"))
+                path += "\\";
+            path += Settings.load("sourceTomorrowPath");
+        }
+
+        return path;
     }
 }
