@@ -1191,7 +1191,6 @@
             </Component>
             <Component class="javax.swing.JTextField" name="colorNameTxt">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Farbenname"/>
                 <Property name="toolTipText" type="java.lang.String" value="Name der Farbe, die hinzugef&#xfc;gt/bearbeitet werden soll z.B. &quot;Antonsblau&quot;"/>
               </Properties>
             </Component>
@@ -1326,7 +1325,6 @@
             </Component>
             <Component class="javax.swing.JTextField" name="typeToEditTxt">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Vertretungsart"/>
                 <Property name="toolTipText" type="java.lang.String" value="Name einer neuen, zu differenzierenden, Vertretungsart z.B. &quot;Raum-Vtr.&quot;"/>
               </Properties>
             </Component>
