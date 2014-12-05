@@ -799,7 +799,6 @@ public class Frame extends javax.swing.JFrame
             }
         });
 
-        colorNameTxt.setText("Farbenname");
         colorNameTxt.setToolTipText("Name der Farbe, die hinzugefügt/bearbeitet werden soll z.B. \"Antonsblau\"");
 
         jLabel13.setText("Laufschrift");
@@ -877,7 +876,6 @@ public class Frame extends javax.swing.JFrame
             }
         });
 
-        typeToEditTxt.setText("Vertretungsart");
         typeToEditTxt.setToolTipText("Name einer neuen, zu differenzierenden, Vertretungsart z.B. \"Raum-Vtr.\"");
 
         addTypeBtn.setText("hinzufügen");

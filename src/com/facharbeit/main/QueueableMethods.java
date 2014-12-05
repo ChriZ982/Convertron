@@ -373,26 +373,19 @@ public class QueueableMethods
 
     public static void styleCheckActionPerformed(JCheckBox boldCheck, JCheckBox italicCheck, JComboBox typeToEditCombo)
     {
-        String s;
+        String name;
+        String setting = "";
         if(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"))
-            s = "Art" + typeToEditCombo.getSelectedItem().toString().substring(5).replaceAll("\\.", "") + "FontStyle";
+            name = "Art" + typeToEditCombo.getSelectedItem().toString().substring(5).replaceAll("\\.", "") + "FontStyle";
         else
-            s = typeToEditCombo.getSelectedItem().toString() + "FontStyle";
+            name = typeToEditCombo.getSelectedItem().toString() + "FontStyle";
 
-        if(boldCheck.isSelected() && !italicCheck.isSelected())
-        {
-            Settings.save(Character.toLowerCase(s.charAt(0)) + s.substring(1), "bold");
-            italicCheck.setSelected(false);
-        } else if(italicCheck.isSelected() && !boldCheck.isSelected())
-        {
-            Settings.save(Character.toLowerCase(s.charAt(0)) + s.substring(1), "italic");
-            boldCheck.setSelected(false);
-        } else
-        {
-            Settings.save(Character.toLowerCase(s.charAt(0)) + s.substring(1), "");
-            boldCheck.setSelected(false);
-            italicCheck.setSelected(false);
-        }
+        if(italicCheck.isSelected())
+            setting += "italic";
+        if(boldCheck.isSelected())
+            setting += " bold";
+
+        Settings.save(Character.toLowerCase(name.charAt(0)) + name.substring(1), setting);
     }
 
     public static void addTypeBtnActionPerformed(JTextField typeToEditTxt, JComboBox typeToEditCombo)

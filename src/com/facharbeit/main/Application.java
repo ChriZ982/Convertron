@@ -40,7 +40,7 @@ public class Application
 
         try
         {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); // Bestimmt das Aussehen der Anwendung
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch(ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex)
         {
         }
@@ -52,6 +52,7 @@ public class Application
         Settings.init();
 
         frame.loadSettings();
+        frame.addWindowListener(new FrameActions(frame));
 
         initTray();
         initData();
@@ -268,6 +269,7 @@ public class Application
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
+                frame.setExtendedState(JFrame.NORMAL);
                 frame.setVisible(true);
             }
         });
