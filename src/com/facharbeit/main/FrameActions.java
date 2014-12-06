@@ -1,12 +1,25 @@
 package com.facharbeit.main;
 
-import java.awt.event.*;
-import javax.swing.*;
+import com.facharbeit.tools.Logger;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import javax.swing.JFrame;
 
+/**
+ * Verwaltet die Aktionen des Fensters.
+ */
 public class FrameActions implements WindowListener
 {
+    /**
+     * Frame das beobachtet wird.
+     */
     JFrame frame;
 
+    /**
+     * Initialisiert den Beobachter.
+     *
+     * @param frame Zu beobachtendes Fenster
+     */
     public FrameActions(JFrame frame)
     {
         this.frame = frame;
@@ -40,7 +53,14 @@ public class FrameActions implements WindowListener
     @Override
     public void windowIconified(WindowEvent e)
     {
-        frame.setVisible(false);
+        try
+        {
+            frame.setVisible(false);
+        } catch(Exception ex)
+        {
+            Logger.log("Fehler beim Minimieren", 2);
+            Logger.error(ex);
+        }
     }
 
     @Override

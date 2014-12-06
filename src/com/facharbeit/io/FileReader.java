@@ -1,50 +1,79 @@
 package com.facharbeit.io;
 
-import com.facharbeit.tools.*;
-import java.io.*;
+import com.facharbeit.tools.Logger;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 
 /**
- * Lies ganze Text-Dateien aus.
+ * Liest Dateien aus.
  */
 public class FileReader
 {
+    /**
+     * Datei, die von dem Reader verwendet wird.
+     */
     private File file;
 
     /**
      * Erstellt einen neuen Reader.
      *
-     * @param pPath
-     * @param pFilename Name der Datei
+     * @param path Pfad der Datei
+     * @param name Name der Datei
      */
-    public FileReader(String pPath, String pFilename)
+    public FileReader(String path, String name)
     {
-        file = new File(pPath + pFilename);
+        try
+        {
+            file = new File(path + name);
+        } catch(Exception ex)
+        {
+            Logger.log("\"" + file.getName() + "\" konnte nicht initialisiert werden", 2);
+            Logger.error(ex);
+        }
     }
 
-    public FileReader(File f)
+    /**
+     * Erstellt einen neuen Reader
+     *
+     * @param file Die Datei, die gelesen werden soll.
+     */
+    public FileReader(File file)
     {
-        file = f;
+        try
+        {
+            this.file = file;
+        } catch(Exception ex)
+        {
+            Logger.log("\"" + file.getName() + "\" konnte nicht initialisiert werden", 2);
+            Logger.error(ex);
+        }
     }
 
     /**
      * Liest eine Zeile der Datei.
      *
-     * @param line Zeile, die gelesen werden soll
+     * @param lineNumber Zeile, die gelesen werden soll
      *
      * @return Inhalt dieser Zeile
      */
-    public String read(int line)
+    public String read(int lineNumber)
     {
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "ISO-8859-1")))
+        try
         {
-            for(int i = 0; i < line; i++)
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "ISO-8859-1"));
+            for(int i = 0; i < lineNumber; i++)
                 reader.readLine();
+            String line = reader.readLine();
 
-            return reader.readLine();
-        } catch(IOException e)
+            reader.close();
+            return line;
+        } catch(Exception ex)
         {
-            Logger.log("\"" + file.getName() + "\" konnte nicht geladen werden.", 2);
-            return "";
+            Logger.log("\"" + file.getName() + "\" konnte nicht gelesen werden", 2);
+            Logger.error(ex);
+            return null;
         }
     }
 
@@ -53,59 +82,50 @@ public class FileReader
      *
      * @return Ganze Datei als String Array
      */
-    public String[] readAll()
+    public String[] read()
     {
-        int length = getLines();
-        String[] data = new String[length];
-
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "ISO-8859-1")))
+        try
         {
+            int length = length();
+            String[] text = new String[length];
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "ISO-8859-1"));
+
             for(int i = 0; i < length; i++)
-                data[i] = reader.readLine();
+                text[i] = reader.readLine();
 
             reader.close();
-            return data;
-        } catch(IOException ex)
+            return text;
+        } catch(Exception ex)
         {
-            Logger.log("\"" + file.getName() + "\" konnte nicht geladen werden.", 2);
-            data[0] = "";
-            return data;
+            Logger.log("\"" + file.getName() + "\" konnte nicht gelesen werden", 2);
+            Logger.error(ex);
+            return null;
         }
     }
 
     /**
-     * Konvertiert das Array in einen einzelnen String.
+     * Konvertiert die Datei in einen einzelnen String.
      *
      * @return Ganze Datei als String
      */
     @Override
     public String toString()
     {
-        String data = "";
-        String[] newFile = readAll();
-
-        for(int i = 0; i < newFile.length - 1; i++)
-            data += "\n" + newFile[i];
-
-        return data;
-    }
-
-    /**
-     * Liest eine Zeile als Zahl.
-     *
-     * @param line Zeile, die gelesen werden soll
-     *
-     * @return Zahl, die die angegebene Zeile repräsentiert
-     */
-    public int readAsNumber(int line)
-    {
         try
         {
-            return Integer.parseInt(read(line));
-        } catch(NumberFormatException ex)
+            String asString = "";
+            String[] text = read();
+
+            for(int i = 0; i < text.length - 1; i++)
+                asString += "\n" + text[i];
+
+            return asString;
+        } catch(Exception ex)
         {
-            System.out.println("ZEILE AUS \"" + file.getName() + "\" KONNTE NICHT ALS ZAHL GELESEN WERDEN!");
-            return -1;
+            Logger.log("\"" + file.getName() + "\" konnte nicht zum String konvertiert werden", 2);
+            Logger.error(ex);
+            return null;
         }
     }
 
@@ -116,7 +136,15 @@ public class FileReader
      */
     public boolean exists()
     {
-        return file.isFile() && file.exists();
+        try
+        {
+            return file.isFile() && file.exists();
+        } catch(Exception ex)
+        {
+            Logger.log("\"" + file.getName() + "\" konnte nicht geprüft werden", 2);
+            Logger.error(ex);
+            return false;
+        }
     }
 
     /**
@@ -124,19 +152,21 @@ public class FileReader
      *
      * @return Anzahl der Zeilen
      */
-    public int getLines()
+    public int length()
     {
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "ISO-8859-1")))
+        try
         {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "ISO-8859-1"));
             int lines = 0;
             while(reader.readLine() != null)
                 lines++;
 
             reader.close();
             return lines;
-        } catch(IOException ex)
+        } catch(Exception ex)
         {
-            Logger.log("\"" + file.getName() + "\" konnte nicht geladen werden.", 2);
+            Logger.log("Zeilenanzahl von \"" + file.getName() + "\" konnte nicht ermittelt werden", 2);
+            Logger.error(ex);
             return -1;
         }
     }

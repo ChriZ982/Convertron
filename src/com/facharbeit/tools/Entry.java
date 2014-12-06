@@ -1,144 +1,138 @@
 package com.facharbeit.tools;
 
+/**
+ * Einträge einer Schulklasse.
+ */
 public class Entry
 {
-    private int hour = -1;
-    private String date = null;
-    private String dayOfWeek = null;
+    /**
+     * Die Stunde, für den der Eintrag gilt.
+     */
+    private int lesson = -1;
 
+    /**
+     * Das Datum des Eintrags.
+     */
+    private String date = null;
+
+    /**
+     * Ist der Eintrag doppelstündig?.
+     */
+    private boolean doubleLesson;
+
+    /**
+     * Daten des Eintrags.
+     */
+    private String[] content;
+
+    /**
+     * Initialisiert einen neuen Eintrag.
+     *
+     * @param content Inhalt des Eintrags
+     */
+    public Entry(String... content)
+    {
+        try
+        {
+            boolean isDoubleLesson = false;
+            this.lesson = Integer.parseInt(content[0]);
+
+            if(content[0].indexOf("-") > 0)
+            {
+                isDoubleLesson = true;
+                this.lesson = Integer.parseInt(content[0].substring(0, content[0].indexOf("-") - 1));
+
+            }
+
+            this.doubleLesson = isDoubleLesson;
+            this.date = content[1];
+            this.content = new String[content.length - 3];
+
+            for(int i = 3; i < content.length; i++)
+                this.content[i - 3] = content[i];
+        } catch(Exception ex)
+        {
+            Logger.log("Eintrag konnte nicht initialisiert werden", 2);
+            Logger.error(ex);
+        }
+    }
+
+    /**
+     * Konvertiert den Eintrag als String.
+     *
+     * @param cssClass css-Klasse, die für den Eintrag gilt
+     *
+     * @return Eintrag als String
+     */
+    public String toString(String cssClass)
+    {
+        try
+        {
+            String s = "";
+            s += "'            <tr class=\"" + cssClass + "\">'+\n";
+            if(doubleLesson)
+                s += "'                <td>" + lesson + "-" + (lesson + 1) + "</td>'+\n";
+            else
+                s += "'                <td>" + lesson + "</td>'+\n";
+            for(String c : content)
+                s += "'                <td>" + c + "</td>'+\n";
+            s += "'            </tr>'+\n";
+            return s;
+        } catch(Exception ex)
+        {
+            Logger.log("Eintrag konnte nicht in String konvertiert werden", 2);
+            Logger.error(ex);
+            return null;
+        }
+    }
+
+    /**
+     * Gibt Datum.
+     *
+     * @return Datum
+     */
     public String getDate()
     {
         return date;
     }
 
-    public void setDate(String date)
+    /**
+     * Gibt Stunde.
+     *
+     * @return Stunde
+     */
+    public int getLesson()
     {
-        this.date = date;
+        return lesson;
     }
 
-    public String getDayOfWeek()
+    /**
+     * Ist doppelte Stunde?.
+     *
+     * @return Doppelte Stunde?
+     */
+    public boolean isDoubleLesson()
     {
-        return dayOfWeek;
+        return doubleLesson;
     }
 
-    public void setDayOfWeek(String dayOfWeek)
-    {
-        this.dayOfWeek = dayOfWeek;
-    }
-    private boolean nextIsEqual;
-    private String[] content;
-
-    public int getHour()
-    {
-        return hour;
-    }
-
-    public void setHour(int hour)
-    {
-        this.hour = hour;
-    }
-
-    public boolean isNextEqual()
-    {
-        return nextIsEqual;
-    }
-
-    public void setNextIsEqual(boolean nextIsEqual)
-    {
-        this.nextIsEqual = nextIsEqual;
-    }
-
+    /**
+     * Gibt Inhalt.
+     *
+     * @return Inhalt
+     */
     public String[] getContent()
     {
         return content;
     }
 
+    /**
+     * Setzt Inhalt.
+     *
+     * @param content Neuer Inhalt
+     */
     public void setContent(String[] content)
     {
         this.content = content;
-    }
-
-//    public Entry(int hour, boolean nextIsEqual, String... content)
-//    {
-//        this.hour = hour;
-//        this.nextIsEqual = nextIsEqual;
-//        this.content = content;
-//    }
-//    public Entry(int hour, String... content)
-//    {
-//        this.hour = hour;
-//        this.nextIsEqual = false;
-//        this.content = content;
-//    }
-//    public Entry(String... content)
-//    {
-//        try
-//        {
-//            this.hour = Integer.parseInt(content[0]);
-//        } catch(NumberFormatException n)
-//        {
-//            this.hour = -1;
-//        }
-//
-//        this.nextIsEqual = false;
-//
-//        this.content = new String[content.length - 1];
-//
-//        for(int i = 1; i < content.length; i++)
-//            this.content[i - 1] = content[i];
-//    }
-    public Entry(String... content)
-    {
-
-        boolean nextIsEqual = false;
-        try
-        {
-            this.hour = Integer.parseInt(content[0]);
-        } catch(NumberFormatException ex)
-        {
-
-            if(content[0].indexOf("-") > 0)
-            {
-                nextIsEqual = true;
-                try
-                {
-                    this.hour = Integer.parseInt(content[0].substring(0, content[0].indexOf("-") - 1));
-                } catch(NumberFormatException e)
-                {
-                }
-
-            } else
-            {
-                //Fehler
-            }
-        }
-
-        this.nextIsEqual = nextIsEqual;
-
-        this.date = content[1];
-        this.dayOfWeek = content[2];
-
-        this.content = new String[content.length - 3];
-
-        for(int i = 3; i < content.length; i++)
-            this.content[i - 3] = content[i];
-    }
-
-    public String toString(String cssClass)
-    {
-        String s = "";
-
-        s += "'            <tr class=\"" + cssClass + "\">'+\n";
-
-        if(nextIsEqual)
-            s += "'                <td>" + hour + "-" + (hour + 1) + "</td>'+\n";
-        else
-            s += "'                <td>" + hour + "</td>'+\n";
-
-        for(String c : content)
-            s += "'                <td>" + c + "</td>'+\n";
-
-        s += "'            </tr>'+\n";
-        return s;
     }
 }

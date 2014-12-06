@@ -1,31 +1,56 @@
 package com.facharbeit.main;
 
-import javax.swing.*;
+import com.facharbeit.tools.Logger;
+import javax.swing.JComponent;
+import javax.swing.JProgressBar;
+import javax.swing.JTextPane;
 
+/**
+ * Anzeige-Fenster der Anwendung.
+ */
 public class Frame extends javax.swing.JFrame
 {
+    /**
+     * Zufallsgenerierter Schlüssel (unwichtig)
+     */
+    private static final long serialVersionUID = 1161647102;
 
-    private static final long serialVersionUID = 1L;
-
+    /**
+     * Komponenten, die mit Zeit zu tun haben.
+     */
     private JComponent[] hoursComponents;
+
+    /**
+     * Komponenten, die mit SQL zu tun haben.
+     */
     private JComponent[] sqlComponents;
 
+    /**
+     * Erstellt ein neues Fenster.
+     */
     public Frame()
     {
-        initComponents();
+        try
+        {
+            initComponents();
 
-        hoursComponents = new JComponent[]
+            hoursComponents = new JComponent[]
+            {
+                hoursHeadLabel, hour1Label, hour2Label, hour3Label, hour4Label, hour5Label,
+                hour6Label, hour7Label, hour8Label, hour9Label, hour10Label, hour1Txt,
+                hour2Txt, hour3Txt, hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt
+            };
+            sqlComponents = new JComponent[]
+            {
+                dbHostLabel, dbPortLabel, dbNameLabel, dbUserLabel, dbPwLabel, dbTableNameLabel,
+                dbHostTxt, dbPortTxt, dbNameTxt, dbUserTxt, dbPwTxt, dbTableNameTxt,
+                sqlModeLabel, sqlModeBtn
+            };
+        } catch(Exception ex)
         {
-            hoursHeadLabel, hour1Label, hour2Label, hour3Label, hour4Label, hour5Label,
-            hour6Label, hour7Label, hour8Label, hour9Label, hour10Label, hour1Txt,
-            hour2Txt, hour3Txt, hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt
-        };
-        sqlComponents = new JComponent[]
-        {
-            dbHostLabel, dbPortLabel, dbNameLabel, dbUserLabel, dbPwLabel, dbTableNameLabel,
-            dbHostTxt, dbPortTxt, dbNameTxt, dbUserTxt, dbPwTxt, dbTableNameTxt,
-            sqlModeLabel, sqlModeBtn
-        };
+            Logger.log("Fenster konnte nicht initialisiert werden", 2);
+            Logger.error(ex);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -1310,24 +1335,45 @@ public class Frame extends javax.swing.JFrame
 
     private void selectSourceTodayBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_selectSourceTodayBtnActionPerformed
     {//GEN-HEADEREND:event_selectSourceTodayBtnActionPerformed
-        jFileChooser1.showOpenDialog(null);
-        sourceTxt.setText(jFileChooser1.getSelectedFile().getPath());
+        try
+        {
+            jFileChooser1.showOpenDialog(null);
+            sourceTxt.setText(jFileChooser1.getSelectedFile().getPath());
+        } catch(Exception ex)
+        {
+            Logger.log("Fehler im Frame", 2);
+            Logger.error(ex);
+        }
     }//GEN-LAST:event_selectSourceTodayBtnActionPerformed
 
     private void selectBackupBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_selectBackupBtnActionPerformed
     {//GEN-HEADEREND:event_selectBackupBtnActionPerformed
-        jFileChooser1.showOpenDialog(null);
-        backupTxt.setText(jFileChooser1.getSelectedFile().getPath());
+        try
+        {
+            jFileChooser1.showOpenDialog(null);
+            backupTxt.setText(jFileChooser1.getSelectedFile().getPath());
+        } catch(Exception ex)
+        {
+            Logger.log("Fehler im Frame", 2);
+            Logger.error(ex);
+        }
     }//GEN-LAST:event_selectBackupBtnActionPerformed
 
     private void selectDestBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_selectDestBtnActionPerformed
     {//GEN-HEADEREND:event_selectDestBtnActionPerformed
-        jFileChooser1.showOpenDialog(null);
+        try
+        {
+            jFileChooser1.showOpenDialog(null);
 
-        if(!destArea.getText().endsWith("\n") && destArea.getText().contains("\n"))
-            destArea.setText(destArea.getText() + "\n");
+            if(!destArea.getText().endsWith("\n") && destArea.getText().contains("\n"))
+                destArea.setText(destArea.getText() + "\n");
 
-        destArea.append(jFileChooser1.getSelectedFile().getPath() + "\n");
+            destArea.append(jFileChooser1.getSelectedFile().getPath() + "\n");
+        } catch(Exception ex)
+        {
+            Logger.log("Fehler im Frame", 2);
+            Logger.error(ex);
+        }
     }//GEN-LAST:event_selectDestBtnActionPerformed
 
     private void savePathBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_savePathBtnActionPerformed
@@ -1358,8 +1404,15 @@ public class Frame extends javax.swing.JFrame
 
     private void useSQLCheckStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_useSQLCheckStateChanged
     {//GEN-HEADEREND:event_useSQLCheckStateChanged
-        for(JComponent j : sqlComponents)
-            j.setEnabled(useSQLCheck.isSelected());
+        try
+        {
+            for(JComponent j : sqlComponents)
+                j.setEnabled(useSQLCheck.isSelected());
+        } catch(Exception ex)
+        {
+            Logger.log("Fehler im Frame", 2);
+            Logger.error(ex);
+        }
     }//GEN-LAST:event_useSQLCheckStateChanged
 
     private void genAllBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_genAllBtnActionPerformed
@@ -1408,35 +1461,63 @@ public class Frame extends javax.swing.JFrame
 
     private void sqlModeBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_sqlModeBtnActionPerformed
     {//GEN-HEADEREND:event_sqlModeBtnActionPerformed
-        if(sqlModeBtn.getText().equals("lesen"))
-            sqlModeBtn.setText("schreiben");
-        else
-            sqlModeBtn.setText("lesen");
+        try
+        {
+            if(sqlModeBtn.getText().equals("lesen"))
+                sqlModeBtn.setText("schreiben");
+            else
+                sqlModeBtn.setText("lesen");
+        } catch(Exception ex)
+        {
+            Logger.log("Fehler im Frame", 2);
+            Logger.error(ex);
+        }
     }//GEN-LAST:event_sqlModeBtnActionPerformed
 
     private void useHoursCheckStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_useHoursCheckStateChanged
     {//GEN-HEADEREND:event_useHoursCheckStateChanged
-        for(JComponent j : hoursComponents)
-            j.setEnabled(useHoursCheck.isSelected());
+        try
+        {
+            for(JComponent j : hoursComponents)
+                j.setEnabled(useHoursCheck.isSelected());
+        } catch(Exception ex)
+        {
+            Logger.log("Fehler im Frame", 2);
+            Logger.error(ex);
+        }
     }//GEN-LAST:event_useHoursCheckStateChanged
 
     private void typeToEditComboItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_typeToEditComboItemStateChanged
     {//GEN-HEADEREND:event_typeToEditComboItemStateChanged
-        Application.addToQueue("typeToEditComboItemStateChanged", typeToEditCombo, fontColorCombo, fontColorPanel,
-                               backgroundColorCombo, backgroundColorPanel, fontTypeTxt, fontSizeTxt, boldCheck,
-                               italicCheck, evt);
+        try
+        {
+            Application.addToQueue("typeToEditComboItemStateChanged", typeToEditCombo, fontColorCombo, fontColorPanel,
+                                   backgroundColorCombo, backgroundColorPanel, fontTypeTxt, fontSizeTxt, boldCheck,
+                                   italicCheck, evt);
 
-        backgroundColorLabel.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
-        backgroundColorCombo.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
-        backgroundColorPanel.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
+            backgroundColorLabel.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
+            backgroundColorCombo.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
+            backgroundColorPanel.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
+        } catch(Exception ex)
+        {
+            Logger.log("Fehler im Frame", 2);
+            Logger.error(ex);
+        }
     }//GEN-LAST:event_typeToEditComboItemStateChanged
 
     private void customSourceCheckStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_customSourceCheckStateChanged
     {//GEN-HEADEREND:event_customSourceCheckStateChanged
-        sourceTodayTxt.setEnabled(customSourceCheck.isSelected());
-        sourceTomorrowTxt.setEnabled(customSourceCheck.isSelected());
-        jLabel10.setEnabled(customSourceCheck.isSelected());
-        jLabel22.setEnabled(customSourceCheck.isSelected());
+        try
+        {
+            sourceTodayTxt.setEnabled(customSourceCheck.isSelected());
+            sourceTomorrowTxt.setEnabled(customSourceCheck.isSelected());
+            jLabel10.setEnabled(customSourceCheck.isSelected());
+            jLabel22.setEnabled(customSourceCheck.isSelected());
+        } catch(Exception ex)
+        {
+            Logger.log("Fehler im Frame", 2);
+            Logger.error(ex);
+        }
     }//GEN-LAST:event_customSourceCheckStateChanged
 
     private void colorTableComboItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_colorTableComboItemStateChanged
@@ -1502,27 +1583,34 @@ public class Frame extends javax.swing.JFrame
 
     public void loadSettings()
     {
-        Application.addToQueue("loadSettings", sourceTxt, backupTxt, destArea, speedPlanTxt, speedMotdTxt,
-                               colorPlanCombo, colorMotdCombo, motdTxt, useSQLCheck, dbHostTxt, dbPortTxt,
-                               dbNameTxt, dbUserTxt, dbPwTxt, dbTableNameTxt, hour1Txt, hour2Txt, hour3Txt,
-                               hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt, sqlModeBtn,
-                               autoBackupCheck, useHoursCheck, customSourceCheck, sourceTodayTxt,
-                               sourceTomorrowTxt, colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo,
-                               fontTypeTxt, fontSizeTxt, boldCheck, italicCheck, typeToEditCombo, table, weekTxt);
+        try
+        {
+            Application.addToQueue("loadSettings", sourceTxt, backupTxt, destArea, speedPlanTxt, speedMotdTxt,
+                                   colorPlanCombo, colorMotdCombo, motdTxt, useSQLCheck, dbHostTxt, dbPortTxt,
+                                   dbNameTxt, dbUserTxt, dbPwTxt, dbTableNameTxt, hour1Txt, hour2Txt, hour3Txt,
+                                   hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt, sqlModeBtn,
+                                   autoBackupCheck, useHoursCheck, customSourceCheck, sourceTodayTxt,
+                                   sourceTomorrowTxt, colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo,
+                                   fontTypeTxt, fontSizeTxt, boldCheck, italicCheck, typeToEditCombo, table, weekTxt);
 
-        sourceTodayTxt.setEnabled(customSourceCheck.isSelected());
-        sourceTomorrowTxt.setEnabled(customSourceCheck.isSelected());
-        jLabel10.setEnabled(customSourceCheck.isSelected());
-        jLabel22.setEnabled(customSourceCheck.isSelected());
-        backgroundColorLabel.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
-        backgroundColorCombo.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
-        backgroundColorPanel.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
+            sourceTodayTxt.setEnabled(customSourceCheck.isSelected());
+            sourceTomorrowTxt.setEnabled(customSourceCheck.isSelected());
+            jLabel10.setEnabled(customSourceCheck.isSelected());
+            jLabel22.setEnabled(customSourceCheck.isSelected());
+            backgroundColorLabel.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
+            backgroundColorCombo.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
+            backgroundColorPanel.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
 
-        for(JComponent j : sqlComponents)
-            j.setEnabled(useSQLCheck.isSelected());
+            for(JComponent j : sqlComponents)
+                j.setEnabled(useSQLCheck.isSelected());
 
-        for(JComponent j : hoursComponents)
-            j.setEnabled(useHoursCheck.isSelected());
+            for(JComponent j : hoursComponents)
+                j.setEnabled(useHoursCheck.isSelected());
+        } catch(Exception ex)
+        {
+            Logger.log("Fehler beim Laden der Einstellungen", 2);
+            Logger.error(ex);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

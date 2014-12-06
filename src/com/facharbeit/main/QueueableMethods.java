@@ -1,24 +1,43 @@
 package com.facharbeit.main;
 
-import com.facharbeit.io.*;
-import com.facharbeit.tools.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
-import java.nio.file.*;
-import java.nio.file.attribute.*;
-import java.util.*;
-import javax.swing.*;
+import com.facharbeit.io.HtmlReader;
+import com.facharbeit.io.HtmlWriter;
+import com.facharbeit.io.Settings;
+import com.facharbeit.tools.Logger;
+import java.awt.Color;
+import java.awt.event.ItemEvent;
+import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
+import java.util.Arrays;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JColorChooser;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
+/**
+ * Diese Klasse beinhaltet alle wichtigen Methoden, die in die Warteschlange der Anwendung angehängt werden können.
+ * Hier wird kein Try-Catch verwendet, da alle Fehler durch die invoke-Methode aufgefangen werden
+ */
 public class QueueableMethods
 {
     // Übersicht
     public static void genAllBtnActionPerformed()
     {
-        HtmlWriter.generatePlanToday(HtmlReader.sortArray(HtmlReader.readInToday()), 50, 65);
-        HtmlWriter.generatePlanTomorrow(HtmlReader.sortArray(HtmlReader.readInTomorrow()), 65, 80);
-        HtmlWriter.generateModt(80, 95);
-        HtmlWriter.generateStyle();
+        HtmlWriter.today(HtmlReader.sort(HtmlReader.today()), 50, 65);
+        HtmlWriter.tomorrow(HtmlReader.sort(HtmlReader.tomorrow()), 65, 80);
+        HtmlWriter.motd(80, 95);
+        HtmlWriter.style();
         backupToDestPaths();
         Logger.setProgress(100);
         if(Settings.load("autoBackup").equals("true"))
@@ -28,8 +47,8 @@ public class QueueableMethods
 
     public static void genTodayBtnActionPerformed()
     {
-        HtmlWriter.generatePlanToday(HtmlReader.sortArray(HtmlReader.readInToday()), 50, 95);
-        HtmlWriter.generateStyle();
+        HtmlWriter.today(HtmlReader.sort(HtmlReader.today()), 50, 95);
+        HtmlWriter.style();
         backupToDestPaths();
         Logger.setProgress(100);
         if(Settings.load("autoBackup").equals("true"))
@@ -39,8 +58,8 @@ public class QueueableMethods
 
     public static void genTomorrowBtnActionPerformed()
     {
-        HtmlWriter.generatePlanTomorrow(HtmlReader.sortArray(HtmlReader.readInTomorrow()), 50, 95);
-        HtmlWriter.generateStyle();
+        HtmlWriter.tomorrow(HtmlReader.sort(HtmlReader.tomorrow()), 50, 95);
+        HtmlWriter.style();
         backupToDestPaths();
         Logger.setProgress(100);
         if(Settings.load("autoBackup").equals("true"))
@@ -51,8 +70,8 @@ public class QueueableMethods
     public static void genMotdBtnActionPerformed(JTextField motdTxt)
     {
         Settings.save("motdText", motdTxt.getText());
-        HtmlWriter.generateModt(0, 100);
-        HtmlWriter.generateStyle();
+        HtmlWriter.motd(0, 100);
+        HtmlWriter.style();
         backupToDestPaths();
         if(Settings.load("autoBackup").equals("true"))
             createBackupBtnActionPerformed();
@@ -310,7 +329,7 @@ public class QueueableMethods
                 boldCheck.setSelected(true);
             else if(bool.equals("italic"))
                 italicCheck.setSelected(true);
-            else if(Settings.getLineOf(Character.toLowerCase(s.charAt(0)) + s.substring(1)) == -1)
+            else if(Settings.line(Character.toLowerCase(s.charAt(0)) + s.substring(1)) == -1)
                 Settings.save(Character.toLowerCase(s.charAt(0)) + s.substring(1), "");
         }
     }
@@ -404,7 +423,7 @@ public class QueueableMethods
 
     public static void saveDesignBtnActionPerformed()
     {
-        HtmlWriter.generateStyle();
+        HtmlWriter.style();
     }
 
     // SQL
@@ -468,10 +487,10 @@ public class QueueableMethods
         customSourceCheck.setSelected(Boolean.valueOf(Settings.load("customDate")));
 
         String name = "pathDest1";
-        if(Settings.getLineOf(name) == -1)
+        if(Settings.line(name) == -1)
             Settings.load(name);
 
-        for(int i = 1; Settings.getLineOf(name) != -1; i++)
+        for(int i = 1; Settings.line(name) != -1; i++)
         {
             String s = Settings.load(name);
             destArea.append(s + "\n");
@@ -543,6 +562,11 @@ public class QueueableMethods
                 }
     }
 
+    /**
+     * Lädt die Farben in die ComboBoxen.
+     *
+     * @param colorCombos ComboBoxen
+     */
     private static void loadColors(JComboBox... colorCombos)
     {
         for(JComboBox cb : colorCombos)
@@ -556,6 +580,12 @@ public class QueueableMethods
         }
     }
 
+    /**
+     * Speichert den Inhalt eines Textfeldes.
+     *
+     * @param field Textfeld
+     * @param name  Name der Einstellung
+     */
     private static void saveIfNotNull(JTextField field, String name)
     {
         if(field.getText().equals(""))
@@ -564,18 +594,32 @@ public class QueueableMethods
             Settings.save(name, field.getText());
     }
 
+    /**
+     * Lädt eine Einstellung in ein Textfeld.
+     *
+     * @param field Textfeld
+     * @param name  Name der Einstellung
+     */
     private static void load(JTextField field, String name)
     {
         field.setText(Settings.load(name));
     }
 
+    /**
+     * Kopiert die generierten Dateien in die Zielpfade.
+     */
     private static void backupToDestPaths()
     {
-        String[] paths = Settings.loadValues("pathDest");
+        String[] paths = Settings.loadMulti("pathDest");
         for(String path : paths)
             backupAll(path);
     }
 
+    /**
+     * Kopiert alle wichtigen Dateien zu einem Pfad.
+     *
+     * @param path Pfad
+     */
     private static void backupAll(String path)
     {
         backup(path, "heute.html", "morgen.html", "laufschrift.html",
@@ -583,12 +627,24 @@ public class QueueableMethods
                "settings.ini", "style.css", "antonianumLogo.png");
     }
 
+    /**
+     * Kopiert angegebene Dateien zu einem Pfad.
+     *
+     * @param path  Pfad
+     * @param files Dateien zum Kopieren
+     */
     private static void backup(String path, String... files)
     {
         for(String file : files)
             copy(file, path);
     }
 
+    /**
+     * Kopiert eine Datei zu einem Pfad.
+     *
+     * @param file Dateiname
+     * @param path Pfad
+     */
     private static void copy(String file, String path)
     {
         try
@@ -597,9 +653,10 @@ public class QueueableMethods
                 Files.createDirectories(Paths.get(path));
 
             Files.copy(Paths.get("Data\\" + file), Paths.get(path + "\\" + file), StandardCopyOption.REPLACE_EXISTING);
-        } catch(IOException ex)
+        } catch(Exception ex)
         {
-            Logger.log("\"" + file + "\" konnte nicht kopiert werden !", 2);
+            Logger.log("\"" + file + "\" konnte nicht kopiert werden", 2);
+            Logger.error(ex);
         }
     }
 }

@@ -1,0 +1,1223 @@
+java.lang.NullPointerException
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.toString(SchoolClass.java:209)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:246)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+For input string: ""
+
+For input string: ""
+
+java.lang.NumberFormatException: For input string: ""
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:592)
+	at java.lang.Integer.valueOf(Integer.java:766)
+	at com.facharbeit.tools.SchoolClass.cut(SchoolClass.java:132)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:237)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.toString(SchoolClass.java:209)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:246)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+For input string: ""
+
+For input string: ""
+
+java.lang.NumberFormatException: For input string: ""
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:592)
+	at java.lang.Integer.valueOf(Integer.java:766)
+	at com.facharbeit.tools.SchoolClass.cut(SchoolClass.java:132)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:237)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.toString(SchoolClass.java:209)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:246)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+For input string: ""
+
+For input string: ""
+
+java.lang.NumberFormatException: For input string: ""
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:592)
+	at java.lang.Integer.valueOf(Integer.java:766)
+	at com.facharbeit.tools.SchoolClass.cut(SchoolClass.java:132)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:237)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.toString(SchoolClass.java:209)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:246)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+For input string: ""
+
+For input string: ""
+
+java.lang.NumberFormatException: For input string: ""
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:592)
+	at java.lang.Integer.valueOf(Integer.java:766)
+	at com.facharbeit.tools.SchoolClass.cut(SchoolClass.java:132)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:237)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.toString(SchoolClass.java:209)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:246)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)
+
+
+null
+
+null
+
+java.lang.NullPointerException
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:100)
+	at com.facharbeit.tools.SchoolClass.sort(SchoolClass.java:76)
+	at com.facharbeit.io.HtmlWriter.classes(HtmlWriter.java:239)
+	at com.facharbeit.io.HtmlWriter.tomorrow(HtmlWriter.java:74)
+	at com.facharbeit.main.QueueableMethods.genAllBtnActionPerformed(QueueableMethods.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at com.facharbeit.main.QueueElement.invoke(QueueElement.java:40)
+	at com.facharbeit.main.Application.runOneElementOfQueue(Application.java:210)
+	at com.facharbeit.main.Application.run(Application.java:153)
+	at com.facharbeit.main.Application.main(Application.java:131)

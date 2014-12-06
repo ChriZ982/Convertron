@@ -1,127 +1,248 @@
 package com.facharbeit.io;
 
-import com.facharbeit.tools.*;
-import java.util.*;
+import com.facharbeit.tools.Logger;
+import java.util.ArrayList;
+import java.util.Arrays;
 
+/**
+ * Klasse für das verwalten der Einstellungen.
+ */
 public class Settings
 {
+    /**
+     * Writer für das Speichern der Einstellungen.
+     */
     private static FileWriter writer;
+
+    /**
+     * Reader für das Laden der Einstellungen.
+     */
     private static FileReader reader;
+
+    /**
+     * Soll das Logging aktiviert werden?.
+     */
     private static boolean logging;
 
+    /**
+     * Initialisiert die Einstellungen.
+     */
     public static void init()
     {
-        writer = new FileWriter("Data/", "settings.ini");
-        reader = new FileReader("Data/", "settings.ini");
-        logging = true;
+        try
+        {
+            writer = new FileWriter("Data/", "settings.ini");
+            reader = new FileReader("Data/", "settings.ini");
+            logging = true;
 
-        if(!reader.exists())
-            writer.create();
-        else
-            Logger.log("\"settings.ini\" wurde geladen.", 0);
+            if(!reader.exists())
+                writer.create();
+            else
+                Logger.log("\"settings.ini\" wurde geladen", 0);
+        } catch(Exception ex)
+        {
+            Logger.log("Einstellungen konnten nicht initialisiert werden", 2);
+            Logger.error(ex);
+        }
     }
 
+    /**
+     * Speichert eine Einstellung.
+     *
+     * @param name    Name der Einstellung
+     * @param setting Wert der Einstellung
+     */
     public static void save(String name, String setting)
     {
-        int line = getLineOf(name);
+        try
+        {
+            int line = line(name);
+            String settings = name + ": \"" + setting + "\"";
+            if(line == -1)
+                writer.write(reader.length(), settings);
+            else
+                writer.write(line, settings);
 
-        String settings = name + ": \"" + setting + "\"";
-        if(line == -1)
-            writer.write(reader.getLines(), settings);
-        else
-            writer.write(line, settings);
-
-        if(logging)
-            Logger.log("Einstellung '" + name + "' gespeichert.", 0);
+            if(logging)
+                Logger.log("Einstellung \"" + name + "\" gespeichert", 0);
+        } catch(Exception ex)
+        {
+            Logger.log("Einstellung \"" + name + "\" konnte nicht gespeichert werden.", 2);
+            Logger.error(ex);
+        }
     }
 
+    /**
+     * Lädt eine Einstellung.
+     *
+     * @param name Name der einstellung
+     *
+     * @return Wert der Einstellung
+     */
     public static String load(String name)
     {
-        int line = getLineOf(name);
-
-        if(line == -1)
+        try
         {
-            if(logging)
-                Logger.log("Einstellung '" + name + "' nicht vorhanden.", 1);
-            return "";
-        } else
+            int line = line(name);
+            if(line == -1)
+            {
+                if(logging)
+                    Logger.log("Einstellung \"" + name + "\" nicht vorhanden", 1);
+                return "";
+            } else
+            {
+                String setting = reader.read(line);
+                setting = setting.replaceFirst(name + ": \"", "");
+                setting = setting.substring(0, setting.length() - 1);
+                return setting;
+            }
+        } catch(Exception ex)
         {
-            String setting = reader.read(line);
-            setting = setting.replaceFirst(name + ": \"", "");
-            setting = setting.substring(0, setting.length() - 1);
-            return setting;
+            Logger.log("Einstellung \"" + name + "\" konnte nicht geladen werden", 2);
+            Logger.error(ex);
+            return null;
         }
     }
 
+    /**
+     * Gibt die Einstellungen zurück die gleich beginnen.
+     *
+     * @param name Anfang der Namen
+     *
+     * @return Einstellungen mit gleich beginnendem Namen
+     */
     public static String[] loadNames(String name)
     {
-        ArrayList<String> names = new ArrayList<String>();
-        String[] file = reader.readAll();
-
-        for(String s : file)
-            if(s.startsWith(name))
-                names.add(s.split(": \"")[0].trim());
-
-        return names.toArray(new String[]
+        try
         {
-        });
+            ArrayList<String> names = new ArrayList<String>();
+            String[] file = reader.read();
+
+            for(String s : file)
+                if(s.startsWith(name))
+                    names.add(s.split(": \"")[0].trim());
+
+            return names.toArray(new String[]
+            {
+            });
+        } catch(Exception ex)
+        {
+            Logger.log("Einstellungen konnten nicht geladen werden", 2);
+            Logger.error(ex);
+            return null;
+        }
     }
 
-    public static String[] loadValues(String name)
+    /**
+     * Lädt mehrere Einstellungen.
+     *
+     * @param name Text mit dem die Einstellungen beginnen
+     *
+     * @return Werte der Einstellungen
+     */
+    public static String[] loadMulti(String name)
     {
-        logging = false;
-        ArrayList<String> values = new ArrayList<String>();
-        String[] file = reader.readAll();
-
-        for(String s : file)
-            if(s.startsWith(name))
-                values.add(Settings.load(s.split(": \"")[0].trim()));
-
-        logging = true;
-        return values.toArray(new String[]
+        try
         {
-        });
+            logging = false;
+            ArrayList<String> values = new ArrayList<String>();
+            String[] file = reader.read();
+
+            for(String s : file)
+                if(s.startsWith(name))
+                    values.add(Settings.load(s.split(": \"")[0].trim()));
+
+            logging = true;
+            return values.toArray(new String[]
+            {
+            });
+        } catch(Exception ex)
+        {
+            Logger.log("Einstellungen konnten nicht geladen werden", 2);
+            Logger.error(ex);
+            return null;
+        }
     }
 
+    /**
+     * Löscht eine Einstellung.
+     *
+     * @param name Zu löschende Einstellung
+     *
+     * @return Konnte die Einstellung gelöscht werden?
+     */
     public static boolean delete(String name)
     {
-        int line = getLineOf(name);
-
-        if(line != -1)
+        try
         {
-            ArrayList<String> content = new ArrayList<String>();
-            content.addAll(Arrays.asList(reader.readAll()));
-            content.remove(line);
-
-            writer.writeAll(content.toArray(new String[]
+            int line = line(name);
+            if(line != -1)
             {
-            }));
+                ArrayList<String> content = new ArrayList<String>();
+                content.addAll(Arrays.asList(reader.read()));
+                content.remove(line);
 
-            if(logging)
-                Logger.log("Einstellung '" + name + "' gelöscht.", 0);
-            return true;
-        }
+                writer.write(content.toArray(new String[]
+                {
+                }));
 
-        return false;
-    }
-
-    public static int getLineOf(String name)
-    {
-        String[] content = reader.readAll();
-        int line = -1;
-
-        for(int i = 0; i < content.length; i++)
-            if(content[i] != null && content[i].startsWith(name))
-            {
-                line = i;
-                break;
+                if(logging)
+                    Logger.log("Einstellung \"" + name + "\" gelöscht", 0);
+                return true;
             }
-
-        return line;
+            return false;
+        } catch(Exception ex)
+        {
+            Logger.log("Einstellung \"" + name + "\" konnte nicht gelöscht werden", 2);
+            Logger.error(ex);
+            return false;
+        }
     }
 
-    public static void logging(boolean pLogging)
+    /**
+     * Gibt die Zeile einer Einstellung.
+     *
+     * @param name Zu suchende Einstellung
+     *
+     * @return Zeile der Einstellung (-1 wenn nicht vorhanden)
+     */
+    public static int line(String name)
     {
-        logging = pLogging;
+        try
+        {
+            String[] content = reader.read();
+            int line = -1;
+
+            for(int i = 0; i < content.length; i++)
+                if(content[i] != null && content[i].startsWith(name))
+                {
+                    line = i;
+                    break;
+                }
+
+            return line;
+        } catch(Exception ex)
+        {
+            Logger.log("Zeile konnte nicht gefunden werden", 2);
+            Logger.error(ex);
+            return -1;
+        }
+    }
+
+    /**
+     * Bearbeitet das Logging der Einstellungen-Klasse.
+     *
+     * @param logging Neuer Logging Wert
+     */
+    public static void logging(boolean logging)
+    {
+        try
+        {
+            Settings.logging = logging;
+        } catch(Exception ex)
+        {
+            Logger.log("Logging konnte nicht bearbeitet werden", 2);
+            Logger.error(ex);
+        }
     }
 }
