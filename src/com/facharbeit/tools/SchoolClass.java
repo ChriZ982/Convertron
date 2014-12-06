@@ -71,9 +71,9 @@ public class SchoolClass
     {
         try
         {
-            contentColumms = SchoolClass.this.sort(contentColumms, newOrder);
+            contentColumms = sort(contentColumms, newOrder);
             for(Entry e : entrys)
-                e.setContent(SchoolClass.this.sort(e.getContent(), newOrder));
+                e.setContent(sort(e.getContent(), newOrder));
         } catch(Exception ex)
         {
             Logger.log("Einträge konnten nicht sortiert werden", 2);

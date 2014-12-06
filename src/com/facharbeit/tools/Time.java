@@ -44,7 +44,8 @@ public class Time
                    + c.get(Calendar.DATE) + "-"
                    + c.get(Calendar.HOUR_OF_DAY) + ""
                    + c.get(Calendar.MINUTE) + ""
-                   + c.get(Calendar.SECOND);
+                   + c.get(Calendar.SECOND) + ""
+                   + c.get(Calendar.MILLISECOND);
         } catch(Exception ex)
         {
             Logger.log("Zeit konnte nicht ermittelt werden", 2);

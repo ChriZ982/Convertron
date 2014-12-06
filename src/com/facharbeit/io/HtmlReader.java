@@ -129,27 +129,27 @@ public class HtmlReader
                 {
                     asString = asString.substring(asString.indexOf("<TR>") + 4);
 
-                    String[] entry = new String[10];
+                    String[] entries = new String[10];
 
-                    for(int t = 0; t < entry.length; t++)
+                    for(int t = 0; t < entries.length; t++)
                     {
                         asString = asString.substring(asString.indexOf(cellStartsWith) + cellStartsWith.length());
                         if(asString.startsWith(cellStartsWith2a))
                         {
                             asString = asString.substring(asString.indexOf(cellStartsWith2a) + cellStartsWith2a.length());
-                            entry[t] = asString.substring(1, asString.indexOf(cellEndsWith2) - 1); //1 bzw -1 um die Absätze nicht mitzukopieren
+                            entries[t] = asString.substring(1, asString.indexOf(cellEndsWith2) - 1); //1 bzw -1 um die Absätze nicht mitzukopieren
                             asString = asString.substring(asString.indexOf(cellEndsWith2) + cellEndsWith2.length());
 
                         } else if(asString.startsWith(cellStartsWith2))
                         {
                             asString = asString.substring(asString.indexOf(cellStartsWith2) + cellStartsWith2.length());
-                            entry[t] = asString.substring(1, asString.indexOf(cellEndsWith2) - 1); //1 bzw -1 um die Absätze nicht mitzukopieren
+                            entries[t] = asString.substring(1, asString.indexOf(cellEndsWith2) - 1); //1 bzw -1 um die Absätze nicht mitzukopieren
                             asString = asString.substring(asString.indexOf(cellEndsWith2) + cellEndsWith2.length());
                         } else
-                            entry[t] = "";
+                            entries[t] = "";
                     }
 
-                    schoolClasses[i].getEntrys().add(new Entry(entry));
+                    schoolClasses[i].getEntrys().add(new Entry(entries));
 
                     asString = asString.substring(asString.indexOf(cellEndsWith) + cellEndsWith.length());
 

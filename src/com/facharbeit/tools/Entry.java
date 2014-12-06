@@ -35,7 +35,11 @@ public class Entry
         try
         {
             boolean isDoubleLesson = false;
-            this.lesson = Integer.parseInt(content[0]);
+
+            if(content[0].contains("-"))
+                this.lesson = Integer.parseInt(content[0].substring(0, content[0].indexOf("-") - 1));
+            else if(!content[0].equals(""))
+                this.lesson = Integer.parseInt(content[0]);
 
             if(content[0].indexOf("-") > 0)
             {
