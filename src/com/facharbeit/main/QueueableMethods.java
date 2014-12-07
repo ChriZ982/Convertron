@@ -424,6 +424,9 @@ public class QueueableMethods
     public static void saveDesignBtnActionPerformed()
     {
         HtmlWriter.style();
+        backupToDestPaths();
+        if(Settings.load("autoBackup").equals("true"))
+            createBackupBtnActionPerformed();
     }
 
     // SQL

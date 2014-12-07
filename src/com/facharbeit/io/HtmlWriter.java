@@ -24,7 +24,9 @@ public class HtmlWriter
             int part = end - start;
             String day = head(schoolClasses);
             Logger.setProgress(start + 1 * (part / 6));
-            String speed = Integer.toString((int)((1.0 / (Double.parseDouble(Settings.load("planSpeed")) / 100.0)) * 12.0));
+            String speed = "";
+            if(Settings.line("planSpeed") != -1)
+                speed = Integer.toString((int)((1.0 / (Double.parseDouble(Settings.load("planSpeed")) / 100.0)) * 12.0));
             Logger.setProgress(start + 2 * (part / 6));
             String classes = classes(schoolClasses);
             Logger.setProgress(start + 3 * (part / 6));
@@ -69,7 +71,9 @@ public class HtmlWriter
             int part = end - start;
             String day = head(schoolClasses);
             Logger.setProgress(start + 1 * (part / 6));
-            String speed = Integer.toString((int)((1.0 / (Double.parseDouble(Settings.load("planSpeed")) / 100.0)) * 12.0));
+            String speed = "";
+            if(Settings.line("planSpeed") != -1)
+                speed = Integer.toString((int)((1.0 / (Double.parseDouble(Settings.load("planSpeed")) / 100.0)) * 12.0));
             Logger.setProgress(start + 2 * (part / 6));
             String classes = classes(schoolClasses);
             Logger.setProgress(start + 3 * (part / 6));
@@ -111,7 +115,9 @@ public class HtmlWriter
         try
         {
             int part = end - start;
-            String speed = Integer.toString((int)(Double.parseDouble(Settings.load("motdSpeed")) / 100.0 * 15.0));
+            String speed = "";
+            if(Settings.line("motdSpeed") != -1)
+                speed = Integer.toString((int)(Double.parseDouble(Settings.load("motdSpeed")) / 100.0 * 15.0));
             Logger.setProgress(start + 1 * (part / 5));
             String text = Settings.load("motdText");
             Logger.setProgress(start + 2 * (part / 5));

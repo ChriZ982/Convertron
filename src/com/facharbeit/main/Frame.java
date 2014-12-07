@@ -244,7 +244,7 @@ public class Frame extends javax.swing.JFrame
         motdTxt.setToolTipText("Text, der als Laufschrift angezeigt werden soll z.B. \"Dies ist eine Laufschrift\"");
 
         genMotdBtn.setText("Laufschrift generieren");
-        genMotdBtn.setToolTipText("Generiert nur die Laufschrift");
+        genMotdBtn.setToolTipText("Generiert UND SPEICHERT nur die Laufschrift");
         genMotdBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -1015,6 +1015,13 @@ public class Frame extends javax.swing.JFrame
 
         saveDesignBtn.setText("Style anwenden");
         saveDesignBtn.setToolTipText("Den, oben eingestellten, Style für den Plan anwenden");
+        saveDesignBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                saveDesignBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout DesignPanelLayout = new javax.swing.GroupLayout(DesignPanel);
         DesignPanel.setLayout(DesignPanelLayout);
@@ -1570,6 +1577,11 @@ public class Frame extends javax.swing.JFrame
     {//GEN-HEADEREND:event_deleteTypeBtnActionPerformed
         Application.addToQueue("deleteTypeBtnActionPerformed", typeToEditTxt, typeToEditCombo);
     }//GEN-LAST:event_deleteTypeBtnActionPerformed
+
+    private void saveDesignBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_saveDesignBtnActionPerformed
+    {//GEN-HEADEREND:event_saveDesignBtnActionPerformed
+        Application.addToQueue("saveDesignBtnActionPerformed");
+    }//GEN-LAST:event_saveDesignBtnActionPerformed
 
     public JTextPane getStatusPane()
     {

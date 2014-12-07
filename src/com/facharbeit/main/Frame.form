@@ -222,7 +222,7 @@
             <Component class="javax.swing.JButton" name="genMotdBtn">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Laufschrift generieren"/>
-                <Property name="toolTipText" type="java.lang.String" value="Generiert nur die Laufschrift"/>
+                <Property name="toolTipText" type="java.lang.String" value="Generiert UND SPEICHERT nur die Laufschrift"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="genMotdBtnActionPerformed"/>
@@ -1476,6 +1476,9 @@
                 <Property name="text" type="java.lang.String" value="Style anwenden"/>
                 <Property name="toolTipText" type="java.lang.String" value="Den, oben eingestellten, Style f&#xfc;r den Plan anwenden"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveDesignBtnActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
