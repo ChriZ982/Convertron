@@ -1,23 +1,16 @@
 package com.facharbeit.main;
 
-import com.facharbeit.io.Settings;
-import com.facharbeit.tools.Logger;
-import java.awt.MenuItem;
-import java.awt.PopupMenu;
-import java.awt.SystemTray;
-import java.awt.TrayIcon;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.lang.reflect.Method;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
+import com.facharbeit.io.*;
+import com.facharbeit.main.Frame;
+import com.facharbeit.tools.*;
+import java.awt.*;
+import java.awt.image.*;
+import java.io.*;
+import java.lang.reflect.*;
+import java.nio.file.*;
+import java.util.*;
+import javax.imageio.*;
+import javax.swing.*;
 
 /**
  * Verwaltet alle Aktionen, die im Programm geschehen sollen.

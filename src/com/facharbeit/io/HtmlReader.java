@@ -1,11 +1,9 @@
 package com.facharbeit.io;
 
-import com.facharbeit.tools.Entry;
-import com.facharbeit.tools.Logger;
-import com.facharbeit.tools.SchoolClass;
-import com.facharbeit.tools.Time;
-import java.io.File;
-import java.util.ArrayList;
+import com.facharbeit.io.FileReader;
+import com.facharbeit.tools.*;
+import java.io.*;
+import java.util.*;
 
 /**
  * Liest die HTML-Dateien für einzelne Klassen aus.
@@ -21,6 +19,15 @@ public class HtmlReader
     };
 
     /**
+     * Name der Spalten die ausgelesen werden. Editieren, falls andere Namen. Reihenfolge:
+     * Stufe, Datum, Wochentag, Vertreter, Raum, Art, Fach, Lehrer, Verl. von, Hinweise
+     */
+    static String[] sqlColumms =
+    {
+        "Stufe", "Datum", "Wochentag", "Vertreter", "Raum", "Art", "Fach", "Lehrer", "Verl. von", "Hinweise"
+    };
+
+    /**
      * Liest die Schulklassen für heute ein.
      *
      * @return Schulklassen für heute
@@ -29,24 +36,26 @@ public class HtmlReader
     {
         try
         {
-            if(Settings.load("sqlUse").equals("false"))
-            {
-                SchoolClass[] schoolClasses = get(Settings.load("pathSource"));
-                boolean found = false;
-                for(SchoolClass schoolClass : schoolClasses)
-                {
-                    if(schoolClass.containsEntrysOfDate(Time.htmlReading(0)))
-                        found = true;
+            SchoolClass[] schoolClasses;
+            if(Settings.load("sqlUse").equals("true") && Settings.load("sqlMode").equals("lesen"))
+                schoolClasses = getAllSql();
+            else
+                schoolClasses = getAllHtml(Settings.load("pathSource"));
 
-                    schoolClass.onlyDate(Time.htmlReading(0));
-                }
-                if(found)
-                    return schoolClasses;
+            boolean found = false;
+            for(SchoolClass schoolClass : schoolClasses)
+            {
+                if(schoolClass.containsEntrysOfDate(Time.htmlReading(0)))
+                    found = true;
+
+                schoolClass.onlyDate(Time.htmlReading(0));
             }
+            if(found)
+                return schoolClasses;
             return null;
         } catch(Exception ex)
         {
-            Logger.log("Heutige HTML-Klassendateien konnten nicht gelesen werden", 2);
+            Logger.log("Heutige Schulklassen konnten nicht ausgelesen werden", 2);
             Logger.error(ex);
             return null;
         }
@@ -61,32 +70,39 @@ public class HtmlReader
     {
         try
         {
-            if(Settings.load("sqlUse").equals("false"))
+            SchoolClass[] schoolClasses;
+            if(Settings.load("sqlUse").equals("true") && Settings.load("sqlMode").equals("lesen"))
+                schoolClasses = getAllSql();
+            else
+                schoolClasses = getAllHtml(Settings.load("pathSource"));
+
+            boolean found = false;
+            int i = 0;
+            while(i < 10 && !found)
             {
-                SchoolClass[] schoolClasses = get(Settings.load("pathSource"));
-                boolean found = false;
-                int i = 0;
-                while(i < 10 && !found)
-                {
-                    i++;
-                    for(SchoolClass schoolClass : schoolClasses)
-                        if(schoolClass.containsEntrysOfDate(Time.htmlReading(i)))
-                            found = true;
-                }
-                if(found)
-                {
-                    for(SchoolClass schoolClass : schoolClasses)
-                        schoolClass.onlyDate(Time.htmlReading(i));
-                    return schoolClasses;
-                }
+                i++;
+                for(SchoolClass schoolClass : schoolClasses)
+                    if(schoolClass.containsEntrysOfDate(Time.htmlReading(i)))
+                        found = true;
+            }
+            if(found)
+            {
+                for(SchoolClass schoolClass : schoolClasses)
+                    schoolClass.onlyDate(Time.htmlReading(i));
+                return schoolClasses;
             }
             return null;
         } catch(Exception ex)
         {
-            Logger.log("Morgige HTML-Klassendateien konnten nicht gelesen werden", 2);
+            Logger.log("Morgige Schulklassen konnten nicht ausgelesen werden", 2);
             Logger.error(ex);
             return null;
         }
+    }
+
+    public static SchoolClass[] forSql()
+    {
+        return sort(getAllHtml(Settings.load("pathSource")));
     }
 
     /**
@@ -96,7 +112,7 @@ public class HtmlReader
      *
      * @return Alle Schulklassen
      */
-    private static SchoolClass[] get(String path)
+    public static SchoolClass[] getAllHtml(String path)
     {
         try
         {
@@ -106,7 +122,7 @@ public class HtmlReader
             String cellEndsWith = "</TD>";
             String cellEndsWith2 = "</font> ";
 
-            ArrayList<File> files = files(path);
+            ArrayList<File> files = getFiles(path);
 
             SchoolClass[] schoolClasses = new SchoolClass[files.size()];
 
@@ -223,7 +239,7 @@ public class HtmlReader
      *
      * @return Liste der Dateien
      */
-    private static ArrayList<File> files(String path)
+    private static ArrayList<File> getFiles(String path)
     {
         try
         {
@@ -249,6 +265,58 @@ public class HtmlReader
         } catch(Exception ex)
         {
             Logger.log("Dateien konnten nicht unter \"" + path + "\" gefunden werden", 2);
+            Logger.error(ex);
+            return null;
+        }
+    }
+
+    /**
+     * Liest die Klassendateien aus einer Datenbank.
+     *
+     * @return alle Schulklassen
+     */
+    private static SchoolClass[] getAllSql()
+    {
+        try
+        {
+            ArrayList<SchoolClass> asList = new ArrayList<>();
+            SqlTableReader read = new SqlTableReader(Settings.load("sqlHost"),
+                                                     Integer.parseInt(Settings.load("sqlPort")),
+                                                     Settings.load("sqlName"),
+                                                     Settings.load("sqlUser"),
+                                                     Settings.load("sqlPassw"),
+                                                     Settings.load("sqlTableName"),
+                                                     sqlColumms);
+
+            ArrayList<String[]> readIn = read.readAll();
+
+            for(String[] s : readIn)
+            {
+                String grade = s[0];
+                String[] forEntry = new String[s.length - 1];
+                boolean added = false;
+
+                for(int i = 0; i < forEntry.length; i++)
+                    forEntry[i] = s[i + 1];
+
+                for(SchoolClass sc : asList)
+                    if(sc.getName().equals(grade))
+                    {
+                        sc.getEntrys().add(new Entry(forEntry));
+                        added = true;
+                    }
+                if(!added)
+                {
+                    SchoolClass sc = new SchoolClass(grade);
+                    sc.getEntrys().add(new Entry(forEntry));
+                    asList.add(sc);
+                }
+            }
+
+            return (SchoolClass[])asList.toArray();
+        } catch(Exception ex)
+        {
+            Logger.log("Fehler beim auslesen der Datenbank", 2);
             Logger.error(ex);
             return null;
         }

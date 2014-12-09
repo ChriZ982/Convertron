@@ -10,6 +10,8 @@
         <Property name="fileSelectionMode" type="int" value="1"/>
       </Properties>
     </Component>
+    <Component class="javax.swing.ButtonGroup" name="sqlMode">
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
@@ -793,13 +795,13 @@
                           </Group>
                           <Component id="selectBackupBtn" min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                           <Component id="selectDestBtn" min="-2" pref="20" max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" alignment="0" pref="219" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" alignment="0" pref="221" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="savePathBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -1494,13 +1496,11 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="sqlSaveBtn" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="sqlSaveBtn" alignment="1" max="32767" attributes="0"/>
                           <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
-                          <Component id="useSQLCheck" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="dbHostLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="dbNameLabel" min="-2" max="-2" attributes="0"/>
@@ -1533,13 +1533,21 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="sqlModeLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="sqlModeBtn" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="useSQLCheck" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="dbHostLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="sqlModeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="sqlModeReadRBtn" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="sqlModeWriteRBtn" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="sqlModeDelWriteRBtn" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1572,11 +1580,14 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="sqlModeBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="sqlModeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="170" max="32767" attributes="0"/>
+                      <Component id="sqlModeLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="sqlModeReadRBtn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="sqlModeWriteRBtn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="sqlModeDelWriteRBtn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="108" max="32767" attributes="0"/>
                       <Component id="sqlSaveBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -1591,15 +1602,6 @@
               </Properties>
               <Events>
                 <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="useSQLCheckStateChanged"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="sqlModeBtn">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="schreiben"/>
-                <Property name="toolTipText" type="java.lang.String" value="SQL Modus, der verwendet werden soll"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sqlModeBtnActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="sqlSaveBtn">
@@ -1653,7 +1655,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="dbPortTxt">
               <Properties>
-                <Property name="toolTipText" type="java.lang.String" value="Datenbank Port z.B. &quot;1344&quot;"/>
+                <Property name="toolTipText" type="java.lang.String" value="Datenbank Port Standard:&quot;3306&quot;"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="dbPortLabel">
@@ -1676,6 +1678,30 @@
             <Component class="javax.swing.JLabel" name="sqlModeLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Sql-Modus:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="sqlModeReadRBtn">
+              <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="sqlMode"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="lesen"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="sqlModeWriteRBtn">
+              <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="sqlMode"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="schreiben"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="sqlModeDelWriteRBtn">
+              <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="sqlMode"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="l&#xf6;schen und schreiben"/>
               </Properties>
             </Component>
           </SubComponents>

@@ -1,7 +1,7 @@
 package com.facharbeit.tools;
 
-import com.facharbeit.io.Settings;
-import java.util.ArrayList;
+import com.facharbeit.io.*;
+import java.util.*;
 
 /**
  * Schulklasse die alle Einträge der Klasse beinhaltet.
@@ -12,6 +12,11 @@ public class SchoolClass
      * Name der Klasse.
      */
     private String name;
+
+    public String getName()
+    {
+        return name;
+    }
 
     /**
      * Datum mit dem die Schulklasse eingelesen wurde.

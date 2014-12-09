@@ -1,29 +1,14 @@
 package com.facharbeit.main;
 
-import com.facharbeit.io.HtmlReader;
-import com.facharbeit.io.HtmlWriter;
-import com.facharbeit.io.Settings;
-import com.facharbeit.tools.Logger;
-import java.awt.Color;
-import java.awt.event.ItemEvent;
-import java.io.IOException;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.StandardCopyOption;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.ArrayList;
-import java.util.Arrays;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JColorChooser;
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import com.facharbeit.io.*;
+import com.facharbeit.tools.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import java.nio.file.*;
+import java.nio.file.attribute.*;
+import java.util.*;
+import javax.swing.*;
 
 /**
  * Diese Klasse beinhaltet alle wichtigen Methoden, die in die Warteschlange der Anwendung angehängt werden können.
@@ -38,6 +23,10 @@ public class QueueableMethods
         HtmlWriter.tomorrow(HtmlReader.sort(HtmlReader.tomorrow()), 65, 80);
         HtmlWriter.motd(80, 95);
         HtmlWriter.style();
+
+        if(Settings.load("sqlMode").contains("schreiben") && Settings.load("sqlUse").equals("true"))
+            HtmlWriter.sql();
+
         backupToDestPaths();
         Logger.setProgress(100);
         if(Settings.load("autoBackup").equals("true"))
@@ -49,6 +38,10 @@ public class QueueableMethods
     {
         HtmlWriter.today(HtmlReader.sort(HtmlReader.today()), 50, 95);
         HtmlWriter.style();
+
+        if(Settings.load("sqlMode").contains("schreiben") && Settings.load("sqlUse").equals("true"))
+            HtmlWriter.sql();
+
         backupToDestPaths();
         Logger.setProgress(100);
         if(Settings.load("autoBackup").equals("true"))
@@ -60,6 +53,10 @@ public class QueueableMethods
     {
         HtmlWriter.tomorrow(HtmlReader.sort(HtmlReader.tomorrow()), 50, 95);
         HtmlWriter.style();
+
+        if(Settings.load("sqlMode").contains("schreiben") && Settings.load("sqlUse").equals("true"))
+            HtmlWriter.sql();
+
         backupToDestPaths();
         Logger.setProgress(100);
         if(Settings.load("autoBackup").equals("true"))
@@ -432,10 +429,12 @@ public class QueueableMethods
     // SQL
     public static void SQLsaveBtnActionPerformed(JTextField dbHostTxt, JTextField dbPortTxt, JTextField dbNameTxt,
                                                  JTextField dbUserTxt, JTextField dbPwTxt, JTextField dbTableNameTxt,
-                                                 JCheckBox useSQLCheck, JButton sqlModeBtn)
+                                                 JCheckBox useSQLCheck, JRadioButton[] sqlMode)
     {
         Settings.save("sqlUse", String.valueOf(useSQLCheck.isSelected()));
-        Settings.save("sqlMode", sqlModeBtn.getText());
+        for(JRadioButton b : sqlMode)
+            if(b.isSelected())
+                Settings.save("sqlMode", b.getText());
 
         saveIfNotNull(dbHostTxt, "sqlHost");
         saveIfNotNull(dbPortTxt, "sqlPort");
@@ -450,9 +449,9 @@ public class QueueableMethods
                                     JTextField speedMotdTxt, JComboBox colorPlanCombo, JComboBox colorMotdCombo,
                                     JTextField motdTxt, JCheckBox useSQLCheck, JTextField dbHostTxt, JTextField dbPortTxt,
                                     JTextField dbNameTxt, JTextField dbUserTxt, JTextField dbPwTxt, JTextField dbTableNameTxt,
-                                    JTextField hour1Txt, JTextField hour2Txt, JTextField hour3Txt, JTextField hour4Txt,
+                                    JRadioButton[] sqlMode, JTextField hour1Txt, JTextField hour2Txt, JTextField hour3Txt, JTextField hour4Txt,
                                     JTextField hour5Txt, JTextField hour6Txt, JTextField hour7Txt, JTextField hour8Txt,
-                                    JTextField hour9Txt, JTextField hour10Txt, JButton SQLModeBtn, JCheckBox autoBackupCheck,
+                                    JTextField hour9Txt, JTextField hour10Txt, JCheckBox autoBackupCheck,
                                     JCheckBox useHoursCheck, JCheckBox customSourceCheck, JTextField sourceTodayTxt,
                                     JTextField sourceTomorrowTxt, JComboBox colorTableCombo, JComboBox colorBorderCombo,
                                     JComboBox fontColorCombo, JComboBox backgroundColorCombo, JTextField fontTypeTxt,
@@ -489,6 +488,13 @@ public class QueueableMethods
         useHoursCheck.setSelected(Boolean.valueOf(Settings.load("lessonUse")));
         customSourceCheck.setSelected(Boolean.valueOf(Settings.load("customDate")));
 
+        if(Settings.load("sqlMode").equals("lesen"))
+            sqlMode[0].setSelected(true);
+        else if(Settings.load("sqlMode").equals("löschen und schreiben"))
+            sqlMode[2].setSelected(true);
+        else
+            sqlMode[1].setSelected(true);
+
         String name = "pathDest1";
         if(Settings.line(name) == -1)
             Settings.load(name);
@@ -523,11 +529,6 @@ public class QueueableMethods
             boldCheck.setSelected(true);
         else if(bool.equals("italic"))
             italicCheck.setSelected(true);
-
-        if(Settings.load("sqlMode").equals("write"))
-            SQLModeBtn.setText("schreiben");
-        else
-            SQLModeBtn.setText("lesen");
 
         String[] order = Settings.load("lessonOrder").split(",");
         if(order.length == 7)

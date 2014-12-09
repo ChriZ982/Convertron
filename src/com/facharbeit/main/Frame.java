@@ -1,9 +1,7 @@
 package com.facharbeit.main;
 
-import com.facharbeit.tools.Logger;
-import javax.swing.JComponent;
-import javax.swing.JProgressBar;
-import javax.swing.JTextPane;
+import com.facharbeit.tools.*;
+import javax.swing.*;
 
 /**
  * Anzeige-Fenster der Anwendung.
@@ -44,7 +42,7 @@ public class Frame extends javax.swing.JFrame
             {
                 dbHostLabel, dbPortLabel, dbNameLabel, dbUserLabel, dbPwLabel, dbTableNameLabel,
                 dbHostTxt, dbPortTxt, dbNameTxt, dbUserTxt, dbPwTxt, dbTableNameTxt,
-                sqlModeLabel, sqlModeBtn
+                sqlModeLabel, sqlModeReadRBtn, sqlModeWriteRBtn, sqlModeDelWriteRBtn
             };
         } catch(Exception ex)
         {
@@ -60,6 +58,7 @@ public class Frame extends javax.swing.JFrame
 
         jColorChooser1 = new javax.swing.JColorChooser();
         jFileChooser1 = new javax.swing.JFileChooser();
+        sqlMode = new javax.swing.ButtonGroup();
         Tabs = new javax.swing.JTabbedPane();
         ControlPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -173,7 +172,6 @@ public class Frame extends javax.swing.JFrame
         saveDesignBtn = new javax.swing.JButton();
         SQLPanel = new javax.swing.JPanel();
         useSQLCheck = new javax.swing.JCheckBox();
-        sqlModeBtn = new javax.swing.JButton();
         sqlSaveBtn = new javax.swing.JButton();
         dbTableNameTxt = new javax.swing.JTextField();
         dbTableNameLabel = new javax.swing.JLabel();
@@ -189,6 +187,9 @@ public class Frame extends javax.swing.JFrame
         dbHostLabel = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         sqlModeLabel = new javax.swing.JLabel();
+        sqlModeReadRBtn = new javax.swing.JRadioButton();
+        sqlModeWriteRBtn = new javax.swing.JRadioButton();
+        sqlModeDelWriteRBtn = new javax.swing.JRadioButton();
 
         jFileChooser1.setFileHidingEnabled(true);
         jFileChooser1.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
@@ -755,11 +756,11 @@ public class Frame extends javax.swing.JFrame
                         .addComponent(backupTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel8))
                     .addComponent(selectBackupBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
+                .addGap(18, 18, 18)
                 .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addComponent(selectDestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(savePathBtn)
                 .addContainerGap())
@@ -1203,16 +1204,6 @@ public class Frame extends javax.swing.JFrame
             }
         });
 
-        sqlModeBtn.setText("schreiben");
-        sqlModeBtn.setToolTipText("SQL Modus, der verwendet werden soll");
-        sqlModeBtn.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                sqlModeBtnActionPerformed(evt);
-            }
-        });
-
         sqlSaveBtn.setText("speichern");
         sqlSaveBtn.setToolTipText("Speichert die SQL Einstellungen");
         sqlSaveBtn.addActionListener(new java.awt.event.ActionListener()
@@ -1239,7 +1230,7 @@ public class Frame extends javax.swing.JFrame
 
         dbPwTxt.setToolTipText("Passwort z.B. \"passw\"");
 
-        dbPortTxt.setToolTipText("Datenbank Port z.B. \"1344\"");
+        dbPortTxt.setToolTipText("Datenbank Port Standard:\"3306\"");
 
         dbPortLabel.setText("Port:");
 
@@ -1249,18 +1240,25 @@ public class Frame extends javax.swing.JFrame
 
         sqlModeLabel.setText("Sql-Modus:");
 
+        sqlMode.add(sqlModeReadRBtn);
+        sqlModeReadRBtn.setText("lesen");
+
+        sqlMode.add(sqlModeWriteRBtn);
+        sqlModeWriteRBtn.setText("schreiben");
+
+        sqlMode.add(sqlModeDelWriteRBtn);
+        sqlModeDelWriteRBtn.setText("löschen und schreiben");
+
         javax.swing.GroupLayout SQLPanelLayout = new javax.swing.GroupLayout(SQLPanel);
         SQLPanel.setLayout(SQLPanelLayout);
         SQLPanelLayout.setHorizontalGroup(
             SQLPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SQLPanelLayout.createSequentialGroup()
+            .addGroup(SQLPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(SQLPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(sqlSaveBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(useSQLCheck, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dbHostLabel, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, SQLPanelLayout.createSequentialGroup()
+                .addGroup(SQLPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(sqlSaveBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator1)
+                    .addGroup(SQLPanelLayout.createSequentialGroup()
                         .addGroup(SQLPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dbNameLabel)
                             .addComponent(dbUserLabel))
@@ -1284,10 +1282,16 @@ public class Frame extends javax.swing.JFrame
                                 .addGroup(SQLPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(dbTableNameTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                                     .addComponent(dbPwTxt)))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, SQLPanelLayout.createSequentialGroup()
-                        .addComponent(sqlModeLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(sqlModeBtn)))
+                    .addGroup(SQLPanelLayout.createSequentialGroup()
+                        .addGroup(SQLPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(useSQLCheck)
+                            .addComponent(dbHostLabel)
+                            .addComponent(sqlModeLabel)
+                            .addGroup(SQLPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(sqlModeReadRBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(sqlModeWriteRBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(sqlModeDelWriteRBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         SQLPanelLayout.setVerticalGroup(
@@ -1316,10 +1320,14 @@ public class Frame extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(SQLPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(sqlModeBtn)
-                    .addComponent(sqlModeLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
+                .addComponent(sqlModeLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sqlModeReadRBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sqlModeWriteRBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sqlModeDelWriteRBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                 .addComponent(sqlSaveBtn)
                 .addContainerGap())
         );
@@ -1454,8 +1462,13 @@ public class Frame extends javax.swing.JFrame
 
     private void sqlSaveBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_sqlSaveBtnActionPerformed
     {//GEN-HEADEREND:event_sqlSaveBtnActionPerformed
-        Application.addToQueue("SQLsaveBtnActionPerformed", dbHostTxt, dbPortTxt, dbNameTxt,
-                               dbUserTxt, dbPwTxt, dbTableNameTxt, useSQLCheck, sqlModeBtn);
+        JRadioButton[] rBtns =
+        {
+            sqlModeReadRBtn, sqlModeWriteRBtn, sqlModeDelWriteRBtn
+        };
+        Application.addToQueue("SQLsaveBtnActionPerformed", dbHostTxt, dbPortTxt, dbNameTxt, dbUserTxt,
+                               dbPwTxt, dbTableNameTxt, useSQLCheck, rBtns);
+
     }//GEN-LAST:event_sqlSaveBtnActionPerformed
 
     private void settingsSaveBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_settingsSaveBtnActionPerformed
@@ -1465,21 +1478,6 @@ public class Frame extends javax.swing.JFrame
                                useHoursCheck, autoBackupCheck, speedPlanTxt, speedMotdTxt,
                                table, weekTxt, sourceTodayTxt, sourceTomorrowTxt, customSourceCheck);
     }//GEN-LAST:event_settingsSaveBtnActionPerformed
-
-    private void sqlModeBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_sqlModeBtnActionPerformed
-    {//GEN-HEADEREND:event_sqlModeBtnActionPerformed
-        try
-        {
-            if(sqlModeBtn.getText().equals("lesen"))
-                sqlModeBtn.setText("schreiben");
-            else
-                sqlModeBtn.setText("lesen");
-        } catch(Exception ex)
-        {
-            Logger.log("Fehler im Frame", 2);
-            Logger.error(ex);
-        }
-    }//GEN-LAST:event_sqlModeBtnActionPerformed
 
     private void useHoursCheckStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_useHoursCheckStateChanged
     {//GEN-HEADEREND:event_useHoursCheckStateChanged
@@ -1597,10 +1595,14 @@ public class Frame extends javax.swing.JFrame
     {
         try
         {
+            JRadioButton[] rBtns =
+            {
+                sqlModeReadRBtn, sqlModeWriteRBtn, sqlModeDelWriteRBtn
+            };
             Application.addToQueue("loadSettings", sourceTxt, backupTxt, destArea, speedPlanTxt, speedMotdTxt,
                                    colorPlanCombo, colorMotdCombo, motdTxt, useSQLCheck, dbHostTxt, dbPortTxt,
-                                   dbNameTxt, dbUserTxt, dbPwTxt, dbTableNameTxt, hour1Txt, hour2Txt, hour3Txt,
-                                   hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt, sqlModeBtn,
+                                   dbNameTxt, dbUserTxt, dbPwTxt, dbTableNameTxt, rBtns, hour1Txt, hour2Txt, hour3Txt,
+                                   hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt,
                                    autoBackupCheck, useHoursCheck, customSourceCheck, sourceTodayTxt,
                                    sourceTomorrowTxt, colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo,
                                    fontTypeTxt, fontSizeTxt, boldCheck, italicCheck, typeToEditCombo, table, weekTxt);
@@ -1748,8 +1750,11 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JTextField sourceTxt;
     private javax.swing.JTextField speedMotdTxt;
     private javax.swing.JTextField speedPlanTxt;
-    private javax.swing.JButton sqlModeBtn;
+    private javax.swing.ButtonGroup sqlMode;
+    private javax.swing.JRadioButton sqlModeDelWriteRBtn;
     private javax.swing.JLabel sqlModeLabel;
+    private javax.swing.JRadioButton sqlModeReadRBtn;
+    private javax.swing.JRadioButton sqlModeWriteRBtn;
     private javax.swing.JButton sqlSaveBtn;
     private javax.swing.JTable table;
     private javax.swing.JComboBox typeToEditCombo;

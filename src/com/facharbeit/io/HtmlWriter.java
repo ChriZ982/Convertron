@@ -1,15 +1,22 @@
 package com.facharbeit.io;
 
-import com.facharbeit.tools.Logger;
-import com.facharbeit.tools.SchoolClass;
-import com.facharbeit.tools.Time;
-import java.util.ArrayList;
+import com.facharbeit.tools.*;
+import java.util.*;
 
 /**
  * Generiert die HTML-Dateien.
  */
 public class HtmlWriter
 {
+    /**
+     * Name der Spalten in die geschreiben werden soll. Editieren, falls andere Namen. Reihenfolge:
+     * Stufe, Datum, Wochentag, Vertreter, Raum, Art, Fach, Lehrer, Verl. von, Hinweise
+     */
+    static String[] sqlColumms =
+    {
+        "Stufe", "Datum", "Wochentag", "Vertreter", "Raum", "Art", "Fach", "Lehrer", "Verl. von", "Hinweise"
+    };
+
     /**
      * Generiert den heutigen Plan.
      *
@@ -220,6 +227,48 @@ public class HtmlWriter
             Logger.log("Style konnte nicht generiert werden", 2);
             Logger.error(ex);
         }
+    }
+
+    /**
+     * Schreibt in Datenbank.
+     */
+    public static void sql()
+    {
+        try
+        {
+            SchoolClass[] scs = HtmlReader.forSql();
+            SqlTableWriter write = new SqlTableWriter(Settings.load("sqlHost"),
+                                                      Integer.parseInt(Settings.load("sqlPort")),
+                                                      Settings.load("sqlName"),
+                                                      Settings.load("sqlUser"),
+                                                      Settings.load("sqlPassw"),
+                                                      Settings.load("sqlTableName"),
+                                                      sqlColumms);
+
+            if(Settings.load("sqlMode").equals("löschen und schreiben"))
+                write.clear();
+
+            ArrayList<String[]> forSql = new ArrayList<>();
+            for(SchoolClass sc : scs)
+                for(Entry e : sc.getEntrys())
+                {
+                    String[] line = new String[e.getContent().length + 3];
+                    line[0] = sc.getName();
+                    line[1] = e.getDate();
+                    line[2] = e.getDayOfWeek();
+                    for(int i = 3; i < line.length; i++)
+                        line[i] = e.getContent()[i - 3];
+                    forSql.add(line);
+                }
+
+            write.addAll(forSql);
+
+        } catch(Exception ex)
+        {
+            Logger.log("Datenbank konnte nicht aktualisiert werden", 2);
+            Logger.error(ex);
+        }
+        Logger.setProgress(0);
     }
 
     /**
