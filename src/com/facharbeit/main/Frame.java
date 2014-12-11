@@ -1,6 +1,7 @@
 package com.facharbeit.main;
 
 import com.facharbeit.tools.*;
+import java.awt.Color;
 import javax.swing.*;
 
 /**
@@ -232,6 +233,7 @@ public class Frame extends javax.swing.JFrame
 
         genAllBtn.setText("Alles generieren");
         genAllBtn.setToolTipText("Generiert den kompletten Plan");
+        genAllBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         genAllBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -242,7 +244,20 @@ public class Frame extends javax.swing.JFrame
 
         jLabel2.setText("Vertretungplan:");
 
+        motdTxt.setText("Laufschrift");
         motdTxt.setToolTipText("Text, der als Laufschrift angezeigt werden soll z.B. \"Dies ist eine Laufschrift\"");
+        motdTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        motdTxt.addFocusListener(new java.awt.event.FocusAdapter()
+        {
+            public void focusGained(java.awt.event.FocusEvent evt)
+            {
+                motdTxtFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt)
+            {
+                motdTxtFocusLost(evt);
+            }
+        });
 
         genMotdBtn.setText("Laufschrift generieren");
         genMotdBtn.setToolTipText("Generiert UND SPEICHERT nur die Laufschrift");
@@ -825,7 +840,20 @@ public class Frame extends javax.swing.JFrame
             }
         });
 
+        colorNameTxt.setForeground(java.awt.Color.gray);
+        colorNameTxt.setText("Farbenname");
         colorNameTxt.setToolTipText("Name der Farbe, die hinzugefügt/bearbeitet werden soll z.B. \"Antonsblau\"");
+        colorNameTxt.addFocusListener(new java.awt.event.FocusAdapter()
+        {
+            public void focusGained(java.awt.event.FocusEvent evt)
+            {
+                colorNameTxtFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt)
+            {
+                colorNameTxtFocusLost(evt);
+            }
+        });
 
         jLabel13.setText("Laufschrift");
 
@@ -902,7 +930,20 @@ public class Frame extends javax.swing.JFrame
             }
         });
 
+        typeToEditTxt.setForeground(java.awt.Color.gray);
+        typeToEditTxt.setText("Vertretungsart");
         typeToEditTxt.setToolTipText("Name einer neuen, zu differenzierenden, Vertretungsart z.B. \"Raum-Vtr.\"");
+        typeToEditTxt.addFocusListener(new java.awt.event.FocusAdapter()
+        {
+            public void focusGained(java.awt.event.FocusEvent evt)
+            {
+                typeToEditTxtFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt)
+            {
+                typeToEditTxtFocusLost(evt);
+            }
+        });
 
         addTypeBtn.setText("hinzufügen");
         addTypeBtn.setToolTipText("Eine neue, zu differenzierende, Vertretungsart erstellen");
@@ -1378,6 +1419,9 @@ public class Frame extends javax.swing.JFrame
     {//GEN-HEADEREND:event_selectDestBtnActionPerformed
         try
         {
+            while(destArea.getText().startsWith("\n"))
+                destArea.setText(destArea.getText().substring("\n".length()));
+
             jFileChooser1.showOpenDialog(null);
 
             if(!destArea.getText().endsWith("\n") && destArea.getText().contains("\n"))
@@ -1393,13 +1437,23 @@ public class Frame extends javax.swing.JFrame
 
     private void savePathBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_savePathBtnActionPerformed
     {//GEN-HEADEREND:event_savePathBtnActionPerformed
+        try
+        {
+            while(destArea.getText().startsWith("\n"))
+                destArea.setText(destArea.getText().substring("\n".length()));
+        } catch(Exception ex)
+        {
+            Logger.log("Fehler im Frame", 2);
+            Logger.error(ex);
+        }
         Application.addToQueue("savePathBtnActionPerformed", sourceTxt, backupTxt, destArea);
     }//GEN-LAST:event_savePathBtnActionPerformed
 
     private void addColorBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_addColorBtnActionPerformed
     {//GEN-HEADEREND:event_addColorBtnActionPerformed
-        Application.addToQueue("addColorBtnActionPerformed", jColorChooser1, colorNameTxt, colorPlanCombo, colorMotdCombo,
-                               colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo);
+        if(!colorNameTxt.getText().equals("Farbenname") && !colorNameTxt.getText().equals(""))
+            Application.addToQueue("addColorBtnActionPerformed", jColorChooser1, colorNameTxt, colorPlanCombo, colorMotdCombo,
+                                   colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo);
     }//GEN-LAST:event_addColorBtnActionPerformed
 
     private void colorPlanComboItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_colorPlanComboItemStateChanged
@@ -1568,7 +1622,8 @@ public class Frame extends javax.swing.JFrame
 
     private void addTypeBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_addTypeBtnActionPerformed
     {//GEN-HEADEREND:event_addTypeBtnActionPerformed
-        Application.addToQueue("addTypeBtnActionPerformed", typeToEditTxt, typeToEditCombo);
+        if(!typeToEditTxt.getText().equals("Vertretungsart") && !typeToEditTxt.getText().equals(""))
+            Application.addToQueue("addTypeBtnActionPerformed", typeToEditTxt, typeToEditCombo);
     }//GEN-LAST:event_addTypeBtnActionPerformed
 
     private void deleteTypeBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deleteTypeBtnActionPerformed
@@ -1580,6 +1635,57 @@ public class Frame extends javax.swing.JFrame
     {//GEN-HEADEREND:event_saveDesignBtnActionPerformed
         Application.addToQueue("saveDesignBtnActionPerformed");
     }//GEN-LAST:event_saveDesignBtnActionPerformed
+
+    private void colorNameTxtFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_colorNameTxtFocusGained
+    {//GEN-HEADEREND:event_colorNameTxtFocusGained
+        if(colorNameTxt.getText().equals("Farbenname"))
+            colorNameTxt.setText("");
+        colorNameTxt.setForeground(Color.BLACK);
+    }//GEN-LAST:event_colorNameTxtFocusGained
+
+    private void colorNameTxtFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_colorNameTxtFocusLost
+    {//GEN-HEADEREND:event_colorNameTxtFocusLost
+        if(colorNameTxt.getText().equals(""))
+        {
+            colorNameTxt.setText("Farbenname");
+            colorNameTxt.setForeground(Color.GRAY);
+        } else
+            colorNameTxt.setForeground(Color.BLACK);
+    }//GEN-LAST:event_colorNameTxtFocusLost
+
+    private void typeToEditTxtFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_typeToEditTxtFocusGained
+    {//GEN-HEADEREND:event_typeToEditTxtFocusGained
+        if(typeToEditTxt.getText().equals("Vertretungsart"))
+            typeToEditTxt.setText("");
+        typeToEditTxt.setForeground(Color.BLACK);
+    }//GEN-LAST:event_typeToEditTxtFocusGained
+
+    private void typeToEditTxtFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_typeToEditTxtFocusLost
+    {//GEN-HEADEREND:event_typeToEditTxtFocusLost
+        if(typeToEditTxt.getText().equals(""))
+        {
+            typeToEditTxt.setText("Vertretungsart");
+            typeToEditTxt.setForeground(Color.GRAY);
+        } else
+            typeToEditTxt.setForeground(Color.BLACK);
+    }//GEN-LAST:event_typeToEditTxtFocusLost
+
+    private void motdTxtFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_motdTxtFocusGained
+    {//GEN-HEADEREND:event_motdTxtFocusGained
+        if(motdTxt.getText().equals("Laufschrift"))
+            motdTxt.setText("");
+        motdTxt.setForeground(Color.BLACK);
+    }//GEN-LAST:event_motdTxtFocusGained
+
+    private void motdTxtFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_motdTxtFocusLost
+    {//GEN-HEADEREND:event_motdTxtFocusLost
+        if(motdTxt.getText().equals(""))
+        {
+            motdTxt.setText("Laufschrift");
+            motdTxt.setForeground(Color.GRAY);
+        } else
+            motdTxt.setForeground(Color.BLACK);
+    }//GEN-LAST:event_motdTxtFocusLost
 
     public JTextPane getStatusPane()
     {

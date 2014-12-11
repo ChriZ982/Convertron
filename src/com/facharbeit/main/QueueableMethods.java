@@ -483,6 +483,9 @@ public class QueueableMethods
         load(sourceTomorrowTxt, "customTomorrow");
         load(weekTxt, "customWeek");
 
+        if(Settings.load("motdText").equals("") || Settings.load("motdText").equals("Laufschrift"))
+            motdTxt.setForeground(Color.GRAY);
+
         useSQLCheck.setSelected(Boolean.valueOf(Settings.load("sqlUse")));
         autoBackupCheck.setSelected(Boolean.valueOf(Settings.load("autoBackup")));
         useHoursCheck.setSelected(Boolean.valueOf(Settings.load("lessonUse")));
