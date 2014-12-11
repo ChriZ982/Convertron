@@ -129,8 +129,12 @@ public class HtmlWriter
             String text = Settings.load("motdText");
             Logger.setProgress(start + 2 * (part / 5));
 
-            if(!validate(speed, text) && !text.equals("Laufschrift"))
+            if(!validate(speed, text))
                 return;
+
+            if(text.equals("Laufschrift"))
+                if(!validate(""))
+                    return;
 
             FileReader reader = new FileReader("Data/", "TEMPLATE laufschrift.html");
             FileWriter writer = new FileWriter("Data/", "laufschrift.html");
@@ -342,16 +346,13 @@ public class HtmlWriter
     {
         try
         {
-            boolean valid = true;
             for(String s : test)
                 if(s.equals(""))
                 {
-                    valid = false;
-                    break;
+                    Logger.log("Eine Einstellung wurde noch nicht gemacht - Konnte nicht generieren!", 2);
+                    return false;
                 }
-            if(!valid)
-                Logger.log("Eine Einstellung wurde noch nicht gemacht - Konnte nicht generieren!", 2);
-            return valid;
+            return true;
         } catch(Exception ex)
         {
             Logger.log("Einstellungen konnten nicht bestätigt werden", 2);
