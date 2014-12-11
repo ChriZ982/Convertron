@@ -16,6 +16,11 @@ public class Entry
     private String date = null;
 
     /**
+     * Wochentag des Eintrags
+     */
+    private String dayOfWeek = null;
+
+    /**
      * Ist der Eintrag doppelstündig?.
      */
     private boolean doubleLesson;
@@ -50,6 +55,7 @@ public class Entry
 
             this.doubleLesson = isDoubleLesson;
             this.date = content[1];
+            this.dayOfWeek = content[2];
             this.content = new String[content.length - 3];
 
             for(int i = 3; i < content.length; i++)
@@ -98,6 +104,16 @@ public class Entry
     public String getDate()
     {
         return date;
+    }
+
+    /**
+     * Gibt Wochentag.
+     *
+     * @return Wochentag
+     */
+    public String getDayOfWeek()
+    {
+        return dayOfWeek;
     }
 
     /**

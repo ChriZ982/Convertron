@@ -1,23 +1,16 @@
 package com.facharbeit.main;
 
-import com.facharbeit.io.Settings;
-import com.facharbeit.tools.Logger;
-import java.awt.MenuItem;
-import java.awt.PopupMenu;
-import java.awt.SystemTray;
-import java.awt.TrayIcon;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.lang.reflect.Method;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
+import com.facharbeit.io.*;
+import com.facharbeit.main.Frame;
+import com.facharbeit.tools.*;
+import java.awt.*;
+import java.awt.image.*;
+import java.io.*;
+import java.lang.reflect.*;
+import java.nio.file.*;
+import java.util.*;
+import javax.imageio.*;
+import javax.swing.*;
 
 /**
  * Verwaltet alle Aktionen, die im Programm geschehen sollen.
@@ -29,6 +22,11 @@ public class Application
      * Das Fenster des Programms.
      */
     private Frame frame;
+
+    /**
+     * Das Symbol der Anwendung im Tray.
+     */
+    private TrayIcon trayIcon;
 
     /**
      * Gibt an ob die Anwendung laufen soll.
@@ -58,7 +56,7 @@ public class Application
             Settings.init();
 
             frame.loadSettings();
-            frame.addWindowListener(new FrameActions(frame));
+            frame.addWindowListener(new FrameActions(frame, this));
 
             initTray();
             initData();
@@ -68,6 +66,31 @@ public class Application
         {
             Logger.log("Anwendung konnte nicht initialisiert werden", 2);
             Logger.error(ex);
+        }
+    }
+
+    /**
+     * Beendet das Programm.
+     */
+    public void exit()
+    {
+        try
+        {
+            running = false;
+
+            for(QueueElement element : queue)
+                element.invoke();
+
+            SystemTray.getSystemTray().remove(trayIcon);
+
+            frame.dispose();
+
+            System.exit(0);
+        } catch(Exception ex)
+        {
+            Logger.log("Fehler beim Beenden", 2);
+            Logger.error(ex);
+            System.exit(-1);
         }
     }
 
@@ -226,7 +249,7 @@ public class Application
         {
             BufferedImage icon = ImageIO.read(getClass().getResource("/com/facharbeit/ressources/trayLogo.png"));
             PopupMenu popup = new PopupMenu();
-            TrayIcon trayIcon = new TrayIcon(icon);
+            trayIcon = new TrayIcon(icon);
             SystemTray tray = SystemTray.getSystemTray();
 
             MenuItem genAll = new MenuItem("Alles generieren");

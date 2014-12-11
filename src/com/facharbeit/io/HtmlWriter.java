@@ -1,15 +1,22 @@
 package com.facharbeit.io;
 
-import com.facharbeit.tools.Logger;
-import com.facharbeit.tools.SchoolClass;
-import com.facharbeit.tools.Time;
-import java.util.ArrayList;
+import com.facharbeit.tools.*;
+import java.util.*;
 
 /**
  * Generiert die HTML-Dateien.
  */
 public class HtmlWriter
 {
+    /**
+     * Name der Spalten in die geschreiben werden soll. Editieren, falls andere Namen. Reihenfolge:
+     * Stufe, Datum, Wochentag, Vertreter, Raum, Art, Fach, Lehrer, Verl. von, Hinweise
+     */
+    static String[] sqlColumms =
+    {
+        "Stufe", "Datum", "Wochentag", "Vertreter", "Raum", "Art", "Fach", "Lehrer", "Verl. von", "Hinweise"
+    };
+
     /**
      * Generiert den heutigen Plan.
      *
@@ -125,6 +132,10 @@ public class HtmlWriter
             if(!validate(speed, text))
                 return;
 
+            if(text.equals("Laufschrift"))
+                if(!validate(""))
+                    return;
+
             FileReader reader = new FileReader("Data/", "TEMPLATE laufschrift.html");
             FileWriter writer = new FileWriter("Data/", "laufschrift.html");
             Logger.setProgress(start + 3 * (part / 5));
@@ -223,6 +234,48 @@ public class HtmlWriter
     }
 
     /**
+     * Schreibt in Datenbank.
+     */
+    public static void sql()
+    {
+        try
+        {
+            SchoolClass[] scs = HtmlReader.forSql();
+            SqlTableWriter write = new SqlTableWriter(Settings.load("sqlHost"),
+                                                      Integer.parseInt(Settings.load("sqlPort")),
+                                                      Settings.load("sqlName"),
+                                                      Settings.load("sqlUser"),
+                                                      Settings.load("sqlPassw"),
+                                                      Settings.load("sqlTableName"),
+                                                      sqlColumms);
+
+            if(Settings.load("sqlMode").equals("löschen und schreiben"))
+                write.clear();
+
+            ArrayList<String[]> forSql = new ArrayList<>();
+            for(SchoolClass sc : scs)
+                for(Entry e : sc.getEntries())
+                {
+                    String[] line = new String[e.getContent().length + 3];
+                    line[0] = sc.getName();
+                    line[1] = e.getDate();
+                    line[2] = e.getDayOfWeek();
+                    for(int i = 3; i < line.length; i++)
+                        line[i] = e.getContent()[i - 3];
+                    forSql.add(line);
+                }
+
+            write.addAll(forSql);
+
+        } catch(Exception ex)
+        {
+            Logger.log("Datenbank konnte nicht aktualisiert werden", 2);
+            Logger.error(ex);
+        }
+        Logger.setProgress(0);
+    }
+
+    /**
      * Formatiert die Schulklassen.
      *
      * @param schoolClasses Zu formatierende Schulklassen
@@ -293,16 +346,13 @@ public class HtmlWriter
     {
         try
         {
-            boolean valid = true;
             for(String s : test)
                 if(s.equals(""))
                 {
-                    valid = false;
-                    break;
+                    Logger.log("Eine Einstellung wurde noch nicht gemacht - Konnte nicht generieren!", 2);
+                    return false;
                 }
-            if(!valid)
-                Logger.log("Eine Einstellung wurde noch nicht gemacht - Konnte nicht generieren!", 2);
-            return valid;
+            return true;
         } catch(Exception ex)
         {
             Logger.log("Einstellungen konnten nicht bestätigt werden", 2);

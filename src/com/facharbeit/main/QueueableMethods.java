@@ -1,29 +1,14 @@
 package com.facharbeit.main;
 
-import com.facharbeit.io.HtmlReader;
-import com.facharbeit.io.HtmlWriter;
-import com.facharbeit.io.Settings;
-import com.facharbeit.tools.Logger;
-import java.awt.Color;
-import java.awt.event.ItemEvent;
-import java.io.IOException;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.StandardCopyOption;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.ArrayList;
-import java.util.Arrays;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JColorChooser;
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import com.facharbeit.io.*;
+import com.facharbeit.tools.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import java.nio.file.*;
+import java.nio.file.attribute.*;
+import java.util.*;
+import javax.swing.*;
 
 /**
  * Diese Klasse beinhaltet alle wichtigen Methoden, die in die Warteschlange der Anwendung angehängt werden können.
@@ -38,6 +23,10 @@ public class QueueableMethods
         HtmlWriter.tomorrow(HtmlReader.sort(HtmlReader.tomorrow()), 65, 80);
         HtmlWriter.motd(80, 95);
         HtmlWriter.style();
+
+        if(Settings.load("sqlMode").contains("schreiben") && Settings.load("sqlUse").equals("true"))
+            HtmlWriter.sql();
+
         backupToDestPaths();
         Logger.setProgress(100);
         if(Settings.load("autoBackup").equals("true"))
@@ -49,6 +38,10 @@ public class QueueableMethods
     {
         HtmlWriter.today(HtmlReader.sort(HtmlReader.today()), 50, 95);
         HtmlWriter.style();
+
+        if(Settings.load("sqlMode").contains("schreiben") && Settings.load("sqlUse").equals("true"))
+            HtmlWriter.sql();
+
         backupToDestPaths();
         Logger.setProgress(100);
         if(Settings.load("autoBackup").equals("true"))
@@ -60,6 +53,10 @@ public class QueueableMethods
     {
         HtmlWriter.tomorrow(HtmlReader.sort(HtmlReader.tomorrow()), 50, 95);
         HtmlWriter.style();
+
+        if(Settings.load("sqlMode").contains("schreiben") && Settings.load("sqlUse").equals("true"))
+            HtmlWriter.sql();
+
         backupToDestPaths();
         Logger.setProgress(100);
         if(Settings.load("autoBackup").equals("true"))
@@ -243,9 +240,10 @@ public class QueueableMethods
     {
         if(evt.getStateChange() == ItemEvent.SELECTED)
         {
-            colorPlanPanel.setBackground(Color.decode(Settings.load("color" + colorPlanCombo.getSelectedItem().toString())));
+            if(!colorPlanCombo.getSelectedItem().equals("Keine Farbe"))
+                colorPlanPanel.setBackground(Color.decode(Settings.load("color" + colorPlanCombo.getSelectedItem().toString())));
 
-            if(!Settings.load("planColor").equals(colorPlanCombo.getSelectedItem().toString()))
+            if(!Settings.load("planColor").equals(colorPlanCombo.getSelectedItem().toString()) && !colorPlanCombo.getSelectedItem().toString().equals("Keine Farbe"))
                 Settings.save("planColor", colorPlanCombo.getSelectedItem().toString());
         }
     }
@@ -254,9 +252,10 @@ public class QueueableMethods
     {
         if(evt.getStateChange() == ItemEvent.SELECTED)
         {
-            colorMotdPanel.setBackground(Color.decode(Settings.load("color" + colorMotdCombo.getSelectedItem().toString())));
+            if(!colorMotdCombo.getSelectedItem().equals("Keine Farbe"))
+                colorMotdPanel.setBackground(Color.decode(Settings.load("color" + colorMotdCombo.getSelectedItem().toString())));
 
-            if(!Settings.load("motdColor").equals(colorMotdCombo.getSelectedItem().toString()))
+            if(!Settings.load("motdColor").equals(colorMotdCombo.getSelectedItem().toString()) && !colorMotdCombo.getSelectedItem().toString().equals("Keine Farbe"))
                 Settings.save("motdColor", colorMotdCombo.getSelectedItem().toString());
         }
     }
@@ -265,9 +264,10 @@ public class QueueableMethods
     {
         if(evt.getStateChange() == ItemEvent.SELECTED)
         {
-            colorTablePanel.setBackground(Color.decode(Settings.load("color" + colorTableCombo.getSelectedItem().toString())));
+            if(!colorTableCombo.getSelectedItem().equals("Keine Farbe"))
+                colorTablePanel.setBackground(Color.decode(Settings.load("color" + colorTableCombo.getSelectedItem().toString())));
 
-            if(!Settings.load("tableColor").equals(colorTableCombo.getSelectedItem().toString()))
+            if(!Settings.load("tableColor").equals(colorTableCombo.getSelectedItem().toString()) && !colorTableCombo.getSelectedItem().toString().equals("Keine Farbe"))
                 Settings.save("tableColor", colorTableCombo.getSelectedItem().toString());
         }
     }
@@ -276,9 +276,10 @@ public class QueueableMethods
     {
         if(evt.getStateChange() == ItemEvent.SELECTED)
         {
-            colorBorderPanel.setBackground(Color.decode(Settings.load("color" + colorBorderCombo.getSelectedItem().toString())));
+            if(!colorBorderCombo.getSelectedItem().equals("Keine Farbe"))
+                colorBorderPanel.setBackground(Color.decode(Settings.load("color" + colorBorderCombo.getSelectedItem().toString())));
 
-            if(!Settings.load("borderColor").equals(colorBorderCombo.getSelectedItem().toString()))
+            if(!Settings.load("borderColor").equals(colorBorderCombo.getSelectedItem().toString()) && !colorBorderCombo.getSelectedItem().toString().equals("Keine Farbe"))
                 Settings.save("borderColor", colorBorderCombo.getSelectedItem().toString());
         }
     }
@@ -297,13 +298,15 @@ public class QueueableMethods
             else
                 s = typeToEditCombo.getSelectedItem().toString() + "FontColor";
             fontColorCombo.setSelectedItem(Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)));
-            fontColorPanel.setBackground(Color.decode(Settings.load("color" + fontColorCombo.getSelectedItem().toString())));
+            if(!fontColorCombo.getSelectedItem().equals("Keine Farbe"))
+                fontColorPanel.setBackground(Color.decode(Settings.load("color" + fontColorCombo.getSelectedItem().toString())));
 
             if(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"))
             {
                 s = "Art" + typeToEditCombo.getSelectedItem().toString().substring(5).replaceAll("\\.", "") + "BackColor";
                 backgroundColorCombo.setSelectedItem(Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)));
-                backgroundColorPanel.setBackground(Color.decode(Settings.load("color" + backgroundColorCombo.getSelectedItem().toString())));
+                if(!backgroundColorCombo.getSelectedItem().equals("Keine Farbe"))
+                    backgroundColorPanel.setBackground(Color.decode(Settings.load("color" + backgroundColorCombo.getSelectedItem().toString())));
             }
 
             if(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"))
@@ -338,21 +341,23 @@ public class QueueableMethods
     {
         if(evt.getStateChange() == ItemEvent.SELECTED)
         {
-            fontColorPanel.setBackground(Color.decode(Settings.load("color" + fontColorCombo.getSelectedItem().toString())));
+            if(!fontColorCombo.getSelectedItem().equals("Keine Farbe"))
+                fontColorPanel.setBackground(Color.decode(Settings.load("color" + fontColorCombo.getSelectedItem().toString())));
 
             String s;
             if(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"))
                 s = "Art" + typeToEditCombo.getSelectedItem().toString().substring(5).replaceAll("\\.", "") + "FontColor";
             else
                 s = typeToEditCombo.getSelectedItem().toString() + "FontColor";
-            if(!Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)).equals(fontColorCombo.getSelectedItem().toString()))
+            if(!Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)).equals(fontColorCombo.getSelectedItem().toString()) && !fontColorCombo.getSelectedItem().toString().equals("Keine Farbe"))
                 Settings.save(Character.toLowerCase(s.charAt(0)) + s.substring(1), fontColorCombo.getSelectedItem().toString());
         }
     }
 
     public static void backgroundColorComboItemStateChanged(JPanel backgroundColorPanel, JComboBox backgroundColorCombo, JComboBox typeToEditCombo, ItemEvent evt)
     {
-        backgroundColorPanel.setBackground(Color.decode(Settings.load("color" + backgroundColorCombo.getSelectedItem().toString())));
+        if(!backgroundColorCombo.getSelectedItem().equals("Keine Farbe"))
+            backgroundColorPanel.setBackground(Color.decode(Settings.load("color" + backgroundColorCombo.getSelectedItem().toString())));
 
         if(evt.getStateChange() == ItemEvent.SELECTED && typeToEditCombo.getSelectedItem().toString().startsWith("Art:"))
         {
@@ -361,7 +366,7 @@ public class QueueableMethods
                 s = "Art" + typeToEditCombo.getSelectedItem().toString().substring(5).replaceAll("\\.", "") + "BackColor";
             else
                 s = typeToEditCombo.getSelectedItem().toString() + "BackColor";
-            if(!Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)).equals(backgroundColorCombo.getSelectedItem().toString()))
+            if(!Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)).equals(backgroundColorCombo.getSelectedItem().toString()) && !backgroundColorCombo.getSelectedItem().toString().equals("Keine Farbe"))
                 Settings.save(Character.toLowerCase(s.charAt(0)) + s.substring(1), backgroundColorCombo.getSelectedItem().toString());
         }
     }
@@ -432,10 +437,12 @@ public class QueueableMethods
     // SQL
     public static void SQLsaveBtnActionPerformed(JTextField dbHostTxt, JTextField dbPortTxt, JTextField dbNameTxt,
                                                  JTextField dbUserTxt, JTextField dbPwTxt, JTextField dbTableNameTxt,
-                                                 JCheckBox useSQLCheck, JButton sqlModeBtn)
+                                                 JCheckBox useSQLCheck, JRadioButton[] sqlMode)
     {
         Settings.save("sqlUse", String.valueOf(useSQLCheck.isSelected()));
-        Settings.save("sqlMode", sqlModeBtn.getText());
+        for(JRadioButton b : sqlMode)
+            if(b.isSelected())
+                Settings.save("sqlMode", b.getText());
 
         saveIfNotNull(dbHostTxt, "sqlHost");
         saveIfNotNull(dbPortTxt, "sqlPort");
@@ -450,9 +457,9 @@ public class QueueableMethods
                                     JTextField speedMotdTxt, JComboBox colorPlanCombo, JComboBox colorMotdCombo,
                                     JTextField motdTxt, JCheckBox useSQLCheck, JTextField dbHostTxt, JTextField dbPortTxt,
                                     JTextField dbNameTxt, JTextField dbUserTxt, JTextField dbPwTxt, JTextField dbTableNameTxt,
-                                    JTextField hour1Txt, JTextField hour2Txt, JTextField hour3Txt, JTextField hour4Txt,
+                                    JRadioButton[] sqlMode, JTextField hour1Txt, JTextField hour2Txt, JTextField hour3Txt, JTextField hour4Txt,
                                     JTextField hour5Txt, JTextField hour6Txt, JTextField hour7Txt, JTextField hour8Txt,
-                                    JTextField hour9Txt, JTextField hour10Txt, JButton SQLModeBtn, JCheckBox autoBackupCheck,
+                                    JTextField hour9Txt, JTextField hour10Txt, JCheckBox autoBackupCheck,
                                     JCheckBox useHoursCheck, JCheckBox customSourceCheck, JTextField sourceTodayTxt,
                                     JTextField sourceTomorrowTxt, JComboBox colorTableCombo, JComboBox colorBorderCombo,
                                     JComboBox fontColorCombo, JComboBox backgroundColorCombo, JTextField fontTypeTxt,
@@ -484,10 +491,20 @@ public class QueueableMethods
         load(sourceTomorrowTxt, "customTomorrow");
         load(weekTxt, "customWeek");
 
+        if(Settings.load("motdText").equals("") || Settings.load("motdText").equals("Laufschrift"))
+            motdTxt.setForeground(Color.GRAY);
+
         useSQLCheck.setSelected(Boolean.valueOf(Settings.load("sqlUse")));
         autoBackupCheck.setSelected(Boolean.valueOf(Settings.load("autoBackup")));
         useHoursCheck.setSelected(Boolean.valueOf(Settings.load("lessonUse")));
         customSourceCheck.setSelected(Boolean.valueOf(Settings.load("customDate")));
+
+        if(Settings.load("sqlMode").equals("lesen"))
+            sqlMode[0].setSelected(true);
+        else if(Settings.load("sqlMode").equals("löschen und schreiben"))
+            sqlMode[2].setSelected(true);
+        else
+            sqlMode[1].setSelected(true);
 
         String name = "pathDest1";
         if(Settings.line(name) == -1)
@@ -523,11 +540,6 @@ public class QueueableMethods
             boldCheck.setSelected(true);
         else if(bool.equals("italic"))
             italicCheck.setSelected(true);
-
-        if(Settings.load("sqlMode").equals("write"))
-            SQLModeBtn.setText("schreiben");
-        else
-            SQLModeBtn.setText("lesen");
 
         String[] order = Settings.load("lessonOrder").split(",");
         if(order.length == 7)
@@ -575,7 +587,7 @@ public class QueueableMethods
         for(JComboBox cb : colorCombos)
         {
             cb.removeAllItems();
-
+            cb.addItem("Keine Farbe");
             String[] colors = Settings.loadNames("color");
             for(String s : colors)
                 if(!s.contains("colorOf"))

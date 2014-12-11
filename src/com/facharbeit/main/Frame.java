@@ -1,9 +1,8 @@
 package com.facharbeit.main;
 
-import com.facharbeit.tools.Logger;
-import javax.swing.JComponent;
-import javax.swing.JProgressBar;
-import javax.swing.JTextPane;
+import com.facharbeit.tools.*;
+import java.awt.Color;
+import javax.swing.*;
 
 /**
  * Anzeige-Fenster der Anwendung.
@@ -44,7 +43,7 @@ public class Frame extends javax.swing.JFrame
             {
                 dbHostLabel, dbPortLabel, dbNameLabel, dbUserLabel, dbPwLabel, dbTableNameLabel,
                 dbHostTxt, dbPortTxt, dbNameTxt, dbUserTxt, dbPwTxt, dbTableNameTxt,
-                sqlModeLabel, sqlModeBtn
+                sqlModeLabel, sqlModeReadRBtn, sqlModeWriteRBtn, sqlModeDelWriteRBtn
             };
         } catch(Exception ex)
         {
@@ -60,6 +59,7 @@ public class Frame extends javax.swing.JFrame
 
         jColorChooser1 = new javax.swing.JColorChooser();
         jFileChooser1 = new javax.swing.JFileChooser();
+        sqlMode = new javax.swing.ButtonGroup();
         Tabs = new javax.swing.JTabbedPane();
         ControlPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -173,7 +173,6 @@ public class Frame extends javax.swing.JFrame
         saveDesignBtn = new javax.swing.JButton();
         SQLPanel = new javax.swing.JPanel();
         useSQLCheck = new javax.swing.JCheckBox();
-        sqlModeBtn = new javax.swing.JButton();
         sqlSaveBtn = new javax.swing.JButton();
         dbTableNameTxt = new javax.swing.JTextField();
         dbTableNameLabel = new javax.swing.JLabel();
@@ -189,11 +188,14 @@ public class Frame extends javax.swing.JFrame
         dbHostLabel = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         sqlModeLabel = new javax.swing.JLabel();
+        sqlModeReadRBtn = new javax.swing.JRadioButton();
+        sqlModeWriteRBtn = new javax.swing.JRadioButton();
+        sqlModeDelWriteRBtn = new javax.swing.JRadioButton();
 
         jFileChooser1.setFileHidingEnabled(true);
         jFileChooser1.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Vertretungsplan");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
@@ -231,6 +233,7 @@ public class Frame extends javax.swing.JFrame
 
         genAllBtn.setText("Alles generieren");
         genAllBtn.setToolTipText("Generiert den kompletten Plan");
+        genAllBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         genAllBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -241,7 +244,20 @@ public class Frame extends javax.swing.JFrame
 
         jLabel2.setText("Vertretungplan:");
 
+        motdTxt.setText("Laufschrift");
         motdTxt.setToolTipText("Text, der als Laufschrift angezeigt werden soll z.B. \"Dies ist eine Laufschrift\"");
+        motdTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        motdTxt.addFocusListener(new java.awt.event.FocusAdapter()
+        {
+            public void focusGained(java.awt.event.FocusEvent evt)
+            {
+                motdTxtFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt)
+            {
+                motdTxtFocusLost(evt);
+            }
+        });
 
         genMotdBtn.setText("Laufschrift generieren");
         genMotdBtn.setToolTipText("Generiert UND SPEICHERT nur die Laufschrift");
@@ -755,11 +771,11 @@ public class Frame extends javax.swing.JFrame
                         .addComponent(backupTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel8))
                     .addComponent(selectBackupBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
+                .addGap(18, 18, 18)
                 .addGroup(PathPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addComponent(selectDestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(savePathBtn)
                 .addContainerGap())
@@ -769,6 +785,7 @@ public class Frame extends javax.swing.JFrame
 
         jLabel11.setText("Vertretungplan");
 
+        colorPlanCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Keine Farbe" }));
         colorPlanCombo.setToolTipText("Hintergrundfarbe des Vertretungsplans");
         colorPlanCombo.addItemListener(new java.awt.event.ItemListener()
         {
@@ -824,10 +841,24 @@ public class Frame extends javax.swing.JFrame
             }
         });
 
+        colorNameTxt.setForeground(java.awt.Color.gray);
+        colorNameTxt.setText("Farbenname");
         colorNameTxt.setToolTipText("Name der Farbe, die hinzugefügt/bearbeitet werden soll z.B. \"Antonsblau\"");
+        colorNameTxt.addFocusListener(new java.awt.event.FocusAdapter()
+        {
+            public void focusGained(java.awt.event.FocusEvent evt)
+            {
+                colorNameTxtFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt)
+            {
+                colorNameTxtFocusLost(evt);
+            }
+        });
 
         jLabel13.setText("Laufschrift");
 
+        colorMotdCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Keine Farbe" }));
         colorMotdCombo.setToolTipText("Hintergrundfarbe der Laufschrift");
         colorMotdCombo.addItemListener(new java.awt.event.ItemListener()
         {
@@ -841,6 +872,7 @@ public class Frame extends javax.swing.JFrame
 
         jLabel12.setText("Tabelle");
 
+        colorTableCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Keine Farbe" }));
         colorTableCombo.setToolTipText("Hintergrundfarbe der Tabelle");
         colorTableCombo.addItemListener(new java.awt.event.ItemListener()
         {
@@ -867,6 +899,7 @@ public class Frame extends javax.swing.JFrame
 
         jLabel16.setText("Rahmen");
 
+        colorBorderCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Keine Farbe" }));
         colorBorderCombo.setToolTipText("Farbe des Rahmens, der um die Frames angezeigt wird");
         colorBorderCombo.addItemListener(new java.awt.event.ItemListener()
         {
@@ -901,7 +934,20 @@ public class Frame extends javax.swing.JFrame
             }
         });
 
+        typeToEditTxt.setForeground(java.awt.Color.gray);
+        typeToEditTxt.setText("Vertretungsart");
         typeToEditTxt.setToolTipText("Name einer neuen, zu differenzierenden, Vertretungsart z.B. \"Raum-Vtr.\"");
+        typeToEditTxt.addFocusListener(new java.awt.event.FocusAdapter()
+        {
+            public void focusGained(java.awt.event.FocusEvent evt)
+            {
+                typeToEditTxtFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt)
+            {
+                typeToEditTxtFocusLost(evt);
+            }
+        });
 
         addTypeBtn.setText("hinzufügen");
         addTypeBtn.setToolTipText("Eine neue, zu differenzierende, Vertretungsart erstellen");
@@ -938,6 +984,7 @@ public class Frame extends javax.swing.JFrame
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        fontColorCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Keine Farbe" }));
         fontColorCombo.setToolTipText("Schriftfarbe für den gewählten Bereich festlegen");
         fontColorCombo.addItemListener(new java.awt.event.ItemListener()
         {
@@ -962,6 +1009,7 @@ public class Frame extends javax.swing.JFrame
 
         backgroundColorLabel.setText("Hintergrundfarbe");
 
+        backgroundColorCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Keine Farbe" }));
         backgroundColorCombo.setToolTipText("Hintergrundfarbe für den gewählten Bereich festlegen");
         backgroundColorCombo.addItemListener(new java.awt.event.ItemListener()
         {
@@ -1203,16 +1251,6 @@ public class Frame extends javax.swing.JFrame
             }
         });
 
-        sqlModeBtn.setText("schreiben");
-        sqlModeBtn.setToolTipText("SQL Modus, der verwendet werden soll");
-        sqlModeBtn.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                sqlModeBtnActionPerformed(evt);
-            }
-        });
-
         sqlSaveBtn.setText("speichern");
         sqlSaveBtn.setToolTipText("Speichert die SQL Einstellungen");
         sqlSaveBtn.addActionListener(new java.awt.event.ActionListener()
@@ -1239,7 +1277,7 @@ public class Frame extends javax.swing.JFrame
 
         dbPwTxt.setToolTipText("Passwort z.B. \"passw\"");
 
-        dbPortTxt.setToolTipText("Datenbank Port z.B. \"1344\"");
+        dbPortTxt.setToolTipText("Datenbank Port Standard:\"3306\"");
 
         dbPortLabel.setText("Port:");
 
@@ -1249,18 +1287,25 @@ public class Frame extends javax.swing.JFrame
 
         sqlModeLabel.setText("Sql-Modus:");
 
+        sqlMode.add(sqlModeReadRBtn);
+        sqlModeReadRBtn.setText("lesen");
+
+        sqlMode.add(sqlModeWriteRBtn);
+        sqlModeWriteRBtn.setText("schreiben");
+
+        sqlMode.add(sqlModeDelWriteRBtn);
+        sqlModeDelWriteRBtn.setText("löschen und schreiben");
+
         javax.swing.GroupLayout SQLPanelLayout = new javax.swing.GroupLayout(SQLPanel);
         SQLPanel.setLayout(SQLPanelLayout);
         SQLPanelLayout.setHorizontalGroup(
             SQLPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SQLPanelLayout.createSequentialGroup()
+            .addGroup(SQLPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(SQLPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(sqlSaveBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(useSQLCheck, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dbHostLabel, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, SQLPanelLayout.createSequentialGroup()
+                .addGroup(SQLPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(sqlSaveBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator1)
+                    .addGroup(SQLPanelLayout.createSequentialGroup()
                         .addGroup(SQLPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dbNameLabel)
                             .addComponent(dbUserLabel))
@@ -1284,10 +1329,16 @@ public class Frame extends javax.swing.JFrame
                                 .addGroup(SQLPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(dbTableNameTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                                     .addComponent(dbPwTxt)))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, SQLPanelLayout.createSequentialGroup()
-                        .addComponent(sqlModeLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(sqlModeBtn)))
+                    .addGroup(SQLPanelLayout.createSequentialGroup()
+                        .addGroup(SQLPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(useSQLCheck)
+                            .addComponent(dbHostLabel)
+                            .addComponent(sqlModeLabel)
+                            .addGroup(SQLPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(sqlModeReadRBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(sqlModeWriteRBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(sqlModeDelWriteRBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         SQLPanelLayout.setVerticalGroup(
@@ -1316,10 +1367,14 @@ public class Frame extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(SQLPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(sqlModeBtn)
-                    .addComponent(sqlModeLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
+                .addComponent(sqlModeLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sqlModeReadRBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sqlModeWriteRBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sqlModeDelWriteRBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                 .addComponent(sqlSaveBtn)
                 .addContainerGap())
         );
@@ -1370,6 +1425,9 @@ public class Frame extends javax.swing.JFrame
     {//GEN-HEADEREND:event_selectDestBtnActionPerformed
         try
         {
+            while(destArea.getText().startsWith("\n"))
+                destArea.setText(destArea.getText().substring("\n".length()));
+
             jFileChooser1.showOpenDialog(null);
 
             if(!destArea.getText().endsWith("\n") && destArea.getText().contains("\n"))
@@ -1385,13 +1443,23 @@ public class Frame extends javax.swing.JFrame
 
     private void savePathBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_savePathBtnActionPerformed
     {//GEN-HEADEREND:event_savePathBtnActionPerformed
+        try
+        {
+            while(destArea.getText().startsWith("\n"))
+                destArea.setText(destArea.getText().substring("\n".length()));
+        } catch(Exception ex)
+        {
+            Logger.log("Fehler im Frame", 2);
+            Logger.error(ex);
+        }
         Application.addToQueue("savePathBtnActionPerformed", sourceTxt, backupTxt, destArea);
     }//GEN-LAST:event_savePathBtnActionPerformed
 
     private void addColorBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_addColorBtnActionPerformed
     {//GEN-HEADEREND:event_addColorBtnActionPerformed
-        Application.addToQueue("addColorBtnActionPerformed", jColorChooser1, colorNameTxt, colorPlanCombo, colorMotdCombo,
-                               colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo);
+        if(!colorNameTxt.getText().equals("Farbenname") && !colorNameTxt.getText().equals(""))
+            Application.addToQueue("addColorBtnActionPerformed", jColorChooser1, colorNameTxt, colorPlanCombo, colorMotdCombo,
+                                   colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo);
     }//GEN-LAST:event_addColorBtnActionPerformed
 
     private void colorPlanComboItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_colorPlanComboItemStateChanged
@@ -1454,8 +1522,13 @@ public class Frame extends javax.swing.JFrame
 
     private void sqlSaveBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_sqlSaveBtnActionPerformed
     {//GEN-HEADEREND:event_sqlSaveBtnActionPerformed
-        Application.addToQueue("SQLsaveBtnActionPerformed", dbHostTxt, dbPortTxt, dbNameTxt,
-                               dbUserTxt, dbPwTxt, dbTableNameTxt, useSQLCheck, sqlModeBtn);
+        JRadioButton[] rBtns =
+        {
+            sqlModeReadRBtn, sqlModeWriteRBtn, sqlModeDelWriteRBtn
+        };
+        Application.addToQueue("SQLsaveBtnActionPerformed", dbHostTxt, dbPortTxt, dbNameTxt, dbUserTxt,
+                               dbPwTxt, dbTableNameTxt, useSQLCheck, rBtns);
+
     }//GEN-LAST:event_sqlSaveBtnActionPerformed
 
     private void settingsSaveBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_settingsSaveBtnActionPerformed
@@ -1465,21 +1538,6 @@ public class Frame extends javax.swing.JFrame
                                useHoursCheck, autoBackupCheck, speedPlanTxt, speedMotdTxt,
                                table, weekTxt, sourceTodayTxt, sourceTomorrowTxt, customSourceCheck);
     }//GEN-LAST:event_settingsSaveBtnActionPerformed
-
-    private void sqlModeBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_sqlModeBtnActionPerformed
-    {//GEN-HEADEREND:event_sqlModeBtnActionPerformed
-        try
-        {
-            if(sqlModeBtn.getText().equals("lesen"))
-                sqlModeBtn.setText("schreiben");
-            else
-                sqlModeBtn.setText("lesen");
-        } catch(Exception ex)
-        {
-            Logger.log("Fehler im Frame", 2);
-            Logger.error(ex);
-        }
-    }//GEN-LAST:event_sqlModeBtnActionPerformed
 
     private void useHoursCheckStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_useHoursCheckStateChanged
     {//GEN-HEADEREND:event_useHoursCheckStateChanged
@@ -1570,7 +1628,8 @@ public class Frame extends javax.swing.JFrame
 
     private void addTypeBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_addTypeBtnActionPerformed
     {//GEN-HEADEREND:event_addTypeBtnActionPerformed
-        Application.addToQueue("addTypeBtnActionPerformed", typeToEditTxt, typeToEditCombo);
+        if(!typeToEditTxt.getText().equals("Vertretungsart") && !typeToEditTxt.getText().equals(""))
+            Application.addToQueue("addTypeBtnActionPerformed", typeToEditTxt, typeToEditCombo);
     }//GEN-LAST:event_addTypeBtnActionPerformed
 
     private void deleteTypeBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deleteTypeBtnActionPerformed
@@ -1582,6 +1641,57 @@ public class Frame extends javax.swing.JFrame
     {//GEN-HEADEREND:event_saveDesignBtnActionPerformed
         Application.addToQueue("saveDesignBtnActionPerformed");
     }//GEN-LAST:event_saveDesignBtnActionPerformed
+
+    private void colorNameTxtFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_colorNameTxtFocusGained
+    {//GEN-HEADEREND:event_colorNameTxtFocusGained
+        if(colorNameTxt.getText().equals("Farbenname"))
+            colorNameTxt.setText("");
+        colorNameTxt.setForeground(Color.BLACK);
+    }//GEN-LAST:event_colorNameTxtFocusGained
+
+    private void colorNameTxtFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_colorNameTxtFocusLost
+    {//GEN-HEADEREND:event_colorNameTxtFocusLost
+        if(colorNameTxt.getText().equals(""))
+        {
+            colorNameTxt.setText("Farbenname");
+            colorNameTxt.setForeground(Color.GRAY);
+        } else
+            colorNameTxt.setForeground(Color.BLACK);
+    }//GEN-LAST:event_colorNameTxtFocusLost
+
+    private void typeToEditTxtFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_typeToEditTxtFocusGained
+    {//GEN-HEADEREND:event_typeToEditTxtFocusGained
+        if(typeToEditTxt.getText().equals("Vertretungsart"))
+            typeToEditTxt.setText("");
+        typeToEditTxt.setForeground(Color.BLACK);
+    }//GEN-LAST:event_typeToEditTxtFocusGained
+
+    private void typeToEditTxtFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_typeToEditTxtFocusLost
+    {//GEN-HEADEREND:event_typeToEditTxtFocusLost
+        if(typeToEditTxt.getText().equals(""))
+        {
+            typeToEditTxt.setText("Vertretungsart");
+            typeToEditTxt.setForeground(Color.GRAY);
+        } else
+            typeToEditTxt.setForeground(Color.BLACK);
+    }//GEN-LAST:event_typeToEditTxtFocusLost
+
+    private void motdTxtFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_motdTxtFocusGained
+    {//GEN-HEADEREND:event_motdTxtFocusGained
+        if(motdTxt.getText().equals("Laufschrift"))
+            motdTxt.setText("");
+        motdTxt.setForeground(Color.BLACK);
+    }//GEN-LAST:event_motdTxtFocusGained
+
+    private void motdTxtFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_motdTxtFocusLost
+    {//GEN-HEADEREND:event_motdTxtFocusLost
+        if(motdTxt.getText().equals(""))
+        {
+            motdTxt.setText("Laufschrift");
+            motdTxt.setForeground(Color.GRAY);
+        } else
+            motdTxt.setForeground(Color.BLACK);
+    }//GEN-LAST:event_motdTxtFocusLost
 
     public JTextPane getStatusPane()
     {
@@ -1597,10 +1707,14 @@ public class Frame extends javax.swing.JFrame
     {
         try
         {
+            JRadioButton[] rBtns =
+            {
+                sqlModeReadRBtn, sqlModeWriteRBtn, sqlModeDelWriteRBtn
+            };
             Application.addToQueue("loadSettings", sourceTxt, backupTxt, destArea, speedPlanTxt, speedMotdTxt,
                                    colorPlanCombo, colorMotdCombo, motdTxt, useSQLCheck, dbHostTxt, dbPortTxt,
-                                   dbNameTxt, dbUserTxt, dbPwTxt, dbTableNameTxt, hour1Txt, hour2Txt, hour3Txt,
-                                   hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt, sqlModeBtn,
+                                   dbNameTxt, dbUserTxt, dbPwTxt, dbTableNameTxt, rBtns, hour1Txt, hour2Txt, hour3Txt,
+                                   hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt,
                                    autoBackupCheck, useHoursCheck, customSourceCheck, sourceTodayTxt,
                                    sourceTomorrowTxt, colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo,
                                    fontTypeTxt, fontSizeTxt, boldCheck, italicCheck, typeToEditCombo, table, weekTxt);
@@ -1748,8 +1862,11 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JTextField sourceTxt;
     private javax.swing.JTextField speedMotdTxt;
     private javax.swing.JTextField speedPlanTxt;
-    private javax.swing.JButton sqlModeBtn;
+    private javax.swing.ButtonGroup sqlMode;
+    private javax.swing.JRadioButton sqlModeDelWriteRBtn;
     private javax.swing.JLabel sqlModeLabel;
+    private javax.swing.JRadioButton sqlModeReadRBtn;
+    private javax.swing.JRadioButton sqlModeWriteRBtn;
     private javax.swing.JButton sqlSaveBtn;
     private javax.swing.JTable table;
     private javax.swing.JComboBox typeToEditCombo;
