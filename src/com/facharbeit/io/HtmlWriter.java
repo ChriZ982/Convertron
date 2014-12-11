@@ -129,7 +129,7 @@ public class HtmlWriter
             String text = Settings.load("motdText");
             Logger.setProgress(start + 2 * (part / 5));
 
-            if(!validate(speed, text))
+            if(!validate(speed, text) && !text.equals("Laufschrift"))
                 return;
 
             FileReader reader = new FileReader("Data/", "TEMPLATE laufschrift.html");
