@@ -240,9 +240,10 @@ public class QueueableMethods
     {
         if(evt.getStateChange() == ItemEvent.SELECTED)
         {
-            colorPlanPanel.setBackground(Color.decode(Settings.load("color" + colorPlanCombo.getSelectedItem().toString())));
+            if(!colorPlanCombo.getSelectedItem().equals("Keine Farbe"))
+                colorPlanPanel.setBackground(Color.decode(Settings.load("color" + colorPlanCombo.getSelectedItem().toString())));
 
-            if(!Settings.load("planColor").equals(colorPlanCombo.getSelectedItem().toString()))
+            if(!Settings.load("planColor").equals(colorPlanCombo.getSelectedItem().toString()) && !colorPlanCombo.getSelectedItem().toString().equals("Keine Farbe"))
                 Settings.save("planColor", colorPlanCombo.getSelectedItem().toString());
         }
     }
@@ -251,9 +252,10 @@ public class QueueableMethods
     {
         if(evt.getStateChange() == ItemEvent.SELECTED)
         {
-            colorMotdPanel.setBackground(Color.decode(Settings.load("color" + colorMotdCombo.getSelectedItem().toString())));
+            if(!colorMotdCombo.getSelectedItem().equals("Keine Farbe"))
+                colorMotdPanel.setBackground(Color.decode(Settings.load("color" + colorMotdCombo.getSelectedItem().toString())));
 
-            if(!Settings.load("motdColor").equals(colorMotdCombo.getSelectedItem().toString()))
+            if(!Settings.load("motdColor").equals(colorMotdCombo.getSelectedItem().toString()) && !colorMotdCombo.getSelectedItem().toString().equals("Keine Farbe"))
                 Settings.save("motdColor", colorMotdCombo.getSelectedItem().toString());
         }
     }
@@ -262,9 +264,10 @@ public class QueueableMethods
     {
         if(evt.getStateChange() == ItemEvent.SELECTED)
         {
-            colorTablePanel.setBackground(Color.decode(Settings.load("color" + colorTableCombo.getSelectedItem().toString())));
+            if(!colorTableCombo.getSelectedItem().equals("Keine Farbe"))
+                colorTablePanel.setBackground(Color.decode(Settings.load("color" + colorTableCombo.getSelectedItem().toString())));
 
-            if(!Settings.load("tableColor").equals(colorTableCombo.getSelectedItem().toString()))
+            if(!Settings.load("tableColor").equals(colorTableCombo.getSelectedItem().toString()) && !colorTableCombo.getSelectedItem().toString().equals("Keine Farbe"))
                 Settings.save("tableColor", colorTableCombo.getSelectedItem().toString());
         }
     }
@@ -273,9 +276,10 @@ public class QueueableMethods
     {
         if(evt.getStateChange() == ItemEvent.SELECTED)
         {
-            colorBorderPanel.setBackground(Color.decode(Settings.load("color" + colorBorderCombo.getSelectedItem().toString())));
+            if(!colorBorderCombo.getSelectedItem().equals("Keine Farbe"))
+                colorBorderPanel.setBackground(Color.decode(Settings.load("color" + colorBorderCombo.getSelectedItem().toString())));
 
-            if(!Settings.load("borderColor").equals(colorBorderCombo.getSelectedItem().toString()))
+            if(!Settings.load("borderColor").equals(colorBorderCombo.getSelectedItem().toString()) && !colorBorderCombo.getSelectedItem().toString().equals("Keine Farbe"))
                 Settings.save("borderColor", colorBorderCombo.getSelectedItem().toString());
         }
     }
@@ -294,13 +298,15 @@ public class QueueableMethods
             else
                 s = typeToEditCombo.getSelectedItem().toString() + "FontColor";
             fontColorCombo.setSelectedItem(Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)));
-            fontColorPanel.setBackground(Color.decode(Settings.load("color" + fontColorCombo.getSelectedItem().toString())));
+            if(!fontColorCombo.getSelectedItem().equals("Keine Farbe"))
+                fontColorPanel.setBackground(Color.decode(Settings.load("color" + fontColorCombo.getSelectedItem().toString())));
 
             if(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"))
             {
                 s = "Art" + typeToEditCombo.getSelectedItem().toString().substring(5).replaceAll("\\.", "") + "BackColor";
                 backgroundColorCombo.setSelectedItem(Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)));
-                backgroundColorPanel.setBackground(Color.decode(Settings.load("color" + backgroundColorCombo.getSelectedItem().toString())));
+                if(!backgroundColorCombo.getSelectedItem().equals("Keine Farbe"))
+                    backgroundColorPanel.setBackground(Color.decode(Settings.load("color" + backgroundColorCombo.getSelectedItem().toString())));
             }
 
             if(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"))
@@ -335,21 +341,23 @@ public class QueueableMethods
     {
         if(evt.getStateChange() == ItemEvent.SELECTED)
         {
-            fontColorPanel.setBackground(Color.decode(Settings.load("color" + fontColorCombo.getSelectedItem().toString())));
+            if(!fontColorCombo.getSelectedItem().equals("Keine Farbe"))
+                fontColorPanel.setBackground(Color.decode(Settings.load("color" + fontColorCombo.getSelectedItem().toString())));
 
             String s;
             if(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"))
                 s = "Art" + typeToEditCombo.getSelectedItem().toString().substring(5).replaceAll("\\.", "") + "FontColor";
             else
                 s = typeToEditCombo.getSelectedItem().toString() + "FontColor";
-            if(!Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)).equals(fontColorCombo.getSelectedItem().toString()))
+            if(!Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)).equals(fontColorCombo.getSelectedItem().toString()) && !fontColorCombo.getSelectedItem().toString().equals("Keine Farbe"))
                 Settings.save(Character.toLowerCase(s.charAt(0)) + s.substring(1), fontColorCombo.getSelectedItem().toString());
         }
     }
 
     public static void backgroundColorComboItemStateChanged(JPanel backgroundColorPanel, JComboBox backgroundColorCombo, JComboBox typeToEditCombo, ItemEvent evt)
     {
-        backgroundColorPanel.setBackground(Color.decode(Settings.load("color" + backgroundColorCombo.getSelectedItem().toString())));
+        if(!backgroundColorCombo.getSelectedItem().equals("Keine Farbe"))
+            backgroundColorPanel.setBackground(Color.decode(Settings.load("color" + backgroundColorCombo.getSelectedItem().toString())));
 
         if(evt.getStateChange() == ItemEvent.SELECTED && typeToEditCombo.getSelectedItem().toString().startsWith("Art:"))
         {
@@ -358,7 +366,7 @@ public class QueueableMethods
                 s = "Art" + typeToEditCombo.getSelectedItem().toString().substring(5).replaceAll("\\.", "") + "BackColor";
             else
                 s = typeToEditCombo.getSelectedItem().toString() + "BackColor";
-            if(!Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)).equals(backgroundColorCombo.getSelectedItem().toString()))
+            if(!Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)).equals(backgroundColorCombo.getSelectedItem().toString()) && !backgroundColorCombo.getSelectedItem().toString().equals("Keine Farbe"))
                 Settings.save(Character.toLowerCase(s.charAt(0)) + s.substring(1), backgroundColorCombo.getSelectedItem().toString());
         }
     }
@@ -576,7 +584,7 @@ public class QueueableMethods
         for(JComboBox cb : colorCombos)
         {
             cb.removeAllItems();
-
+            cb.addItem("Keine Farbe");
             String[] colors = Settings.loadNames("color");
             for(String s : colors)
                 if(!s.contains("colorOf"))

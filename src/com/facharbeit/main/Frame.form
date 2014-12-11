@@ -14,7 +14,7 @@
     </Component>
   </NonVisualComponents>
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="0"/>
     <Property name="title" type="java.lang.String" value="Vertretungsplan"/>
     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
       <Color id="Standardcursor"/>
@@ -1121,7 +1121,9 @@
             <Component class="javax.swing.JComboBox" name="colorPlanCombo">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="0"/>
+                  <StringArray count="1">
+                    <StringItem index="0" value="Keine Farbe"/>
+                  </StringArray>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Hintergrundfarbe des Vertretungsplans"/>
               </Properties>
@@ -1204,7 +1206,9 @@
             <Component class="javax.swing.JComboBox" name="colorMotdCombo">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="0"/>
+                  <StringArray count="1">
+                    <StringItem index="0" value="Keine Farbe"/>
+                  </StringArray>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Hintergrundfarbe der Laufschrift"/>
               </Properties>
@@ -1229,7 +1233,9 @@
             <Component class="javax.swing.JComboBox" name="colorTableCombo">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="0"/>
+                  <StringArray count="1">
+                    <StringItem index="0" value="Keine Farbe"/>
+                  </StringArray>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Hintergrundfarbe der Tabelle"/>
               </Properties>
@@ -1272,7 +1278,9 @@
             <Component class="javax.swing.JComboBox" name="colorBorderCombo">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="0"/>
+                  <StringArray count="1">
+                    <StringItem index="0" value="Keine Farbe"/>
+                  </StringArray>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Farbe des Rahmens, der um die Frames angezeigt wird"/>
               </Properties>
@@ -1380,7 +1388,9 @@
             <Component class="javax.swing.JComboBox" name="fontColorCombo">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="0"/>
+                  <StringArray count="1">
+                    <StringItem index="0" value="Keine Farbe"/>
+                  </StringArray>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Schriftfarbe f&#xfc;r den gew&#xe4;hlten Bereich festlegen"/>
               </Properties>
@@ -1414,7 +1424,9 @@
             <Component class="javax.swing.JComboBox" name="backgroundColorCombo">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="0"/>
+                  <StringArray count="1">
+                    <StringItem index="0" value="Keine Farbe"/>
+                  </StringArray>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Hintergrundfarbe f&#xfc;r den gew&#xe4;hlten Bereich festlegen"/>
               </Properties>

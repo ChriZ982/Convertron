@@ -132,7 +132,7 @@ public class HtmlReader
                 schoolClasses[i] = new SchoolClass(files.get(i).getName().substring(13, files.get(i).getName().lastIndexOf('.')));
 
                 if(schoolClasses[i].isEmpty())
-                    schoolClasses[i].setEntrys(new ArrayList<Entry>());
+                    schoolClasses[i].setEntries(new ArrayList<Entry>());
 
                 FileReader reader = new FileReader(files.get(i));
                 String asString = reader.toString();
@@ -165,7 +165,7 @@ public class HtmlReader
                             entries[t] = "";
                     }
 
-                    schoolClasses[i].getEntrys().add(new Entry(entries));
+                    schoolClasses[i].getEntries().add(new Entry(entries));
 
                     asString = asString.substring(asString.indexOf(cellEndsWith) + cellEndsWith.length());
 
@@ -201,11 +201,11 @@ public class HtmlReader
             for(SchoolClass schoolClass : schoolClasses)
             {
                 ArrayList<Entry> out = new ArrayList<>();
-                while(schoolClass.getEntrys().size() > 0)
+                while(schoolClass.getEntries().size() > 0)
                 {
                     double lowestLesson = 1000;
-                    Entry lowestEntry = schoolClass.getEntrys().get(0);
-                    for(Entry entry : schoolClass.getEntrys())
+                    Entry lowestEntry = schoolClass.getEntries().get(0);
+                    for(Entry entry : schoolClass.getEntries())
                     {
                         double thisLesson = entry.getLesson() + 0.0;
                         if(entry.isDoubleLesson())
@@ -217,11 +217,11 @@ public class HtmlReader
                             lowestEntry = entry;
                         }
                     }
-                    schoolClass.getEntrys().remove(lowestEntry);
+                    schoolClass.getEntries().remove(lowestEntry);
                     out.add(lowestEntry);
 
                 }
-                schoolClass.setEntrys(out);
+                schoolClass.setEntries(out);
             }
             return schoolClasses;
         } catch(Exception ex)
@@ -302,13 +302,13 @@ public class HtmlReader
                 for(SchoolClass sc : asList)
                     if(sc.getName().equals(grade))
                     {
-                        sc.getEntrys().add(new Entry(forEntry));
+                        sc.getEntries().add(new Entry(forEntry));
                         added = true;
                     }
                 if(!added)
                 {
                     SchoolClass sc = new SchoolClass(grade);
-                    sc.getEntrys().add(new Entry(forEntry));
+                    sc.getEntries().add(new Entry(forEntry));
                     asList.add(sc);
                 }
             }

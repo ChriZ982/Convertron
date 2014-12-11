@@ -26,7 +26,7 @@ public class SchoolClass
     /**
      * Einträge der Klasse.
      */
-    private ArrayList<Entry> entrys;
+    private ArrayList<Entry> entries;
 
     /**
      * Spalten, die es gibt.
@@ -43,7 +43,7 @@ public class SchoolClass
      */
     public SchoolClass(String name)
     {
-        this.entrys = new ArrayList<Entry>();
+        this.entries = new ArrayList<Entry>();
         this.name = name;
     }
 
@@ -56,9 +56,9 @@ public class SchoolClass
     {
         try
         {
-            if(entrys == null)
+            if(entries == null)
                 return true;
-            return entrys.isEmpty();
+            return entries.isEmpty();
         } catch(Exception ex)
         {
             Logger.log("Schulklasse konnte nicht überprüft werdenF", 2);
@@ -77,7 +77,7 @@ public class SchoolClass
         try
         {
             contentColumms = sort(contentColumms, newOrder);
-            for(Entry e : entrys)
+            for(Entry e : entries)
                 e.setContent(sort(e.getContent(), newOrder));
         } catch(Exception ex)
         {
@@ -126,7 +126,9 @@ public class SchoolClass
         {
             Settings.logging(false);
             boolean show;
-            for(Entry e : entrys)
+
+            ArrayList<Entry> newEntries = new ArrayList<Entry>();
+            for(Entry e : entries)
             {
                 if(e.isDoubleLesson())
                     show = Time.isAfter(Integer.valueOf(Settings.load("lesson" + (e.getLesson() + 1)).split(":")[0]),
@@ -138,9 +140,10 @@ public class SchoolClass
                                         Integer.valueOf(Settings.load("lesson" + e.getLesson()).split(":")[1]),
                                         Time.hour(),
                                         Time.minute());
-                if(!show)
-                    entrys.remove(e);
+                if(show)
+                    newEntries.add(e);
             }
+            entries = newEntries;
             Settings.logging(true);
         } catch(Exception ex)
         {
@@ -160,7 +163,7 @@ public class SchoolClass
         try
         {
             String s = "";
-            if(entrys.size() > 0)
+            if(entries.size() > 0)
             {
                 s += "'        <br/>'+\n"
                      + "''+\n"
@@ -202,7 +205,7 @@ public class SchoolClass
                 }
                 s += "'            </colgroup>'+\n"
                      + "'            <tr >'+\n"
-                     + "'                <td rowspan=\"" + (entrys.size() + 1) + "\" valign=\"top\"><div class=\"stufe\">" + name + "</div></td>'+\n";
+                     + "'                <td rowspan=\"" + (entries.size() + 1) + "\" valign=\"top\"><div class=\"stufe\">" + name + "</div></td>'+\n";
 
                 s += "'                <td>Std</td>'+\n";
                 for(String cc : contentColumms)
@@ -210,7 +213,7 @@ public class SchoolClass
 
                 s += "'            </tr>'+\n";
 
-                for(Entry e : entrys)
+                for(Entry e : entries)
                     s += e.toString(e.getContent()[getIndexOfStringInArray(contentColumms, "Art")].replaceAll("\\.", ""));
 
                 s += "'        </table>'+";
@@ -263,7 +266,7 @@ public class SchoolClass
     {
         try
         {
-            for(Entry e : entrys)
+            for(Entry e : entries)
                 if(e.getDate().equals(date))
                     return true;
             return false;
@@ -286,10 +289,10 @@ public class SchoolClass
         {
             curDate = date;
             ArrayList<Entry> newEntrys = new ArrayList<Entry>();
-            for(Entry e : entrys)
+            for(Entry e : entries)
                 if(e.getDate().equals(date))
                     newEntrys.add(e);
-            entrys = newEntrys;
+            entries = newEntrys;
         } catch(Exception ex)
         {
             Logger.log("Einträge konnten nicht aussortiert werden", 2);
@@ -312,9 +315,9 @@ public class SchoolClass
      *
      * @return Einträge
      */
-    public ArrayList<Entry> getEntrys()
+    public ArrayList<Entry> getEntries()
     {
-        return entrys;
+        return entries;
     }
 
     /**
@@ -322,8 +325,8 @@ public class SchoolClass
      *
      * @param entrys Neue Einträge
      */
-    public void setEntrys(ArrayList<Entry> entrys)
+    public void setEntries(ArrayList<Entry> entrys)
     {
-        this.entrys = entrys;
+        this.entries = entrys;
     }
 }

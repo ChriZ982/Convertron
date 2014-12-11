@@ -194,7 +194,7 @@ public class Frame extends javax.swing.JFrame
         jFileChooser1.setFileHidingEnabled(true);
         jFileChooser1.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Vertretungsplan");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
@@ -770,6 +770,7 @@ public class Frame extends javax.swing.JFrame
 
         jLabel11.setText("Vertretungplan");
 
+        colorPlanCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Keine Farbe" }));
         colorPlanCombo.setToolTipText("Hintergrundfarbe des Vertretungsplans");
         colorPlanCombo.addItemListener(new java.awt.event.ItemListener()
         {
@@ -829,6 +830,7 @@ public class Frame extends javax.swing.JFrame
 
         jLabel13.setText("Laufschrift");
 
+        colorMotdCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Keine Farbe" }));
         colorMotdCombo.setToolTipText("Hintergrundfarbe der Laufschrift");
         colorMotdCombo.addItemListener(new java.awt.event.ItemListener()
         {
@@ -842,6 +844,7 @@ public class Frame extends javax.swing.JFrame
 
         jLabel12.setText("Tabelle");
 
+        colorTableCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Keine Farbe" }));
         colorTableCombo.setToolTipText("Hintergrundfarbe der Tabelle");
         colorTableCombo.addItemListener(new java.awt.event.ItemListener()
         {
@@ -868,6 +871,7 @@ public class Frame extends javax.swing.JFrame
 
         jLabel16.setText("Rahmen");
 
+        colorBorderCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Keine Farbe" }));
         colorBorderCombo.setToolTipText("Farbe des Rahmens, der um die Frames angezeigt wird");
         colorBorderCombo.addItemListener(new java.awt.event.ItemListener()
         {
@@ -939,6 +943,7 @@ public class Frame extends javax.swing.JFrame
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        fontColorCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Keine Farbe" }));
         fontColorCombo.setToolTipText("Schriftfarbe für den gewählten Bereich festlegen");
         fontColorCombo.addItemListener(new java.awt.event.ItemListener()
         {
@@ -963,6 +968,7 @@ public class Frame extends javax.swing.JFrame
 
         backgroundColorLabel.setText("Hintergrundfarbe");
 
+        backgroundColorCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Keine Farbe" }));
         backgroundColorCombo.setToolTipText("Hintergrundfarbe für den gewählten Bereich festlegen");
         backgroundColorCombo.addItemListener(new java.awt.event.ItemListener()
         {

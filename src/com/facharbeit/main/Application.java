@@ -24,6 +24,11 @@ public class Application
     private Frame frame;
 
     /**
+     * Das Symbol der Anwendung im Tray.
+     */
+    private TrayIcon trayIcon;
+
+    /**
      * Gibt an ob die Anwendung laufen soll.
      */
     private boolean running;
@@ -51,7 +56,7 @@ public class Application
             Settings.init();
 
             frame.loadSettings();
-            frame.addWindowListener(new FrameActions(frame));
+            frame.addWindowListener(new FrameActions(frame, this));
 
             initTray();
             initData();
@@ -61,6 +66,31 @@ public class Application
         {
             Logger.log("Anwendung konnte nicht initialisiert werden", 2);
             Logger.error(ex);
+        }
+    }
+
+    /**
+     * Beendet das Programm.
+     */
+    public void exit()
+    {
+        try
+        {
+            running = false;
+
+            for(QueueElement element : queue)
+                element.invoke();
+
+            SystemTray.getSystemTray().remove(trayIcon);
+
+            frame.dispose();
+
+            System.exit(0);
+        } catch(Exception ex)
+        {
+            Logger.log("Fehler beim Beenden", 2);
+            Logger.error(ex);
+            System.exit(-1);
         }
     }
 
@@ -219,7 +249,7 @@ public class Application
         {
             BufferedImage icon = ImageIO.read(getClass().getResource("/com/facharbeit/ressources/trayLogo.png"));
             PopupMenu popup = new PopupMenu();
-            TrayIcon trayIcon = new TrayIcon(icon);
+            trayIcon = new TrayIcon(icon);
             SystemTray tray = SystemTray.getSystemTray();
 
             MenuItem genAll = new MenuItem("Alles generieren");

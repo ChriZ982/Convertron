@@ -250,7 +250,7 @@ public class HtmlWriter
 
             ArrayList<String[]> forSql = new ArrayList<>();
             for(SchoolClass sc : scs)
-                for(Entry e : sc.getEntrys())
+                for(Entry e : sc.getEntries())
                 {
                     String[] line = new String[e.getContent().length + 3];
                     line[0] = sc.getName();
