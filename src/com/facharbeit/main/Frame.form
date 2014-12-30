@@ -79,24 +79,25 @@
                               <Component id="genAllBtn" min="-2" pref="120" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="genTodayBtn" max="32767" attributes="0"/>
-                                      <Component id="genTomorrowBtn" pref="174" max="32767" attributes="0"/>
+                                  <Component id="genTodayBtn" max="32767" attributes="0"/>
+                                  <Component id="genTomorrowBtn" max="32767" attributes="0"/>
+                                  <Component id="genMotdBtn" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="jLabel5" alignment="0" max="32767" attributes="0"/>
+                          <Component id="motdTxt" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jSeparator5" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="createBackupBtn" min="-2" pref="147" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="deleteSourceBtn" min="-2" pref="149" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="genMotdBtn" min="-2" pref="174" max="-2" attributes="0"/>
                               </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="createBackupBtn" min="-2" pref="147" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="deleteSourceBtn" max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jSeparator5" min="-2" pref="302" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="motdTxt" alignment="0" min="-2" pref="300" max="-2" attributes="0"/>
-                          <Component id="jLabel5" alignment="0" min="-2" pref="302" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jSeparator6" min="-2" max="-2" attributes="0"/>
@@ -121,7 +122,7 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="jSeparator6" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel5" max="32767" attributes="0"/>
+                              <Component id="jLabel5" pref="164" max="32767" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -308,10 +309,6 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="autoBackupCheck" pref="301" max="32767" attributes="0"/>
-                                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
@@ -346,6 +343,13 @@
                                           </Group>
                                       </Group>
                                       <EmptySpace max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="autoGenCheck" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="autoBackupCheck" pref="301" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Component id="jSeparator2" min="-2" max="-2" attributes="0"/>
@@ -466,7 +470,9 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="autoBackupCheck" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="autoGenCheck" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="speedPlanTxt" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -735,6 +741,12 @@
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Neues Datum f&#xfc;r den morgigen Plan z.B. &quot;25.12.&quot;"/>
                 <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="autoGenCheck">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&quot;Automatikmodus&quot;"/>
+                <Property name="toolTipText" type="java.lang.String" value="Den Plan automatisch alle 5 Minuten neu generieren?"/>
               </Properties>
             </Component>
           </SubComponents>

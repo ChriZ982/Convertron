@@ -104,7 +104,8 @@ public class QueueableMethods
                                {
                                    Files.delete(dir);
                                    return FileVisitResult.CONTINUE;
-                               } else
+                               }
+                               else
                                    // directory iteration failed
                                    throw e;
                            }
@@ -121,7 +122,7 @@ public class QueueableMethods
     public static void settingsSaveBtnActionPerformed(JTextField hour1Txt, JTextField hour2Txt, JTextField hour3Txt,
                                                       JTextField hour4Txt, JTextField hour5Txt, JTextField hour6Txt,
                                                       JTextField hour7Txt, JTextField hour8Txt, JTextField hour9Txt,
-                                                      JTextField hour10Txt, JCheckBox useHoursCheck, JCheckBox autoBackupCheck,
+                                                      JTextField hour10Txt, JCheckBox useHoursCheck, JCheckBox autoBackupCheck, JCheckBox autoGenCheck,
                                                       JTextField speedPlanTxt, JTextField speedMotdTxt, JTable table,
                                                       JTextField weekTxt, JTextField sourceTodayTxt, JTextField sourceTomorrowTxt,
                                                       JCheckBox customSourceCheck)
@@ -185,6 +186,7 @@ public class QueueableMethods
         Settings.save("lessonOrder", setting);
         Settings.save("lessonUse", String.valueOf(useHoursCheck.isSelected()));
         Settings.save("autoBackup", String.valueOf(autoBackupCheck.isSelected()));
+        Settings.save("autoGen", String.valueOf(autoGenCheck.isSelected()));
     }
 
     // Pfade
@@ -453,13 +455,14 @@ public class QueueableMethods
     }
 
     // Anderes
+    @SuppressWarnings("unchecked")
     public static void loadSettings(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea, JTextField speedPlanTxt,
                                     JTextField speedMotdTxt, JComboBox colorPlanCombo, JComboBox colorMotdCombo,
                                     JTextField motdTxt, JCheckBox useSQLCheck, JTextField dbHostTxt, JTextField dbPortTxt,
                                     JTextField dbNameTxt, JTextField dbUserTxt, JTextField dbPwTxt, JTextField dbTableNameTxt,
                                     JRadioButton[] sqlMode, JTextField hour1Txt, JTextField hour2Txt, JTextField hour3Txt, JTextField hour4Txt,
                                     JTextField hour5Txt, JTextField hour6Txt, JTextField hour7Txt, JTextField hour8Txt,
-                                    JTextField hour9Txt, JTextField hour10Txt, JCheckBox autoBackupCheck,
+                                    JTextField hour9Txt, JTextField hour10Txt, JCheckBox autoBackupCheck, JCheckBox autoGenCheck,
                                     JCheckBox useHoursCheck, JCheckBox customSourceCheck, JTextField sourceTodayTxt,
                                     JTextField sourceTomorrowTxt, JComboBox colorTableCombo, JComboBox colorBorderCombo,
                                     JComboBox fontColorCombo, JComboBox backgroundColorCombo, JTextField fontTypeTxt,
@@ -496,6 +499,7 @@ public class QueueableMethods
 
         useSQLCheck.setSelected(Boolean.valueOf(Settings.load("sqlUse")));
         autoBackupCheck.setSelected(Boolean.valueOf(Settings.load("autoBackup")));
+        autoGenCheck.setSelected(Boolean.valueOf(Settings.load("autoGen")));
         useHoursCheck.setSelected(Boolean.valueOf(Settings.load("lessonUse")));
         customSourceCheck.setSelected(Boolean.valueOf(Settings.load("customDate")));
 

@@ -6,9 +6,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import javax.swing.JProgressBar;
 import javax.swing.JTextPane;
-import javax.swing.text.Document;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
+import javax.swing.text.*;
 
 /**
  * Klasse, die alle Aktionen registriert und im Programm ausgibt.
@@ -75,8 +73,8 @@ public class Logger
             textPane.setCaretPosition(doc.getLength());
         } catch(Exception ex)
         {
-            Logger.log("Konnte eine Aktion nicht dokumentieren", 2);
-            Logger.error(ex);
+            System.err.println("Konnte eine Aktion nicht dokumentieren");
+            ex.printStackTrace();
         }
     }
 
@@ -102,8 +100,8 @@ public class Logger
                             + sw.toString());
         } catch(Exception ex)
         {
-            Logger.log("Error konnte nicht dokumentiert werden", 2);
-            Logger.error(ex);
+            System.err.println("Error konnte nicht dokumentiert werden");
+            ex.printStackTrace();
         }
     }
 

@@ -119,6 +119,7 @@ public class Frame extends javax.swing.JFrame
         sourceTodayTxt = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         sourceTomorrowTxt = new javax.swing.JTextField();
+        autoGenCheck = new javax.swing.JCheckBox();
         PathPanel = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         sourceTxt = new javax.swing.JTextField();
@@ -309,19 +310,20 @@ public class Frame extends javax.swing.JFrame
                         .addComponent(genAllBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(genTodayBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(genTomorrowBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
-                            .addComponent(genMotdBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(ControlPanelLayout.createSequentialGroup()
-                            .addComponent(createBackupBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(deleteSourceBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(jLabel2)
-                        .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(motdTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(genTodayBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(genTomorrowBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(genMotdBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(motdTxt)
+                    .addComponent(jSeparator5)
+                    .addGroup(ControlPanelLayout.createSequentialGroup()
+                        .addGroup(ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(ControlPanelLayout.createSequentialGroup()
+                                .addComponent(createBackupBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(deleteSourceBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -341,7 +343,7 @@ public class Frame extends javax.swing.JFrame
                 .addGroup(ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator6)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ControlPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
                         .addGap(0, 0, 0)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -503,6 +505,9 @@ public class Frame extends javax.swing.JFrame
         sourceTomorrowTxt.setToolTipText("Neues Datum für den morgigen Plan z.B. \"25.12.\"");
         sourceTomorrowTxt.setEnabled(false);
 
+        autoGenCheck.setText("\"Automatikmodus\"");
+        autoGenCheck.setToolTipText("Den Plan automatisch alle 5 Minuten neu generieren?");
+
         javax.swing.GroupLayout SettingsPanelLayout = new javax.swing.GroupLayout(SettingsPanel);
         SettingsPanel.setLayout(SettingsPanelLayout);
         SettingsPanelLayout.setHorizontalGroup(
@@ -515,9 +520,6 @@ public class Frame extends javax.swing.JFrame
                         .addContainerGap())
                     .addGroup(SettingsPanelLayout.createSequentialGroup()
                         .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(SettingsPanelLayout.createSequentialGroup()
-                                .addComponent(autoBackupCheck, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
-                                .addGap(6, 6, 6))
                             .addGroup(SettingsPanelLayout.createSequentialGroup()
                                 .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(SettingsPanelLayout.createSequentialGroup()
@@ -544,7 +546,12 @@ public class Frame extends javax.swing.JFrame
                                         .addComponent(jLabel22)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(sourceTomorrowTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(SettingsPanelLayout.createSequentialGroup()
+                                .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(autoGenCheck, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(autoBackupCheck, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE))
+                                .addGap(6, 6, 6)))
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -639,7 +646,9 @@ public class Frame extends javax.swing.JFrame
                         .addGap(40, 40, 40))
                     .addGroup(SettingsPanelLayout.createSequentialGroup()
                         .addComponent(autoBackupCheck)
-                        .addGap(41, 41, 41)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(autoGenCheck)
+                        .addGap(18, 18, 18)
                         .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14)
                             .addComponent(speedPlanTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1535,7 +1544,7 @@ public class Frame extends javax.swing.JFrame
     {//GEN-HEADEREND:event_settingsSaveBtnActionPerformed
         Application.addToQueue("settingsSaveBtnActionPerformed", hour1Txt, hour2Txt, hour3Txt,
                                hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt,
-                               useHoursCheck, autoBackupCheck, speedPlanTxt, speedMotdTxt,
+                               useHoursCheck, autoBackupCheck, autoGenCheck, speedPlanTxt, speedMotdTxt,
                                table, weekTxt, sourceTodayTxt, sourceTomorrowTxt, customSourceCheck);
     }//GEN-LAST:event_settingsSaveBtnActionPerformed
 
@@ -1655,7 +1664,8 @@ public class Frame extends javax.swing.JFrame
         {
             colorNameTxt.setText("Farbenname");
             colorNameTxt.setForeground(Color.GRAY);
-        } else
+        }
+        else
             colorNameTxt.setForeground(Color.BLACK);
     }//GEN-LAST:event_colorNameTxtFocusLost
 
@@ -1672,7 +1682,8 @@ public class Frame extends javax.swing.JFrame
         {
             typeToEditTxt.setText("Vertretungsart");
             typeToEditTxt.setForeground(Color.GRAY);
-        } else
+        }
+        else
             typeToEditTxt.setForeground(Color.BLACK);
     }//GEN-LAST:event_typeToEditTxtFocusLost
 
@@ -1689,7 +1700,8 @@ public class Frame extends javax.swing.JFrame
         {
             motdTxt.setText("Laufschrift");
             motdTxt.setForeground(Color.GRAY);
-        } else
+        }
+        else
             motdTxt.setForeground(Color.BLACK);
     }//GEN-LAST:event_motdTxtFocusLost
 
@@ -1715,7 +1727,7 @@ public class Frame extends javax.swing.JFrame
                                    colorPlanCombo, colorMotdCombo, motdTxt, useSQLCheck, dbHostTxt, dbPortTxt,
                                    dbNameTxt, dbUserTxt, dbPwTxt, dbTableNameTxt, rBtns, hour1Txt, hour2Txt, hour3Txt,
                                    hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt,
-                                   autoBackupCheck, useHoursCheck, customSourceCheck, sourceTodayTxt,
+                                   autoBackupCheck, autoGenCheck, useHoursCheck, customSourceCheck, sourceTodayTxt,
                                    sourceTomorrowTxt, colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo,
                                    fontTypeTxt, fontSizeTxt, boldCheck, italicCheck, typeToEditCombo, table, weekTxt);
 
@@ -1749,6 +1761,7 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JButton addColorBtn;
     private javax.swing.JButton addTypeBtn;
     private javax.swing.JCheckBox autoBackupCheck;
+    private javax.swing.JCheckBox autoGenCheck;
     private javax.swing.JComboBox backgroundColorCombo;
     private javax.swing.JLabel backgroundColorLabel;
     private javax.swing.JPanel backgroundColorPanel;

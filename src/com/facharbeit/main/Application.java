@@ -181,10 +181,11 @@ public class Application
                     Thread.sleep((beforeTime - afterTime) + 100);
 
                 if(lastTime < currentTime - 300000)
-                {
-                    lastTime = System.currentTimeMillis();
-                    Application.addToQueue("genAllBtnActionPerformed");
-                }
+                    if(Settings.load("autoGen").equals("true"))
+                    {
+                        lastTime = System.currentTimeMillis();
+                        Application.addToQueue("genAllBtnActionPerformed");
+                    }
             }
         } catch(Exception ex)
         {
