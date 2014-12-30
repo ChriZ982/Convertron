@@ -7,7 +7,6 @@ import java.awt.*;
 import java.awt.image.*;
 import java.io.*;
 import java.lang.reflect.*;
-import java.nio.file.*;
 import java.util.*;
 import javax.imageio.*;
 import javax.swing.*;
@@ -122,11 +121,11 @@ public class Application
     {
         try
         {
-            if(!Files.exists(Paths.get(".\\Data\\" + name)))
+            File f = new File("Data/", name);
+            if(!f.exists())
             {
-                Files.createDirectories(Paths.get(".\\Data\\"));
                 InputStream in = getClass().getResourceAsStream("/com/facharbeit/ressources/stdData/" + name);
-                FileOutputStream out = new FileOutputStream(new File(".\\Data\\" + name));
+                FileOutputStream out = new FileOutputStream(f);
 
                 for(int read; (read = in.read()) != -1;)
                     out.write(read);

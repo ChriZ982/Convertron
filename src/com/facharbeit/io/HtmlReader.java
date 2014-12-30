@@ -40,7 +40,7 @@ public class HtmlReader
             if(Settings.load("sqlUse").equals("true") && Settings.load("sqlMode").equals("lesen"))
                 schoolClasses = getAllSql();
             else
-                schoolClasses = getAllHtml(Settings.load("pathSource"));
+                schoolClasses = getAllHtml(PathConverter.convert(Settings.load("pathSource")));
 
             boolean found = false;
             for(SchoolClass schoolClass : schoolClasses)
@@ -74,7 +74,7 @@ public class HtmlReader
             if(Settings.load("sqlUse").equals("true") && Settings.load("sqlMode").equals("lesen"))
                 schoolClasses = getAllSql();
             else
-                schoolClasses = getAllHtml(Settings.load("pathSource"));
+                schoolClasses = getAllHtml(PathConverter.convert(Settings.load("pathSource")));
 
             boolean found = false;
             int i = 0;
@@ -102,7 +102,7 @@ public class HtmlReader
 
     public static SchoolClass[] forSql()
     {
-        return sort(getAllHtml(Settings.load("pathSource")));
+        return sort(getAllHtml(PathConverter.convert(Settings.load("pathSource"))));
     }
 
     /**
@@ -128,7 +128,7 @@ public class HtmlReader
 
             for(int i = 0; i < schoolClasses.length; i++)
             {
-                Logger.setProgress(10 + (int)(40.0 * ((double)i / (double)schoolClasses.length)));
+                Logger.setProgress(10 + (int) (40.0 * ((double) i / (double) schoolClasses.length)));
                 schoolClasses[i] = new SchoolClass(files.get(i).getName().substring(13, files.get(i).getName().lastIndexOf('.')));
 
                 if(schoolClasses[i].isEmpty())
@@ -156,12 +156,14 @@ public class HtmlReader
                             entries[t] = asString.substring(1, asString.indexOf(cellEndsWith2) - 1); //1 bzw -1 um die Absätze nicht mitzukopieren
                             asString = asString.substring(asString.indexOf(cellEndsWith2) + cellEndsWith2.length());
 
-                        } else if(asString.startsWith(cellStartsWith2))
+                        }
+                        else if(asString.startsWith(cellStartsWith2))
                         {
                             asString = asString.substring(asString.indexOf(cellStartsWith2) + cellStartsWith2.length());
                             entries[t] = asString.substring(1, asString.indexOf(cellEndsWith2) - 1); //1 bzw -1 um die Absätze nicht mitzukopieren
                             asString = asString.substring(asString.indexOf(cellEndsWith2) + cellEndsWith2.length());
-                        } else
+                        }
+                        else
                             entries[t] = "";
                     }
 
@@ -243,12 +245,17 @@ public class HtmlReader
     {
         try
         {
+            while(path.endsWith("\\"))
+                path = path.substring(0, path.length() - 1);
+            if(!path.endsWith("/"))
+                path += "/";
+
             ArrayList<File> files = new ArrayList<>();
             File file;
             for(int grade = 5; grade <= 9; grade++)
                 for(int c = 97; c <= 122; c++)
                 {
-                    file = new File(path + "/" + "Druck_Klasse_0" + grade + "" + (char)c + ".htm");
+                    file = new File(path, "Druck_Klasse_0" + grade + "" + (char) c + ".htm");
 
                     if(file.exists())
                         files.add(file);
@@ -256,7 +263,7 @@ public class HtmlReader
 
             for(String s : extraGrades)
             {
-                file = new File(path + "/" + "Druck_Klasse_" + s + ".htm");
+                file = new File(path, "Druck_Klasse_" + s + ".htm");
                 if(file.exists())
                     files.add(file);
             }
@@ -280,12 +287,12 @@ public class HtmlReader
         try
         {
             ArrayList<SchoolClass> asList = new ArrayList<>();
-            SqlTableReader read = new SqlTableReader(Settings.load("sqlHost"),
+            SqlTableReader read = new SqlTableReader(PathConverter.convert(Settings.load("sqlHost")),
                                                      Integer.parseInt(Settings.load("sqlPort")),
-                                                     Settings.load("sqlName"),
+                                                     PathConverter.convert(Settings.load("sqlName")),
                                                      Settings.load("sqlUser"),
                                                      Settings.load("sqlPassw"),
-                                                     Settings.load("sqlTableName"),
+                                                     PathConverter.convert(Settings.load("sqlTableName")),
                                                      sqlColumms);
 
             ArrayList<String[]> readIn = read.readAll();
@@ -313,7 +320,7 @@ public class HtmlReader
                 }
             }
 
-            return (SchoolClass[])asList.toArray();
+            return (SchoolClass[]) asList.toArray();
         } catch(Exception ex)
         {
             Logger.log("Fehler beim auslesen der Datenbank", 2);

@@ -630,6 +630,10 @@ public class QueueableMethods
     private static void backupToDestPaths()
     {
         String[] paths = Settings.loadMulti("pathDest");
+
+        for(int i = 0; i < paths.length; i++)
+            paths[i] = PathConverter.convert(paths[i]);
+
         for(String path : paths)
             backupAll(path);
     }
