@@ -4,6 +4,8 @@ import com.facharbeit.io.*;
 import com.facharbeit.main.Frame;
 import com.facharbeit.tools.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.*;
 import java.io.*;
 import java.lang.reflect.*;
@@ -49,16 +51,21 @@ public class Application
 
             queue = new ArrayList<QueueElement>();
             frame = new Frame();
-            frame.setVisible(true);
 
             Logger.init(frame.getStatusPane(), frame.getProgBar());
             Settings.init();
+
+            if(!Settings.load("positionX").isEmpty() && !Settings.load("positionY").isEmpty())
+                frame.setLocation(Integer.parseInt(Settings.load("positionX")),
+                                  Integer.parseInt(Settings.load("positionY")));
 
             frame.loadSettings();
             frame.addWindowListener(new FrameActions(frame, this));
 
             initTray();
             initData();
+
+            frame.setVisible(true);
 
             running = true;
         } catch(Exception ex)
@@ -76,9 +83,12 @@ public class Application
         try
         {
             running = false;
+            addToQueue("savePositionOfFrame", frame);
 
             for(QueueElement element : queue)
                 element.invoke();
+
+            Settings.sort();
 
             SystemTray.getSystemTray().remove(trayIcon);
 
@@ -203,7 +213,7 @@ public class Application
     {
         try
         {
-            Method[] methods = QueueableMethods.class.getMethods();
+            Method[] methods = QueueableMethods.class.getDeclaredMethods();
             Method theMethod = null;
 
             for(Method method : methods)
@@ -279,6 +289,16 @@ public class Application
 
             trayIcon.setPopupMenu(popup);
             trayIcon.setToolTip("Vertretungsplan-Generator");
+
+            trayIcon.addActionListener(new ActionListener()
+            {
+                @Override
+                public void actionPerformed(ActionEvent e)
+                {
+                    frame.setExtendedState(JFrame.NORMAL);
+                    frame.setVisible(true);
+                }
+            });
 
             tray.add(trayIcon);
         } catch(Exception ex)

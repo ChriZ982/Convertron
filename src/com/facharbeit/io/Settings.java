@@ -1,8 +1,7 @@
 package com.facharbeit.io;
 
 import com.facharbeit.tools.Logger;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 /**
  * Klasse für das verwalten der Einstellungen.
@@ -89,7 +88,8 @@ public class Settings
                 if(logging)
                     Logger.log("Einstellung \"" + name + "\" nicht vorhanden", 1);
                 return "";
-            } else
+            }
+            else
             {
                 String setting = reader.read(line);
                 setting = setting.replaceFirst(name + ": \"", "");
@@ -242,6 +242,23 @@ public class Settings
         } catch(Exception ex)
         {
             Logger.log("Logging konnte nicht bearbeitet werden", 2);
+            Logger.error(ex);
+        }
+    }
+
+    /**
+     * Sortiert die Datei.
+     */
+    public static void sort()
+    {
+        try
+        {
+            List<String> settings = Arrays.asList(reader.read());
+            Collections.sort(settings, String.CASE_INSENSITIVE_ORDER);
+            writer.write((String[]) settings.toArray());
+        } catch(Exception ex)
+        {
+            Logger.log("Settings.ini konnte nicht sortiert werden", 2);
             Logger.error(ex);
         }
     }

@@ -695,7 +695,7 @@
                         <Column editable="false" title="Hinweise" type="java.lang.Object"/>
                       </Table>
                     </Property>
-                    <Property name="toolTipText" type="java.lang.String" value="Verschieben der Tabellen-Sortierung auf dem Vertretungsplan"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Ver&#xe4;ndern der Spalten-Sortierung auf dem Vertretungsplan"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -889,7 +889,7 @@
                       <Font name="Tahoma" size="11" style="0"/>
                     </Property>
                     <Property name="rows" type="int" value="5"/>
-                    <Property name="toolTipText" type="java.lang.String" value="Zielpfade in die der Plan automatisch kopiert wird"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Zielpfade in die der Plan automatisch kopiert wird; Ein Pfad pro Zeile"/>
                   </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTextArea(&quot;&quot;)"/>
@@ -1706,7 +1706,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="dbPortTxt">
               <Properties>
-                <Property name="toolTipText" type="java.lang.String" value="Datenbank Port Standard:&quot;3306&quot;"/>
+                <Property name="toolTipText" type="java.lang.String" value="Datenbank Port; Standard:&quot;3306&quot;"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="dbPortLabel">
@@ -1737,6 +1737,7 @@
                   <ComponentRef name="sqlMode"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="lesen"/>
+                <Property name="toolTipText" type="java.lang.String" value="Aus der angegebenen Datenbank lesen, &#xfc;berschreibt HTML-Auslesen"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JRadioButton" name="sqlModeWriteRBtn">
@@ -1744,7 +1745,8 @@
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="sqlMode"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="schreiben"/>
+                <Property name="text" type="java.lang.String" value="anh&#xe4;ngen"/>
+                <Property name="toolTipText" type="java.lang.String" value="Die Vertretungen an die Datenbank anh&#xe4;ngen"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JRadioButton" name="sqlModeDelWriteRBtn">
@@ -1752,7 +1754,8 @@
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="sqlMode"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="l&#xf6;schen und schreiben"/>
+                <Property name="text" type="java.lang.String" value="leeren und schreiben"/>
+                <Property name="toolTipText" type="java.lang.String" value="Die Datenbank leeren und danach neu f&#xfc;llen"/>
               </Properties>
             </Component>
           </SubComponents>

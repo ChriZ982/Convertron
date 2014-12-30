@@ -454,6 +454,17 @@ public class QueueableMethods
         saveIfNotNull(dbTableNameTxt, "sqlTableName");
     }
 
+    /**
+     * Speichert die aktuelle Position des JFrames auf dem Bildschrim.
+     *
+     * @param frame Der Frame dessen Position gespeichert werden soll
+     */
+    public static void savePositionOfFrame(JFrame frame)
+    {
+        Settings.save("positionX", String.valueOf((int) frame.getLocation().getX()));
+        Settings.save("positionY", String.valueOf((int) frame.getLocation().getY()));
+    }
+
     // Anderes
     @SuppressWarnings("unchecked")
     public static void loadSettings(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea, JTextField speedPlanTxt,

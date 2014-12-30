@@ -476,7 +476,7 @@ public class Frame extends javax.swing.JFrame
                 return canEdit [columnIndex];
             }
         });
-        table.setToolTipText("Verschieben der Tabellen-Sortierung auf dem Vertretungsplan");
+        table.setToolTipText("Verändern der Spalten-Sortierung auf dem Vertretungsplan");
         jScrollPane3.setViewportView(table);
 
         jLabel18.setText("Gerade Woche");
@@ -716,7 +716,7 @@ public class Frame extends javax.swing.JFrame
         destArea.setColumns(20);
         destArea.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         destArea.setRows(5);
-        destArea.setToolTipText("Zielpfade in die der Plan automatisch kopiert wird");
+        destArea.setToolTipText("Zielpfade in die der Plan automatisch kopiert wird; Ein Pfad pro Zeile");
         jScrollPane2.setViewportView(destArea);
 
         backupTxt.setToolTipText("Backuppfad für den generierten Plan");
@@ -1286,7 +1286,7 @@ public class Frame extends javax.swing.JFrame
 
         dbPwTxt.setToolTipText("Passwort z.B. \"passw\"");
 
-        dbPortTxt.setToolTipText("Datenbank Port Standard:\"3306\"");
+        dbPortTxt.setToolTipText("Datenbank Port; Standard:\"3306\"");
 
         dbPortLabel.setText("Port:");
 
@@ -1298,12 +1298,15 @@ public class Frame extends javax.swing.JFrame
 
         sqlMode.add(sqlModeReadRBtn);
         sqlModeReadRBtn.setText("lesen");
+        sqlModeReadRBtn.setToolTipText("Aus der angegebenen Datenbank lesen, überschreibt HTML-Auslesen");
 
         sqlMode.add(sqlModeWriteRBtn);
-        sqlModeWriteRBtn.setText("schreiben");
+        sqlModeWriteRBtn.setText("anhängen");
+        sqlModeWriteRBtn.setToolTipText("Die Vertretungen an die Datenbank anhängen");
 
         sqlMode.add(sqlModeDelWriteRBtn);
-        sqlModeDelWriteRBtn.setText("löschen und schreiben");
+        sqlModeDelWriteRBtn.setText("leeren und schreiben");
+        sqlModeDelWriteRBtn.setToolTipText("Die Datenbank leeren und danach neu füllen");
 
         javax.swing.GroupLayout SQLPanelLayout = new javax.swing.GroupLayout(SQLPanel);
         SQLPanel.setLayout(SQLPanelLayout);
