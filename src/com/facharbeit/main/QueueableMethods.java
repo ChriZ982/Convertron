@@ -110,7 +110,8 @@ public class QueueableMethods
                                    throw e;
                            }
             });
-        } catch(IOException ex)
+        }
+        catch(IOException ex)
         {
             Logger.log("Quellpläne konnten nicht gelöscht werden!", 2);
             return;
@@ -294,6 +295,12 @@ public class QueueableMethods
     {
         if(evt.getStateChange() == ItemEvent.SELECTED)
         {
+            fontColorCombo.setSelectedItem("Keine Farbe");
+            backgroundColorCombo.setSelectedItem("Keine Farbe");
+            fontTypeTxt.setText("");
+            fontSizeTxt.setText("");
+            boldCheck.setSelected(false);
+            italicCheck.setSelected(false);
             String s;
             if(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"))
                 s = "Art" + typeToEditCombo.getSelectedItem().toString().substring(5).replaceAll("\\.", "") + "FontColor";
@@ -461,8 +468,8 @@ public class QueueableMethods
      */
     public static void savePositionOfFrame(JFrame frame)
     {
-        Settings.save("positionX", String.valueOf((int) frame.getLocation().getX()));
-        Settings.save("positionY", String.valueOf((int) frame.getLocation().getY()));
+        Settings.save("positionX", String.valueOf((int)frame.getLocation().getX()));
+        Settings.save("positionY", String.valueOf((int)frame.getLocation().getY()));
     }
 
     // Anderes
@@ -543,10 +550,51 @@ public class QueueableMethods
         fontTypeTxt.setText(Settings.load("überschriftFontFamily"));
         fontSizeTxt.setText(Settings.load("überschriftFontSize"));
 
+        ArrayList<String> settingNames = new ArrayList<String>();
         String[] setting = Settings.loadNames("art");
         for(String s : setting)
+        {
             if(s.contains("FontColor"))
-                typeToEditCombo.addItem("Art: " + s.substring(3, s.indexOf("FontColor")));
+            {
+                if(!settingNames.contains(s.substring(3, s.indexOf("FontColor"))))
+                {
+                    typeToEditCombo.addItem("Art: " + s.substring(3, s.indexOf("FontColor")));
+                    settingNames.add(s.substring(3, s.indexOf("FontColor")));
+                }
+            }
+            else if(s.contains("BackColor"))
+            {
+                if(!settingNames.contains(s.substring(3, s.indexOf("BackColor"))))
+                {
+                    typeToEditCombo.addItem("Art: " + s.substring(3, s.indexOf("BackColor")));
+                    settingNames.add(s.substring(3, s.indexOf("BackColor")));
+                }
+            }
+            else if(s.contains("FontFamily"))
+            {
+                if(!settingNames.contains(s.substring(3, s.indexOf("FontFamily"))))
+                {
+                    typeToEditCombo.addItem("Art: " + s.substring(3, s.indexOf("FontFamily")));
+                    settingNames.add(s.substring(3, s.indexOf("FontFamily")));
+                }
+            }
+            else if(s.contains("FontSize"))
+            {
+                if(!settingNames.contains(s.substring(3, s.indexOf("FontSize"))))
+                {
+                    typeToEditCombo.addItem("Art: " + s.substring(3, s.indexOf("FontSize")));
+                    settingNames.add(s.substring(3, s.indexOf("FontSize")));
+                }
+            }
+            else if(s.contains("FontStyle"))
+            {
+                if(!settingNames.contains(s.substring(3, s.indexOf("FontStyle"))))
+                {
+                    typeToEditCombo.addItem("Art: " + s.substring(3, s.indexOf("FontStyle")));
+                    settingNames.add(s.substring(3, s.indexOf("FontStyle")));
+                }
+            }
+        }
 
         boldCheck.setSelected(false);
         italicCheck.setSelected(false);
@@ -687,7 +735,8 @@ public class QueueableMethods
                 Files.createDirectories(Paths.get(path));
 
             Files.copy(Paths.get("Data\\" + file), Paths.get(path + "\\" + file), StandardCopyOption.REPLACE_EXISTING);
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("\"" + file + "\" konnte nicht kopiert werden", 2);
             Logger.error(ex);
