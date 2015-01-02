@@ -33,7 +33,7 @@ public class HtmlWriter
             Logger.setProgress(start + 1 * (part / 6));
             String speed = "";
             if(Settings.line("planSpeed") != -1)
-                speed = Integer.toString((int)((1.0 / (Double.parseDouble(Settings.load("planSpeed")) / 100.0)) * 12.0));
+                speed = Integer.toString((int) ((1.0 / (Double.parseDouble(Settings.load("planSpeed")) / 100.0)) * 12.0));
             Logger.setProgress(start + 2 * (part / 6));
             String classes = classes(schoolClasses);
             Logger.setProgress(start + 3 * (part / 6));
@@ -80,7 +80,7 @@ public class HtmlWriter
             Logger.setProgress(start + 1 * (part / 6));
             String speed = "";
             if(Settings.line("planSpeed") != -1)
-                speed = Integer.toString((int)((1.0 / (Double.parseDouble(Settings.load("planSpeed")) / 100.0)) * 12.0));
+                speed = Integer.toString((int) ((1.0 / (Double.parseDouble(Settings.load("planSpeed")) / 100.0)) * 12.0));
             Logger.setProgress(start + 2 * (part / 6));
             String classes = classes(schoolClasses);
             Logger.setProgress(start + 3 * (part / 6));
@@ -124,7 +124,7 @@ public class HtmlWriter
             int part = end - start;
             String speed = "";
             if(Settings.line("motdSpeed") != -1)
-                speed = Integer.toString((int)(Double.parseDouble(Settings.load("motdSpeed")) / 100.0 * 15.0));
+                speed = Integer.toString((int) (Double.parseDouble(Settings.load("motdSpeed")) / 100.0 * 15.0));
             Logger.setProgress(start + 1 * (part / 5));
             String text = Settings.load("motdText");
             Logger.setProgress(start + 2 * (part / 5));
@@ -241,12 +241,12 @@ public class HtmlWriter
         try
         {
             SchoolClass[] scs = HtmlReader.forSql();
-            SqlTableWriter write = new SqlTableWriter(Settings.load("sqlHost"),
+            SqlTableWriter write = new SqlTableWriter(PathConverter.convert(Settings.load("sqlHost")),
                                                       Integer.parseInt(Settings.load("sqlPort")),
-                                                      Settings.load("sqlName"),
+                                                      PathConverter.convert(Settings.load("sqlName")),
                                                       Settings.load("sqlUser"),
                                                       Settings.load("sqlPassw"),
-                                                      Settings.load("sqlTableName"),
+                                                      PathConverter.convert(Settings.load("sqlTableName")),
                                                       sqlColumms);
 
             if(Settings.load("sqlMode").equals("löschen und schreiben"))

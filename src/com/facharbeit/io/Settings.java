@@ -1,8 +1,7 @@
 package com.facharbeit.io;
 
 import com.facharbeit.tools.Logger;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 /**
  * Klasse für das verwalten der Einstellungen.
@@ -39,7 +38,8 @@ public class Settings
                 writer.create();
             else
                 Logger.log("\"settings.ini\" wurde geladen", 0);
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Einstellungen konnten nicht initialisiert werden", 2);
             Logger.error(ex);
@@ -65,7 +65,8 @@ public class Settings
 
             if(logging)
                 Logger.log("Einstellung \"" + name + "\" gespeichert", 0);
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Einstellung \"" + name + "\" konnte nicht gespeichert werden.", 2);
             Logger.error(ex);
@@ -89,14 +90,16 @@ public class Settings
                 if(logging)
                     Logger.log("Einstellung \"" + name + "\" nicht vorhanden", 1);
                 return "";
-            } else
+            }
+            else
             {
                 String setting = reader.read(line);
-                setting = setting.replaceFirst(name + ": \"", "");
+                setting = setting.substring((name + ": \"").length());
                 setting = setting.substring(0, setting.length() - 1);
                 return setting;
             }
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Einstellung \"" + name + "\" konnte nicht geladen werden", 2);
             Logger.error(ex);
@@ -125,7 +128,8 @@ public class Settings
             return names.toArray(new String[]
             {
             });
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Einstellungen konnten nicht geladen werden", 2);
             Logger.error(ex);
@@ -156,7 +160,8 @@ public class Settings
             return values.toArray(new String[]
             {
             });
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Einstellungen konnten nicht geladen werden", 2);
             Logger.error(ex);
@@ -191,7 +196,8 @@ public class Settings
                 return true;
             }
             return false;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Einstellung \"" + name + "\" konnte nicht gelöscht werden", 2);
             Logger.error(ex);
@@ -221,7 +227,8 @@ public class Settings
                 }
 
             return line;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Zeile konnte nicht gefunden werden", 2);
             Logger.error(ex);
@@ -239,9 +246,28 @@ public class Settings
         try
         {
             Settings.logging = logging;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Logging konnte nicht bearbeitet werden", 2);
+            Logger.error(ex);
+        }
+    }
+
+    /**
+     * Sortiert die Datei.
+     */
+    public static void sort()
+    {
+        try
+        {
+            List<String> settings = Arrays.asList(reader.read());
+            Collections.sort(settings, String.CASE_INSENSITIVE_ORDER);
+            writer.write((String[])settings.toArray());
+        }
+        catch(Exception ex)
+        {
+            Logger.log("Settings.ini konnte nicht sortiert werden", 2);
             Logger.error(ex);
         }
     }

@@ -1,10 +1,8 @@
 package com.facharbeit.io;
 
+import com.facharbeit.io.FileReader;
 import com.facharbeit.tools.Logger;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import java.io.*;
 
 /**
  * Klasse zum Schreiben von Dateien.
@@ -26,7 +24,7 @@ public class FileWriter
     {
         try
         {
-            file = new File(path + name);
+            file = new File(path, name);
             if(!new FileReader(file).exists())
                 create();
         } catch(Exception ex)

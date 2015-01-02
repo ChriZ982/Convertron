@@ -1,10 +1,7 @@
 package com.facharbeit.io;
 
 import com.facharbeit.tools.Logger;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 
 /**
  * Liest Dateien aus.
@@ -26,7 +23,7 @@ public class FileReader
     {
         try
         {
-            file = new File(path + name);
+            file = new File(path, name);
         } catch(Exception ex)
         {
             Logger.log("\"" + file.getName() + "\" konnte nicht initialisiert werden", 2);

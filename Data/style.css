@@ -8,7 +8,7 @@
 
 .body1
 {
-    background-color: #026398;
+    background-color: #ff0033;
 }
 
 .body2
@@ -38,6 +38,12 @@
   font:  16px calibri;
   color: #000000;
   background-color: #d1d1d1;
+}
+.stufeTab .EVA
+{
+  font:  bold 12px calibri;
+  color: #026398;
+  background-color: colorAntonsblau: "#026398;
 }
 
 .stufeTab tr td
