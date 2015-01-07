@@ -37,6 +37,11 @@ public class QueueElement
     {
         try
         {
+            String toLog = method.getName() + "\n        args:";
+            for(Object o : args)
+                toLog += "  " + o.toString();
+            Logger.logIntern(toLog);
+
             method.invoke(null, args);
         } catch(Exception ex)
         {

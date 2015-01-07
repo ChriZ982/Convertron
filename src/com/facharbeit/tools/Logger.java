@@ -24,6 +24,11 @@ public class Logger
     private static JProgressBar progressBar;
 
     /**
+     * Der interne Log. Wird bei Fehlerausgaben verwendet
+     */
+    private static String internLog;
+
+    /**
      * Initialisiert den Logger.
      *
      * @param out  Textfeld für die Ausgabe
@@ -33,6 +38,7 @@ public class Logger
     {
         textPane = out;
         progressBar = prog;
+        internLog = "";
     }
 
     /**
@@ -66,6 +72,8 @@ public class Logger
             }
             String content = Time.log() + text + "\n";
 
+            logIntern(text);
+
             SimpleAttributeSet set = new SimpleAttributeSet();
             StyleConstants.setForeground(set, color);
             Document doc = textPane.getStyledDocument();
@@ -76,6 +84,11 @@ public class Logger
             System.err.println("Konnte eine Aktion nicht dokumentieren");
             ex.printStackTrace();
         }
+    }
+
+    public static void logIntern(String text)
+    {
+        internLog += Time.log() + text + "\n\n";
     }
 
     /**
@@ -97,7 +110,9 @@ public class Logger
             writer.write(0, exception.toString() + "\n\n"
                             + exception.getLocalizedMessage() + "\n\n"
                             + exception.getMessage() + "\n\n"
-                            + sw.toString());
+                            + sw.toString() + "\n\n"
+                            + internLog);
+
         } catch(Exception ex)
         {
             System.err.println("Error konnte nicht dokumentiert werden");
