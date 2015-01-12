@@ -297,109 +297,108 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="customSourceCheck" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="autoGenCheck" max="32767" attributes="0"/>
-                                  <Component id="autoBackupCheck" pref="299" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="jLabel14" max="32767" attributes="0"/>
-                                              <Component id="jLabel7" min="-2" pref="100" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="speedPlanTxt" max="32767" attributes="0"/>
-                                          <Component id="speedMotdTxt" pref="28" max="32767" attributes="0"/>
-                                          <Component id="weekTxt" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel20" max="32767" attributes="0"/>
-                                          <Component id="jLabel21" max="32767" attributes="0"/>
-                                          <Component id="jLabel24" alignment="0" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jLabel22" max="32767" attributes="0"/>
-                                          <Component id="jLabel10" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="sourceTodayTxt" min="-2" pref="143" max="-2" attributes="0"/>
-                                          <Component id="sourceTomorrowTxt" min="-2" pref="144" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jSeparator2" min="-2" pref="2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="hoursHeadLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="hour9Label" max="32767" attributes="0"/>
-                                          <Component id="hour7Label" max="32767" attributes="0"/>
-                                          <Component id="hour5Label" max="32767" attributes="0"/>
-                                          <Component id="hour3Label" max="32767" attributes="0"/>
-                                          <Component id="hour1Label" min="-2" pref="53" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="hour3Txt" max="32767" attributes="0"/>
-                                          <Component id="hour5Txt" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="hour7Txt" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="hour9Txt" max="32767" attributes="0"/>
-                                          <Component id="hour1Txt" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="hour8Label" min="-2" pref="53" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="hour8Txt" min="-2" pref="80" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="hour10Label" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="hour10Txt" min="-2" pref="80" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="hour6Label" min="-2" pref="53" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="hour6Txt" min="-2" pref="80" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="hour2Label" alignment="1" min="-2" pref="53" max="-2" attributes="0"/>
-                                                  <Component id="hour4Label" alignment="1" min="-2" pref="53" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="hour2Txt" max="32767" attributes="0"/>
-                                                  <Component id="hour4Txt" min="-2" pref="80" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                                  <Component id="useHoursCheck" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
                           <Group type="102" attributes="0">
                               <Component id="jLabel25" min="-2" pref="608" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="customSourceCheck" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="autoGenCheck" max="32767" attributes="0"/>
+                                          <Component id="autoBackupCheck" pref="299" max="32767" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="jLabel14" max="32767" attributes="0"/>
+                                                      <Component id="jLabel7" min="-2" pref="100" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="speedPlanTxt" max="32767" attributes="0"/>
+                                                  <Component id="speedMotdTxt" pref="28" max="32767" attributes="0"/>
+                                                  <Component id="weekTxt" max="32767" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jLabel20" max="32767" attributes="0"/>
+                                                  <Component id="jLabel21" max="32767" attributes="0"/>
+                                                  <Component id="jLabel24" alignment="0" max="32767" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="jLabel22" max="32767" attributes="0"/>
+                                                  <Component id="jLabel10" max="32767" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="sourceTodayTxt" min="-2" pref="143" max="-2" attributes="0"/>
+                                                  <Component id="sourceTomorrowTxt" min="-2" pref="144" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="jSeparator2" min="-2" pref="2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="hoursHeadLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                                  <Component id="hour9Label" max="32767" attributes="0"/>
+                                                  <Component id="hour7Label" max="32767" attributes="0"/>
+                                                  <Component id="hour5Label" max="32767" attributes="0"/>
+                                                  <Component id="hour3Label" max="32767" attributes="0"/>
+                                                  <Component id="hour1Label" min="-2" pref="53" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="hour3Txt" max="32767" attributes="0"/>
+                                                  <Component id="hour5Txt" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="hour7Txt" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="hour9Txt" max="32767" attributes="0"/>
+                                                  <Component id="hour1Txt" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="1" attributes="0">
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <Component id="hour8Label" min="-2" pref="53" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="hour8Txt" min="-2" pref="80" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <Component id="hour10Label" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="hour10Txt" min="-2" pref="80" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <Component id="hour6Label" min="-2" pref="53" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="hour6Txt" min="-2" pref="80" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="hour2Label" alignment="1" min="-2" pref="53" max="-2" attributes="0"/>
+                                                          <Component id="hour4Label" alignment="1" min="-2" pref="53" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                          <Component id="hour2Txt" max="32767" attributes="0"/>
+                                                          <Component id="hour4Txt" min="-2" pref="80" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
+                                          <Component id="useHoursCheck" alignment="0" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
                                   <Component id="jSeparator8" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jScrollPane3" max="32767" attributes="0"/>
-                                  <Component id="settingsSaveBtn" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane3" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="settingsSaveBtn" alignment="1" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -469,10 +468,12 @@
                                   <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="weekTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel24" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="weekTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="customSourceCheck" min="-2" max="-2" attributes="0"/>
@@ -1038,7 +1039,7 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="colorTablePanel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Component id="jSeparator7" min="-2" pref="2" max="-2" attributes="0"/>
@@ -1375,13 +1376,15 @@
                               </Group>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="tteFontTypeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="fontTypeTxt" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="tteFontSizeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="fontSizeTxt" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="boldCheck" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="italicCheck" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="fontTypeTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tteFontSizeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="fontSizeTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="boldCheck" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="italicCheck" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                       </Group>
