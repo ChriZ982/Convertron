@@ -59,7 +59,8 @@ public class SchoolClass
             if(entries == null)
                 return true;
             return entries.isEmpty();
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Schulklasse konnte nicht überprüft werdenF", 2);
             Logger.error(ex);
@@ -79,7 +80,8 @@ public class SchoolClass
             contentColumms = sort(contentColumms, newOrder);
             for(Entry e : entries)
                 e.setContent(sort(e.getContent(), newOrder));
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Einträge konnten nicht sortiert werden", 2);
             Logger.error(ex);
@@ -109,7 +111,8 @@ public class SchoolClass
                 }
 
             return newContent;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Einträge konnten nicht sortiert werden", 2);
             Logger.error(ex);
@@ -125,27 +128,29 @@ public class SchoolClass
         try
         {
             Settings.logging(false);
-            boolean show;
 
             ArrayList<Entry> newEntries = new ArrayList<Entry>();
             for(Entry e : entries)
             {
+                int lesson = e.getLesson();
                 if(e.isDoubleLesson())
-                    show = Time.isAfter(Integer.valueOf(Settings.load("lesson" + (e.getLesson() + 1)).split(":")[0]),
-                                        Integer.valueOf(Settings.load("lesson" + (e.getLesson() + 1)).split(":")[1]),
-                                        Time.hour(),
-                                        Time.minute());
-                else
-                    show = Time.isAfter(Integer.valueOf(Settings.load("lesson" + e.getLesson()).split(":")[0]),
-                                        Integer.valueOf(Settings.load("lesson" + e.getLesson()).split(":")[1]),
-                                        Time.hour(),
-                                        Time.minute());
-                if(show)
+                    lesson++;
+
+                String lessonName = "lesson";
+                if(lesson < 10)
+                    lessonName += "0";
+                lessonName += lesson;
+
+                if(Time.isAfter(Integer.valueOf(Settings.load(lessonName).split(":")[0]),
+                                Integer.valueOf(Settings.load(lessonName).split(":")[1]),
+                                Time.hour(),
+                                Time.minute()))
                     newEntries.add(e);
             }
             entries = newEntries;
             Settings.logging(true);
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Stunden konnten nicht gelöscht werden", 2);
             Logger.error(ex);
@@ -219,7 +224,8 @@ public class SchoolClass
                 s += "'        </table>'+";
             }
             return s;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Klasse konnte nicht konvertiert werden", 2);
             Logger.error(ex);
@@ -247,7 +253,8 @@ public class SchoolClass
                     break;
                 }
             return index;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Array konnte nicht durchsucht werden", 2);
             Logger.error(ex);
@@ -270,7 +277,8 @@ public class SchoolClass
                 if(e.getDate().equals(date))
                     return true;
             return false;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Verfügbarkeit von Einträgen konnte nicht geprüft werden", 2);
             Logger.error(ex);
@@ -293,7 +301,8 @@ public class SchoolClass
                 if(e.getDate().equals(date))
                     newEntrys.add(e);
             entries = newEntrys;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Einträge konnten nicht aussortiert werden", 2);
             Logger.error(ex);
