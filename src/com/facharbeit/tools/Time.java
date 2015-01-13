@@ -93,9 +93,9 @@ public class Time
                 else
                     return Settings.load("customTomorrow");
             else if(addDays == 0)
-                return c.get(Calendar.DATE) + "\\." + c.get(Calendar.MONTH) + "\\.";
+                return c.get(Calendar.DATE) + "." + (c.get(Calendar.MONTH) + 1) + ".";
             else
-                return addDays(addDays).get(Calendar.DATE) + "\\." + addDays(1).get(Calendar.MONTH) + "\\.";
+                return addDays(addDays).get(Calendar.DATE) + "." + (addDays(1).get(Calendar.MONTH) + 1) + ".";
         } catch(Exception ex)
         {
             Logger.log("Zeit konnte nicht ermittelt werden", 2);
@@ -193,7 +193,7 @@ public class Time
         try
         {
             instance();
-            Calendar nc = (Calendar)c.clone();
+            Calendar nc = (Calendar) c.clone();
             nc.add(Calendar.DATE, amount);
             return nc;
         } catch(Exception ex)

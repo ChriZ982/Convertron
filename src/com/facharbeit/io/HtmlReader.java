@@ -43,9 +43,10 @@ public class HtmlReader
                 schoolClasses = getAllHtml(PathConverter.convert(Settings.load("pathSource")));
 
             boolean found = false;
+            String date = Time.htmlReading(0);
             for(SchoolClass schoolClass : schoolClasses)
             {
-                if(schoolClass.containsEntrysOfDate(Time.htmlReading(0)))
+                if(schoolClass.containsEntrysOfDate(date))
                     found = true;
 
                 schoolClass.onlyDate(Time.htmlReading(0));

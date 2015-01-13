@@ -128,15 +128,15 @@ public class QueueableMethods
                                                       JTextField weekTxt, JTextField sourceTodayTxt, JTextField sourceTomorrowTxt,
                                                       JCheckBox customSourceCheck)
     {
-        saveIfNotNull(hour1Txt, "lesson1");
-        saveIfNotNull(hour2Txt, "lesson2");
-        saveIfNotNull(hour3Txt, "lesson3");
-        saveIfNotNull(hour4Txt, "lesson4");
-        saveIfNotNull(hour5Txt, "lesson5");
-        saveIfNotNull(hour6Txt, "lesson6");
-        saveIfNotNull(hour7Txt, "lesson7");
-        saveIfNotNull(hour8Txt, "lesson8");
-        saveIfNotNull(hour9Txt, "lesson9");
+        saveIfNotNull(hour1Txt, "lesson01");
+        saveIfNotNull(hour2Txt, "lesson02");
+        saveIfNotNull(hour3Txt, "lesson03");
+        saveIfNotNull(hour4Txt, "lesson04");
+        saveIfNotNull(hour5Txt, "lesson05");
+        saveIfNotNull(hour6Txt, "lesson06");
+        saveIfNotNull(hour7Txt, "lesson07");
+        saveIfNotNull(hour8Txt, "lesson08");
+        saveIfNotNull(hour9Txt, "lesson09");
         saveIfNotNull(hour10Txt, "lesson10");
         saveIfNotNull(speedPlanTxt, "planSpeed");
         saveIfNotNull(speedMotdTxt, "motdSpeed");
@@ -498,15 +498,15 @@ public class QueueableMethods
         load(dbUserTxt, "sqlUser");
         load(dbPwTxt, "sqlPassw");
         load(dbTableNameTxt, "sqlTableName");
-        load(hour1Txt, "lesson1");
-        load(hour2Txt, "lesson2");
-        load(hour3Txt, "lesson3");
-        load(hour4Txt, "lesson4");
-        load(hour5Txt, "lesson5");
-        load(hour6Txt, "lesson6");
-        load(hour7Txt, "lesson7");
-        load(hour8Txt, "lesson8");
-        load(hour9Txt, "lesson9");
+        load(hour1Txt, "lesson01");
+        load(hour2Txt, "lesson02");
+        load(hour3Txt, "lesson03");
+        load(hour4Txt, "lesson04");
+        load(hour5Txt, "lesson05");
+        load(hour6Txt, "lesson06");
+        load(hour7Txt, "lesson07");
+        load(hour8Txt, "lesson08");
+        load(hour9Txt, "lesson09");
         load(hour10Txt, "lesson10");
         load(sourceTodayTxt, "customToday");
         load(sourceTomorrowTxt, "customTomorrow");
