@@ -45,7 +45,8 @@ public class Frame extends javax.swing.JFrame
                 dbHostTxt, dbPortTxt, dbNameTxt, dbUserTxt, dbPwTxt, dbTableNameTxt,
                 sqlModeLabel, sqlModeReadRBtn, sqlModeWriteRBtn, sqlModeDelWriteRBtn
             };
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Fenster konnte nicht initialisiert werden", 2);
             Logger.error(ex);
@@ -137,23 +138,23 @@ public class Frame extends javax.swing.JFrame
         savePathBtn = new javax.swing.JButton();
         DesignPanel = new javax.swing.JPanel();
         bgPlanLabel = new javax.swing.JLabel();
-        colorPlanCombo = new javax.swing.JComboBox();
+        colorPlanCombo = new javax.swing.JComboBox<String>();
         colorPlanPanel = new javax.swing.JPanel();
         colorMotdPanel = new javax.swing.JPanel();
         deleteColor = new javax.swing.JButton();
         addColorBtn = new javax.swing.JButton();
         colorNameTxt = new javax.swing.JTextField();
         bgMotdLabel = new javax.swing.JLabel();
-        colorMotdCombo = new javax.swing.JComboBox();
+        colorMotdCombo = new javax.swing.JComboBox<String>();
         backgroundColorsLabel = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
         bgTableLabel = new javax.swing.JLabel();
-        colorTableCombo = new javax.swing.JComboBox();
+        colorTableCombo = new javax.swing.JComboBox<String>();
         colorTablePanel = new javax.swing.JPanel();
         otherColorsLabel = new javax.swing.JLabel();
         otherBorderLabel = new javax.swing.JLabel();
-        colorBorderCombo = new javax.swing.JComboBox();
+        colorBorderCombo = new javax.swing.JComboBox<String>();
         colorBorderPanel = new javax.swing.JPanel();
         jSeparator7 = new javax.swing.JSeparator();
         jLabel19 = new javax.swing.JLabel();
@@ -162,12 +163,12 @@ public class Frame extends javax.swing.JFrame
         deleteTypeBtn = new javax.swing.JButton();
         addTypeBtn = new javax.swing.JButton();
         typeToEditTxt = new javax.swing.JTextField();
-        typeToEditCombo = new javax.swing.JComboBox();
+        typeToEditCombo = new javax.swing.JComboBox<String>();
         tteFontColorLabel = new javax.swing.JLabel();
-        fontColorCombo = new javax.swing.JComboBox();
+        fontColorCombo = new javax.swing.JComboBox<String>();
         fontColorPanel = new javax.swing.JPanel();
         tteBgLabel = new javax.swing.JLabel();
-        backgroundColorCombo = new javax.swing.JComboBox();
+        backgroundColorCombo = new javax.swing.JComboBox<String>();
         backgroundColorPanel = new javax.swing.JPanel();
         tteFontTypeLabel = new javax.swing.JLabel();
         fontTypeTxt = new javax.swing.JTextField();
@@ -1439,7 +1440,8 @@ public class Frame extends javax.swing.JFrame
         {
             jFileChooser1.showOpenDialog(null);
             sourceTxt.setText(jFileChooser1.getSelectedFile().getPath());
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Fehler im Frame", 2);
             Logger.error(ex);
@@ -1452,7 +1454,8 @@ public class Frame extends javax.swing.JFrame
         {
             jFileChooser1.showOpenDialog(null);
             backupTxt.setText(jFileChooser1.getSelectedFile().getPath());
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Fehler im Frame", 2);
             Logger.error(ex);
@@ -1472,7 +1475,8 @@ public class Frame extends javax.swing.JFrame
                 destArea.setText(destArea.getText() + "\n");
 
             destArea.append(jFileChooser1.getSelectedFile().getPath() + "\n");
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Fehler im Frame", 2);
             Logger.error(ex);
@@ -1485,7 +1489,8 @@ public class Frame extends javax.swing.JFrame
         {
             while(destArea.getText().startsWith("\n"))
                 destArea.setText(destArea.getText().substring("\n".length()));
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Fehler im Frame", 2);
             Logger.error(ex);
@@ -1499,7 +1504,8 @@ public class Frame extends javax.swing.JFrame
         {
             for(JComponent j : sqlComponents)
                 j.setEnabled(useSQLCheck.isSelected());
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Fehler im Frame", 2);
             Logger.error(ex);
@@ -1561,7 +1567,8 @@ public class Frame extends javax.swing.JFrame
         {
             for(JComponent j : hoursComponents)
                 j.setEnabled(useHoursCheck.isSelected());
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Fehler im Frame", 2);
             Logger.error(ex);
@@ -1576,7 +1583,8 @@ public class Frame extends javax.swing.JFrame
             sourceTomorrowTxt.setEnabled(customSourceCheck.isSelected());
             jLabel10.setEnabled(customSourceCheck.isSelected());
             jLabel22.setEnabled(customSourceCheck.isSelected());
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Fehler im Frame", 2);
             Logger.error(ex);
@@ -1643,7 +1651,8 @@ public class Frame extends javax.swing.JFrame
             tteBgLabel.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
             backgroundColorCombo.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
             backgroundColorPanel.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Fehler im Frame", 2);
             Logger.error(ex);
@@ -1773,7 +1782,8 @@ public class Frame extends javax.swing.JFrame
 
             for(JComponent j : hoursComponents)
                 j.setEnabled(useHoursCheck.isSelected());
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Fehler beim Laden der Einstellungen", 2);
             Logger.error(ex);
@@ -1791,7 +1801,7 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JButton addTypeBtn;
     private javax.swing.JCheckBox autoBackupCheck;
     private javax.swing.JCheckBox autoGenCheck;
-    private javax.swing.JComboBox backgroundColorCombo;
+    private javax.swing.JComboBox<String> backgroundColorCombo;
     private javax.swing.JPanel backgroundColorPanel;
     private javax.swing.JLabel backgroundColorsLabel;
     private javax.swing.JTextField backupTxt;
@@ -1799,14 +1809,14 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JLabel bgPlanLabel;
     private javax.swing.JLabel bgTableLabel;
     private javax.swing.JCheckBox boldCheck;
-    private javax.swing.JComboBox colorBorderCombo;
+    private javax.swing.JComboBox<String> colorBorderCombo;
     private javax.swing.JPanel colorBorderPanel;
-    private javax.swing.JComboBox colorMotdCombo;
+    private javax.swing.JComboBox<String> colorMotdCombo;
     private javax.swing.JPanel colorMotdPanel;
     private javax.swing.JTextField colorNameTxt;
-    private javax.swing.JComboBox colorPlanCombo;
+    private javax.swing.JComboBox<String> colorPlanCombo;
     private javax.swing.JPanel colorPlanPanel;
-    private javax.swing.JComboBox colorTableCombo;
+    private javax.swing.JComboBox<String> colorTableCombo;
     private javax.swing.JPanel colorTablePanel;
     private javax.swing.JButton createBackupBtn;
     private javax.swing.JCheckBox customSourceCheck;
@@ -1827,7 +1837,7 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JButton deleteTypeBtn;
     private javax.swing.JPanel designTypeSubPanel;
     private javax.swing.JTextArea destArea;
-    private javax.swing.JComboBox fontColorCombo;
+    private javax.swing.JComboBox<String> fontColorCombo;
     private javax.swing.JPanel fontColorPanel;
     private javax.swing.JTextField fontSizeTxt;
     private javax.swing.JTextField fontTypeTxt;
@@ -1914,7 +1924,7 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JLabel tteFontColorLabel;
     private javax.swing.JLabel tteFontSizeLabel;
     private javax.swing.JLabel tteFontTypeLabel;
-    private javax.swing.JComboBox typeToEditCombo;
+    private javax.swing.JComboBox<String> typeToEditCombo;
     private javax.swing.JLabel typeToEditLabel;
     private javax.swing.JTextField typeToEditTxt;
     private javax.swing.JCheckBox useHoursCheck;

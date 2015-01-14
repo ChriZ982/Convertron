@@ -191,7 +191,6 @@ public class QueueableMethods
     }
 
     // Pfade
-    @SuppressWarnings("empty-statement")
     public static void savePathBtnActionPerformed(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea)
     {
         saveIfNotNull(sourceTxt, "pathSource");
@@ -208,9 +207,9 @@ public class QueueableMethods
     }
 
     // Design
-    public static void addColorBtnActionPerformed(JColorChooser colorChooser, JTextField colorNameTxt, JComboBox colorPlanCombo,
-                                                  JComboBox colorMotdCombo, JComboBox colorTableCombo, JComboBox colorBorderCombo,
-                                                  JComboBox fontColorCombo, JComboBox backgroundColorCombo)
+    public static void addColorBtnActionPerformed(JColorChooser colorChooser, JTextField colorNameTxt, JComboBox<String> colorPlanCombo,
+                                                  JComboBox<String> colorMotdCombo, JComboBox<String> colorTableCombo, JComboBox<String> colorBorderCombo,
+                                                  JComboBox<String> fontColorCombo, JComboBox<String> backgroundColorCombo)
     {
         Color c = JColorChooser.showDialog(colorChooser, "Neue Farbe anlegen", Color.BLUE);
 
@@ -226,9 +225,9 @@ public class QueueableMethods
         }
     }
 
-    public static void deleteColorBtnActionPerformed(JTextField colorNameTxt, JComboBox colorPlanCombo, JComboBox colorMotdCombo,
-                                                     JComboBox colorTableCombo, JComboBox colorBorderCombo, JComboBox fontColorCombo,
-                                                     JComboBox backgroundColorCombo)
+    public static void deleteColorBtnActionPerformed(JTextField colorNameTxt, JComboBox<String> colorPlanCombo, JComboBox<String> colorMotdCombo,
+                                                     JComboBox<String> colorTableCombo, JComboBox<String> colorBorderCombo, JComboBox<String> fontColorCombo,
+                                                     JComboBox<String> backgroundColorCombo)
     {
         Settings.delete("color" + colorNameTxt.getText());
         loadColors(colorPlanCombo, colorMotdCombo, colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo);
@@ -421,7 +420,7 @@ public class QueueableMethods
         Settings.save(Character.toLowerCase(name.charAt(0)) + name.substring(1), setting);
     }
 
-    public static void addTypeBtnActionPerformed(JTextField typeToEditTxt, JComboBox typeToEditCombo)
+    public static void addTypeBtnActionPerformed(JTextField typeToEditTxt, JComboBox<String> typeToEditCombo)
     {
         typeToEditCombo.addItem("Art: " + typeToEditTxt.getText());
     }
@@ -473,18 +472,17 @@ public class QueueableMethods
     }
 
     // Anderes
-    @SuppressWarnings("unchecked")
     public static void loadSettings(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea, JTextField speedPlanTxt,
-                                    JTextField speedMotdTxt, JComboBox colorPlanCombo, JComboBox colorMotdCombo,
+                                    JTextField speedMotdTxt, JComboBox<String> colorPlanCombo, JComboBox<String> colorMotdCombo,
                                     JTextField motdTxt, JCheckBox useSQLCheck, JTextField dbHostTxt, JTextField dbPortTxt,
                                     JTextField dbNameTxt, JTextField dbUserTxt, JTextField dbPwTxt, JTextField dbTableNameTxt,
                                     JRadioButton[] sqlMode, JTextField hour1Txt, JTextField hour2Txt, JTextField hour3Txt, JTextField hour4Txt,
                                     JTextField hour5Txt, JTextField hour6Txt, JTextField hour7Txt, JTextField hour8Txt,
                                     JTextField hour9Txt, JTextField hour10Txt, JCheckBox autoBackupCheck, JCheckBox autoGenCheck,
                                     JCheckBox useHoursCheck, JCheckBox customSourceCheck, JTextField sourceTodayTxt,
-                                    JTextField sourceTomorrowTxt, JComboBox colorTableCombo, JComboBox colorBorderCombo,
-                                    JComboBox fontColorCombo, JComboBox backgroundColorCombo, JTextField fontTypeTxt,
-                                    JTextField fontSizeTxt, JCheckBox boldCheck, JCheckBox italicCheck, JComboBox typeToEditCombo,
+                                    JTextField sourceTomorrowTxt, JComboBox<String> colorTableCombo, JComboBox<String> colorBorderCombo,
+                                    JComboBox<String> fontColorCombo, JComboBox<String> backgroundColorCombo, JTextField fontTypeTxt,
+                                    JTextField fontSizeTxt, JCheckBox boldCheck, JCheckBox italicCheck, JComboBox<String> typeToEditCombo,
                                     JTable table, JTextField weekTxt)
     {
         load(sourceTxt, "pathSource");
@@ -645,9 +643,10 @@ public class QueueableMethods
      *
      * @param colorCombos ComboBoxen
      */
-    private static void loadColors(JComboBox... colorCombos)
+    @SafeVarargs
+    private static void loadColors(JComboBox<String>... colorCombos)
     {
-        for(JComboBox cb : colorCombos)
+        for(JComboBox<String> cb : colorCombos)
         {
             cb.removeAllItems();
             cb.addItem("Keine Farbe");
