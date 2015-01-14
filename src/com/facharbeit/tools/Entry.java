@@ -157,15 +157,32 @@ public class Entry
      */
     public String[] getImportantContent()
     {
-        String[] c = new String[importantContent.length];
-        for(int i = 0; i < c.length; i++)
-            c[i] = content.get(importantContent[i]);
-        return c;
+        try
+        {
+            String[] c = new String[importantContent.length];
+            for(int i = 0; i < c.length; i++)
+                c[i] = content.get(importantContent[i]);
+            return c;
+        } catch(Exception ex)
+        {
+            Logger.log("Wichtige Spalten konnten nicht ausgelesen werden", 2);
+            Logger.error(ex);
+        }
+        return new String[]
+        {
+        };
     }
 
     public void setImportantContent(String[] c)
     {
-        for(int i = 0; i < c.length; i++)
-            content.put(importantContent[i], c[i]);
+        try
+        {
+            for(int i = 0; i < c.length; i++)
+                content.put(importantContent[i], c[i]);
+        } catch(Exception ex)
+        {
+            Logger.log("Wichtige Spalten konnten nicht aktualisiert werden", 2);
+            Logger.error(ex);
+        }
     }
 }

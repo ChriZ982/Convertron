@@ -182,35 +182,51 @@ public class HtmlReader
             source = source.substring(0, source.indexOf(">") + 1);
 
             return source;
-        } catch(StringIndexOutOfBoundsException ex)
+        } catch(Exception ex)
         {
-            Logger.logIntern("HTML-Tag <" + toFind + "> konnte nicht gefunden werden");
+            Logger.log("HTML-Tag <" + toFind + "> konnte nicht gefunden werden", 2);
+            Logger.error(ex);
         }
         return ">";
     }
 
     private static String getTable(String source)
     {
-        source = source.substring(source.indexOf("<TABLE border=\"3\" rules=\"all\" bgcolor=\"#E7E7E7\" cellpadding=\"1\" cellspacing=\"1\">"));
-        source = source.substring(0, source.indexOf(findHtmlTag(source, "/TABLE")) + findHtmlTag(source, "/TABLE").length());
-        return source;
+        try
+        {
+            source = source.substring(source.indexOf("<TABLE border=\"3\" rules=\"all\" bgcolor=\"#E7E7E7\" cellpadding=\"1\" cellspacing=\"1\">"));
+            source = source.substring(0, source.indexOf(findHtmlTag(source, "/TABLE")) + findHtmlTag(source, "/TABLE").length());
+            return source;
+        } catch(Exception ex)
+        {
+            Logger.log("Die Tabelle konnte nicht ausgeschnitten werden", 2);
+            Logger.error(ex);
+        }
+        return null;
     }
 
     private static String readEntry(String source)
     {
-        if(source.contains("<font"))
-            source = source.substring(source.indexOf(findHtmlTag(source, "font")) + findHtmlTag(source, "font").length());
+        try
+        {
+            if(source.contains("<font"))
+                source = source.substring(source.indexOf(findHtmlTag(source, "font")) + findHtmlTag(source, "font").length());
 
-        if(source.contains("</font"))
-            source = source.substring(1, source.indexOf(findHtmlTag(source, "/font")) - 1);
+            if(source.contains("</font"))
+                source = source.substring(1, source.indexOf(findHtmlTag(source, "/font")) - 1);
 
-        while(source.startsWith(" ") || source.startsWith("\n"))
-            source = source.substring(1);
+            while(source.startsWith(" ") || source.startsWith("\n"))
+                source = source.substring(1);
 
-        while(source.endsWith(" ") || source.endsWith("\n"))
-            source = source.substring(0, source.length() - 1);
+            while(source.endsWith(" ") || source.endsWith("\n"))
+                source = source.substring(0, source.length() - 1);
 
-        return source;
+            return source;
+        } catch(Exception ex)
+        {
+            Logger.log("Eintrag konnte nicht gelesen werden", 2);
+        }
+        return null;
     }
 
     /**
