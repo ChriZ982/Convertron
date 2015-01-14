@@ -1,5 +1,8 @@
 package com.facharbeit.tools;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Einträge einer Schulklasse.
  */
@@ -16,11 +19,6 @@ public class Entry
     private String date = null;
 
     /**
-     * Wochentag des Eintrags
-     */
-    private String dayOfWeek = null;
-
-    /**
      * Ist der Eintrag doppelstündig?.
      */
     private boolean doubleLesson;
@@ -28,38 +26,42 @@ public class Entry
     /**
      * Daten des Eintrags.
      */
-    private String[] content;
+    private Map<String, String> content;
+
+    /**
+     * Daten die für den Vertretungsplan relevant sind.
+     */
+    public static final String[] importantContent =
+    {
+        "Vertreter", "Raum", "Vertretungsart", "(Fach)", "(Lehrer)", "Verl. von", "Hinweise"
+    };
 
     /**
      * Initialisiert einen neuen Eintrag.
      *
      * @param content Inhalt des Eintrags
      */
-    public Entry(String... content)
+    public Entry(Map<String, String> content)
     {
         try
         {
-            boolean isDoubleLesson = false;
-
-            if(content[0].contains("-"))
-                this.lesson = Integer.parseInt(content[0].substring(0, content[0].indexOf("-") - 1));
-            else if(!content[0].equals(""))
-                this.lesson = Integer.parseInt(content[0]);
-
-            if(content[0].indexOf("-") > 0)
+            if(content.get("Std").indexOf("-") > 0)
             {
-                isDoubleLesson = true;
-                this.lesson = Integer.parseInt(content[0].substring(0, content[0].indexOf("-") - 1));
-
+                doubleLesson = true;
+                this.lesson = Integer.parseInt(content.get("Std").substring(0, content.get("Std").indexOf("-") - 1));
             }
+            else if(!content.get("Std").equals(""))
+                this.lesson = Integer.parseInt(content.get("Std"));
 
-            this.doubleLesson = isDoubleLesson;
-            this.date = content[1];
-            this.dayOfWeek = content[2];
-            this.content = new String[content.length - 3];
+            this.date = content.get("Datum");
 
-            for(int i = 3; i < content.length; i++)
-                this.content[i - 3] = content[i];
+            this.content = new HashMap<String, String>();
+
+            for(String ic : importantContent)
+                this.content.put(ic, "");
+
+            this.content.putAll(content);
+
         } catch(Exception ex)
         {
             Logger.log("Eintrag konnte nicht initialisiert werden", 2);
@@ -84,8 +86,10 @@ public class Entry
                 s += "'                <td>" + lesson + "-" + (lesson + 1) + "</td>'+\n";
             else
                 s += "'                <td>" + lesson + "</td>'+\n";
-            for(String c : content)
-                s += "'                <td>" + c + "</td>'+\n";
+
+            for(String c : importantContent)
+                s += "'                <td>" + content.get(c) + "</td>'+\n";
+
             s += "'            </tr>'+\n";
             return s;
         } catch(Exception ex)
@@ -104,16 +108,6 @@ public class Entry
     public String getDate()
     {
         return date;
-    }
-
-    /**
-     * Gibt Wochentag.
-     *
-     * @return Wochentag
-     */
-    public String getDayOfWeek()
-    {
-        return dayOfWeek;
     }
 
     /**
@@ -141,7 +135,7 @@ public class Entry
      *
      * @return Inhalt
      */
-    public String[] getContent()
+    public Map<String, String> getContent()
     {
         return content;
     }
@@ -151,8 +145,27 @@ public class Entry
      *
      * @param content Neuer Inhalt
      */
-    public void setContent(String[] content)
+    public void setContent(Map<String, String> content)
     {
         this.content = content;
+    }
+
+    /**
+     * Gibt Inhalt.
+     *
+     * @return Inhalt
+     */
+    public String[] getImportantContent()
+    {
+        String[] c = new String[importantContent.length];
+        for(int i = 0; i < c.length; i++)
+            c[i] = content.get(importantContent[i]);
+        return c;
+    }
+
+    public void setImportantContent(String[] c)
+    {
+        for(int i = 0; i < c.length; i++)
+            content.put(importantContent[i], c[i]);
     }
 }

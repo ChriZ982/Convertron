@@ -110,8 +110,7 @@ public class QueueableMethods
                                    throw e;
                            }
             });
-        }
-        catch(IOException ex)
+        } catch(IOException ex)
         {
             Logger.log("Quellpläne konnten nicht gelöscht werden!", 2);
             return;
@@ -192,10 +191,12 @@ public class QueueableMethods
 
     // Pfade
     @SuppressWarnings("empty-statement")
-    public static void savePathBtnActionPerformed(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea)
+    public static void savePathBtnActionPerformed(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea, JTextField fileNamePrefixTxt, JTextField fileNameSuffixTxt)
     {
         saveIfNotNull(sourceTxt, "pathSource");
         saveIfNotNull(backupTxt, "pathBackup");
+        saveIfNotNull(fileNamePrefixTxt, "fileNamePrefix");
+        saveIfNotNull(fileNameSuffixTxt, "fileNameSuffix");
 
         ArrayList<String> destPaths = new ArrayList<String>();
         destPaths.addAll(Arrays.asList(destArea.getText().split("\n")));
@@ -468,14 +469,14 @@ public class QueueableMethods
      */
     public static void savePositionOfFrame(JFrame frame)
     {
-        Settings.save("positionX", String.valueOf((int)frame.getLocation().getX()));
-        Settings.save("positionY", String.valueOf((int)frame.getLocation().getY()));
+        Settings.save("positionX", String.valueOf((int) frame.getLocation().getX()));
+        Settings.save("positionY", String.valueOf((int) frame.getLocation().getY()));
     }
 
     // Anderes
     @SuppressWarnings("unchecked")
-    public static void loadSettings(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea, JTextField speedPlanTxt,
-                                    JTextField speedMotdTxt, JComboBox colorPlanCombo, JComboBox colorMotdCombo,
+    public static void loadSettings(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea, JTextField fileNamePrefixTxt, JTextField fileNameSuffixTxt,
+                                    JTextField speedPlanTxt, JTextField speedMotdTxt, JComboBox colorPlanCombo, JComboBox colorMotdCombo,
                                     JTextField motdTxt, JCheckBox useSQLCheck, JTextField dbHostTxt, JTextField dbPortTxt,
                                     JTextField dbNameTxt, JTextField dbUserTxt, JTextField dbPwTxt, JTextField dbTableNameTxt,
                                     JRadioButton[] sqlMode, JTextField hour1Txt, JTextField hour2Txt, JTextField hour3Txt, JTextField hour4Txt,
@@ -489,6 +490,8 @@ public class QueueableMethods
     {
         load(sourceTxt, "pathSource");
         load(backupTxt, "pathBackup");
+        load(fileNamePrefixTxt, "fileNamePrefix");
+        load(fileNameSuffixTxt, "fileNameSuffix");
         load(motdTxt, "motdText");
         load(speedPlanTxt, "planSpeed");
         load(speedMotdTxt, "motdSpeed");
@@ -553,7 +556,6 @@ public class QueueableMethods
         ArrayList<String> settingNames = new ArrayList<String>();
         String[] setting = Settings.loadNames("art");
         for(String s : setting)
-        {
             if(s.contains("FontColor"))
             {
                 if(!settingNames.contains(s.substring(3, s.indexOf("FontColor"))))
@@ -587,14 +589,11 @@ public class QueueableMethods
                 }
             }
             else if(s.contains("FontStyle"))
-            {
                 if(!settingNames.contains(s.substring(3, s.indexOf("FontStyle"))))
                 {
                     typeToEditCombo.addItem("Art: " + s.substring(3, s.indexOf("FontStyle")));
                     settingNames.add(s.substring(3, s.indexOf("FontStyle")));
                 }
-            }
-        }
 
         boldCheck.setSelected(false);
         italicCheck.setSelected(false);
@@ -735,8 +734,7 @@ public class QueueableMethods
                 Files.createDirectories(Paths.get(path));
 
             Files.copy(Paths.get("Data\\" + file), Paths.get(path + "\\" + file), StandardCopyOption.REPLACE_EXISTING);
-        }
-        catch(Exception ex)
+        } catch(Exception ex)
         {
             Logger.log("\"" + file + "\" konnte nicht kopiert werden", 2);
             Logger.error(ex);

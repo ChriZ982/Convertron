@@ -26,7 +26,7 @@ public class SchoolClass
     /**
      * Einträge der Klasse.
      */
-    private ArrayList<Entry> entries;
+    private List<Entry> entries;
 
     /**
      * Spalten, die es gibt.
@@ -59,8 +59,7 @@ public class SchoolClass
             if(entries == null)
                 return true;
             return entries.isEmpty();
-        }
-        catch(Exception ex)
+        } catch(Exception ex)
         {
             Logger.log("Schulklasse konnte nicht überprüft werdenF", 2);
             Logger.error(ex);
@@ -79,9 +78,8 @@ public class SchoolClass
         {
             contentColumms = sort(contentColumms, newOrder);
             for(Entry e : entries)
-                e.setContent(sort(e.getContent(), newOrder));
-        }
-        catch(Exception ex)
+                e.setImportantContent(sort(e.getImportantContent(), newOrder));
+        } catch(Exception ex)
         {
             Logger.log("Einträge konnten nicht sortiert werden", 2);
             Logger.error(ex);
@@ -111,8 +109,7 @@ public class SchoolClass
                 }
 
             return newContent;
-        }
-        catch(Exception ex)
+        } catch(Exception ex)
         {
             Logger.log("Einträge konnten nicht sortiert werden", 2);
             Logger.error(ex);
@@ -149,8 +146,7 @@ public class SchoolClass
             }
             entries = newEntries;
             Settings.logging(true);
-        }
-        catch(Exception ex)
+        } catch(Exception ex)
         {
             Logger.log("Stunden konnten nicht gelöscht werden", 2);
             Logger.error(ex);
@@ -219,13 +215,12 @@ public class SchoolClass
                 s += "'            </tr>'+\n";
 
                 for(Entry e : entries)
-                    s += e.toString(e.getContent()[getIndexOfStringInArray(contentColumms, "Art")].replaceAll("\\.", ""));
+                    s += e.toString(e.getImportantContent()[getIndexOfStringInArray(contentColumms, "Art")].replaceAll("\\.", ""));
 
                 s += "'        </table>'+";
             }
             return s;
-        }
-        catch(Exception ex)
+        } catch(Exception ex)
         {
             Logger.log("Klasse konnte nicht konvertiert werden", 2);
             Logger.error(ex);
@@ -253,8 +248,7 @@ public class SchoolClass
                     break;
                 }
             return index;
-        }
-        catch(Exception ex)
+        } catch(Exception ex)
         {
             Logger.log("Array konnte nicht durchsucht werden", 2);
             Logger.error(ex);
@@ -277,8 +271,7 @@ public class SchoolClass
                 if(e.getDate().equals(date))
                     return true;
             return false;
-        }
-        catch(Exception ex)
+        } catch(Exception ex)
         {
             Logger.log("Verfügbarkeit von Einträgen konnte nicht geprüft werden", 2);
             Logger.error(ex);
@@ -301,8 +294,7 @@ public class SchoolClass
                 if(e.getDate().equals(date))
                     newEntrys.add(e);
             entries = newEntrys;
-        }
-        catch(Exception ex)
+        } catch(Exception ex)
         {
             Logger.log("Einträge konnten nicht aussortiert werden", 2);
             Logger.error(ex);
@@ -324,7 +316,7 @@ public class SchoolClass
      *
      * @return Einträge
      */
-    public ArrayList<Entry> getEntries()
+    public List<Entry> getEntries()
     {
         return entries;
     }
@@ -334,7 +326,7 @@ public class SchoolClass
      *
      * @param entrys Neue Einträge
      */
-    public void setEntries(ArrayList<Entry> entrys)
+    public void setEntries(List<Entry> entrys)
     {
         this.entries = entrys;
     }

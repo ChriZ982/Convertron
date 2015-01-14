@@ -101,7 +101,7 @@
                       <Component id="jSeparator6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="progBar" pref="294" max="32767" attributes="0"/>
+                          <Component id="progBar" pref="300" max="32767" attributes="0"/>
                           <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                           <Component id="jLabel4" alignment="1" max="32767" attributes="0"/>
                           <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
@@ -307,7 +307,7 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="customSourceCheck" alignment="0" max="32767" attributes="0"/>
                                           <Component id="autoGenCheck" max="32767" attributes="0"/>
-                                          <Component id="autoBackupCheck" pref="299" max="32767" attributes="0"/>
+                                          <Component id="autoBackupCheck" pref="301" max="32767" attributes="0"/>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
@@ -765,11 +765,12 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jSeparator9" alignment="0" max="32767" attributes="0"/>
                           <Component id="savePathBtn" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jLabel6" max="32767" attributes="0"/>
                                   <Component id="jLabel8" pref="59" max="32767" attributes="0"/>
@@ -777,7 +778,7 @@
                               </Group>
                               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane2" pref="511" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane2" pref="517" max="32767" attributes="0"/>
                                   <Component id="sourceTxt" alignment="0" max="32767" attributes="0"/>
                                   <Component id="backupTxt" alignment="0" max="32767" attributes="0"/>
                               </Group>
@@ -788,15 +789,26 @@
                                   <Component id="selectSourceTodayBtn" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="fileNamePrefixTxt" pref="292" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Component id="fileNameMiddle" min="-2" pref="26" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Component id="fileNameSuffixTxt" pref="292" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel6" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
@@ -804,7 +816,7 @@
                           </Group>
                           <Component id="selectSourceTodayBtn" min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="backupTxt" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -812,15 +824,25 @@
                           </Group>
                           <Component id="selectBackupBtn" min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane2" pref="236" max="32767" attributes="0"/>
                           <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="selectDestBtn" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="jScrollPane2" alignment="0" pref="173" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jSeparator9" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="fileNamePrefixTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="fileNameMiddle" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="fileNameSuffixTxt" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="savePathBtn" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -914,6 +936,29 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="savePathBtnActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JSeparator" name="jSeparator9">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Dateiname:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="fileNamePrefixTxt">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Druck_Klasse_"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="fileNameMiddle">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="text" type="java.lang.String" value="05a"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="fileNameSuffixTxt">
+              <Properties>
+                <Property name="text" type="java.lang.String" value=".htm"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -1608,7 +1653,7 @@
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="dbUserTxt" pref="272" max="32767" attributes="0"/>
+                                          <Component id="dbUserTxt" pref="277" max="32767" attributes="0"/>
                                           <Component id="dbNameTxt" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -1618,7 +1663,7 @@
                                       </Group>
                                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="dbTableNameTxt" pref="160" max="32767" attributes="0"/>
+                                          <Component id="dbTableNameTxt" pref="161" max="32767" attributes="0"/>
                                           <Component id="dbPwTxt" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>

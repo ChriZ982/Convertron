@@ -256,12 +256,11 @@ public class HtmlWriter
             for(SchoolClass sc : scs)
                 for(Entry e : sc.getEntries())
                 {
-                    String[] line = new String[e.getContent().length + 3];
+                    String[] line = new String[e.getImportantContent().length + 2];
                     line[0] = sc.getName();
                     line[1] = e.getDate();
-                    line[2] = e.getDayOfWeek();
                     for(int i = 3; i < line.length; i++)
-                        line[i] = e.getContent()[i - 3];
+                        line[i] = e.getImportantContent()[i - 3];
                     forSql.add(line);
                 }
 
