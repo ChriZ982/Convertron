@@ -122,7 +122,7 @@ public class QueueableMethods
     public static void settingsSaveBtnActionPerformed(JTextField hour1Txt, JTextField hour2Txt, JTextField hour3Txt,
                                                       JTextField hour4Txt, JTextField hour5Txt, JTextField hour6Txt,
                                                       JTextField hour7Txt, JTextField hour8Txt, JTextField hour9Txt,
-                                                      JTextField hour10Txt, JCheckBox useHoursCheck, JCheckBox autoBackupCheck, JCheckBox autoGenCheck,
+                                                      JTextField hour10Txt, JCheckBox useHoursCheck, JCheckBox autoBackupCheck,
                                                       JTextField speedPlanTxt, JTextField speedMotdTxt, JTable table,
                                                       JTextField weekTxt, JTextField sourceTodayTxt, JTextField sourceTomorrowTxt,
                                                       JCheckBox customSourceCheck)
@@ -186,7 +186,6 @@ public class QueueableMethods
         Settings.save("lessonOrder", setting);
         saveCheck(useHoursCheck, "lessonUse");
         saveCheck(autoBackupCheck, "autoBackup");
-        saveCheck(autoGenCheck, "autoGen");
     }
 
     // Pfade
@@ -436,7 +435,7 @@ public class QueueableMethods
                                     JTextField dbNameTxt, JTextField dbUserTxt, JTextField dbPwTxt, JTextField dbTableNameTxt,
                                     JRadioButton[] sqlMode, JTextField hour1Txt, JTextField hour2Txt, JTextField hour3Txt, JTextField hour4Txt,
                                     JTextField hour5Txt, JTextField hour6Txt, JTextField hour7Txt, JTextField hour8Txt,
-                                    JTextField hour9Txt, JTextField hour10Txt, JCheckBox autoBackupCheck, JCheckBox autoGenCheck,
+                                    JTextField hour9Txt, JTextField hour10Txt, JCheckBox autoBackupCheck,
                                     JCheckBox useHoursCheck, JCheckBox customSourceCheck, JTextField sourceTodayTxt,
                                     JTextField sourceTomorrowTxt, JComboBox<String> colorTableCombo, JComboBox<String> colorBorderCombo,
                                     JComboBox<String> fontColorCombo, JComboBox<String> backgroundColorCombo, JTextField fontTypeTxt,
@@ -473,7 +472,6 @@ public class QueueableMethods
 
         loadCheck(useSQLCheck, "sqlUse");
         loadCheck(autoBackupCheck, "autoBackup");
-        loadCheck(autoGenCheck, "autoGen");
         loadCheck(useHoursCheck, "lessonUse");
         loadCheck(customSourceCheck, "customDate");
 

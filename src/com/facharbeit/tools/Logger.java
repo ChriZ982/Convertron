@@ -28,6 +28,8 @@ public class Logger
      */
     private static String internLog;
 
+    private static boolean logging;
+
     /**
      * Initialisiert den Logger.
      *
@@ -39,6 +41,7 @@ public class Logger
         textPane = out;
         progressBar = prog;
         internLog = "";
+        logging = true;
     }
 
     /**
@@ -51,34 +54,37 @@ public class Logger
     {
         try
         {
-            Color color;
-            switch(prio)
+            if(logging)
             {
-                case 0:
-                    color = new Color(0, 100, 0);
-                    break;
+                Color color;
+                switch(prio)
+                {
+                    case 0:
+                        color = new Color(0, 100, 0);
+                        break;
 
-                case 1:
-                    color = new Color(200, 165, 0);
-                    break;
+                    case 1:
+                        color = new Color(200, 165, 0);
+                        break;
 
-                case 2:
-                    color = new Color(160, 0, 0);
-                    break;
+                    case 2:
+                        color = new Color(160, 0, 0);
+                        break;
 
-                default:
-                    color = Color.BLACK;
-                    break;
+                    default:
+                        color = Color.BLACK;
+                        break;
+                }
+                String content = Time.log() + text + "\n";
+
+                logIntern(text);
+
+                SimpleAttributeSet set = new SimpleAttributeSet();
+                StyleConstants.setForeground(set, color);
+                Document doc = textPane.getStyledDocument();
+                doc.insertString(doc.getLength(), content, set);
+                textPane.setCaretPosition(doc.getLength());
             }
-            String content = Time.log() + text + "\n";
-
-            logIntern(text);
-
-            SimpleAttributeSet set = new SimpleAttributeSet();
-            StyleConstants.setForeground(set, color);
-            Document doc = textPane.getStyledDocument();
-            doc.insertString(doc.getLength(), content, set);
-            textPane.setCaretPosition(doc.getLength());
         }
         catch(Exception ex)
         {
@@ -138,5 +144,10 @@ public class Logger
             Logger.log("Fortschritt konnte nicht geändert werden", 2);
             Logger.error(ex);
         }
+    }
+
+    public static void setLogging(boolean logging)
+    {
+        Logger.logging = logging;
     }
 }

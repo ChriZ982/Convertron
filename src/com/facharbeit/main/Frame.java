@@ -120,7 +120,6 @@ public class Frame extends javax.swing.JFrame
         sourceTodayTxt = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         sourceTomorrowTxt = new javax.swing.JTextField();
-        autoGenCheck = new javax.swing.JCheckBox();
         jLabel24 = new javax.swing.JLabel();
         jSeparator8 = new javax.swing.JSeparator();
         jLabel25 = new javax.swing.JLabel();
@@ -506,9 +505,6 @@ public class Frame extends javax.swing.JFrame
         sourceTomorrowTxt.setToolTipText("Neues Datum für den morgigen Plan z.B. \"25.12.\"");
         sourceTomorrowTxt.setEnabled(false);
 
-        autoGenCheck.setText("\"Automatikmodus\"");
-        autoGenCheck.setToolTipText("Den Plan automatisch alle 5 Minuten neu generieren?");
-
         jLabel25.setText("Spaltensortierung:");
 
         javax.swing.GroupLayout SettingsPanelLayout = new javax.swing.GroupLayout(SettingsPanel);
@@ -526,7 +522,6 @@ public class Frame extends javax.swing.JFrame
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SettingsPanelLayout.createSequentialGroup()
                                 .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(customSourceCheck, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(autoGenCheck, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(autoBackupCheck, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
                                     .addGroup(SettingsPanelLayout.createSequentialGroup()
                                         .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -641,9 +636,7 @@ public class Frame extends javax.swing.JFrame
                             .addComponent(hour10Label)))
                     .addGroup(SettingsPanelLayout.createSequentialGroup()
                         .addComponent(autoBackupCheck)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(autoGenCheck)
-                        .addGap(18, 18, 18)
+                        .addGap(41, 41, 41)
                         .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14)
                             .addComponent(speedPlanTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -676,7 +669,7 @@ public class Frame extends javax.swing.JFrame
                 .addComponent(jLabel25)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 19, Short.MAX_VALUE)
                 .addComponent(settingsSaveBtn)
                 .addContainerGap())
         );
@@ -1557,7 +1550,7 @@ public class Frame extends javax.swing.JFrame
     {//GEN-HEADEREND:event_settingsSaveBtnActionPerformed
         Application.addToQueue("settingsSaveBtnActionPerformed", hour1Txt, hour2Txt, hour3Txt,
                                hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt,
-                               useHoursCheck, autoBackupCheck, autoGenCheck, speedPlanTxt, speedMotdTxt,
+                               useHoursCheck, autoBackupCheck, speedPlanTxt, speedMotdTxt,
                                table, weekTxt, sourceTodayTxt, sourceTomorrowTxt, customSourceCheck);
     }//GEN-LAST:event_settingsSaveBtnActionPerformed
 
@@ -1765,7 +1758,7 @@ public class Frame extends javax.swing.JFrame
                                    colorPlanCombo, colorMotdCombo, motdTxt, useSQLCheck, dbHostTxt, dbPortTxt,
                                    dbNameTxt, dbUserTxt, dbPwTxt, dbTableNameTxt, rBtns, hour1Txt, hour2Txt, hour3Txt,
                                    hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt,
-                                   autoBackupCheck, autoGenCheck, useHoursCheck, customSourceCheck, sourceTodayTxt,
+                                   autoBackupCheck, useHoursCheck, customSourceCheck, sourceTodayTxt,
                                    sourceTomorrowTxt, colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo,
                                    fontTypeTxt, fontSizeTxt, boldCheck, italicCheck, typeToEditCombo, table, weekTxt);
 
@@ -1800,7 +1793,6 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JButton addColorBtn;
     private javax.swing.JButton addTypeBtn;
     private javax.swing.JCheckBox autoBackupCheck;
-    private javax.swing.JCheckBox autoGenCheck;
     private javax.swing.JComboBox<String> backgroundColorCombo;
     private javax.swing.JPanel backgroundColorPanel;
     private javax.swing.JLabel backgroundColorsLabel;
