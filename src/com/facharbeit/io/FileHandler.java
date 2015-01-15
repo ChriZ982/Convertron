@@ -2,6 +2,7 @@ package com.facharbeit.io;
 
 import com.facharbeit.tools.Logger;
 import java.io.*;
+import java.nio.file.*;
 
 public class FileHandler
 {
@@ -24,7 +25,8 @@ public class FileHandler
     {
         try
         {
-            if(file.getParentFile().mkdirs() && file.createNewFile())
+            file.getParentFile().mkdirs();
+            if(file.createNewFile())
                 Logger.log("\"" + file.getName() + "\" wurde erstellt.", 0);
         }
         catch(Exception ex)
@@ -54,10 +56,34 @@ public class FileHandler
     }
 
     /**
+     * Kopiert eine Datei zu einem Pfad.
+     *
+     * @param dest
+     * @param log
+     */
+    public void copy(String dest, boolean log)
+    {
+        try
+        {
+            if(exists())
+            {
+                new File(dest).mkdirs();
+                Files.copy(Paths.get(file.getPath()), Paths.get(dest + file.getName()), StandardCopyOption.REPLACE_EXISTING);
+                if(log)
+                    Logger.log(file.getName() + " wurde kopiert", 0);
+            }
+        }
+        catch(Exception ex)
+        {
+            Logger.log("\"" + file.getName() + "\" konnte nicht kopiert werden", 2);
+            Logger.error(ex);
+        }
+    }
+
+    /**
      * Kopiert Dateien.
      *
      * @param dest
-     * @param name Name der Datei
      */
     public void copyFromRes(String dest)
     {
@@ -74,7 +100,7 @@ public class FileHandler
                     out.write(read);
                 out.flush();
 
-                Logger.log(f.getName() + " wurde nach " + dest + " kopiert", 0);
+                Logger.log(f.getName() + " wurde kopiert", 0);
             }
         }
         catch(Exception ex)

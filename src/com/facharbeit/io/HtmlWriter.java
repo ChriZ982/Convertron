@@ -38,7 +38,7 @@ public class HtmlWriter
             String classes = classes(schoolClasses);
             Logger.setProgress(start + 3 * (part / 6));
 
-            if(!validate(day, speed, classes))
+            if(!validate(day, speed))
                 return;
 
             FileHandler reader = new FileHandler("Data/TEMPLATE heute morgen.html");
@@ -86,7 +86,7 @@ public class HtmlWriter
             String classes = classes(schoolClasses);
             Logger.setProgress(start + 3 * (part / 6));
 
-            if(!validate(day, speed, classes))
+            if(!validate(day, speed))
                 return;
 
             FileHandler reader = new FileHandler("Data/TEMPLATE heute morgen.html");
@@ -309,6 +309,8 @@ public class HtmlWriter
                                  Integer.parseInt(or[6]));
                 s += schoolClass.toString();
             }
+            if(s.equals(""))
+                return "'<b>Keine Vertretungen</b><br /><br />'+";
             return s;
         }
         catch(Exception ex)

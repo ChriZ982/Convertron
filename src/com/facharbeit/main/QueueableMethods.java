@@ -106,7 +106,6 @@ public class QueueableMethods
                                    return FileVisitResult.CONTINUE;
                                }
                                else
-                                   // directory iteration failed
                                    throw e;
                            }
             });
@@ -312,7 +311,7 @@ public class QueueableMethods
             else if(bool.equals("italic"))
                 italicCheck.setSelected(true);
             else if(Settings.line(Character.toLowerCase(s.charAt(0)) + s.substring(1)) == -1)
-                Settings.save(Character.toLowerCase(s.charAt(0)) + s.substring(1), "");
+                Settings.save(Character.toLowerCase(s.charAt(0)) + s.substring(1), "none");
         }
     }
 
@@ -645,42 +644,12 @@ public class QueueableMethods
      */
     private static void backupAll(String path)
     {
-        backup(path, "heute.html", "morgen.html", "laufschrift.html",
-               "VERTRETUNGSPLAN.html", "TEMPLATE heute morgen.html", "TEMPLATE laufschrift.html",
-               "settings.ini", "style.css", "antonianumLogo.png");
-    }
-
-    /**
-     * Kopiert angegebene Dateien zu einem Pfad.
-     *
-     * @param path  Pfad
-     * @param files Dateien zum Kopieren
-     */
-    private static void backup(String path, String... files)
-    {
-        for(String file : files)
-            copy(file, path);
-    }
-
-    /**
-     * Kopiert eine Datei zu einem Pfad.
-     *
-     * @param file Dateiname
-     * @param path Pfad
-     */
-    private static void copy(String file, String path)
-    {
-        try
-        {
-            if(!Files.exists(Paths.get(path)))
-                Files.createDirectories(Paths.get(path));
-
-            Files.copy(Paths.get("Data\\" + file), Paths.get(path + "\\" + file), StandardCopyOption.REPLACE_EXISTING);
-        }
-        catch(Exception ex)
-        {
-            Logger.log("\"" + file + "\" konnte nicht kopiert werden", 2);
-            Logger.error(ex);
-        }
+        new FileHandler("Data/settings.ini").copy(path + "/", false);
+        new FileHandler("Data/heute.html").copy(path + "/", false);
+        new FileHandler("Data/morgen.html").copy(path + "/", false);
+        new FileHandler("Data/laufschrift.html").copy(path + "/", false);
+        new FileHandler("Data/style.css").copy(path + "/", false);
+        new FileHandler("Data/antonianumLogo.png").copy(path + "/", false);
+        new FileHandler("Data/VERTRETUNGSPLAN.html").copy(path + "/", false);
     }
 }
