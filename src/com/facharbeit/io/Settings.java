@@ -56,6 +56,12 @@ public class Settings
     {
         try
         {
+            if(setting.equals(""))
+            {
+                delete(name);
+                return;
+            }
+
             int line = line(name);
             String settings = name + ": \"" + setting + "\"";
             if(line == -1)
