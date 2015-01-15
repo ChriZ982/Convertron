@@ -1,6 +1,6 @@
 package com.facharbeit.tools;
 
-import com.facharbeit.io.FileWriter;
+import com.facharbeit.io.FileHandler;
 import java.awt.Color;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -79,7 +79,8 @@ public class Logger
             Document doc = textPane.getStyledDocument();
             doc.insertString(doc.getLength(), content, set);
             textPane.setCaretPosition(doc.getLength());
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             System.err.println("Konnte eine Aktion nicht dokumentieren");
             ex.printStackTrace();
@@ -100,7 +101,7 @@ public class Logger
     {
         try
         {
-            FileWriter writer = new FileWriter("Errors/", "err" + Time.error() + ".txt");
+            FileHandler writer = new FileHandler("Errors/err" + Time.error() + ".txt");
             writer.create();
 
             StringWriter sw = new StringWriter();
@@ -113,7 +114,8 @@ public class Logger
                             + sw.toString() + "\n\n"
                             + internLog);
 
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             System.err.println("Error konnte nicht dokumentiert werden");
             ex.printStackTrace();
@@ -130,7 +132,8 @@ public class Logger
         try
         {
             progressBar.setValue(value);
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Fortschritt konnte nicht geändert werden", 2);
             Logger.error(ex);

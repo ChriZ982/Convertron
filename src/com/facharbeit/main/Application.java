@@ -7,7 +7,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.*;
-import java.io.*;
 import java.lang.reflect.*;
 import java.util.*;
 import javax.imageio.*;
@@ -53,6 +52,10 @@ public class Application
             frame = new Frame();
 
             Logger.init(frame.getStatusPane(), frame.getProgBar());
+
+            initData();
+            initTray();
+
             Settings.init();
 
             if(!Settings.load("positionX").isEmpty() && !Settings.load("positionY").isEmpty())
@@ -62,13 +65,11 @@ public class Application
             frame.loadSettings();
             frame.addWindowListener(new FrameActions(frame, this));
 
-            initTray();
-            initData();
-
             frame.setVisible(true);
 
             running = true;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Anwendung konnte nicht initialisiert werden", 2);
             Logger.error(ex);
@@ -95,7 +96,8 @@ public class Application
             frame.dispose();
 
             System.exit(0);
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Fehler beim Beenden", 2);
             Logger.error(ex);
@@ -110,42 +112,16 @@ public class Application
     {
         try
         {
-            copy("antonianumLogo.png");
-            copy("TEMPLATE heute morgen.html");
-            copy("TEMPLATE laufschrift.html");
-            copy("VERTRETUNGSPLAN.html");
-            copy("TEMPLATE style.css");
-        } catch(Exception ex)
+            new FileHandler("/com/facharbeit/ressources/stdData/settings.ini").copyFromRes("Data/");
+            new FileHandler("/com/facharbeit/ressources/stdData/antonianumLogo.png").copyFromRes("Data/");
+            new FileHandler("/com/facharbeit/ressources/stdData/TEMPLATE heute morgen.html").copyFromRes("Data/");
+            new FileHandler("/com/facharbeit/ressources/stdData/TEMPLATE laufschrift.html").copyFromRes("Data/");
+            new FileHandler("/com/facharbeit/ressources/stdData/VERTRETUNGSPLAN.html").copyFromRes("Data/");
+            new FileHandler("/com/facharbeit/ressources/stdData/TEMPLATE style.css").copyFromRes("Data/");
+        }
+        catch(Exception ex)
         {
             Logger.log("Data-Ordner konnte nicht initialisiert werden", 2);
-            Logger.error(ex);
-        }
-    }
-
-    /**
-     * Kopiert Dateien.
-     *
-     * @param name Name der Datei
-     */
-    private void copy(String name)
-    {
-        try
-        {
-            File f = new File("Data/", name);
-            if(!f.exists())
-            {
-                InputStream in = getClass().getResourceAsStream("/com/facharbeit/ressources/stdData/" + name);
-                FileOutputStream out = new FileOutputStream(f);
-
-                for(int read; (read = in.read()) != -1;)
-                    out.write(read);
-                out.flush();
-
-                Logger.log(name + " wurde initialisiert", 0);
-            }
-        } catch(Exception ex)
-        {
-            Logger.log("Datei konnte nicht kopiert werden", 2);
             Logger.error(ex);
         }
     }
@@ -161,7 +137,8 @@ public class Application
         {
             Application app = new Application();
             app.run();
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Fehler in der Main-Methode", 2);
             Logger.error(ex);
@@ -196,7 +173,8 @@ public class Application
                         Application.addToQueue("genAllBtnActionPerformed");
                     }
             }
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Fehler in der Programm-Schleife", 2);
             Logger.error(ex);
@@ -224,7 +202,8 @@ public class Application
                 }
 
             queue.add(new QueueElement(theMethod, args));
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Methode \"" + methodName + "\"konnte nicht zur Warteschlange hinzugefügt werden", 2);
             Logger.error(ex);
@@ -243,7 +222,8 @@ public class Application
                 queue.get(0).invoke();
                 queue.remove(0);
             }
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Element der Warteschlange konnte nicht ausgeführt werden", 2);
             Logger.error(ex);
@@ -301,7 +281,8 @@ public class Application
             });
 
             tray.add(trayIcon);
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Tray konnte nicht initialisiert werden", 2);
             Logger.error(ex);
@@ -399,7 +380,8 @@ public class Application
                     System.exit(0);
                 }
             });
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Aktionen der Menüitems konnten nicht gesetzt werden", 2);
             Logger.error(ex);

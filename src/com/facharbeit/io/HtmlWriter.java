@@ -33,7 +33,7 @@ public class HtmlWriter
             Logger.setProgress(start + 1 * (part / 6));
             String speed = "";
             if(Settings.line("planSpeed") != -1)
-                speed = Integer.toString((int) ((1.0 / (Double.parseDouble(Settings.load("planSpeed")) / 100.0)) * 12.0));
+                speed = Integer.toString((int)((1.0 / (Double.parseDouble(Settings.load("planSpeed")) / 100.0)) * 12.0));
             Logger.setProgress(start + 2 * (part / 6));
             String classes = classes(schoolClasses);
             Logger.setProgress(start + 3 * (part / 6));
@@ -41,8 +41,8 @@ public class HtmlWriter
             if(!validate(day, speed, classes))
                 return;
 
-            FileReader reader = new FileReader("Data/", "TEMPLATE heute morgen.html");
-            FileWriter writer = new FileWriter("Data/", "heute.html");
+            FileHandler reader = new FileHandler("Data/TEMPLATE heute morgen.html");
+            FileHandler writer = new FileHandler("Data/heute.html");
             Logger.setProgress(start + 4 * (part / 6));
 
             String[] file = reader.read();
@@ -57,7 +57,8 @@ public class HtmlWriter
             Logger.setProgress(start + 6 * (part / 6));
 
             Logger.log("Plan von heute wurde generiert", 0);
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Plan von heute konnte nicht generiert werden", 2);
             Logger.error(ex);
@@ -80,7 +81,7 @@ public class HtmlWriter
             Logger.setProgress(start + 1 * (part / 6));
             String speed = "";
             if(Settings.line("planSpeed") != -1)
-                speed = Integer.toString((int) ((1.0 / (Double.parseDouble(Settings.load("planSpeed")) / 100.0)) * 12.0));
+                speed = Integer.toString((int)((1.0 / (Double.parseDouble(Settings.load("planSpeed")) / 100.0)) * 12.0));
             Logger.setProgress(start + 2 * (part / 6));
             String classes = classes(schoolClasses);
             Logger.setProgress(start + 3 * (part / 6));
@@ -88,8 +89,8 @@ public class HtmlWriter
             if(!validate(day, speed, classes))
                 return;
 
-            FileReader reader = new FileReader("Data/", "TEMPLATE heute morgen.html");
-            FileWriter writer = new FileWriter("Data/", "morgen.html");
+            FileHandler reader = new FileHandler("Data/TEMPLATE heute morgen.html");
+            FileHandler writer = new FileHandler("Data/morgen.html");
             Logger.setProgress(start + 4 * (part / 6));
 
             String[] file = reader.read();
@@ -104,7 +105,8 @@ public class HtmlWriter
             Logger.setProgress(start + 6 * (part / 6));
 
             Logger.log("Plan von morgen wurde generiert", 0);
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Plan von morgen konnte nicht generiert werden", 2);
             Logger.error(ex);
@@ -124,7 +126,7 @@ public class HtmlWriter
             int part = end - start;
             String speed = "";
             if(Settings.line("motdSpeed") != -1)
-                speed = Integer.toString((int) (Double.parseDouble(Settings.load("motdSpeed")) / 100.0 * 15.0));
+                speed = Integer.toString((int)(Double.parseDouble(Settings.load("motdSpeed")) / 100.0 * 15.0));
             Logger.setProgress(start + 1 * (part / 5));
             String text = Settings.load("motdText");
             Logger.setProgress(start + 2 * (part / 5));
@@ -136,8 +138,8 @@ public class HtmlWriter
                 if(!validate(""))
                     return;
 
-            FileReader reader = new FileReader("Data/", "TEMPLATE laufschrift.html");
-            FileWriter writer = new FileWriter("Data/", "laufschrift.html");
+            FileHandler reader = new FileHandler("Data/TEMPLATE laufschrift.html");
+            FileHandler writer = new FileHandler("Data/laufschrift.html");
             Logger.setProgress(start + 3 * (part / 5));
 
             String[] file = reader.read();
@@ -151,7 +153,8 @@ public class HtmlWriter
             Logger.setProgress(start + 5 * (part / 5));
 
             Logger.log("Laufschrift wurde generiert", 0);
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Laufschrift konnte nicht generiert werden", 2);
             Logger.error(ex);
@@ -203,8 +206,8 @@ public class HtmlWriter
             if(!validate(datum1, datum2, stufe1, stufe2, tabelle1, tabelle2, schrift1, schrift2, plan, schrift, tabelle, frame))
                 return;
 
-            FileReader reader = new FileReader("Data/", "TEMPLATE style.css");
-            FileWriter writer = new FileWriter("Data/", "style.css");
+            FileHandler reader = new FileHandler("Data/TEMPLATE style.css");
+            FileHandler writer = new FileHandler("Data/style.css");
 
             String[] file = reader.read();
             for(int i = 0; i < file.length; i++)
@@ -226,7 +229,8 @@ public class HtmlWriter
             writer.write(file);
 
             Logger.log("Style wurde generiert", 0);
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Style konnte nicht generiert werden", 2);
             Logger.error(ex);
@@ -267,7 +271,8 @@ public class HtmlWriter
 
             write.addAll(forSql);
 
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Datenbank konnte nicht aktualisiert werden", 2);
             Logger.error(ex);
@@ -305,7 +310,8 @@ public class HtmlWriter
                 s += schoolClass.toString();
             }
             return s;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Schulklassen konnten nicht formatiert werden", 2);
             Logger.error(ex);
@@ -327,7 +333,8 @@ public class HtmlWriter
             if(schoolClasses == null)
                 return "Keine Vertretungen";
             return Time.htmlWriting(schoolClasses[0].getCurDate());
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Konnte den Kopf der Seite nicht generieren", 2);
             Logger.error(ex);
@@ -353,7 +360,8 @@ public class HtmlWriter
                     return false;
                 }
             return true;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Einstellungen konnten nicht bestätigt werden", 2);
             Logger.error(ex);
