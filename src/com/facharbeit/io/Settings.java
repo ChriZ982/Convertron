@@ -8,15 +8,7 @@ import java.util.*;
  */
 public class Settings
 {
-    /**
-     * Writer für das Speichern der Einstellungen.
-     */
-    private static FileWriter writer;
-
-    /**
-     * Reader für das Laden der Einstellungen.
-     */
-    private static FileReader reader;
+    private static FileHandler fileHandler;
 
     /**
      * Soll das Logging aktiviert werden?.
@@ -30,14 +22,13 @@ public class Settings
     {
         try
         {
-            writer = new FileWriter("Data/", "settings.ini");
-            reader = new FileReader("Data/", "settings.ini");
+            fileHandler = new FileHandler("Data/settings.ini");
             logging = true;
 
-            if(!reader.exists())
-                writer.create();
-            else
-                Logger.log("\"settings.ini\" wurde geladen", 0);
+//            if(!reader.exists())
+//                writer.create();
+//            else
+            Logger.log("\"settings.ini\" wurde geladen", 0);
         }
         catch(Exception ex)
         {
@@ -56,12 +47,18 @@ public class Settings
     {
         try
         {
+            if(setting.equals(""))
+            {
+                delete(name);
+                return;
+            }
+
             int line = line(name);
             String settings = name + ": \"" + setting + "\"";
             if(line == -1)
-                writer.write(reader.length(), settings);
+                fileHandler.write(fileHandler.length(), settings);
             else
-                writer.write(line, settings);
+                fileHandler.write(line, settings);
 
             if(logging)
                 Logger.log("Einstellung \"" + name + "\" gespeichert", 0);
@@ -93,7 +90,7 @@ public class Settings
             }
             else
             {
-                String setting = reader.read(line);
+                String setting = fileHandler.read(line);
                 setting = setting.substring((name + ": \"").length());
                 setting = setting.substring(0, setting.length() - 1);
                 return setting;
@@ -119,7 +116,7 @@ public class Settings
         try
         {
             ArrayList<String> names = new ArrayList<String>();
-            String[] file = reader.read();
+            String[] file = fileHandler.read();
 
             for(String s : file)
                 if(s.startsWith(name))
@@ -150,7 +147,7 @@ public class Settings
         {
             logging = false;
             ArrayList<String> values = new ArrayList<String>();
-            String[] file = reader.read();
+            String[] file = fileHandler.read();
 
             for(String s : file)
                 if(s.startsWith(name))
@@ -184,10 +181,10 @@ public class Settings
             if(line != -1)
             {
                 ArrayList<String> content = new ArrayList<String>();
-                content.addAll(Arrays.asList(reader.read()));
+                content.addAll(Arrays.asList(fileHandler.read()));
                 content.remove(line);
 
-                writer.write(content.toArray(new String[]
+                fileHandler.write(content.toArray(new String[]
                 {
                 }));
 
@@ -216,7 +213,7 @@ public class Settings
     {
         try
         {
-            String[] content = reader.read();
+            String[] content = fileHandler.read();
             int line = -1;
 
             for(int i = 0; i < content.length; i++)
@@ -261,9 +258,9 @@ public class Settings
     {
         try
         {
-            List<String> settings = Arrays.asList(reader.read());
+            List<String> settings = Arrays.asList(fileHandler.read());
             Collections.sort(settings, String.CASE_INSENSITIVE_ORDER);
-            writer.write((String[])settings.toArray());
+            fileHandler.write((String[])settings.toArray());
         }
         catch(Exception ex)
         {

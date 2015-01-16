@@ -10,6 +10,15 @@
 <project name="Facharbeit" default="default" basedir=".">
     <description>Builds, tests, and runs the project Facharbeit.</description>
     <import file="nbproject/build-impl.xml"/>
+	
+	<target name="-post-compile">
+		<copy todir="${dist.dir}">
+			<fileset dir="./copytodist">
+				<include name="**/**"/>
+			</fileset>
+		</copy>
+	</target>
+	
     <!--
 
     There exist several targets which are by default empty and which can be 

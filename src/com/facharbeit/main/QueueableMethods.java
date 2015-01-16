@@ -4,9 +4,6 @@ import com.facharbeit.io.*;
 import com.facharbeit.tools.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
-import java.nio.file.*;
-import java.nio.file.attribute.*;
 import java.util.*;
 import javax.swing.*;
 
@@ -82,69 +79,46 @@ public class QueueableMethods
         Logger.log("Backup wurde fertiggestellt", 0);
     }
 
-    public static void deleteSourceBtnActionPerformed()
+    public static void copySourceBtnActionPerformed()
     {
-        try
+        Logger.setLogging(false);
+        FolderHandler folder = new FolderHandler(Settings.load("pathSource"));
+        if(!folder.isEmpty())
         {
-            Files.walkFileTree(Paths.get(Settings.load("pathSource") + "\\"), new SimpleFileVisitor<Path>()
-                       {
-                           @Override
-                           public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
-                                   throws IOException
-                           {
-                               Files.delete(file);
-                               return FileVisitResult.CONTINUE;
-                           }
-
-                           @Override
-                           public FileVisitResult postVisitDirectory(Path dir, IOException e)
-                                   throws IOException
-                           {
-                               if(e == null)
-                               {
-                                   Files.delete(dir);
-                                   return FileVisitResult.CONTINUE;
-                               }
-                               else
-                                   // directory iteration failed
-                                   throw e;
-                           }
-            });
+            new FolderHandler("./Data/Source/").delete();
+            folder.copyContent("./Data/Source/");
+            folder.delete();
         }
-        catch(IOException ex)
-        {
-            Logger.log("Quellpläne konnten nicht gelöscht werden!", 2);
-            return;
-        }
-        Logger.log("Quellpläne wurden gelöscht", 0);
+        Logger.setLogging(true);
+        Logger.log("Quellpläne wurden kopiert", 0);
     }
 
     // Einstellungen
     public static void settingsSaveBtnActionPerformed(JTextField hour1Txt, JTextField hour2Txt, JTextField hour3Txt,
                                                       JTextField hour4Txt, JTextField hour5Txt, JTextField hour6Txt,
                                                       JTextField hour7Txt, JTextField hour8Txt, JTextField hour9Txt,
-                                                      JTextField hour10Txt, JCheckBox useHoursCheck, JCheckBox autoBackupCheck, JCheckBox autoGenCheck,
+                                                      JTextField hour10Txt, JCheckBox useHoursCheck, JCheckBox autoBackupCheck,
                                                       JTextField speedPlanTxt, JTextField speedMotdTxt, JTable table,
                                                       JTextField weekTxt, JTextField sourceTodayTxt, JTextField sourceTomorrowTxt,
                                                       JCheckBox customSourceCheck)
     {
-        saveIfNotNull(hour1Txt, "lesson01");
-        saveIfNotNull(hour2Txt, "lesson02");
-        saveIfNotNull(hour3Txt, "lesson03");
-        saveIfNotNull(hour4Txt, "lesson04");
-        saveIfNotNull(hour5Txt, "lesson05");
-        saveIfNotNull(hour6Txt, "lesson06");
-        saveIfNotNull(hour7Txt, "lesson07");
-        saveIfNotNull(hour8Txt, "lesson08");
-        saveIfNotNull(hour9Txt, "lesson09");
-        saveIfNotNull(hour10Txt, "lesson10");
-        saveIfNotNull(speedPlanTxt, "planSpeed");
-        saveIfNotNull(speedMotdTxt, "motdSpeed");
-        saveIfNotNull(weekTxt, "customWeek");
-        saveIfNotNull(sourceTodayTxt, "customToday");
-        saveIfNotNull(sourceTomorrowTxt, "customTomorrow");
+        saveText(hour1Txt, "lesson01");
+        saveText(hour2Txt, "lesson02");
+        saveText(hour3Txt, "lesson03");
+        saveText(hour4Txt, "lesson04");
+        saveText(hour5Txt, "lesson05");
+        saveText(hour6Txt, "lesson06");
+        saveText(hour7Txt, "lesson07");
+        saveText(hour8Txt, "lesson08");
+        saveText(hour9Txt, "lesson09");
+        saveText(hour10Txt, "lesson10");
+        saveText(speedPlanTxt, "planSpeed");
+        saveText(speedMotdTxt, "motdSpeed");
+        saveText(weekTxt, "customWeek");
+        saveText(sourceTodayTxt, "customToday");
+        saveText(sourceTomorrowTxt, "customTomorrow");
 
-        Settings.save("customDate", String.valueOf(customSourceCheck.isSelected()));
+        saveCheck(customSourceCheck, "customDate");
 
         String[] order = new String[7];
         for(int i = 0; i < 7; i++)
@@ -185,22 +159,22 @@ public class QueueableMethods
                          + order[6];
 
         Settings.save("lessonOrder", setting);
-        Settings.save("lessonUse", String.valueOf(useHoursCheck.isSelected()));
-        Settings.save("autoBackup", String.valueOf(autoBackupCheck.isSelected()));
-        Settings.save("autoGen", String.valueOf(autoGenCheck.isSelected()));
+        saveCheck(useHoursCheck, "lessonUse");
+        saveCheck(autoBackupCheck, "autoBackup");
     }
 
     // Pfade
-    @SuppressWarnings("empty-statement")
     public static void savePathBtnActionPerformed(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea)
     {
-        saveIfNotNull(sourceTxt, "pathSource");
-        saveIfNotNull(backupTxt, "pathBackup");
+        saveText(sourceTxt, "pathSource");
+        saveText(backupTxt, "pathBackup");
 
         ArrayList<String> destPaths = new ArrayList<String>();
         destPaths.addAll(Arrays.asList(destArea.getText().split("\n")));
 
-        for(int i = 0; Settings.delete("pathDest" + (i + 1)); i++);
+        for(int i = 0; Settings.delete("pathDest" + (i + 1)); i++)
+        {
+        }
 
         if(!destArea.getText().equals(""))
             for(int i = 0; i < destPaths.size(); i++)
@@ -208,210 +182,157 @@ public class QueueableMethods
     }
 
     // Design
-    public static void addColorBtnActionPerformed(JColorChooser colorChooser, JTextField colorNameTxt, JComboBox colorPlanCombo,
-                                                  JComboBox colorMotdCombo, JComboBox colorTableCombo, JComboBox colorBorderCombo,
-                                                  JComboBox fontColorCombo, JComboBox backgroundColorCombo)
+    public static void addColorBtnActionPerformed(JColorChooser colorChooser, JTextField colorNameTxt, JComboBox<String> colorPlanCombo,
+                                                  JComboBox<String> colorMotdCombo, JComboBox<String> colorTableCombo, JComboBox<String> colorBorderCombo,
+                                                  JComboBox<String> fontColorCombo, JComboBox<String> backgroundColorCombo)
     {
         Color c = JColorChooser.showDialog(colorChooser, "Neue Farbe anlegen", Color.BLUE);
-
         if(c != null)
         {
             Settings.save("color" + colorNameTxt.getText(), "#" + Integer.toHexString(c.getRGB()).substring(2));
             loadColors(colorPlanCombo, colorMotdCombo, colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo);
 
-            colorPlanCombo.setSelectedItem(Settings.load("planColor"));
-            colorMotdCombo.setSelectedItem(Settings.load("motdColor"));
-            colorTableCombo.setSelectedItem(Settings.load("tableColor"));
-            colorBorderCombo.setSelectedItem(Settings.load("borderColor"));
+            loadCombo(colorPlanCombo, "planColor");
+            loadCombo(colorMotdCombo, "motdColor");
+            loadCombo(colorTableCombo, "tableColor");
+            loadCombo(colorBorderCombo, "borderColor");
         }
     }
 
-    public static void deleteColorBtnActionPerformed(JTextField colorNameTxt, JComboBox colorPlanCombo, JComboBox colorMotdCombo,
-                                                     JComboBox colorTableCombo, JComboBox colorBorderCombo, JComboBox fontColorCombo,
-                                                     JComboBox backgroundColorCombo)
+    public static void deleteColorBtnActionPerformed(JTextField colorNameTxt, JComboBox<String> colorPlanCombo, JComboBox<String> colorMotdCombo,
+                                                     JComboBox<String> colorTableCombo, JComboBox<String> colorBorderCombo, JComboBox<String> fontColorCombo,
+                                                     JComboBox<String> backgroundColorCombo)
     {
         Settings.delete("color" + colorNameTxt.getText());
         loadColors(colorPlanCombo, colorMotdCombo, colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo);
 
-        colorPlanCombo.setSelectedItem(Settings.load("planColor"));
-        colorMotdCombo.setSelectedItem(Settings.load("motdColor"));
-        colorTableCombo.setSelectedItem(Settings.load("tableColor"));
-        colorBorderCombo.setSelectedItem(Settings.load("borderColor"));
+        loadCombo(colorPlanCombo, "planColor");
+        loadCombo(colorMotdCombo, "motdColor");
+        loadCombo(colorTableCombo, "tableColor");
+        loadCombo(colorBorderCombo, "borderColor");
     }
 
     public static void colorPlanComboItemStateChanged(JPanel colorPlanPanel, JComboBox colorPlanCombo, ItemEvent evt)
     {
-        if(evt.getStateChange() == ItemEvent.SELECTED)
-        {
-            if(!colorPlanCombo.getSelectedItem().equals("Keine Farbe"))
-                colorPlanPanel.setBackground(Color.decode(Settings.load("color" + colorPlanCombo.getSelectedItem().toString())));
-
-            if(!Settings.load("planColor").equals(colorPlanCombo.getSelectedItem().toString()) && !colorPlanCombo.getSelectedItem().toString().equals("Keine Farbe"))
-                Settings.save("planColor", colorPlanCombo.getSelectedItem().toString());
-        }
+        colorComboChanged("planColor", colorPlanPanel, colorPlanCombo, evt);
     }
 
     public static void colorMotdComboItemStateChanged(JPanel colorMotdPanel, JComboBox colorMotdCombo, ItemEvent evt)
     {
-        if(evt.getStateChange() == ItemEvent.SELECTED)
-        {
-            if(!colorMotdCombo.getSelectedItem().equals("Keine Farbe"))
-                colorMotdPanel.setBackground(Color.decode(Settings.load("color" + colorMotdCombo.getSelectedItem().toString())));
-
-            if(!Settings.load("motdColor").equals(colorMotdCombo.getSelectedItem().toString()) && !colorMotdCombo.getSelectedItem().toString().equals("Keine Farbe"))
-                Settings.save("motdColor", colorMotdCombo.getSelectedItem().toString());
-        }
+        colorComboChanged("motdColor", colorMotdPanel, colorMotdCombo, evt);
     }
 
     public static void colorTableComboItemStateChanged(JPanel colorTablePanel, JComboBox colorTableCombo, ItemEvent evt)
     {
-        if(evt.getStateChange() == ItemEvent.SELECTED)
-        {
-            if(!colorTableCombo.getSelectedItem().equals("Keine Farbe"))
-                colorTablePanel.setBackground(Color.decode(Settings.load("color" + colorTableCombo.getSelectedItem().toString())));
-
-            if(!Settings.load("tableColor").equals(colorTableCombo.getSelectedItem().toString()) && !colorTableCombo.getSelectedItem().toString().equals("Keine Farbe"))
-                Settings.save("tableColor", colorTableCombo.getSelectedItem().toString());
-        }
+        colorComboChanged("tableColor", colorTablePanel, colorTableCombo, evt);
     }
 
     public static void colorBorderComboItemStateChanged(JPanel colorBorderPanel, JComboBox colorBorderCombo, ItemEvent evt)
     {
+        colorComboChanged("borderColor", colorBorderPanel, colorBorderCombo, evt);
+    }
+
+    private static void colorComboChanged(String name, JPanel colorPanel, JComboBox colorCombo, ItemEvent evt)
+    {
         if(evt.getStateChange() == ItemEvent.SELECTED)
         {
-            if(!colorBorderCombo.getSelectedItem().equals("Keine Farbe"))
-                colorBorderPanel.setBackground(Color.decode(Settings.load("color" + colorBorderCombo.getSelectedItem().toString())));
+            if(!colorCombo.getSelectedItem().equals("Keine Farbe"))
+                colorPanel.setBackground(Color.decode(Settings.load("color" + colorCombo.getSelectedItem().toString())));
 
-            if(!Settings.load("borderColor").equals(colorBorderCombo.getSelectedItem().toString()) && !colorBorderCombo.getSelectedItem().toString().equals("Keine Farbe"))
-                Settings.save("borderColor", colorBorderCombo.getSelectedItem().toString());
+            if(!Settings.load(name).equals(colorCombo.getSelectedItem().toString()) && !colorCombo.getSelectedItem().toString().equals("Keine Farbe"))
+                Settings.save(name, colorCombo.getSelectedItem().toString());
         }
     }
 
-    public static void typeToEditComboItemStateChanged(JComboBox typeToEditCombo, JComboBox fontColorCombo,
-                                                       JPanel fontColorPanel, JComboBox backgroundColorCombo,
+    public static void typeToEditComboItemStateChanged(JComboBox<String> typeToEditCombo, JComboBox<String> fontColorCombo,
+                                                       JPanel fontColorPanel, JComboBox<String> backgroundColorCombo,
                                                        JPanel backgroundColorPanel, JTextField fontTypeTxt,
                                                        JTextField fontSizeTxt, JCheckBox boldCheck, JCheckBox italicCheck,
                                                        ItemEvent evt)
     {
         if(evt.getStateChange() == ItemEvent.SELECTED)
         {
-            fontColorCombo.setSelectedItem("Keine Farbe");
-            backgroundColorCombo.setSelectedItem("Keine Farbe");
             fontTypeTxt.setText("");
             fontSizeTxt.setText("");
             boldCheck.setSelected(false);
             italicCheck.setSelected(false);
-            String s;
-            if(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"))
-                s = "Art" + typeToEditCombo.getSelectedItem().toString().substring(5).replaceAll("\\.", "") + "FontColor";
-            else
-                s = typeToEditCombo.getSelectedItem().toString() + "FontColor";
-            fontColorCombo.setSelectedItem(Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)));
+            fontColorCombo.setSelectedItem("Keine Farbe");
+            backgroundColorCombo.setSelectedItem("Keine Farbe");
+
+            String s = extractName(typeToEditCombo, "FontColor");
+            loadCombo(fontColorCombo, Character.toLowerCase(s.charAt(0)) + s.substring(1));
             if(!fontColorCombo.getSelectedItem().equals("Keine Farbe"))
                 fontColorPanel.setBackground(Color.decode(Settings.load("color" + fontColorCombo.getSelectedItem().toString())));
 
             if(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"))
             {
                 s = "Art" + typeToEditCombo.getSelectedItem().toString().substring(5).replaceAll("\\.", "") + "BackColor";
-                backgroundColorCombo.setSelectedItem(Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)));
+                loadCombo(backgroundColorCombo, Character.toLowerCase(s.charAt(0)) + s.substring(1));
                 if(!backgroundColorCombo.getSelectedItem().equals("Keine Farbe"))
                     backgroundColorPanel.setBackground(Color.decode(Settings.load("color" + backgroundColorCombo.getSelectedItem().toString())));
             }
 
-            if(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"))
-                s = "Art" + typeToEditCombo.getSelectedItem().toString().substring(5).replaceAll("\\.", "") + "FontFamily";
-            else
-                s = typeToEditCombo.getSelectedItem().toString() + "FontFamily";
-            fontTypeTxt.setText(Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)));
+            s = extractName(typeToEditCombo, "FontFamily");
+            loadText(fontTypeTxt, Character.toLowerCase(s.charAt(0)) + s.substring(1));
 
-            if(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"))
-                s = "Art" + typeToEditCombo.getSelectedItem().toString().substring(5).replaceAll("\\.", "") + "FontSize";
-            else
-                s = typeToEditCombo.getSelectedItem().toString() + "FontSize";
-            fontSizeTxt.setText(Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)));
+            s = extractName(typeToEditCombo, "FontSize");
+            loadText(fontSizeTxt, Character.toLowerCase(s.charAt(0)) + s.substring(1));
 
-            boldCheck.setSelected(false);
-            italicCheck.setSelected(false);
-            if(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"))
-                s = "Art" + typeToEditCombo.getSelectedItem().toString().substring(5).replaceAll("\\.", "") + "FontStyle";
-            else
-                s = typeToEditCombo.getSelectedItem().toString() + "FontStyle";
+            s = extractName(typeToEditCombo, "FontStyle");
             String bool = Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1));
             if(bool.equals("bold"))
                 boldCheck.setSelected(true);
             else if(bool.equals("italic"))
                 italicCheck.setSelected(true);
             else if(Settings.line(Character.toLowerCase(s.charAt(0)) + s.substring(1)) == -1)
-                Settings.save(Character.toLowerCase(s.charAt(0)) + s.substring(1), "");
+                Settings.save(Character.toLowerCase(s.charAt(0)) + s.substring(1), "none");
         }
     }
 
-    public static void fontColorComboItemStateChanged(JPanel fontColorPanel, JComboBox fontColorCombo, JComboBox typeToEditCombo, ItemEvent evt)
+    public static void fontColorComboItemStateChanged(JPanel fontColorPanel, JComboBox<String> fontColorCombo, JComboBox<String> typeToEditCombo, ItemEvent evt)
     {
         if(evt.getStateChange() == ItemEvent.SELECTED)
         {
             if(!fontColorCombo.getSelectedItem().equals("Keine Farbe"))
                 fontColorPanel.setBackground(Color.decode(Settings.load("color" + fontColorCombo.getSelectedItem().toString())));
 
-            String s;
-            if(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"))
-                s = "Art" + typeToEditCombo.getSelectedItem().toString().substring(5).replaceAll("\\.", "") + "FontColor";
-            else
-                s = typeToEditCombo.getSelectedItem().toString() + "FontColor";
+            String s = extractName(typeToEditCombo, "FontColor");
             if(!Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)).equals(fontColorCombo.getSelectedItem().toString()) && !fontColorCombo.getSelectedItem().toString().equals("Keine Farbe"))
                 Settings.save(Character.toLowerCase(s.charAt(0)) + s.substring(1), fontColorCombo.getSelectedItem().toString());
         }
     }
 
-    public static void backgroundColorComboItemStateChanged(JPanel backgroundColorPanel, JComboBox backgroundColorCombo, JComboBox typeToEditCombo, ItemEvent evt)
+    public static void backgroundColorComboItemStateChanged(JPanel backgroundColorPanel, JComboBox<String> backgroundColorCombo, JComboBox<String> typeToEditCombo, ItemEvent evt)
     {
         if(!backgroundColorCombo.getSelectedItem().equals("Keine Farbe"))
             backgroundColorPanel.setBackground(Color.decode(Settings.load("color" + backgroundColorCombo.getSelectedItem().toString())));
 
         if(evt.getStateChange() == ItemEvent.SELECTED && typeToEditCombo.getSelectedItem().toString().startsWith("Art:"))
         {
-            String s;
-            if(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"))
-                s = "Art" + typeToEditCombo.getSelectedItem().toString().substring(5).replaceAll("\\.", "") + "BackColor";
-            else
-                s = typeToEditCombo.getSelectedItem().toString() + "BackColor";
+            String s = extractName(typeToEditCombo, "BackColor");
             if(!Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)).equals(backgroundColorCombo.getSelectedItem().toString()) && !backgroundColorCombo.getSelectedItem().toString().equals("Keine Farbe"))
                 Settings.save(Character.toLowerCase(s.charAt(0)) + s.substring(1), backgroundColorCombo.getSelectedItem().toString());
         }
     }
 
-    public static void fontTypeTxtActionPerformed(JTextField fontTypeTxt, JComboBox typeToEditCombo)
+    public static void fontTypeTxtActionPerformed(JTextField fontTypeTxt, JComboBox<String> typeToEditCombo)
     {
-        String s;
-        if(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"))
-            s = "Art" + typeToEditCombo.getSelectedItem().toString().substring(5).replaceAll("\\.", "") + "FontFamily";
-        else
-            s = typeToEditCombo.getSelectedItem().toString() + "FontFamily";
-
+        String s = extractName(typeToEditCombo, "FontFamily");
         if(!Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)).equals(fontTypeTxt.getText()))
             Settings.save(Character.toLowerCase(s.charAt(0)) + s.substring(1), fontTypeTxt.getText());
     }
 
-    public static void fontSizeTxtActionPerformed(JTextField fontSizeTxt, JComboBox typeToEditCombo)
+    public static void fontSizeTxtActionPerformed(JTextField fontSizeTxt, JComboBox<String> typeToEditCombo)
     {
-        String s;
-        if(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"))
-            s = "Art" + typeToEditCombo.getSelectedItem().toString().substring(5).replaceAll("\\.", "") + "FontSize";
-        else
-            s = typeToEditCombo.getSelectedItem().toString() + "FontSize";
-
+        String s = extractName(typeToEditCombo, "FontSize");
         if(!Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)).equals(fontSizeTxt.getText()))
             Settings.save(Character.toLowerCase(s.charAt(0)) + s.substring(1), fontSizeTxt.getText());
     }
 
-    public static void styleCheckActionPerformed(JCheckBox boldCheck, JCheckBox italicCheck, JComboBox typeToEditCombo)
+    public static void styleCheckActionPerformed(JCheckBox boldCheck, JCheckBox italicCheck, JComboBox<String> typeToEditCombo)
     {
-        String name;
         String setting = "";
-        if(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"))
-            name = "Art" + typeToEditCombo.getSelectedItem().toString().substring(5).replaceAll("\\.", "") + "FontStyle";
-        else
-            name = typeToEditCombo.getSelectedItem().toString() + "FontStyle";
+        String name = extractName(typeToEditCombo, "FontStyle");
 
         if(italicCheck.isSelected())
             setting += "italic";
@@ -421,7 +342,17 @@ public class QueueableMethods
         Settings.save(Character.toLowerCase(name.charAt(0)) + name.substring(1), setting);
     }
 
-    public static void addTypeBtnActionPerformed(JTextField typeToEditTxt, JComboBox typeToEditCombo)
+    private static String extractName(JComboBox<String> combo, String type)
+    {
+        String s;
+        if(combo.getSelectedItem().toString().startsWith("Art:"))
+            s = "Art" + combo.getSelectedItem().toString().substring(5).replaceAll("\\.", "") + type;
+        else
+            s = combo.getSelectedItem().toString() + type;
+        return s;
+    }
+
+    public static void addTypeBtnActionPerformed(JTextField typeToEditTxt, JComboBox<String> typeToEditCombo)
     {
         typeToEditCombo.addItem("Art: " + typeToEditTxt.getText());
     }
@@ -448,17 +379,17 @@ public class QueueableMethods
                                                  JTextField dbUserTxt, JTextField dbPwTxt, JTextField dbTableNameTxt,
                                                  JCheckBox useSQLCheck, JRadioButton[] sqlMode)
     {
-        Settings.save("sqlUse", String.valueOf(useSQLCheck.isSelected()));
+        saveCheck(useSQLCheck, "sqlUse");
         for(JRadioButton b : sqlMode)
             if(b.isSelected())
                 Settings.save("sqlMode", b.getText());
 
-        saveIfNotNull(dbHostTxt, "sqlHost");
-        saveIfNotNull(dbPortTxt, "sqlPort");
-        saveIfNotNull(dbNameTxt, "sqlName");
-        saveIfNotNull(dbUserTxt, "sqlUser");
-        saveIfNotNull(dbPwTxt, "sqlPassw");
-        saveIfNotNull(dbTableNameTxt, "sqlTableName");
+        saveText(dbHostTxt, "sqlHost");
+        saveText(dbPortTxt, "sqlPort");
+        saveText(dbNameTxt, "sqlName");
+        saveText(dbUserTxt, "sqlUser");
+        saveText(dbPwTxt, "sqlPassw");
+        saveText(dbTableNameTxt, "sqlTableName");
     }
 
     /**
@@ -473,53 +404,51 @@ public class QueueableMethods
     }
 
     // Anderes
-    @SuppressWarnings("unchecked")
     public static void loadSettings(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea, JTextField speedPlanTxt,
-                                    JTextField speedMotdTxt, JComboBox colorPlanCombo, JComboBox colorMotdCombo,
+                                    JTextField speedMotdTxt, JComboBox<String> colorPlanCombo, JComboBox<String> colorMotdCombo,
                                     JTextField motdTxt, JCheckBox useSQLCheck, JTextField dbHostTxt, JTextField dbPortTxt,
                                     JTextField dbNameTxt, JTextField dbUserTxt, JTextField dbPwTxt, JTextField dbTableNameTxt,
                                     JRadioButton[] sqlMode, JTextField hour1Txt, JTextField hour2Txt, JTextField hour3Txt, JTextField hour4Txt,
                                     JTextField hour5Txt, JTextField hour6Txt, JTextField hour7Txt, JTextField hour8Txt,
-                                    JTextField hour9Txt, JTextField hour10Txt, JCheckBox autoBackupCheck, JCheckBox autoGenCheck,
+                                    JTextField hour9Txt, JTextField hour10Txt, JCheckBox autoBackupCheck,
                                     JCheckBox useHoursCheck, JCheckBox customSourceCheck, JTextField sourceTodayTxt,
-                                    JTextField sourceTomorrowTxt, JComboBox colorTableCombo, JComboBox colorBorderCombo,
-                                    JComboBox fontColorCombo, JComboBox backgroundColorCombo, JTextField fontTypeTxt,
-                                    JTextField fontSizeTxt, JCheckBox boldCheck, JCheckBox italicCheck, JComboBox typeToEditCombo,
+                                    JTextField sourceTomorrowTxt, JComboBox<String> colorTableCombo, JComboBox<String> colorBorderCombo,
+                                    JComboBox<String> fontColorCombo, JComboBox<String> backgroundColorCombo, JTextField fontTypeTxt,
+                                    JTextField fontSizeTxt, JCheckBox boldCheck, JCheckBox italicCheck, JComboBox<String> typeToEditCombo,
                                     JTable table, JTextField weekTxt)
     {
-        load(sourceTxt, "pathSource");
-        load(backupTxt, "pathBackup");
-        load(motdTxt, "motdText");
-        load(speedPlanTxt, "planSpeed");
-        load(speedMotdTxt, "motdSpeed");
-        load(dbHostTxt, "sqlHost");
-        load(dbPortTxt, "sqlPort");
-        load(dbNameTxt, "sqlName");
-        load(dbUserTxt, "sqlUser");
-        load(dbPwTxt, "sqlPassw");
-        load(dbTableNameTxt, "sqlTableName");
-        load(hour1Txt, "lesson01");
-        load(hour2Txt, "lesson02");
-        load(hour3Txt, "lesson03");
-        load(hour4Txt, "lesson04");
-        load(hour5Txt, "lesson05");
-        load(hour6Txt, "lesson06");
-        load(hour7Txt, "lesson07");
-        load(hour8Txt, "lesson08");
-        load(hour9Txt, "lesson09");
-        load(hour10Txt, "lesson10");
-        load(sourceTodayTxt, "customToday");
-        load(sourceTomorrowTxt, "customTomorrow");
-        load(weekTxt, "customWeek");
+        loadText(sourceTxt, "pathSource");
+        loadText(backupTxt, "pathBackup");
+        loadText(motdTxt, "motdText");
+        loadText(speedPlanTxt, "planSpeed");
+        loadText(speedMotdTxt, "motdSpeed");
+        loadText(dbHostTxt, "sqlHost");
+        loadText(dbPortTxt, "sqlPort");
+        loadText(dbNameTxt, "sqlName");
+        loadText(dbUserTxt, "sqlUser");
+        loadText(dbPwTxt, "sqlPassw");
+        loadText(dbTableNameTxt, "sqlTableName");
+        loadText(hour1Txt, "lesson01");
+        loadText(hour2Txt, "lesson02");
+        loadText(hour3Txt, "lesson03");
+        loadText(hour4Txt, "lesson04");
+        loadText(hour5Txt, "lesson05");
+        loadText(hour6Txt, "lesson06");
+        loadText(hour7Txt, "lesson07");
+        loadText(hour8Txt, "lesson08");
+        loadText(hour9Txt, "lesson09");
+        loadText(hour10Txt, "lesson10");
+        loadText(sourceTodayTxt, "customToday");
+        loadText(sourceTomorrowTxt, "customTomorrow");
+        loadText(weekTxt, "customWeek");
 
         if(Settings.load("motdText").equals("") || Settings.load("motdText").equals("Laufschrift"))
             motdTxt.setForeground(Color.GRAY);
 
-        useSQLCheck.setSelected(Boolean.valueOf(Settings.load("sqlUse")));
-        autoBackupCheck.setSelected(Boolean.valueOf(Settings.load("autoBackup")));
-        autoGenCheck.setSelected(Boolean.valueOf(Settings.load("autoGen")));
-        useHoursCheck.setSelected(Boolean.valueOf(Settings.load("lessonUse")));
-        customSourceCheck.setSelected(Boolean.valueOf(Settings.load("customDate")));
+        loadCheck(useSQLCheck, "sqlUse");
+        loadCheck(autoBackupCheck, "autoBackup");
+        loadCheck(useHoursCheck, "lessonUse");
+        loadCheck(customSourceCheck, "customDate");
 
         if(Settings.load("sqlMode").equals("lesen"))
             sqlMode[0].setSelected(true);
@@ -541,59 +470,29 @@ public class QueueableMethods
 
         loadColors(colorPlanCombo, colorMotdCombo, colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo);
 
-        colorPlanCombo.setSelectedItem(Settings.load("planColor"));
-        colorMotdCombo.setSelectedItem(Settings.load("motdColor"));
-        colorTableCombo.setSelectedItem(Settings.load("tableColor"));
-        colorBorderCombo.setSelectedItem(Settings.load("borderColor"));
+        loadCombo(colorPlanCombo, "planColor");
+        loadCombo(colorMotdCombo, "motdColor");
+        loadCombo(colorTableCombo, "tableColor");
+        loadCombo(colorBorderCombo, "borderColor");
+        loadCombo(fontColorCombo, "überschriftFontColor");
 
-        fontColorCombo.setSelectedItem(Settings.load("überschriftFontColor"));
-        fontTypeTxt.setText(Settings.load("überschriftFontFamily"));
-        fontSizeTxt.setText(Settings.load("überschriftFontSize"));
+        loadText(fontTypeTxt, "überschriftFontFamily");
+        loadText(fontSizeTxt, "überschriftFontSize");
 
         ArrayList<String> settingNames = new ArrayList<String>();
-        String[] setting = Settings.loadNames("art");
-        for(String s : setting)
+        String[] settings = Settings.loadNames("art");
+        for(String s : settings)
         {
             if(s.contains("FontColor"))
-            {
-                if(!settingNames.contains(s.substring(3, s.indexOf("FontColor"))))
-                {
-                    typeToEditCombo.addItem("Art: " + s.substring(3, s.indexOf("FontColor")));
-                    settingNames.add(s.substring(3, s.indexOf("FontColor")));
-                }
-            }
+                checkArt(settingNames, typeToEditCombo, s, "FontColor");
             else if(s.contains("BackColor"))
-            {
-                if(!settingNames.contains(s.substring(3, s.indexOf("BackColor"))))
-                {
-                    typeToEditCombo.addItem("Art: " + s.substring(3, s.indexOf("BackColor")));
-                    settingNames.add(s.substring(3, s.indexOf("BackColor")));
-                }
-            }
+                checkArt(settingNames, typeToEditCombo, s, "BackColor");
             else if(s.contains("FontFamily"))
-            {
-                if(!settingNames.contains(s.substring(3, s.indexOf("FontFamily"))))
-                {
-                    typeToEditCombo.addItem("Art: " + s.substring(3, s.indexOf("FontFamily")));
-                    settingNames.add(s.substring(3, s.indexOf("FontFamily")));
-                }
-            }
+                checkArt(settingNames, typeToEditCombo, s, "FontFamily");
             else if(s.contains("FontSize"))
-            {
-                if(!settingNames.contains(s.substring(3, s.indexOf("FontSize"))))
-                {
-                    typeToEditCombo.addItem("Art: " + s.substring(3, s.indexOf("FontSize")));
-                    settingNames.add(s.substring(3, s.indexOf("FontSize")));
-                }
-            }
+                checkArt(settingNames, typeToEditCombo, s, "FontSize");
             else if(s.contains("FontStyle"))
-            {
-                if(!settingNames.contains(s.substring(3, s.indexOf("FontStyle"))))
-                {
-                    typeToEditCombo.addItem("Art: " + s.substring(3, s.indexOf("FontStyle")));
-                    settingNames.add(s.substring(3, s.indexOf("FontStyle")));
-                }
-            }
+                checkArt(settingNames, typeToEditCombo, s, "FontStyle");
         }
 
         boldCheck.setSelected(false);
@@ -605,39 +504,46 @@ public class QueueableMethods
             italicCheck.setSelected(true);
 
         String[] order = Settings.load("lessonOrder").split(",");
-        if(order.length == 7)
-            for(int i = 0; i < 7; i++)
-                switch(order[i])
-                {
-                    case "0":
-                        table.getColumnModel().getColumn(i).setHeaderValue("Vertreter");
-                        table.getColumnModel().getColumn(i).setModelIndex(0);
-                        break;
-                    case "1":
-                        table.getColumnModel().getColumn(i).setHeaderValue("Raum");
-                        table.getColumnModel().getColumn(i).setModelIndex(1);
-                        break;
-                    case "2":
-                        table.getColumnModel().getColumn(i).setHeaderValue("Art");
-                        table.getColumnModel().getColumn(i).setModelIndex(2);
-                        break;
-                    case "3":
-                        table.getColumnModel().getColumn(i).setHeaderValue("Fach");
-                        table.getColumnModel().getColumn(i).setModelIndex(3);
-                        break;
-                    case "4":
-                        table.getColumnModel().getColumn(i).setHeaderValue("Lehrer");
-                        table.getColumnModel().getColumn(i).setModelIndex(4);
-                        break;
-                    case "5":
-                        table.getColumnModel().getColumn(i).setHeaderValue("Verl. von");
-                        table.getColumnModel().getColumn(i).setModelIndex(5);
-                        break;
-                    case "6":
-                        table.getColumnModel().getColumn(i).setHeaderValue("Hinweise");
-                        table.getColumnModel().getColumn(i).setModelIndex(6);
-                        break;
-                }
+        for(int i = 0; i < 7; i++)
+            switch(order[i])
+            {
+                case "0":
+                    loadTable(table, i, 0, "Vertreter");
+                    break;
+                case "1":
+                    loadTable(table, i, 1, "Raum");
+                    break;
+                case "2":
+                    loadTable(table, i, 2, "Art");
+                    break;
+                case "3":
+                    loadTable(table, i, 3, "Fach");
+                    break;
+                case "4":
+                    loadTable(table, i, 4, "Lehrer");
+                    break;
+                case "5":
+                    loadTable(table, i, 5, "Verl. von");
+                    break;
+                case "6":
+                    loadTable(table, i, 6, "Hinweise");
+                    break;
+            }
+    }
+
+    private static void checkArt(ArrayList<String> settingNames, JComboBox<String> combo, String setting, String name)
+    {
+        if(!settingNames.contains(setting.substring(3, setting.indexOf(name))))
+        {
+            combo.addItem("Art: " + setting.substring(3, setting.indexOf(name)));
+            settingNames.add(setting.substring(3, setting.indexOf(name)));
+        }
+    }
+
+    private static void loadTable(JTable table, int index, int newIndex, String head)
+    {
+        table.getColumnModel().getColumn(index).setHeaderValue(head);
+        table.getColumnModel().getColumn(index).setModelIndex(newIndex);
     }
 
     /**
@@ -645,9 +551,10 @@ public class QueueableMethods
      *
      * @param colorCombos ComboBoxen
      */
-    private static void loadColors(JComboBox... colorCombos)
+    @SafeVarargs
+    private static void loadColors(JComboBox<String>... colorCombos)
     {
-        for(JComboBox cb : colorCombos)
+        for(JComboBox<String> cb : colorCombos)
         {
             cb.removeAllItems();
             cb.addItem("Keine Farbe");
@@ -659,28 +566,34 @@ public class QueueableMethods
     }
 
     /**
-     * Speichert den Inhalt eines Textfeldes.
-     *
-     * @param field Textfeld
-     * @param name  Name der Einstellung
-     */
-    private static void saveIfNotNull(JTextField field, String name)
-    {
-        if(field.getText().equals(""))
-            Settings.delete(name);
-        else
-            Settings.save(name, field.getText());
-    }
-
-    /**
      * Lädt eine Einstellung in ein Textfeld.
      *
      * @param field Textfeld
      * @param name  Name der Einstellung
      */
-    private static void load(JTextField field, String name)
+    private static void loadText(JTextField field, String name)
     {
         field.setText(Settings.load(name));
+    }
+
+    private static void saveText(JTextField field, String name)
+    {
+        Settings.save(name, field.getText());
+    }
+
+    private static void loadCombo(JComboBox<String> box, String name)
+    {
+        box.setSelectedItem(Settings.load(name));
+    }
+
+    private static void loadCheck(JCheckBox box, String name)
+    {
+        box.setSelected(Boolean.valueOf(Settings.load(name)));
+    }
+
+    private static void saveCheck(JCheckBox box, String name)
+    {
+        Settings.save(name, String.valueOf(box.isSelected()));
     }
 
     /**
@@ -704,42 +617,12 @@ public class QueueableMethods
      */
     private static void backupAll(String path)
     {
-        backup(path, "heute.html", "morgen.html", "laufschrift.html",
-               "VERTRETUNGSPLAN.html", "TEMPLATE heute morgen.html", "TEMPLATE laufschrift.html",
-               "settings.ini", "style.css", "antonianumLogo.png");
-    }
-
-    /**
-     * Kopiert angegebene Dateien zu einem Pfad.
-     *
-     * @param path  Pfad
-     * @param files Dateien zum Kopieren
-     */
-    private static void backup(String path, String... files)
-    {
-        for(String file : files)
-            copy(file, path);
-    }
-
-    /**
-     * Kopiert eine Datei zu einem Pfad.
-     *
-     * @param file Dateiname
-     * @param path Pfad
-     */
-    private static void copy(String file, String path)
-    {
-        try
-        {
-            if(!Files.exists(Paths.get(path)))
-                Files.createDirectories(Paths.get(path));
-
-            Files.copy(Paths.get("Data\\" + file), Paths.get(path + "\\" + file), StandardCopyOption.REPLACE_EXISTING);
-        }
-        catch(Exception ex)
-        {
-            Logger.log("\"" + file + "\" konnte nicht kopiert werden", 2);
-            Logger.error(ex);
-        }
+        new FileHandler("Data/settings.ini").copy(path + "/", false);
+        new FileHandler("Data/heute.html").copy(path + "/", false);
+        new FileHandler("Data/morgen.html").copy(path + "/", false);
+        new FileHandler("Data/laufschrift.html").copy(path + "/", false);
+        new FileHandler("Data/style.css").copy(path + "/", false);
+        new FileHandler("Data/antonianumLogo.png").copy(path + "/", false);
+        new FileHandler("Data/VERTRETUNGSPLAN.html").copy(path + "/", false);
     }
 }

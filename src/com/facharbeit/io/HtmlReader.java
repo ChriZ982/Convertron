@@ -1,6 +1,5 @@
 package com.facharbeit.io;
 
-import com.facharbeit.io.FileReader;
 import com.facharbeit.tools.*;
 import java.io.*;
 import java.util.*;
@@ -40,7 +39,7 @@ public class HtmlReader
             if(Settings.load("sqlUse").equals("true") && Settings.load("sqlMode").equals("lesen"))
                 schoolClasses = getAllSql();
             else
-                schoolClasses = getAllHtml(PathConverter.convert(Settings.load("pathSource")));
+                schoolClasses = getAllHtml(PathConverter.convert("./Data/Source/"));
 
             boolean found = false;
             String date = Time.htmlReading(0);
@@ -54,7 +53,8 @@ public class HtmlReader
             if(found)
                 return schoolClasses;
             return null;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Heutige Schulklassen konnten nicht ausgelesen werden", 2);
             Logger.error(ex);
@@ -75,7 +75,7 @@ public class HtmlReader
             if(Settings.load("sqlUse").equals("true") && Settings.load("sqlMode").equals("lesen"))
                 schoolClasses = getAllSql();
             else
-                schoolClasses = getAllHtml(PathConverter.convert(Settings.load("pathSource")));
+                schoolClasses = getAllHtml(PathConverter.convert("./Data/Source/"));
 
             boolean found = false;
             int i = 0;
@@ -93,7 +93,8 @@ public class HtmlReader
                 return schoolClasses;
             }
             return null;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Morgige Schulklassen konnten nicht ausgelesen werden", 2);
             Logger.error(ex);
@@ -117,6 +118,9 @@ public class HtmlReader
     {
         try
         {
+            if(new FolderHandler(path).isEmpty())
+                return null;
+
             String cellStartsWith = "<TD align=center>";
             String cellStartsWith2 = "<font size=\"3\" face=\"Arial\">";
             String cellStartsWith2a = "<font size=\"3\" face=\"Arial\" color=\"#000000\">";
@@ -129,13 +133,13 @@ public class HtmlReader
 
             for(int i = 0; i < schoolClasses.length; i++)
             {
-                Logger.setProgress(10 + (int) (40.0 * ((double) i / (double) schoolClasses.length)));
+                Logger.setProgress(10 + (int)(40.0 * ((double)i / (double)schoolClasses.length)));
                 schoolClasses[i] = new SchoolClass(files.get(i).getName().substring(13, files.get(i).getName().lastIndexOf('.')));
 
                 if(schoolClasses[i].isEmpty())
                     schoolClasses[i].setEntries(new ArrayList<Entry>());
 
-                FileReader reader = new FileReader(files.get(i));
+                FileHandler reader = new FileHandler(files.get(i));
                 String asString = reader.toString();
                 asString = asString.substring(asString.indexOf("<TABLE border=\"3\" rules=\"all\" bgcolor=\"#E7E7E7\" cellpadding=\"1\" cellspacing=\"1\">"));
                 asString = asString.substring(0, asString.indexOf("<TABLE cellspacing=\"1\" cellpadding=\"1\">") - 13);
@@ -179,7 +183,8 @@ public class HtmlReader
             }
             Logger.setProgress(50);
             return schoolClasses;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("HTML-Klassendateien konnten nicht ausgelesen werden", 2);
             Logger.error(ex);
@@ -227,7 +232,8 @@ public class HtmlReader
                 schoolClass.setEntries(out);
             }
             return schoolClasses;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Schulklassen konnten nicht sortiert werden", 2);
             Logger.error(ex);
@@ -256,7 +262,7 @@ public class HtmlReader
             for(int grade = 5; grade <= 9; grade++)
                 for(int c = 97; c <= 122; c++)
                 {
-                    file = new File(path, "Druck_Klasse_0" + grade + "" + (char) c + ".htm");
+                    file = new File(path, "Druck_Klasse_0" + grade + "" + (char)c + ".htm");
 
                     if(file.exists())
                         files.add(file);
@@ -270,7 +276,8 @@ public class HtmlReader
             }
 
             return files;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Dateien konnten nicht unter \"" + path + "\" gefunden werden", 2);
             Logger.error(ex);
@@ -321,8 +328,9 @@ public class HtmlReader
                 }
             }
 
-            return (SchoolClass[]) asList.toArray();
-        } catch(Exception ex)
+            return (SchoolClass[])asList.toArray();
+        }
+        catch(Exception ex)
         {
             Logger.log("Fehler beim auslesen der Datenbank", 2);
             Logger.error(ex);
