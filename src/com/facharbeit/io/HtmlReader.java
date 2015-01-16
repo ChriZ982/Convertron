@@ -102,6 +102,11 @@ public class HtmlReader
         }
     }
 
+    /**
+     * Liest die Schulklassen für SQL-Verwendung ein.
+     *
+     * @return Schulklassen für SQL-Verwendung
+     */
     public static SchoolClass[] forSql()
     {
         return sort(getAllHtml(PathConverter.convert("./Data/Source/")));

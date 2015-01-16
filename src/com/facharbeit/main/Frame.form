@@ -937,6 +937,7 @@
             <Component class="javax.swing.JTextField" name="fileNamePrefixTxt">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Druck_Klasse_"/>
+                <Property name="toolTipText" type="java.lang.String" value="Prefix f&#xfc;r die Dateinamen"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="fileNameMiddle">
@@ -948,6 +949,7 @@
             <Component class="javax.swing.JTextField" name="fileNameSuffixTxt">
               <Properties>
                 <Property name="text" type="java.lang.String" value=".htm"/>
+                <Property name="toolTipText" type="java.lang.String" value="Suffix f&#xfc;r die Dateinamen"/>
               </Properties>
             </Component>
           </SubComponents>

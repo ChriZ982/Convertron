@@ -13,7 +13,7 @@ import javax.swing.*;
  */
 public class QueueableMethods
 {
-    // Übersicht
+    // ================================================== ÜBERSICHT ==================================================
     public static void genAllBtnActionPerformed()
     {
         HtmlWriter.today(HtmlReader.sort(HtmlReader.today()), 50, 65);
@@ -85,15 +85,15 @@ public class QueueableMethods
         FolderHandler folder = new FolderHandler(Settings.load("pathSource"));
         if(!folder.isEmpty())
         {
-            new FolderHandler("./Data/Source/").delete();
+            new FolderHandler("./Data/Source/").deleteContent();
             folder.copyContent("./Data/Source/");
-            folder.delete();
+            folder.deleteContent();
         }
         Logger.setLogging(true);
         Logger.log("Quellpläne wurden kopiert", 0);
     }
 
-    // Einstellungen
+    // ================================================== EINSTELLUNGEN ==================================================
     public static void settingsSaveBtnActionPerformed(JTextField hour1Txt, JTextField hour2Txt, JTextField hour3Txt,
                                                       JTextField hour4Txt, JTextField hour5Txt, JTextField hour6Txt,
                                                       JTextField hour7Txt, JTextField hour8Txt, JTextField hour9Txt,
@@ -163,7 +163,7 @@ public class QueueableMethods
         saveCheck(autoBackupCheck, "autoBackup");
     }
 
-    // Pfade
+    // ================================================== PFADE ==================================================
     public static void savePathBtnActionPerformed(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea,
                                                   JTextField fileNamePrefixTxt, JTextField fileNameSuffixTxt)
     {
@@ -184,7 +184,7 @@ public class QueueableMethods
                 Settings.save("pathDest" + (i + 1), destPaths.get(i));
     }
 
-    // Design
+    // ================================================== DESIGN ==================================================
     public static void addColorBtnActionPerformed(JColorChooser colorChooser, JTextField colorNameTxt, JComboBox<String> colorPlanCombo,
                                                   JComboBox<String> colorMotdCombo, JComboBox<String> colorTableCombo, JComboBox<String> colorBorderCombo,
                                                   JComboBox<String> fontColorCombo, JComboBox<String> backgroundColorCombo)
@@ -233,18 +233,6 @@ public class QueueableMethods
     public static void colorBorderComboItemStateChanged(JPanel colorBorderPanel, JComboBox colorBorderCombo, ItemEvent evt)
     {
         colorComboChanged("borderColor", colorBorderPanel, colorBorderCombo, evt);
-    }
-
-    private static void colorComboChanged(String name, JPanel colorPanel, JComboBox colorCombo, ItemEvent evt)
-    {
-        if(evt.getStateChange() == ItemEvent.SELECTED)
-        {
-            if(!colorCombo.getSelectedItem().equals("Keine Farbe"))
-                colorPanel.setBackground(Color.decode(Settings.load("color" + colorCombo.getSelectedItem().toString())));
-
-            if(!Settings.load(name).equals(colorCombo.getSelectedItem().toString()) && !colorCombo.getSelectedItem().toString().equals("Keine Farbe"))
-                Settings.save(name, colorCombo.getSelectedItem().toString());
-        }
     }
 
     public static void typeToEditComboItemStateChanged(JComboBox<String> typeToEditCombo, JComboBox<String> fontColorCombo,
@@ -345,16 +333,6 @@ public class QueueableMethods
         Settings.save(Character.toLowerCase(name.charAt(0)) + name.substring(1), setting);
     }
 
-    private static String extractName(JComboBox<String> combo, String type)
-    {
-        String s;
-        if(combo.getSelectedItem().toString().startsWith("Art:"))
-            s = "Art" + combo.getSelectedItem().toString().substring(5).replaceAll("\\.", "") + type;
-        else
-            s = combo.getSelectedItem().toString() + type;
-        return s;
-    }
-
     public static void addTypeBtnActionPerformed(JTextField typeToEditTxt, JComboBox<String> typeToEditCombo)
     {
         typeToEditCombo.addItem("Art: " + typeToEditTxt.getText());
@@ -377,7 +355,7 @@ public class QueueableMethods
             createBackupBtnActionPerformed();
     }
 
-    // SQL
+    // ================================================== SQL ==================================================
     public static void SQLsaveBtnActionPerformed(JTextField dbHostTxt, JTextField dbPortTxt, JTextField dbNameTxt,
                                                  JTextField dbUserTxt, JTextField dbPwTxt, JTextField dbTableNameTxt,
                                                  JCheckBox useSQLCheck, JRadioButton[] sqlMode)
@@ -395,18 +373,7 @@ public class QueueableMethods
         saveText(dbTableNameTxt, "sqlTableName");
     }
 
-    /**
-     * Speichert die aktuelle Position des JFrames auf dem Bildschrim.
-     *
-     * @param frame Der Frame dessen Position gespeichert werden soll
-     */
-    public static void savePositionOfFrame(JFrame frame)
-    {
-        Settings.save("positionX", String.valueOf((int)frame.getLocation().getX()));
-        Settings.save("positionY", String.valueOf((int)frame.getLocation().getY()));
-    }
-
-    // Anderes
+    // ================================================== ANDERES ==================================================
     public static void loadSettings(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea, JTextField fileNamePrefixTxt,
                                     JTextField fileNameSuffixTxt, JTextField speedPlanTxt, JTextField speedMotdTxt,
                                     JComboBox<String> colorPlanCombo, JComboBox<String> colorMotdCombo,
@@ -537,6 +504,63 @@ public class QueueableMethods
             }
     }
 
+    /**
+     * Aktualisiert eine ComboBox aufgrund ihrer Auswahl.
+     *
+     * @param name       Name der Einstellung
+     * @param colorPanel Farb-Panel
+     * @param colorCombo Farb-Combo
+     * @param evt        Item-Event
+     */
+    private static void colorComboChanged(String name, JPanel colorPanel, JComboBox colorCombo, ItemEvent evt)
+    {
+        if(evt.getStateChange() == ItemEvent.SELECTED)
+        {
+            if(!colorCombo.getSelectedItem().equals("Keine Farbe"))
+                colorPanel.setBackground(Color.decode(Settings.load("color" + colorCombo.getSelectedItem().toString())));
+
+            if(!Settings.load(name).equals(colorCombo.getSelectedItem().toString()) && !colorCombo.getSelectedItem().toString().equals("Keine Farbe"))
+                Settings.save(name, colorCombo.getSelectedItem().toString());
+        }
+    }
+
+    /**
+     * Gibt den Namen des ausgewählten Items.
+     *
+     * @param combo Box die verwendet werden soll
+     * @param type  Zu suchender Typ
+     *
+     * @return Name des ausgewählten Items
+     */
+    private static String extractName(JComboBox<String> combo, String type)
+    {
+        String s;
+        if(combo.getSelectedItem().toString().startsWith("Art:"))
+            s = "Art" + combo.getSelectedItem().toString().substring(5).replaceAll("\\.", "") + type;
+        else
+            s = combo.getSelectedItem().toString() + type;
+        return s;
+    }
+
+    /**
+     * Speichert die aktuelle Position des JFrames auf dem Bildschrim.
+     *
+     * @param frame Der Frame dessen Position gespeichert werden soll
+     */
+    public static void savePositionOfFrame(JFrame frame)
+    {
+        Settings.save("positionX", String.valueOf((int)frame.getLocation().getX()));
+        Settings.save("positionY", String.valueOf((int)frame.getLocation().getY()));
+    }
+
+    /**
+     * Prüft ob die Einstellung vom Typ "Art" ist.
+     *
+     * @param settingNames Zu prüfende Einstellungen.
+     * @param combo        Zu bearbeitende ComboBox
+     * @param setting      Einstellung
+     * @param name         Name der Einstellung
+     */
     private static void checkArt(ArrayList<String> settingNames, JComboBox<String> combo, String setting, String name)
     {
         if(!settingNames.contains(setting.substring(3, setting.indexOf(name))))
@@ -546,6 +570,14 @@ public class QueueableMethods
         }
     }
 
+    /**
+     * Lädt eine Tabellen-Spalte abhänging vom head.
+     *
+     * @param table    Tabelle
+     * @param index    Index
+     * @param newIndex Neuer Index
+     * @param head     Name der Spalte
+     */
     private static void loadTable(JTable table, int index, int newIndex, String head)
     {
         table.getColumnModel().getColumn(index).setHeaderValue(head);
@@ -582,21 +614,45 @@ public class QueueableMethods
         field.setText(Settings.load(name));
     }
 
+    /**
+     * Speichert eine Einstellung aus einem Textfeld.
+     *
+     * @param field Textfeld
+     * @param name  Name der Einstellung
+     */
     private static void saveText(JTextField field, String name)
     {
         Settings.save(name, field.getText());
     }
 
+    /**
+     * Lädt eine Einstellung in eine ComboBox.
+     *
+     * @param field ComboBox
+     * @param name  Name der Einstellung
+     */
     private static void loadCombo(JComboBox<String> box, String name)
     {
         box.setSelectedItem(Settings.load(name));
     }
 
+    /**
+     * Lädt eine Einstellung in eine CheckBox.
+     *
+     * @param field CheckBox
+     * @param name  Name der Einstellung
+     */
     private static void loadCheck(JCheckBox box, String name)
     {
         box.setSelected(Boolean.valueOf(Settings.load(name)));
     }
 
+    /**
+     * Speichert eine Einstellung aus einer CheckBox.
+     *
+     * @param field CheckBox
+     * @param name  Name der Einstellung
+     */
     private static void saveCheck(JCheckBox box, String name)
     {
         Settings.save(name, String.valueOf(box.isSelected()));
@@ -623,12 +679,14 @@ public class QueueableMethods
      */
     private static void backupAll(String path)
     {
-        new FileHandler("Data/settings.ini").copy(path + "/", false);
-        new FileHandler("Data/heute.html").copy(path + "/", false);
-        new FileHandler("Data/morgen.html").copy(path + "/", false);
-        new FileHandler("Data/laufschrift.html").copy(path + "/", false);
-        new FileHandler("Data/style.css").copy(path + "/", false);
-        new FileHandler("Data/antonianumLogo.png").copy(path + "/", false);
-        new FileHandler("Data/VERTRETUNGSPLAN.html").copy(path + "/", false);
+        Logger.setLogging(false);
+        new FileHandler("Data/settings.ini").copy(path + "/");
+        new FileHandler("Data/heute.html").copy(path + "/");
+        new FileHandler("Data/morgen.html").copy(path + "/");
+        new FileHandler("Data/laufschrift.html").copy(path + "/");
+        new FileHandler("Data/style.css").copy(path + "/");
+        new FileHandler("Data/antonianumLogo.png").copy(path + "/");
+        new FileHandler("Data/VERTRETUNGSPLAN.html").copy(path + "/");
+        Logger.setLogging(true);
     }
 }

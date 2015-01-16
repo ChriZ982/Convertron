@@ -146,6 +146,11 @@ public class Logger
         }
     }
 
+    /**
+     * Aktiviert oder Deaktiviert das Logging von positiven(grünen) Meldungen.
+     *
+     * @param logging Neuer Status
+     */
     public static void setLogging(boolean logging)
     {
         Logger.logging = logging;

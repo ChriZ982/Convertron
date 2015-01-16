@@ -8,6 +8,9 @@ import java.util.*;
  */
 public class Settings
 {
+    /**
+     * FileHandler, der zum Umgang mit der Settings Datei verwendet wird.
+     */
     private static FileHandler fileHandler;
 
     /**
@@ -24,10 +27,6 @@ public class Settings
         {
             fileHandler = new FileHandler("Data/settings.ini");
             logging = true;
-
-//            if(!reader.exists())
-//                writer.create();
-//            else
             Logger.log("\"settings.ini\" wurde geladen", 0);
         }
         catch(Exception ex)
@@ -38,7 +37,7 @@ public class Settings
     }
 
     /**
-     * Speichert eine Einstellung.
+     * Speichert eine Einstellung. Falls die Einstellung "" entspricht wird sie gelöscht.
      *
      * @param name    Name der Einstellung
      * @param setting Wert der Einstellung

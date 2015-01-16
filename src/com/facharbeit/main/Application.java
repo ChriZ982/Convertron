@@ -5,8 +5,7 @@ import com.facharbeit.main.Frame;
 import com.facharbeit.tools.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.*;
+import java.awt.image.BufferedImage;
 import java.lang.reflect.*;
 import java.util.*;
 import javax.imageio.*;
@@ -270,14 +269,10 @@ public class Application
             trayIcon.setPopupMenu(popup);
             trayIcon.setToolTip("Vertretungsplan-Generator");
 
-            trayIcon.addActionListener(new ActionListener()
+            trayIcon.addActionListener((ActionEvent e) ->
             {
-                @Override
-                public void actionPerformed(ActionEvent e)
-                {
-                    frame.setExtendedState(JFrame.NORMAL);
-                    frame.setVisible(true);
-                }
+                frame.setExtendedState(JFrame.NORMAL);
+                frame.setVisible(true);
             });
 
             tray.add(trayIcon);
@@ -307,78 +302,42 @@ public class Application
     {
         try
         {
-            genAll.addActionListener(new java.awt.event.ActionListener()
+            genAll.addActionListener((java.awt.event.ActionEvent evt) ->
             {
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
-                    Application.addToQueue("genAllBtnActionPerformed");
-                }
+                Application.addToQueue("genAllBtnActionPerformed");
             });
-            genToday.addActionListener(new java.awt.event.ActionListener()
+            genToday.addActionListener((java.awt.event.ActionEvent evt) ->
             {
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
-                    Application.addToQueue("genTodayBtnActionPerformed");
-                }
+                Application.addToQueue("genTodayBtnActionPerformed");
             });
-            genTomorrow.addActionListener(new java.awt.event.ActionListener()
+            genTomorrow.addActionListener((java.awt.event.ActionEvent evt) ->
             {
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
-                    Application.addToQueue("genTomorrowBtnActionPerformed");
-                }
+                Application.addToQueue("genTomorrowBtnActionPerformed");
             });
-            genMotd.addActionListener(new java.awt.event.ActionListener()
+            genMotd.addActionListener((java.awt.event.ActionEvent evt) ->
             {
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
-                    Application.addToQueue("genMotdBtnActionPerformed", new JTextField());
-                }
+                Application.addToQueue("genMotdBtnActionPerformed", new JTextField());
             });
-            backup.addActionListener(new java.awt.event.ActionListener()
+            backup.addActionListener((java.awt.event.ActionEvent evt) ->
             {
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
-                    Application.addToQueue("createBackupBtnActionPerformed");
-                }
+                Application.addToQueue("createBackupBtnActionPerformed");
             });
-            removeSources.addActionListener(new java.awt.event.ActionListener()
+            removeSources.addActionListener((java.awt.event.ActionEvent evt) ->
             {
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
-                    Application.addToQueue("deleteSourceBtnActionPerformed");
-                }
+                Application.addToQueue("deleteSourceBtnActionPerformed");
             });
-            show.addActionListener(new java.awt.event.ActionListener()
+            show.addActionListener((java.awt.event.ActionEvent evt) ->
             {
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
-                    frame.setExtendedState(JFrame.NORMAL);
-                    frame.setVisible(true);
-                }
+                frame.setExtendedState(JFrame.NORMAL);
+                frame.setVisible(true);
             });
-            hide.addActionListener(new java.awt.event.ActionListener()
+            hide.addActionListener((java.awt.event.ActionEvent evt) ->
             {
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
-                    frame.setVisible(false);
-                }
+                frame.setVisible(false);
             });
-            exitItem.addActionListener(new java.awt.event.ActionListener()
+            exitItem.addActionListener((java.awt.event.ActionEvent evt) ->
             {
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
-                    System.exit(0);
-                }
+                System.exit(0);
             });
         }
         catch(Exception ex)

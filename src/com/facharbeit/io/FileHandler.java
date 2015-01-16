@@ -4,15 +4,31 @@ import com.facharbeit.tools.Logger;
 import java.io.*;
 import java.nio.file.*;
 
+/**
+ * Mit dieser Klasse werden Datiene verwaltet.
+ */
 public class FileHandler
 {
+    /**
+     * Die Datei zum lesen und schreiben.
+     */
     private File file;
 
+    /**
+     * Erstellt einen FileHandler.
+     *
+     * @param path Pfad zur Datei inklusive Dateiname
+     */
     public FileHandler(String path)
     {
         this(new File(path));
     }
 
+    /**
+     * Erstellt einen FileHandler.
+     *
+     * @param file Datei, die genutzt werden soll
+     */
     public FileHandler(File file)
     {
         this.file = file;
@@ -36,6 +52,9 @@ public class FileHandler
         }
     }
 
+    /**
+     * Löscht eine bestehende Datei.
+     */
     public void delete()
     {
         try
@@ -72,10 +91,9 @@ public class FileHandler
     /**
      * Kopiert eine Datei zu einem Pfad.
      *
-     * @param dest
-     * @param log
+     * @param dest Ziel-Pfad
      */
-    public void copy(String dest, boolean log)
+    public void copy(String dest)
     {
         try
         {
@@ -83,8 +101,7 @@ public class FileHandler
             {
                 new File(dest).mkdirs();
                 Files.copy(Paths.get(file.getPath()), Paths.get(dest + file.getName()), StandardCopyOption.REPLACE_EXISTING);
-                if(log)
-                    Logger.log(file.getName() + " wurde kopiert", 0);
+                Logger.log(file.getName() + " wurde kopiert", 0);
             }
         }
         catch(Exception ex)
@@ -95,9 +112,9 @@ public class FileHandler
     }
 
     /**
-     * Kopiert Dateien.
+     * Kopiert Dateien aus dem Java-Package der Facharbeit.
      *
-     * @param dest
+     * @param dest Ziel-Pfad
      */
     public void copyFromRes(String dest)
     {

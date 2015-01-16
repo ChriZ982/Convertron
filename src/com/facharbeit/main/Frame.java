@@ -12,7 +12,7 @@ public class Frame extends javax.swing.JFrame
     /**
      * Zufallsgenerierter Schlüssel (unwichtig)
      */
-    private static final long serialVersionUID = 1161647102;
+    private static final long serialVersionUID = 1841024231;
 
     /**
      * Komponenten, die mit Zeit zu tun haben.
@@ -740,11 +740,13 @@ public class Frame extends javax.swing.JFrame
         jLabel3.setText("Dateiname:");
 
         fileNamePrefixTxt.setText("Druck_Klasse_");
+        fileNamePrefixTxt.setToolTipText("Prefix für die Dateinamen");
 
         fileNameMiddle.setEditable(false);
         fileNameMiddle.setText("05a");
 
         fileNameSuffixTxt.setText(".htm");
+        fileNameSuffixTxt.setToolTipText("Suffix für die Dateinamen");
 
         javax.swing.GroupLayout PathPanelLayout = new javax.swing.GroupLayout(PathPanel);
         PathPanel.setLayout(PathPanelLayout);
@@ -1769,16 +1771,9 @@ public class Frame extends javax.swing.JFrame
         Application.addToQueue("colorPlanComboItemStateChanged", colorPlanPanel, colorPlanCombo, evt);
     }//GEN-LAST:event_colorPlanComboItemStateChanged
 
-    public JTextPane getStatusPane()
-    {
-        return log;
-    }
-
-    public JProgressBar getProgBar()
-    {
-        return progBar;
-    }
-
+    /**
+     * Lädt alle Einstellungen für das Programm.
+     */
     public void loadSettings()
     {
         try
@@ -1814,6 +1809,16 @@ public class Frame extends javax.swing.JFrame
             Logger.log("Fehler beim Laden der Einstellungen", 2);
             Logger.error(ex);
         }
+    }
+
+    public JTextPane getStatusPane()
+    {
+        return log;
+    }
+
+    public JProgressBar getProgBar()
+    {
+        return progBar;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1865,7 +1870,7 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JTextField fileNameMiddle;
     private javax.swing.JTextField fileNamePrefixTxt;
     private javax.swing.JTextField fileNameSuffixTxt;
-    private javax.swing.JComboBox fontColorCombo;
+    private javax.swing.JComboBox<String> fontColorCombo;
     private javax.swing.JPanel fontColorPanel;
     private javax.swing.JTextField fontSizeTxt;
     private javax.swing.JTextField fontTypeTxt;
