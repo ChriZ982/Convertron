@@ -63,7 +63,7 @@ public class QueueableMethods
 
     public static void genMotdBtnActionPerformed(JTextField motdTxt)
     {
-        Settings.save("motdText", motdTxt.getText());
+        saveText(motdTxt, "motdText");
         HtmlWriter.motd(0, 100);
         HtmlWriter.style();
         backupToDestPaths();
@@ -164,12 +164,13 @@ public class QueueableMethods
     }
 
     // Pfade
-    public static void savePathBtnActionPerformed(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea)
+    public static void savePathBtnActionPerformed(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea,
+                                                  JTextField fileNamePrefixTxt, JTextField fileNameSuffixTxt)
     {
-        saveIfNotNull(sourceTxt, "pathSource");
-        saveIfNotNull(backupTxt, "pathBackup");
-        saveIfNotNull(fileNamePrefixTxt, "fileNamePrefix");
-        saveIfNotNull(fileNameSuffixTxt, "fileNameSuffix");
+        saveText(sourceTxt, "pathSource");
+        saveText(backupTxt, "pathBackup");
+        saveText(fileNamePrefixTxt, "fileNamePrefix");
+        saveText(fileNameSuffixTxt, "fileNameSuffix");
 
         ArrayList<String> destPaths = new ArrayList<String>();
         destPaths.addAll(Arrays.asList(destArea.getText().split("\n")));
@@ -321,14 +322,14 @@ public class QueueableMethods
     {
         String s = extractName(typeToEditCombo, "FontFamily");
         if(!Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)).equals(fontTypeTxt.getText()))
-            Settings.save(Character.toLowerCase(s.charAt(0)) + s.substring(1), fontTypeTxt.getText());
+            saveText(fontTypeTxt, Character.toLowerCase(s.charAt(0)) + s.substring(1));
     }
 
     public static void fontSizeTxtActionPerformed(JTextField fontSizeTxt, JComboBox<String> typeToEditCombo)
     {
         String s = extractName(typeToEditCombo, "FontSize");
         if(!Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)).equals(fontSizeTxt.getText()))
-            Settings.save(Character.toLowerCase(s.charAt(0)) + s.substring(1), fontSizeTxt.getText());
+            saveText(fontSizeTxt, Character.toLowerCase(s.charAt(0)) + s.substring(1));
     }
 
     public static void styleCheckActionPerformed(JCheckBox boldCheck, JCheckBox italicCheck, JComboBox<String> typeToEditCombo)
@@ -401,13 +402,14 @@ public class QueueableMethods
      */
     public static void savePositionOfFrame(JFrame frame)
     {
-        Settings.save("positionX", String.valueOf((int) frame.getLocation().getX()));
-        Settings.save("positionY", String.valueOf((int) frame.getLocation().getY()));
+        Settings.save("positionX", String.valueOf((int)frame.getLocation().getX()));
+        Settings.save("positionY", String.valueOf((int)frame.getLocation().getY()));
     }
 
     // Anderes
-    public static void loadSettings(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea, JTextField speedPlanTxt,
-                                    JTextField speedMotdTxt, JComboBox<String> colorPlanCombo, JComboBox<String> colorMotdCombo,
+    public static void loadSettings(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea, JTextField fileNamePrefixTxt,
+                                    JTextField fileNameSuffixTxt, JTextField speedPlanTxt, JTextField speedMotdTxt,
+                                    JComboBox<String> colorPlanCombo, JComboBox<String> colorMotdCombo,
                                     JTextField motdTxt, JCheckBox useSQLCheck, JTextField dbHostTxt, JTextField dbPortTxt,
                                     JTextField dbNameTxt, JTextField dbUserTxt, JTextField dbPwTxt, JTextField dbTableNameTxt,
                                     JRadioButton[] sqlMode, JTextField hour1Txt, JTextField hour2Txt, JTextField hour3Txt, JTextField hour4Txt,
@@ -443,6 +445,8 @@ public class QueueableMethods
         loadText(sourceTodayTxt, "customToday");
         loadText(sourceTomorrowTxt, "customTomorrow");
         loadText(weekTxt, "customWeek");
+        loadText(fileNamePrefixTxt, "fileNamePrefix");
+        loadText(fileNameSuffixTxt, "fileNameSuffix");
 
         if(Settings.load("motdText").equals("") || Settings.load("motdText").equals("Laufschrift"))
             motdTxt.setForeground(Color.GRAY);

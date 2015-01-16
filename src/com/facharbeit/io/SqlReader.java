@@ -33,7 +33,8 @@ public class SqlReader
                 url += ":" + dbPort;
             url += "/" + dbName;
             con = DriverManager.getConnection(url, dbUser, dbPassword);
-        } catch(ClassNotFoundException | SQLException ex)
+        }
+        catch(ClassNotFoundException | SQLException ex)
         {
             Logger.log("Verbindung zur Datenbank konnte nicht hergestellt werden.", 2);
             Logger.error(ex);
@@ -80,7 +81,8 @@ public class SqlReader
                     data.add(lineData);
                 }
 
-            } catch(SQLException ex)
+            }
+            catch(SQLException ex)
             {
                 Logger.log("SQL-Befehl konnte nicht ausgeführt werden..", 1);
                 Logger.error(ex);

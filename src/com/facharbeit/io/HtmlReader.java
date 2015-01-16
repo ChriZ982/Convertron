@@ -104,7 +104,7 @@ public class HtmlReader
 
     public static SchoolClass[] forSql()
     {
-        return sort(getAllHtml(PathConverter.convert(Settings.load("pathSource"))));
+        return sort(getAllHtml(PathConverter.convert("./Data/Source/")));
     }
 
     /**
@@ -118,13 +118,16 @@ public class HtmlReader
     {
         try
         {
+            if(new FolderHandler(path).isEmpty())
+                return null;
+
             ArrayList<File> files = getFiles(path);
 
             SchoolClass[] schoolClasses = new SchoolClass[files.size()];
 
             for(int i = 0; i < schoolClasses.length; i++)
             {
-                Logger.setProgress(10 + (int) (40.0 * ((double) i / (double) schoolClasses.length)));
+                Logger.setProgress(10 + (int)(40.0 * ((double)i / (double)schoolClasses.length)));
                 String filename = files.get(i).getName();
                 schoolClasses[i] = new SchoolClass(filename.substring(Settings.load("fileNamePrefix").length(),
                                                                       filename.indexOf(Settings.load("fileNameSuffix"))));
@@ -132,7 +135,7 @@ public class HtmlReader
                 if(schoolClasses[i].isEmpty())
                     schoolClasses[i].setEntries(new ArrayList<Entry>());
 
-                String asString = getTable(new FileReader(files.get(i)).toString());
+                String asString = getTable(new FileHandler(files.get(i)).toString());
 
                 asString = asString.substring(asString.indexOf(findHtmlTag(asString, "TR")) + findHtmlTag(asString, "TR").length());
 
@@ -184,7 +187,8 @@ public class HtmlReader
             source = source.substring(0, source.indexOf(">") + 1);
 
             return source;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("HTML-Tag <" + toFind + "> konnte nicht gefunden werden", 2);
             Logger.error(ex);
@@ -199,7 +203,8 @@ public class HtmlReader
             source = source.substring(source.indexOf("<TABLE border=\"3\" rules=\"all\" bgcolor=\"#E7E7E7\" cellpadding=\"1\" cellspacing=\"1\">"));
             source = source.substring(0, source.indexOf(findHtmlTag(source, "/TABLE")) + findHtmlTag(source, "/TABLE").length());
             return source;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Die Tabelle konnte nicht ausgeschnitten werden", 2);
             Logger.error(ex);
@@ -224,7 +229,8 @@ public class HtmlReader
                 source = source.substring(0, source.length() - 1);
 
             return source;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Eintrag konnte nicht gelesen werden", 2);
         }
@@ -304,7 +310,7 @@ public class HtmlReader
             for(int grade = 5; grade <= 9; grade++)
                 for(int c = 97; c <= 122; c++)
                 {
-                    String g = String.valueOf(grade) + "" + (char) c;
+                    String g = String.valueOf(grade) + "" + (char)c;
                     while(g.length() < 3)
                         g = "0" + g;
 

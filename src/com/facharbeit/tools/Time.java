@@ -22,7 +22,8 @@ public class Time
         try
         {
             c = Calendar.getInstance();
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Kalender konnte nicht erstellt werden", 2);
             Logger.error(ex);
@@ -46,7 +47,8 @@ public class Time
                    + c.get(Calendar.MINUTE) + ""
                    + c.get(Calendar.SECOND) + ""
                    + c.get(Calendar.MILLISECOND);
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Zeit konnte nicht ermittelt werden", 2);
             Logger.error(ex);
@@ -67,7 +69,8 @@ public class Time
             return "[" + String.format("%02d", c.get(Calendar.HOUR_OF_DAY)) + ":"
                    + String.format("%02d", c.get(Calendar.MINUTE)) + ":"
                    + String.format("%02d", c.get(Calendar.SECOND)) + "] ";
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Zeit konnte nicht ermittelt werden", 2);
             Logger.error(ex);
@@ -96,7 +99,8 @@ public class Time
                 return c.get(Calendar.DATE) + "." + (c.get(Calendar.MONTH) + 1) + ".";
             else
                 return addDays(addDays).get(Calendar.DATE) + "." + (addDays(1).get(Calendar.MONTH) + 1) + ".";
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Zeit konnte nicht ermittelt werden", 2);
             Logger.error(ex);
@@ -135,7 +139,8 @@ public class Time
 
             return "Vertretungen " + c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.GERMANY) + " "
                    + date + "<br/>Woche-" + week + " (" + c.get(Calendar.WEEK_OF_YEAR) + ")";
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Zeit konnte nicht ermittelt werden", 2);
             Logger.error(ex);
@@ -154,7 +159,8 @@ public class Time
         {
             instance();
             return c.get(Calendar.HOUR_OF_DAY);
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Zeit konnte nicht ermittelt werden", 2);
             Logger.error(ex);
@@ -173,7 +179,8 @@ public class Time
         {
             instance();
             return c.get(Calendar.MINUTE);
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Zeit konnte nicht ermittelt werden", 2);
             Logger.error(ex);
@@ -193,10 +200,11 @@ public class Time
         try
         {
             instance();
-            Calendar nc = (Calendar) c.clone();
+            Calendar nc = (Calendar)c.clone();
             nc.add(Calendar.DATE, amount);
             return nc;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Es konnten keine Tage hinzugefügt werden", 2);
             Logger.error(ex);
@@ -225,7 +233,8 @@ public class Time
             if(beforeHour < afterHour)
                 after = true;
             return after;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Zeiten konnten nicht verglichen werden", 2);
             Logger.error(ex);

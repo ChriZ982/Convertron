@@ -46,7 +46,8 @@ public class SqlTableReader extends SqlReader
         try
         {
             return readAll(this.tableName, this.tableColumms);
-        } catch(NullPointerException ex)
+        }
+        catch(NullPointerException ex)
         {
             Logger.log("SQL-Datenbank konnte nicht ausgelesen werden", 2);
             Logger.error(ex);

@@ -59,7 +59,8 @@ public class SchoolClass
             if(entries == null)
                 return true;
             return entries.isEmpty();
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Schulklasse konnte nicht überprüft werdenF", 2);
             Logger.error(ex);
@@ -79,7 +80,8 @@ public class SchoolClass
             contentColumms = sort(contentColumms, newOrder);
             for(Entry e : entries)
                 e.setImportantContent(sort(e.getImportantContent(), newOrder));
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Einträge konnten nicht sortiert werden", 2);
             Logger.error(ex);
@@ -109,7 +111,8 @@ public class SchoolClass
                 }
 
             return newContent;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Einträge konnten nicht sortiert werden", 2);
             Logger.error(ex);
@@ -146,7 +149,8 @@ public class SchoolClass
             }
             entries = newEntries;
             Settings.logging(true);
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Stunden konnten nicht gelöscht werden", 2);
             Logger.error(ex);
@@ -220,7 +224,8 @@ public class SchoolClass
                 s += "'        </table>'+";
             }
             return s;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Klasse konnte nicht konvertiert werden", 2);
             Logger.error(ex);
@@ -248,7 +253,8 @@ public class SchoolClass
                     break;
                 }
             return index;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Array konnte nicht durchsucht werden", 2);
             Logger.error(ex);
@@ -271,7 +277,8 @@ public class SchoolClass
                 if(e.getDate().equals(date))
                     return true;
             return false;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Verfügbarkeit von Einträgen konnte nicht geprüft werden", 2);
             Logger.error(ex);
@@ -294,7 +301,8 @@ public class SchoolClass
                 if(e.getDate().equals(date))
                     newEntrys.add(e);
             entries = newEntrys;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Einträge konnten nicht aussortiert werden", 2);
             Logger.error(ex);

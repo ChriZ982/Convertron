@@ -62,7 +62,8 @@ public class Entry
 
             this.content.putAll(content);
 
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Eintrag konnte nicht initialisiert werden", 2);
             Logger.error(ex);
@@ -92,7 +93,8 @@ public class Entry
 
             s += "'            </tr>'+\n";
             return s;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Eintrag konnte nicht in String konvertiert werden", 2);
             Logger.error(ex);
@@ -163,7 +165,8 @@ public class Entry
             for(int i = 0; i < c.length; i++)
                 c[i] = content.get(importantContent[i]);
             return c;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Wichtige Spalten konnten nicht ausgelesen werden", 2);
             Logger.error(ex);
@@ -179,7 +182,8 @@ public class Entry
         {
             for(int i = 0; i < c.length; i++)
                 content.put(importantContent[i], c[i]);
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Wichtige Spalten konnten nicht aktualisiert werden", 2);
             Logger.error(ex);

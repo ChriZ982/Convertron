@@ -43,7 +43,8 @@ public class QueueElement
             Logger.logIntern(toLog);
 
             method.invoke(null, args);
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log(method.getName() + " konnte nicht ausgeführt werden", 2);
             Logger.error(ex);

@@ -78,7 +78,8 @@ public class PathConverter
                 else
                     s += p.getContent();
 
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
 //            Logger.log("Fehler beim konvertieren der Textfelder", 2);
 //            Logger.error(ex);

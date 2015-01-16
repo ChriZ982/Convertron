@@ -166,7 +166,7 @@ public class Application
                 if(afterTime < beforeTime + 100 && afterTime > beforeTime)
                     Thread.sleep((beforeTime - afterTime) + 100);
 
-                if(lastTime < currentTime - 60000)
+                if(lastTime < currentTime - 120000)
                 {
                     lastTime = System.currentTimeMillis();
                     Application.addToQueue("copySourceBtnActionPerformed");
