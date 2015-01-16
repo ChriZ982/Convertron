@@ -1,35 +1,43 @@
 <html>
     <head>
         <script type="text/javascript">
-            var scrollDelay = 12;
             var height = 0;
             var feineinstellung = 8;
             var reloadcounter = 0;
 
             function scroll()
             {
-                var position = window.pageYOffset;
+                var position = window.pageYOffset + feineinstellung;
 
-                if (position + feineinstellung < (height + window.innerHeight) / 2)
+                if (position < height)
                     window.scrollBy(0, 1);
                 else
                 {
                     window.scrollTo(0, 0);
-                    if (reloadcounter < 5)
+                    if (reloadcounter < 4)
                         reloadcounter = reloadcounter + 1;
                     else
                     {
-                        location.reload(true);
+                        reload();
                         reloadcounter = 0;
                     }
                 }
             }
+            
+            function reload()
+            {
+                location.reload(true);
+            }
 
             function start()
             {
-                window.scrollBy(0, 100000);
-                height = window.pageYOffset;
-                window.setInterval("scroll()", scrollDelay);
+                window.scrollBy(0, 1000000);
+                height = (window.pageYOffset + window.innerHeight)/2;
+                
+                if(window.pageYOffset>0)
+                    window.setInterval("scroll()", 12);
+                else
+                    window.setInterval("reload()", 60000);
             }
         </script>
 
@@ -38,16 +46,16 @@
         <meta charset="ISO-8859-1">
     </head>
     <body class="body1" onLoad="start()">
+    
+    <script type="text/javascript">
+        body();
 
-        <script type="text/javascript">
-            body();
+                window.scrollBy(0, 10);
 
-            window.scrollBy(0, 10);
-
-            if (window.pageYOffset != 0)
-                body();
-
-            function body()
+                if (window.pageYOffset != 0)
+                    body();
+        
+        function body()
             {
                 document.open();
                 document.write('<table width="100%" >' +
@@ -1057,7 +1065,7 @@
                         '');
                 document.close();
             }
-        </script>
+    </script>
 
     </body>
 </html>
