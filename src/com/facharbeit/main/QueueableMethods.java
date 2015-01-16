@@ -166,8 +166,10 @@ public class QueueableMethods
     // Pfade
     public static void savePathBtnActionPerformed(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea)
     {
-        saveText(sourceTxt, "pathSource");
-        saveText(backupTxt, "pathBackup");
+        saveIfNotNull(sourceTxt, "pathSource");
+        saveIfNotNull(backupTxt, "pathBackup");
+        saveIfNotNull(fileNamePrefixTxt, "fileNamePrefix");
+        saveIfNotNull(fileNameSuffixTxt, "fileNameSuffix");
 
         ArrayList<String> destPaths = new ArrayList<String>();
         destPaths.addAll(Arrays.asList(destArea.getText().split("\n")));
@@ -399,8 +401,8 @@ public class QueueableMethods
      */
     public static void savePositionOfFrame(JFrame frame)
     {
-        Settings.save("positionX", String.valueOf((int)frame.getLocation().getX()));
-        Settings.save("positionY", String.valueOf((int)frame.getLocation().getY()));
+        Settings.save("positionX", String.valueOf((int) frame.getLocation().getX()));
+        Settings.save("positionY", String.valueOf((int) frame.getLocation().getY()));
     }
 
     // Anderes
