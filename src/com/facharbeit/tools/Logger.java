@@ -54,7 +54,7 @@ public class Logger
     {
         try
         {
-            if(logging)
+            if(logging || prio == 1 || prio == 2)
             {
                 Color color;
                 switch(prio)

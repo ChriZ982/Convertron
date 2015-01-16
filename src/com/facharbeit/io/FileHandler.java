@@ -6,7 +6,7 @@ import java.nio.file.*;
 
 public class FileHandler
 {
-    File file;
+    private File file;
 
     public FileHandler(String path)
     {
@@ -32,6 +32,20 @@ public class FileHandler
         catch(Exception ex)
         {
             Logger.log("\"" + file.getName() + "\" konnte nicht erstellt werden", 2);
+            Logger.error(ex);
+        }
+    }
+
+    public void delete()
+    {
+        try
+        {
+            if(file.delete())
+                Logger.log("\"" + file.getName() + "\" wurde gelöscht.", 0);
+        }
+        catch(Exception ex)
+        {
+            Logger.log("\"" + file.getName() + "\" konnte nicht gelöscht werden", 2);
             Logger.error(ex);
         }
     }

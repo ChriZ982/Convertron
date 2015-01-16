@@ -75,7 +75,7 @@ public class Frame extends javax.swing.JFrame
         progBar = new javax.swing.JProgressBar();
         jLabel4 = new javax.swing.JLabel();
         createBackupBtn = new javax.swing.JButton();
-        deleteSourceBtn = new javax.swing.JButton();
+        copySourceBtn = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
         jSeparator5 = new javax.swing.JSeparator();
@@ -287,13 +287,13 @@ public class Frame extends javax.swing.JFrame
             }
         });
 
-        deleteSourceBtn.setText("Quellpläne löschen");
-        deleteSourceBtn.setToolTipText("Löscht die Quellpläne aus dem eingestellten Ordner");
-        deleteSourceBtn.addActionListener(new java.awt.event.ActionListener()
+        copySourceBtn.setText("Quellpläne kopieren");
+        copySourceBtn.setToolTipText("Kopiert die Quellpläne aus dem eingestellten Ordner");
+        copySourceBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                deleteSourceBtnActionPerformed(evt);
+                copySourceBtnActionPerformed(evt);
             }
         });
 
@@ -313,7 +313,7 @@ public class Frame extends javax.swing.JFrame
                         .addGroup(ControlPanelLayout.createSequentialGroup()
                             .addComponent(createBackupBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(deleteSourceBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(copySourceBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(ControlPanelLayout.createSequentialGroup()
                             .addComponent(genAllBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -362,7 +362,7 @@ public class Frame extends javax.swing.JFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(createBackupBtn)
-                            .addComponent(deleteSourceBtn)))
+                            .addComponent(copySourceBtn)))
                     .addGroup(ControlPanelLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -599,7 +599,7 @@ public class Frame extends javax.swing.JFrame
             SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SettingsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(SettingsPanelLayout.createSequentialGroup()
                         .addComponent(useHoursCheck)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -636,7 +636,7 @@ public class Frame extends javax.swing.JFrame
                             .addComponent(hour10Label)))
                     .addGroup(SettingsPanelLayout.createSequentialGroup()
                         .addComponent(autoBackupCheck)
-                        .addGap(41, 41, 41)
+                        .addGap(18, 18, 18)
                         .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14)
                             .addComponent(speedPlanTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -647,12 +647,12 @@ public class Frame extends javax.swing.JFrame
                             .addComponent(jLabel7)
                             .addComponent(jLabel21))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel18)
-                                .addComponent(weekTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
+                        .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel18)
+                            .addComponent(weekTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(customSourceCheck)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -662,7 +662,7 @@ public class Frame extends javax.swing.JFrame
                         .addGroup(SettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(sourceTomorrowTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel22)))
-                    .addComponent(jSeparator2))
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1525,10 +1525,10 @@ public class Frame extends javax.swing.JFrame
         Application.addToQueue("createBackupBtnActionPerformed");
     }//GEN-LAST:event_createBackupBtnActionPerformed
 
-    private void deleteSourceBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deleteSourceBtnActionPerformed
-    {//GEN-HEADEREND:event_deleteSourceBtnActionPerformed
-        Application.addToQueue("deleteSourceBtnActionPerformed");
-    }//GEN-LAST:event_deleteSourceBtnActionPerformed
+    private void copySourceBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_copySourceBtnActionPerformed
+    {//GEN-HEADEREND:event_copySourceBtnActionPerformed
+        Application.addToQueue("copySourceBtnActionPerformed");
+    }//GEN-LAST:event_copySourceBtnActionPerformed
 
     private void genMotdBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_genMotdBtnActionPerformed
     {//GEN-HEADEREND:event_genMotdBtnActionPerformed
@@ -1810,6 +1810,7 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JPanel colorPlanPanel;
     private javax.swing.JComboBox<String> colorTableCombo;
     private javax.swing.JPanel colorTablePanel;
+    private javax.swing.JButton copySourceBtn;
     private javax.swing.JButton createBackupBtn;
     private javax.swing.JCheckBox customSourceCheck;
     private javax.swing.JLabel dbHostLabel;
@@ -1825,7 +1826,6 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JLabel dbUserLabel;
     private javax.swing.JTextField dbUserTxt;
     private javax.swing.JButton deleteColor;
-    private javax.swing.JButton deleteSourceBtn;
     private javax.swing.JButton deleteTypeBtn;
     private javax.swing.JPanel designTypeSubPanel;
     private javax.swing.JTextArea destArea;

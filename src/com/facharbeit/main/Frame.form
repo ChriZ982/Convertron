@@ -78,7 +78,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="createBackupBtn" min="-2" pref="147" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="deleteSourceBtn" max="32767" attributes="0"/>
+                                  <Component id="copySourceBtn" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="genAllBtn" min="-2" pref="120" max="-2" attributes="0"/>
@@ -138,7 +138,7 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="createBackupBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="deleteSourceBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="copySourceBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
@@ -256,13 +256,13 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="createBackupBtnActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="deleteSourceBtn">
+            <Component class="javax.swing.JButton" name="copySourceBtn">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Quellpl&#xe4;ne l&#xf6;schen"/>
-                <Property name="toolTipText" type="java.lang.String" value="L&#xf6;scht die Quellpl&#xe4;ne aus dem eingestellten Ordner"/>
+                <Property name="text" type="java.lang.String" value="Quellpl&#xe4;ne kopieren"/>
+                <Property name="toolTipText" type="java.lang.String" value="Kopiert die Quellpl&#xe4;ne aus dem eingestellten Ordner"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteSourceBtnActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="copySourceBtnActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
@@ -409,7 +409,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="useHoursCheck" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -452,7 +452,7 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="autoBackupCheck" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="speedPlanTxt" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -465,14 +465,13 @@
                                   <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel24" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="weekTxt" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="weekTxt" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                              <Component id="jLabel24" min="-2" pref="20" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="customSourceCheck" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -485,7 +484,7 @@
                                   <Component id="jLabel22" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="jSeparator2" max="32767" attributes="0"/>
+                          <Component id="jSeparator2" min="-2" pref="225" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jSeparator8" min="-2" pref="2" max="-2" attributes="0"/>

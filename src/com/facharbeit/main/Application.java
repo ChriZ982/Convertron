@@ -169,9 +169,9 @@ public class Application
                 if(lastTime < currentTime - 60000)
                 {
                     lastTime = System.currentTimeMillis();
+                    Application.addToQueue("copySourceBtnActionPerformed");
                     Application.addToQueue("genAllBtnActionPerformed");
                 }
-
             }
         }
         catch(Exception ex)

@@ -4,9 +4,6 @@ import com.facharbeit.io.*;
 import com.facharbeit.tools.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
-import java.nio.file.*;
-import java.nio.file.attribute.*;
 import java.util.*;
 import javax.swing.*;
 
@@ -82,40 +79,18 @@ public class QueueableMethods
         Logger.log("Backup wurde fertiggestellt", 0);
     }
 
-    public static void deleteSourceBtnActionPerformed()
+    public static void copySourceBtnActionPerformed()
     {
-        try
+        Logger.setLogging(false);
+        FolderHandler folder = new FolderHandler(Settings.load("pathSource"));
+        if(!folder.isEmpty())
         {
-            Files.walkFileTree(Paths.get(Settings.load("pathSource") + "\\"), new SimpleFileVisitor<Path>()
-                       {
-                           @Override
-                           public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
-                                   throws IOException
-                           {
-                               Files.delete(file);
-                               return FileVisitResult.CONTINUE;
-                           }
-
-                           @Override
-                           public FileVisitResult postVisitDirectory(Path dir, IOException e)
-                                   throws IOException
-                           {
-                               if(e == null)
-                               {
-                                   Files.delete(dir);
-                                   return FileVisitResult.CONTINUE;
-                               }
-                               else
-                                   throw e;
-                           }
-            });
+            new FolderHandler("./Data/Source/").delete();
+            folder.copyContent("./Data/Source/");
+            folder.delete();
         }
-        catch(IOException ex)
-        {
-            Logger.log("Quellpläne konnten nicht gelöscht werden!", 2);
-            return;
-        }
-        Logger.log("Quellpläne wurden gelöscht", 0);
+        Logger.setLogging(true);
+        Logger.log("Quellpläne wurden kopiert", 0);
     }
 
     // Einstellungen

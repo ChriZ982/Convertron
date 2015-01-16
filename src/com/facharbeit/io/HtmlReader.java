@@ -39,7 +39,7 @@ public class HtmlReader
             if(Settings.load("sqlUse").equals("true") && Settings.load("sqlMode").equals("lesen"))
                 schoolClasses = getAllSql();
             else
-                schoolClasses = getAllHtml(PathConverter.convert(Settings.load("pathSource")));
+                schoolClasses = getAllHtml(PathConverter.convert("./Data/Source/"));
 
             boolean found = false;
             String date = Time.htmlReading(0);
@@ -75,7 +75,7 @@ public class HtmlReader
             if(Settings.load("sqlUse").equals("true") && Settings.load("sqlMode").equals("lesen"))
                 schoolClasses = getAllSql();
             else
-                schoolClasses = getAllHtml(PathConverter.convert(Settings.load("pathSource")));
+                schoolClasses = getAllHtml(PathConverter.convert("./Data/Source/"));
 
             boolean found = false;
             int i = 0;
@@ -118,6 +118,9 @@ public class HtmlReader
     {
         try
         {
+            if(new FolderHandler(path).isEmpty())
+                return null;
+
             String cellStartsWith = "<TD align=center>";
             String cellStartsWith2 = "<font size=\"3\" face=\"Arial\">";
             String cellStartsWith2a = "<font size=\"3\" face=\"Arial\" color=\"#000000\">";
