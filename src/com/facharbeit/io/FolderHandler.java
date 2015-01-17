@@ -68,8 +68,10 @@ public class FolderHandler
             if(!exists())
                 return;
             Iterator it = Files.list(Paths.get(file.getPath())).iterator();
+            Logger.setLogging(false);
             while(it.hasNext())
                 new FileHandler(String.valueOf(it.next())).delete();
+            Logger.setLogging(true);
             Logger.log("\"" + file.getName() + "\" gelöscht", 0);
         }
         catch(Exception ex)

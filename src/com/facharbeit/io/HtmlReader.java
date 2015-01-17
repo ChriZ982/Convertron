@@ -10,6 +10,16 @@ import java.util.*;
 public class HtmlReader
 {
     /**
+     * Erste Stufe
+     */
+    public static final int firstGrade = 5;
+
+    /**
+     * Letzte Stufe
+     */
+    public static final int lastGrade = 9;
+
+    /**
      * Zusätzliche Stufen, die es gibt.
      */
     public static final String[] extraGrades =
@@ -18,7 +28,7 @@ public class HtmlReader
     };
 
     /**
-     * Name der Spalten die ausgelesen werden. Editieren, falls andere Namen. Reihenfolge:
+     * Name der SQL-Spalten die ausgelesen werden. Editieren, falls andere Namen. Reihenfolge:
      * Stufe, Datum, Wochentag, Vertreter, Raum, Art, Fach, Lehrer, Verl. von, Hinweise
      */
     public static final String[] sqlColumms =
@@ -27,9 +37,9 @@ public class HtmlReader
     };
 
     /**
-     * Liest die Schulklassen für heute ein.
+     * Liest die heutigen Vertretungen ein.
      *
-     * @return Schulklassen für heute
+     * @return Ein Array mit Schulklassen in denen die jeweiligen Vertretungen gespeichert sind
      */
     public static SchoolClass[] today()
     {
@@ -63,9 +73,9 @@ public class HtmlReader
     }
 
     /**
-     * Liest die Schulklassen für morgen ein.
+     * Liest die morgigen Vertretungen ein.
      *
-     * @return Schulklassen für morgen
+     * @return Ein Array mit Schulklassen in denen die jeweiligen Vertretungen gespeichert sind
      */
     public static SchoolClass[] tomorrow()
     {
@@ -103,9 +113,9 @@ public class HtmlReader
     }
 
     /**
-     * Liest die Schulklassen für SQL-Verwendung ein.
+     * Liest die Vertretungen für die SQL-Verwendung ein.
      *
-     * @return Schulklassen für SQL-Verwendung
+     * @return Ein Array mit Schulklassen in denen die jeweiligen Vertretungen gespeichert sind
      */
     public static SchoolClass[] forSql()
     {
@@ -113,18 +123,20 @@ public class HtmlReader
     }
 
     /**
-     * Liest alle Klassendateien aus.
+     * Liest alle Quelldateien aus.
      *
      * @param path Pfad zu den Dateien
      *
-     * @return Alle Schulklassen
+     * @return Ein Array in denen alle in den Quelldateien vorhandenen Vertretungen gespeichert sind (alle Tage)
      */
     public static SchoolClass[] getAllHtml(String path)
     {
         try
         {
             if(new FolderHandler(path).isEmpty())
-                return null;
+                return new SchoolClass[]
+                {
+                };
 
             ArrayList<File> files = getFiles(path);
 
@@ -184,6 +196,15 @@ public class HtmlReader
         }
     }
 
+    /**
+     * Gibt den genauen HTML-Tag zurück
+     *
+     * @param source Der String in dem nach HTML-Tags gesucht werden soll
+     * @param toFind Den HTML-Tag der gefunden werden soll.
+     *
+     * @return Den genauen HTML-Tag;
+     *         Bsp: findHtmlTag("blabla<font color="black">blabla", "font") gibt "<font color="black">" züruck
+     */
     private static String findHtmlTag(String source, String toFind)
     {
         try
@@ -201,6 +222,13 @@ public class HtmlReader
         return ">";
     }
 
+    /**
+     * Schneidet die Tabelle mit den Vertretungen aus.
+     *
+     * @param source Der String in dem die Tabelle gefunden werden soll (normalerweise eine Quelldatei als String)
+     *
+     * @return Die Tabelle mit den Vertretungen (Anfang: "<table>"; Ende: "</table>")
+     */
     private static String getTable(String source)
     {
         try
@@ -217,6 +245,13 @@ public class HtmlReader
         return null;
     }
 
+    /**
+     * Gibt die nächste Zelle der Tabelle soruce zurück
+     *
+     * @param source Die bis dahin noch übriggebliebene Tabelle
+     *
+     * @return Die nächste Zelle der Tabelle
+     */
     private static String readEntry(String source)
     {
         try
@@ -292,7 +327,7 @@ public class HtmlReader
     }
 
     /**
-     * Gibt die vorhandenen Dateien zurück.
+     * Gibt die Quelldateien zurück.
      *
      * @param path Pfad in dem die Dateien liegen
      *
@@ -312,7 +347,7 @@ public class HtmlReader
 
             ArrayList<File> files = new ArrayList<>();
             File file;
-            for(int grade = 5; grade <= 9; grade++)
+            for(int grade = firstGrade; grade <= lastGrade; grade++)
                 for(int c = 97; c <= 122; c++)
                 {
                     String g = String.valueOf(grade) + "" + (char)c;
@@ -325,9 +360,9 @@ public class HtmlReader
                         files.add(file);
                 }
 
-            for(String s : extraGrades)
+            for(String g : extraGrades)
             {
-                file = new File(path, "Druck_Klasse_" + s + ".htm");
+                file = new File(path, prefix + g + suffix);
                 if(file.exists())
                     files.add(file);
             }
@@ -336,14 +371,14 @@ public class HtmlReader
         }
         catch(Exception ex)
         {
-            Logger.log("Dateien konnten nicht unter \"" + path + "\" gefunden werden", 2);
+            Logger.log("Dateien unter \"" + path + "\" konnten nicht indiziert werden", 2);
             Logger.error(ex);
             return null;
         }
     }
 
     /**
-     * Liest die Klassendateien aus einer Datenbank.
+     * Liest die Vertretungen aus einer Datenbank.
      *
      * @return alle Schulklassen
      */

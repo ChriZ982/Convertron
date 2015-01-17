@@ -121,7 +121,7 @@ public class Time
         {
             instance();
             c.set(Calendar.DATE, Integer.parseInt(date.split("\\.")[0]));
-            c.set(Calendar.MONTH, Integer.parseInt(date.split("\\.")[1]));
+            c.set(Calendar.MONTH, Integer.parseInt(date.split("\\.")[1]) - 1);
 
             String gerade = Settings.load("customWeek");
             String ungerade;

@@ -4,7 +4,7 @@ import com.facharbeit.tools.*;
 import java.util.*;
 
 /**
- * Liest immer aus der selben SQL-Tabelle.
+ * Klasse zum lesen aus einer bestimmten Tabelle in einer Datenabank.
  */
 public class SqlTableReader extends SqlReader
 {
@@ -14,7 +14,7 @@ public class SqlTableReader extends SqlReader
     protected String tableName;
 
     /**
-     * Spalten, die es geben soll.
+     * Spalten, die ausgelesen werden.
      */
     protected String[] tableColumms;
 

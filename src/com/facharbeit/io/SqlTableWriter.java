@@ -3,7 +3,7 @@ package com.facharbeit.io;
 import java.util.*;
 
 /**
- * Schreibt immer in die selbe Tabelle.
+ * Klasse zum schreiben in eine bestimmte Tabelle in einer Datenabank.
  */
 public class SqlTableWriter extends SqlWriter
 {
@@ -66,6 +66,9 @@ public class SqlTableWriter extends SqlWriter
         addCell(tableName, tableColumm, data);
     }
 
+    /**
+     * Leert die Tabelle. (TRUNCATE)
+     */
     public void clear()
     {
         clear(tableName);

@@ -4,17 +4,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Einträge einer Schulklasse.
+ * Einzelne Vertretung innerhalb einer Schulklasse.
  */
 public class Entry
 {
+    /**
+     * Daten die für den Vertretungsplan relevant sind, in der normalen Reihenfolge.
+     */
+    public static final String[] defaultImportantContentOrder =
+    {
+        "Vertreter", "Raum", "Vertretungsart", "(Fach)", "(Lehrer)", "Verl. von", "Hinweise"
+    };
+
     /**
      * Die Stunde, für den der Eintrag gilt.
      */
     private int lesson = -1;
 
     /**
-     * Das Datum des Eintrags.
+     * Das Datum, das zu dem Eintrag gehört.
      */
     private String date = null;
 
@@ -29,12 +37,9 @@ public class Entry
     private Map<String, String> content;
 
     /**
-     * Daten die für den Vertretungsplan relevant sind.
+     * Daten die für den Vertretungsplan relevant sind, in einer bestimmten Reihenfolge.
      */
-    public static final String[] importantContent =
-    {
-        "Vertreter", "Raum", "Vertretungsart", "(Fach)", "(Lehrer)", "Verl. von", "Hinweise"
-    };
+    private String[] importantContentOrder = defaultImportantContentOrder;
 
     /**
      * Initialisiert einen neuen Eintrag.
@@ -57,7 +62,7 @@ public class Entry
 
             this.content = new HashMap<String, String>();
 
-            for(String ic : importantContent)
+            for(String ic : importantContentOrder)
                 this.content.put(ic, "");
 
             this.content.putAll(content);
@@ -71,11 +76,11 @@ public class Entry
     }
 
     /**
-     * Konvertiert den Eintrag als String.
+     * Konvertiert den Eintrag ein eine HTML-Tabellenzeile.
      *
-     * @param cssClass css-Klasse, die für den Eintrag gilt
+     * @param cssClass css-Klasse, der dieser Eintrag angehört
      *
-     * @return Eintrag als String
+     * @return HTML-Tabellenzeile die die Werte des Eintrags besitzt
      */
     public String toString(String cssClass)
     {
@@ -88,7 +93,7 @@ public class Entry
             else
                 s += "'                <td>" + lesson + "</td>'+\n";
 
-            for(String c : importantContent)
+            for(String c : importantContentOrder)
                 s += "'                <td>" + content.get(c) + "</td>'+\n";
 
             s += "'            </tr>'+\n";
@@ -153,7 +158,7 @@ public class Entry
     }
 
     /**
-     * Gibt Inhalt.
+     * Gibt relevanten Inhalt.
      *
      * @return Inhalt
      */
@@ -161,9 +166,9 @@ public class Entry
     {
         try
         {
-            String[] c = new String[importantContent.length];
+            String[] c = new String[importantContentOrder.length];
             for(int i = 0; i < c.length; i++)
-                c[i] = content.get(importantContent[i]);
+                c[i] = content.get(importantContentOrder[i]);
             return c;
         }
         catch(Exception ex)
@@ -176,17 +181,32 @@ public class Entry
         };
     }
 
+    /**
+     * Setzt relevanten Inhalt.
+     *
+     * @param c Neuer Inhalt
+     */
     public void setImportantContent(String[] c)
     {
         try
         {
             for(int i = 0; i < c.length; i++)
-                content.put(importantContent[i], c[i]);
+                content.put(importantContentOrder[i], c[i]);
         }
         catch(Exception ex)
         {
             Logger.log("Wichtige Spalten konnten nicht aktualisiert werden", 2);
             Logger.error(ex);
         }
+    }
+
+    public String[] getImportantContentOrder()
+    {
+        return importantContentOrder;
+    }
+
+    public void setImportantContentOrder(String[] importantContentOrder)
+    {
+        this.importantContentOrder = importantContentOrder;
     }
 }

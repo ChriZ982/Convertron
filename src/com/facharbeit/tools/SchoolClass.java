@@ -4,22 +4,17 @@ import com.facharbeit.io.*;
 import java.util.*;
 
 /**
- * Schulklasse die alle Einträge der Klasse beinhaltet.
+ * Klasse, die alle Vertretungen (Entrys) einer Schulklasse beinhaltet.
  */
 public class SchoolClass
 {
     /**
-     * Name der Klasse.
+     * Name der Schulklasse.
      */
     private String name;
 
-    public String getName()
-    {
-        return name;
-    }
-
     /**
-     * Datum mit dem die Schulklasse eingelesen wurde.
+     * Datum auf das die Einträge begrenzt wurden (durch onlyDate(String)).
      */
     private String curDate;
 
@@ -48,7 +43,17 @@ public class SchoolClass
     }
 
     /**
-     * Prüft die Einträge in der Klasse.
+     * Gibt Name.
+     *
+     * @return Name der Schulklasse.
+     */
+    public String getName()
+    {
+        return name;
+    }
+
+    /**
+     * Prüft ob Einträge vorhanden sind.
      *
      * @return Sind keine Einträge vorhanden?
      */
@@ -79,7 +84,7 @@ public class SchoolClass
         {
             contentColumms = sort(contentColumms, newOrder);
             for(Entry e : entries)
-                e.setImportantContent(sort(e.getImportantContent(), newOrder));
+                e.setImportantContentOrder(sort(e.getImportantContentOrder(), newOrder));
         }
         catch(Exception ex)
         {
@@ -91,10 +96,10 @@ public class SchoolClass
     /**
      * Sortiert die Einträge.
      *
-     * @param old      Alte Reihenfolge
+     * @param old      Alter Inhalt
      * @param newOrder Neue Reihenfolge
      *
-     * @return Sortierte Tabelle
+     * @return Alter Inhalt neu sortiert
      */
     private String[] sort(String[] old, int[] newOrder)
     {
@@ -121,7 +126,7 @@ public class SchoolClass
     }
 
     /**
-     * Löscht unwichtige Stunden.
+     * Löscht vergangene Stunden.
      */
     public void cut()
     {
@@ -158,7 +163,7 @@ public class SchoolClass
     }
 
     /**
-     * Konvertiert eine Klasse in einen String.
+     * Konvertiert diese Schulklasse inkl ihrer Vertretungen (Entrys) in eine HTML-Tabelle.
      *
      * @return Konvertierte Klasse
      */
@@ -219,7 +224,7 @@ public class SchoolClass
                 s += "'            </tr>'+\n";
 
                 for(Entry e : entries)
-                    s += e.toString(e.getImportantContent()[getIndexOfStringInArray(contentColumms, "Art")].replaceAll("\\.", ""));
+                    s += e.toString(e.getContent().get("Vertretungsart").replaceAll("\\.", ""));
 
                 s += "'        </table>'+";
             }
@@ -265,7 +270,7 @@ public class SchoolClass
     /**
      * Prüft ob Einträge eines Datums enthalten sind.
      *
-     * @param date Datum, das geprüft wird
+     * @param date Datum, das geprüft wird (dd.mm.)
      *
      * @return Einträge des Datums vorhanden?
      */
@@ -289,7 +294,7 @@ public class SchoolClass
     /**
      * Löscht alle Einträge, die nicht dem Datum entsprechen.
      *
-     * @param date Datum
+     * @param date Datum (dd.mm.)
      */
     public void onlyDate(String date)
     {

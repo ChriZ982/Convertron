@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.*;
 
 /**
- * Schreibt in eine Datenbank.
+ * Klasse zum schreiben in eine Datenbank.
  */
 public class SqlWriter
 {
