@@ -5,7 +5,7 @@ import java.util.Calendar;
 /**
  * Diese Klasse ist ein Sammlung von Ausdrücken die vom PathConverter ersetzt werden können.
  * Jede Methode steht dabei für einen ersetzbaren Ausdruck. Taucht in einer der Textfelder die konvertiert werden
- * zB <yyyy> auf wird dieser Ausdruck mit dem Rückgabewert der Funktion yyyy(String date) dieser Klasse ersetzt
+ * zB &lt;yyyy&gt; auf wird dieser Ausdruck mit dem Rückgabewert der Funktion yyyy(String date) dieser Klasse ersetzt
  */
 public class ConvertableExpressions
 {

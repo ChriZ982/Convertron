@@ -203,7 +203,7 @@ public class HtmlReader
      * @param toFind Den HTML-Tag der gefunden werden soll.
      *
      * @return Den genauen HTML-Tag;
-     *         Bsp: findHtmlTag("blabla<font color="black">blabla", "font") gibt "<font color="black">" züruck
+     *         Bsp: findHtmlTag("blabla&lt;font color="black"&gt;blabla", "font") gibt "&lt;font color="black"&gt;" züruck
      */
     private static String findHtmlTag(String source, String toFind)
     {
@@ -227,7 +227,7 @@ public class HtmlReader
      *
      * @param source Der String in dem die Tabelle gefunden werden soll (normalerweise eine Quelldatei als String)
      *
-     * @return Die Tabelle mit den Vertretungen (Anfang: "<table>"; Ende: "</table>")
+     * @return Die Tabelle mit den Vertretungen (Anfang: "&lt;table&gt;"; Ende: "&lt;/table&gt;")
      */
     private static String getTable(String source)
     {
