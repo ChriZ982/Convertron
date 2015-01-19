@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.*;
 
 /**
- * Liest Daten aus einer SQL-Datenbank.
+ * Klasse zum lesen aus einer Datenbank.
  */
 public class SqlReader
 {
@@ -33,7 +33,8 @@ public class SqlReader
                 url += ":" + dbPort;
             url += "/" + dbName;
             con = DriverManager.getConnection(url, dbUser, dbPassword);
-        } catch(ClassNotFoundException | SQLException ex)
+        }
+        catch(ClassNotFoundException | SQLException ex)
         {
             Logger.log("Verbindung zur Datenbank konnte nicht hergestellt werden.", 2);
             Logger.error(ex);
@@ -43,12 +44,12 @@ public class SqlReader
     /**
      * Liest alle Zeilen aus einer Datenbank.
      *
-     * @param tableName    Name der Tabelle, die gelesen werden soll
-     * @param tableColumms Array der Spalten, die gelesen werden solen
+     * @param tableName    Name der Tabelle, die ausgelesen werden soll
+     * @param tableColumms Spalten, die ausgelesen werden solen
      *
      * @return Alle Zeilen der Tabelle
      */
-    public ArrayList<String[]> readAll(String tableName, String[] tableColumms)
+    public ArrayList<String[]> readAll(String tableName, String... tableColumms)
     {
         ArrayList<String[]> data = null;
         if(con != null)
@@ -80,7 +81,8 @@ public class SqlReader
                     data.add(lineData);
                 }
 
-            } catch(SQLException ex)
+            }
+            catch(SQLException ex)
             {
                 Logger.log("SQL-Befehl konnte nicht ausgeführt werden..", 1);
                 Logger.error(ex);
@@ -92,13 +94,13 @@ public class SqlReader
     /**
      * Liest eine Zeile aus einer Datenbank.
      *
-     * @param tableName    Name der Tabelle, die gelesen werden soll
-     * @param tableColumms Spalten, die gelesen werden sollen
      * @param line         Nummer der Zeile, die gelesen werden soll
+     * @param tableName    Name der Tabelle, die ausgelesen werden soll
+     * @param tableColumms Spalten, die ausgelesen werden sollen
      *
      * @return Inhalt der Zeile
      */
-    public String[] readLine(String tableName, String[] tableColumms, int line)
+    public String[] readLine(int line, String tableName, String... tableColumms)
     {
         return readAll(tableName, tableColumms).get(line);
     }
@@ -112,7 +114,7 @@ public class SqlReader
      *
      * @return Inhalt der Zelle
      */
-    public String readCell(String tableName, String tableColumm, int line)
+    public String readCell(int line, String tableName, String tableColumm)
     {
         String[] columm =
         {

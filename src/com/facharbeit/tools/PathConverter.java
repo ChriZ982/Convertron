@@ -8,9 +8,19 @@ public class PathConverter
     public static final String BEGIN = "<";
     public static final String END = ">";
 
+    /**
+     * interne Klasse, besteht nur aus zwei Attributen.
+     */
     private static class StringPart
     {
+        /**
+         * Der eigentliche String.
+         */
         String content;
+
+        /**
+         * Wahrheitswert, der angibt ob dieser String konvertiert werden muss.
+         */
         boolean mustCovert;
 
         StringPart(String content, boolean mustCovert)
@@ -25,12 +35,12 @@ public class PathConverter
             this.mustCovert = false;
         }
 
-        public String getContent()
+        String getContent()
         {
             return content;
         }
 
-        public boolean mustCovert()
+        boolean mustCovert()
         {
             return mustCovert;
         }
@@ -42,7 +52,7 @@ public class PathConverter
      * @param s    Der zu konvertierende String.
      * @param date Das Datum im Format der Quelldateien (DD.MM) das zum konvertieren genutzt werden soll.
      *
-     * @return Den konvertieren String s.
+     * @return Den konvertierten String s.
      */
     public static String convert(String s, String date)
     {
@@ -78,15 +88,22 @@ public class PathConverter
                 else
                     s += p.getContent();
 
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
-//            Logger.log("Fehler beim konvertieren der Textfelder", 2);
-//            Logger.error(ex);
-            ex.printStackTrace();
+            Logger.log("Fehler beim konvertieren der Textfelder", 2);
+            Logger.error(ex);
         }
         return s;
     }
 
+    /**
+     * Ersetzt in dem angegebenen String(Pfad) bestimmte Ausdrücke innerhalb von BEGIN und END.
+     *
+     * @param s Der zu konvertierende String.
+     *
+     * @return Den konvertierten String s.
+     */
     public static String convert(String s)
     {
         return convert(s, null);

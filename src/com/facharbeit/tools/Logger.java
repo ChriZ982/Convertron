@@ -1,6 +1,6 @@
 package com.facharbeit.tools;
 
-import com.facharbeit.io.FileWriter;
+import com.facharbeit.io.FileHandler;
 import java.awt.Color;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -28,6 +28,8 @@ public class Logger
      */
     private static String internLog;
 
+    private static boolean logging;
+
     /**
      * Initialisiert den Logger.
      *
@@ -39,6 +41,7 @@ public class Logger
         textPane = out;
         progressBar = prog;
         internLog = "";
+        logging = true;
     }
 
     /**
@@ -51,35 +54,39 @@ public class Logger
     {
         try
         {
-            Color color;
-            switch(prio)
+            if(logging || prio == 1 || prio == 2)
             {
-                case 0:
-                    color = new Color(0, 100, 0);
-                    break;
+                Color color;
+                switch(prio)
+                {
+                    case 0:
+                        color = new Color(0, 100, 0);
+                        break;
 
-                case 1:
-                    color = new Color(200, 165, 0);
-                    break;
+                    case 1:
+                        color = new Color(200, 165, 0);
+                        break;
 
-                case 2:
-                    color = new Color(160, 0, 0);
-                    break;
+                    case 2:
+                        color = new Color(160, 0, 0);
+                        break;
 
-                default:
-                    color = Color.BLACK;
-                    break;
+                    default:
+                        color = Color.BLACK;
+                        break;
+                }
+                String content = Time.log() + text + "\n";
+
+                logIntern(text);
+
+                SimpleAttributeSet set = new SimpleAttributeSet();
+                StyleConstants.setForeground(set, color);
+                Document doc = textPane.getStyledDocument();
+                doc.insertString(doc.getLength(), content, set);
+                textPane.setCaretPosition(doc.getLength());
             }
-            String content = Time.log() + text + "\n";
-
-            logIntern(text);
-
-            SimpleAttributeSet set = new SimpleAttributeSet();
-            StyleConstants.setForeground(set, color);
-            Document doc = textPane.getStyledDocument();
-            doc.insertString(doc.getLength(), content, set);
-            textPane.setCaretPosition(doc.getLength());
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             System.err.println("Konnte eine Aktion nicht dokumentieren");
             ex.printStackTrace();
@@ -100,7 +107,7 @@ public class Logger
     {
         try
         {
-            FileWriter writer = new FileWriter("Errors/", "err" + Time.error() + ".txt");
+            FileHandler writer = new FileHandler("Errors/err" + Time.error() + ".txt");
             writer.create();
 
             StringWriter sw = new StringWriter();
@@ -113,7 +120,8 @@ public class Logger
                             + sw.toString() + "\n\n"
                             + internLog);
 
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             System.err.println("Error konnte nicht dokumentiert werden");
             ex.printStackTrace();
@@ -130,10 +138,21 @@ public class Logger
         try
         {
             progressBar.setValue(value);
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Fortschritt konnte nicht geändert werden", 2);
             Logger.error(ex);
         }
+    }
+
+    /**
+     * Aktiviert oder Deaktiviert das Logging von positiven(grünen) Meldungen.
+     *
+     * @param logging Neuer Status
+     */
+    public static void setLogging(boolean logging)
+    {
+        Logger.logging = logging;
     }
 }

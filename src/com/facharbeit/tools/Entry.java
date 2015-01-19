@@ -1,24 +1,30 @@
 package com.facharbeit.tools;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
- * Einträge einer Schulklasse.
+ * Einzelne Vertretung innerhalb einer Schulklasse.
  */
 public class Entry
 {
+    /**
+     * Daten die für den Vertretungsplan relevant sind, in der normalen Reihenfolge.
+     */
+    public static final String[] defaultImportantContentOrder =
+    {
+        "Vertreter", "Raum", "Vertretungsart", "(Fach)", "(Lehrer)", "Verl. von", "Hinweise"
+    };
+
     /**
      * Die Stunde, für den der Eintrag gilt.
      */
     private int lesson = -1;
 
     /**
-     * Das Datum des Eintrags.
+     * Das Datum, das zu dem Eintrag gehört.
      */
     private String date = null;
-
-    /**
-     * Wochentag des Eintrags
-     */
-    private String dayOfWeek = null;
 
     /**
      * Ist der Eintrag doppelstündig?.
@@ -28,39 +34,41 @@ public class Entry
     /**
      * Daten des Eintrags.
      */
-    private String[] content;
+    private Map<String, String> content;
+
+    /**
+     * Daten die für den Vertretungsplan relevant sind, in einer bestimmten Reihenfolge.
+     */
+    private String[] importantContentOrder = defaultImportantContentOrder;
 
     /**
      * Initialisiert einen neuen Eintrag.
      *
      * @param content Inhalt des Eintrags
      */
-    public Entry(String... content)
+    public Entry(Map<String, String> content)
     {
         try
         {
-            boolean isDoubleLesson = false;
-
-            if(content[0].contains("-"))
-                this.lesson = Integer.parseInt(content[0].substring(0, content[0].indexOf("-") - 1));
-            else if(!content[0].equals(""))
-                this.lesson = Integer.parseInt(content[0]);
-
-            if(content[0].indexOf("-") > 0)
+            if(content.get("Std").indexOf("-") > 0)
             {
-                isDoubleLesson = true;
-                this.lesson = Integer.parseInt(content[0].substring(0, content[0].indexOf("-") - 1));
-
+                doubleLesson = true;
+                this.lesson = Integer.parseInt(content.get("Std").substring(0, content.get("Std").indexOf("-") - 1));
             }
+            else if(!content.get("Std").equals(""))
+                this.lesson = Integer.parseInt(content.get("Std"));
 
-            this.doubleLesson = isDoubleLesson;
-            this.date = content[1];
-            this.dayOfWeek = content[2];
-            this.content = new String[content.length - 3];
+            this.date = content.get("Datum");
 
-            for(int i = 3; i < content.length; i++)
-                this.content[i - 3] = content[i];
-        } catch(Exception ex)
+            this.content = new HashMap<String, String>();
+
+            for(String ic : importantContentOrder)
+                this.content.put(ic, "");
+
+            this.content.putAll(content);
+
+        }
+        catch(Exception ex)
         {
             Logger.log("Eintrag konnte nicht initialisiert werden", 2);
             Logger.error(ex);
@@ -68,11 +76,11 @@ public class Entry
     }
 
     /**
-     * Konvertiert den Eintrag als String.
+     * Konvertiert den Eintrag ein eine HTML-Tabellenzeile.
      *
-     * @param cssClass css-Klasse, die für den Eintrag gilt
+     * @param cssClass css-Klasse, der dieser Eintrag angehört
      *
-     * @return Eintrag als String
+     * @return HTML-Tabellenzeile die die Werte des Eintrags besitzt
      */
     public String toString(String cssClass)
     {
@@ -84,11 +92,14 @@ public class Entry
                 s += "'                <td>" + lesson + "-" + (lesson + 1) + "</td>'+\n";
             else
                 s += "'                <td>" + lesson + "</td>'+\n";
-            for(String c : content)
-                s += "'                <td>" + c + "</td>'+\n";
+
+            for(String c : importantContentOrder)
+                s += "'                <td>" + content.get(c) + "</td>'+\n";
+
             s += "'            </tr>'+\n";
             return s;
-        } catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Logger.log("Eintrag konnte nicht in String konvertiert werden", 2);
             Logger.error(ex);
@@ -104,16 +115,6 @@ public class Entry
     public String getDate()
     {
         return date;
-    }
-
-    /**
-     * Gibt Wochentag.
-     *
-     * @return Wochentag
-     */
-    public String getDayOfWeek()
-    {
-        return dayOfWeek;
     }
 
     /**
@@ -141,7 +142,7 @@ public class Entry
      *
      * @return Inhalt
      */
-    public String[] getContent()
+    public Map<String, String> getContent()
     {
         return content;
     }
@@ -151,8 +152,61 @@ public class Entry
      *
      * @param content Neuer Inhalt
      */
-    public void setContent(String[] content)
+    public void setContent(Map<String, String> content)
     {
         this.content = content;
+    }
+
+    /**
+     * Gibt relevanten Inhalt.
+     *
+     * @return Inhalt
+     */
+    public String[] getImportantContent()
+    {
+        try
+        {
+            String[] c = new String[importantContentOrder.length];
+            for(int i = 0; i < c.length; i++)
+                c[i] = content.get(importantContentOrder[i]);
+            return c;
+        }
+        catch(Exception ex)
+        {
+            Logger.log("Wichtige Spalten konnten nicht ausgelesen werden", 2);
+            Logger.error(ex);
+        }
+        return new String[]
+        {
+        };
+    }
+
+    /**
+     * Setzt relevanten Inhalt.
+     *
+     * @param c Neuer Inhalt
+     */
+    public void setImportantContent(String[] c)
+    {
+        try
+        {
+            for(int i = 0; i < c.length; i++)
+                content.put(importantContentOrder[i], c[i]);
+        }
+        catch(Exception ex)
+        {
+            Logger.log("Wichtige Spalten konnten nicht aktualisiert werden", 2);
+            Logger.error(ex);
+        }
+    }
+
+    public String[] getImportantContentOrder()
+    {
+        return importantContentOrder;
+    }
+
+    public void setImportantContentOrder(String[] importantContentOrder)
+    {
+        this.importantContentOrder = importantContentOrder;
     }
 }
