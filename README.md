@@ -1,11 +1,7 @@
 # README #
 
-Facharbeit 2014
+Facharbeit 2014/15
 
-### TODO ###
+#FINAL VERSION 3.1#
 
-* Fehler finden
-* Aufräumen
-* Dokumentation
-
-genau 5000 Zeilen
+ca. 5000 Zeilen
