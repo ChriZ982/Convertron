@@ -177,7 +177,39 @@ public class HtmlReader
                         entries.put(head1, readEntry(asString.substring(0, asString.indexOf(findHtmlTag(asString, "/TD")))));
                     }
 
-                    schoolClasses[i].getEntries().add(new Entry(entries));
+                    boolean valid = true;
+
+                    if(entries.containsKey("Std"))
+                        if(!validateAsNumber(entries.get("Std"), '-', ' '))
+                            valid = false;
+                        else
+                        {
+                            //nothing
+                        }
+                    else
+                        valid = false;
+
+                    if(entries.containsKey("Datum"))
+                        if(!validateAsNumber(entries.get("Datum"), '.'))
+                            valid = false;
+                        else
+                        {
+                            //nothing
+                        }
+                    else
+                        valid = false;
+
+                    if(valid)
+                        schoolClasses[i].getEntries().add(new Entry(entries));
+                    else
+                    {
+                        Entry e = schoolClasses[i].getEntries().get(schoolClasses[i].getEntries().size() - 1);
+                        for(String key : entries.keySet())
+                            if(e.getContent().containsKey(key))
+                                e.getContent().put(key, e.getContent().get(key) + " " + entries.get(key));
+                            else
+                                e.getContent().put(key, entries.get(key));
+                    }
 
                     asString = asString.substring(asString.indexOf(findHtmlTag(asString, "/TD")) + findHtmlTag(asString, "/TD").length());
 
@@ -243,6 +275,44 @@ public class HtmlReader
             Logger.error(ex);
         }
         return null;
+    }
+
+    /**
+     * Prüft ob der String zu einer Zahl konvertiert werden kann.
+     *
+     * @param s          Der String der überprüft wird
+     * @param extraChars zusätzlich zugelassene Zeichen (neben Ziffern)
+     *
+     * @return Ob der String nur aus Ziffern und "extraChars" besteht
+     */
+    private static boolean validateAsNumber(String s, char... extraChars)
+    {
+        boolean found = false;
+
+        if(s.isEmpty())
+            return false;
+
+        for(char c : s.toCharArray())
+            if(Character.isDigit(c))
+                found = true;
+        if(!found)
+            return false;
+
+        for(char c : s.toCharArray())
+            if(!Character.isDigit(c))
+            {
+                found = false;
+                for(char extra : extraChars)
+                    if(c == extra)
+                    {
+                        found = true;
+                        break;
+                    }
+                if(!found)
+                    return false;
+            }
+
+        return true;
     }
 
     /**

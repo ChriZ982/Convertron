@@ -50,10 +50,11 @@ public class Entry
     {
         try
         {
-            if(content.get("Std").indexOf("-") > 0)
+            if(content.get("Std").contains("-"))
             {
                 doubleLesson = true;
-                this.lesson = Integer.parseInt(content.get("Std").substring(0, content.get("Std").indexOf("-") - 1));
+                content.put("Std", content.get("Std").replaceAll(" ", ""));
+                this.lesson = Integer.parseInt(content.get("Std").substring(0, content.get("Std").indexOf("-")));
             }
             else if(!content.get("Std").equals(""))
                 this.lesson = Integer.parseInt(content.get("Std"));
