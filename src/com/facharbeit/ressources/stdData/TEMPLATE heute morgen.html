@@ -23,7 +23,7 @@
                     }
                 }
             }
-            
+
             function reload()
             {
                 location.reload(true);
@@ -32,9 +32,9 @@
             function start()
             {
                 window.scrollBy(0, 1000000);
-                height = (window.pageYOffset + window.innerHeight)/2;
-                
-                if(window.pageYOffset>0)
+                height = (window.pageYOffset + window.innerHeight) / 2;
+
+                if (window.pageYOffset > 0)
                     window.setInterval("scroll()", GESCHW);
                 else
                     window.setInterval("reload()", 60000);
@@ -43,19 +43,19 @@
 
         <title>Vertretungsplan</title>
         <link rel="stylesheet" type="text/css" href="style.css">
-        <meta charset="ISO-8859-1">
+        <meta charset="windows-1252">
     </head>
     <body class="body1" onLoad="start()">
-    
-    <script type="text/javascript">
-        body();
 
-                window.scrollBy(0, 10);
+        <script type="text/javascript">
+            body();
 
-                if (window.pageYOffset != 0)
-                    body();
-        
-        function body()
+            window.scrollBy(0, 10);
+
+            if (window.pageYOffset !== 0)
+                body();
+
+            function body()
             {
                 document.open();
                 document.write('<table width="100%" >' +
@@ -70,7 +70,7 @@
                         '');
                 document.close();
             }
-    </script>
+        </script>
 
     </body>
 </html>
