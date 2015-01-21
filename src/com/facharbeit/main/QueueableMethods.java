@@ -122,33 +122,42 @@ public class QueueableMethods
 
         String[] order = new String[7];
         for(int i = 0; i < 7; i++)
+        {
             switch(table.getColumnName(i))
             {
                 case "Vertreter":
                     order[i] = "0";
+                    Settings.save("lessonSizeVtr", String.valueOf((int)((double)table.getCellRect(0, i, true).getWidth() / (double)table.getWidth() * 87.0)));
                     break;
                 case "Raum":
                     order[i] = "1";
+                    Settings.save("lessonSizeRaum", String.valueOf((int)((double)table.getCellRect(0, i, true).getWidth() / (double)table.getWidth() * 87.0)));
                     break;
                 case "Art":
                     order[i] = "2";
+                    Settings.save("lessonSizeArt", String.valueOf((int)((double)table.getCellRect(0, i, true).getWidth() / (double)table.getWidth() * 87.0)));
                     break;
                 case "Fach":
                     order[i] = "3";
+                    Settings.save("lessonSizeFach", String.valueOf((int)((double)table.getCellRect(0, i, true).getWidth() / (double)table.getWidth() * 87.0)));
                     break;
                 case "Lehrer":
                     order[i] = "4";
+                    Settings.save("lessonSizeLeh", String.valueOf((int)((double)table.getCellRect(0, i, true).getWidth() / (double)table.getWidth() * 87.0)));
                     break;
                 case "Verl. von":
                     order[i] = "5";
+                    Settings.save("lessonSizeVerl", String.valueOf((int)((double)table.getCellRect(0, i, true).getWidth() / (double)table.getWidth() * 87.0)));
                     break;
                 case "Hinweise":
                     order[i] = "6";
+                    Settings.save("lessonSizeHinw", String.valueOf((int)((double)table.getCellRect(0, i, true).getWidth() / (double)table.getWidth() * 87.0)));
                     break;
                 default:
                     Logger.log("Fehler beim sortieren der Daten!", 2);
                     return;
             }
+        }
 
         String setting = order[0] + ","
                          + order[1] + ","
@@ -478,30 +487,33 @@ public class QueueableMethods
 
         String[] order = Settings.load("lessonOrder").split(",");
         for(int i = 0; i < 7; i++)
+        {
             switch(order[i])
             {
                 case "0":
-                    loadTable(table, i, 0, "Vertreter");
+                    loadTable(table, i, 0, "Vertreter", Settings.load("lessonSizeVtr"));
                     break;
                 case "1":
-                    loadTable(table, i, 1, "Raum");
+                    loadTable(table, i, 1, "Raum", Settings.load("lessonSizeRaum"));
                     break;
                 case "2":
-                    loadTable(table, i, 2, "Art");
+                    loadTable(table, i, 2, "Art", Settings.load("lessonSizeArt"));
                     break;
                 case "3":
-                    loadTable(table, i, 3, "Fach");
+                    loadTable(table, i, 3, "Fach", Settings.load("lessonSizeFach"));
                     break;
                 case "4":
-                    loadTable(table, i, 4, "Lehrer");
+                    loadTable(table, i, 4, "Lehrer", Settings.load("lessonSizeLeh"));
                     break;
                 case "5":
-                    loadTable(table, i, 5, "Verl. von");
+                    loadTable(table, i, 5, "Verl. von", Settings.load("lessonSizeVerl"));
                     break;
                 case "6":
-                    loadTable(table, i, 6, "Hinweise");
+                    loadTable(table, i, 6, "Hinweise", Settings.load("lessonSizeHinw"));
                     break;
             }
+        }
+//        for(int i = 0; i < 7; i++)
     }
 
     /**
@@ -578,10 +590,14 @@ public class QueueableMethods
      * @param newIndex Neuer Index
      * @param head     Name der Spalte
      */
-    private static void loadTable(JTable table, int index, int newIndex, String head)
+    private static void loadTable(JTable table, int index, int newIndex, String head, String setting)
     {
         table.getColumnModel().getColumn(index).setHeaderValue(head);
         table.getColumnModel().getColumn(index).setModelIndex(newIndex);
+        if(setting.equals(""))
+            return;
+        table.getColumnModel().getColumn(index).setPreferredWidth((Integer.parseInt(setting) * table.getWidth()) / 87);
+        table.getColumnModel().getColumn(index).setWidth((Integer.parseInt(setting) * table.getWidth()) / 87);
     }
 
     /**
