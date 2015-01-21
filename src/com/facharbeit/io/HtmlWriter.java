@@ -135,8 +135,7 @@ public class HtmlWriter
                 return;
 
             if(text.equals("Laufschrift"))
-                if(!validate(""))
-                    return;
+                text = "";
 
             FileHandler reader = new FileHandler("Data/TEMPLATE laufschrift.html");
             FileHandler writer = new FileHandler("Data/laufschrift.html");
