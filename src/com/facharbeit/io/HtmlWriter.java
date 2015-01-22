@@ -35,7 +35,7 @@ public class HtmlWriter
             if(Settings.line("planSpeed") != -1)
                 speed = Integer.toString((int)((1.0 / (Double.parseDouble(Settings.load("planSpeed")) / 100.0)) * 12.0));
             Logger.setProgress(start + 2 * (part / 6));
-            String classes = classes(schoolClasses);
+            String classes = classes(cut(schoolClasses));
             Logger.setProgress(start + 3 * (part / 6));
 
             if(!validate(day, speed))
@@ -296,8 +296,6 @@ public class HtmlWriter
             String s = "";
             for(SchoolClass schoolClass : schoolClasses)
             {
-                if(Settings.load("lessonUse").equals("true"))
-                    schoolClass.cut();
                 String[] or = Settings.load("lessonOrder").split(",");
                 schoolClass.sort(Integer.parseInt(or[0]),
                                  Integer.parseInt(or[1]),
@@ -318,6 +316,31 @@ public class HtmlWriter
             Logger.error(ex);
             return null;
         }
+    }
+
+    /**
+     * Schneidet die vergangenen Stunden falls nötig ab.
+     *
+     * @param scs Das zu bearbeitende Array
+     *
+     * @return Das bearbeitete Array
+     */
+    private static SchoolClass[] cut(SchoolClass[] scs)
+    {
+        try
+        {
+            if(Settings.load("lessonUse").equals("true"))
+                if(scs != null && scs.length > 0)
+                    for(SchoolClass sc : scs)
+                        sc.cut();
+
+        }
+        catch(Exception ex)
+        {
+            Logger.log("Stunden im gesamten Array konnten nicht gelöscht werden", 2);
+            Logger.error(ex);
+        }
+        return scs;
     }
 
     /**
