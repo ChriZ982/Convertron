@@ -185,28 +185,43 @@ public class SchoolClass
                 for(String cc : contentColumms)
                 {
                     int colWidth = 10;
+                    String setting = "";
                     switch(cc)
                     {
                         case "Vertreter":
-                            colWidth = 10;
+                            setting = Settings.load("lessonSizeVtr");
+                            if(!setting.equals(""))
+                                colWidth = Integer.parseInt(setting);
                             break;
                         case "Raum":
-                            colWidth = 10;
+                            setting = Settings.load("lessonSizeRaum");
+                            if(!setting.equals(""))
+                                colWidth = Integer.parseInt(setting);
                             break;
                         case "Art":
-                            colWidth = 12;
+                            setting = Settings.load("lessonSizeArt");
+                            if(!setting.equals(""))
+                                colWidth = Integer.parseInt(setting);
                             break;
                         case "Fach":
-                            colWidth = 7;
+                            setting = Settings.load("lessonSizeFach");
+                            if(!setting.equals(""))
+                                colWidth = Integer.parseInt(setting);
                             break;
                         case "Lehrer":
-                            colWidth = 10;
+                            setting = Settings.load("lessonSizeLeh");
+                            if(!setting.equals(""))
+                                colWidth = Integer.parseInt(setting);
                             break;
                         case "Verl. von":
-                            colWidth = 10;
+                            setting = Settings.load("lessonSizeVerl");
+                            if(!setting.equals(""))
+                                colWidth = Integer.parseInt(setting);
                             break;
                         case "Hinweise":
-                            colWidth = 28;
+                            setting = Settings.load("lessonSizeHinw");
+                            if(!setting.equals(""))
+                                colWidth = Integer.parseInt(setting);
                             break;
                         default:
                             break;

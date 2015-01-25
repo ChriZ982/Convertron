@@ -463,7 +463,7 @@ public class Frame extends javax.swing.JFrame
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][]
             {
-                {null, null, null, null, null, null, null}
+                {"ker", "info1", "Raum-Vtr.", "IF-LK1", "ker", "", "Raumänderung"}
             },
             new String []
             {
@@ -481,7 +481,7 @@ public class Frame extends javax.swing.JFrame
                 return canEdit [columnIndex];
             }
         });
-        table.setToolTipText("Verändern der Spalten-Sortierung auf dem Vertretungsplan");
+        table.setToolTipText("Verändern der Spalten-Sortierung und -Größe auf dem Vertretungsplan");
         jScrollPane3.setViewportView(table);
 
         jLabel18.setText("Gerade Woche");
