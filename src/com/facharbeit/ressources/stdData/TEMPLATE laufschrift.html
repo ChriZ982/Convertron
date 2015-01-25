@@ -46,14 +46,14 @@
             
             </script>
         
-        <meta charset="ISO-8859-1">
+            <meta charset="windows-1252">
     </head>
     <body class="body2" onload="start()">
     
         <table width="100%" >
             <tr id="ls">
                 <td ><img src="antonianumLogo.png" height="80" alt="Gymnasium Antonianum - Logo" /></td>
-                <td width="100%" class="laufschrift"><nobr>TEXT</nobr></td>
+                <td width="100%" class="laufschrift"><nobr>TEXT&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</nobr></td>
             </tr>
         </table>
         
@@ -63,7 +63,7 @@
         
             window.scrollBy(10, 0);
 
-            if (window.pageXOffset != 0)
+            if (window.pageXOffset !== 0)
                 document.getElementById('ls').innerHTML=inhalt+inhalt;
         
         </script>

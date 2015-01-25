@@ -138,7 +138,7 @@ public class Time
                 week = ungerade;
 
             return "Vertretungen " + c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.GERMANY) + " "
-                   + date + "<br/>Woche-" + week + " (" + c.get(Calendar.WEEK_OF_YEAR) + ")";
+                   + date + "<br/>" + week + "-Woche (" + c.get(Calendar.WEEK_OF_YEAR) + ". KW)";
         }
         catch(Exception ex)
         {

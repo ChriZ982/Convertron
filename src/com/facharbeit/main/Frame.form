@@ -675,16 +675,30 @@
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="7" rowCount="1">
-                        <Column editable="false" title="Vertreter" type="java.lang.Object"/>
-                        <Column editable="false" title="Raum" type="java.lang.Object"/>
-                        <Column editable="false" title="Art" type="java.lang.Object"/>
-                        <Column editable="false" title="Fach" type="java.lang.Object"/>
-                        <Column editable="false" title="Lehrer" type="java.lang.Object"/>
-                        <Column editable="false" title="Verl. von" type="java.lang.Object"/>
-                        <Column editable="false" title="Hinweise" type="java.lang.Object"/>
+                        <Column editable="false" title="Vertreter" type="java.lang.Object">
+                          <Data value="ker"/>
+                        </Column>
+                        <Column editable="false" title="Raum" type="java.lang.Object">
+                          <Data value="info1"/>
+                        </Column>
+                        <Column editable="false" title="Art" type="java.lang.Object">
+                          <Data value="Raum-Vtr."/>
+                        </Column>
+                        <Column editable="false" title="Fach" type="java.lang.Object">
+                          <Data value="IF-LK1"/>
+                        </Column>
+                        <Column editable="false" title="Lehrer" type="java.lang.Object">
+                          <Data value="ker"/>
+                        </Column>
+                        <Column editable="false" title="Verl. von" type="java.lang.Object">
+                          <Data value=""/>
+                        </Column>
+                        <Column editable="false" title="Hinweise" type="java.lang.Object">
+                          <Data value="Raum&#xe4;nderung"/>
+                        </Column>
                       </Table>
                     </Property>
-                    <Property name="toolTipText" type="java.lang.String" value="Ver&#xe4;ndern der Spalten-Sortierung auf dem Vertretungsplan"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Ver&#xe4;ndern der Spalten-Sortierung und -Gr&#xf6;&#xdf;e auf dem Vertretungsplan"/>
                   </Properties>
                 </Component>
               </SubComponents>
