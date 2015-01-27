@@ -36,78 +36,53 @@ public class FileHandler
 
     /**
      * Erstellt eine neue Datei.
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public void create()
+    public void create() throws Exception
     {
-        try
-        {
-            file.getParentFile().mkdirs();
-            if(file.createNewFile())
-                Logger.log("\"" + file.getName() + "\" wurde erstellt.", 0);
-        }
-        catch(Exception ex)
-        {
-            Logger.log("\"" + file.getName() + "\" konnte nicht erstellt werden", 2);
-            Logger.error(ex);
-        }
+        file.getParentFile().mkdirs();
+        if(file.createNewFile())
+            Logger.log("\"" + file.getName() + "\" wurde erstellt.", 0);
     }
 
     /**
      * Löscht eine bestehende Datei.
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public void delete()
+    public void delete() throws Exception
     {
-        try
-        {
-            if(file.delete())
-                Logger.log("\"" + file.getName() + "\" wurde gelöscht.", 0);
-        }
-        catch(Exception ex)
-        {
-            Logger.log("\"" + file.getName() + "\" konnte nicht gelöscht werden", 2);
-            Logger.error(ex);
-        }
+        if(file.delete())
+            Logger.log("\"" + file.getName() + "\" wurde gelöscht.", 0);
     }
 
     /**
      * Prüft ob die Datei existiert.
      *
      * @return Existiert die Datei?
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public boolean exists()
+    public boolean exists() throws Exception
     {
-        try
-        {
-            return file.isFile() && file.exists();
-        }
-        catch(Exception ex)
-        {
-            Logger.log("\"" + file.getName() + "\" konnte nicht geprüft werden", 2);
-            Logger.error(ex);
-            return false;
-        }
+        return file.isFile() && file.exists();
     }
 
     /**
      * Kopiert eine Datei zu einem Pfad.
      *
      * @param dest Ziel-Pfad
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public void copy(String dest)
+    public void copy(String dest) throws Exception
     {
-        try
+        if(exists())
         {
-            if(exists())
-            {
-                new File(dest).mkdirs();
-                Files.copy(Paths.get(file.getPath()), Paths.get(dest + file.getName()), StandardCopyOption.REPLACE_EXISTING);
-                Logger.log(file.getName() + " wurde kopiert", 0);
-            }
-        }
-        catch(Exception ex)
-        {
-            Logger.log("\"" + file.getName() + "\" konnte nicht kopiert werden", 2);
-            Logger.error(ex);
+            new File(dest).mkdirs();
+            Files.copy(Paths.get(file.getPath()), Paths.get(dest + file.getName()), StandardCopyOption.REPLACE_EXISTING);
+            Logger.log(file.getName() + " wurde kopiert", 0);
         }
     }
 
@@ -115,29 +90,23 @@ public class FileHandler
      * Kopiert Dateien aus dem Java-Package der Facharbeit.
      *
      * @param dest Ziel-Pfad
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public void copyFromRes(String dest)
+    public void copyFromRes(String dest) throws Exception
     {
-        try
+        File f = new File(dest + file.getName());
+        f.getParentFile().mkdirs();
+        if(!f.exists())
         {
-            File f = new File(dest + file.getName());
-            f.getParentFile().mkdirs();
-            if(!f.exists())
-            {
-                InputStream in = getClass().getResourceAsStream(file.getPath().replaceAll("\\\\", "/"));
-                FileOutputStream out = new FileOutputStream(f);
+            InputStream in = getClass().getResourceAsStream(file.getPath().replaceAll("\\\\", "/"));
+            FileOutputStream out = new FileOutputStream(f);
 
-                for(int read; (read = in.read()) != -1;)
-                    out.write(read);
-                out.flush();
+            for(int read; (read = in.read()) != -1;)
+                out.write(read);
+            out.flush();
 
-                Logger.log(f.getName() + " wurde kopiert", 0);
-            }
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Datei konnte nicht kopiert werden", 2);
-            Logger.error(ex);
+            Logger.log(f.getName() + " wurde kopiert", 0);
         }
     }
 
@@ -145,25 +114,17 @@ public class FileHandler
      * Gibt die Zeilenanzahl zurück.
      *
      * @return Anzahl der Zeilen
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public int length()
+    public int length() throws Exception
     {
-        try
-        {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "ISO-8859-1"));
-            int lines = 0;
-            while(reader.readLine() != null)
-                lines++;
-
-            reader.close();
-            return lines;
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Zeilenanzahl von \"" + file.getName() + "\" konnte nicht ermittelt werden", 2);
-            Logger.error(ex);
-            return -1;
-        }
+        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "ISO-8859-1"));
+        int lines = 0;
+        while(reader.readLine() != null)
+            lines++;
+        reader.close();
+        return lines;
     }
 
     /**
@@ -172,103 +133,71 @@ public class FileHandler
      * @param lineNumber Zeile, die gelesen werden soll
      *
      * @return Inhalt dieser Zeile
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public String read(int lineNumber)
+    public String read(int lineNumber) throws Exception
     {
-        try
-        {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "ISO-8859-1"));
-            for(int i = 0; i < lineNumber; i++)
-                reader.readLine();
-            String line = reader.readLine();
-
-            reader.close();
-            return line;
-        }
-        catch(Exception ex)
-        {
-            Logger.log("\"" + file.getName() + "\" konnte nicht gelesen werden", 2);
-            Logger.error(ex);
-            return null;
-        }
+        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "ISO-8859-1"));
+        for(int i = 0; i < lineNumber; i++)
+            reader.readLine();
+        String line = reader.readLine();
+        reader.close();
+        return line;
     }
 
     /**
      * Liest ganze Datei aus.
      *
      * @return Ganze Datei als String Array
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public String[] read()
+    public String[] read() throws Exception
     {
-        try
-        {
-            int length = length();
-            String[] text = new String[length];
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "ISO-8859-1"));
-
-            for(int i = 0; i < length; i++)
-                text[i] = reader.readLine();
-
-            reader.close();
-            return text;
-        }
-        catch(Exception ex)
-        {
-            Logger.log("\"" + file.getName() + "\" konnte nicht gelesen werden", 2);
-            Logger.error(ex);
-            return null;
-        }
+        int length = length();
+        String[] text = new String[length];
+        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "ISO-8859-1"));
+        for(int i = 0; i < length; i++)
+            text[i] = reader.readLine();
+        reader.close();
+        return text;
     }
 
     /**
      * Konvertiert die Datei in einen einzelnen String.
      *
      * @return Ganze Datei als String
+     *
+     * @throws java.lang.Exception Fehler
      */
-    @Override
-    public String toString()
+    public String asString() throws Exception
     {
-        try
-        {
-            String asString = "";
-            String[] text = read();
-
-            for(int i = 0; i < text.length - 1; i++)
-                asString += "\n" + text[i];
-
-            return asString;
-        }
-        catch(Exception ex)
-        {
-            Logger.log("\"" + file.getName() + "\" konnte nicht zum String konvertiert werden", 2);
-            Logger.error(ex);
-            return null;
-        }
+        String asString = "";
+        String[] text = read();
+        for(int i = 0; i < text.length - 1; i++)
+            asString += "\n" + text[i];
+        return asString;
     }
 
     /**
      * Schreibt eine ganze Datei neu.
      *
      * @param text Daten, die in die Datei geschrieben werder sollen
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public void write(String[] text)
+    public void write(String[] text) throws Exception
     {
-        try
+        PrintWriter writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file), "ISO-8859-1"));
+        for(int i = 0; i < text.length; i++)
         {
-            PrintWriter writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file), "ISO-8859-1"));
-            for(int i = 0; i < text.length; i++)
-                if(i + 1 < text.length)
-                    writer.println(text[i]);
-                else
-                    writer.print(text[i]);
-            writer.close();
+            if(i + 1 < text.length)
+                writer.println(text[i]);
+            else
+                writer.print(text[i]);
         }
-        catch(Exception ex)
-        {
-            Logger.log("\"" + file.getName() + "\" konnte nicht geschrieben werden", 2);
-            Logger.error(ex);
-        }
+        writer.close();
     }
 
     /**
@@ -276,32 +205,26 @@ public class FileHandler
      *
      * @param lineNumber Zeile, die neu geschrieben werden soll
      * @param text       Text, der geschrieben werden soll
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public void write(int lineNumber, String text)
+    public void write(int lineNumber, String text) throws Exception
     {
-        try
-        {
-            String[] oldText = read();
-            String[] newText;
+        String[] oldText = read();
+        String[] newText;
+        if(lineNumber + 1 > oldText.length)
+            newText = new String[lineNumber + 1];
+        else
+            newText = new String[oldText.length];
 
-            if(lineNumber + 1 > oldText.length)
-                newText = new String[lineNumber + 1];
+        for(int i = 0; i < newText.length; i++)
+        {
+            if(i < oldText.length)
+                newText[i] = oldText[i];
             else
-                newText = new String[oldText.length];
-
-            for(int i = 0; i < newText.length; i++)
-                if(i < oldText.length)
-                    newText[i] = oldText[i];
-                else
-                    newText[i] = "";
-
-            newText[lineNumber] = text;
-            write(newText);
+                newText[i] = "";
         }
-        catch(Exception ex)
-        {
-            Logger.log("\"" + file.getName() + "\" konnte nicht geschrieben werden", 2);
-            Logger.error(ex);
-        }
+        newText[lineNumber] = text;
+        write(newText);
     }
 }

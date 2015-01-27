@@ -39,83 +39,57 @@ public class FolderHandler
      * Kopiert den Inhalt des Ordners.
      *
      * @param dest Zielpfad
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public void copyContent(String dest)
+    public void copyContent(String dest) throws Exception
     {
-        try
-        {
-            Iterator it = Files.list(Paths.get(file.getPath())).iterator();
-            Logger.setLogging(false);
-            while(it.hasNext())
-                new FileHandler(String.valueOf(it.next())).copy(dest);
-            Logger.setLogging(true);
-            Logger.log("\"" + file.getName() + "\" kopiert", 0);
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Konnte \"" + file.getName() + "\" nicht kopieren!", 2);
-            Logger.error(ex);
-        }
+        Iterator it = Files.list(Paths.get(file.getPath())).iterator();
+        Logger.enable(false);
+        while(it.hasNext())
+            new FileHandler(String.valueOf(it.next())).copy(dest);
+        Logger.enable(true);
+        Logger.log("\"" + file.getName() + "\" kopiert", 0);
     }
 
     /**
      * Löscht den Inhalt des Ordners.
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public void deleteContent()
+    public void deleteContent() throws Exception
     {
-        try
-        {
-            if(!exists())
-                return;
-            Iterator it = Files.list(Paths.get(file.getPath())).iterator();
-            Logger.setLogging(false);
-            while(it.hasNext())
-                new FileHandler(String.valueOf(it.next())).delete();
-            Logger.setLogging(true);
-            Logger.log("\"" + file.getName() + "\" gelöscht", 0);
-        }
-        catch(Exception ex)
-        {
-            Logger.log("\"" + file.getName() + "\" konnte nicht gelöscht werden!", 2);
-            Logger.error(ex);
-        }
+        if(!exists())
+            return;
+        Iterator it = Files.list(Paths.get(file.getPath())).iterator();
+        Logger.enable(false);
+        while(it.hasNext())
+            new FileHandler(String.valueOf(it.next())).delete();
+        Logger.enable(true);
+        Logger.log("\"" + file.getName() + "\" gelöscht", 0);
     }
 
     /**
      * Prüft ob der Ordner existiert.
      *
      * @return Existiert er?
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public boolean exists()
+    public boolean exists() throws Exception
     {
-        try
-        {
-            return file.isDirectory() && file.exists();
-        }
-        catch(Exception ex)
-        {
-            Logger.log("\"" + file.getName() + "\" konnte nicht geprüft werden", 2);
-            Logger.error(ex);
-            return false;
-        }
+        return file.isDirectory() && file.exists();
     }
 
     /**
      * Prüft ob der Ordner leer ist.
      *
      * @return Ist er leer?
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public boolean isEmpty()
+    public boolean isEmpty() throws Exception
     {
-        try
-        {
-            return !exists() || !Files.list(Paths.get(file.getPath())).iterator().hasNext();
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Konnte \"" + file.getName() + "\" nicht auf Inhalt prüfen!", 2);
-            Logger.error(ex);
-            return true;
-        }
+        return !exists() || !Files.list(Paths.get(file.getPath())).iterator().hasNext();
     }
 }

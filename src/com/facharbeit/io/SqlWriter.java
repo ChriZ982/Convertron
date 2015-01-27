@@ -27,25 +27,18 @@ public class SqlWriter
      * @param dbName     Name der Datenbank
      * @param dbUser     Nutername der Datenbank
      * @param dbPassword Passwort der Datenbank
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public SqlWriter(String dbHost, int dbPort, String dbName, String dbUser, String dbPassword)
+    public SqlWriter(String dbHost, int dbPort, String dbName, String dbUser, String dbPassword) throws Exception
     {
         this.dbName = dbName;
-
-        try
-        {
-            Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://" + dbHost;
-            if(dbPort != -1)
-                url += ":" + dbPort;
-            url += "/" + dbName;
-            con = DriverManager.getConnection(url, dbUser, dbPassword);
-        }
-        catch(ClassNotFoundException | SQLException ex)
-        {
-            Logger.log("Verbindung zur Datenbank konnte nicht hergestellt werden.", 2);
-            Logger.error(ex);
-        }
+        Class.forName("com.mysql.jdbc.Driver");
+        String url = "jdbc:mysql://" + dbHost;
+        if(dbPort != -1)
+            url += ":" + dbPort;
+        url += "/" + dbName;
+        con = DriverManager.getConnection(url, dbUser, dbPassword);
     }
 
     /**
@@ -54,43 +47,39 @@ public class SqlWriter
      * @param tableName    Name der Tabelle
      * @param tableColumms Spalten, die es in den Zeilen geben soll
      * @param data         Inhalt, der geschrieben werden soll
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public void addAll(String tableName, String[] tableColumms, ArrayList<String[]> data)
+    public void addAll(String tableName, String[] tableColumms, ArrayList<String[]> data) throws Exception
     {
         if(con != null)
             for(String[] lineData : data)
-                try
+            {
+                Statement query = con.createStatement();
+                String command = "INSERT INTO `" + dbName + "`.`" + tableName + "` (";
+
+                for(int i = 0; i < tableColumms.length; i++)
                 {
-                    Statement query = con.createStatement();
-                    String command = "INSERT INTO `" + dbName + "`.`" + tableName + "` (";
-
-                    for(int i = 0; i < tableColumms.length; i++)
-                    {
-                        if(i > 0)
-                            command += ", ";
-                        command += "`" + tableColumms[i] + "`";
-                    }
-
-                    command += ") VALUES (";
-
-                    for(int i = 0; i < lineData.length; i++)
-                    {
-                        if(i > 0)
-                            command += ", ";
-                        command += "'" + lineData[i] + "'";
-                    }
-
-                    command += ");";
-
-                    Logger.log(command, 0);
-
-                    query.execute(command);
+                    if(i > 0)
+                        command += ", ";
+                    command += "`" + tableColumms[i] + "`";
                 }
-                catch(SQLException ex)
+
+                command += ") VALUES (";
+
+                for(int i = 0; i < lineData.length; i++)
                 {
-                    Logger.log("SQL-Befehl konnte nicht ausgeführt werden..", 1);
-                    Logger.error(ex);
+                    if(i > 0)
+                        command += ", ";
+                    command += "'" + lineData[i] + "'";
                 }
+
+                command += ");";
+
+                Logger.log(command, 0);
+
+                query.execute(command);
+            }
     }
 
     /**
@@ -99,8 +88,10 @@ public class SqlWriter
      * @param tableName    Name der Tabelle
      * @param tableColumms Spalten, die es in der Zeile geben soll
      * @param data         Inhalt, der geschrieben werden soll
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public void addLine(String tableName, String[] tableColumms, String[] data)
+    public void addLine(String tableName, String[] tableColumms, String[] data) throws Exception
     {
         ArrayList<String[]> dataList = new ArrayList<String[]>();
         dataList.set(0, data);
@@ -113,8 +104,10 @@ public class SqlWriter
      * @param tableName   Name der Tabelle
      * @param tableColumm Spalte, die es in der Zeile geben soll
      * @param data        Inhalt, der geschrieben werden soll
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public void addCell(String tableName, String tableColumm, String data)
+    public void addCell(String tableName, String tableColumm, String data) throws Exception
     {
         String[] tableColumms =
         {
@@ -131,18 +124,12 @@ public class SqlWriter
      * Leert eine komplette Tabelle.
      *
      * @param tableName Name der zu leerende Tabelle
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public void clear(String tableName)
+    public void clear(String tableName) throws Exception
     {
-        try
-        {
-            Statement query = con.createStatement();
-            query.execute("TRUNCATE TABLE `" + dbName + "`.`" + tableName + "`");
-        }
-        catch(SQLException ex)
-        {
-            Logger.log("SQL-Befehl konnte nicht ausgeführt werden..", 1);
-            Logger.error(ex);
-        }
+        Statement query = con.createStatement();
+        query.execute("TRUNCATE TABLE `" + dbName + "`.`" + tableName + "`");
     }
 }

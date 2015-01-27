@@ -56,41 +56,28 @@ public class SchoolClass
      * Prüft ob Einträge vorhanden sind.
      *
      * @return Sind keine Einträge vorhanden?
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public boolean isEmpty()
+    public boolean isEmpty() throws Exception
     {
-        try
-        {
-            if(entries == null)
-                return true;
-            return entries.isEmpty();
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Schulklasse konnte nicht überprüft werdenF", 2);
-            Logger.error(ex);
-            return false;
-        }
+        if(entries == null)
+            return true;
+        return entries.isEmpty();
     }
 
     /**
      * Sortiert die Einträge.
      *
      * @param newOrder Neue Reihenfolge
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public void sort(int... newOrder)
+    public void sort(int... newOrder) throws Exception
     {
-        try
-        {
-            contentColumms = sort(contentColumms, newOrder);
-            for(Entry e : entries)
-                e.setImportantContentOrder(sort(e.getImportantContentOrder(), newOrder));
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Einträge konnten nicht sortiert werden", 2);
-            Logger.error(ex);
-        }
+        contentColumms = sort(contentColumms, newOrder);
+        for(Entry e : entries)
+            e.setImportantContentOrder(sort(e.getImportantContentOrder(), newOrder));
     }
 
     /**
@@ -101,156 +88,133 @@ public class SchoolClass
      *
      * @return Alter Inhalt neu sortiert
      */
-    private String[] sort(String[] old, int[] newOrder)
+    private String[] sort(String[] old, int[] newOrder) throws Exception
     {
-        try
-        {
-            String[] newContent = new String[newOrder.length];
+        String[] newContent = new String[newOrder.length];
 
-            int i = 0;
-            for(int j : newOrder)
-                if(j < old.length)
-                {
-                    newContent[i] = old[j];
-                    i++;
-                }
+        int i = 0;
+        for(int j : newOrder)
+            if(j < old.length)
+            {
+                newContent[i] = old[j];
+                i++;
+            }
 
-            return newContent;
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Einträge konnten nicht sortiert werden", 2);
-            Logger.error(ex);
-            return null;
-        }
+        return newContent;
     }
 
     /**
      * Löscht vergangene Stunden.
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public void cut()
+    public void cut() throws Exception
     {
-        try
+        Settings.enable(false);
+
+        ArrayList<Entry> newEntries = new ArrayList<Entry>();
+        for(Entry e : entries)
         {
-            Settings.logging(false);
+            int lesson = e.getLesson();
+            if(e.isDoubleLesson())
+                lesson++;
 
-            ArrayList<Entry> newEntries = new ArrayList<Entry>();
-            for(Entry e : entries)
-            {
-                int lesson = e.getLesson();
-                if(e.isDoubleLesson())
-                    lesson++;
+            String lessonName = "lesson";
+            if(lesson < 10)
+                lessonName += "0";
+            lessonName += lesson;
 
-                String lessonName = "lesson";
-                if(lesson < 10)
-                    lessonName += "0";
-                lessonName += lesson;
-
-                if(Time.isAfter(Integer.valueOf(Settings.load(lessonName).split(":")[0]),
-                                Integer.valueOf(Settings.load(lessonName).split(":")[1]),
-                                Time.hour(),
-                                Time.minute()))
-                    newEntries.add(e);
-            }
-            entries = newEntries;
-            Settings.logging(true);
+            if(Time.isAfter(Integer.valueOf(Settings.load(lessonName).split(":")[0]),
+                            Integer.valueOf(Settings.load(lessonName).split(":")[1]),
+                            Time.hour(),
+                            Time.minute()))
+                newEntries.add(e);
         }
-        catch(Exception ex)
-        {
-            Logger.log("Stunden konnten nicht gelöscht werden", 2);
-            Logger.error(ex);
-        }
+        entries = newEntries;
+        Settings.enable(true);
     }
 
     /**
      * Konvertiert diese Schulklasse inkl ihrer Vertretungen (Entrys) in eine HTML-Tabelle.
      *
      * @return Konvertierte Klasse
+     *
+     * @throws java.lang.Exception Fehler
      */
-    @Override
-    public String toString()
+    public String asString() throws Exception
     {
-        try
+        String s = "";
+        if(entries.size() > 0)
         {
-            String s = "";
-            if(entries.size() > 0)
+            s += "'        <br/>'+\n"
+                 + "''+\n"
+                 + "'        <table class=\"stufeTab\" rules=\"all\">'+\n"
+                 + "'            <colgroup>'+\n"
+                 + "'                <col width=\"" + 7 + "%\">'+\n"
+                 + "'                <col width=\"" + 6 + "%\">'+\n";
+
+            for(String cc : contentColumms)
             {
-                s += "'        <br/>'+\n"
-                     + "''+\n"
-                     + "'        <table class=\"stufeTab\" rules=\"all\">'+\n"
-                     + "'            <colgroup>'+\n"
-                     + "'                <col width=\"" + 7 + "%\">'+\n"
-                     + "'                <col width=\"" + 6 + "%\">'+\n";
-
-                for(String cc : contentColumms)
+                int colWidth = 10;
+                String setting;
+                switch(cc)
                 {
-                    int colWidth = 10;
-                    String setting = "";
-                    switch(cc)
-                    {
-                        case "Vertreter":
-                            setting = Settings.load("lessonSizeVtr");
-                            if(!setting.equals(""))
-                                colWidth = Integer.parseInt(setting);
-                            break;
-                        case "Raum":
-                            setting = Settings.load("lessonSizeRaum");
-                            if(!setting.equals(""))
-                                colWidth = Integer.parseInt(setting);
-                            break;
-                        case "Art":
-                            setting = Settings.load("lessonSizeArt");
-                            if(!setting.equals(""))
-                                colWidth = Integer.parseInt(setting);
-                            break;
-                        case "Fach":
-                            setting = Settings.load("lessonSizeFach");
-                            if(!setting.equals(""))
-                                colWidth = Integer.parseInt(setting);
-                            break;
-                        case "Lehrer":
-                            setting = Settings.load("lessonSizeLeh");
-                            if(!setting.equals(""))
-                                colWidth = Integer.parseInt(setting);
-                            break;
-                        case "Verl. von":
-                            setting = Settings.load("lessonSizeVerl");
-                            if(!setting.equals(""))
-                                colWidth = Integer.parseInt(setting);
-                            break;
-                        case "Hinweise":
-                            setting = Settings.load("lessonSizeHinw");
-                            if(!setting.equals(""))
-                                colWidth = Integer.parseInt(setting);
-                            break;
-                        default:
-                            break;
-                    }
-                    s += "'                <col width=\"" + colWidth + "%\">'+\n";
+                    case "Vertreter":
+                        setting = Settings.load("lessonSizeVtr");
+                        if(!setting.equals(""))
+                            colWidth = Integer.parseInt(setting);
+                        break;
+                    case "Raum":
+                        setting = Settings.load("lessonSizeRaum");
+                        if(!setting.equals(""))
+                            colWidth = Integer.parseInt(setting);
+                        break;
+                    case "Art":
+                        setting = Settings.load("lessonSizeArt");
+                        if(!setting.equals(""))
+                            colWidth = Integer.parseInt(setting);
+                        break;
+                    case "Fach":
+                        setting = Settings.load("lessonSizeFach");
+                        if(!setting.equals(""))
+                            colWidth = Integer.parseInt(setting);
+                        break;
+                    case "Lehrer":
+                        setting = Settings.load("lessonSizeLeh");
+                        if(!setting.equals(""))
+                            colWidth = Integer.parseInt(setting);
+                        break;
+                    case "Verl. von":
+                        setting = Settings.load("lessonSizeVerl");
+                        if(!setting.equals(""))
+                            colWidth = Integer.parseInt(setting);
+                        break;
+                    case "Hinweise":
+                        setting = Settings.load("lessonSizeHinw");
+                        if(!setting.equals(""))
+                            colWidth = Integer.parseInt(setting);
+                        break;
+                    default:
+                        break;
                 }
-                s += "'            </colgroup>'+\n"
-                     + "'            <tr >'+\n"
-                     + "'                <td rowspan=\"" + (entries.size() + 1) + "\" valign=\"top\"><div class=\"stufe\">" + name + "</div></td>'+\n";
-
-                s += "'                <td>Std</td>'+\n";
-                for(String cc : contentColumms)
-                    s += "'                <td>" + cc + "</td>'+\n";
-
-                s += "'            </tr>'+\n";
-
-                for(Entry e : entries)
-                    s += e.toString(e.getContent().get("Vertretungsart").replaceAll("\\.", ""));
-
-                s += "'        </table>'+";
+                s += "'                <col width=\"" + colWidth + "%\">'+\n";
             }
-            return s;
+            s += "'            </colgroup>'+\n"
+                 + "'            <tr >'+\n"
+                 + "'                <td rowspan=\"" + (entries.size() + 1) + "\" valign=\"top\"><div class=\"stufe\">" + name + "</div></td>'+\n";
+
+            s += "'                <td>Std</td>'+\n";
+            for(String cc : contentColumms)
+                s += "'                <td>" + cc + "</td>'+\n";
+
+            s += "'            </tr>'+\n";
+
+            for(Entry e : entries)
+                s += e.asString(e.getContent().get("Vertretungsart").replaceAll("\\.", ""));
+
+            s += "'        </table>'+";
         }
-        catch(Exception ex)
-        {
-            Logger.log("Klasse konnte nicht konvertiert werden", 2);
-            Logger.error(ex);
-            return null;
-        }
+        return s;
     }
 
     /**
@@ -261,25 +225,16 @@ public class SchoolClass
      *
      * @return Index des Strings
      */
-    private int getIndexOfStringInArray(String[] array, String toSearch)
+    private int getIndexOfStringInArray(String[] array, String toSearch) throws Exception
     {
-        try
-        {
-            int index = -1;
-            for(int i = 0; i < array.length; i++)
-                if(array[i].equals(toSearch))
-                {
-                    index = i;
-                    break;
-                }
-            return index;
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Array konnte nicht durchsucht werden", 2);
-            Logger.error(ex);
-            return -1;
-        }
+        int index = -1;
+        for(int i = 0; i < array.length; i++)
+            if(array[i].equals(toSearch))
+            {
+                index = i;
+                break;
+            }
+        return index;
     }
 
     /**
@@ -288,45 +243,32 @@ public class SchoolClass
      * @param date Datum, das geprüft wird (dd.mm.)
      *
      * @return Einträge des Datums vorhanden?
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public boolean containsEntrysOfDate(String date)
+    public boolean containsEntrysOfDate(String date) throws Exception
     {
-        try
-        {
-            for(Entry e : entries)
-                if(e.getDate().equals(date))
-                    return true;
-            return false;
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Verfügbarkeit von Einträgen konnte nicht geprüft werden", 2);
-            Logger.error(ex);
-            return false;
-        }
+        for(Entry e : entries)
+            if(e.getDate().equals(date))
+                return true;
+        return false;
     }
 
     /**
      * Löscht alle Einträge, die nicht dem Datum entsprechen.
      *
      * @param date Datum (dd.mm.)
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public void onlyDate(String date)
+    public void onlyDate(String date) throws Exception
     {
-        try
-        {
-            curDate = date;
-            ArrayList<Entry> newEntrys = new ArrayList<Entry>();
-            for(Entry e : entries)
-                if(e.getDate().equals(date))
-                    newEntrys.add(e);
-            entries = newEntrys;
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Einträge konnten nicht aussortiert werden", 2);
-            Logger.error(ex);
-        }
+        curDate = date;
+        ArrayList<Entry> newEntrys = new ArrayList<Entry>();
+        for(Entry e : entries)
+            if(e.getDate().equals(date))
+                newEntrys.add(e);
+        entries = newEntrys;
     }
 
     /**

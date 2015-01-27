@@ -45,35 +45,28 @@ public class Entry
      * Initialisiert einen neuen Eintrag.
      *
      * @param content Inhalt des Eintrags
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public Entry(Map<String, String> content)
+    public Entry(Map<String, String> content) throws Exception
     {
-        try
+        if(content.get("Std").contains("-"))
         {
-            if(content.get("Std").contains("-"))
-            {
-                doubleLesson = true;
-                content.put("Std", content.get("Std").replaceAll(" ", ""));
-                this.lesson = Integer.parseInt(content.get("Std").substring(0, content.get("Std").indexOf("-")));
-            }
-            else if(!content.get("Std").equals(""))
-                this.lesson = Integer.parseInt(content.get("Std"));
-
-            this.date = content.get("Datum");
-
-            this.content = new HashMap<String, String>();
-
-            for(String ic : importantContentOrder)
-                this.content.put(ic, "");
-
-            this.content.putAll(content);
-
+            doubleLesson = true;
+            content.put("Std", content.get("Std").replaceAll(" ", ""));
+            this.lesson = Integer.parseInt(content.get("Std").substring(0, content.get("Std").indexOf("-")));
         }
-        catch(Exception ex)
-        {
-            Logger.log("Eintrag konnte nicht initialisiert werden", 2);
-            Logger.error(ex);
-        }
+        else if(!content.get("Std").equals(""))
+            this.lesson = Integer.parseInt(content.get("Std"));
+
+        this.date = content.get("Datum");
+
+        this.content = new HashMap<String, String>();
+
+        for(String ic : importantContentOrder)
+            this.content.put(ic, "");
+
+        this.content.putAll(content);
     }
 
     /**
@@ -82,30 +75,23 @@ public class Entry
      * @param cssClass css-Klasse, der dieser Eintrag angehört
      *
      * @return HTML-Tabellenzeile die die Werte des Eintrags besitzt
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public String toString(String cssClass)
+    public String asString(String cssClass) throws Exception
     {
-        try
-        {
-            String s = "";
-            s += "'            <tr class=\"" + cssClass + "\">'+\n";
-            if(doubleLesson)
-                s += "'                <td>" + lesson + "-" + (lesson + 1) + "</td>'+\n";
-            else
-                s += "'                <td>" + lesson + "</td>'+\n";
+        String s = "";
+        s += "'            <tr class=\"" + cssClass + "\">'+\n";
+        if(doubleLesson)
+            s += "'                <td>" + lesson + "-" + (lesson + 1) + "</td>'+\n";
+        else
+            s += "'                <td>" + lesson + "</td>'+\n";
 
-            for(String c : importantContentOrder)
-                s += "'                <td>" + content.get(c) + "</td>'+\n";
+        for(String c : importantContentOrder)
+            s += "'                <td>" + content.get(c) + "</td>'+\n";
 
-            s += "'            </tr>'+\n";
-            return s;
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Eintrag konnte nicht in String konvertiert werden", 2);
-            Logger.error(ex);
-            return null;
-        }
+        s += "'            </tr>'+\n";
+        return s;
     }
 
     /**
@@ -162,43 +148,32 @@ public class Entry
      * Gibt relevanten Inhalt.
      *
      * @return Inhalt
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public String[] getImportantContent()
+    public String[] getImportantContent() throws Exception
     {
-        try
-        {
-            String[] c = new String[importantContentOrder.length];
-            for(int i = 0; i < c.length; i++)
-                c[i] = content.get(importantContentOrder[i]);
-            return c;
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Wichtige Spalten konnten nicht ausgelesen werden", 2);
-            Logger.error(ex);
-        }
-        return new String[]
-        {
-        };
+        if(importantContentOrder.length < 0 || content == null || content.isEmpty())
+            return new String[]
+            {
+            };
+        String[] c = new String[importantContentOrder.length];
+        for(int i = 0; i < c.length; i++)
+            c[i] = content.get(importantContentOrder[i]);
+        return c;
     }
 
     /**
      * Setzt relevanten Inhalt.
      *
      * @param c Neuer Inhalt
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public void setImportantContent(String[] c)
+    public void setImportantContent(String[] c) throws Exception
     {
-        try
-        {
-            for(int i = 0; i < c.length; i++)
-                content.put(importantContentOrder[i], c[i]);
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Wichtige Spalten konnten nicht aktualisiert werden", 2);
-            Logger.error(ex);
-        }
+        for(int i = 0; i < c.length; i++)
+            content.put(importantContentOrder[i], c[i]);
     }
 
     public String[] getImportantContentOrder()
