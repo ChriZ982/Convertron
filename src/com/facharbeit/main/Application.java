@@ -50,7 +50,7 @@ public class Application
             queue = new ArrayList<QueueElement>();
             frame = new Frame();
 
-            Logger.init(frame.getStatusPane(), frame.getProgBar());
+            Logger.init(frame.getStatusPane());
 
             initData();
             initTray();
@@ -216,6 +216,7 @@ public class Application
     {
         try
         {
+            frame.getProgBar().setValue(queue.size());
             if(queue.size() > 0)
             {
                 queue.get(0).invoke();

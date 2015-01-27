@@ -14,74 +14,67 @@ import javax.swing.*;
 public class QueueableMethods
 {
     // ================================================== ÜBERSICHT ==================================================
-    public static void genAllBtnActionPerformed()
+    public static void genAllBtnActionPerformed() throws Exception
     {
-        HtmlWriter.today(HtmlReader.sort(HtmlReader.today()), 50, 65);
-        HtmlWriter.tomorrow(HtmlReader.sort(HtmlReader.tomorrow()), 65, 80);
-        HtmlWriter.motd(80, 95);
+        HtmlWriter.today(HtmlReader.sort(HtmlReader.today()));
+        HtmlWriter.tomorrow(HtmlReader.sort(HtmlReader.tomorrow()));
+        HtmlWriter.motd();
         HtmlWriter.style();
 
         if(Settings.load("sqlMode").contains("schreiben") && Settings.load("sqlUse").equals("true"))
             HtmlWriter.sql();
 
         backupToDestPaths();
-        Logger.setProgress(100);
         if(Settings.load("autoBackup").equals("true"))
             createBackupBtnActionPerformed();
-        Logger.setProgress(0);
     }
 
-    public static void genTodayBtnActionPerformed()
+    public static void genTodayBtnActionPerformed() throws Exception
     {
-        HtmlWriter.today(HtmlReader.sort(HtmlReader.today()), 50, 95);
+        HtmlWriter.today(HtmlReader.sort(HtmlReader.today()));
         HtmlWriter.style();
 
         if(Settings.load("sqlMode").contains("schreiben") && Settings.load("sqlUse").equals("true"))
             HtmlWriter.sql();
 
         backupToDestPaths();
-        Logger.setProgress(100);
         if(Settings.load("autoBackup").equals("true"))
             createBackupBtnActionPerformed();
-        Logger.setProgress(0);
     }
 
-    public static void genTomorrowBtnActionPerformed()
+    public static void genTomorrowBtnActionPerformed() throws Exception
     {
-        HtmlWriter.tomorrow(HtmlReader.sort(HtmlReader.tomorrow()), 50, 95);
+        HtmlWriter.tomorrow(HtmlReader.sort(HtmlReader.tomorrow()));
         HtmlWriter.style();
 
         if(Settings.load("sqlMode").contains("schreiben") && Settings.load("sqlUse").equals("true"))
             HtmlWriter.sql();
 
         backupToDestPaths();
-        Logger.setProgress(100);
         if(Settings.load("autoBackup").equals("true"))
             createBackupBtnActionPerformed();
-        Logger.setProgress(0);
     }
 
-    public static void genMotdBtnActionPerformed(JTextField motdTxt)
+    public static void genMotdBtnActionPerformed(JTextField motdTxt) throws Exception
     {
         saveText(motdTxt, "motdText");
-        HtmlWriter.motd(0, 100);
+        HtmlWriter.motd();
         HtmlWriter.style();
         backupToDestPaths();
         if(Settings.load("autoBackup").equals("true"))
             createBackupBtnActionPerformed();
-        Logger.setProgress(0);
     }
 
-    public static void createBackupBtnActionPerformed()
+    public static void createBackupBtnActionPerformed() throws Exception
     {
         String path = Settings.load("pathBackup");
         backupAll(path);
         Logger.log("Backup wurde fertiggestellt", 0);
     }
 
-    public static void copySourceBtnActionPerformed()
+    public static void copySourceBtnActionPerformed() throws Exception
     {
-        Logger.setLogging(false);
+        Logger.enable(false);
         FolderHandler folder = new FolderHandler(Settings.load("pathSource"));
         if(!folder.isEmpty())
         {
@@ -89,7 +82,7 @@ public class QueueableMethods
             folder.copyContent("./Data/Source/");
             folder.deleteContent();
         }
-        Logger.setLogging(true);
+        Logger.enable(true);
         Logger.log("Quellpläne wurden kopiert", 0);
     }
 
@@ -100,7 +93,7 @@ public class QueueableMethods
                                                       JTextField hour10Txt, JCheckBox useHoursCheck, JCheckBox autoBackupCheck,
                                                       JTextField speedPlanTxt, JTextField speedMotdTxt, JTable table,
                                                       JTextField weekTxt, JTextField sourceTodayTxt, JTextField sourceTomorrowTxt,
-                                                      JCheckBox customSourceCheck)
+                                                      JCheckBox customSourceCheck) throws Exception
     {
         saveText(hour1Txt, "lesson01");
         saveText(hour2Txt, "lesson02");
@@ -174,7 +167,7 @@ public class QueueableMethods
 
     // ================================================== PFADE ==================================================
     public static void savePathBtnActionPerformed(JTextField sourceTxt, JTextField backupTxt, JTextArea destArea,
-                                                  JTextField fileNamePrefixTxt, JTextField fileNameSuffixTxt)
+                                                  JTextField fileNamePrefixTxt, JTextField fileNameSuffixTxt) throws Exception
     {
         saveText(sourceTxt, "pathSource");
         saveText(backupTxt, "pathBackup");
@@ -196,7 +189,7 @@ public class QueueableMethods
     // ================================================== DESIGN ==================================================
     public static void addColorBtnActionPerformed(JColorChooser colorChooser, JTextField colorNameTxt, JComboBox<String> colorPlanCombo,
                                                   JComboBox<String> colorMotdCombo, JComboBox<String> colorTableCombo, JComboBox<String> colorBorderCombo,
-                                                  JComboBox<String> fontColorCombo, JComboBox<String> backgroundColorCombo)
+                                                  JComboBox<String> fontColorCombo, JComboBox<String> backgroundColorCombo) throws Exception
     {
         Color c = JColorChooser.showDialog(colorChooser, "Neue Farbe anlegen", Color.BLUE);
         if(c != null)
@@ -213,7 +206,7 @@ public class QueueableMethods
 
     public static void deleteColorBtnActionPerformed(JTextField colorNameTxt, JComboBox<String> colorPlanCombo, JComboBox<String> colorMotdCombo,
                                                      JComboBox<String> colorTableCombo, JComboBox<String> colorBorderCombo, JComboBox<String> fontColorCombo,
-                                                     JComboBox<String> backgroundColorCombo)
+                                                     JComboBox<String> backgroundColorCombo) throws Exception
     {
         Settings.delete("color" + colorNameTxt.getText());
         loadColors(colorPlanCombo, colorMotdCombo, colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo);
@@ -224,22 +217,22 @@ public class QueueableMethods
         loadCombo(colorBorderCombo, "borderColor");
     }
 
-    public static void colorPlanComboItemStateChanged(JPanel colorPlanPanel, JComboBox colorPlanCombo, ItemEvent evt)
+    public static void colorPlanComboItemStateChanged(JPanel colorPlanPanel, JComboBox colorPlanCombo, ItemEvent evt) throws Exception
     {
         colorComboChanged("planColor", colorPlanPanel, colorPlanCombo, evt);
     }
 
-    public static void colorMotdComboItemStateChanged(JPanel colorMotdPanel, JComboBox colorMotdCombo, ItemEvent evt)
+    public static void colorMotdComboItemStateChanged(JPanel colorMotdPanel, JComboBox colorMotdCombo, ItemEvent evt) throws Exception
     {
         colorComboChanged("motdColor", colorMotdPanel, colorMotdCombo, evt);
     }
 
-    public static void colorTableComboItemStateChanged(JPanel colorTablePanel, JComboBox colorTableCombo, ItemEvent evt)
+    public static void colorTableComboItemStateChanged(JPanel colorTablePanel, JComboBox colorTableCombo, ItemEvent evt) throws Exception
     {
         colorComboChanged("tableColor", colorTablePanel, colorTableCombo, evt);
     }
 
-    public static void colorBorderComboItemStateChanged(JPanel colorBorderPanel, JComboBox colorBorderCombo, ItemEvent evt)
+    public static void colorBorderComboItemStateChanged(JPanel colorBorderPanel, JComboBox colorBorderCombo, ItemEvent evt) throws Exception
     {
         colorComboChanged("borderColor", colorBorderPanel, colorBorderCombo, evt);
     }
@@ -248,7 +241,7 @@ public class QueueableMethods
                                                        JPanel fontColorPanel, JComboBox<String> backgroundColorCombo,
                                                        JPanel backgroundColorPanel, JTextField fontTypeTxt,
                                                        JTextField fontSizeTxt, JCheckBox boldCheck, JCheckBox italicCheck,
-                                                       ItemEvent evt)
+                                                       ItemEvent evt) throws Exception
     {
         if(evt.getStateChange() == ItemEvent.SELECTED)
         {
@@ -289,7 +282,7 @@ public class QueueableMethods
         }
     }
 
-    public static void fontColorComboItemStateChanged(JPanel fontColorPanel, JComboBox<String> fontColorCombo, JComboBox<String> typeToEditCombo, ItemEvent evt)
+    public static void fontColorComboItemStateChanged(JPanel fontColorPanel, JComboBox<String> fontColorCombo, JComboBox<String> typeToEditCombo, ItemEvent evt) throws Exception
     {
         if(evt.getStateChange() == ItemEvent.SELECTED)
         {
@@ -302,7 +295,7 @@ public class QueueableMethods
         }
     }
 
-    public static void backgroundColorComboItemStateChanged(JPanel backgroundColorPanel, JComboBox<String> backgroundColorCombo, JComboBox<String> typeToEditCombo, ItemEvent evt)
+    public static void backgroundColorComboItemStateChanged(JPanel backgroundColorPanel, JComboBox<String> backgroundColorCombo, JComboBox<String> typeToEditCombo, ItemEvent evt) throws Exception
     {
         if(!backgroundColorCombo.getSelectedItem().equals("Keine Farbe"))
             backgroundColorPanel.setBackground(Color.decode(Settings.load("color" + backgroundColorCombo.getSelectedItem().toString())));
@@ -315,21 +308,21 @@ public class QueueableMethods
         }
     }
 
-    public static void fontTypeTxtActionPerformed(JTextField fontTypeTxt, JComboBox<String> typeToEditCombo)
+    public static void fontTypeTxtActionPerformed(JTextField fontTypeTxt, JComboBox<String> typeToEditCombo) throws Exception
     {
         String s = extractName(typeToEditCombo, "FontFamily");
         if(!Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)).equals(fontTypeTxt.getText()))
             saveText(fontTypeTxt, Character.toLowerCase(s.charAt(0)) + s.substring(1));
     }
 
-    public static void fontSizeTxtActionPerformed(JTextField fontSizeTxt, JComboBox<String> typeToEditCombo)
+    public static void fontSizeTxtActionPerformed(JTextField fontSizeTxt, JComboBox<String> typeToEditCombo) throws Exception
     {
         String s = extractName(typeToEditCombo, "FontSize");
         if(!Settings.load(Character.toLowerCase(s.charAt(0)) + s.substring(1)).equals(fontSizeTxt.getText()))
             saveText(fontSizeTxt, Character.toLowerCase(s.charAt(0)) + s.substring(1));
     }
 
-    public static void styleCheckActionPerformed(JCheckBox boldCheck, JCheckBox italicCheck, JComboBox<String> typeToEditCombo)
+    public static void styleCheckActionPerformed(JCheckBox boldCheck, JCheckBox italicCheck, JComboBox<String> typeToEditCombo) throws Exception
     {
         String setting = "";
         String name = extractName(typeToEditCombo, "FontStyle");
@@ -342,12 +335,12 @@ public class QueueableMethods
         Settings.save(Character.toLowerCase(name.charAt(0)) + name.substring(1), setting);
     }
 
-    public static void addTypeBtnActionPerformed(JTextField typeToEditTxt, JComboBox<String> typeToEditCombo)
+    public static void addTypeBtnActionPerformed(JTextField typeToEditTxt, JComboBox<String> typeToEditCombo) throws Exception
     {
         typeToEditCombo.addItem("Art: " + typeToEditTxt.getText());
     }
 
-    public static void deleteTypeBtnActionPerformed(JTextField typeToEditTxt, JComboBox typeToEditCombo)
+    public static void deleteTypeBtnActionPerformed(JTextField typeToEditTxt, JComboBox typeToEditCombo) throws Exception
     {
         typeToEditCombo.removeItem("Art: " + typeToEditTxt.getText());
 
@@ -356,7 +349,7 @@ public class QueueableMethods
             Settings.delete(s);
     }
 
-    public static void saveDesignBtnActionPerformed()
+    public static void saveDesignBtnActionPerformed() throws Exception
     {
         HtmlWriter.style();
         backupToDestPaths();
@@ -367,7 +360,7 @@ public class QueueableMethods
     // ================================================== SQL ==================================================
     public static void SQLsaveBtnActionPerformed(JTextField dbHostTxt, JTextField dbPortTxt, JTextField dbNameTxt,
                                                  JTextField dbUserTxt, JTextField dbPwTxt, JTextField dbTableNameTxt,
-                                                 JCheckBox useSQLCheck, JRadioButton[] sqlMode)
+                                                 JCheckBox useSQLCheck, JRadioButton[] sqlMode) throws Exception
     {
         saveCheck(useSQLCheck, "sqlUse");
         for(JRadioButton b : sqlMode)
@@ -395,7 +388,7 @@ public class QueueableMethods
                                     JTextField sourceTomorrowTxt, JComboBox<String> colorTableCombo, JComboBox<String> colorBorderCombo,
                                     JComboBox<String> fontColorCombo, JComboBox<String> backgroundColorCombo, JTextField fontTypeTxt,
                                     JTextField fontSizeTxt, JCheckBox boldCheck, JCheckBox italicCheck, JComboBox<String> typeToEditCombo,
-                                    JTable table, JTextField weekTxt)
+                                    JTable table, JTextField weekTxt) throws Exception
     {
         loadText(sourceTxt, "pathSource");
         loadText(backupTxt, "pathBackup");
@@ -524,7 +517,7 @@ public class QueueableMethods
      * @param colorCombo Farb-Combo
      * @param evt        Item-Event
      */
-    private static void colorComboChanged(String name, JPanel colorPanel, JComboBox colorCombo, ItemEvent evt)
+    private static void colorComboChanged(String name, JPanel colorPanel, JComboBox colorCombo, ItemEvent evt) throws Exception
     {
         if(evt.getStateChange() == ItemEvent.SELECTED)
         {
@@ -544,7 +537,7 @@ public class QueueableMethods
      *
      * @return Name des ausgewählten Items
      */
-    private static String extractName(JComboBox<String> combo, String type)
+    private static String extractName(JComboBox<String> combo, String type) throws Exception
     {
         String s;
         if(combo.getSelectedItem().toString().startsWith("Art:"))
@@ -558,8 +551,10 @@ public class QueueableMethods
      * Speichert die aktuelle Position des JFrames auf dem Bildschrim.
      *
      * @param frame Der Frame dessen Position gespeichert werden soll
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public static void savePositionOfFrame(JFrame frame)
+    public static void savePositionOfFrame(JFrame frame) throws Exception
     {
         Settings.save("positionX", String.valueOf((int)frame.getLocation().getX()));
         Settings.save("positionY", String.valueOf((int)frame.getLocation().getY()));
@@ -573,7 +568,7 @@ public class QueueableMethods
      * @param setting      Einstellung
      * @param name         Name der Einstellung
      */
-    private static void checkArt(ArrayList<String> settingNames, JComboBox<String> combo, String setting, String name)
+    private static void checkArt(ArrayList<String> settingNames, JComboBox<String> combo, String setting, String name) throws Exception
     {
         if(!settingNames.contains(setting.substring(3, setting.indexOf(name))))
         {
@@ -590,7 +585,7 @@ public class QueueableMethods
      * @param newIndex Neuer Index
      * @param head     Name der Spalte
      */
-    private static void loadTable(JTable table, int index, int newIndex, String head, String setting)
+    private static void loadTable(JTable table, int index, int newIndex, String head, String setting) throws Exception
     {
         table.getColumnModel().getColumn(index).setHeaderValue(head);
         table.getColumnModel().getColumn(index).setModelIndex(newIndex);
@@ -606,7 +601,7 @@ public class QueueableMethods
      * @param colorCombos ComboBoxen
      */
     @SafeVarargs
-    private static void loadColors(JComboBox<String>... colorCombos)
+    private static void loadColors(JComboBox<String>... colorCombos) throws Exception
     {
         for(JComboBox<String> cb : colorCombos)
         {
@@ -625,7 +620,7 @@ public class QueueableMethods
      * @param field Textfeld
      * @param name  Name der Einstellung
      */
-    private static void loadText(JTextField field, String name)
+    private static void loadText(JTextField field, String name) throws Exception
     {
         field.setText(Settings.load(name));
     }
@@ -636,7 +631,7 @@ public class QueueableMethods
      * @param field Textfeld
      * @param name  Name der Einstellung
      */
-    private static void saveText(JTextField field, String name)
+    private static void saveText(JTextField field, String name) throws Exception
     {
         Settings.save(name, field.getText());
     }
@@ -647,7 +642,7 @@ public class QueueableMethods
      * @param field ComboBox
      * @param name  Name der Einstellung
      */
-    private static void loadCombo(JComboBox<String> box, String name)
+    private static void loadCombo(JComboBox<String> box, String name) throws Exception
     {
         box.setSelectedItem(Settings.load(name));
     }
@@ -658,7 +653,7 @@ public class QueueableMethods
      * @param field CheckBox
      * @param name  Name der Einstellung
      */
-    private static void loadCheck(JCheckBox box, String name)
+    private static void loadCheck(JCheckBox box, String name) throws Exception
     {
         box.setSelected(Boolean.valueOf(Settings.load(name)));
     }
@@ -669,7 +664,7 @@ public class QueueableMethods
      * @param field CheckBox
      * @param name  Name der Einstellung
      */
-    private static void saveCheck(JCheckBox box, String name)
+    private static void saveCheck(JCheckBox box, String name) throws Exception
     {
         Settings.save(name, String.valueOf(box.isSelected()));
     }
@@ -677,7 +672,7 @@ public class QueueableMethods
     /**
      * Kopiert die generierten Dateien in die Zielpfade.
      */
-    private static void backupToDestPaths()
+    private static void backupToDestPaths() throws Exception
     {
         String[] paths = Settings.loadMulti("pathDest");
 
@@ -693,9 +688,9 @@ public class QueueableMethods
      *
      * @param path Pfad
      */
-    private static void backupAll(String path)
+    private static void backupAll(String path) throws Exception
     {
-        Logger.setLogging(false);
+        Logger.enable(false);
         new FileHandler("Data/settings.ini").copy(path + "/");
         new FileHandler("Data/heute.html").copy(path + "/");
         new FileHandler("Data/morgen.html").copy(path + "/");
@@ -703,6 +698,6 @@ public class QueueableMethods
         new FileHandler("Data/style.css").copy(path + "/");
         new FileHandler("Data/antonianumLogo.png").copy(path + "/");
         new FileHandler("Data/VERTRETUNGSPLAN.html").copy(path + "/");
-        Logger.setLogging(true);
+        Logger.enable(true);
     }
 }

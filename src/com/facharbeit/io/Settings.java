@@ -20,20 +20,14 @@ public class Settings
 
     /**
      * Initialisiert die Einstellungen.
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public static void init()
+    public static void init() throws Exception
     {
-        try
-        {
-            fileHandler = new FileHandler("Data/settings.ini");
-            logging = true;
-            Logger.log("\"settings.ini\" wurde geladen", 0);
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Einstellungen konnten nicht initialisiert werden", 2);
-            Logger.error(ex);
-        }
+        logging = true;
+        fileHandler = new FileHandler("Data/settings.ini");
+        Logger.log("\"settings.ini\" wurde geladen", 0);
     }
 
     /**
@@ -41,32 +35,24 @@ public class Settings
      *
      * @param name    Name der Einstellung
      * @param setting Wert der Einstellung
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public static void save(String name, String setting)
+    public static void save(String name, String setting) throws Exception
     {
-        try
+        if(setting.equals(""))
         {
-            if(setting.equals(""))
-            {
-                delete(name);
-                return;
-            }
-
-            int line = line(name);
-            String settings = name + ": \"" + setting + "\"";
-            if(line == -1)
-                fileHandler.write(fileHandler.length(), settings);
-            else
-                fileHandler.write(line, settings);
-
-            if(logging)
-                Logger.log("Einstellung \"" + name + "\" gespeichert", 0);
+            delete(name);
+            return;
         }
-        catch(Exception ex)
-        {
-            Logger.log("Einstellung \"" + name + "\" konnte nicht gespeichert werden.", 2);
-            Logger.error(ex);
-        }
+        int line = line(name);
+        String settings = name + ": \"" + setting + "\"";
+        if(line == -1)
+            fileHandler.write(fileHandler.length(), settings);
+        else
+            fileHandler.write(line, settings);
+        if(logging)
+            Logger.log("Einstellung \"" + name + "\" gespeichert", 0);
     }
 
     /**
@@ -75,93 +61,24 @@ public class Settings
      * @param name Name der einstellung
      *
      * @return Wert der Einstellung
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public static String load(String name)
+    public static String load(String name) throws Exception
     {
-        try
+        int line = line(name);
+        if(line == -1)
         {
-            int line = line(name);
-            if(line == -1)
-            {
-                if(logging)
-                    Logger.log("Einstellung \"" + name + "\" nicht vorhanden", 1);
-                return "";
-            }
-            else
-            {
-                String setting = fileHandler.read(line);
-                setting = setting.substring((name + ": \"").length());
-                setting = setting.substring(0, setting.length() - 1);
-                return setting;
-            }
+            if(logging)
+                Logger.log("Einstellung \"" + name + "\" nicht vorhanden", 1);
+            return "";
         }
-        catch(Exception ex)
+        else
         {
-            Logger.log("Einstellung \"" + name + "\" konnte nicht geladen werden", 2);
-            Logger.error(ex);
-            return null;
-        }
-    }
-
-    /**
-     * Gibt die Einstellungen zurück die gleich beginnen.
-     *
-     * @param name Anfang der Namen
-     *
-     * @return Einstellungen mit gleich beginnendem Namen
-     */
-    public static String[] loadNames(String name)
-    {
-        try
-        {
-            ArrayList<String> names = new ArrayList<String>();
-            String[] file = fileHandler.read();
-
-            for(String s : file)
-                if(s.startsWith(name))
-                    names.add(s.split(": \"")[0].trim());
-
-            return names.toArray(new String[]
-            {
-            });
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Einstellungen konnten nicht geladen werden", 2);
-            Logger.error(ex);
-            return null;
-        }
-    }
-
-    /**
-     * Lädt mehrere Einstellungen.
-     *
-     * @param name Text mit dem die Einstellungen beginnen
-     *
-     * @return Werte der Einstellungen
-     */
-    public static String[] loadMulti(String name)
-    {
-        try
-        {
-            logging = false;
-            ArrayList<String> values = new ArrayList<String>();
-            String[] file = fileHandler.read();
-
-            for(String s : file)
-                if(s.startsWith(name))
-                    values.add(Settings.load(s.split(": \"")[0].trim()));
-
-            logging = true;
-            return values.toArray(new String[]
-            {
-            });
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Einstellungen konnten nicht geladen werden", 2);
-            Logger.error(ex);
-            return null;
+            String setting = fileHandler.read(line);
+            setting = setting.substring((name + ": \"").length());
+            setting = setting.substring(0, setting.length() - 1);
+            return setting;
         }
     }
 
@@ -171,34 +88,72 @@ public class Settings
      * @param name Zu löschende Einstellung
      *
      * @return Konnte die Einstellung gelöscht werden?
+     *
+     * @throws java.lang.Exception Fehler Fehler
      */
-    public static boolean delete(String name)
+    public static boolean delete(String name) throws Exception
     {
-        try
-        {
-            int line = line(name);
-            if(line != -1)
-            {
-                ArrayList<String> content = new ArrayList<String>();
-                content.addAll(Arrays.asList(fileHandler.read()));
-                content.remove(line);
-
-                fileHandler.write(content.toArray(new String[]
-                {
-                }));
-
-                if(logging)
-                    Logger.log("Einstellung \"" + name + "\" gelöscht", 0);
-                return true;
-            }
+        int line = line(name);
+        if(line == -1)
             return false;
-        }
-        catch(Exception ex)
+
+        ArrayList<String> content = new ArrayList<String>();
+        content.addAll(Arrays.asList(fileHandler.read()));
+        content.remove(line);
+        fileHandler.write(content.toArray(new String[]
         {
-            Logger.log("Einstellung \"" + name + "\" konnte nicht gelöscht werden", 2);
-            Logger.error(ex);
-            return false;
-        }
+        }));
+        if(logging)
+            Logger.log("Einstellung \"" + name + "\" gelöscht", 0);
+        return true;
+    }
+
+    /**
+     * Gibt die Einstellungen zurück die gleich beginnen.
+     *
+     * @param name Anfang der Namen
+     *
+     * @return Einstellungen mit gleich beginnendem Namen
+     *
+     * @throws java.lang.Exception Fehler
+     */
+    public static String[] loadNames(String name) throws Exception
+    {
+        ArrayList<String> names = new ArrayList<String>();
+        String[] file = fileHandler.read();
+
+        for(String s : file)
+            if(s.startsWith(name))
+                names.add(s.split(": \"")[0].trim());
+
+        return names.toArray(new String[]
+        {
+        });
+    }
+
+    /**
+     * Lädt mehrere Einstellungen.
+     *
+     * @param name Text mit dem die Einstellungen beginnen
+     *
+     * @return Werte der Einstellungen
+     *
+     * @throws java.lang.Exception Fehler
+     */
+    public static String[] loadMulti(String name) throws Exception
+    {
+        logging = false;
+        ArrayList<String> values = new ArrayList<String>();
+        String[] file = fileHandler.read();
+
+        for(String s : file)
+            if(s.startsWith(name))
+                values.add(Settings.load(s.split(": \"")[0].trim()));
+
+        logging = true;
+        return values.toArray(new String[]
+        {
+        });
     }
 
     /**
@@ -207,29 +162,22 @@ public class Settings
      * @param name Zu suchende Einstellung
      *
      * @return Zeile der Einstellung (-1 wenn nicht vorhanden)
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public static int line(String name)
+    public static int line(String name) throws Exception
     {
-        try
+        String[] content = fileHandler.read();
+        int line = -1;
+        for(int i = 0; i < content.length; i++)
         {
-            String[] content = fileHandler.read();
-            int line = -1;
-
-            for(int i = 0; i < content.length; i++)
-                if(content[i] != null && content[i].startsWith(name))
-                {
-                    line = i;
-                    break;
-                }
-
-            return line;
+            if(content[i] != null && content[i].startsWith(name))
+            {
+                line = i;
+                break;
+            }
         }
-        catch(Exception ex)
-        {
-            Logger.log("Zeile konnte nicht gefunden werden", 2);
-            Logger.error(ex);
-            return -1;
-        }
+        return line;
     }
 
     /**
@@ -237,34 +185,20 @@ public class Settings
      *
      * @param logging Neuer Logging Wert
      */
-    public static void logging(boolean logging)
+    public static void enable(boolean logging)
     {
-        try
-        {
-            Settings.logging = logging;
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Logging konnte nicht bearbeitet werden", 2);
-            Logger.error(ex);
-        }
+        Settings.logging = logging;
     }
 
     /**
      * Sortiert die Datei.
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public static void sort()
+    public static void sort() throws Exception
     {
-        try
-        {
-            List<String> settings = Arrays.asList(fileHandler.read());
-            Collections.sort(settings, String.CASE_INSENSITIVE_ORDER);
-            fileHandler.write((String[])settings.toArray());
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Settings.ini konnte nicht sortiert werden", 2);
-            Logger.error(ex);
-        }
+        List<String> settings = Arrays.asList(fileHandler.read());
+        Collections.sort(settings, String.CASE_INSENSITIVE_ORDER);
+        fileHandler.write((String[])settings.toArray());
     }
 }
