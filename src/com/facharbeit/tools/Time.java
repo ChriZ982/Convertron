@@ -17,65 +17,43 @@ public class Time
     /**
      * Aktualisiert den Kalender.
      */
-    private static void instance()
+    private static void instance() throws Exception
     {
-        try
-        {
-            c = Calendar.getInstance();
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Kalender konnte nicht erstellt werden", 2);
-            Logger.error(ex);
-        }
+        c = Calendar.getInstance();
     }
 
     /**
      * Gibt die Zeit für die Error-Dokumentation.
      *
      * @return Zeit als String
+     *
+     * @throws java.lang.Exception
      */
-    public static String error()
+    public static String error() throws Exception
     {
-        try
-        {
-            instance();
-            return c.get(Calendar.YEAR) + ""
-                   + c.get(Calendar.MONTH) + ""
-                   + c.get(Calendar.DATE) + "-"
-                   + c.get(Calendar.HOUR_OF_DAY) + ""
-                   + c.get(Calendar.MINUTE) + ""
-                   + c.get(Calendar.SECOND) + ""
-                   + c.get(Calendar.MILLISECOND);
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Zeit konnte nicht ermittelt werden", 2);
-            Logger.error(ex);
-            return null;
-        }
+        instance();
+        return c.get(Calendar.YEAR) + ""
+               + c.get(Calendar.MONTH) + ""
+               + c.get(Calendar.DATE) + "-"
+               + c.get(Calendar.HOUR_OF_DAY) + ""
+               + c.get(Calendar.MINUTE) + ""
+               + c.get(Calendar.SECOND) + ""
+               + c.get(Calendar.MILLISECOND);
     }
 
     /**
      * Gibt die Zeit für das Logging.
      *
      * @return Zeit
+     *
+     * @throws java.lang.Exception
      */
-    public static String log()
+    public static String log() throws Exception
     {
-        try
-        {
-            instance();
-            return "[" + String.format("%02d", c.get(Calendar.HOUR_OF_DAY)) + ":"
-                   + String.format("%02d", c.get(Calendar.MINUTE)) + ":"
-                   + String.format("%02d", c.get(Calendar.SECOND)) + "] ";
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Zeit konnte nicht ermittelt werden", 2);
-            Logger.error(ex);
-            return null;
-        }
+        instance();
+        return "[" + String.format("%02d", c.get(Calendar.HOUR_OF_DAY)) + ":"
+               + String.format("%02d", c.get(Calendar.MINUTE)) + ":"
+               + String.format("%02d", c.get(Calendar.SECOND)) + "] ";
     }
 
     /**
@@ -84,28 +62,21 @@ public class Time
      * @param addDays Tagesabstand
      *
      * @return Zeit
+     *
+     * @throws java.lang.Exception
      */
-    public static String htmlReading(int addDays)
+    public static String htmlReading(int addDays) throws Exception
     {
-        try
-        {
-            instance();
-            if(Settings.load("customDate").equals("true"))
-                if(addDays == 0)
-                    return Settings.load("customToday");
-                else
-                    return Settings.load("customTomorrow");
-            else if(addDays == 0)
-                return c.get(Calendar.DATE) + "." + (c.get(Calendar.MONTH) + 1) + ".";
+        instance();
+        if(Settings.load("customDate").equals("true"))
+            if(addDays == 0)
+                return Settings.load("customToday");
             else
-                return addDays(addDays).get(Calendar.DATE) + "." + (addDays(1).get(Calendar.MONTH) + 1) + ".";
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Zeit konnte nicht ermittelt werden", 2);
-            Logger.error(ex);
-            return null;
-        }
+                return Settings.load("customTomorrow");
+        else if(addDays == 0)
+            return c.get(Calendar.DATE) + "." + (c.get(Calendar.MONTH) + 1) + ".";
+        else
+            return addDays(addDays).get(Calendar.DATE) + "." + (addDays(1).get(Calendar.MONTH) + 1) + ".";
     }
 
     /**
@@ -114,78 +85,58 @@ public class Time
      * @param date Zu verwendendes Datum
      *
      * @return Zeit
+     *
+     * @throws java.lang.Exception
      */
-    public static String htmlWriting(String date)
+    public static String htmlWriting(String date) throws Exception
     {
-        try
-        {
-            instance();
-            c.set(Calendar.DATE, Integer.parseInt(date.split("\\.")[0]));
-            c.set(Calendar.MONTH, Integer.parseInt(date.split("\\.")[1]) - 1);
+        instance();
+        c.set(Calendar.DATE, Integer.parseInt(date.split("\\.")[0]));
+        c.set(Calendar.MONTH, Integer.parseInt(date.split("\\.")[1]) - 1);
 
-            String gerade = Settings.load("customWeek");
-            String ungerade;
-            String week;
+        String gerade = Settings.load("customWeek");
+        String ungerade;
+        String week;
 
-            if(gerade.equals("A"))
-                ungerade = "B";
-            else
-                ungerade = "A";
+        if(gerade.equals("A"))
+            ungerade = "B";
+        else
+            ungerade = "A";
 
-            if(c.get(Calendar.WEEK_OF_YEAR) % 2 == 0)
-                week = gerade;
-            else
-                week = ungerade;
+        if(c.get(Calendar.WEEK_OF_YEAR) % 2 == 0)
+            week = gerade;
+        else
+            week = ungerade;
 
-            return "Vertretungen " + c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.GERMANY) + " "
-                   + date + "<br/>" + week + "-Woche (" + c.get(Calendar.WEEK_OF_YEAR) + ". KW)";
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Zeit konnte nicht ermittelt werden", 2);
-            Logger.error(ex);
-            return null;
-        }
+        return "Vertretungen " + c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.GERMANY) + " "
+               + date + "<br/>" + week + "-Woche (" + c.get(Calendar.WEEK_OF_YEAR) + ". KW)";
     }
 
     /**
      * Gibt die aktuelle Stunde.
      *
      * @return Stunde
+     *
+     * @throws java.lang.Exception
      */
-    public static int hour()
+    public static int hour() throws Exception
     {
-        try
-        {
-            instance();
-            return c.get(Calendar.HOUR_OF_DAY);
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Zeit konnte nicht ermittelt werden", 2);
-            Logger.error(ex);
-            return -1;
-        }
+        instance();
+        return c.get(Calendar.HOUR_OF_DAY);
+
     }
 
     /**
      * Gibt die aktuelle Minute.
      *
      * @return Minute
+     *
+     * @throws java.lang.Exception
      */
-    public static int minute()
+    public static int minute() throws Exception
     {
-        try
-        {
-            instance();
-            return c.get(Calendar.MINUTE);
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Zeit konnte nicht ermittelt werden", 2);
-            Logger.error(ex);
-            return -1;
-        }
+        instance();
+        return c.get(Calendar.MINUTE);
     }
 
     /**
@@ -194,22 +145,15 @@ public class Time
      * @param amount Anzahl der Tage
      *
      * @return Neuer Kalender
+     *
+     * @throws java.lang.Exception
      */
-    public static Calendar addDays(int amount)
+    public static Calendar addDays(int amount) throws Exception
     {
-        try
-        {
-            instance();
-            Calendar nc = (Calendar)c.clone();
-            nc.add(Calendar.DATE, amount);
-            return nc;
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Es konnten keine Tage hinzugefügt werden", 2);
-            Logger.error(ex);
-            return null;
-        }
+        instance();
+        Calendar nc = (Calendar)c.clone();
+        nc.add(Calendar.DATE, amount);
+        return nc;
     }
 
     /**
@@ -221,24 +165,17 @@ public class Time
      * @param beforeMinute Minute die vorher kommen soll
      *
      * @return Sind die Uhrzeiten nacheinander?
+     *
+     * @throws java.lang.Exception
      */
-    public static boolean isAfter(int afterHour, int afterMinute, int beforeHour, int beforeMinute)
+    public static boolean isAfter(int afterHour, int afterMinute, int beforeHour, int beforeMinute) throws Exception
     {
-        try
-        {
-            boolean after = false;
-            if(beforeHour == afterHour)
-                if(beforeMinute <= afterMinute)
-                    after = true;
-            if(beforeHour < afterHour)
+        boolean after = false;
+        if(beforeHour == afterHour)
+            if(beforeMinute <= afterMinute)
                 after = true;
-            return after;
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Zeiten konnten nicht verglichen werden", 2);
-            Logger.error(ex);
-            return false;
-        }
+        if(beforeHour < afterHour)
+            after = true;
+        return after;
     }
 }

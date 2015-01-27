@@ -9,7 +9,7 @@ import java.util.Calendar;
  */
 public class ConvertableExpressions
 {
-    public static String yyyy(String date)
+    public static String yyyy(String date) throws Exception
     {
         if(date == null)
             return cyyyy(date);
@@ -31,12 +31,12 @@ public class ConvertableExpressions
 
     }
 
-    public static String yy(String date)
+    public static String yy(String date) throws Exception
     {
         return yyyy(date).substring(2);
     }
 
-    public static String mm(String date)
+    public static String mm(String date) throws Exception
     {
         if(date == null)
             return cmm(date);
@@ -49,7 +49,7 @@ public class ConvertableExpressions
         }
     }
 
-    public static String dd(String date)
+    public static String dd(String date) throws Exception
     {
         if(date == null)
             return cdd(date);
@@ -62,32 +62,32 @@ public class ConvertableExpressions
         }
     }
 
-    public static String hour(String date)
+    public static String hour(String date) throws Exception
     {
         return String.valueOf(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
     }
 
-    public static String minute(String date)
+    public static String minute(String date) throws Exception
     {
         return String.valueOf(Calendar.getInstance().get(Calendar.MINUTE));
     }
 
-    public static String second(String date)
+    public static String second(String date) throws Exception
     {
         return String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
     }
 
-    public static String cyyyy(String date)
+    public static String cyyyy(String date) throws Exception
     {
         return String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
     }
 
-    public static String cyy(String date)
+    public static String cyy(String date) throws Exception
     {
         return cyyyy(date).substring(2);
     }
 
-    public static String cmm(String date)
+    public static String cmm(String date) throws Exception
     {
         String s = String.valueOf(Calendar.getInstance().get(Calendar.MONTH) + 1);
         while(s.length() < 2)
@@ -95,7 +95,7 @@ public class ConvertableExpressions
         return s;
     }
 
-    public static String cdd(String date)
+    public static String cdd(String date) throws Exception
     {
         String s = String.valueOf(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
         while(s.length() < 2)
@@ -103,7 +103,7 @@ public class ConvertableExpressions
         return s;
     }
 
-    public static String notFound(String date)
+    public static String notFound(String date) throws Exception
     {
         return "";
     }

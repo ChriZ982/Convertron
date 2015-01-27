@@ -37,9 +37,9 @@ public class QueueElement
     {
         try
         {
-            String toLog = method.getName() + "\n        args:";
+            String toLog = "\"" + method.getName() + "\"\n           args:";
             for(Object o : args)
-                toLog += "  " + o.toString();
+                toLog += "\n              " + o.toString();
             Logger.logIntern(toLog);
 
             method.invoke(null, args);

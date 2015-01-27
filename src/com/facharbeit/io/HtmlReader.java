@@ -40,84 +40,72 @@ public class HtmlReader
      * Liest die heutigen Vertretungen ein.
      *
      * @return Ein Array mit Schulklassen in denen die jeweiligen Vertretungen gespeichert sind
+     *
+     * @throws java.lang.Exception
      */
-    public static SchoolClass[] today()
+    public static SchoolClass[] today() throws Exception
     {
-        try
-        {
-            SchoolClass[] schoolClasses;
-            if(Settings.load("sqlUse").equals("true") && Settings.load("sqlMode").equals("lesen"))
-                schoolClasses = getAllSql();
-            else
-                schoolClasses = getAllHtml(PathConverter.convert("./Data/Source/"));
+        SchoolClass[] schoolClasses;
+        if(Settings.load("sqlUse").equals("true") && Settings.load("sqlMode").equals("lesen"))
+            schoolClasses = getAllSql();
+        else
+            schoolClasses = getAllHtml(PathConverter.convert("./Data/Source/"));
 
-            boolean found = false;
-            String date = Time.htmlReading(0);
-            for(SchoolClass schoolClass : schoolClasses)
-            {
-                if(schoolClass.containsEntrysOfDate(date))
-                    found = true;
-
-                schoolClass.onlyDate(Time.htmlReading(0));
-            }
-            if(found)
-                return schoolClasses;
-            return null;
-        }
-        catch(Exception ex)
+        boolean found = false;
+        String date = Time.htmlReading(0);
+        for(SchoolClass schoolClass : schoolClasses)
         {
-            Logger.log("Heutige Schulklassen konnten nicht ausgelesen werden", 2);
-            Logger.error(ex);
-            return null;
+            if(schoolClass.containsEntrysOfDate(date))
+                found = true;
+
+            schoolClass.onlyDate(Time.htmlReading(0));
         }
+        if(found)
+            return schoolClasses;
+        return null;
     }
 
     /**
      * Liest die morgigen Vertretungen ein.
      *
      * @return Ein Array mit Schulklassen in denen die jeweiligen Vertretungen gespeichert sind
+     *
+     * @throws java.lang.Exception
      */
-    public static SchoolClass[] tomorrow()
+    public static SchoolClass[] tomorrow() throws Exception
     {
-        try
-        {
-            SchoolClass[] schoolClasses;
-            if(Settings.load("sqlUse").equals("true") && Settings.load("sqlMode").equals("lesen"))
-                schoolClasses = getAllSql();
-            else
-                schoolClasses = getAllHtml(PathConverter.convert("./Data/Source/"));
+        SchoolClass[] schoolClasses;
+        if(Settings.load("sqlUse").equals("true") && Settings.load("sqlMode").equals("lesen"))
+            schoolClasses = getAllSql();
+        else
+            schoolClasses = getAllHtml(PathConverter.convert("./Data/Source/"));
 
-            boolean found = false;
-            int i = 0;
-            while(i < 10 && !found)
-            {
-                i++;
-                for(SchoolClass schoolClass : schoolClasses)
-                    if(schoolClass.containsEntrysOfDate(Time.htmlReading(i)))
-                        found = true;
-            }
-            if(found)
-            {
-                for(SchoolClass schoolClass : schoolClasses)
-                    schoolClass.onlyDate(Time.htmlReading(i));
-                return schoolClasses;
-            }
-            return null;
-        }
-        catch(Exception ex)
+        boolean found = false;
+        int i = 0;
+        while(i < 10 && !found)
         {
-            Logger.log("Morgige Schulklassen konnten nicht ausgelesen werden", 2);
-            Logger.error(ex);
-            return null;
+            i++;
+            for(SchoolClass schoolClass : schoolClasses)
+                if(schoolClass.containsEntrysOfDate(Time.htmlReading(i)))
+                    found = true;
         }
+        if(found)
+        {
+            for(SchoolClass schoolClass : schoolClasses)
+                schoolClass.onlyDate(Time.htmlReading(i));
+            return schoolClasses;
+        }
+        return null;
     }
 
     /**
      * Liest die Vertretungen für die SQL-Verwendung ein.
      *
      * @return Ein Array mit Schulklassen in denen die jeweiligen Vertretungen gespeichert sind
+     *
+     * @throws java.lang.Exception
      */
-    public static SchoolClass[] forSql()
+    public static SchoolClass[] forSql() throws Exception
     {
         return sort(getAllHtml(PathConverter.convert("./Data/Source/")));
     }
@@ -128,104 +116,95 @@ public class HtmlReader
      * @param path Pfad zu den Dateien
      *
      * @return Ein Array in denen alle in den Quelldateien vorhandenen Vertretungen gespeichert sind (alle Tage)
+     *
+     * @throws java.lang.Exception
      */
-    public static SchoolClass[] getAllHtml(String path)
+    public static SchoolClass[] getAllHtml(String path) throws Exception
     {
-        try
-        {
-            if(new FolderHandler(path).isEmpty())
-                return new SchoolClass[]
-                {
-                };
-
-            ArrayList<File> files = getFiles(path);
-
-            SchoolClass[] schoolClasses = new SchoolClass[files.size()];
-
-            for(int i = 0; i < schoolClasses.length; i++)
+        if(new FolderHandler(path).isEmpty())
+            return new SchoolClass[]
             {
-                Logger.setProgress(10 + (int)(40.0 * ((double)i / (double)schoolClasses.length)));
-                String filename = files.get(i).getName();
-                schoolClasses[i] = new SchoolClass(filename.substring(Settings.load("fileNamePrefix").length(),
-                                                                      filename.indexOf(Settings.load("fileNameSuffix"))));
+            };
 
-                if(schoolClasses[i].isEmpty())
-                    schoolClasses[i].setEntries(new ArrayList<Entry>());
+        ArrayList<File> files = getFiles(path);
 
-                String asString = getTable(new FileHandler(files.get(i)).toString());
+        SchoolClass[] schoolClasses = new SchoolClass[files.size()];
 
-                asString = asString.substring(asString.indexOf(findHtmlTag(asString, "TR")) + findHtmlTag(asString, "TR").length());
+        for(int i = 0; i < schoolClasses.length; i++)
+        {
+            String filename = files.get(i).getName();
+            schoolClasses[i] = new SchoolClass(filename.substring(Settings.load("fileNamePrefix").length(),
+                                                                  filename.indexOf(Settings.load("fileNameSuffix"))));
 
-                ArrayList<String> head = new ArrayList<>();
+            if(schoolClasses[i].isEmpty())
+                schoolClasses[i].setEntries(new ArrayList<Entry>());
 
-                while(asString.indexOf(findHtmlTag(asString, "TD"))
-                      < asString.indexOf(findHtmlTag(asString, "TR")))
+            String asString = getTable(new FileHandler(files.get(i)).asString());
+
+            asString = asString.substring(asString.indexOf(findHtmlTag(asString, "TR")) + findHtmlTag(asString, "TR").length());
+
+            ArrayList<String> head = new ArrayList<>();
+
+            while(asString.indexOf(findHtmlTag(asString, "TD"))
+                  < asString.indexOf(findHtmlTag(asString, "TR")))
+            {
+                asString = asString.substring(asString.indexOf(findHtmlTag(asString, "TD")) + findHtmlTag(asString, "TD").length());
+                head.add(readEntry(asString.substring(0, asString.indexOf(findHtmlTag(asString, "/TD")))));
+            }
+
+            while(true)
+            {
+                asString = asString.substring(asString.indexOf(findHtmlTag(asString, "TR")) + 4);
+
+                HashMap<String, String> entries = new HashMap<>();
+
+                for(String head1 : head)
                 {
                     asString = asString.substring(asString.indexOf(findHtmlTag(asString, "TD")) + findHtmlTag(asString, "TD").length());
-                    head.add(readEntry(asString.substring(0, asString.indexOf(findHtmlTag(asString, "/TD")))));
+                    entries.put(head1, readEntry(asString.substring(0, asString.indexOf(findHtmlTag(asString, "/TD")))));
                 }
 
-                while(true)
+                boolean valid = true;
+
+                if(entries.containsKey("Std"))
+                    if(!validateAsNumber(entries.get("Std"), '-', ' '))
+                        valid = false;
+                    else
+                    {
+                        //nothing
+                    }
+                else
+                    valid = false;
+
+                if(entries.containsKey("Datum"))
+                    if(!validateAsNumber(entries.get("Datum"), '.'))
+                        valid = false;
+                    else
+                    {
+                        //nothing
+                    }
+                else
+                    valid = false;
+
+                if(valid)
+                    schoolClasses[i].getEntries().add(new Entry(entries));
+                else
                 {
-                    asString = asString.substring(asString.indexOf(findHtmlTag(asString, "TR")) + 4);
-
-                    HashMap<String, String> entries = new HashMap<>();
-
-                    for(String head1 : head)
-                    {
-                        asString = asString.substring(asString.indexOf(findHtmlTag(asString, "TD")) + findHtmlTag(asString, "TD").length());
-                        entries.put(head1, readEntry(asString.substring(0, asString.indexOf(findHtmlTag(asString, "/TD")))));
-                    }
-
-                    boolean valid = true;
-
-                    if(entries.containsKey("Std"))
-                        if(!validateAsNumber(entries.get("Std"), '-', ' '))
-                            valid = false;
+                    Entry e = schoolClasses[i].getEntries().get(schoolClasses[i].getEntries().size() - 1);
+                    for(String key : entries.keySet())
+                        if(e.getContent().containsKey(key))
+                            e.getContent().put(key, e.getContent().get(key) + " " + entries.get(key));
                         else
-                        {
-                            //nothing
-                        }
-                    else
-                        valid = false;
-
-                    if(entries.containsKey("Datum"))
-                        if(!validateAsNumber(entries.get("Datum"), '.'))
-                            valid = false;
-                        else
-                        {
-                            //nothing
-                        }
-                    else
-                        valid = false;
-
-                    if(valid)
-                        schoolClasses[i].getEntries().add(new Entry(entries));
-                    else
-                    {
-                        Entry e = schoolClasses[i].getEntries().get(schoolClasses[i].getEntries().size() - 1);
-                        for(String key : entries.keySet())
-                            if(e.getContent().containsKey(key))
-                                e.getContent().put(key, e.getContent().get(key) + " " + entries.get(key));
-                            else
-                                e.getContent().put(key, entries.get(key));
-                    }
-
-                    asString = asString.substring(asString.indexOf(findHtmlTag(asString, "/TD")) + findHtmlTag(asString, "/TD").length());
-
-                    if(!asString.contains("<TR>"))
-                        break;
+                            e.getContent().put(key, entries.get(key));
                 }
+
+                asString = asString.substring(asString.indexOf(findHtmlTag(asString, "/TD")) + findHtmlTag(asString, "/TD").length());
+
+                if(!asString.contains("<TR>"))
+                    break;
             }
-            Logger.setProgress(50);
-            return schoolClasses;
         }
-        catch(Exception ex)
-        {
-            Logger.log("HTML-Klassendateien konnten nicht ausgelesen werden", 2);
-            Logger.error(ex);
-            return null;
-        }
+        return schoolClasses;
     }
 
     /**
@@ -237,21 +216,14 @@ public class HtmlReader
      * @return Den genauen HTML-Tag;
      *         Bsp: findHtmlTag("blabla&lt;font color="black"&gt;blabla", "font") gibt "&lt;font color="black"&gt;" züruck
      */
-    private static String findHtmlTag(String source, String toFind)
+    private static String findHtmlTag(String source, String toFind) throws Exception
     {
-        try
-        {
-            source = source.substring(source.indexOf("<" + toFind));
-            source = source.substring(0, source.indexOf(">") + 1);
+        if(!source.contains("<" + toFind) || !source.contains(">"))
+            return ">";
+        source = source.substring(source.indexOf("<" + toFind));
+        source = source.substring(0, source.indexOf(">") + 1);
 
-            return source;
-        }
-        catch(Exception ex)
-        {
-            Logger.log("HTML-Tag <" + toFind + "> konnte nicht gefunden werden", 2);
-            Logger.error(ex);
-        }
-        return ">";
+        return source;
     }
 
     /**
@@ -261,20 +233,11 @@ public class HtmlReader
      *
      * @return Die Tabelle mit den Vertretungen (Anfang: "&lt;table&gt;"; Ende: "&lt;/table&gt;")
      */
-    private static String getTable(String source)
+    private static String getTable(String source) throws Exception
     {
-        try
-        {
-            source = source.substring(source.indexOf("<TABLE border=\"3\" rules=\"all\" bgcolor=\"#E7E7E7\" cellpadding=\"1\" cellspacing=\"1\">"));
-            source = source.substring(0, source.indexOf(findHtmlTag(source, "/TABLE")) + findHtmlTag(source, "/TABLE").length());
-            return source;
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Die Tabelle konnte nicht ausgeschnitten werden", 2);
-            Logger.error(ex);
-        }
-        return null;
+        source = source.substring(source.indexOf("<TABLE border=\"3\" rules=\"all\" bgcolor=\"#E7E7E7\" cellpadding=\"1\" cellspacing=\"1\">"));
+        source = source.substring(0, source.indexOf(findHtmlTag(source, "/TABLE")) + findHtmlTag(source, "/TABLE").length());
+        return source;
     }
 
     /**
@@ -285,7 +248,7 @@ public class HtmlReader
      *
      * @return Ob der String nur aus Ziffern und "extraChars" besteht
      */
-    private static boolean validateAsNumber(String s, char... extraChars)
+    private static boolean validateAsNumber(String s, char... extraChars) throws Exception
     {
         boolean found = false;
 
@@ -322,29 +285,21 @@ public class HtmlReader
      *
      * @return Die nächste Zelle der Tabelle
      */
-    private static String readEntry(String source)
+    private static String readEntry(String source) throws Exception
     {
-        try
-        {
-            if(source.contains("<font"))
-                source = source.substring(source.indexOf(findHtmlTag(source, "font")) + findHtmlTag(source, "font").length());
+        if(source.contains("<font"))
+            source = source.substring(source.indexOf(findHtmlTag(source, "font")) + findHtmlTag(source, "font").length());
 
-            if(source.contains("</font"))
-                source = source.substring(1, source.indexOf(findHtmlTag(source, "/font")) - 1);
+        if(source.contains("</font"))
+            source = source.substring(1, source.indexOf(findHtmlTag(source, "/font")) - 1);
 
-            while(source.startsWith(" ") || source.startsWith("\n"))
-                source = source.substring(1);
+        while(source.startsWith(" ") || source.startsWith("\n"))
+            source = source.substring(1);
 
-            while(source.endsWith(" ") || source.endsWith("\n"))
-                source = source.substring(0, source.length() - 1);
+        while(source.endsWith(" ") || source.endsWith("\n"))
+            source = source.substring(0, source.length() - 1);
 
-            return source;
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Eintrag konnte nicht gelesen werden", 2);
-        }
-        return null;
+        return source;
     }
 
     /**
@@ -353,47 +308,40 @@ public class HtmlReader
      * @param schoolClasses Zu sortierendes Array
      *
      * @return Sortiertes Array
+     *
+     * @throws java.lang.Exception
      */
-    public static SchoolClass[] sort(SchoolClass[] schoolClasses)
+    public static SchoolClass[] sort(SchoolClass[] schoolClasses) throws Exception
     {
-        try
-        {
-            if(schoolClasses == null)
-                return null;
-
-            for(SchoolClass schoolClass : schoolClasses)
-            {
-                ArrayList<Entry> out = new ArrayList<>();
-                while(schoolClass.getEntries().size() > 0)
-                {
-                    double lowestLesson = 1000;
-                    Entry lowestEntry = schoolClass.getEntries().get(0);
-                    for(Entry entry : schoolClass.getEntries())
-                    {
-                        double thisLesson = entry.getLesson() + 0.0;
-                        if(entry.isDoubleLesson())
-                            thisLesson += 0.5;
-
-                        if(thisLesson < lowestLesson)
-                        {
-                            lowestLesson = thisLesson;
-                            lowestEntry = entry;
-                        }
-                    }
-                    schoolClass.getEntries().remove(lowestEntry);
-                    out.add(lowestEntry);
-
-                }
-                schoolClass.setEntries(out);
-            }
-            return schoolClasses;
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Schulklassen konnten nicht sortiert werden", 2);
-            Logger.error(ex);
+        if(schoolClasses == null)
             return null;
+
+        for(SchoolClass schoolClass : schoolClasses)
+        {
+            ArrayList<Entry> out = new ArrayList<>();
+            while(schoolClass.getEntries().size() > 0)
+            {
+                double lowestLesson = 1000;
+                Entry lowestEntry = schoolClass.getEntries().get(0);
+                for(Entry entry : schoolClass.getEntries())
+                {
+                    double thisLesson = entry.getLesson() + 0.0;
+                    if(entry.isDoubleLesson())
+                        thisLesson += 0.5;
+
+                    if(thisLesson < lowestLesson)
+                    {
+                        lowestLesson = thisLesson;
+                        lowestEntry = entry;
+                    }
+                }
+                schoolClass.getEntries().remove(lowestEntry);
+                out.add(lowestEntry);
+
+            }
+            schoolClass.setEntries(out);
         }
+        return schoolClasses;
     }
 
     /**
@@ -403,48 +351,39 @@ public class HtmlReader
      *
      * @return Liste der Dateien
      */
-    private static ArrayList<File> getFiles(String path)
+    private static ArrayList<File> getFiles(String path) throws Exception
     {
-        try
-        {
-            while(path.endsWith("\\"))
-                path = path.substring(0, path.length() - 1);
-            if(!path.endsWith("/"))
-                path += "/";
+        while(path.endsWith("\\"))
+            path = path.substring(0, path.length() - 1);
+        if(!path.endsWith("/"))
+            path += "/";
 
-            String prefix = Settings.load("fileNamePrefix");
-            String suffix = Settings.load("fileNameSuffix");
+        String prefix = Settings.load("fileNamePrefix");
+        String suffix = Settings.load("fileNameSuffix");
 
-            ArrayList<File> files = new ArrayList<>();
-            File file;
-            for(int grade = firstGrade; grade <= lastGrade; grade++)
-                for(int c = 97; c <= 122; c++)
-                {
-                    String g = String.valueOf(grade) + "" + (char)c;
-                    while(g.length() < 3)
-                        g = "0" + g;
-
-                    file = new File(path, prefix + g + suffix);
-
-                    if(file.exists())
-                        files.add(file);
-                }
-
-            for(String g : extraGrades)
+        ArrayList<File> files = new ArrayList<>();
+        File file;
+        for(int grade = firstGrade; grade <= lastGrade; grade++)
+            for(int c = 97; c <= 122; c++)
             {
+                String g = String.valueOf(grade) + "" + (char)c;
+                while(g.length() < 3)
+                    g = "0" + g;
+
                 file = new File(path, prefix + g + suffix);
+
                 if(file.exists())
                     files.add(file);
             }
 
-            return files;
-        }
-        catch(Exception ex)
+        for(String g : extraGrades)
         {
-            Logger.log("Dateien unter \"" + path + "\" konnten nicht indiziert werden", 2);
-            Logger.error(ex);
-            return null;
+            file = new File(path, prefix + g + suffix);
+            if(file.exists())
+                files.add(file);
         }
+
+        return files;
     }
 
     /**
@@ -452,51 +391,42 @@ public class HtmlReader
      *
      * @return alle Schulklassen
      */
-    private static SchoolClass[] getAllSql()
+    private static SchoolClass[] getAllSql() throws Exception
     {
-        try
+        ArrayList<SchoolClass> asList = new ArrayList<>();
+        SqlTableReader read = new SqlTableReader(PathConverter.convert(Settings.load("sqlHost")),
+                                                 Integer.parseInt(Settings.load("sqlPort")),
+                                                 PathConverter.convert(Settings.load("sqlName")),
+                                                 Settings.load("sqlUser"),
+                                                 Settings.load("sqlPassw"),
+                                                 PathConverter.convert(Settings.load("sqlTableName")),
+                                                 sqlColumms);
+
+        ArrayList<String[]> readIn = read.readAll();
+
+        for(String[] asArray : readIn)
         {
-            ArrayList<SchoolClass> asList = new ArrayList<>();
-            SqlTableReader read = new SqlTableReader(PathConverter.convert(Settings.load("sqlHost")),
-                                                     Integer.parseInt(Settings.load("sqlPort")),
-                                                     PathConverter.convert(Settings.load("sqlName")),
-                                                     Settings.load("sqlUser"),
-                                                     Settings.load("sqlPassw"),
-                                                     PathConverter.convert(Settings.load("sqlTableName")),
-                                                     sqlColumms);
+            Map<String, String> forEntry = new HashMap<>();
 
-            ArrayList<String[]> readIn = read.readAll();
+            for(int i = 0; i < asArray.length; i++)
+                forEntry.put(sqlColumms[i], asArray[i]);
 
-            for(String[] asArray : readIn)
-            {
-                Map<String, String> forEntry = new HashMap<>();
+            boolean added = false;
 
-                for(int i = 0; i < asArray.length; i++)
-                    forEntry.put(sqlColumms[i], asArray[i]);
-
-                boolean added = false;
-
-                for(SchoolClass sc : asList)
-                    if(sc.getName().equals(forEntry.get("Stufe")))
-                    {
-                        sc.getEntries().add(new Entry(forEntry));
-                        added = true;
-                    }
-                if(!added)
+            for(SchoolClass sc : asList)
+                if(sc.getName().equals(forEntry.get("Stufe")))
                 {
-                    SchoolClass sc = new SchoolClass(forEntry.get("Stufe"));
                     sc.getEntries().add(new Entry(forEntry));
-                    asList.add(sc);
+                    added = true;
                 }
+            if(!added)
+            {
+                SchoolClass sc = new SchoolClass(forEntry.get("Stufe"));
+                sc.getEntries().add(new Entry(forEntry));
+                asList.add(sc);
             }
+        }
 
-            return (SchoolClass[])asList.toArray();
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Fehler beim auslesen der Datenbank", 2);
-            Logger.error(ex);
-            return null;
-        }
+        return (SchoolClass[])asList.toArray();
     }
 }

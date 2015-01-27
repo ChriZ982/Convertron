@@ -239,12 +239,13 @@
             </Component>
             <Component class="javax.swing.JProgressBar" name="progBar">
               <Properties>
+                <Property name="maximum" type="int" value="1"/>
                 <Property name="toolTipText" type="java.lang.String" value="Zeigt den Fortschritt der Generierung an"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Fortschritt:"/>
+                <Property name="text" type="java.lang.String" value="Arbeit:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="createBackupBtn">

@@ -4,7 +4,6 @@ import com.facharbeit.io.FileHandler;
 import java.awt.Color;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import javax.swing.JProgressBar;
 import javax.swing.JTextPane;
 import javax.swing.text.*;
 
@@ -19,15 +18,13 @@ public class Logger
     private static JTextPane textPane;
 
     /**
-     * Fortschritts-Anzeige.
-     */
-    private static JProgressBar progressBar;
-
-    /**
      * Der interne Log. Wird bei Fehlerausgaben verwendet
      */
     private static String internLog;
 
+    /**
+     * Ist Logging aktiviert oder deaktiviert?
+     */
     private static boolean logging;
 
     /**
@@ -36,10 +33,9 @@ public class Logger
      * @param out  Textfeld für die Ausgabe
      * @param prog Fortschrittsbalken
      */
-    public static void init(JTextPane out, JProgressBar prog)
+    public static void init(JTextPane out)
     {
         textPane = out;
-        progressBar = prog;
         internLog = "";
         logging = true;
     }
@@ -93,7 +89,7 @@ public class Logger
         }
     }
 
-    public static void logIntern(String text)
+    public static void logIntern(String text) throws Exception
     {
         internLog += Time.log() + text + "\n\n";
     }
@@ -108,16 +104,19 @@ public class Logger
         try
         {
             FileHandler writer = new FileHandler("Errors/err" + Time.error() + ".txt");
+            Logger.enable(false);
             writer.create();
+            Logger.enable(true);
 
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
-            exception.printStackTrace(pw);
 
-            writer.write(0, exception.toString() + "\n\n"
-                            + exception.getLocalizedMessage() + "\n\n"
-                            + exception.getMessage() + "\n\n"
-                            + sw.toString() + "\n\n"
+            exception.printStackTrace(pw);
+            pw.print("\n");
+            if(exception.getCause() != null)
+                exception.getCause().printStackTrace(pw);
+
+            writer.write(0, sw.toString() + "\n"
                             + internLog);
 
         }
@@ -129,29 +128,11 @@ public class Logger
     }
 
     /**
-     * Setzt den Fortschritt.
-     *
-     * @param value Neuer Wert
-     */
-    public static void setProgress(int value)
-    {
-        try
-        {
-            progressBar.setValue(value);
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Fortschritt konnte nicht geändert werden", 2);
-            Logger.error(ex);
-        }
-    }
-
-    /**
      * Aktiviert oder Deaktiviert das Logging von positiven(grünen) Meldungen.
      *
      * @param logging Neuer Status
      */
-    public static void setLogging(boolean logging)
+    public static void enable(boolean logging)
     {
         Logger.logging = logging;
     }

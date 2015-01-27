@@ -53,47 +53,40 @@ public class PathConverter
      * @param date Das Datum im Format der Quelldateien (DD.MM) das zum konvertieren genutzt werden soll.
      *
      * @return Den konvertierten String s.
+     *
+     * @throws java.lang.Exception
      */
-    public static String convert(String s, String date)
+    public static String convert(String s, String date) throws Exception
     {
-        try
-        {
-            Method[] convertOperations = ConvertableExpressions.class.getDeclaredMethods();
-            ArrayList<StringPart> parts = new ArrayList<>();
+        Method[] convertOperations = ConvertableExpressions.class.getDeclaredMethods();
+        ArrayList<StringPart> parts = new ArrayList<>();
 
-            while(s.contains(BEGIN) && s.contains(END))
+        while(s.contains(BEGIN) && s.contains(END))
+        {
+            parts.add(new StringPart(s.substring(0, s.indexOf(BEGIN))));
+            parts.add(new StringPart(s.substring(s.indexOf(BEGIN) + BEGIN.length(),
+                                                 s.indexOf(END)), true));
+            s = s.substring(s.indexOf(END) + END.length());
+        }
+        parts.add(new StringPart(s));
+        s = "";
+
+        for(StringPart p : parts)
+            if(p.mustCovert())
             {
-                parts.add(new StringPart(s.substring(0, s.indexOf(BEGIN))));
-                parts.add(new StringPart(s.substring(s.indexOf(BEGIN) + BEGIN.length(),
-                                                     s.indexOf(END)), true));
-                s = s.substring(s.indexOf(END) + END.length());
+                boolean found = false;
+                for(Method m : convertOperations)
+                    if(m.getName().equals(p.getContent()))
+                    {
+                        s += m.invoke(null, date);
+                        found = true;
+                        break;
+                    }
+                if(!found)
+                    s += ConvertableExpressions.notFound(date);
             }
-            parts.add(new StringPart(s));
-            s = "";
-
-            for(StringPart p : parts)
-                if(p.mustCovert())
-                {
-                    boolean found = false;
-                    for(Method m : convertOperations)
-                        if(m.getName().equals(p.getContent()))
-                        {
-                            s += m.invoke(null, date);
-                            found = true;
-                            break;
-                        }
-                    if(!found)
-                        s += ConvertableExpressions.notFound(date);
-                }
-                else
-                    s += p.getContent();
-
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Fehler beim konvertieren der Textfelder", 2);
-            Logger.error(ex);
-        }
+            else
+                s += p.getContent();
         return s;
     }
 
@@ -103,8 +96,10 @@ public class PathConverter
      * @param s Der zu konvertierende String.
      *
      * @return Den konvertierten String s.
+     *
+     * @throws java.lang.Exception
      */
-    public static String convert(String s)
+    public static String convert(String s) throws Exception
     {
         return convert(s, null);
     }

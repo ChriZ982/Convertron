@@ -278,9 +278,10 @@ public class Frame extends javax.swing.JFrame
             }
         });
 
+        progBar.setMaximum(1);
         progBar.setToolTipText("Zeigt den Fortschritt der Generierung an");
 
-        jLabel4.setText("Fortschritt:");
+        jLabel4.setText("Arbeit:");
 
         createBackupBtn.setText("Backup erstellen");
         createBackupBtn.setToolTipText("Erstellt ein Backup des aktuellen Plans");
@@ -1774,41 +1775,33 @@ public class Frame extends javax.swing.JFrame
     /**
      * Lädt alle Einstellungen für das Programm.
      */
-    public void loadSettings()
+    public void loadSettings() throws Exception
     {
-        try
+        JRadioButton[] rBtns =
         {
-            JRadioButton[] rBtns =
-            {
-                sqlModeReadRBtn, sqlModeWriteRBtn, sqlModeDelWriteRBtn
-            };
-            Application.addToQueue("loadSettings", sourceTxt, backupTxt, destArea, fileNamePrefixTxt, fileNameSuffixTxt, speedPlanTxt,
-                                   speedMotdTxt, colorPlanCombo, colorMotdCombo, motdTxt, useSQLCheck, dbHostTxt, dbPortTxt,
-                                   dbNameTxt, dbUserTxt, dbPwTxt, dbTableNameTxt, rBtns, hour1Txt, hour2Txt, hour3Txt,
-                                   hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt,
-                                   autoBackupCheck, useHoursCheck, customSourceCheck, sourceTodayTxt,
-                                   sourceTomorrowTxt, colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo,
-                                   fontTypeTxt, fontSizeTxt, boldCheck, italicCheck, typeToEditCombo, table, weekTxt);
+            sqlModeReadRBtn, sqlModeWriteRBtn, sqlModeDelWriteRBtn
+        };
+        Application.addToQueue("loadSettings", sourceTxt, backupTxt, destArea, fileNamePrefixTxt, fileNameSuffixTxt, speedPlanTxt,
+                               speedMotdTxt, colorPlanCombo, colorMotdCombo, motdTxt, useSQLCheck, dbHostTxt, dbPortTxt,
+                               dbNameTxt, dbUserTxt, dbPwTxt, dbTableNameTxt, rBtns, hour1Txt, hour2Txt, hour3Txt,
+                               hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt,
+                               autoBackupCheck, useHoursCheck, customSourceCheck, sourceTodayTxt,
+                               sourceTomorrowTxt, colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo,
+                               fontTypeTxt, fontSizeTxt, boldCheck, italicCheck, typeToEditCombo, table, weekTxt);
 
-            sourceTodayTxt.setEnabled(customSourceCheck.isSelected());
-            sourceTomorrowTxt.setEnabled(customSourceCheck.isSelected());
-            jLabel10.setEnabled(customSourceCheck.isSelected());
-            jLabel22.setEnabled(customSourceCheck.isSelected());
-            tteBgLabel.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
-            backgroundColorCombo.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
-            backgroundColorPanel.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
+        sourceTodayTxt.setEnabled(customSourceCheck.isSelected());
+        sourceTomorrowTxt.setEnabled(customSourceCheck.isSelected());
+        jLabel10.setEnabled(customSourceCheck.isSelected());
+        jLabel22.setEnabled(customSourceCheck.isSelected());
+        tteBgLabel.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
+        backgroundColorCombo.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
+        backgroundColorPanel.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
 
-            for(JComponent j : sqlComponents)
-                j.setEnabled(useSQLCheck.isSelected());
+        for(JComponent j : sqlComponents)
+            j.setEnabled(useSQLCheck.isSelected());
 
-            for(JComponent j : hoursComponents)
-                j.setEnabled(useHoursCheck.isSelected());
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Fehler beim Laden der Einstellungen", 2);
-            Logger.error(ex);
-        }
+        for(JComponent j : hoursComponents)
+            j.setEnabled(useHoursCheck.isSelected());
     }
 
     public JTextPane getStatusPane()
