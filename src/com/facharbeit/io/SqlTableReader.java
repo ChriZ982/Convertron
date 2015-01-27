@@ -28,7 +28,7 @@ public class SqlTableReader extends SqlReader
      * @param tableName    Name der Tabelle
      * @param tableColumms Spalten, die es geben soll
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public SqlTableReader(String dbHost, int dbPort, String dbName, String dbUser, String dbPassword, String tableName, String[] tableColumms) throws Exception
     {
@@ -42,7 +42,7 @@ public class SqlTableReader extends SqlReader
      *
      * @return Inhalt der Tabelle
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public ArrayList<String[]> readAll() throws Exception
     {
@@ -56,7 +56,7 @@ public class SqlTableReader extends SqlReader
      *
      * @return Inhalt der Zeile
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public String[] read(int line) throws Exception
     {
@@ -71,7 +71,7 @@ public class SqlTableReader extends SqlReader
      *
      * @return Inhalt der Zelle
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public String read(String tableColumm, int line) throws Exception
     {

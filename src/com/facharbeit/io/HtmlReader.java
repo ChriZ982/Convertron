@@ -41,7 +41,7 @@ public class HtmlReader
      *
      * @return Ein Array mit Schulklassen in denen die jeweiligen Vertretungen gespeichert sind
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public static SchoolClass[] today() throws Exception
     {
@@ -70,7 +70,7 @@ public class HtmlReader
      *
      * @return Ein Array mit Schulklassen in denen die jeweiligen Vertretungen gespeichert sind
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public static SchoolClass[] tomorrow() throws Exception
     {
@@ -103,7 +103,7 @@ public class HtmlReader
      *
      * @return Ein Array mit Schulklassen in denen die jeweiligen Vertretungen gespeichert sind
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public static SchoolClass[] forSql() throws Exception
     {
@@ -117,7 +117,7 @@ public class HtmlReader
      *
      * @return Ein Array in denen alle in den Quelldateien vorhandenen Vertretungen gespeichert sind (alle Tage)
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public static SchoolClass[] getAllHtml(String path) throws Exception
     {
@@ -309,7 +309,7 @@ public class HtmlReader
      *
      * @return Sortiertes Array
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public static SchoolClass[] sort(SchoolClass[] schoolClasses) throws Exception
     {

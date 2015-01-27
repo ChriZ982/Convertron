@@ -54,7 +54,7 @@ public class PathConverter
      *
      * @return Den konvertierten String s.
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public static String convert(String s, String date) throws Exception
     {
@@ -97,7 +97,7 @@ public class PathConverter
      *
      * @return Den konvertierten String s.
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public static String convert(String s) throws Exception
     {

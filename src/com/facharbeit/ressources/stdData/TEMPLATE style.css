@@ -28,7 +28,7 @@
     color: TABELLE2;
     width: 99.5%;
     border-width: 3px;
-    border-style: groove;
+    border-style: solid;
     border-color: #474747;
     background-color: TABELLE;
 }
@@ -50,6 +50,6 @@ OTHER
 
 .frames frame
 {
-    border-style: groove;
+    border-style: solid;
     border-color: FRAME;
 }

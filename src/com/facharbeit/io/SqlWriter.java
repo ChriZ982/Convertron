@@ -28,7 +28,7 @@ public class SqlWriter
      * @param dbUser     Nutername der Datenbank
      * @param dbPassword Passwort der Datenbank
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public SqlWriter(String dbHost, int dbPort, String dbName, String dbUser, String dbPassword) throws Exception
     {
@@ -48,7 +48,7 @@ public class SqlWriter
      * @param tableColumms Spalten, die es in den Zeilen geben soll
      * @param data         Inhalt, der geschrieben werden soll
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public void addAll(String tableName, String[] tableColumms, ArrayList<String[]> data) throws Exception
     {
@@ -89,7 +89,7 @@ public class SqlWriter
      * @param tableColumms Spalten, die es in der Zeile geben soll
      * @param data         Inhalt, der geschrieben werden soll
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public void addLine(String tableName, String[] tableColumms, String[] data) throws Exception
     {
@@ -105,7 +105,7 @@ public class SqlWriter
      * @param tableColumm Spalte, die es in der Zeile geben soll
      * @param data        Inhalt, der geschrieben werden soll
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public void addCell(String tableName, String tableColumm, String data) throws Exception
     {
@@ -125,7 +125,7 @@ public class SqlWriter
      *
      * @param tableName Name der zu leerende Tabelle
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public void clear(String tableName) throws Exception
     {

@@ -46,7 +46,7 @@ public class Entry
      *
      * @param content Inhalt des Eintrags
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public Entry(Map<String, String> content) throws Exception
     {
@@ -76,7 +76,7 @@ public class Entry
      *
      * @return HTML-Tabellenzeile die die Werte des Eintrags besitzt
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public String asString(String cssClass) throws Exception
     {
@@ -149,7 +149,7 @@ public class Entry
      *
      * @return Inhalt
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public String[] getImportantContent() throws Exception
     {
@@ -168,7 +168,7 @@ public class Entry
      *
      * @param c Neuer Inhalt
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public void setImportantContent(String[] c) throws Exception
     {

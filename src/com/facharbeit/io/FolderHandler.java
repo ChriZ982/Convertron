@@ -40,7 +40,7 @@ public class FolderHandler
      *
      * @param dest Zielpfad
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public void copyContent(String dest) throws Exception
     {
@@ -55,7 +55,7 @@ public class FolderHandler
     /**
      * Löscht den Inhalt des Ordners.
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public void deleteContent() throws Exception
     {
@@ -74,7 +74,7 @@ public class FolderHandler
      *
      * @return Existiert er?
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public boolean exists() throws Exception
     {
@@ -86,7 +86,7 @@ public class FolderHandler
      *
      * @return Ist er leer?
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public boolean isEmpty() throws Exception
     {

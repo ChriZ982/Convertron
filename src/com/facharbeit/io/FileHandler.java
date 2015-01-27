@@ -37,7 +37,7 @@ public class FileHandler
     /**
      * Erstellt eine neue Datei.
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public void create() throws Exception
     {
@@ -49,7 +49,7 @@ public class FileHandler
     /**
      * Löscht eine bestehende Datei.
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public void delete() throws Exception
     {
@@ -62,7 +62,7 @@ public class FileHandler
      *
      * @return Existiert die Datei?
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public boolean exists() throws Exception
     {
@@ -74,7 +74,7 @@ public class FileHandler
      *
      * @param dest Ziel-Pfad
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public void copy(String dest) throws Exception
     {
@@ -91,7 +91,7 @@ public class FileHandler
      *
      * @param dest Ziel-Pfad
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public void copyFromRes(String dest) throws Exception
     {
@@ -115,7 +115,7 @@ public class FileHandler
      *
      * @return Anzahl der Zeilen
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public int length() throws Exception
     {
@@ -134,7 +134,7 @@ public class FileHandler
      *
      * @return Inhalt dieser Zeile
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public String read(int lineNumber) throws Exception
     {
@@ -151,7 +151,7 @@ public class FileHandler
      *
      * @return Ganze Datei als String Array
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public String[] read() throws Exception
     {
@@ -169,7 +169,7 @@ public class FileHandler
      *
      * @return Ganze Datei als String
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public String asString() throws Exception
     {
@@ -185,7 +185,7 @@ public class FileHandler
      *
      * @param text Daten, die in die Datei geschrieben werder sollen
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public void write(String[] text) throws Exception
     {
@@ -206,7 +206,7 @@ public class FileHandler
      * @param lineNumber Zeile, die neu geschrieben werden soll
      * @param text       Text, der geschrieben werden soll
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public void write(int lineNumber, String text) throws Exception
     {

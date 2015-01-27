@@ -1774,6 +1774,8 @@ public class Frame extends javax.swing.JFrame
 
     /**
      * Lädt alle Einstellungen für das Programm.
+     *
+     * @throws java.lang.Exception Fehler
      */
     public void loadSettings() throws Exception
     {

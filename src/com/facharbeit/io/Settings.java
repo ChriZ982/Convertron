@@ -21,7 +21,7 @@ public class Settings
     /**
      * Initialisiert die Einstellungen.
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public static void init() throws Exception
     {
@@ -36,7 +36,7 @@ public class Settings
      * @param name    Name der Einstellung
      * @param setting Wert der Einstellung
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public static void save(String name, String setting) throws Exception
     {
@@ -62,7 +62,7 @@ public class Settings
      *
      * @return Wert der Einstellung
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public static String load(String name) throws Exception
     {
@@ -89,7 +89,7 @@ public class Settings
      *
      * @return Konnte die Einstellung gelöscht werden?
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler Fehler
      */
     public static boolean delete(String name) throws Exception
     {
@@ -115,7 +115,7 @@ public class Settings
      *
      * @return Einstellungen mit gleich beginnendem Namen
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public static String[] loadNames(String name) throws Exception
     {
@@ -138,7 +138,7 @@ public class Settings
      *
      * @return Werte der Einstellungen
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public static String[] loadMulti(String name) throws Exception
     {
@@ -163,7 +163,7 @@ public class Settings
      *
      * @return Zeile der Einstellung (-1 wenn nicht vorhanden)
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public static int line(String name) throws Exception
     {
@@ -193,7 +193,7 @@ public class Settings
     /**
      * Sortiert die Datei.
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public static void sort() throws Exception
     {

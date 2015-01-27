@@ -30,8 +30,7 @@ public class Logger
     /**
      * Initialisiert den Logger.
      *
-     * @param out  Textfeld für die Ausgabe
-     * @param prog Fortschrittsbalken
+     * @param out Textfeld für die Ausgabe
      */
     public static void init(JTextPane out)
     {

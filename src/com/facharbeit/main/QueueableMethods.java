@@ -16,9 +16,9 @@ public class QueueableMethods
     // ================================================== ÜBERSICHT ==================================================
     public static void genAllBtnActionPerformed() throws Exception
     {
-        HtmlWriter.today(HtmlReader.sort(HtmlReader.today()), 50, 65);
-        HtmlWriter.tomorrow(HtmlReader.sort(HtmlReader.tomorrow()), 65, 80);
-        HtmlWriter.motd(80, 95);
+        HtmlWriter.today(HtmlReader.sort(HtmlReader.today()));
+        HtmlWriter.tomorrow(HtmlReader.sort(HtmlReader.tomorrow()));
+        HtmlWriter.motd();
         HtmlWriter.style();
 
         if(Settings.load("sqlMode").contains("schreiben") && Settings.load("sqlUse").equals("true"))
@@ -31,7 +31,7 @@ public class QueueableMethods
 
     public static void genTodayBtnActionPerformed() throws Exception
     {
-        HtmlWriter.today(HtmlReader.sort(HtmlReader.today()), 50, 95);
+        HtmlWriter.today(HtmlReader.sort(HtmlReader.today()));
         HtmlWriter.style();
 
         if(Settings.load("sqlMode").contains("schreiben") && Settings.load("sqlUse").equals("true"))
@@ -44,7 +44,7 @@ public class QueueableMethods
 
     public static void genTomorrowBtnActionPerformed() throws Exception
     {
-        HtmlWriter.tomorrow(HtmlReader.sort(HtmlReader.tomorrow()), 50, 95);
+        HtmlWriter.tomorrow(HtmlReader.sort(HtmlReader.tomorrow()));
         HtmlWriter.style();
 
         if(Settings.load("sqlMode").contains("schreiben") && Settings.load("sqlUse").equals("true"))
@@ -58,7 +58,7 @@ public class QueueableMethods
     public static void genMotdBtnActionPerformed(JTextField motdTxt) throws Exception
     {
         saveText(motdTxt, "motdText");
-        HtmlWriter.motd(0, 100);
+        HtmlWriter.motd();
         HtmlWriter.style();
         backupToDestPaths();
         if(Settings.load("autoBackup").equals("true"))
@@ -551,6 +551,8 @@ public class QueueableMethods
      * Speichert die aktuelle Position des JFrames auf dem Bildschrim.
      *
      * @param frame Der Frame dessen Position gespeichert werden soll
+     *
+     * @throws java.lang.Exception Fehler
      */
     public static void savePositionOfFrame(JFrame frame) throws Exception
     {

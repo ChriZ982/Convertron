@@ -57,7 +57,7 @@ public class SchoolClass
      *
      * @return Sind keine Einträge vorhanden?
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public boolean isEmpty() throws Exception
     {
@@ -71,7 +71,7 @@ public class SchoolClass
      *
      * @param newOrder Neue Reihenfolge
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public void sort(int... newOrder) throws Exception
     {
@@ -106,7 +106,7 @@ public class SchoolClass
     /**
      * Löscht vergangene Stunden.
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public void cut() throws Exception
     {
@@ -139,7 +139,7 @@ public class SchoolClass
      *
      * @return Konvertierte Klasse
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public String asString() throws Exception
     {
@@ -244,7 +244,7 @@ public class SchoolClass
      *
      * @return Einträge des Datums vorhanden?
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public boolean containsEntrysOfDate(String date) throws Exception
     {
@@ -259,7 +259,7 @@ public class SchoolClass
      *
      * @param date Datum (dd.mm.)
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public void onlyDate(String date) throws Exception
     {

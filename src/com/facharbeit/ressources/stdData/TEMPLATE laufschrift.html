@@ -14,7 +14,7 @@
                 var position = window.pageXOffset + feineinstellung;
 
                 if (position < width)
-                    window.scrollBy(2, 0);
+                    window.scrollBy(4, 0);
                 else
                 {
                     window.scrollTo(0, 0);
@@ -39,7 +39,7 @@
                 width = (window.pageXOffset + window.innerWidth)/2;
                 
                 if(window.pageXOffset>0)
-                    window.setInterval("scroll()", 100 / GESCHW);
+                    window.setInterval("scroll()", 100 / GESCHW * 2);
                 else
                     window.setInterval("reload()", 60000);
             }

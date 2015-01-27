@@ -10,7 +10,7 @@
                 var position = window.pageYOffset + feineinstellung;
 
                 if (position < height)
-                    window.scrollBy(0, 1);
+                    window.scrollBy(0, 2);
                 else
                 {
                     window.scrollTo(0, 0);
@@ -35,7 +35,7 @@
                 height = (window.pageYOffset + window.innerHeight) / 2;
 
                 if (window.pageYOffset > 0)
-                    window.setInterval("scroll()", GESCHW);
+                    window.setInterval("scroll()", GESCHW * 2);
                 else
                     window.setInterval("reload()", 60000);
             }
@@ -48,16 +48,21 @@
     <body class="body1" onLoad="start()">
 
         <script type="text/javascript">
-            body();
+            body(false);
 
             window.scrollBy(0, 10);
 
             if (window.pageYOffset !== 0)
-                body();
+                body(true);
 
-            function body()
+            function body(lines)
             {
                 document.open();
+				if(lines)
+				{
+					document.write('<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>' +
+							'');
+				}
                 document.write('<table width="100%" >' +
                         '<tr>' +
                         '<td ><img src="antonianumLogo.png" height="130" alt="Gymnasium Antonianum - Logo" /></td>' +
@@ -66,8 +71,12 @@
                         '</table>' +
                         '' +
                         VERTRETUNGEN
-                        '<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>' +
                         '');
+				if(lines)
+				{
+					document.write('<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>' +
+							'');
+				}
                 document.close();
             }
         </script>

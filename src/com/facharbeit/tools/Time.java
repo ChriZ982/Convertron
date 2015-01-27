@@ -27,7 +27,7 @@ public class Time
      *
      * @return Zeit als String
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public static String error() throws Exception
     {
@@ -46,7 +46,7 @@ public class Time
      *
      * @return Zeit
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public static String log() throws Exception
     {
@@ -63,7 +63,7 @@ public class Time
      *
      * @return Zeit
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public static String htmlReading(int addDays) throws Exception
     {
@@ -86,7 +86,7 @@ public class Time
      *
      * @return Zeit
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public static String htmlWriting(String date) throws Exception
     {
@@ -117,7 +117,7 @@ public class Time
      *
      * @return Stunde
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public static int hour() throws Exception
     {
@@ -131,7 +131,7 @@ public class Time
      *
      * @return Minute
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public static int minute() throws Exception
     {
@@ -146,7 +146,7 @@ public class Time
      *
      * @return Neuer Kalender
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public static Calendar addDays(int amount) throws Exception
     {
@@ -166,7 +166,7 @@ public class Time
      *
      * @return Sind die Uhrzeiten nacheinander?
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public static boolean isAfter(int afterHour, int afterMinute, int beforeHour, int beforeMinute) throws Exception
     {

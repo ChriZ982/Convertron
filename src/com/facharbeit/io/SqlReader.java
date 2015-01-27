@@ -22,7 +22,7 @@ public class SqlReader
      * @param dbUser     Nutername der Datenbank
      * @param dbPassword Passwort der Datenbank
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public SqlReader(String dbHost, int dbPort, String dbName, String dbUser, String dbPassword) throws Exception
     {
@@ -42,7 +42,7 @@ public class SqlReader
      *
      * @return Alle Zeilen der Tabelle
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public ArrayList<String[]> readAll(String tableName, String... tableColumms) throws Exception
     {
@@ -85,7 +85,7 @@ public class SqlReader
      *
      * @return Inhalt der Zeile
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public String[] readLine(int line, String tableName, String... tableColumms) throws Exception
     {
@@ -101,7 +101,7 @@ public class SqlReader
      *
      * @return Inhalt der Zelle
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public String readCell(int line, String tableName, String tableColumm) throws Exception
     {

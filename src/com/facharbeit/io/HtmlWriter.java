@@ -21,14 +21,11 @@ public class HtmlWriter
      * Generiert den heutigen Plan.
      *
      * @param schoolClasses Schulklassen für heute
-     * @param start         Startprozente
-     * @param end           Endprozente
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
-    public static void today(SchoolClass[] schoolClasses, int start, int end) throws Exception
+    public static void today(SchoolClass[] schoolClasses) throws Exception
     {
-        int part = end - start;
         String day = head(schoolClasses);
         String speed = "";
         if(Settings.line("planSpeed") != -1)
@@ -57,14 +54,11 @@ public class HtmlWriter
      * Generiert den morgigen Plan.
      *
      * @param schoolClasses Schulklassen für morgen
-     * @param start         Startprozente
-     * @param end           Endprozente
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
-    public static void tomorrow(SchoolClass[] schoolClasses, int start, int end) throws Exception
+    public static void tomorrow(SchoolClass[] schoolClasses) throws Exception
     {
-        int part = end - start;
         String day = head(schoolClasses);
         String speed = "";
         if(Settings.line("planSpeed") != -1)
@@ -92,14 +86,10 @@ public class HtmlWriter
     /**
      * Generiert die Laufschrift.
      *
-     * @param start Startprozente
-     * @param end   Endprozente
-     *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
-    public static void motd(int start, int end) throws Exception
+    public static void motd() throws Exception
     {
-        int part = end - start;
         String speed = "";
         if(Settings.line("motdSpeed") != -1)
             speed = Integer.toString((int)(Double.parseDouble(Settings.load("motdSpeed")) / 100.0 * 15.0));
@@ -128,17 +118,17 @@ public class HtmlWriter
     /**
      * Generiert die Style-Datei der Seite.
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public static void style() throws Exception
     {
-        String datum1 = Settings.load("überschriftFontStyle") + " " + Settings.load("überschriftFontSize") + "px " + Settings.load("überschriftFontFamily");
+        String datum1 = Settings.load("überschriftFontStyle").replaceAll("none", "") + " " + Settings.load("überschriftFontSize") + "px " + Settings.load("überschriftFontFamily");
         String datum2 = Settings.load("color" + Settings.load("überschriftFontColor"));
-        String stufe1 = Settings.load("stufennameFontStyle") + " " + Settings.load("stufennameFontSize") + "px " + Settings.load("stufennameFontFamily");
+        String stufe1 = Settings.load("stufennameFontStyle").replaceAll("none", "") + " " + Settings.load("stufennameFontSize") + "px " + Settings.load("stufennameFontFamily");
         String stufe2 = Settings.load("color" + Settings.load("stufennameFontColor"));
-        String tabelle1 = Settings.load("tabelleFontStyle") + " " + Settings.load("tabelleFontSize") + "px " + Settings.load("tabelleFontFamily");
+        String tabelle1 = Settings.load("tabelleFontStyle").replaceAll("none", "") + " " + Settings.load("tabelleFontSize") + "px " + Settings.load("tabelleFontFamily");
         String tabelle2 = Settings.load("color" + Settings.load("tabelleFontColor"));
-        String schrift1 = Settings.load("laufschriftFontStyle") + " " + Settings.load("laufschriftFontSize") + "px " + Settings.load("laufschriftFontFamily");
+        String schrift1 = Settings.load("laufschriftFontStyle").replaceAll("none", "") + " " + Settings.load("laufschriftFontSize") + "px " + Settings.load("laufschriftFontFamily");
         String schrift2 = Settings.load("color" + Settings.load("laufschriftFontColor"));
         String plan = Settings.load("color" + Settings.load("planColor"));
         String schrift = Settings.load("color" + Settings.load("motdColor"));
@@ -156,7 +146,7 @@ public class HtmlWriter
         {
             other += "\n.stufeTab ." + variant.substring(3)
                      + "\n{"
-                     + "\n  font: " + Settings.load(variant + "FontStyle") + " " + Settings.load(variant + "FontSize") + "px " + Settings.load(variant + "FontFamily") + ";"
+                     + "\n  font: " + Settings.load(variant + "FontStyle").replaceAll("none", "") + " " + Settings.load(variant + "FontSize") + "px " + Settings.load(variant + "FontFamily") + ";"
                      + "\n  color: " + Settings.load("color" + Settings.load(variant + "FontColor")) + ";"
                      + "\n  background-color: " + Settings.load("color" + Settings.load(variant + "BackColor")) + ";"
                      + "\n}";
@@ -198,7 +188,7 @@ public class HtmlWriter
     /**
      * Schreibt in Datenbank.
      *
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Fehler
      */
     public static void sql() throws Exception
     {
@@ -240,7 +230,7 @@ public class HtmlWriter
     private static String classes(SchoolClass[] schoolClasses) throws Exception
     {
         if(schoolClasses == null)
-            return "'<b>Keine Vertretungen</b><br /><br />'+";
+            return "'<p class=\"datum\">Keine Vertretungen</p><br /><br />'+";
 
         String s = "";
         for(SchoolClass schoolClass : schoolClasses)
@@ -256,7 +246,7 @@ public class HtmlWriter
             s += schoolClass.asString();
         }
         if(s.equals(""))
-            return "'<b>Keine Vertretungen</b><br /><br />'+";
+            return "'<p class=\"datum\">Keine Vertretungen</p><br /><br />'+";
         return s;
     }
 
