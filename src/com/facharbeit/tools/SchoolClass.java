@@ -111,21 +111,14 @@ public class SchoolClass
     public void cut() throws Exception
     {
         Settings.enable(false);
-
         ArrayList<Entry> newEntries = new ArrayList<Entry>();
         for(Entry e : entries)
         {
-            int lesson = e.getLesson();
+            int lesson = e.getLesson() - 1;
             if(e.isDoubleLesson())
                 lesson++;
-
-            String lessonName = "lesson";
-            if(lesson < 10)
-                lessonName += "0";
-            lessonName += lesson;
-
-            if(Time.isAfter(Integer.valueOf(Settings.load(lessonName).split(":")[0]),
-                            Integer.valueOf(Settings.load(lessonName).split(":")[1]),
+            if(Time.isAfter(Integer.valueOf(Settings.loadArray("lessons")[lesson].split(":")[0]),
+                            Integer.valueOf(Settings.loadArray("lessons")[lesson].split(":")[1]),
                             Time.hour(),
                             Time.minute()))
                 newEntries.add(e);
@@ -144,6 +137,7 @@ public class SchoolClass
     public String asString() throws Exception
     {
         String s = "";
+        String[] sizes = Settings.loadArray("lessonSizes");
         if(entries.size() > 0)
         {
             s += "'        <br/>'+\n"
@@ -156,43 +150,35 @@ public class SchoolClass
             for(String cc : contentColumms)
             {
                 int colWidth = 10;
-                String setting;
                 switch(cc)
                 {
                     case "Vertreter":
-                        setting = Settings.load("lessonSizeVtr");
-                        if(!setting.equals(""))
-                            colWidth = Integer.parseInt(setting);
+                        if(!sizes[0].isEmpty())
+                            colWidth = Integer.parseInt(sizes[0]);
                         break;
                     case "Raum":
-                        setting = Settings.load("lessonSizeRaum");
-                        if(!setting.equals(""))
-                            colWidth = Integer.parseInt(setting);
+                        if(!sizes[1].isEmpty())
+                            colWidth = Integer.parseInt(sizes[1]);
                         break;
                     case "Art":
-                        setting = Settings.load("lessonSizeArt");
-                        if(!setting.equals(""))
-                            colWidth = Integer.parseInt(setting);
+                        if(!sizes[2].isEmpty())
+                            colWidth = Integer.parseInt(sizes[2]);
                         break;
                     case "Fach":
-                        setting = Settings.load("lessonSizeFach");
-                        if(!setting.equals(""))
-                            colWidth = Integer.parseInt(setting);
+                        if(!sizes[3].isEmpty())
+                            colWidth = Integer.parseInt(sizes[3]);
                         break;
                     case "Lehrer":
-                        setting = Settings.load("lessonSizeLeh");
-                        if(!setting.equals(""))
-                            colWidth = Integer.parseInt(setting);
+                        if(!sizes[4].isEmpty())
+                            colWidth = Integer.parseInt(sizes[4]);
                         break;
                     case "Verl. von":
-                        setting = Settings.load("lessonSizeVerl");
-                        if(!setting.equals(""))
-                            colWidth = Integer.parseInt(setting);
+                        if(!sizes[5].isEmpty())
+                            colWidth = Integer.parseInt(sizes[5]);
                         break;
                     case "Hinweise":
-                        setting = Settings.load("lessonSizeHinw");
-                        if(!setting.equals(""))
-                            colWidth = Integer.parseInt(setting);
+                        if(!sizes[6].isEmpty())
+                            colWidth = Integer.parseInt(sizes[6]);
                         break;
                     default:
                         break;
@@ -215,26 +201,6 @@ public class SchoolClass
             s += "'        </table>'+";
         }
         return s;
-    }
-
-    /**
-     * Sucht einen String in einem String-Array
-     *
-     * @param array    Array
-     * @param toSearch Zu suchender String
-     *
-     * @return Index des Strings
-     */
-    private int getIndexOfStringInArray(String[] array, String toSearch) throws Exception
-    {
-        int index = -1;
-        for(int i = 0; i < array.length; i++)
-            if(array[i].equals(toSearch))
-            {
-                index = i;
-                break;
-            }
-        return index;
     }
 
     /**

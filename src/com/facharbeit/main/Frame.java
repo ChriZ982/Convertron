@@ -1,7 +1,5 @@
 package com.facharbeit.main;
 
-import com.facharbeit.tools.*;
-import java.awt.Color;
 import javax.swing.*;
 
 /**
@@ -10,47 +8,18 @@ import javax.swing.*;
 public class Frame extends javax.swing.JFrame
 {
     /**
-     * Zufallsgenerierter Schlüssel (unwichtig)
+     * Zufallsgenerierter Schlüssel
      */
     private static final long serialVersionUID = 1841024231;
 
     /**
-     * Komponenten, die mit Zeit zu tun haben.
-     */
-    private JComponent[] hoursComponents;
-
-    /**
-     * Komponenten, die mit SQL zu tun haben.
-     */
-    private JComponent[] sqlComponents;
-
-    /**
      * Erstellt ein neues Fenster.
+     *
+     * @throws java.lang.Exception Fehler
      */
-    public Frame()
+    public Frame() throws Exception
     {
-        try
-        {
-            initComponents();
-
-            hoursComponents = new JComponent[]
-            {
-                hoursHeadLabel, hour1Label, hour2Label, hour3Label, hour4Label, hour5Label,
-                hour6Label, hour7Label, hour8Label, hour9Label, hour10Label, hour1Txt,
-                hour2Txt, hour3Txt, hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt
-            };
-            sqlComponents = new JComponent[]
-            {
-                dbHostLabel, dbPortLabel, dbNameLabel, dbUserLabel, dbPwLabel, dbTableNameLabel,
-                dbHostTxt, dbPortTxt, dbNameTxt, dbUserTxt, dbPwTxt, dbTableNameTxt,
-                sqlModeLabel, sqlModeReadRBtn, sqlModeWriteRBtn, sqlModeDelWriteRBtn
-            };
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Fenster konnte nicht initialisiert werden", 2);
-            Logger.error(ex);
-        }
+        initComponents();
     }
 
     @SuppressWarnings("unchecked")
@@ -1463,82 +1432,30 @@ public class Frame extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // <editor-fold defaultstate="collapsed" desc="Action Listeners">
     private void selectSourceTodayBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_selectSourceTodayBtnActionPerformed
     {//GEN-HEADEREND:event_selectSourceTodayBtnActionPerformed
-        try
-        {
-            jFileChooser1.showOpenDialog(null);
-            sourceTxt.setText(jFileChooser1.getSelectedFile().getPath());
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Fehler im Frame", 2);
-            Logger.error(ex);
-        }
+        Application.addToQueue("selectSourceTodayBtnActionPerformed");
     }//GEN-LAST:event_selectSourceTodayBtnActionPerformed
 
     private void selectBackupBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_selectBackupBtnActionPerformed
     {//GEN-HEADEREND:event_selectBackupBtnActionPerformed
-        try
-        {
-            jFileChooser1.showOpenDialog(null);
-            backupTxt.setText(jFileChooser1.getSelectedFile().getPath());
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Fehler im Frame", 2);
-            Logger.error(ex);
-        }
+        Application.addToQueue("selectBackupBtnActionPerformed");
     }//GEN-LAST:event_selectBackupBtnActionPerformed
 
     private void selectDestBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_selectDestBtnActionPerformed
     {//GEN-HEADEREND:event_selectDestBtnActionPerformed
-        try
-        {
-            while(destArea.getText().startsWith("\n"))
-                destArea.setText(destArea.getText().substring("\n".length()));
-
-            jFileChooser1.showOpenDialog(null);
-
-            if(!destArea.getText().endsWith("\n") && destArea.getText().contains("\n"))
-                destArea.setText(destArea.getText() + "\n");
-
-            destArea.append(jFileChooser1.getSelectedFile().getPath() + "\n");
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Fehler im Frame", 2);
-            Logger.error(ex);
-        }
+        Application.addToQueue("selectDestBtnActionPerformed");
     }//GEN-LAST:event_selectDestBtnActionPerformed
 
     private void savePathBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_savePathBtnActionPerformed
     {//GEN-HEADEREND:event_savePathBtnActionPerformed
-        try
-        {
-            while(destArea.getText().startsWith("\n"))
-                destArea.setText(destArea.getText().substring("\n".length()));
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Fehler im Frame", 2);
-            Logger.error(ex);
-        }
-        Application.addToQueue("savePathBtnActionPerformed", sourceTxt, backupTxt, destArea, fileNamePrefixTxt, fileNameSuffixTxt);
+        Application.addToQueue("savePathBtnActionPerformed");
     }//GEN-LAST:event_savePathBtnActionPerformed
 
     private void useSQLCheckStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_useSQLCheckStateChanged
     {//GEN-HEADEREND:event_useSQLCheckStateChanged
-        try
-        {
-            for(JComponent j : sqlComponents)
-                j.setEnabled(useSQLCheck.isSelected());
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Fehler im Frame", 2);
-            Logger.error(ex);
-        }
+        Application.addToQueue("useSQLCheckStateChanged");
     }//GEN-LAST:event_useSQLCheckStateChanged
 
     private void genAllBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_genAllBtnActionPerformed
@@ -1568,153 +1485,92 @@ public class Frame extends javax.swing.JFrame
 
     private void genMotdBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_genMotdBtnActionPerformed
     {//GEN-HEADEREND:event_genMotdBtnActionPerformed
-        Application.addToQueue("genMotdBtnActionPerformed", motdTxt);
+        Application.addToQueue("genMotdBtnActionPerformed");
     }//GEN-LAST:event_genMotdBtnActionPerformed
 
     private void sqlSaveBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_sqlSaveBtnActionPerformed
     {//GEN-HEADEREND:event_sqlSaveBtnActionPerformed
-        JRadioButton[] rBtns =
-        {
-            sqlModeReadRBtn, sqlModeWriteRBtn, sqlModeDelWriteRBtn
-        };
-        Application.addToQueue("SQLsaveBtnActionPerformed", dbHostTxt, dbPortTxt, dbNameTxt, dbUserTxt,
-                               dbPwTxt, dbTableNameTxt, useSQLCheck, rBtns);
-
+        Application.addToQueue("SQLsaveBtnActionPerformed");
     }//GEN-LAST:event_sqlSaveBtnActionPerformed
 
     private void settingsSaveBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_settingsSaveBtnActionPerformed
     {//GEN-HEADEREND:event_settingsSaveBtnActionPerformed
-        Application.addToQueue("settingsSaveBtnActionPerformed", hour1Txt, hour2Txt, hour3Txt,
-                               hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt,
-                               useHoursCheck, autoBackupCheck, speedPlanTxt, speedMotdTxt,
-                               table, weekTxt, sourceTodayTxt, sourceTomorrowTxt, customSourceCheck);
+        Application.addToQueue("settingsSaveBtnActionPerformed");
     }//GEN-LAST:event_settingsSaveBtnActionPerformed
 
     private void useHoursCheckStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_useHoursCheckStateChanged
     {//GEN-HEADEREND:event_useHoursCheckStateChanged
-        try
-        {
-            for(JComponent j : hoursComponents)
-                j.setEnabled(useHoursCheck.isSelected());
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Fehler im Frame", 2);
-            Logger.error(ex);
-        }
+        Application.addToQueue("useHoursCheckStateChanged");
     }//GEN-LAST:event_useHoursCheckStateChanged
 
     private void customSourceCheckStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_customSourceCheckStateChanged
     {//GEN-HEADEREND:event_customSourceCheckStateChanged
-        try
-        {
-            sourceTodayTxt.setEnabled(customSourceCheck.isSelected());
-            sourceTomorrowTxt.setEnabled(customSourceCheck.isSelected());
-            jLabel10.setEnabled(customSourceCheck.isSelected());
-            jLabel22.setEnabled(customSourceCheck.isSelected());
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Fehler im Frame", 2);
-            Logger.error(ex);
-        }
+        Application.addToQueue("customSourceCheckStateChanged");
     }//GEN-LAST:event_customSourceCheckStateChanged
 
     private void motdTxtFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_motdTxtFocusGained
     {//GEN-HEADEREND:event_motdTxtFocusGained
-        if(motdTxt.getText().equals("Laufschrift"))
-            motdTxt.setText("");
-        motdTxt.setForeground(Color.BLACK);
+        Application.addToQueue("motdTxtFocusGained");
     }//GEN-LAST:event_motdTxtFocusGained
 
     private void motdTxtFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_motdTxtFocusLost
     {//GEN-HEADEREND:event_motdTxtFocusLost
-        if(motdTxt.getText().equals(""))
-        {
-            motdTxt.setText("Laufschrift");
-            motdTxt.setForeground(Color.GRAY);
-        }
-        else
-            motdTxt.setForeground(Color.BLACK);
+        Application.addToQueue("motdTxtFocusLost");
     }//GEN-LAST:event_motdTxtFocusLost
 
     private void italicCheckActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_italicCheckActionPerformed
     {//GEN-HEADEREND:event_italicCheckActionPerformed
-        Application.addToQueue("styleCheckActionPerformed", boldCheck, italicCheck, typeToEditCombo);
+        Application.addToQueue("styleCheckActionPerformed");
     }//GEN-LAST:event_italicCheckActionPerformed
 
     private void boldCheckActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_boldCheckActionPerformed
     {//GEN-HEADEREND:event_boldCheckActionPerformed
-        Application.addToQueue("styleCheckActionPerformed", boldCheck, italicCheck, typeToEditCombo);
+        Application.addToQueue("styleCheckActionPerformed");
     }//GEN-LAST:event_boldCheckActionPerformed
 
     private void fontSizeTxtMouseExited(java.awt.event.MouseEvent evt)//GEN-FIRST:event_fontSizeTxtMouseExited
     {//GEN-HEADEREND:event_fontSizeTxtMouseExited
-        Application.addToQueue("fontSizeTxtActionPerformed", fontSizeTxt, typeToEditCombo);
+        Application.addToQueue("fontSizeTxtActionPerformed");
     }//GEN-LAST:event_fontSizeTxtMouseExited
 
     private void fontTypeTxtMouseExited(java.awt.event.MouseEvent evt)//GEN-FIRST:event_fontTypeTxtMouseExited
     {//GEN-HEADEREND:event_fontTypeTxtMouseExited
-        Application.addToQueue("fontTypeTxtActionPerformed", fontTypeTxt, typeToEditCombo);
+        Application.addToQueue("fontTypeTxtActionPerformed");
     }//GEN-LAST:event_fontTypeTxtMouseExited
 
     private void backgroundColorComboItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_backgroundColorComboItemStateChanged
     {//GEN-HEADEREND:event_backgroundColorComboItemStateChanged
-        Application.addToQueue("backgroundColorComboItemStateChanged", backgroundColorPanel, backgroundColorCombo,
-                               typeToEditCombo, evt);
+        Application.addToQueue("backgroundColorComboItemStateChanged");
     }//GEN-LAST:event_backgroundColorComboItemStateChanged
 
     private void fontColorComboItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_fontColorComboItemStateChanged
     {//GEN-HEADEREND:event_fontColorComboItemStateChanged
-        Application.addToQueue("fontColorComboItemStateChanged", fontColorPanel, fontColorCombo, typeToEditCombo, evt);
+        Application.addToQueue("fontColorComboItemStateChanged");
     }//GEN-LAST:event_fontColorComboItemStateChanged
 
     private void typeToEditComboItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_typeToEditComboItemStateChanged
     {//GEN-HEADEREND:event_typeToEditComboItemStateChanged
-        try
-        {
-            Application.addToQueue("typeToEditComboItemStateChanged", typeToEditCombo, fontColorCombo, fontColorPanel,
-                                   backgroundColorCombo, backgroundColorPanel, fontTypeTxt, fontSizeTxt, boldCheck,
-                                   italicCheck, evt);
-
-            tteBgLabel.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
-            backgroundColorCombo.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
-            backgroundColorPanel.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
-        }
-        catch(Exception ex)
-        {
-            Logger.log("Fehler im Frame", 2);
-            Logger.error(ex);
-        }
+        Application.addToQueue("typeToEditComboItemStateChanged");
     }//GEN-LAST:event_typeToEditComboItemStateChanged
 
     private void typeToEditTxtFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_typeToEditTxtFocusLost
     {//GEN-HEADEREND:event_typeToEditTxtFocusLost
-        if(typeToEditTxt.getText().equals(""))
-        {
-            typeToEditTxt.setText("Vertretungsart");
-            typeToEditTxt.setForeground(Color.GRAY);
-        }
-        else
-            typeToEditTxt.setForeground(Color.BLACK);
+        Application.addToQueue("typeToEditTxtFocusLost");
     }//GEN-LAST:event_typeToEditTxtFocusLost
 
     private void typeToEditTxtFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_typeToEditTxtFocusGained
     {//GEN-HEADEREND:event_typeToEditTxtFocusGained
-        if(typeToEditTxt.getText().equals("Vertretungsart"))
-            typeToEditTxt.setText("");
-        typeToEditTxt.setForeground(Color.BLACK);
+        Application.addToQueue("typeToEditTxtFocusGained");
     }//GEN-LAST:event_typeToEditTxtFocusGained
 
     private void addTypeBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_addTypeBtnActionPerformed
     {//GEN-HEADEREND:event_addTypeBtnActionPerformed
-        if(!typeToEditTxt.getText().equals("Vertretungsart") && !typeToEditTxt.getText().equals(""))
-            Application.addToQueue("addTypeBtnActionPerformed", typeToEditTxt, typeToEditCombo);
+        Application.addToQueue("addTypeBtnActionPerformed");
     }//GEN-LAST:event_addTypeBtnActionPerformed
 
     private void deleteTypeBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deleteTypeBtnActionPerformed
     {//GEN-HEADEREND:event_deleteTypeBtnActionPerformed
-        Application.addToQueue("deleteTypeBtnActionPerformed", typeToEditTxt, typeToEditCombo);
+        Application.addToQueue("deleteTypeBtnActionPerformed");
     }//GEN-LAST:event_deleteTypeBtnActionPerformed
 
     private void saveDesignBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_saveDesignBtnActionPerformed
@@ -1724,87 +1580,44 @@ public class Frame extends javax.swing.JFrame
 
     private void colorBorderComboItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_colorBorderComboItemStateChanged
     {//GEN-HEADEREND:event_colorBorderComboItemStateChanged
-        Application.addToQueue("colorBorderComboItemStateChanged", colorBorderPanel, colorBorderCombo, evt);
+        Application.addToQueue("colorBorderComboItemStateChanged");
     }//GEN-LAST:event_colorBorderComboItemStateChanged
 
     private void colorTableComboItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_colorTableComboItemStateChanged
     {//GEN-HEADEREND:event_colorTableComboItemStateChanged
-        Application.addToQueue("colorTableComboItemStateChanged", colorTablePanel, colorTableCombo, evt);
+        Application.addToQueue("colorTableComboItemStateChanged");
     }//GEN-LAST:event_colorTableComboItemStateChanged
 
     private void colorMotdComboItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_colorMotdComboItemStateChanged
     {//GEN-HEADEREND:event_colorMotdComboItemStateChanged
-        Application.addToQueue("colorMotdComboItemStateChanged", colorMotdPanel, colorMotdCombo, evt);
+        Application.addToQueue("colorMotdComboItemStateChanged");
     }//GEN-LAST:event_colorMotdComboItemStateChanged
 
     private void colorNameTxtFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_colorNameTxtFocusLost
     {//GEN-HEADEREND:event_colorNameTxtFocusLost
-        if(colorNameTxt.getText().equals(""))
-        {
-            colorNameTxt.setText("Farbenname");
-            colorNameTxt.setForeground(Color.GRAY);
-        }
-        else
-            colorNameTxt.setForeground(Color.BLACK);
+        Application.addToQueue("colorNameTxtFocusLost");
     }//GEN-LAST:event_colorNameTxtFocusLost
 
     private void colorNameTxtFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_colorNameTxtFocusGained
     {//GEN-HEADEREND:event_colorNameTxtFocusGained
-        if(colorNameTxt.getText().equals("Farbenname"))
-            colorNameTxt.setText("");
-        colorNameTxt.setForeground(Color.BLACK);
+        Application.addToQueue("colorNameTxtFocusGained");
     }//GEN-LAST:event_colorNameTxtFocusGained
 
     private void addColorBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_addColorBtnActionPerformed
     {//GEN-HEADEREND:event_addColorBtnActionPerformed
-        if(!colorNameTxt.getText().equals("Farbenname") && !colorNameTxt.getText().equals(""))
-            Application.addToQueue("addColorBtnActionPerformed", jColorChooser1, colorNameTxt, colorPlanCombo, colorMotdCombo,
-                                   colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo);
+        Application.addToQueue("addColorBtnActionPerformed");
     }//GEN-LAST:event_addColorBtnActionPerformed
 
     private void deleteColorActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deleteColorActionPerformed
     {//GEN-HEADEREND:event_deleteColorActionPerformed
-        Application.addToQueue("deleteColorBtnActionPerformed", colorNameTxt, colorPlanCombo, colorMotdCombo, colorTableCombo, colorBorderCombo);
+        Application.addToQueue("deleteColorBtnActionPerformed");
     }//GEN-LAST:event_deleteColorActionPerformed
 
     private void colorPlanComboItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_colorPlanComboItemStateChanged
     {//GEN-HEADEREND:event_colorPlanComboItemStateChanged
-        Application.addToQueue("colorPlanComboItemStateChanged", colorPlanPanel, colorPlanCombo, evt);
+        Application.addToQueue("colorPlanComboItemStateChanged");
     }//GEN-LAST:event_colorPlanComboItemStateChanged
-
-    /**
-     * Lädt alle Einstellungen für das Programm.
-     *
-     * @throws java.lang.Exception Fehler
-     */
-    public void loadSettings() throws Exception
-    {
-        JRadioButton[] rBtns =
-        {
-            sqlModeReadRBtn, sqlModeWriteRBtn, sqlModeDelWriteRBtn
-        };
-        Application.addToQueue("loadSettings", sourceTxt, backupTxt, destArea, fileNamePrefixTxt, fileNameSuffixTxt, speedPlanTxt,
-                               speedMotdTxt, colorPlanCombo, colorMotdCombo, motdTxt, useSQLCheck, dbHostTxt, dbPortTxt,
-                               dbNameTxt, dbUserTxt, dbPwTxt, dbTableNameTxt, rBtns, hour1Txt, hour2Txt, hour3Txt,
-                               hour4Txt, hour5Txt, hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt,
-                               autoBackupCheck, useHoursCheck, customSourceCheck, sourceTodayTxt,
-                               sourceTomorrowTxt, colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo,
-                               fontTypeTxt, fontSizeTxt, boldCheck, italicCheck, typeToEditCombo, table, weekTxt);
-
-        sourceTodayTxt.setEnabled(customSourceCheck.isSelected());
-        sourceTomorrowTxt.setEnabled(customSourceCheck.isSelected());
-        jLabel10.setEnabled(customSourceCheck.isSelected());
-        jLabel22.setEnabled(customSourceCheck.isSelected());
-        tteBgLabel.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
-        backgroundColorCombo.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
-        backgroundColorPanel.setEnabled(typeToEditCombo.getSelectedItem().toString().startsWith("Art:"));
-
-        for(JComponent j : sqlComponents)
-            j.setEnabled(useSQLCheck.isSelected());
-
-        for(JComponent j : hoursComponents)
-            j.setEnabled(useHoursCheck.isSelected());
-    }
+    // </editor-fold>
 
     public JTextPane getStatusPane()
     {
@@ -1825,87 +1638,87 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JTabbedPane Tabs;
     private javax.swing.JButton addColorBtn;
     private javax.swing.JButton addTypeBtn;
-    private javax.swing.JCheckBox autoBackupCheck;
-    private javax.swing.JComboBox<String> backgroundColorCombo;
-    private javax.swing.JPanel backgroundColorPanel;
+    protected static javax.swing.JCheckBox autoBackupCheck;
+    protected static javax.swing.JComboBox<String> backgroundColorCombo;
+    protected static javax.swing.JPanel backgroundColorPanel;
     private javax.swing.JLabel backgroundColorsLabel;
-    private javax.swing.JTextField backupTxt;
+    protected static javax.swing.JTextField backupTxt;
     private javax.swing.JLabel bgMotdLabel;
     private javax.swing.JLabel bgPlanLabel;
     private javax.swing.JLabel bgTableLabel;
-    private javax.swing.JCheckBox boldCheck;
-    private javax.swing.JComboBox<String> colorBorderCombo;
-    private javax.swing.JPanel colorBorderPanel;
-    private javax.swing.JComboBox<String> colorMotdCombo;
-    private javax.swing.JPanel colorMotdPanel;
-    private javax.swing.JTextField colorNameTxt;
-    private javax.swing.JComboBox<String> colorPlanCombo;
-    private javax.swing.JPanel colorPlanPanel;
-    private javax.swing.JComboBox<String> colorTableCombo;
-    private javax.swing.JPanel colorTablePanel;
+    protected static javax.swing.JCheckBox boldCheck;
+    protected static javax.swing.JComboBox<String> colorBorderCombo;
+    protected static javax.swing.JPanel colorBorderPanel;
+    protected static javax.swing.JComboBox<String> colorMotdCombo;
+    protected static javax.swing.JPanel colorMotdPanel;
+    protected static javax.swing.JTextField colorNameTxt;
+    protected static javax.swing.JComboBox<String> colorPlanCombo;
+    protected static javax.swing.JPanel colorPlanPanel;
+    protected static javax.swing.JComboBox<String> colorTableCombo;
+    protected static javax.swing.JPanel colorTablePanel;
     private javax.swing.JButton copySourceBtn;
     private javax.swing.JButton createBackupBtn;
-    private javax.swing.JCheckBox customSourceCheck;
-    private javax.swing.JLabel dbHostLabel;
-    private javax.swing.JTextField dbHostTxt;
-    private javax.swing.JLabel dbNameLabel;
-    private javax.swing.JTextField dbNameTxt;
-    private javax.swing.JLabel dbPortLabel;
-    private javax.swing.JTextField dbPortTxt;
-    private javax.swing.JLabel dbPwLabel;
-    private javax.swing.JPasswordField dbPwTxt;
-    private javax.swing.JLabel dbTableNameLabel;
-    private javax.swing.JTextField dbTableNameTxt;
-    private javax.swing.JLabel dbUserLabel;
-    private javax.swing.JTextField dbUserTxt;
+    protected static javax.swing.JCheckBox customSourceCheck;
+    protected static javax.swing.JLabel dbHostLabel;
+    protected static javax.swing.JTextField dbHostTxt;
+    protected static javax.swing.JLabel dbNameLabel;
+    protected static javax.swing.JTextField dbNameTxt;
+    protected static javax.swing.JLabel dbPortLabel;
+    protected static javax.swing.JTextField dbPortTxt;
+    protected static javax.swing.JLabel dbPwLabel;
+    protected static javax.swing.JPasswordField dbPwTxt;
+    protected static javax.swing.JLabel dbTableNameLabel;
+    protected static javax.swing.JTextField dbTableNameTxt;
+    protected static javax.swing.JLabel dbUserLabel;
+    protected static javax.swing.JTextField dbUserTxt;
     private javax.swing.JButton deleteColor;
     private javax.swing.JButton deleteTypeBtn;
     private javax.swing.JPanel designTypeSubPanel;
-    private javax.swing.JTextArea destArea;
+    protected static javax.swing.JTextArea destArea;
     private javax.swing.JTextField fileNameMiddle;
-    private javax.swing.JTextField fileNamePrefixTxt;
-    private javax.swing.JTextField fileNameSuffixTxt;
-    private javax.swing.JComboBox<String> fontColorCombo;
-    private javax.swing.JPanel fontColorPanel;
-    private javax.swing.JTextField fontSizeTxt;
-    private javax.swing.JTextField fontTypeTxt;
+    protected static javax.swing.JTextField fileNamePrefixTxt;
+    protected static javax.swing.JTextField fileNameSuffixTxt;
+    protected static javax.swing.JComboBox<String> fontColorCombo;
+    protected static javax.swing.JPanel fontColorPanel;
+    protected static javax.swing.JTextField fontSizeTxt;
+    protected static javax.swing.JTextField fontTypeTxt;
     private javax.swing.JButton genAllBtn;
     private javax.swing.JButton genMotdBtn;
     private javax.swing.JButton genTodayBtn;
     private javax.swing.JButton genTomorrowBtn;
-    private javax.swing.JLabel hour10Label;
-    private javax.swing.JTextField hour10Txt;
-    private javax.swing.JLabel hour1Label;
-    private javax.swing.JTextField hour1Txt;
-    private javax.swing.JLabel hour2Label;
-    private javax.swing.JTextField hour2Txt;
-    private javax.swing.JLabel hour3Label;
-    private javax.swing.JTextField hour3Txt;
-    private javax.swing.JLabel hour4Label;
-    private javax.swing.JTextField hour4Txt;
-    private javax.swing.JLabel hour5Label;
-    private javax.swing.JTextField hour5Txt;
-    private javax.swing.JLabel hour6Label;
-    private javax.swing.JTextField hour6Txt;
-    private javax.swing.JLabel hour7Label;
-    private javax.swing.JTextField hour7Txt;
-    private javax.swing.JLabel hour8Label;
-    private javax.swing.JTextField hour8Txt;
-    private javax.swing.JLabel hour9Label;
-    private javax.swing.JTextField hour9Txt;
-    private javax.swing.JLabel hoursHeadLabel;
-    private javax.swing.JCheckBox italicCheck;
-    private javax.swing.JColorChooser jColorChooser1;
-    private javax.swing.JFileChooser jFileChooser1;
+    protected static javax.swing.JLabel hour10Label;
+    protected static javax.swing.JTextField hour10Txt;
+    protected static javax.swing.JLabel hour1Label;
+    protected static javax.swing.JTextField hour1Txt;
+    protected static javax.swing.JLabel hour2Label;
+    protected static javax.swing.JTextField hour2Txt;
+    protected static javax.swing.JLabel hour3Label;
+    protected static javax.swing.JTextField hour3Txt;
+    protected static javax.swing.JLabel hour4Label;
+    protected static javax.swing.JTextField hour4Txt;
+    protected static javax.swing.JLabel hour5Label;
+    protected static javax.swing.JTextField hour5Txt;
+    protected static javax.swing.JLabel hour6Label;
+    protected static javax.swing.JTextField hour6Txt;
+    protected static javax.swing.JLabel hour7Label;
+    protected static javax.swing.JTextField hour7Txt;
+    protected static javax.swing.JLabel hour8Label;
+    protected static javax.swing.JTextField hour8Txt;
+    protected static javax.swing.JLabel hour9Label;
+    protected static javax.swing.JTextField hour9Txt;
+    protected static javax.swing.JLabel hoursHeadLabel;
+    protected static javax.swing.JCheckBox italicCheck;
+    protected static javax.swing.JColorChooser jColorChooser1;
+    protected static javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
+    protected static javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
+    protected static javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
@@ -1928,7 +1741,7 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTextPane log;
-    private javax.swing.JTextField motdTxt;
+    protected static javax.swing.JTextField motdTxt;
     private javax.swing.JLabel otherBorderLabel;
     private javax.swing.JLabel otherColorsLabel;
     private javax.swing.JProgressBar progBar;
@@ -1938,27 +1751,27 @@ public class Frame extends javax.swing.JFrame
     private javax.swing.JButton selectDestBtn;
     private javax.swing.JButton selectSourceTodayBtn;
     private javax.swing.JButton settingsSaveBtn;
-    private javax.swing.JTextField sourceTodayTxt;
-    private javax.swing.JTextField sourceTomorrowTxt;
-    private javax.swing.JTextField sourceTxt;
-    private javax.swing.JTextField speedMotdTxt;
-    private javax.swing.JTextField speedPlanTxt;
+    protected static javax.swing.JTextField sourceTodayTxt;
+    protected static javax.swing.JTextField sourceTomorrowTxt;
+    protected static javax.swing.JTextField sourceTxt;
+    protected static javax.swing.JTextField speedMotdTxt;
+    protected static javax.swing.JTextField speedPlanTxt;
     private javax.swing.ButtonGroup sqlMode;
-    private javax.swing.JRadioButton sqlModeDelWriteRBtn;
-    private javax.swing.JLabel sqlModeLabel;
-    private javax.swing.JRadioButton sqlModeReadRBtn;
-    private javax.swing.JRadioButton sqlModeWriteRBtn;
+    protected static javax.swing.JRadioButton sqlModeDelWriteRBtn;
+    protected static javax.swing.JLabel sqlModeLabel;
+    protected static javax.swing.JRadioButton sqlModeReadRBtn;
+    protected static javax.swing.JRadioButton sqlModeWriteRBtn;
     private javax.swing.JButton sqlSaveBtn;
-    private javax.swing.JTable table;
-    private javax.swing.JLabel tteBgLabel;
+    protected static javax.swing.JTable table;
+    protected static javax.swing.JLabel tteBgLabel;
     private javax.swing.JLabel tteFontColorLabel;
     private javax.swing.JLabel tteFontSizeLabel;
     private javax.swing.JLabel tteFontTypeLabel;
-    private javax.swing.JComboBox<String> typeToEditCombo;
+    protected static javax.swing.JComboBox<String> typeToEditCombo;
     private javax.swing.JLabel typeToEditLabel;
-    private javax.swing.JTextField typeToEditTxt;
-    private javax.swing.JCheckBox useHoursCheck;
-    private javax.swing.JCheckBox useSQLCheck;
-    private javax.swing.JTextField weekTxt;
+    protected static javax.swing.JTextField typeToEditTxt;
+    protected static javax.swing.JCheckBox useHoursCheck;
+    protected static javax.swing.JCheckBox useSQLCheck;
+    protected static javax.swing.JTextField weekTxt;
     // End of variables declaration//GEN-END:variables
 }

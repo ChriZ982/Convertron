@@ -133,8 +133,9 @@ public class HtmlReader
         for(int i = 0; i < schoolClasses.length; i++)
         {
             String filename = files.get(i).getName();
-            schoolClasses[i] = new SchoolClass(filename.substring(Settings.load("fileNamePrefix").length(),
-                                                                  filename.indexOf(Settings.load("fileNameSuffix"))));
+            String[] prefix = Settings.loadArray("fileName");
+            schoolClasses[i] = new SchoolClass(filename.substring(prefix[0].length(),
+                                                                  filename.indexOf(prefix[1])));
 
             if(schoolClasses[i].isEmpty())
                 schoolClasses[i].setEntries(new ArrayList<Entry>());
@@ -321,7 +322,7 @@ public class HtmlReader
             ArrayList<Entry> out = new ArrayList<>();
             while(schoolClass.getEntries().size() > 0)
             {
-                double lowestLesson = 1000;
+                double lowestLesson = Double.MAX_VALUE;
                 Entry lowestEntry = schoolClass.getEntries().get(0);
                 for(Entry entry : schoolClass.getEntries())
                 {
@@ -358,9 +359,7 @@ public class HtmlReader
         if(!path.endsWith("/"))
             path += "/";
 
-        String prefix = Settings.load("fileNamePrefix");
-        String suffix = Settings.load("fileNameSuffix");
-
+        String[] prefix = Settings.loadArray("fileName");
         ArrayList<File> files = new ArrayList<>();
         File file;
         for(int grade = firstGrade; grade <= lastGrade; grade++)
@@ -370,7 +369,7 @@ public class HtmlReader
                 while(g.length() < 3)
                     g = "0" + g;
 
-                file = new File(path, prefix + g + suffix);
+                file = new File(path, prefix[0] + g + prefix[1]);
 
                 if(file.exists())
                     files.add(file);
@@ -378,7 +377,7 @@ public class HtmlReader
 
         for(String g : extraGrades)
         {
-            file = new File(path, prefix + g + suffix);
+            file = new File(path, prefix[0] + g + prefix[1]);
             if(file.exists())
                 files.add(file);
         }
@@ -393,13 +392,14 @@ public class HtmlReader
      */
     private static SchoolClass[] getAllSql() throws Exception
     {
-        ArrayList<SchoolClass> asList = new ArrayList<>();
-        SqlTableReader read = new SqlTableReader(PathConverter.convert(Settings.load("sqlHost")),
-                                                 Integer.parseInt(Settings.load("sqlPort")),
-                                                 PathConverter.convert(Settings.load("sqlName")),
-                                                 Settings.load("sqlUser"),
-                                                 Settings.load("sqlPassw"),
-                                                 PathConverter.convert(Settings.load("sqlTableName")),
+        String[] settings = Settings.loadArray("sql");
+        ArrayList< SchoolClass> asList = new ArrayList<>();
+        SqlTableReader read = new SqlTableReader(PathConverter.convert(settings[0]),
+                                                 Integer.parseInt(settings[1]),
+                                                 PathConverter.convert(settings[2]),
+                                                 settings[4],
+                                                 settings[5],
+                                                 PathConverter.convert(settings[3]),
                                                  sqlColumms);
 
         ArrayList<String[]> readIn = read.readAll();

@@ -176,8 +176,8 @@ public class FileHandler
         String asString = "";
         String[] text = read();
         for(int i = 0; i < text.length - 1; i++)
-            asString += "\n" + text[i];
-        return asString;
+            asString += text[i] + "\n";
+        return asString.trim();
     }
 
     /**
