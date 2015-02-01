@@ -18,69 +18,32 @@ public class HtmlWriter
     };
 
     /**
-     * Generiert den heutigen Plan.
+     * Generiert den Plan.
      *
-     * @param schoolClasses Schulklassen für heute
-     *
-     * @throws java.lang.Exception Fehler
-     */
-    public static void today(SchoolClass[] schoolClasses) throws Exception
-    {
-        String day = head(schoolClasses);
-        String speed = "";
-        if(Settings.line("planSpeed") != -1)
-            speed = Integer.toString((int)((1.0 / (Double.parseDouble(Settings.load("planSpeed")) / 100.0)) * 12.0));
-        String classes = classes(cut(schoolClasses));
-
-        if(!validate(day, speed))
-            return;
-
-        FileHandler reader = new FileHandler("Data/TEMPLATE heute morgen.html");
-        FileHandler writer = new FileHandler("Data/heute.html");
-
-        String[] file = reader.read();
-        for(int i = 0; i < file.length; i++)
-        {
-            file[i] = file[i].replaceAll("GESCHW", speed);
-            file[i] = file[i].replaceAll("TAG", day);
-            file[i] = file[i].replaceAll("VERTRETUNGEN", classes);
-        }
-        writer.write(file);
-
-        Logger.log("Plan von heute wurde generiert", 0);
-    }
-
-    /**
-     * Generiert den morgigen Plan.
-     *
-     * @param schoolClasses Schulklassen für morgen
+     * @param schoolClasses Schulklassen
+     * @param type          Heute oder Morgen
      *
      * @throws java.lang.Exception Fehler
      */
-    public static void tomorrow(SchoolClass[] schoolClasses) throws Exception
+    public static void plan(String type, SchoolClass[] schoolClasses) throws Exception
     {
+        if(type.equals("heute"))
+            schoolClasses = cut(schoolClasses);
         String day = head(schoolClasses);
-        String speed = "";
-        if(Settings.line("planSpeed") != -1)
-            speed = Integer.toString((int)((1.0 / (Double.parseDouble(Settings.load("planSpeed")) / 100.0)) * 12.0));
+        String speed = Integer.toString((int)((1.0 / (Double.parseDouble(Settings.loadArray("speed")[0]) / 100.0)) * 12.0));
         String classes = classes(schoolClasses);
-
-        if(!validate(day, speed))
+        if(invalid(day, speed))
             return;
 
-        FileHandler reader = new FileHandler("Data/TEMPLATE heute morgen.html");
-        FileHandler writer = new FileHandler("Data/morgen.html");
-
-        String[] file = reader.read();
-        for(int i = 0; i < file.length; i++)
-        {
-            file[i] = file[i].replaceAll("GESCHW", speed);
-            file[i] = file[i].replaceAll("TAG", day);
-            file[i] = file[i].replaceAll("VERTRETUNGEN", classes);
-        }
-        writer.write(file);
-
-        Logger.log("Plan von morgen wurde generiert", 0);
+        new FileHandler("Data/" + type + ".html").write(
+                new String[]
+                {
+                    new FileHandler("Data/TEMPLATE heute morgen.html").asString()
+                    .replaceAll("GESCHW", speed)
+                    .replaceAll("TAG", day)
+                    .replaceAll("VERTRETUNGEN", classes)
+                });
+        Logger.log("Plan von " + type + " wurde generiert", 0);
     }
 
     /**
@@ -90,28 +53,21 @@ public class HtmlWriter
      */
     public static void motd() throws Exception
     {
-        String speed = "";
-        if(Settings.line("motdSpeed") != -1)
-            speed = Integer.toString((int)(Double.parseDouble(Settings.load("motdSpeed")) / 100.0 * 15.0));
-        String text = Settings.load("motdText");
-
-        if(!validate(speed, text))
+        String speed = Integer.toString((int)(Double.parseDouble(Settings.loadArray("speed")[1]) / 100.0 * 15.0));
+        String text = Settings.load("laufschriftText");
+        if(invalid(speed, text))
             return;
 
         if(text.equals("Laufschrift"))
             text = "";
 
-        FileHandler reader = new FileHandler("Data/TEMPLATE laufschrift.html");
-        FileHandler writer = new FileHandler("Data/laufschrift.html");
-
-        String[] file = reader.read();
-        for(int i = 0; i < file.length; i++)
-        {
-            file[i] = file[i].replaceAll("GESCHW", speed);
-            file[i] = file[i].replaceAll("TEXT", text);
-        }
-        writer.write(file);
-
+        new FileHandler("Data/laufschrift.html").write(
+                new String[]
+                {
+                    new FileHandler("Data/TEMPLATE laufschrift.html").asString()
+                    .replaceAll("GESCHW", speed)
+                    .replaceAll("TEXT", text)
+                });
         Logger.log("Laufschrift wurde generiert", 0);
     }
 
@@ -122,66 +78,63 @@ public class HtmlWriter
      */
     public static void style() throws Exception
     {
-        String datum1 = Settings.load("überschriftFontStyle").replaceAll("none", "") + " " + Settings.load("überschriftFontSize") + "px " + Settings.load("überschriftFontFamily");
-        String datum2 = Settings.load("color" + Settings.load("überschriftFontColor"));
-        String stufe1 = Settings.load("stufennameFontStyle").replaceAll("none", "") + " " + Settings.load("stufennameFontSize") + "px " + Settings.load("stufennameFontFamily");
-        String stufe2 = Settings.load("color" + Settings.load("stufennameFontColor"));
-        String tabelle1 = Settings.load("tabelleFontStyle").replaceAll("none", "") + " " + Settings.load("tabelleFontSize") + "px " + Settings.load("tabelleFontFamily");
-        String tabelle2 = Settings.load("color" + Settings.load("tabelleFontColor"));
-        String schrift1 = Settings.load("laufschriftFontStyle").replaceAll("none", "") + " " + Settings.load("laufschriftFontSize") + "px " + Settings.load("laufschriftFontFamily");
-        String schrift2 = Settings.load("color" + Settings.load("laufschriftFontColor"));
         String plan = Settings.load("color" + Settings.load("planColor"));
-        String schrift = Settings.load("color" + Settings.load("motdColor"));
-        String tabelle = Settings.load("color" + Settings.load("tableColor"));
         String frame = Settings.load("color" + Settings.load("borderColor"));
 
-        String[] settings = Settings.loadNames("art");
-        ArrayList<String> variants = new ArrayList<String>();
-        for(String setting : settings)
-            if(setting.contains("FontColor"))
-                variants.add(setting.substring(0, setting.indexOf("FontColor")));
+        String[] datum0 = Settings.loadArray("überschriftFont");
+        String datum1 = datum0[0] + " " + datum0[1] + "px " + datum0[2];
+        String datum2 = Settings.load("color" + datum0[3]);
+
+        String[] stufe0 = Settings.loadArray("stufennameFont");
+        String stufe1 = stufe0[0] + " " + stufe0[1] + "px " + stufe0[2];
+        String stufe2 = Settings.load("color" + stufe0[3]);
+
+        String[] tabelle0 = Settings.loadArray("tabelleFont");
+        String tabelle1 = tabelle0[0] + " " + tabelle0[1] + "px " + tabelle0[2];
+        String tabelle2 = Settings.load("color" + tabelle0[3]);
+        String tabelle3 = Settings.load("color" + tabelle0[4]);
+
+        String[] schrift0 = Settings.loadArray("laufschriftFont");
+        String schrift1 = schrift0[0] + " " + schrift0[1] + "px " + schrift0[2];
+        String schrift2 = Settings.load("color" + schrift0[3]);
+        String schrift3 = Settings.load("color" + schrift0[4]);
 
         String other = "";
-        for(String variant : variants)
+        String[] settings = Settings.findNames("art");
+        for(String setting : settings)
         {
-            other += "\n.stufeTab ." + variant.substring(3)
+            String[] font = Settings.loadArray(setting);
+            other += "\n.stufeTab ." + setting.substring(3, setting.indexOf("Font"))
                      + "\n{"
-                     + "\n  font: " + Settings.load(variant + "FontStyle").replaceAll("none", "") + " " + Settings.load(variant + "FontSize") + "px " + Settings.load(variant + "FontFamily") + ";"
-                     + "\n  color: " + Settings.load("color" + Settings.load(variant + "FontColor")) + ";"
-                     + "\n  background-color: " + Settings.load("color" + Settings.load(variant + "BackColor")) + ";"
+                     + "\n  font: " + font[0] + " " + font[1] + "px " + font[2] + ";"
+                     + "\n  color: " + Settings.load("color" + font[3]) + ";"
+                     + "\n  background-color: " + Settings.load("color" + font[4]) + ";"
                      + "\n}";
-
-            if(!validate(Settings.load(variant + "FontSize"), Settings.load(variant + "FontFamily"),
-                         Settings.load("color" + Settings.load(variant + "FontColor")),
-                         Settings.load("color" + Settings.load(variant + "BackColor"))))
+            if(invalid(font[1], font[2], Settings.load("color" + font[3]), Settings.load("color" + font[4])))
                 return;
         }
 
-        if(!validate(datum1, datum2, stufe1, stufe2, tabelle1, tabelle2, schrift1, schrift2, plan, schrift, tabelle, frame))
+        if(invalid(plan, frame, datum1, datum2, stufe1, stufe2, tabelle1, tabelle2, tabelle3, schrift1, schrift2, schrift3))
             return;
 
-        FileHandler reader = new FileHandler("Data/TEMPLATE style.css");
-        FileHandler writer = new FileHandler("Data/style.css");
-
-        String[] file = reader.read();
-        for(int i = 0; i < file.length; i++)
-        {
-            file[i] = file[i].replaceAll("DATUM1", datum1);
-            file[i] = file[i].replaceAll("DATUM2", datum2);
-            file[i] = file[i].replaceAll("STUFE1", stufe1);
-            file[i] = file[i].replaceAll("STUFE2", stufe2);
-            file[i] = file[i].replaceAll("TABELLE1", tabelle1);
-            file[i] = file[i].replaceAll("TABELLE2", tabelle2);
-            file[i] = file[i].replaceAll("SCHRIFT1", schrift1);
-            file[i] = file[i].replaceAll("SCHRIFT2", schrift2);
-            file[i] = file[i].replaceAll("PLAN", plan);
-            file[i] = file[i].replaceAll("SCHRIFT", schrift);
-            file[i] = file[i].replaceAll("TABELLE", tabelle);
-            file[i] = file[i].replaceAll("FRAME", frame);
-            file[i] = file[i].replaceAll("OTHER", other);
-        }
-        writer.write(file);
-
+        new FileHandler("Data/style.css").write(
+                new String[]
+                {
+                    new FileHandler("Data/TEMPLATE style.css").asString()
+                    .replaceAll("PLAN", plan)
+                    .replaceAll("FRAME", frame)
+                    .replaceAll("DATUM1", datum1)
+                    .replaceAll("DATUM2", datum2)
+                    .replaceAll("STUFE1", stufe1)
+                    .replaceAll("STUFE2", stufe2)
+                    .replaceAll("TABELLE1", tabelle1)
+                    .replaceAll("TABELLE2", tabelle2)
+                    .replaceAll("TABELLE", tabelle3)
+                    .replaceAll("SCHRIFT1", schrift1)
+                    .replaceAll("SCHRIFT2", schrift2)
+                    .replaceAll("SCHRIFT", schrift3)
+                    .replaceAll("OTHER", other)
+                });
         Logger.log("Style wurde generiert", 0);
     }
 
@@ -192,14 +145,14 @@ public class HtmlWriter
      */
     public static void sql() throws Exception
     {
-
+        String[] settings = Settings.loadArray("sql");
         SchoolClass[] scs = HtmlReader.forSql();
-        SqlTableWriter write = new SqlTableWriter(PathConverter.convert(Settings.load("sqlHost")),
-                                                  Integer.parseInt(Settings.load("sqlPort")),
-                                                  PathConverter.convert(Settings.load("sqlName")),
-                                                  Settings.load("sqlUser"),
-                                                  Settings.load("sqlPassw"),
-                                                  PathConverter.convert(Settings.load("sqlTableName")),
+        SqlTableWriter write = new SqlTableWriter(PathConverter.convert(settings[0]),
+                                                  Integer.parseInt(settings[1]),
+                                                  PathConverter.convert(settings[2]),
+                                                  settings[4],
+                                                  settings[5],
+                                                  PathConverter.convert(settings[3]),
                                                   sqlColumms);
 
         if(Settings.load("sqlMode").equals("löschen und schreiben"))
@@ -216,7 +169,6 @@ public class HtmlWriter
                     line[i] = e.getImportantContent()[i - 3];
                 forSql.add(line);
             }
-
         write.addAll(forSql);
     }
 
@@ -235,7 +187,7 @@ public class HtmlWriter
         String s = "";
         for(SchoolClass schoolClass : schoolClasses)
         {
-            String[] or = Settings.load("lessonOrder").split(",");
+            String[] or = Settings.loadArray("lessonOrder");
             schoolClass.sort(Integer.parseInt(or[0]),
                              Integer.parseInt(or[1]),
                              Integer.parseInt(or[2]),
@@ -287,14 +239,14 @@ public class HtmlWriter
      *
      * @return Sind die Strings verwendbar?
      */
-    private static boolean validate(String... test) throws Exception
+    private static boolean invalid(String... test) throws Exception
     {
         for(String s : test)
             if(s.equals(""))
             {
                 Logger.log("Eine Einstellung wurde noch nicht gemacht - Konnte nicht generieren!", 2);
-                return false;
+                return true;
             }
-        return true;
+        return false;
     }
 }
