@@ -82,7 +82,7 @@ public class Settings
     }
 
     /**
-     * Speichert eine Einstellung. Falls die Einstellung "" entspricht wird sie gelöscht.
+     * Speichert eine Einstellung. Es kann eine Komponente übergeben werden, aus der der Wert der Einstellung genommen wird.
      *
      * @param name Name der Einstellung
      * @param comp Komponente die bearbeitet wird
@@ -100,7 +100,7 @@ public class Settings
     }
 
     /**
-     * Lädt eine Einstellung.
+     * Lädt eine Einstellung. Es kann eine Komponente übergeben werden, in die der Wert der Einstellung gespeichert wird.
      *
      * @param name Name der einstellung
      * @param comp Komponente die bearbeitet wird
@@ -118,10 +118,10 @@ public class Settings
     }
 
     /**
-     * Speichert eine Einstellung. Falls die Einstellung "" entspricht wird sie gelöscht.
+     * Speichert mehrere Einstellungen.
      *
      * @param name     Name der Einstellung
-     * @param settings Wert der Einstellung
+     * @param settings Werte der Einstellung
      *
      * @throws java.lang.Exception Fehler
      */
@@ -146,11 +146,11 @@ public class Settings
     }
 
     /**
-     * Lädt eine Einstellung.
+     * Lädt mehrere Einstellungen.
      *
-     * @param name Name der einstellung
+     * @param name Name der Einstellung
      *
-     * @return Wert der Einstellung
+     * @return Werte der Einstellung
      *
      * @throws java.lang.Exception Fehler
      */
@@ -180,11 +180,11 @@ public class Settings
     }
 
     /**
-     * Speichert eine Einstellung. Falls die Einstellung "" entspricht wird sie gelöscht.
+     * Speichert eine Einstellung auf einem bestimmten Index eines Arrays.
      *
      * @param name    Name der Einstellung
      * @param setting Wert der Einstellung
-     * @param i       Index
+     * @param i       Index der Einstellung
      *
      * @throws java.lang.Exception Fehler
      */
@@ -205,10 +205,10 @@ public class Settings
     }
 
     /**
-     * Lädt eine Einstellung.
+     * Lädt eine Einstellung aus einem bestimmten Index eines Arrays.
      *
      * @param name Name der einstellung
-     * @param i    Index
+     * @param i    Index der einstellung
      *
      * @return Wert der Einstellung
      *
@@ -220,9 +220,9 @@ public class Settings
     }
 
     /**
-     * Speichert eine Einstellung. Falls die Einstellung "" entspricht wird sie gelöscht.
+     * Speichert mehrere Einstellungen. Es können mehrere Komponenten übergeben werden, aus der die Werte der Einstellung genommen werden.
      *
-     * @param nameAndComp Name der Einstellung
+     * @param nameAndComp Name und Komponenten für die Einstellung
      *
      * @throws java.lang.Exception Fehler
      */
@@ -242,7 +242,7 @@ public class Settings
     }
 
     /**
-     * Lädt eine Einstellung.
+     * Lädt eine Einstellung. Es können mehrere Komponenten übergeben werden, in die die Werte der Einstellung gespeichert werden.
      *
      * @param nameAndComp Name der Einstellung
      *
@@ -284,7 +284,7 @@ public class Settings
     }
 
     /**
-     * Gibt die Einstellungen zurück die gleich beginnen.
+     * Gibt die Namen der Einstellungen zurück die gleich beginnen.
      *
      * @param name Anfang der Namen
      *

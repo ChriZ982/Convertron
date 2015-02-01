@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 /**
- * Klasse für Zeiten.
+ * Klasse für die Verwaltung von Zeitangaben.
  */
 public class Time
 {

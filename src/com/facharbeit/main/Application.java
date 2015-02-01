@@ -46,7 +46,6 @@ public class Application
         {
             System.setProperty("file.encoding", "ISO-8859-1");
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-
             queue = new ArrayList<QueueElement>();
             frame = new Frame();
 
@@ -182,7 +181,6 @@ public class Application
      * Fügt Methoden aus "QueueableMethods" zur Warteschlange hinzu.
      *
      * @param methodName Name der Methode
-     * @param args       Parameter der Methode
      */
     public static void addToQueue(String methodName)
     {

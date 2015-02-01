@@ -127,27 +127,21 @@ public class HtmlReader
             };
 
         ArrayList<File> files = getFiles(path);
-
         SchoolClass[] schoolClasses = new SchoolClass[files.size()];
 
         for(int i = 0; i < schoolClasses.length; i++)
         {
             String filename = files.get(i).getName();
             String[] prefix = Settings.loadArray("fileName");
-            schoolClasses[i] = new SchoolClass(filename.substring(prefix[0].length(),
-                                                                  filename.indexOf(prefix[1])));
-
+            schoolClasses[i] = new SchoolClass(filename.substring(prefix[0].length(), filename.indexOf(prefix[1])));
             if(schoolClasses[i].isEmpty())
                 schoolClasses[i].setEntries(new ArrayList<Entry>());
 
             String asString = getTable(new FileHandler(files.get(i)).asString());
-
             asString = asString.substring(asString.indexOf(findHtmlTag(asString, "TR")) + findHtmlTag(asString, "TR").length());
 
             ArrayList<String> head = new ArrayList<>();
-
-            while(asString.indexOf(findHtmlTag(asString, "TD"))
-                  < asString.indexOf(findHtmlTag(asString, "TR")))
+            while(asString.indexOf(findHtmlTag(asString, "TD")) < asString.indexOf(findHtmlTag(asString, "TR")))
             {
                 asString = asString.substring(asString.indexOf(findHtmlTag(asString, "TD")) + findHtmlTag(asString, "TD").length());
                 head.add(readEntry(asString.substring(0, asString.indexOf(findHtmlTag(asString, "/TD")))));
@@ -156,7 +150,6 @@ public class HtmlReader
             while(true)
             {
                 asString = asString.substring(asString.indexOf(findHtmlTag(asString, "TR")) + 4);
-
                 HashMap<String, String> entries = new HashMap<>();
 
                 for(String head1 : head)
@@ -166,27 +159,20 @@ public class HtmlReader
                 }
 
                 boolean valid = true;
-
                 if(entries.containsKey("Std"))
+                {
                     if(!validateAsNumber(entries.get("Std"), '-', ' '))
                         valid = false;
                     else
-                    {
-                        //nothing
-                    }
-                else
-                    valid = false;
-
+                        valid = false;
+                }
                 if(entries.containsKey("Datum"))
+                {
                     if(!validateAsNumber(entries.get("Datum"), '.'))
                         valid = false;
                     else
-                    {
-                        //nothing
-                    }
-                else
-                    valid = false;
-
+                        valid = false;
+                }
                 if(valid)
                     schoolClasses[i].getEntries().add(new Entry(entries));
                 else
@@ -198,9 +184,7 @@ public class HtmlReader
                         else
                             e.getContent().put(key, entries.get(key));
                 }
-
                 asString = asString.substring(asString.indexOf(findHtmlTag(asString, "/TD")) + findHtmlTag(asString, "/TD").length());
-
                 if(!asString.contains("<TR>"))
                     break;
             }
@@ -223,7 +207,6 @@ public class HtmlReader
             return ">";
         source = source.substring(source.indexOf("<" + toFind));
         source = source.substring(0, source.indexOf(">") + 1);
-
         return source;
     }
 
@@ -252,7 +235,6 @@ public class HtmlReader
     private static boolean validateAsNumber(String s, char... extraChars) throws Exception
     {
         boolean found = false;
-
         if(s.isEmpty())
             return false;
 
@@ -275,7 +257,6 @@ public class HtmlReader
                 if(!found)
                     return false;
             }
-
         return true;
     }
 
@@ -316,7 +297,6 @@ public class HtmlReader
     {
         if(schoolClasses == null)
             return null;
-
         for(SchoolClass schoolClass : schoolClasses)
         {
             ArrayList<Entry> out = new ArrayList<>();
@@ -363,6 +343,7 @@ public class HtmlReader
         ArrayList<File> files = new ArrayList<>();
         File file;
         for(int grade = firstGrade; grade <= lastGrade; grade++)
+        {
             for(int c = 97; c <= 122; c++)
             {
                 String g = String.valueOf(grade) + "" + (char)c;
@@ -374,14 +355,13 @@ public class HtmlReader
                 if(file.exists())
                     files.add(file);
             }
-
+        }
         for(String g : extraGrades)
         {
             file = new File(path, prefix[0] + g + prefix[1]);
             if(file.exists())
                 files.add(file);
         }
-
         return files;
     }
 
@@ -403,22 +383,21 @@ public class HtmlReader
                                                  sqlColumms);
 
         ArrayList<String[]> readIn = read.readAll();
-
         for(String[] asArray : readIn)
         {
             Map<String, String> forEntry = new HashMap<>();
-
             for(int i = 0; i < asArray.length; i++)
                 forEntry.put(sqlColumms[i], asArray[i]);
 
             boolean added = false;
-
             for(SchoolClass sc : asList)
+            {
                 if(sc.getName().equals(forEntry.get("Stufe")))
                 {
                     sc.getEntries().add(new Entry(forEntry));
                     added = true;
                 }
+            }
             if(!added)
             {
                 SchoolClass sc = new SchoolClass(forEntry.get("Stufe"));
@@ -426,7 +405,6 @@ public class HtmlReader
                 asList.add(sc);
             }
         }
-
         return (SchoolClass[])asList.toArray();
     }
 }
