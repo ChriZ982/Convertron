@@ -1,7 +1,7 @@
 # README #
 
-Facharbeit 2014/15
+Facharbeit 2015
 
-#FINAL VERSION 3.1#
+#FINAL VERSION 3.4#
 
-ca. 6700 Zeilen
+ca. 5800 Zeilen
