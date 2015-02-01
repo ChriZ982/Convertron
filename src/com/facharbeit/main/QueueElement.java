@@ -14,20 +14,13 @@ public class QueueElement
     private Method method;
 
     /**
-     * Parameter zur Methode.
-     */
-    private Object[] args;
-
-    /**
      * Initialisiert ein neues Element.
      *
      * @param method Methode
-     * @param args   Parameter
      */
-    public QueueElement(Method method, Object[] args)
+    public QueueElement(Method method)
     {
         this.method = method;
-        this.args = args;
     }
 
     /**
@@ -37,12 +30,8 @@ public class QueueElement
     {
         try
         {
-            String toLog = "\"" + method.getName() + "\"\n           args:";
-            for(Object o : args)
-                toLog += "\n              " + o.toString();
-            Logger.logIntern(toLog);
-
-            method.invoke(null, args);
+            Logger.logIntern("\"" + method.getName() + "\"");
+            method.invoke(null);
         }
         catch(Exception ex)
         {

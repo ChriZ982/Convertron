@@ -3,12 +3,18 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Component class="javax.swing.JColorChooser" name="jColorChooser1">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JFileChooser" name="jFileChooser1">
       <Properties>
         <Property name="fileHidingEnabled" type="boolean" value="true"/>
         <Property name="fileSelectionMode" type="int" value="1"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.ButtonGroup" name="sqlMode">
     </Component>
@@ -227,6 +233,9 @@
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="motdTxtFocusGained"/>
                 <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="motdTxtFocusLost"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JButton" name="genMotdBtn">
               <Properties>
@@ -510,6 +519,9 @@
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Scrollgeschwindigkeit des Plans in % z.B. &quot;100&quot;"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
               <Properties>
@@ -520,12 +532,18 @@
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Scrollgeschwindigkeit der Laufschrift in % z.B. &quot;100&quot;"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JCheckBox" name="autoBackupCheck">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Automatisches Backup"/>
                 <Property name="toolTipText" type="java.lang.String" value="Soll ein automatisches Backup beim Generieren erstellt werden?"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel20">
               <Properties>
@@ -550,106 +568,169 @@
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die zehnte Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="hour10Label">
               <Properties>
                 <Property name="text" type="java.lang.String" value="10. Stunde"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="hour9Txt">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die neunte Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="hour9Label">
               <Properties>
                 <Property name="text" type="java.lang.String" value="9. Stunde"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="hour7Label">
               <Properties>
                 <Property name="text" type="java.lang.String" value="7. Stunde"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="hour7Txt">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die siebte Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="hour8Txt">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die achte Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="hour6Txt">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die sechste Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="hour4Txt">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die vierte Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="hour2Txt">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die zweite Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="hour1Txt">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die erste Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="hour3Txt">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die dritte Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="hour5Txt">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die f&#xfc;nfte Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="hour5Label">
               <Properties>
                 <Property name="text" type="java.lang.String" value="5. Stunde"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="hour3Label">
               <Properties>
                 <Property name="text" type="java.lang.String" value="3. Stunde"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="hour1Label">
               <Properties>
                 <Property name="text" type="java.lang.String" value="1. Stunde"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="hour2Label">
               <Properties>
                 <Property name="text" type="java.lang.String" value="2. Stunde"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="hour4Label">
               <Properties>
                 <Property name="text" type="java.lang.String" value="4. Stunde"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="hour6Label">
               <Properties>
                 <Property name="text" type="java.lang.String" value="6. Stunde"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="hour8Label">
               <Properties>
                 <Property name="text" type="java.lang.String" value="8. Stunde"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="hoursHeadLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Stunden ausblenden ab:"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JCheckBox" name="useHoursCheck">
               <Properties>
@@ -659,6 +740,9 @@
               <Events>
                 <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="useHoursCheckStateChanged"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JSeparator" name="jSeparator2">
               <Properties>
@@ -701,6 +785,9 @@
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="Ver&#xe4;ndern der Spalten-Sortierung und -Gr&#xf6;&#xdf;e auf dem Vertretungsplan"/>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -713,6 +800,9 @@
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Buchstaben f&#xfc;r die Gerade Woche definieren z.B. &quot;B&quot;"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JCheckBox" name="customSourceCheck">
               <Properties>
@@ -722,30 +812,45 @@
               <Events>
                 <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="customSourceCheckStateChanged"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel10">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Heute"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="sourceTodayTxt">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Neues Datum f&#xfc;r den heutigen Plan z.B. &quot;24.12.&quot;"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel22">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Morgen"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="sourceTomorrowTxt">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Neues Datum f&#xfc;r den morgigen Plan z.B. &quot;25.12.&quot;"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel24">
             </Component>
@@ -862,6 +967,9 @@
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Quellpfad f&#xfc;r die Vertretungs-Dateien"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JButton" name="selectSourceTodayBtn">
               <Properties>
@@ -914,6 +1022,7 @@
                   </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTextArea(&quot;&quot;)"/>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
                   </AuxValues>
                 </Component>
               </SubComponents>
@@ -922,6 +1031,9 @@
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Backuppfad f&#xfc;r den generierten Plan"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>
@@ -954,6 +1066,9 @@
                 <Property name="text" type="java.lang.String" value="Druck_Klasse_"/>
                 <Property name="toolTipText" type="java.lang.String" value="Prefix f&#xfc;r die Dateinamen"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="fileNameMiddle">
               <Properties>
@@ -966,6 +1081,9 @@
                 <Property name="text" type="java.lang.String" value=".htm"/>
                 <Property name="toolTipText" type="java.lang.String" value="Suffix f&#xfc;r die Dateinamen"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
@@ -1126,6 +1244,7 @@
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
               </AuxValues>
             </Component>
             <Container class="javax.swing.JPanel" name="colorPlanPanel">
@@ -1136,6 +1255,9 @@
                   </Border>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
 
               <Layout>
                 <DimensionLayout dim="0">
@@ -1158,6 +1280,9 @@
                   </Border>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
 
               <Layout>
                 <DimensionLayout dim="0">
@@ -1202,6 +1327,9 @@
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="colorNameTxtFocusGained"/>
                 <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="colorNameTxtFocusLost"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="bgMotdLabel">
               <Properties>
@@ -1222,6 +1350,7 @@
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
               </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="backgroundColorsLabel">
@@ -1252,6 +1381,7 @@
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
               </AuxValues>
             </Component>
             <Container class="javax.swing.JPanel" name="colorTablePanel">
@@ -1262,6 +1392,9 @@
                   </Border>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
 
               <Layout>
                 <DimensionLayout dim="0">
@@ -1300,6 +1433,7 @@
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
               </AuxValues>
             </Component>
             <Container class="javax.swing.JPanel" name="colorBorderPanel">
@@ -1310,6 +1444,9 @@
                   </Border>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
 
               <Layout>
                 <DimensionLayout dim="0">
@@ -1486,6 +1623,9 @@
                     <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="typeToEditTxtFocusGained"/>
                     <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="typeToEditTxtFocusLost"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="typeToEditCombo">
                   <Properties>
@@ -1504,6 +1644,7 @@
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JLabel" name="tteFontColorLabel">
@@ -1525,6 +1666,7 @@
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
                   </AuxValues>
                 </Component>
                 <Container class="javax.swing.JPanel" name="fontColorPanel">
@@ -1535,6 +1677,9 @@
                       </Border>
                     </Property>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+                  </AuxValues>
 
                   <Layout>
                     <DimensionLayout dim="0">
@@ -1553,6 +1698,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Hintergrundfarbe"/>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="backgroundColorCombo">
                   <Properties>
@@ -1568,6 +1716,7 @@
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
                   </AuxValues>
                 </Component>
                 <Container class="javax.swing.JPanel" name="backgroundColorPanel">
@@ -1578,6 +1727,9 @@
                       </Border>
                     </Property>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+                  </AuxValues>
 
                   <Layout>
                     <DimensionLayout dim="0">
@@ -1604,6 +1756,9 @@
                   <Events>
                     <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="fontTypeTxtMouseExited"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JLabel" name="tteFontSizeLabel">
                   <Properties>
@@ -1620,6 +1775,9 @@
                   <Events>
                     <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="fontSizeTxtMouseExited"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="boldCheck">
                   <Properties>
@@ -1629,6 +1787,9 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="boldCheckActionPerformed"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="italicCheck">
                   <Properties>
@@ -1638,6 +1799,9 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="italicCheckActionPerformed"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JLabel" name="typeToEditLabel">
                   <Properties>
@@ -1767,6 +1931,9 @@
               <Events>
                 <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="useSQLCheckStateChanged"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JButton" name="sqlSaveBtn">
               <Properties>
@@ -1781,61 +1948,97 @@
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Tabellen Name z.B. &quot;Vertretungen&quot;"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="dbTableNameLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Tabellenname:"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="dbNameTxt">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Datenbank Name z.B. &quot;Schuldatenbank&quot;"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="dbNameLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Datenbankname:"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="dbUserLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Benutzername:"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="dbUserTxt">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Benutzername z.B. &quot;admin&quot;"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="dbPwLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Passwort:"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JPasswordField" name="dbPwTxt">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Passwort z.B. &quot;passw&quot;"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="dbPortTxt">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Datenbank Port; Standard:&quot;3306&quot;"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="dbPortLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Port:"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="dbHostTxt">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Datenbank Host z.B. &quot;www.antonianum.de&quot;"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="dbHostLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Datenbank Host:"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JSeparator" name="jSeparator1">
             </Component>
@@ -1843,6 +2046,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Sql-Modus:"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JRadioButton" name="sqlModeReadRBtn">
               <Properties>
@@ -1852,6 +2058,9 @@
                 <Property name="text" type="java.lang.String" value="lesen"/>
                 <Property name="toolTipText" type="java.lang.String" value="Aus der angegebenen Datenbank lesen, &#xfc;berschreibt HTML-Auslesen"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JRadioButton" name="sqlModeWriteRBtn">
               <Properties>
@@ -1861,6 +2070,9 @@
                 <Property name="text" type="java.lang.String" value="anh&#xe4;ngen"/>
                 <Property name="toolTipText" type="java.lang.String" value="Die Vertretungen an die Datenbank anh&#xe4;ngen"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JRadioButton" name="sqlModeDelWriteRBtn">
               <Properties>
@@ -1870,6 +2082,9 @@
                 <Property name="text" type="java.lang.String" value="leeren und schreiben"/>
                 <Property name="toolTipText" type="java.lang.String" value="Die Datenbank leeren und danach neu f&#xfc;llen"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

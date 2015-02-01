@@ -5,12 +5,12 @@ import java.io.*;
 import java.nio.file.*;
 
 /**
- * Mit dieser Klasse werden Datiene verwaltet.
+ * Mit dieser Klasse können, hauptsächlic Textdateien, gelesen und geschrieben werden.
  */
 public class FileHandler
 {
     /**
-     * Die Datei zum lesen und schreiben.
+     * Das File Objekt zum lesen und schreiben.
      */
     private File file;
 
@@ -72,7 +72,7 @@ public class FileHandler
     /**
      * Kopiert eine Datei zu einem Pfad.
      *
-     * @param dest Ziel-Pfad
+     * @param dest Zielpfad
      *
      * @throws java.lang.Exception Fehler
      */
@@ -89,7 +89,7 @@ public class FileHandler
     /**
      * Kopiert Dateien aus dem Java-Package der Facharbeit.
      *
-     * @param dest Ziel-Pfad
+     * @param dest Zielpfad
      *
      * @throws java.lang.Exception Fehler
      */
@@ -111,7 +111,7 @@ public class FileHandler
     }
 
     /**
-     * Gibt die Zeilenanzahl zurück.
+     * Gibt die Zeilenanzahl von Textdateien zurück.
      *
      * @return Anzahl der Zeilen
      *
@@ -147,7 +147,7 @@ public class FileHandler
     }
 
     /**
-     * Liest ganze Datei aus.
+     * Liest die ganze Datei aus.
      *
      * @return Ganze Datei als String Array
      *
@@ -176,8 +176,8 @@ public class FileHandler
         String asString = "";
         String[] text = read();
         for(int i = 0; i < text.length - 1; i++)
-            asString += "\n" + text[i];
-        return asString;
+            asString += text[i] + "\n";
+        return asString.trim();
     }
 
     /**

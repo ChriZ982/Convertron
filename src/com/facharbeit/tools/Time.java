@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 /**
- * Klasse für Zeiten.
+ * Klasse für die Verwaltung von Zeitangaben.
  */
 public class Time
 {
@@ -68,11 +68,11 @@ public class Time
     public static String htmlReading(int addDays) throws Exception
     {
         instance();
-        if(Settings.load("customDate").equals("true"))
+        if(Settings.load("customUse").equals("true"))
             if(addDays == 0)
-                return Settings.load("customToday");
+                return Settings.loadArray("customDates")[0];
             else
-                return Settings.load("customTomorrow");
+                return Settings.loadArray("customDates")[1];
         else if(addDays == 0)
             return c.get(Calendar.DATE) + "." + (c.get(Calendar.MONTH) + 1) + ".";
         else

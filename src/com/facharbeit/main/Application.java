@@ -46,26 +46,21 @@ public class Application
         {
             System.setProperty("file.encoding", "ISO-8859-1");
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-
             queue = new ArrayList<QueueElement>();
             frame = new Frame();
 
             Logger.init(frame.getStatusPane());
-
             initData();
             initTray();
-
             Settings.init();
 
-            if(!Settings.load("positionX").isEmpty() && !Settings.load("positionY").isEmpty())
-                frame.setLocation(Integer.parseInt(Settings.load("positionX")),
-                                  Integer.parseInt(Settings.load("positionY")));
+            String[] pos = Settings.loadArray("position");
+            if(!pos[0].isEmpty() && !pos[1].isEmpty())
+                frame.setLocation(Integer.parseInt(pos[0]), Integer.parseInt(pos[1]));
 
-            frame.loadSettings();
+            QueueableMethods.loadSettings();
             frame.addWindowListener(new FrameActions(frame, this));
-
             frame.setVisible(true);
-
             running = true;
         }
         catch(Exception ex)
@@ -83,17 +78,19 @@ public class Application
         try
         {
             running = false;
-            addToQueue("savePositionOfFrame", frame);
-
             for(QueueElement element : queue)
                 element.invoke();
 
             Settings.sort();
+            Settings.saveArray("position",
+                               new String[]
+                               {
+                                   String.valueOf((int)frame.getLocation().getX()),
+                                   String.valueOf((int)frame.getLocation().getY())
+                               });
 
             SystemTray.getSystemTray().remove(trayIcon);
-
             frame.dispose();
-
             System.exit(0);
         }
         catch(Exception ex)
@@ -184,23 +181,22 @@ public class Application
      * Fügt Methoden aus "QueueableMethods" zur Warteschlange hinzu.
      *
      * @param methodName Name der Methode
-     * @param args       Parameter der Methode
      */
-    public static void addToQueue(String methodName, Object... args)
+    public static void addToQueue(String methodName)
     {
         try
         {
             Method[] methods = QueueableMethods.class.getDeclaredMethods();
             Method theMethod = null;
-
             for(Method method : methods)
+            {
                 if(method.getName().equals(methodName))
                 {
                     theMethod = method;
                     break;
                 }
-
-            queue.add(new QueueElement(theMethod, args));
+            }
+            queue.add(new QueueElement(theMethod));
         }
         catch(Exception ex)
         {
@@ -299,52 +295,44 @@ public class Application
      * @param exitItem      Item
      */
     private void setMenuItems(MenuItem genAll, MenuItem genToday, MenuItem genTomorrow, MenuItem genMotd, MenuItem backup,
-                              MenuItem removeSources, MenuItem show, MenuItem hide, MenuItem exitItem)
+                              MenuItem removeSources, MenuItem show, MenuItem hide, MenuItem exitItem) throws Exception
     {
-        try
+        genAll.addActionListener((java.awt.event.ActionEvent evt) ->
         {
-            genAll.addActionListener((java.awt.event.ActionEvent evt) ->
-            {
-                Application.addToQueue("genAllBtnActionPerformed");
-            });
-            genToday.addActionListener((java.awt.event.ActionEvent evt) ->
-            {
-                Application.addToQueue("genTodayBtnActionPerformed");
-            });
-            genTomorrow.addActionListener((java.awt.event.ActionEvent evt) ->
-            {
-                Application.addToQueue("genTomorrowBtnActionPerformed");
-            });
-            genMotd.addActionListener((java.awt.event.ActionEvent evt) ->
-            {
-                Application.addToQueue("genMotdBtnActionPerformed", new JTextField());
-            });
-            backup.addActionListener((java.awt.event.ActionEvent evt) ->
-            {
-                Application.addToQueue("createBackupBtnActionPerformed");
-            });
-            removeSources.addActionListener((java.awt.event.ActionEvent evt) ->
-            {
-                Application.addToQueue("deleteSourceBtnActionPerformed");
-            });
-            show.addActionListener((java.awt.event.ActionEvent evt) ->
-            {
-                frame.setExtendedState(JFrame.NORMAL);
-                frame.setVisible(true);
-            });
-            hide.addActionListener((java.awt.event.ActionEvent evt) ->
-            {
-                frame.setVisible(false);
-            });
-            exitItem.addActionListener((java.awt.event.ActionEvent evt) ->
-            {
-                System.exit(0);
-            });
-        }
-        catch(Exception ex)
+            Application.addToQueue("genAllBtnActionPerformed");
+        });
+        genToday.addActionListener((java.awt.event.ActionEvent evt) ->
         {
-            Logger.log("Aktionen der Menüitems konnten nicht gesetzt werden", 2);
-            Logger.error(ex);
-        }
+            Application.addToQueue("genTodayBtnActionPerformed");
+        });
+        genTomorrow.addActionListener((java.awt.event.ActionEvent evt) ->
+        {
+            Application.addToQueue("genTomorrowBtnActionPerformed");
+        });
+        genMotd.addActionListener((java.awt.event.ActionEvent evt) ->
+        {
+            Application.addToQueue("genMotdBtnActionPerformed");
+        });
+        backup.addActionListener((java.awt.event.ActionEvent evt) ->
+        {
+            Application.addToQueue("createBackupBtnActionPerformed");
+        });
+        removeSources.addActionListener((java.awt.event.ActionEvent evt) ->
+        {
+            Application.addToQueue("deleteSourceBtnActionPerformed");
+        });
+        show.addActionListener((java.awt.event.ActionEvent evt) ->
+        {
+            frame.setExtendedState(JFrame.NORMAL);
+            frame.setVisible(true);
+        });
+        hide.addActionListener((java.awt.event.ActionEvent evt) ->
+        {
+            frame.setVisible(false);
+        });
+        exitItem.addActionListener((java.awt.event.ActionEvent evt) ->
+        {
+            System.exit(0);
+        });
     }
 }
