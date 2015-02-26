@@ -163,14 +163,10 @@ public class HtmlReader
                 {
                     if(!validateAsNumber(entries.get("Std"), '-', ' '))
                         valid = false;
-                    else
-                        valid = false;
                 }
                 if(entries.containsKey("Datum"))
                 {
                     if(!validateAsNumber(entries.get("Datum"), '.'))
-                        valid = false;
-                    else
                         valid = false;
                 }
                 if(valid)
