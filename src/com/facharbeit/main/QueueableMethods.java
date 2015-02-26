@@ -33,6 +33,7 @@ public class QueueableMethods
 
     public static void genAllBtnActionPerformed() throws Exception
     {
+        copySourceBtnActionPerformed();
         HtmlWriter.plan("heute", HtmlReader.sort(HtmlReader.today()));
         HtmlWriter.plan("morgen", HtmlReader.sort(HtmlReader.tomorrow()));
         HtmlWriter.motd();
@@ -41,18 +42,21 @@ public class QueueableMethods
 
     public static void genTodayBtnActionPerformed() throws Exception
     {
+        copySourceBtnActionPerformed();
         HtmlWriter.plan("heute", HtmlReader.sort(HtmlReader.today()));
         saveDesignBtnActionPerformed();
     }
 
     public static void genTomorrowBtnActionPerformed() throws Exception
     {
+        copySourceBtnActionPerformed();
         HtmlWriter.plan("morgen", HtmlReader.sort(HtmlReader.tomorrow()));
         saveDesignBtnActionPerformed();
     }
 
     public static void genMotdBtnActionPerformed() throws Exception
     {
+        copySourceBtnActionPerformed();
         Settings.save("laufschriftText", motdTxt);
         HtmlWriter.motd();
         saveDesignBtnActionPerformed();
