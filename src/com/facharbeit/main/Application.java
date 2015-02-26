@@ -165,7 +165,6 @@ public class Application
                 if(lastTime < currentTime - 120000)
                 {
                     lastTime = System.currentTimeMillis();
-                    Application.addToQueue("copySourceBtnActionPerformed");
                     Application.addToQueue("genAllBtnActionPerformed");
                 }
             }
@@ -241,22 +240,18 @@ public class Application
             MenuItem genAll = new MenuItem("Alles generieren");
             MenuItem genToday = new MenuItem("Heute generieren");
             MenuItem genTomorrow = new MenuItem("Morgen generieren");
-            MenuItem genMotd = new MenuItem("Laufschrift generieren");
             MenuItem backup = new MenuItem("Backup erstellen");
-            MenuItem removeSources = new MenuItem("Quelldateien löschen");
             MenuItem show = new MenuItem("Maximieren");
             MenuItem hide = new MenuItem("Minimieren");
             MenuItem exitItem = new MenuItem("Beenden");
 
-            setMenuItems(genAll, genToday, genTomorrow, genMotd, backup, removeSources, show, hide, exitItem);
+            setMenuItems(genAll, genToday, genTomorrow, backup, show, hide, exitItem);
 
             popup.add(genAll);
             popup.add(genToday);
             popup.add(genTomorrow);
-            popup.add(genMotd);
             popup.addSeparator();
             popup.add(backup);
-            popup.add(removeSources);
             popup.addSeparator();
             popup.add(show);
             popup.add(hide);
@@ -294,8 +289,8 @@ public class Application
      * @param hide          Item
      * @param exitItem      Item
      */
-    private void setMenuItems(MenuItem genAll, MenuItem genToday, MenuItem genTomorrow, MenuItem genMotd, MenuItem backup,
-                              MenuItem removeSources, MenuItem show, MenuItem hide, MenuItem exitItem) throws Exception
+    private void setMenuItems(MenuItem genAll, MenuItem genToday, MenuItem genTomorrow, MenuItem backup,
+                              MenuItem show, MenuItem hide, MenuItem exitItem) throws Exception
     {
         genAll.addActionListener((java.awt.event.ActionEvent evt) ->
         {
@@ -309,17 +304,9 @@ public class Application
         {
             Application.addToQueue("genTomorrowBtnActionPerformed");
         });
-        genMotd.addActionListener((java.awt.event.ActionEvent evt) ->
-        {
-            Application.addToQueue("genMotdBtnActionPerformed");
-        });
         backup.addActionListener((java.awt.event.ActionEvent evt) ->
         {
             Application.addToQueue("createBackupBtnActionPerformed");
-        });
-        removeSources.addActionListener((java.awt.event.ActionEvent evt) ->
-        {
-            Application.addToQueue("deleteSourceBtnActionPerformed");
         });
         show.addActionListener((java.awt.event.ActionEvent evt) ->
         {
