@@ -1,5 +1,6 @@
 package com.facharbeit.io;
 
+import com.facharbeit.sql.SqlMode;
 import com.facharbeit.sql.SqlTableWriter;
 import com.facharbeit.tools.*;
 import java.util.*;
@@ -156,7 +157,7 @@ public class HtmlWriter
                                                   PathConverter.convert(settings[3]),
                                                   sqlColumms);
 
-        if(Settings.load("sqlMode").equals("löschen und schreiben"))
+        if(SqlMode.OVERWRITE.isActive())
             write.clear();
 
         ArrayList<String[]> forSql = new ArrayList<>();

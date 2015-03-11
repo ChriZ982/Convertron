@@ -382,7 +382,8 @@ public class QueueableMethods
     public static void saveDesignBtnActionPerformed() throws Exception
     {
         HtmlWriter.style();
-        if(Settings.load("sqlMode").contains("schreiben") && Settings.load("sqlUse").equals("true"))
+        if(Settings.load("sqlUse").equals("true")
+           && (SqlMode.ADD.isActive() || SqlMode.OVERWRITE.isActive()))
             HtmlWriter.sql();
         backupToDestPaths();
         if(Settings.load("autoBackupUse").equals("true"))
