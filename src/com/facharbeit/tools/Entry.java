@@ -78,7 +78,7 @@ public class Entry
      *
      * @throws java.lang.Exception Fehler
      */
-    public String asString(String cssClass) throws Exception
+    public String toHtml(String cssClass) throws Exception
     {
         String s = "";
         s += "'            <tr class=\"" + cssClass + "\">'+\n";

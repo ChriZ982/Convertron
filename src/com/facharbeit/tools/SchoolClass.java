@@ -134,7 +134,7 @@ public class SchoolClass
      *
      * @throws java.lang.Exception Fehler
      */
-    public String asString() throws Exception
+    public String toHtml() throws Exception
     {
         String s = "";
         String[] sizes = Settings.loadArray("lessonSizes");
@@ -196,7 +196,7 @@ public class SchoolClass
             s += "'            </tr>'+\n";
 
             for(Entry e : entries)
-                s += e.asString(e.getContent().get("Vertretungsart").replaceAll("\\.", ""));
+                s += e.toHtml(e.getContent().get("Vertretungsart").replaceAll("\\.", ""));
 
             s += "'        </table>'+";
         }

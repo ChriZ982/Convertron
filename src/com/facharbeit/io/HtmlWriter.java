@@ -1,5 +1,6 @@
 package com.facharbeit.io;
 
+import com.facharbeit.sql.SqlTableWriter;
 import com.facharbeit.tools.*;
 import java.util.*;
 
@@ -9,7 +10,7 @@ import java.util.*;
 public class HtmlWriter
 {
     /**
-     * Name der Spalten in die geschreiben werden soll. Editieren, falls andere Namen. Reihenfolge:
+     * Name der Spalten in die geschrieben werden soll. Editieren, falls andere Namen. Reihenfolge:
      * Stufe, Datum, Wochentag, Vertreter, Raum, Art, Fach, Lehrer, Verl. von, Hinweise
      */
     static String[] sqlColumms =
@@ -195,7 +196,7 @@ public class HtmlWriter
                              Integer.parseInt(or[4]),
                              Integer.parseInt(or[5]),
                              Integer.parseInt(or[6]));
-            s += schoolClass.asString();
+            s += schoolClass.toHtml();
         }
         if(s.equals(""))
             return "'<p class=\"datum\">Keine Vertretungen</p><br /><br />'+";

@@ -2,6 +2,8 @@ package com.facharbeit.main;
 
 import com.facharbeit.io.*;
 import static com.facharbeit.main.Frame.*;
+import com.facharbeit.sql.SqlMode;
+import static com.facharbeit.sql.SqlMode.values;
 import com.facharbeit.tools.*;
 import java.awt.*;
 import javax.swing.*;
@@ -101,42 +103,40 @@ public class QueueableMethods
         String[] size = new String[7];
         String[] order = new String[7];
         for(int i = 0; i < 7; i++)
-        {
             switch(table.getColumnName(i))
             {
                 case "Vertreter":
                     order[i] = "0";
-                    size[0] = String.valueOf((int)((double)table.getCellRect(0, i, true).getWidth() / (double)table.getWidth() * 87.0));
+                    size[0] = String.valueOf((int)(table.getCellRect(0, i, true).getWidth() / (double)table.getWidth() * 87.0));
                     break;
                 case "Raum":
                     order[i] = "1";
-                    size[1] = String.valueOf((int)((double)table.getCellRect(0, i, true).getWidth() / (double)table.getWidth() * 87.0));
+                    size[1] = String.valueOf((int)(table.getCellRect(0, i, true).getWidth() / (double)table.getWidth() * 87.0));
                     break;
                 case "Art":
                     order[i] = "2";
-                    size[2] = String.valueOf((int)((double)table.getCellRect(0, i, true).getWidth() / (double)table.getWidth() * 87.0));
+                    size[2] = String.valueOf((int)(table.getCellRect(0, i, true).getWidth() / (double)table.getWidth() * 87.0));
                     break;
                 case "Fach":
                     order[i] = "3";
-                    size[3] = String.valueOf((int)((double)table.getCellRect(0, i, true).getWidth() / (double)table.getWidth() * 87.0));
+                    size[3] = String.valueOf((int)(table.getCellRect(0, i, true).getWidth() / (double)table.getWidth() * 87.0));
                     break;
                 case "Lehrer":
                     order[i] = "4";
-                    size[4] = String.valueOf((int)((double)table.getCellRect(0, i, true).getWidth() / (double)table.getWidth() * 87.0));
+                    size[4] = String.valueOf((int)(table.getCellRect(0, i, true).getWidth() / (double)table.getWidth() * 87.0));
                     break;
                 case "Verl. von":
                     order[i] = "5";
-                    size[5] = String.valueOf((int)((double)table.getCellRect(0, i, true).getWidth() / (double)table.getWidth() * 87.0));
+                    size[5] = String.valueOf((int)(table.getCellRect(0, i, true).getWidth() / (double)table.getWidth() * 87.0));
                     break;
                 case "Hinweise":
                     order[i] = "6";
-                    size[6] = String.valueOf((int)((double)table.getCellRect(0, i, true).getWidth() / (double)table.getWidth() * 87.0));
+                    size[6] = String.valueOf((int)(table.getCellRect(0, i, true).getWidth() / (double)table.getWidth() * 87.0));
                     break;
                 default:
                     Logger.log("Fehler beim sortieren der Daten!", 2);
                     return;
             }
-        }
         Settings.save("customWeek", weekTxt);
         Settings.save("lessonUse", useHoursCheck);
         Settings.save("customUse", customSourceCheck);
@@ -398,12 +398,7 @@ public class QueueableMethods
 
     public static void SQLsaveBtnActionPerformed() throws Exception
     {
-        if(sqlModeReadRBtn.isSelected())
-            Settings.save("sqlMode", "lesen");
-        else if(sqlModeDelWriteRBtn.isSelected())
-            Settings.save("sqlMode", "löschen und schreiben");
-        else if(sqlModeWriteRBtn.isSelected())
-            Settings.save("sqlMode", "anhängen");
+        Settings.save("sqlMode", (sqlModeReadRBtn.isSelected() ? SqlMode.READ : sqlModeDelWriteRBtn.isSelected() ? SqlMode.OVERWRITE : SqlMode.ADD).toString());
         Settings.save("sqlUse", useSQLCheck);
         Settings.saveArray("sql", dbHostTxt, dbPortTxt, dbNameTxt, dbTableNameTxt, dbUserTxt, dbPwTxt);
     }
@@ -442,16 +437,21 @@ public class QueueableMethods
         for(String s : Settings.findNames("art"))
             typeToEditCombo.addItem("Art: " + s.substring(3, s.indexOf("Font")));
 
-        switch(Settings.load("sqlMode"))
+        //Vermeidung von Fehlern
+        if(!validSqlMode(Settings.load("sqlMode")))
+            Settings.save("sqlMode", SqlMode.ADD.toString());
+
+        switch(SqlMode.valueOf(Settings.load("sqlMode")))
         {
-            case "lesen":
+            case READ:
                 sqlModeReadRBtn.setSelected(true);
                 break;
-            case "löschen und schreiben":
+            case OVERWRITE:
                 sqlModeDelWriteRBtn.setSelected(true);
                 break;
-            case "anhängen":
+            case ADD:
                 sqlModeWriteRBtn.setSelected(true);
+                break;
         }
 
         if(motdTxt.getText().equals("Laufschrift"))
@@ -467,7 +467,6 @@ public class QueueableMethods
         String[] size = Settings.loadArray("lessonSizes");
         String[] order = Settings.loadArray("lessonOrder");
         for(int i = 0; i < 7; i++)
-        {
             switch(order[i])
             {
                 case "0":
@@ -492,7 +491,6 @@ public class QueueableMethods
                     loadTable(table, i, 6, "Hinweise", size[6]);
                     break;
             }
-        }
     }
 
     /**
@@ -503,19 +501,16 @@ public class QueueableMethods
     private static void setEnabled(Object... components)
     {
         for(int i = 1; i < components.length; i++)
-        {
             if(components[0] instanceof JCheckBox)
                 ((JComponent)components[i]).setEnabled(((JCheckBox)components[0]).isSelected());
             else if(components[0] instanceof Boolean)
                 ((JComponent)components[i]).setEnabled(((Boolean)components[0]));
-        }
     }
 
     /**
      * Gibt den Namen des ausgewählten Items.
      *
      * @param combo Box die verwendet werden soll
-     * @param type  Zu suchender Typ
      *
      * @return Name des ausgewählten Items
      */
@@ -576,12 +571,13 @@ public class QueueableMethods
     }
 
     /**
-     * Lädt eine Tabellen-Spalte abhänging vom head.
+     * Lädt eine Tabellen-Spalte abhängig vom head.
      *
      * @param table    Tabelle
      * @param index    Index
      * @param newIndex Neuer Index
      * @param head     Name der Spalte
+     * @param setting  Größe der Spalte
      */
     private static void loadTable(JTable table, int index, int newIndex, String head, String setting) throws Exception
     {
@@ -591,5 +587,13 @@ public class QueueableMethods
             return;
         table.getColumnModel().getColumn(index).setPreferredWidth((Integer.parseInt(setting) * table.getWidth()) / 87);
         table.getColumnModel().getColumn(index).setWidth((Integer.parseInt(setting) * table.getWidth()) / 87);
+    }
+
+    private static boolean validSqlMode(String name)
+    {
+        for(SqlMode mode : values())
+            if(mode.toString().equals(name))
+                return true;
+        return false;
     }
 }

@@ -12,12 +12,12 @@ public class FrameActions implements WindowListener
     /**
      * Frame das beobachtet wird.
      */
-    JFrame frame;
+    private JFrame frame;
 
     /**
      * Anwendung des Fensters.
      */
-    Application app;
+    private Application app;
 
     /**
      * Initialisiert den Beobachter.

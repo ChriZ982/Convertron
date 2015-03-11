@@ -78,7 +78,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
@@ -97,13 +97,14 @@
                       </Group>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Component id="jSeparator6" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel1" min="-2" pref="300" max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" min="-2" pref="300" max="-2" attributes="0"/>
-                          <Component id="jLabel4" min="-2" pref="300" max="-2" attributes="0"/>
-                          <Component id="progBar" min="-2" pref="300" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" max="32767" attributes="0"/>
+                          <Component id="jLabel4" max="32767" attributes="0"/>
+                          <Component id="progBar" max="32767" attributes="0"/>
                       </Group>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1861,14 +1862,12 @@
                                   <Component id="useSQLCheck" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="dbHostLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="sqlModeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="sqlModeReadRBtn" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="sqlModeWriteRBtn" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="sqlModeDelWriteRBtn" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="529" max="32767" attributes="0"/>
                           </Group>
+                          <Component id="sqlModeReadRBtn" alignment="0" max="32767" attributes="0"/>
+                          <Component id="sqlModeWriteRBtn" alignment="0" max="32767" attributes="0"/>
+                          <Component id="sqlModeDelWriteRBtn" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>

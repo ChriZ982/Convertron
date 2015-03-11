@@ -1,5 +1,6 @@
 package com.facharbeit.io;
 
+import com.facharbeit.sql.SqlTableReader;
 import com.facharbeit.tools.*;
 import java.io.*;
 import java.util.*;

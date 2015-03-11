@@ -1,4 +1,4 @@
-package com.facharbeit.io;
+package com.facharbeit.sql;
 
 import java.util.*;
 

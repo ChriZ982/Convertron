@@ -188,13 +188,11 @@ public class Application
             Method[] methods = QueueableMethods.class.getDeclaredMethods();
             Method theMethod = null;
             for(Method method : methods)
-            {
                 if(method.getName().equals(methodName))
                 {
                     theMethod = method;
                     break;
                 }
-            }
             queue.add(new QueueElement(theMethod));
         }
         catch(Exception ex)
@@ -265,6 +263,8 @@ public class Application
             {
                 frame.setExtendedState(JFrame.NORMAL);
                 frame.setVisible(true);
+                frame.toFront();
+                frame.requestFocus();
             });
 
             tray.add(trayIcon);
@@ -279,15 +279,13 @@ public class Application
     /**
      * Setzt die Aktionen der verschiedenen Items.
      *
-     * @param genAll        Item
-     * @param genToday      Item
-     * @param genTomorrow   Item
-     * @param genMotd       Item
-     * @param backup        Item
-     * @param removeSources Item
-     * @param show          Item
-     * @param hide          Item
-     * @param exitItem      Item
+     * @param genAll      Item
+     * @param genToday    Item
+     * @param genTomorrow Item
+     * @param backup      Item
+     * @param show        Item
+     * @param hide        Item
+     * @param exitItem    Item
      */
     private void setMenuItems(MenuItem genAll, MenuItem genToday, MenuItem genTomorrow, MenuItem backup,
                               MenuItem show, MenuItem hide, MenuItem exitItem) throws Exception
@@ -312,6 +310,8 @@ public class Application
         {
             frame.setExtendedState(JFrame.NORMAL);
             frame.setVisible(true);
+            frame.toFront();
+            frame.requestFocus();
         });
         hide.addActionListener((java.awt.event.ActionEvent evt) ->
         {
