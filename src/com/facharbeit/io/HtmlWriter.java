@@ -37,10 +37,10 @@ public class HtmlWriter
         if(invalid(day, speed))
             return;
 
-        new FileHandler("Data/" + type + ".html").write(
+        new FileHandler(Settings.load("pathData") + "/" + type + ".html").write(
                 new String[]
                 {
-                    new FileHandler("Data/TEMPLATE heute morgen.html").asString()
+                    new FileHandler(Settings.load("pathData") + "/TEMPLATE heute morgen.html").asString()
                     .replaceAll("GESCHW", speed)
                     .replaceAll("TAG", day)
                     .replaceAll("VERTRETUNGEN", classes)
@@ -63,10 +63,10 @@ public class HtmlWriter
         if(text.equals("Laufschrift"))
             text = "";
 
-        new FileHandler("Data/laufschrift.html").write(
+        new FileHandler(Settings.load("pathData") + "/laufschrift.html").write(
                 new String[]
                 {
-                    new FileHandler("Data/TEMPLATE laufschrift.html").asString()
+                    new FileHandler(Settings.load("pathData") + "/TEMPLATE laufschrift.html").asString()
                     .replaceAll("GESCHW", speed)
                     .replaceAll("TEXT", text)
                 });
@@ -119,10 +119,10 @@ public class HtmlWriter
         if(invalid(plan, frame, datum1, datum2, stufe1, stufe2, tabelle1, tabelle2, tabelle3, schrift1, schrift2, schrift3))
             return;
 
-        new FileHandler("Data/style.css").write(
+        new FileHandler(Settings.load("pathData") + "/style.css").write(
                 new String[]
                 {
-                    new FileHandler("Data/TEMPLATE style.css").asString()
+                    new FileHandler(Settings.load("pathData") + "/TEMPLATE style.css").asString()
                     .replaceAll("PLAN", plan)
                     .replaceAll("FRAME", frame)
                     .replaceAll("DATUM1", datum1)

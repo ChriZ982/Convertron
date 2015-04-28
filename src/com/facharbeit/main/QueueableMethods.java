@@ -36,6 +36,7 @@ public class QueueableMethods
     public static void genAllBtnActionPerformed() throws Exception
     {
         copySourceBtnActionPerformed();
+        Settings.save("laufschriftText", motdTxt);
         HtmlWriter.plan("heute", HtmlReader.sort(HtmlReader.today()));
         HtmlWriter.plan("morgen", HtmlReader.sort(HtmlReader.tomorrow()));
         HtmlWriter.motd();
@@ -78,8 +79,8 @@ public class QueueableMethods
             return;
 
         Logger.enable(false);
-        new FolderHandler("./Data/Source/").deleteContent();
-        folder.copyContent("./Data/Source/");
+        new FolderHandler(Settings.load("pathData") + "/Source/").deleteContent();
+        folder.copyContent(Settings.load("pathData") + "/Source/");
         folder.deleteContent();
         Logger.enable(true);
         Logger.log("Quellpläne wurden kopiert", 0);
@@ -152,14 +153,20 @@ public class QueueableMethods
     // ================================================== PFADE ==================================================
     public static void selectSourceTodayBtnActionPerformed() throws Exception
     {
-        jFileChooser1.showOpenDialog(null);
-        sourceTxt.setText(jFileChooser1.getSelectedFile().getPath());
+        if(jFileChooser1.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+            sourceTxt.setText(jFileChooser1.getSelectedFile().getPath());
     }
 
     public static void selectBackupBtnActionPerformed() throws Exception
     {
-        jFileChooser1.showOpenDialog(null);
-        backupTxt.setText(jFileChooser1.getSelectedFile().getPath());
+        if(jFileChooser1.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+            backupTxt.setText(jFileChooser1.getSelectedFile().getPath());
+    }
+
+    public static void selectDataPathBtnActionPerformed() throws Exception
+    {
+        if(jFileChooser1.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+            dataPathTxt.setText(jFileChooser1.getSelectedFile().getPath());
     }
 
     public static void selectDestBtnActionPerformed() throws Exception
@@ -167,11 +174,12 @@ public class QueueableMethods
         while(destArea.getText().startsWith("\n"))
             destArea.setText(destArea.getText().substring(1));
 
-        jFileChooser1.showOpenDialog(null);
-
-        if(!destArea.getText().endsWith("\n") && destArea.getText().contains("\n"))
-            destArea.setText(destArea.getText() + "\n");
-        destArea.append(jFileChooser1.getSelectedFile().getPath() + "\n");
+        if(jFileChooser1.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+        {
+            if(!destArea.getText().endsWith("\n") && destArea.getText().contains("\n"))
+                destArea.setText(destArea.getText() + "\n");
+            destArea.append(jFileChooser1.getSelectedFile().getPath() + "\n");
+        }
     }
 
     public static void savePathBtnActionPerformed() throws Exception
@@ -183,6 +191,12 @@ public class QueueableMethods
         Settings.save("pathBackup", backupTxt);
         Settings.saveArray("fileName", fileNamePrefixTxt, fileNameSuffixTxt);
         Settings.saveArray("pathDests", destArea);
+
+        if(!dataPathTxt.getText().equals(Settings.load("pathData")))
+        {
+            new FolderHandler(Settings.load("pathData")).copyContent(dataPathTxt.getText());
+            Settings.save("pathData", dataPathTxt);
+        }
     }
 
     // ================================================== DESIGN ==================================================
@@ -415,6 +429,7 @@ public class QueueableMethods
         Settings.load("sqlUse", useSQLCheck);
         Settings.load("pathSource", sourceTxt);
         Settings.load("pathBackup", backupTxt);
+        Settings.load("pathData", dataPathTxt);
         Settings.load("laufschriftText", motdTxt);
         Settings.load("lessonUse", useHoursCheck);
         Settings.load("planColor", colorPlanCombo);
@@ -561,13 +576,13 @@ public class QueueableMethods
     private static void backupAll(String path) throws Exception
     {
         Logger.enable(false);
-        new FileHandler("Data/settings.ini").copy(path + "/");
-        new FileHandler("Data/heute.html").copy(path + "/");
-        new FileHandler("Data/morgen.html").copy(path + "/");
-        new FileHandler("Data/laufschrift.html").copy(path + "/");
-        new FileHandler("Data/style.css").copy(path + "/");
-        new FileHandler("Data/antonianumLogo.png").copy(path + "/");
-        new FileHandler("Data/VERTRETUNGSPLAN.html").copy(path + "/");
+        new FileHandler("./settings.ini").copy(path + "/");
+        new FileHandler(Settings.load("pathData") + "/heute.html").copy(path + "/");
+        new FileHandler(Settings.load("pathData") + "/morgen.html").copy(path + "/");
+        new FileHandler(Settings.load("pathData") + "/laufschrift.html").copy(path + "/");
+        new FileHandler(Settings.load("pathData") + "/style.css").copy(path + "/");
+        new FileHandler(Settings.load("pathData") + "/antonianumLogo.png").copy(path + "/");
+        new FileHandler(Settings.load("pathData") + "/VERTRETUNGSPLAN.html").copy(path + "/");
         Logger.enable(true);
     }
 
