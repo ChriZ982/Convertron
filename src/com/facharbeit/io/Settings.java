@@ -27,7 +27,10 @@ public class Settings
     public static void init() throws Exception
     {
         logging = true;
-        fileHandler = new FileHandler("Data/settings.ini");
+        fileHandler = new FileHandler("./settings.ini");
+
+        System.out.println(fileHandler.asString());
+
         Logger.log("\"settings.ini\" wurde geladen", 0);
     }
 
@@ -169,12 +172,10 @@ public class Settings
             setting = setting.substring((name + ": {").length(), setting.length() - 2);
             String[] settings = setting.split("\",");
             for(int i = 0; i < settings.length; i++)
-            {
                 if(!settings[i].equals("\""))
                     settings[i] = settings[i].substring(1);
                 else
                     settings[i] = "";
-            }
             return settings;
         }
     }
@@ -230,14 +231,10 @@ public class Settings
     {
         String[] settings = new String[nameAndComp.length - 1];
         if(nameAndComp[1] instanceof JTextField)
-        {
             for(int i = 1; i < nameAndComp.length; i++)
                 settings[i - 1] = ((JTextField)nameAndComp[i]).getText();
-        }
         else if(nameAndComp[1] instanceof JTextArea)
-        {
             settings = ((JTextArea)nameAndComp[1]).getText().split("\n");
-        }
         saveArray((String)nameAndComp[0], settings);
     }
 
@@ -251,10 +248,8 @@ public class Settings
     public static void loadArray(Object... nameAndComp) throws Exception
     {
         if(nameAndComp[1] instanceof JTextField)
-        {
             for(int i = 1; i < nameAndComp.length; i++)
                 ((JTextField)nameAndComp[i]).setText(loadArray((String)nameAndComp[0])[i - 1]);
-        }
     }
 
     /**
@@ -320,13 +315,11 @@ public class Settings
         String[] content = fileHandler.read();
         int line = -1;
         for(int i = 0; i < content.length; i++)
-        {
             if(content[i] != null && content[i].startsWith(name))
             {
                 line = i;
                 break;
             }
-        }
         return line;
     }
 

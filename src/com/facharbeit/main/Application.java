@@ -49,10 +49,12 @@ public class Application
             queue = new ArrayList<QueueElement>();
             frame = new Frame();
 
+            new FileHandler("/com/facharbeit/ressources/stdData/settings.ini").copyFromRes("./");
+
             Logger.init(frame.getStatusPane());
+            Settings.init();
             initData();
             initTray();
-            Settings.init();
 
             String[] pos = Settings.loadArray("position");
             if(!pos[0].isEmpty() && !pos[1].isEmpty())
@@ -108,12 +110,11 @@ public class Application
     {
         try
         {
-            new FileHandler("/com/facharbeit/ressources/stdData/settings.ini").copyFromRes("Data/");
-            new FileHandler("/com/facharbeit/ressources/stdData/antonianumLogo.png").copyFromRes("Data/");
-            new FileHandler("/com/facharbeit/ressources/stdData/TEMPLATE heute morgen.html").copyFromRes("Data/");
-            new FileHandler("/com/facharbeit/ressources/stdData/TEMPLATE laufschrift.html").copyFromRes("Data/");
-            new FileHandler("/com/facharbeit/ressources/stdData/VERTRETUNGSPLAN.html").copyFromRes("Data/");
-            new FileHandler("/com/facharbeit/ressources/stdData/TEMPLATE style.css").copyFromRes("Data/");
+            new FileHandler("/com/facharbeit/ressources/stdData/antonianumLogo.png").copyFromRes(Settings.load("pathData") + "/");
+            new FileHandler("/com/facharbeit/ressources/stdData/TEMPLATE heute morgen.html").copyFromRes(Settings.load("pathData") + "/");
+            new FileHandler("/com/facharbeit/ressources/stdData/TEMPLATE laufschrift.html").copyFromRes(Settings.load("pathData") + "/");
+            new FileHandler("/com/facharbeit/ressources/stdData/VERTRETUNGSPLAN.html").copyFromRes(Settings.load("pathData") + "/");
+            new FileHandler("/com/facharbeit/ressources/stdData/TEMPLATE style.css").copyFromRes(Settings.load("pathData") + "/");
         }
         catch(Exception ex)
         {

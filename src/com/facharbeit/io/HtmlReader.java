@@ -48,10 +48,10 @@ public class HtmlReader
     public static SchoolClass[] today() throws Exception
     {
         SchoolClass[] schoolClasses;
-        if(Settings.load("sqlUse").equals("true") && SqlMode.valueOf(Settings.load("sqlMode")).equals(SqlMode.READ))
+        if(Settings.load("sqlUse").equals("true") && SqlMode.READ.isActive())
             schoolClasses = getAllSql();
         else
-            schoolClasses = getAllHtml(PathConverter.convert("./Data/Source/"));
+            schoolClasses = getAllHtml(PathConverter.convert(Settings.load("pathData") + "/Source/"));
 
         boolean found = false;
         String date = Time.htmlReading(0);
@@ -80,7 +80,7 @@ public class HtmlReader
         if(Settings.load("sqlUse").equals("true") && SqlMode.READ.isActive())
             schoolClasses = getAllSql();
         else
-            schoolClasses = getAllHtml(PathConverter.convert("./Data/Source/"));
+            schoolClasses = getAllHtml(PathConverter.convert(Settings.load("pathData") + "/Source/"));
 
         boolean found = false;
         int i = 0;
@@ -109,7 +109,7 @@ public class HtmlReader
      */
     public static SchoolClass[] forSql() throws Exception
     {
-        return sort(getAllHtml(PathConverter.convert("./Data/Source/")));
+        return sort(getAllHtml(PathConverter.convert(Settings.load("pathData") + "/Source/")));
     }
 
     /**
