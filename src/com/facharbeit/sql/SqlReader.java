@@ -1,4 +1,4 @@
-package com.facharbeit.io;
+package com.facharbeit.sql;
 
 import java.sql.*;
 import java.util.*;
@@ -19,7 +19,7 @@ public class SqlReader
      * @param dbHost     Host zur Datenbank
      * @param dbPort     Port der Datenbank
      * @param dbName     Name der Datenbank
-     * @param dbUser     Nutername der Datenbank
+     * @param dbUser     Nutzername der Datenbank
      * @param dbPassword Passwort der Datenbank
      *
      * @throws java.lang.Exception Fehler
@@ -38,7 +38,7 @@ public class SqlReader
      * Liest alle Zeilen aus einer Datenbank.
      *
      * @param tableName    Name der Tabelle, die ausgelesen werden soll
-     * @param tableColumms Spalten, die ausgelesen werden solen
+     * @param tableColumms Spalten, die ausgelesen werden sollen
      *
      * @return Alle Zeilen der Tabelle
      *

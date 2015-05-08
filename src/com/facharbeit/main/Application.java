@@ -49,10 +49,12 @@ public class Application
             queue = new ArrayList<QueueElement>();
             frame = new Frame();
 
+            new FileHandler("/com/facharbeit/ressources/stdData/settings.ini").copyFromRes("./");
+
             Logger.init(frame.getStatusPane());
+            Settings.init();
             initData();
             initTray();
-            Settings.init();
 
             String[] pos = Settings.loadArray("position");
             if(!pos[0].isEmpty() && !pos[1].isEmpty())
@@ -108,12 +110,11 @@ public class Application
     {
         try
         {
-            new FileHandler("/com/facharbeit/ressources/stdData/settings.ini").copyFromRes("Data/");
-            new FileHandler("/com/facharbeit/ressources/stdData/antonianumLogo.png").copyFromRes("Data/");
-            new FileHandler("/com/facharbeit/ressources/stdData/TEMPLATE heute morgen.html").copyFromRes("Data/");
-            new FileHandler("/com/facharbeit/ressources/stdData/TEMPLATE laufschrift.html").copyFromRes("Data/");
-            new FileHandler("/com/facharbeit/ressources/stdData/VERTRETUNGSPLAN.html").copyFromRes("Data/");
-            new FileHandler("/com/facharbeit/ressources/stdData/TEMPLATE style.css").copyFromRes("Data/");
+            new FileHandler("/com/facharbeit/ressources/stdData/antonianumLogo.png").copyFromRes(Settings.load("pathData") + "/");
+            new FileHandler("/com/facharbeit/ressources/stdData/TEMPLATE heute morgen.html").copyFromRes(Settings.load("pathData") + "/");
+            new FileHandler("/com/facharbeit/ressources/stdData/TEMPLATE laufschrift.html").copyFromRes(Settings.load("pathData") + "/");
+            new FileHandler("/com/facharbeit/ressources/stdData/VERTRETUNGSPLAN.html").copyFromRes(Settings.load("pathData") + "/");
+            new FileHandler("/com/facharbeit/ressources/stdData/TEMPLATE style.css").copyFromRes(Settings.load("pathData") + "/");
         }
         catch(Exception ex)
         {
@@ -188,13 +189,11 @@ public class Application
             Method[] methods = QueueableMethods.class.getDeclaredMethods();
             Method theMethod = null;
             for(Method method : methods)
-            {
                 if(method.getName().equals(methodName))
                 {
                     theMethod = method;
                     break;
                 }
-            }
             queue.add(new QueueElement(theMethod));
         }
         catch(Exception ex)
@@ -265,6 +264,8 @@ public class Application
             {
                 frame.setExtendedState(JFrame.NORMAL);
                 frame.setVisible(true);
+                frame.toFront();
+                frame.requestFocus();
             });
 
             tray.add(trayIcon);
@@ -279,15 +280,13 @@ public class Application
     /**
      * Setzt die Aktionen der verschiedenen Items.
      *
-     * @param genAll        Item
-     * @param genToday      Item
-     * @param genTomorrow   Item
-     * @param genMotd       Item
-     * @param backup        Item
-     * @param removeSources Item
-     * @param show          Item
-     * @param hide          Item
-     * @param exitItem      Item
+     * @param genAll      Item
+     * @param genToday    Item
+     * @param genTomorrow Item
+     * @param backup      Item
+     * @param show        Item
+     * @param hide        Item
+     * @param exitItem    Item
      */
     private void setMenuItems(MenuItem genAll, MenuItem genToday, MenuItem genTomorrow, MenuItem backup,
                               MenuItem show, MenuItem hide, MenuItem exitItem) throws Exception
@@ -312,6 +311,8 @@ public class Application
         {
             frame.setExtendedState(JFrame.NORMAL);
             frame.setVisible(true);
+            frame.toFront();
+            frame.requestFocus();
         });
         hide.addActionListener((java.awt.event.ActionEvent evt) ->
         {

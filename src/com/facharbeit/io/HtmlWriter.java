@@ -1,5 +1,7 @@
 package com.facharbeit.io;
 
+import com.facharbeit.sql.SqlMode;
+import com.facharbeit.sql.SqlTableWriter;
 import com.facharbeit.tools.*;
 import java.util.*;
 
@@ -9,7 +11,7 @@ import java.util.*;
 public class HtmlWriter
 {
     /**
-     * Name der Spalten in die geschreiben werden soll. Editieren, falls andere Namen. Reihenfolge:
+     * Name der Spalten in die geschrieben werden soll. Editieren, falls andere Namen. Reihenfolge:
      * Stufe, Datum, Wochentag, Vertreter, Raum, Art, Fach, Lehrer, Verl. von, Hinweise
      */
     static String[] sqlColumms =
@@ -35,10 +37,10 @@ public class HtmlWriter
         if(invalid(day, speed))
             return;
 
-        new FileHandler("Data/" + type + ".html").write(
+        new FileHandler(Settings.load("pathData") + "/" + type + ".html").write(
                 new String[]
                 {
-                    new FileHandler("Data/TEMPLATE heute morgen.html").asString()
+                    new FileHandler(Settings.load("pathData") + "/TEMPLATE heute morgen.html").asString()
                     .replaceAll("GESCHW", speed)
                     .replaceAll("TAG", day)
                     .replaceAll("VERTRETUNGEN", classes)
@@ -61,10 +63,10 @@ public class HtmlWriter
         if(text.equals("Laufschrift"))
             text = "";
 
-        new FileHandler("Data/laufschrift.html").write(
+        new FileHandler(Settings.load("pathData") + "/laufschrift.html").write(
                 new String[]
                 {
-                    new FileHandler("Data/TEMPLATE laufschrift.html").asString()
+                    new FileHandler(Settings.load("pathData") + "/TEMPLATE laufschrift.html").asString()
                     .replaceAll("GESCHW", speed)
                     .replaceAll("TEXT", text)
                 });
@@ -117,10 +119,10 @@ public class HtmlWriter
         if(invalid(plan, frame, datum1, datum2, stufe1, stufe2, tabelle1, tabelle2, tabelle3, schrift1, schrift2, schrift3))
             return;
 
-        new FileHandler("Data/style.css").write(
+        new FileHandler(Settings.load("pathData") + "/style.css").write(
                 new String[]
                 {
-                    new FileHandler("Data/TEMPLATE style.css").asString()
+                    new FileHandler(Settings.load("pathData") + "/TEMPLATE style.css").asString()
                     .replaceAll("PLAN", plan)
                     .replaceAll("FRAME", frame)
                     .replaceAll("DATUM1", datum1)
@@ -155,7 +157,7 @@ public class HtmlWriter
                                                   PathConverter.convert(settings[3]),
                                                   sqlColumms);
 
-        if(Settings.load("sqlMode").equals("löschen und schreiben"))
+        if(SqlMode.OVERWRITE.isActive())
             write.clear();
 
         ArrayList<String[]> forSql = new ArrayList<>();
@@ -195,7 +197,7 @@ public class HtmlWriter
                              Integer.parseInt(or[4]),
                              Integer.parseInt(or[5]),
                              Integer.parseInt(or[6]));
-            s += schoolClass.asString();
+            s += schoolClass.toHtml();
         }
         if(s.equals(""))
             return "'<p class=\"datum\">Keine Vertretungen</p><br /><br />'+";

@@ -1,5 +1,7 @@
 package com.facharbeit.io;
 
+import com.facharbeit.sql.SqlMode;
+import com.facharbeit.sql.SqlTableReader;
 import com.facharbeit.tools.*;
 import java.io.*;
 import java.util.*;
@@ -46,10 +48,10 @@ public class HtmlReader
     public static SchoolClass[] today() throws Exception
     {
         SchoolClass[] schoolClasses;
-        if(Settings.load("sqlUse").equals("true") && Settings.load("sqlMode").equals("lesen"))
+        if(Settings.load("sqlUse").equals("true") && SqlMode.READ.isActive())
             schoolClasses = getAllSql();
         else
-            schoolClasses = getAllHtml(PathConverter.convert("./Data/Source/"));
+            schoolClasses = getAllHtml(PathConverter.convert(Settings.load("pathData") + "/Source/"));
 
         boolean found = false;
         String date = Time.htmlReading(0);
@@ -75,10 +77,10 @@ public class HtmlReader
     public static SchoolClass[] tomorrow() throws Exception
     {
         SchoolClass[] schoolClasses;
-        if(Settings.load("sqlUse").equals("true") && Settings.load("sqlMode").equals("lesen"))
+        if(Settings.load("sqlUse").equals("true") && SqlMode.READ.isActive())
             schoolClasses = getAllSql();
         else
-            schoolClasses = getAllHtml(PathConverter.convert("./Data/Source/"));
+            schoolClasses = getAllHtml(PathConverter.convert(Settings.load("pathData") + "/Source/"));
 
         boolean found = false;
         int i = 0;
@@ -107,7 +109,7 @@ public class HtmlReader
      */
     public static SchoolClass[] forSql() throws Exception
     {
-        return sort(getAllHtml(PathConverter.convert("./Data/Source/")));
+        return sort(getAllHtml(PathConverter.convert(Settings.load("pathData") + "/Source/")));
     }
 
     /**
@@ -160,15 +162,11 @@ public class HtmlReader
 
                 boolean valid = true;
                 if(entries.containsKey("Std"))
-                {
                     if(!validateAsNumber(entries.get("Std"), '-', ' '))
                         valid = false;
-                }
                 if(entries.containsKey("Datum"))
-                {
                     if(!validateAsNumber(entries.get("Datum"), '.'))
                         valid = false;
-                }
                 if(valid)
                     schoolClasses[i].getEntries().add(new Entry(entries));
                 else
@@ -339,7 +337,6 @@ public class HtmlReader
         ArrayList<File> files = new ArrayList<>();
         File file;
         for(int grade = firstGrade; grade <= lastGrade; grade++)
-        {
             for(int c = 97; c <= 122; c++)
             {
                 String g = String.valueOf(grade) + "" + (char)c;
@@ -351,7 +348,6 @@ public class HtmlReader
                 if(file.exists())
                     files.add(file);
             }
-        }
         for(String g : extraGrades)
         {
             file = new File(path, prefix[0] + g + prefix[1]);
@@ -387,13 +383,11 @@ public class HtmlReader
 
             boolean added = false;
             for(SchoolClass sc : asList)
-            {
                 if(sc.getName().equals(forEntry.get("Stufe")))
                 {
                     sc.getEntries().add(new Entry(forEntry));
                     added = true;
                 }
-            }
             if(!added)
             {
                 SchoolClass sc = new SchoolClass(forEntry.get("Stufe"));
