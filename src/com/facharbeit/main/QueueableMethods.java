@@ -194,7 +194,7 @@ public class QueueableMethods
 
         if(!dataPathTxt.getText().equals(Settings.load("pathData")))
         {
-            new FolderHandler(Settings.load("pathData")).copyContent(dataPathTxt.getText());
+            new FolderHandler(Settings.load("pathData")).copyContent(dataPathTxt.getText() + "\\");
             Settings.save("pathData", dataPathTxt);
         }
     }

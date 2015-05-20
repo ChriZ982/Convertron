@@ -49,10 +49,17 @@ public class Application
             queue = new ArrayList<QueueElement>();
             frame = new Frame();
 
-            new FileHandler("/com/facharbeit/ressources/stdData/settings.ini").copyFromRes("./");
+            boolean firstStart = new FileHandler("./local.settings").exists();
+            if(!firstStart)
+                new FileHandler("/com/facharbeit/ressources/stdData/global.settings").copyFromRes("./Data/");
+            new FileHandler("/com/facharbeit/ressources/stdData/local.settings").copyFromRes("./");
+//            if(firstStart)
+//                new FileHandler("/com/facharbeit/ressources/stdData/global.settings").copyFromRes(Settings.load("pathData") + "/");
 
             Logger.init(frame.getStatusPane());
             Settings.init();
+            if(firstStart)
+                new FileHandler("/com/facharbeit/ressources/stdData/global.settings").copyFromRes(Settings.load("pathData") + "/");
             initData();
             initTray();
 

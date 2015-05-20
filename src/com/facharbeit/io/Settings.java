@@ -15,9 +15,24 @@ public class Settings
     private static FileHandler fileHandler;
 
     /**
+     * Lokaler Speicherort
+     */
+    private static FileHandler fileHandlerLocal;
+
+    /**
+     * Globaler Speicherort
+     */
+    private static FileHandler fileHandlerGlobal;
+
+    /**
      * Soll das Logging aktiviert werden?.
      */
     private static boolean logging;
+
+    /**
+     * Einstellungen, die lokal gespeichert werden. Der Rest wird global gespeichert.
+     */
+    private static ArrayList<String> local;
 
     /**
      * Initialisiert die Einstellungen.
@@ -26,8 +41,16 @@ public class Settings
      */
     public static void init() throws Exception
     {
+        local = new ArrayList<String>();
+        local.add("pathBackup");
+        local.add("pathData");
+        local.add("pathDests");
+        local.add("pathSource");
+        local.add("position");
         logging = true;
-        fileHandler = new FileHandler("./settings.ini");
+        fileHandlerLocal = new FileHandler("./local.settings");
+        fileHandler = fileHandlerLocal;
+        fileHandlerGlobal = new FileHandler(load("pathData") + "\\global.settings");
 
         System.out.println(fileHandler.asString());
 
@@ -44,6 +67,10 @@ public class Settings
      */
     public static void save(String name, String setting) throws Exception
     {
+        if(local.contains(name))
+            fileHandler = fileHandlerLocal;
+        else
+            fileHandler = fileHandlerGlobal;
         if(setting.equals(""))
         {
             delete(name);
@@ -70,6 +97,10 @@ public class Settings
      */
     public static String load(String name) throws Exception
     {
+        if(local.contains(name))
+            fileHandler = fileHandlerLocal;
+        else
+            fileHandler = fileHandlerGlobal;
         int line = line(name);
         if(line == -1)
         {
@@ -94,6 +125,10 @@ public class Settings
      */
     public static void save(String name, JComponent comp) throws Exception
     {
+        if(local.contains(name))
+            fileHandler = fileHandlerLocal;
+        else
+            fileHandler = fileHandlerGlobal;
         if(comp instanceof JTextField)
             save(name, ((JTextField)comp).getText());
         else if(comp instanceof JCheckBox)
@@ -112,6 +147,10 @@ public class Settings
      */
     public static void load(String name, JComponent comp) throws Exception
     {
+        if(local.contains(name))
+            fileHandler = fileHandlerLocal;
+        else
+            fileHandler = fileHandlerGlobal;
         if(comp instanceof JTextField)
             ((JTextField)comp).setText(load(name));
         else if(comp instanceof JCheckBox)
@@ -130,6 +169,10 @@ public class Settings
      */
     public static void saveArray(String name, String[] settings) throws Exception
     {
+        if(local.contains(name))
+            fileHandler = fileHandlerLocal;
+        else
+            fileHandler = fileHandlerGlobal;
         if(settings == null || settings.length == 0)
         {
             delete(name);
@@ -159,6 +202,10 @@ public class Settings
      */
     public static String[] loadArray(String name) throws Exception
     {
+        if(local.contains(name))
+            fileHandler = fileHandlerLocal;
+        else
+            fileHandler = fileHandlerGlobal;
         int line = line(name);
         if(line == -1)
         {
@@ -191,6 +238,10 @@ public class Settings
      */
     public static void saveArrayIndex(String name, String setting, int i) throws Exception
     {
+        if(local.contains(name))
+            fileHandler = fileHandlerLocal;
+        else
+            fileHandler = fileHandlerGlobal;
         if(line(name) == -1)
             return;
         String[] array = loadArray(name);
@@ -217,6 +268,10 @@ public class Settings
      */
     public static String loadArrayIndex(String name, int i) throws Exception
     {
+        if(local.contains(name))
+            fileHandler = fileHandlerLocal;
+        else
+            fileHandler = fileHandlerGlobal;
         return loadArray(name)[i];
     }
 
@@ -229,6 +284,10 @@ public class Settings
      */
     public static void saveArray(Object... nameAndComp) throws Exception
     {
+        if(local.contains((String)nameAndComp[0]))
+            fileHandler = fileHandlerLocal;
+        else
+            fileHandler = fileHandlerGlobal;
         String[] settings = new String[nameAndComp.length - 1];
         if(nameAndComp[1] instanceof JTextField)
             for(int i = 1; i < nameAndComp.length; i++)
@@ -247,6 +306,10 @@ public class Settings
      */
     public static void loadArray(Object... nameAndComp) throws Exception
     {
+        if(local.contains((String)nameAndComp[0]))
+            fileHandler = fileHandlerLocal;
+        else
+            fileHandler = fileHandlerGlobal;
         if(nameAndComp[1] instanceof JTextField)
             for(int i = 1; i < nameAndComp.length; i++)
                 ((JTextField)nameAndComp[i]).setText(loadArray((String)nameAndComp[0])[i - 1]);
@@ -263,6 +326,10 @@ public class Settings
      */
     public static boolean delete(String name) throws Exception
     {
+        if(local.contains(name))
+            fileHandler = fileHandlerLocal;
+        else
+            fileHandler = fileHandlerGlobal;
         int line = line(name);
         if(line == -1)
             return false;
@@ -289,6 +356,10 @@ public class Settings
      */
     public static String[] findNames(String name) throws Exception
     {
+        if(local.contains(name))
+            fileHandler = fileHandlerLocal;
+        else
+            fileHandler = fileHandlerGlobal;
         ArrayList<String> names = new ArrayList<String>();
         String[] file = fileHandler.read();
 
@@ -312,6 +383,10 @@ public class Settings
      */
     public static int line(String name) throws Exception
     {
+        if(local.contains(name))
+            fileHandler = fileHandlerLocal;
+        else
+            fileHandler = fileHandlerGlobal;
         String[] content = fileHandler.read();
         int line = -1;
         for(int i = 0; i < content.length; i++)

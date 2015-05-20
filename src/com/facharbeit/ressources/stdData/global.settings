@@ -19,12 +19,7 @@ lessonOrder: {"0","1","2","3","4","5","6"}
 lessons: {"8:40","9:25","10:30","11:15","12:20","13:05","14:45","15:30","16:20","17:05"}
 lessonSizes: {"9","10","11","8","9","10","26"}
 lessonUse: "true"
-pathBackup: ".\TestBackup"
-pathData: ".\Data"
-pathDests: {".\TestZiel1",".\TestZiel2",".\TestZiel3"}
-pathSource: ".\TestDateien"
 planColor: "Antonsblau"
-position: {"680","400"}
 speed: {"100","100"}
 sql: {"localhost","-1","mysql","facharbeit_test","program","1234"}
 sqlMode: "ADD"
