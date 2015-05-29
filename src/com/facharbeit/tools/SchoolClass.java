@@ -1,6 +1,7 @@
 package com.facharbeit.tools;
 
 import com.facharbeit.io.*;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -57,9 +58,9 @@ public class SchoolClass
      *
      * @return Sind keine Einträge vorhanden?
      *
-     * @throws java.lang.Exception Fehler
+     *
      */
-    public boolean isEmpty() throws Exception
+    public boolean isEmpty()
     {
         if(entries == null)
             return true;
@@ -71,9 +72,9 @@ public class SchoolClass
      *
      * @param newOrder Neue Reihenfolge
      *
-     * @throws java.lang.Exception Fehler
+     *
      */
-    public void sort(int... newOrder) throws Exception
+    public void sort(int... newOrder)
     {
         contentColumms = sort(contentColumms, newOrder);
         for(Entry e : entries)
@@ -88,7 +89,7 @@ public class SchoolClass
      *
      * @return Alter Inhalt neu sortiert
      */
-    private String[] sort(String[] old, int[] newOrder) throws Exception
+    private String[] sort(String[] old, int[] newOrder)
     {
         String[] newContent = new String[newOrder.length];
 
@@ -106,9 +107,10 @@ public class SchoolClass
     /**
      * Löscht vergangene Stunden.
      *
-     * @throws java.lang.Exception Fehler
+     *
+     * @throws java.io.IOException
      */
-    public void cut() throws Exception
+    public void cut() throws IOException
     {
         Settings.enable(false);
         ArrayList<Entry> newEntries = new ArrayList<Entry>();
@@ -132,9 +134,11 @@ public class SchoolClass
      *
      * @return Konvertierte Klasse
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.io.IOException
+     *
+     *
      */
-    public String toHtml() throws Exception
+    public String toHtml() throws IOException
     {
         String s = "";
         String[] sizes = Settings.loadArray("lessonSizes");
@@ -210,9 +214,9 @@ public class SchoolClass
      *
      * @return Einträge des Datums vorhanden?
      *
-     * @throws java.lang.Exception Fehler
+     *
      */
-    public boolean containsEntrysOfDate(String date) throws Exception
+    public boolean containsEntrysOfDate(String date)
     {
         for(Entry e : entries)
             if(e.getDate().equals(date))
@@ -225,9 +229,9 @@ public class SchoolClass
      *
      * @param date Datum (dd.mm.)
      *
-     * @throws java.lang.Exception Fehler
+     *
      */
-    public void onlyDate(String date) throws Exception
+    public void onlyDate(String date)
     {
         curDate = date;
         ArrayList<Entry> newEntrys = new ArrayList<Entry>();

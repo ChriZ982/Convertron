@@ -88,7 +88,7 @@ public class Logger
         }
     }
 
-    public static void logIntern(String text) throws Exception
+    public static void logIntern(String text)
     {
         internLog += Time.log() + text + "\n\n";
     }

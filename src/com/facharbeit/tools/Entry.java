@@ -46,9 +46,9 @@ public class Entry
      *
      * @param content Inhalt des Eintrags
      *
-     * @throws java.lang.Exception Fehler
+     * 
      */
-    public Entry(Map<String, String> content) throws Exception
+    public Entry(Map<String, String> content)
     {
         if(content.get("Std").contains("-"))
         {
@@ -76,9 +76,9 @@ public class Entry
      *
      * @return HTML-Tabellenzeile die die Werte des Eintrags besitzt
      *
-     * @throws java.lang.Exception Fehler
+     * 
      */
-    public String toHtml(String cssClass) throws Exception
+    public String toHtml(String cssClass)
     {
         String s = "";
         s += "'            <tr class=\"" + cssClass + "\">'+\n";
@@ -149,9 +149,9 @@ public class Entry
      *
      * @return Inhalt
      *
-     * @throws java.lang.Exception Fehler
+     * 
      */
-    public String[] getImportantContent() throws Exception
+    public String[] getImportantContent()
     {
         if(importantContentOrder.length < 0 || content == null || content.isEmpty())
             return new String[]
@@ -168,9 +168,9 @@ public class Entry
      *
      * @param c Neuer Inhalt
      *
-     * @throws java.lang.Exception Fehler
+     * 
      */
-    public void setImportantContent(String[] c) throws Exception
+    public void setImportantContent(String[] c)
     {
         for(int i = 0; i < c.length; i++)
             content.put(importantContentOrder[i], c[i]);

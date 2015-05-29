@@ -4,6 +4,7 @@ import com.facharbeit.sql.SqlMode;
 import com.facharbeit.sql.SqlTableReader;
 import com.facharbeit.tools.*;
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 /**
@@ -43,7 +44,11 @@ public class HtmlReader
      *
      * @return Ein Array mit Schulklassen in denen die jeweiligen Vertretungen gespeichert sind
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.lang.reflect.InvocationTargetException
+     * @throws java.lang.IllegalAccessException
+     * @throws java.io.IOException
+     *
+     *
      */
     public static SchoolClass[] today() throws Exception
     {
@@ -72,7 +77,11 @@ public class HtmlReader
      *
      * @return Ein Array mit Schulklassen in denen die jeweiligen Vertretungen gespeichert sind
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.lang.IllegalAccessException
+     * @throws java.lang.reflect.InvocationTargetException
+     * @throws java.io.IOException
+     *
+     *
      */
     public static SchoolClass[] tomorrow() throws Exception
     {
@@ -105,9 +114,13 @@ public class HtmlReader
      *
      * @return Ein Array mit Schulklassen in denen die jeweiligen Vertretungen gespeichert sind
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.lang.reflect.InvocationTargetException
+     * @throws java.lang.IllegalAccessException
+     * @throws java.io.IOException
+     *
+     *
      */
-    public static SchoolClass[] forSql() throws Exception
+    public static SchoolClass[] forSql() throws InvocationTargetException, IllegalAccessException, IOException
     {
         return sort(getAllHtml(PathConverter.convert(Settings.load("pathData") + "/Source/")));
     }
@@ -119,9 +132,11 @@ public class HtmlReader
      *
      * @return Ein Array in denen alle in den Quelldateien vorhandenen Vertretungen gespeichert sind (alle Tage)
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.io.IOException
+     *
+     *
      */
-    public static SchoolClass[] getAllHtml(String path) throws Exception
+    public static SchoolClass[] getAllHtml(String path) throws IOException
     {
         if(new FolderHandler(path).isEmpty())
             return new SchoolClass[]
@@ -195,7 +210,7 @@ public class HtmlReader
      * @return Den genauen HTML-Tag;
      *         Bsp: findHtmlTag("blabla&lt;font color="black"&gt;blabla", "font") gibt "&lt;font color="black"&gt;" züruck
      */
-    private static String findHtmlTag(String source, String toFind) throws Exception
+    private static String findHtmlTag(String source, String toFind)
     {
         if(!source.contains("<" + toFind) || !source.contains(">"))
             return ">";
@@ -211,7 +226,7 @@ public class HtmlReader
      *
      * @return Die Tabelle mit den Vertretungen (Anfang: "&lt;table&gt;"; Ende: "&lt;/table&gt;")
      */
-    private static String getTable(String source) throws Exception
+    private static String getTable(String source)
     {
         source = source.substring(source.indexOf("<TABLE border=\"3\" rules=\"all\" bgcolor=\"#E7E7E7\" cellpadding=\"1\" cellspacing=\"1\">"));
         source = source.substring(0, source.indexOf(findHtmlTag(source, "/TABLE")) + findHtmlTag(source, "/TABLE").length());
@@ -226,7 +241,7 @@ public class HtmlReader
      *
      * @return Ob der String nur aus Ziffern und "extraChars" besteht
      */
-    private static boolean validateAsNumber(String s, char... extraChars) throws Exception
+    private static boolean validateAsNumber(String s, char... extraChars)
     {
         boolean found = false;
         if(s.isEmpty())
@@ -261,7 +276,7 @@ public class HtmlReader
      *
      * @return Die nächste Zelle der Tabelle
      */
-    private static String readEntry(String source) throws Exception
+    private static String readEntry(String source)
     {
         if(source.contains("<font"))
             source = source.substring(source.indexOf(findHtmlTag(source, "font")) + findHtmlTag(source, "font").length());
@@ -285,9 +300,9 @@ public class HtmlReader
      *
      * @return Sortiertes Array
      *
-     * @throws java.lang.Exception Fehler
+     *
      */
-    public static SchoolClass[] sort(SchoolClass[] schoolClasses) throws Exception
+    public static SchoolClass[] sort(SchoolClass[] schoolClasses)
     {
         if(schoolClasses == null)
             return null;
@@ -326,7 +341,7 @@ public class HtmlReader
      *
      * @return Liste der Dateien
      */
-    private static ArrayList<File> getFiles(String path) throws Exception
+    private static ArrayList<File> getFiles(String path) throws IOException
     {
         while(path.endsWith("\\"))
             path = path.substring(0, path.length() - 1);

@@ -296,7 +296,7 @@ public class Application
      * @param exitItem    Item
      */
     private void setMenuItems(MenuItem genAll, MenuItem genToday, MenuItem genTomorrow, MenuItem backup,
-                              MenuItem show, MenuItem hide, MenuItem exitItem) throws Exception
+                              MenuItem show, MenuItem hide, MenuItem exitItem)
     {
         genAll.addActionListener((java.awt.event.ActionEvent evt) ->
         {

@@ -28,9 +28,12 @@ public class SqlWriter
      * @param dbUser     Nutername der Datenbank
      * @param dbPassword Passwort der Datenbank
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
+     *
+     *
      */
-    public SqlWriter(String dbHost, int dbPort, String dbName, String dbUser, String dbPassword) throws Exception
+    public SqlWriter(String dbHost, int dbPort, String dbName, String dbUser, String dbPassword) throws ClassNotFoundException, SQLException
     {
         this.dbName = dbName;
         Class.forName("com.mysql.jdbc.Driver");
@@ -48,9 +51,11 @@ public class SqlWriter
      * @param tableColumms Spalten, die es in den Zeilen geben soll
      * @param data         Inhalt, der geschrieben werden soll
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.sql.SQLException
+     *
+     *
      */
-    public void addAll(String tableName, String[] tableColumms, ArrayList<String[]> data) throws Exception
+    public void addAll(String tableName, String[] tableColumms, ArrayList<String[]> data) throws SQLException
     {
         if(con != null)
             for(String[] lineData : data)
@@ -89,9 +94,11 @@ public class SqlWriter
      * @param tableColumms Spalten, die es in der Zeile geben soll
      * @param data         Inhalt, der geschrieben werden soll
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.sql.SQLException
+     *
+     *
      */
-    public void addLine(String tableName, String[] tableColumms, String[] data) throws Exception
+    public void addLine(String tableName, String[] tableColumms, String[] data) throws SQLException
     {
         ArrayList<String[]> dataList = new ArrayList<String[]>();
         dataList.set(0, data);
@@ -105,9 +112,11 @@ public class SqlWriter
      * @param tableColumm Spalte, die es in der Zeile geben soll
      * @param data        Inhalt, der geschrieben werden soll
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.sql.SQLException
+     *
+     *
      */
-    public void addCell(String tableName, String tableColumm, String data) throws Exception
+    public void addCell(String tableName, String tableColumm, String data) throws SQLException
     {
         String[] tableColumms =
         {
@@ -125,9 +134,11 @@ public class SqlWriter
      *
      * @param tableName Name der zu leerende Tabelle
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.sql.SQLException
+     *
+     *
      */
-    public void clear(String tableName) throws Exception
+    public void clear(String tableName) throws SQLException
     {
         Statement query = con.createStatement();
         query.execute("TRUNCATE TABLE `" + dbName + "`.`" + tableName + "`");

@@ -1,5 +1,6 @@
 package com.facharbeit.sql;
 
+import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -28,9 +29,12 @@ public class SqlTableReader extends SqlReader
      * @param tableName    Name der Tabelle
      * @param tableColumms Spalten, die es geben soll
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
+     *
+     *
      */
-    public SqlTableReader(String dbHost, int dbPort, String dbName, String dbUser, String dbPassword, String tableName, String[] tableColumms) throws Exception
+    public SqlTableReader(String dbHost, int dbPort, String dbName, String dbUser, String dbPassword, String tableName, String[] tableColumms) throws ClassNotFoundException, SQLException
     {
         super(dbHost, dbPort, dbName, dbUser, dbPassword);
         this.tableColumms = tableColumms;
@@ -42,9 +46,11 @@ public class SqlTableReader extends SqlReader
      *
      * @return Inhalt der Tabelle
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.sql.SQLException
+     *
+     *
      */
-    public ArrayList<String[]> readAll() throws Exception
+    public ArrayList<String[]> readAll() throws SQLException
     {
         return readAll(this.tableName, this.tableColumms);
     }
@@ -56,9 +62,11 @@ public class SqlTableReader extends SqlReader
      *
      * @return Inhalt der Zeile
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.sql.SQLException
+     *
+     *
      */
-    public String[] read(int line) throws Exception
+    public String[] read(int line) throws SQLException
     {
         return readAll().get(line);
     }
@@ -71,9 +79,11 @@ public class SqlTableReader extends SqlReader
      *
      * @return Inhalt der Zelle
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.sql.SQLException
+     *
+     *
      */
-    public String read(String tableColumm, int line) throws Exception
+    public String read(String tableColumm, int line) throws SQLException
     {
         String[] columm =
         {

@@ -2,6 +2,7 @@ package com.facharbeit.io;
 
 import com.facharbeit.tools.Logger;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.*;
 import java.util.Iterator;
 
@@ -40,9 +41,11 @@ public class FolderHandler
      *
      * @param dest Zielpfad
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.io.IOException
+     *
+     *
      */
-    public void copyContent(String dest) throws Exception
+    public void copyContent(String dest) throws IOException
     {
         Iterator it = Files.list(Paths.get(file.getPath())).iterator();
         Logger.enable(false);
@@ -55,9 +58,10 @@ public class FolderHandler
     /**
      * Löscht den Inhalt des Ordners.
      *
-     * @throws java.lang.Exception Fehler
+     *
+     * @throws java.io.IOException
      */
-    public void deleteContent() throws Exception
+    public void deleteContent() throws IOException
     {
         if(!exists())
             return;
@@ -74,9 +78,9 @@ public class FolderHandler
      *
      * @return Existiert er?
      *
-     * @throws java.lang.Exception Fehler
+     *
      */
-    public boolean exists() throws Exception
+    public boolean exists()
     {
         return file.isDirectory() && file.exists();
     }
@@ -86,9 +90,11 @@ public class FolderHandler
      *
      * @return Ist er leer?
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.io.IOException
+     *
+     *
      */
-    public boolean isEmpty() throws Exception
+    public boolean isEmpty() throws IOException
     {
         return !exists() || !Files.list(Paths.get(file.getPath())).iterator().hasNext();
     }

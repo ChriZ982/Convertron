@@ -1,5 +1,7 @@
 package com.facharbeit.sql;
 
+import java.io.IOException;
+
 /**
  * Die verschiedenen SQL-Modi.
  */
@@ -16,7 +18,7 @@ public enum SqlMode
      *
      * @throws Exception
      */
-    public boolean isActive() throws Exception
+    public boolean isActive() throws IOException
     {
         return com.facharbeit.io.Settings.load("sqlMode").equals(this.toString());
     }

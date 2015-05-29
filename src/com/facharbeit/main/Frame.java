@@ -15,9 +15,9 @@ public class Frame extends javax.swing.JFrame
     /**
      * Erstellt ein neues Fenster.
      *
-     * @throws java.lang.Exception Fehler
+     * 
      */
-    public Frame() throws Exception
+    public Frame()
     {
         initComponents();
     }

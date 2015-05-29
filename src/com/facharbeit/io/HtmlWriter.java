@@ -3,6 +3,7 @@ package com.facharbeit.io;
 import com.facharbeit.sql.SqlMode;
 import com.facharbeit.sql.SqlTableWriter;
 import com.facharbeit.tools.*;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -25,9 +26,13 @@ public class HtmlWriter
      * @param schoolClasses Schulklassen
      * @param type          Heute oder Morgen
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.io.UnsupportedEncodingException
+     * @throws java.io.IOException
+     * @throws java.io.FileNotFoundException
+     *
+     *
      */
-    public static void plan(String type, SchoolClass[] schoolClasses) throws Exception
+    public static void plan(String type, SchoolClass[] schoolClasses) throws UnsupportedEncodingException, FileNotFoundException, IOException
     {
         if(type.equals("heute"))
             schoolClasses = cut(schoolClasses);
@@ -51,9 +56,11 @@ public class HtmlWriter
     /**
      * Generiert die Laufschrift.
      *
-     * @throws java.lang.Exception Fehler
+     *
+     * @throws java.io.UnsupportedEncodingException
+     * @throws java.io.FileNotFoundException
      */
-    public static void motd() throws Exception
+    public static void motd() throws UnsupportedEncodingException, FileNotFoundException, IOException
     {
         String speed = Integer.toString((int)(Double.parseDouble(Settings.loadArray("speed")[1]) / 100.0 * 15.0));
         String text = Settings.load("laufschriftText");
@@ -76,9 +83,11 @@ public class HtmlWriter
     /**
      * Generiert die Style-Datei der Seite.
      *
-     * @throws java.lang.Exception Fehler
+     *
+     * @throws java.io.UnsupportedEncodingException
+     * @throws java.io.FileNotFoundException
      */
-    public static void style() throws Exception
+    public static void style() throws UnsupportedEncodingException, FileNotFoundException, IOException
     {
         String plan = Settings.load("color" + Settings.load("planColor"));
         String frame = Settings.load("color" + Settings.load("borderColor"));
@@ -143,7 +152,10 @@ public class HtmlWriter
     /**
      * Schreibt in Datenbank.
      *
-     * @throws java.lang.Exception Fehler
+     *
+     * @throws java.lang.reflect.InvocationTargetException
+     * @throws java.lang.IllegalAccessException
+     * @throws java.io.IOException
      */
     public static void sql() throws Exception
     {
@@ -181,7 +193,7 @@ public class HtmlWriter
      *
      * @return Formatierte Schulklassen als String
      */
-    private static String classes(SchoolClass[] schoolClasses) throws Exception
+    private static String classes(SchoolClass[] schoolClasses) throws IOException
     {
         if(schoolClasses == null)
             return "'<p class=\"datum\">Keine Vertretungen</p><br /><br />'+";
@@ -211,7 +223,7 @@ public class HtmlWriter
      *
      * @return Das bearbeitete Array
      */
-    private static SchoolClass[] cut(SchoolClass[] scs) throws Exception
+    private static SchoolClass[] cut(SchoolClass[] scs) throws IOException
     {
         if(Settings.load("lessonUse").equals("true"))
             if(scs != null && scs.length > 0)
@@ -227,7 +239,7 @@ public class HtmlWriter
      *
      * @return Kopf der Seite
      */
-    private static String head(SchoolClass[] schoolClasses) throws Exception
+    private static String head(SchoolClass[] schoolClasses) throws IOException
     {
         if(schoolClasses == null)
             return "Keine Vertretungen";
@@ -241,7 +253,7 @@ public class HtmlWriter
      *
      * @return Sind die Strings verwendbar?
      */
-    private static boolean invalid(String... test) throws Exception
+    private static boolean invalid(String... test)
     {
         for(String s : test)
             if(s.equals(""))

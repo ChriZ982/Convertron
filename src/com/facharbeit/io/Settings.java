@@ -1,6 +1,7 @@
 package com.facharbeit.io;
 
 import com.facharbeit.tools.Logger;
+import java.io.IOException;
 import java.util.*;
 import javax.swing.*;
 
@@ -37,9 +38,10 @@ public class Settings
     /**
      * Initialisiert die Einstellungen.
      *
-     * @throws java.lang.Exception Fehler
+     *
+     * @throws java.io.IOException
      */
-    public static void init() throws Exception
+    public static void init() throws IOException
     {
         local = new ArrayList<String>();
         local.add("pathBackup");
@@ -63,9 +65,11 @@ public class Settings
      * @param name    Name der Einstellung
      * @param setting Wert der Einstellung
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.io.IOException
+     *
+     *
      */
-    public static void save(String name, String setting) throws Exception
+    public static void save(String name, String setting) throws IOException
     {
         if(local.contains(name))
             fileHandler = fileHandlerLocal;
@@ -93,9 +97,11 @@ public class Settings
      *
      * @return Wert der Einstellung
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.io.IOException
+     *
+     *
      */
-    public static String load(String name) throws Exception
+    public static String load(String name) throws IOException
     {
         if(local.contains(name))
             fileHandler = fileHandlerLocal;
@@ -121,9 +127,11 @@ public class Settings
      * @param name Name der Einstellung
      * @param comp Komponente die bearbeitet wird
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.io.IOException
+     *
+     *
      */
-    public static void save(String name, JComponent comp) throws Exception
+    public static void save(String name, JComponent comp) throws IOException
     {
         if(local.contains(name))
             fileHandler = fileHandlerLocal;
@@ -143,9 +151,11 @@ public class Settings
      * @param name Name der einstellung
      * @param comp Komponente die bearbeitet wird
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.io.IOException
+     *
+     *
      */
-    public static void load(String name, JComponent comp) throws Exception
+    public static void load(String name, JComponent comp) throws IOException
     {
         if(local.contains(name))
             fileHandler = fileHandlerLocal;
@@ -165,9 +175,11 @@ public class Settings
      * @param name     Name der Einstellung
      * @param settings Werte der Einstellung
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.io.IOException
+     *
+     *
      */
-    public static void saveArray(String name, String[] settings) throws Exception
+    public static void saveArray(String name, String[] settings) throws IOException
     {
         if(local.contains(name))
             fileHandler = fileHandlerLocal;
@@ -198,9 +210,11 @@ public class Settings
      *
      * @return Werte der Einstellung
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.io.IOException
+     *
+     *
      */
-    public static String[] loadArray(String name) throws Exception
+    public static String[] loadArray(String name) throws IOException
     {
         if(local.contains(name))
             fileHandler = fileHandlerLocal;
@@ -234,9 +248,11 @@ public class Settings
      * @param setting Wert der Einstellung
      * @param i       Index der Einstellung
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.io.IOException
+     *
+     *
      */
-    public static void saveArrayIndex(String name, String setting, int i) throws Exception
+    public static void saveArrayIndex(String name, String setting, int i) throws IOException
     {
         if(local.contains(name))
             fileHandler = fileHandlerLocal;
@@ -264,9 +280,11 @@ public class Settings
      *
      * @return Wert der Einstellung
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.io.IOException
+     *
+     *
      */
-    public static String loadArrayIndex(String name, int i) throws Exception
+    public static String loadArrayIndex(String name, int i) throws IOException
     {
         if(local.contains(name))
             fileHandler = fileHandlerLocal;
@@ -280,9 +298,11 @@ public class Settings
      *
      * @param nameAndComp Name und Komponenten für die Einstellung
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.io.IOException
+     *
+     *
      */
-    public static void saveArray(Object... nameAndComp) throws Exception
+    public static void saveArray(Object... nameAndComp) throws IOException
     {
         if(local.contains((String)nameAndComp[0]))
             fileHandler = fileHandlerLocal;
@@ -302,9 +322,11 @@ public class Settings
      *
      * @param nameAndComp Name der Einstellung
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.io.IOException
+     *
+     *
      */
-    public static void loadArray(Object... nameAndComp) throws Exception
+    public static void loadArray(Object... nameAndComp) throws IOException
     {
         if(local.contains((String)nameAndComp[0]))
             fileHandler = fileHandlerLocal;
@@ -322,9 +344,11 @@ public class Settings
      *
      * @return Konnte die Einstellung gelöscht werden?
      *
-     * @throws java.lang.Exception Fehler Fehler
+     * Fehler
+     *
+     * @throws java.io.IOException
      */
-    public static boolean delete(String name) throws Exception
+    public static boolean delete(String name) throws IOException
     {
         if(local.contains(name))
             fileHandler = fileHandlerLocal;
@@ -352,9 +376,11 @@ public class Settings
      *
      * @return Einstellungen mit gleich beginnendem Namen
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.io.IOException
+     *
+     *
      */
-    public static String[] findNames(String name) throws Exception
+    public static String[] findNames(String name) throws IOException
     {
         if(local.contains(name))
             fileHandler = fileHandlerLocal;
@@ -379,9 +405,11 @@ public class Settings
      *
      * @return Zeile der Einstellung (-1 wenn nicht vorhanden)
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.io.IOException
+     *
+     *
      */
-    public static int line(String name) throws Exception
+    public static int line(String name) throws IOException
     {
         if(local.contains(name))
             fileHandler = fileHandlerLocal;
@@ -411,9 +439,10 @@ public class Settings
     /**
      * Sortiert die Datei.
      *
-     * @throws java.lang.Exception Fehler
+     *
+     * @throws java.io.IOException
      */
-    public static void sort() throws Exception
+    public static void sort() throws IOException
     {
         List<String> settings = Arrays.asList(fileHandler.read());
         Collections.sort(settings, String.CASE_INSENSITIVE_ORDER);

@@ -6,6 +6,7 @@ import com.facharbeit.sql.SqlMode;
 import static com.facharbeit.sql.SqlMode.values;
 import com.facharbeit.tools.*;
 import java.awt.*;
+import java.io.IOException;
 import javax.swing.*;
 
 /**
@@ -15,14 +16,14 @@ import javax.swing.*;
 public class QueueableMethods
 {
     // ================================================== ÜBERSICHT ==================================================
-    public static void motdTxtFocusGained() throws Exception
+    public static void motdTxtFocusGained()
     {
         if(motdTxt.getText().equals("Laufschrift"))
             motdTxt.setText("");
         motdTxt.setForeground(Color.BLACK);
     }
 
-    public static void motdTxtFocusLost() throws Exception
+    public static void motdTxtFocusLost()
     {
         if(motdTxt.getText().equals(""))
         {
@@ -65,14 +66,14 @@ public class QueueableMethods
         saveDesignBtnActionPerformed();
     }
 
-    public static void createBackupBtnActionPerformed() throws Exception
+    public static void createBackupBtnActionPerformed() throws IOException
     {
         String path = Settings.load("pathBackup");
         backupAll(path);
         Logger.log("Backup wurde fertiggestellt", 0);
     }
 
-    public static void copySourceBtnActionPerformed() throws Exception
+    public static void copySourceBtnActionPerformed() throws IOException
     {
         FolderHandler folder = new FolderHandler(Settings.load("pathSource"));
         if(folder.isEmpty())
@@ -87,19 +88,19 @@ public class QueueableMethods
     }
 
     // ================================================== EINSTELLUNGEN ==================================================
-    public static void useHoursCheckStateChanged() throws Exception
+    public static void useHoursCheckStateChanged()
     {
         setEnabled(useHoursCheck, hoursHeadLabel, hour1Label, hour2Label, hour3Label, hour4Label, hour5Label, hour6Label,
                    hour7Label, hour8Label, hour9Label, hour10Label, hour1Txt, hour2Txt, hour3Txt, hour4Txt, hour5Txt,
                    hour6Txt, hour7Txt, hour8Txt, hour9Txt, hour10Txt);
     }
 
-    public static void customSourceCheckStateChanged() throws Exception
+    public static void customSourceCheckStateChanged()
     {
         setEnabled(customSourceCheck, sourceTodayTxt, sourceTomorrowTxt, jLabel10, jLabel22);
     }
 
-    public static void settingsSaveBtnActionPerformed() throws Exception
+    public static void settingsSaveBtnActionPerformed() throws IOException
     {
         String[] size = new String[7];
         String[] order = new String[7];
@@ -151,25 +152,25 @@ public class QueueableMethods
     }
 
     // ================================================== PFADE ==================================================
-    public static void selectSourceTodayBtnActionPerformed() throws Exception
+    public static void selectSourceTodayBtnActionPerformed()
     {
         if(jFileChooser1.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
             sourceTxt.setText(jFileChooser1.getSelectedFile().getPath());
     }
 
-    public static void selectBackupBtnActionPerformed() throws Exception
+    public static void selectBackupBtnActionPerformed()
     {
         if(jFileChooser1.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
             backupTxt.setText(jFileChooser1.getSelectedFile().getPath());
     }
 
-    public static void selectDataPathBtnActionPerformed() throws Exception
+    public static void selectDataPathBtnActionPerformed()
     {
         if(jFileChooser1.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
             dataPathTxt.setText(jFileChooser1.getSelectedFile().getPath());
     }
 
-    public static void selectDestBtnActionPerformed() throws Exception
+    public static void selectDestBtnActionPerformed()
     {
         while(destArea.getText().startsWith("\n"))
             destArea.setText(destArea.getText().substring(1));
@@ -182,7 +183,7 @@ public class QueueableMethods
         }
     }
 
-    public static void savePathBtnActionPerformed() throws Exception
+    public static void savePathBtnActionPerformed() throws IOException
     {
         while(destArea.getText().startsWith("\n"))
             destArea.setText(destArea.getText().substring(1));
@@ -200,7 +201,7 @@ public class QueueableMethods
     }
 
     // ================================================== DESIGN ==================================================
-    public static void typeToEditTxtFocusLost() throws Exception
+    public static void typeToEditTxtFocusLost()
     {
         if(typeToEditTxt.getText().equals(""))
         {
@@ -211,14 +212,14 @@ public class QueueableMethods
             typeToEditTxt.setForeground(Color.BLACK);
     }
 
-    public static void typeToEditTxtFocusGained() throws Exception
+    public static void typeToEditTxtFocusGained()
     {
         if(typeToEditTxt.getText().equals("Vertretungsart"))
             typeToEditTxt.setText("");
         typeToEditTxt.setForeground(Color.BLACK);
     }
 
-    public static void colorNameTxtFocusLost() throws Exception
+    public static void colorNameTxtFocusLost()
     {
         if(colorNameTxt.getText().equals(""))
         {
@@ -229,14 +230,14 @@ public class QueueableMethods
             colorNameTxt.setForeground(Color.BLACK);
     }
 
-    public static void colorNameTxtFocusGained() throws Exception
+    public static void colorNameTxtFocusGained()
     {
         if(colorNameTxt.getText().equals("Farbenname"))
             colorNameTxt.setText("");
         colorNameTxt.setForeground(Color.BLACK);
     }
 
-    public static void addColorBtnActionPerformed() throws Exception
+    public static void addColorBtnActionPerformed() throws IOException
     {
         if(colorNameTxt.getText().equals("Farbenname") || colorNameTxt.getText().equals(""))
             return;
@@ -252,7 +253,7 @@ public class QueueableMethods
         }
     }
 
-    public static void deleteColorBtnActionPerformed() throws Exception
+    public static void deleteColorBtnActionPerformed() throws IOException
     {
         Settings.delete("color" + colorNameTxt.getText());
         loadColors(colorPlanCombo, colorMotdCombo, colorTableCombo, colorBorderCombo, fontColorCombo, backgroundColorCombo);
@@ -262,7 +263,7 @@ public class QueueableMethods
         colorMotdCombo.setSelectedItem(Settings.loadArrayIndex("laufschriftFont", 4));
     }
 
-    public static void colorPlanComboItemStateChanged() throws Exception
+    public static void colorPlanComboItemStateChanged() throws IOException
     {
         if(colorPlanCombo.getSelectedItem().toString().equals("Keine Farbe"))
             return;
@@ -271,7 +272,7 @@ public class QueueableMethods
             Settings.save("planColor", colorPlanCombo);
     }
 
-    public static void colorMotdComboItemStateChanged() throws Exception
+    public static void colorMotdComboItemStateChanged() throws IOException
     {
         if(colorMotdCombo.getSelectedItem().toString().equals("Keine Farbe"))
             return;
@@ -280,7 +281,7 @@ public class QueueableMethods
             Settings.saveArrayIndex("laufschriftFont", colorMotdCombo.getSelectedItem().toString(), 4);
     }
 
-    public static void colorTableComboItemStateChanged() throws Exception
+    public static void colorTableComboItemStateChanged() throws IOException
     {
         if(colorTableCombo.getSelectedItem().toString().equals("Keine Farbe"))
             return;
@@ -289,7 +290,7 @@ public class QueueableMethods
             Settings.saveArrayIndex("tabelleFont", colorTableCombo.getSelectedItem().toString(), 4);
     }
 
-    public static void colorBorderComboItemStateChanged() throws Exception
+    public static void colorBorderComboItemStateChanged() throws IOException
     {
         if(colorBorderCombo.getSelectedItem().toString().equals("Keine Farbe"))
             return;
@@ -298,7 +299,7 @@ public class QueueableMethods
             Settings.save("borderColor", colorBorderCombo);
     }
 
-    public static void typeToEditComboItemStateChanged() throws Exception
+    public static void typeToEditComboItemStateChanged() throws IOException
     {
         fontTypeTxt.setText("");
         fontSizeTxt.setText("");
@@ -335,7 +336,7 @@ public class QueueableMethods
         }
     }
 
-    public static void fontColorComboItemStateChanged() throws Exception
+    public static void fontColorComboItemStateChanged() throws IOException
     {
         if(fontColorCombo.getSelectedItem().toString().equals("Keine Farbe"))
             return;
@@ -344,7 +345,7 @@ public class QueueableMethods
             Settings.saveArrayIndex(extractName(typeToEditCombo), fontColorCombo.getSelectedItem().toString(), 3);
     }
 
-    public static void backgroundColorComboItemStateChanged() throws Exception
+    public static void backgroundColorComboItemStateChanged() throws IOException
     {
         if(backgroundColorCombo.getSelectedItem().toString().equals("Keine Farbe"))
             return;
@@ -353,17 +354,17 @@ public class QueueableMethods
             Settings.saveArrayIndex(extractName(typeToEditCombo), backgroundColorCombo.getSelectedItem().toString(), 4);
     }
 
-    public static void fontTypeTxtActionPerformed() throws Exception
+    public static void fontTypeTxtActionPerformed() throws IOException
     {
         Settings.saveArrayIndex(extractName(typeToEditCombo), fontTypeTxt.getText(), 2);
     }
 
-    public static void fontSizeTxtActionPerformed() throws Exception
+    public static void fontSizeTxtActionPerformed() throws IOException
     {
         Settings.saveArrayIndex(extractName(typeToEditCombo), fontSizeTxt.getText(), 1);
     }
 
-    public static void styleCheckActionPerformed() throws Exception
+    public static void styleCheckActionPerformed() throws IOException
     {
         String setting = "";
         if(boldCheck.isSelected() && italicCheck.isSelected())
@@ -375,7 +376,7 @@ public class QueueableMethods
         Settings.saveArrayIndex(extractName(typeToEditCombo), setting, 0);
     }
 
-    public static void addTypeBtnActionPerformed() throws Exception
+    public static void addTypeBtnActionPerformed() throws IOException
     {
         if(typeToEditTxt.getText().equals("Vertretungsart") || typeToEditTxt.getText().equals(""))
             return;
@@ -387,7 +388,7 @@ public class QueueableMethods
                            });
     }
 
-    public static void deleteTypeBtnActionPerformed() throws Exception
+    public static void deleteTypeBtnActionPerformed() throws IOException
     {
         typeToEditCombo.removeItem("Art: " + typeToEditTxt.getText());
         Settings.delete("art" + typeToEditTxt.getText().replaceAll("\\.", "") + "Font");
@@ -405,13 +406,13 @@ public class QueueableMethods
     }
 
     // ================================================== SQL ==================================================
-    public static void useSQLCheckStateChanged() throws Exception
+    public static void useSQLCheckStateChanged()
     {
         setEnabled(useSQLCheck, dbHostLabel, dbPortLabel, dbNameLabel, dbUserLabel, dbPwLabel, dbTableNameLabel, dbHostTxt, dbPortTxt,
                    dbNameTxt, dbUserTxt, dbPwTxt, dbTableNameTxt, sqlModeLabel, sqlModeReadRBtn, sqlModeWriteRBtn, sqlModeDelWriteRBtn);
     }
 
-    public static void SQLsaveBtnActionPerformed() throws Exception
+    public static void SQLsaveBtnActionPerformed() throws IOException
     {
         Settings.save("sqlMode", (sqlModeReadRBtn.isSelected() ? SqlMode.READ : sqlModeDelWriteRBtn.isSelected() ? SqlMode.OVERWRITE : SqlMode.ADD).toString());
         Settings.save("sqlUse", useSQLCheck);
@@ -419,7 +420,7 @@ public class QueueableMethods
     }
 
     // ================================================== ANDERES ==================================================
-    public static void loadSettings() throws Exception
+    public static void loadSettings() throws IOException
     {
         boldCheck.setSelected(false);
         italicCheck.setSelected(false);
@@ -530,7 +531,7 @@ public class QueueableMethods
      *
      * @return Name des ausgewählten Items
      */
-    private static String extractName(JComboBox<String> combo) throws Exception
+    private static String extractName(JComboBox<String> combo)
     {
         String s;
         if(combo.getSelectedItem().toString().startsWith("Art:"))
@@ -546,7 +547,7 @@ public class QueueableMethods
      * @param colorCombos ComboBoxen
      */
     @SafeVarargs
-    private static void loadColors(JComboBox<String>... colorCombos) throws Exception
+    private static void loadColors(JComboBox<String>... colorCombos) throws IOException
     {
         for(JComboBox<String> cb : colorCombos)
         {
@@ -573,7 +574,7 @@ public class QueueableMethods
      *
      * @param path Pfad
      */
-    private static void backupAll(String path) throws Exception
+    private static void backupAll(String path) throws IOException
     {
         Logger.enable(false);
         new FileHandler("./settings.ini").copy(path + "/");
@@ -595,7 +596,7 @@ public class QueueableMethods
      * @param head     Name der Spalte
      * @param setting  Größe der Spalte
      */
-    private static void loadTable(JTable table, int index, int newIndex, String head, String setting) throws Exception
+    private static void loadTable(JTable table, int index, int newIndex, String head, String setting)
     {
         table.getColumnModel().getColumn(index).setHeaderValue(head);
         table.getColumnModel().getColumn(index).setModelIndex(newIndex);

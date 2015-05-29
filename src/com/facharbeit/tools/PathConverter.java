@@ -1,5 +1,6 @@
 package com.facharbeit.tools;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
@@ -54,9 +55,12 @@ public class PathConverter
      *
      * @return Den konvertierten String s.
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.lang.reflect.InvocationTargetException
+     * @throws java.lang.IllegalAccessException
+     *
+     *
      */
-    public static String convert(String s, String date) throws Exception
+    public static String convert(String s, String date) throws InvocationTargetException, IllegalAccessException
     {
         Method[] convertOperations = ConvertableExpressions.class.getDeclaredMethods();
         ArrayList<StringPart> parts = new ArrayList<>();
@@ -97,9 +101,12 @@ public class PathConverter
      *
      * @return Den konvertierten String s.
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.lang.reflect.InvocationTargetException
+     * @throws java.lang.IllegalAccessException
+     *
+     *
      */
-    public static String convert(String s) throws Exception
+    public static String convert(String s) throws InvocationTargetException, IllegalAccessException
     {
         return convert(s, null);
     }

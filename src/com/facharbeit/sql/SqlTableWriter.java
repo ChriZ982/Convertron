@@ -1,5 +1,6 @@
 package com.facharbeit.sql;
 
+import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -28,9 +29,12 @@ public class SqlTableWriter extends SqlWriter
      * @param tableName    Name der Tabelle
      * @param tableColumms Spalten, die es geben soll
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
+     *
+     *
      */
-    public SqlTableWriter(String dbHost, int dbPort, String dbName, String dbUser, String dbPassword, String tableName, String[] tableColumms) throws Exception
+    public SqlTableWriter(String dbHost, int dbPort, String dbName, String dbUser, String dbPassword, String tableName, String[] tableColumms) throws ClassNotFoundException, SQLException
     {
         super(dbHost, dbPort, dbName, dbUser, dbPassword);
         this.tableColumms = tableColumms;
@@ -42,9 +46,11 @@ public class SqlTableWriter extends SqlWriter
      *
      * @param data Inhalt der Zeilen
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.sql.SQLException
+     *
+     *
      */
-    public void addAll(ArrayList<String[]> data) throws Exception
+    public void addAll(ArrayList<String[]> data) throws SQLException
     {
         addAll(tableName, tableColumms, data);
     }
@@ -54,9 +60,11 @@ public class SqlTableWriter extends SqlWriter
      *
      * @param data Inhalt der Zeile
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.sql.SQLException
+     *
+     *
      */
-    public void add(String[] data) throws Exception
+    public void add(String[] data) throws SQLException
     {
         addLine(tableName, tableColumms, data);
     }
@@ -67,9 +75,11 @@ public class SqlTableWriter extends SqlWriter
      * @param tableColumm Name der Zelle
      * @param data        Inhalt der Zelle
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.sql.SQLException
+     *
+     *
      */
-    public void add(String tableColumm, String data) throws Exception
+    public void add(String tableColumm, String data) throws SQLException
     {
         addCell(tableName, tableColumm, data);
     }
@@ -77,9 +87,10 @@ public class SqlTableWriter extends SqlWriter
     /**
      * Leert die Tabelle. (TRUNCATE)
      *
-     * @throws java.lang.Exception Fehler
+     *
+     * @throws java.sql.SQLException
      */
-    public void clear() throws Exception
+    public void clear() throws SQLException
     {
         clear(tableName);
     }

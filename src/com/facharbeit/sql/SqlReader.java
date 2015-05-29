@@ -22,9 +22,12 @@ public class SqlReader
      * @param dbUser     Nutzername der Datenbank
      * @param dbPassword Passwort der Datenbank
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
+     *
+     *
      */
-    public SqlReader(String dbHost, int dbPort, String dbName, String dbUser, String dbPassword) throws Exception
+    public SqlReader(String dbHost, int dbPort, String dbName, String dbUser, String dbPassword) throws ClassNotFoundException, SQLException
     {
         Class.forName("com.mysql.jdbc.Driver");
         String url = "jdbc:mysql://" + dbHost;
@@ -42,9 +45,11 @@ public class SqlReader
      *
      * @return Alle Zeilen der Tabelle
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.sql.SQLException
+     *
+     *
      */
-    public ArrayList<String[]> readAll(String tableName, String... tableColumms) throws Exception
+    public ArrayList<String[]> readAll(String tableName, String... tableColumms) throws SQLException
     {
         ArrayList<String[]> data = null;
         if(con != null)
@@ -85,9 +90,11 @@ public class SqlReader
      *
      * @return Inhalt der Zeile
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.sql.SQLException
+     *
+     *
      */
-    public String[] readLine(int line, String tableName, String... tableColumms) throws Exception
+    public String[] readLine(int line, String tableName, String... tableColumms) throws SQLException
     {
         return readAll(tableName, tableColumms).get(line);
     }
@@ -101,9 +108,11 @@ public class SqlReader
      *
      * @return Inhalt der Zelle
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.sql.SQLException
+     *
+     *
      */
-    public String readCell(int line, String tableName, String tableColumm) throws Exception
+    public String readCell(int line, String tableName, String tableColumm) throws SQLException
     {
         String[] columm =
         {

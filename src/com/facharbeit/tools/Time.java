@@ -1,6 +1,7 @@
 package com.facharbeit.tools;
 
 import com.facharbeit.io.Settings;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -17,7 +18,7 @@ public class Time
     /**
      * Aktualisiert den Kalender.
      */
-    private static void instance() throws Exception
+    private static void instance()
     {
         c = Calendar.getInstance();
     }
@@ -27,9 +28,9 @@ public class Time
      *
      * @return Zeit als String
      *
-     * @throws java.lang.Exception Fehler
+     *
      */
-    public static String error() throws Exception
+    public static String error()
     {
         instance();
         return c.get(Calendar.YEAR) + ""
@@ -46,9 +47,9 @@ public class Time
      *
      * @return Zeit
      *
-     * @throws java.lang.Exception Fehler
+     *
      */
-    public static String log() throws Exception
+    public static String log()
     {
         instance();
         return "[" + String.format("%02d", c.get(Calendar.HOUR_OF_DAY)) + ":"
@@ -63,9 +64,11 @@ public class Time
      *
      * @return Zeit
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.io.IOException
+     *
+     *
      */
-    public static String htmlReading(int addDays) throws Exception
+    public static String htmlReading(int addDays) throws IOException
     {
         instance();
         if(Settings.load("customUse").equals("true"))
@@ -76,7 +79,7 @@ public class Time
         else if(addDays == 0)
             return c.get(Calendar.DATE) + "." + (c.get(Calendar.MONTH) + 1) + ".";
         else
-            return addDays(addDays).get(Calendar.DATE) + "." + (addDays(1).get(Calendar.MONTH) + 1) + ".";
+            return addDays(addDays).get(Calendar.DATE) + "." + (addDays(addDays).get(Calendar.MONTH) + 1) + ".";
     }
 
     /**
@@ -86,9 +89,11 @@ public class Time
      *
      * @return Zeit
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.io.IOException
+     *
+     *
      */
-    public static String htmlWriting(String date) throws Exception
+    public static String htmlWriting(String date) throws IOException
     {
         instance();
         c.set(Calendar.DATE, Integer.parseInt(date.split("\\.")[0]));
@@ -117,9 +122,9 @@ public class Time
      *
      * @return Stunde
      *
-     * @throws java.lang.Exception Fehler
+     *
      */
-    public static int hour() throws Exception
+    public static int hour()
     {
         instance();
         return c.get(Calendar.HOUR_OF_DAY);
@@ -131,9 +136,9 @@ public class Time
      *
      * @return Minute
      *
-     * @throws java.lang.Exception Fehler
+     *
      */
-    public static int minute() throws Exception
+    public static int minute()
     {
         instance();
         return c.get(Calendar.MINUTE);
@@ -146,9 +151,9 @@ public class Time
      *
      * @return Neuer Kalender
      *
-     * @throws java.lang.Exception Fehler
+     *
      */
-    public static Calendar addDays(int amount) throws Exception
+    public static Calendar addDays(int amount)
     {
         instance();
         Calendar nc = (Calendar)c.clone();
@@ -166,9 +171,9 @@ public class Time
      *
      * @return Sind die Uhrzeiten nacheinander?
      *
-     * @throws java.lang.Exception Fehler
+     *
      */
-    public static boolean isAfter(int afterHour, int afterMinute, int beforeHour, int beforeMinute) throws Exception
+    public static boolean isAfter(int afterHour, int afterMinute, int beforeHour, int beforeMinute)
     {
         boolean after = false;
         if(beforeHour == afterHour)

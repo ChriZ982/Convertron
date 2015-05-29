@@ -37,9 +37,10 @@ public class FileHandler
     /**
      * Erstellt eine neue Datei.
      *
-     * @throws java.lang.Exception Fehler
+     *
+     * @throws java.io.IOException
      */
-    public void create() throws Exception
+    public void create() throws IOException
     {
         file.getParentFile().mkdirs();
         if(file.createNewFile())
@@ -49,9 +50,9 @@ public class FileHandler
     /**
      * Löscht eine bestehende Datei.
      *
-     * @throws java.lang.Exception Fehler
+     *
      */
-    public void delete() throws Exception
+    public void delete()
     {
         if(file.delete())
             Logger.log("\"" + file.getName() + "\" wurde gelöscht.", 0);
@@ -62,9 +63,9 @@ public class FileHandler
      *
      * @return Existiert die Datei?
      *
-     * @throws java.lang.Exception Fehler
+     *
      */
-    public boolean exists() throws Exception
+    public boolean exists()
     {
         return file.isFile() && file.exists();
     }
@@ -74,9 +75,11 @@ public class FileHandler
      *
      * @param dest Zielpfad
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.io.IOException
+     *
+     *
      */
-    public void copy(String dest) throws Exception
+    public void copy(String dest) throws IOException
     {
         if(exists())
         {
@@ -91,9 +94,11 @@ public class FileHandler
      *
      * @param dest Zielpfad
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.io.IOException
+     *
+     *
      */
-    public void copyFromRes(String dest) throws Exception
+    public void copyFromRes(String dest) throws IOException
     {
         File f = new File(dest + file.getName());
         f.getParentFile().mkdirs();
@@ -115,9 +120,11 @@ public class FileHandler
      *
      * @return Anzahl der Zeilen
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.io.IOException
+     *
+     *
      */
-    public int length() throws Exception
+    public int length() throws IOException
     {
         BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "ISO-8859-1"));
         int lines = 0;
@@ -134,9 +141,11 @@ public class FileHandler
      *
      * @return Inhalt dieser Zeile
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.io.IOException
+     *
+     *
      */
-    public String read(int lineNumber) throws Exception
+    public String read(int lineNumber) throws IOException
     {
         BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "ISO-8859-1"));
         for(int i = 0; i < lineNumber; i++)
@@ -151,9 +160,11 @@ public class FileHandler
      *
      * @return Ganze Datei als String Array
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.io.IOException
+     *
+     *
      */
-    public String[] read() throws Exception
+    public String[] read() throws IOException
     {
         int length = length();
         String[] text = new String[length];
@@ -169,9 +180,11 @@ public class FileHandler
      *
      * @return Ganze Datei als String
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.io.IOException
+     *
+     *
      */
-    public String asString() throws Exception
+    public String asString() throws IOException
     {
         String asString = "";
         String[] text = read();
@@ -185,9 +198,12 @@ public class FileHandler
      *
      * @param text Daten, die in die Datei geschrieben werder sollen
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.io.UnsupportedEncodingException
+     * @throws java.io.FileNotFoundException
+     *
+     *
      */
-    public void write(String[] text) throws Exception
+    public void write(String[] text) throws UnsupportedEncodingException, FileNotFoundException
     {
         PrintWriter writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file), "ISO-8859-1"));
         for(int i = 0; i < text.length; i++)
@@ -206,9 +222,11 @@ public class FileHandler
      * @param lineNumber Zeile, die neu geschrieben werden soll
      * @param text       Text, der geschrieben werden soll
      *
-     * @throws java.lang.Exception Fehler
+     * @throws java.io.IOException
+     *
+     *
      */
-    public void write(int lineNumber, String text) throws Exception
+    public void write(int lineNumber, String text) throws IOException
     {
         String[] oldText = read();
         String[] newText;
