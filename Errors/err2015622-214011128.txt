@@ -1,0 +1,11 @@
+java.lang.IndexOutOfBoundsException: Index: 1, Size: 1
+	at java.util.ArrayList.rangeCheck(ArrayList.java:653)
+	at java.util.ArrayList.get(ArrayList.java:429)
+	at javax.swing.JTabbedPane.setTitleAt(JTabbedPane.java:1316)
+	at converter.core.Window.addTab(Window.java:78)
+	at converter.core.Control.<init>(Control.java:54)
+	at converter.core.Control.main(Control.java:150)
+
+
+null[21:40:11] Anwendung konnte nicht initialisiert werden
+
