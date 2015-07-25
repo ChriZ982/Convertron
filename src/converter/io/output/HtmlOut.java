@@ -109,7 +109,7 @@ public class HtmlOut
         String schrift3 = Settings.load("color" + schrift0[4]);
 
         String other = "";
-        String[] settings = Settings.findNames("art");
+        String[] settings = Settings.settingNamesStartWith("variant");
         for(String setting : settings)
         {
             String[] font = Settings.loadArray(setting);

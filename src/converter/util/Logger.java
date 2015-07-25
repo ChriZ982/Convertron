@@ -3,7 +3,10 @@ package converter.util;
 import converter.io.FileIO;
 import converter.modules.overview.OverviewView;
 import java.awt.Color;
-import javax.swing.text.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
 
 /**
  * Klasse, die alle Aktionen registriert und im Programm ausgibt.
@@ -22,8 +25,12 @@ public class Logger
     {
         "Eine Sicherheitseinstellung wurde verletzt", "Prüfen Sie die Sicherteitseinstellungen"
     };
+    public static final String[] INVALIDPATH_EXCEPTION =
+    {
+        "Ein Pfad ist fehlerhaft", "Bitte überprüfen Sie die vorangegangenen Angaben"
+    };
 
-    private static FileIO log = new FileIO(".\\Logs\\" + Time.date() + ".log");
+    private static FileIO log = new FileIO("./Logs/" + Time.date() + ".log");
     private static boolean logInfos = true;
 
     /**

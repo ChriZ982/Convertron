@@ -1,9 +1,14 @@
 package converter.io;
 
 import converter.util.Logger;
-import java.io.*;
+import java.io.IOException;
 import java.nio.charset.Charset;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 
 /**
@@ -26,7 +31,7 @@ public class FileIO
         }
         catch(InvalidPathException ex)
         {
-            Logger.log(Logger.ERROR, "Die Datei " + path + " konnte nicht initialisiert werden", "Der Pfad ist fehlerhaft", "Bitte überprüfen Sie die vorangegangene Angabe");
+            Logger.log(Logger.ERROR, "Die Datei " + path + " konnte nicht initialisiert werden", Logger.INVALIDPATH_EXCEPTION);
         }
     }
 
@@ -40,11 +45,11 @@ public class FileIO
     {
         try
         {
-            if(!isRealFile())
-            {
-                Files.createDirectories(path.getParent());
-                Files.createFile(path);
-            }
+            if(isRealFile())
+                return;
+            Files.createDirectories(path.getParent());
+            Files.createFile(path);
+
         }
         catch(SecurityException ex)
         {
@@ -65,8 +70,9 @@ public class FileIO
     {
         try
         {
-            if(isRealFile())
-                Files.delete(path);
+            if(!isRealFile())
+                return;
+            Files.delete(path);
         }
         catch(SecurityException ex)
         {
@@ -103,16 +109,16 @@ public class FileIO
     {
         try
         {
-            if(isRealFile())
-            {
-                Path dest = Paths.get(destination + "\\" + path.getFileName().toString());
-                Files.createDirectories(dest.getParent());
-                Files.copy(path, dest, StandardCopyOption.REPLACE_EXISTING);
-            }
+            if(!isRealFile())
+                return;
+            Path dest = Paths.get(destination + "/" + path.getFileName().toString());
+            Files.createDirectories(dest.getParent());
+            Files.copy(path, dest, StandardCopyOption.REPLACE_EXISTING);
+
         }
         catch(InvalidPathException ex)
         {
-            Logger.log(Logger.ERROR, "Die Datei " + path.toString() + " konnte nicht nach " + destination + " kopiert werden", "Ein Pfad ist fehlerhaft", "Bitte überprüfen Sie die vorangegangenen Angaben");
+            Logger.log(Logger.ERROR, "Die Datei " + path.toString() + " konnte nicht nach " + destination + " kopiert werden", Logger.INVALIDPATH_EXCEPTION);
         }
         catch(SecurityException ex)
         {
@@ -137,6 +143,8 @@ public class FileIO
         {
             Path dest = Paths.get(destination + "/" + path.getFileName().toString());
             Files.createDirectories(dest.getParent());
+            if(Files.exists(dest))
+                return;
             String pathInvertedSlash = path.toString().replace("\\", "/");
             Files.copy(getClass().getResourceAsStream(pathInvertedSlash), dest, StandardCopyOption.REPLACE_EXISTING);
         }

@@ -1,5 +1,5 @@
-pathBackup: ".\TestBackup"
-pathData: ".\Data"
-pathDests: {".\TestZiel1",".\TestZiel2",".\TestZiel3"}
-pathSource: ".\TestDateien"
-position: {"680","400"}
+pathData:.\Data
+pathBackup:.\TestBackup
+pathSource:.\TestDateien
+pathDests:.\TestZiel1;.\TestZiel2
+position:200;200

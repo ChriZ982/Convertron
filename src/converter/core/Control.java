@@ -1,18 +1,25 @@
 package converter.core;
 
-import converter.core.Window;
 import converter.io.FileIO;
 import converter.modules.design.DesignView;
 import converter.modules.overview.OverviewView;
 import converter.modules.paths.PathsView;
 import converter.modules.settings.SettingsView;
 import converter.modules.sql.SqlView;
+import converter.util.Logger;
 import converter.util.Settings;
-import java.awt.*;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
-import javax.imageio.*;
-import javax.swing.*;
+import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.WindowConstants;
 
 /**
  * Verwaltet alle Aktionen, die im Programm geschehen sollen.
@@ -36,10 +43,6 @@ public class Control
     private boolean running;
 
     /**
-     * Die Warteschlange der Anwendung.
-     */
-    //private static ArrayList<QueueElement> queue;
-    /**
      * Erstellt die Anwendung.
      */
     public Control()
@@ -49,29 +52,12 @@ public class Control
 
         setFileEncoding();
         copyFilesFromPackage();
-        //queue = new ArrayList<QueueElement>();
-//            boolean firstStart = new FileIO("./local.settings").exists();
-//            if(!firstStart)
-//                new FileIO("/com/facharbeit/ressources/stdData/global.settings").copyFromPackage("./Data/");
-//            new FileIO("/com/facharbeit/ressources/stdData/local.settings").copyFromPackage("./");
-////            if(firstStart)
-////                new FileIO("/com/facharbeit/ressources/stdData/global.settings").copyFromPackage(Settings.load("pathData") + "/");
-//
-//         
-//            Settings.init();
-//            if(firstStart)
-//                new FileIO("/com/facharbeit/ressources/stdData/global.settings").copyFromPackage(Settings.load("pathData") + "/");
-//
+
+        loadWindowPosition();
+
 //            initTray();
-//
-//            String[] pos = Settings.loadArray("position");
-//            if(!pos[0].isEmpty() && !pos[1].isEmpty())
-//                window.setLocation(Integer.parseInt(pos[0]), Integer.parseInt(pos[1]));
-//
 //            //QueueableMethods.loadSettings();
 //            //frame.addWindowListener(new FrameActions(frame, this));
-//            window.setVisible(true);
-//            running = true;
     }
 
     private void setJavaLookAndFeel()
@@ -99,6 +85,7 @@ public class Control
         window.addTab(new SqlView());
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setVisible(true);
+        Logger.log(Logger.INFO, "Fenster wurde erstellt und gefüllt");
     }
 
     private void setFileEncoding()
@@ -106,6 +93,7 @@ public class Control
         try
         {
             System.setProperty("file.encoding", "ISO-8859-1");
+            Logger.log(Logger.INFO, "File Encoding wurde konfiguriert");
         }
         catch(SecurityException e)
         {
@@ -122,19 +110,30 @@ public class Control
     private void copyFilesFromPackage()
     {
         String packagePath = "/converter/res/stdData/";
-        String destPath = "./TestData";
+        copyFileFromPackage(packagePath, "local.settings", "./");
 
-        copyFileFromPackage(packagePath, "TEMPLATE heute morgen.html", destPath);
-        copyFileFromPackage(packagePath, "TEMPLATE laufschrift.html", destPath);
+        String destPath = Settings.load("pathData");
+        copyFileFromPackage(packagePath, "global.settings", destPath);
+        copyFileFromPackage(packagePath, "antonianumLogo.png", destPath);
         copyFileFromPackage(packagePath, "TEMPLATE style.css", destPath);
         copyFileFromPackage(packagePath, "VERTRETUNGSPLAN.html", destPath);
-        copyFileFromPackage(packagePath, "antonianumLogo.png", destPath);
+        copyFileFromPackage(packagePath, "TEMPLATE laufschrift.html", destPath);
+        copyFileFromPackage(packagePath, "TEMPLATE heute morgen.html", destPath);
+        Logger.log(Logger.INFO, "Alle Dateien wurden erstellt oder überprüft");
     }
 
     private void copyFileFromPackage(String packagePath, String fileName, String destPath)
     {
         FileIO file = new FileIO(packagePath + fileName);
         file.copyFromPackage(destPath);
+    }
+
+    private void loadWindowPosition()
+    {
+        String[] positions = Settings.loadArray("position");
+        if(!positions[0].isEmpty() && !positions[1].isEmpty())
+            window.setLocation(Integer.parseInt(positions[0]), Integer.parseInt(positions[1]));
+        Logger.log(Logger.INFO, "Fenster Position wurde geladen");
     }
 
     /**
@@ -148,7 +147,6 @@ public class Control
 //            for(QueueElement element : queue)
 //                element.invoke();
 
-            Settings.sort();
             Settings.saveArray("position",
                                new String[]
                                {
