@@ -5,14 +5,13 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.*;
 import java.util.Arrays;
-import java.util.logging.Level;
 
 /**
  * Mit dieser Klasse können, hauptsächlic Textdateien, gelesen und geschrieben werden.
  */
 public class FileIO
 {
-    Path path;
+    private Path path;
 
     /**
      * Erstellt einen FileHandler.
@@ -21,7 +20,14 @@ public class FileIO
      */
     public FileIO(String path)
     {
-        this.path = Paths.get(path);
+        try
+        {
+            this.path = Paths.get(path);
+        }
+        catch(InvalidPathException ex)
+        {
+            Logger.log(Logger.ERROR, "Die Datei " + path + " konnte nicht initialisiert werden", "Der Pfad ist fehlerhaft", "Bitte überprüfen Sie die vorangegangene Angabe");
+        }
     }
 
     /**
@@ -32,19 +38,17 @@ public class FileIO
      */
     public void create()
     {
-        if(isFileAndExists())
-            return;
-
         try
         {
-            Files.createDirectories(path.getParent());
-            Files.createFile(path);
+            if(!isRealFile())
+            {
+                Files.createDirectories(path.getParent());
+                Files.createFile(path);
+            }
         }
         catch(SecurityException ex)
         {
-            Logger.log(Logger.ERROR, "Die Datei " + path.toString() + " konnte nicht erstellt werden",
-                       "Eine Sicherheitseinstellung wurde verletzt",
-                       "Prüfen Sie die Sicherteitseinstellungen");
+            Logger.log(Logger.ERROR, "Die Datei " + path.toString() + " konnte nicht erstellt werden", Logger.SECURITY_EXCEPTION);
         }
         catch(IOException ex)
         {
@@ -61,11 +65,16 @@ public class FileIO
     {
         try
         {
-            Files.delete(path);
+            if(isRealFile())
+                Files.delete(path);
+        }
+        catch(SecurityException ex)
+        {
+            Logger.log(Logger.ERROR, "Die Datei " + path.toString() + " konnte nicht gelöscht werden", Logger.SECURITY_EXCEPTION);
         }
         catch(IOException ex)
         {
-            java.util.logging.Logger.getLogger(FileIO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.log(Logger.ERROR, "Die Datei " + path.toString() + " konnte nicht gelöscht werden", Logger.IO_EXCEPTION);
         }
     }
 
@@ -76,7 +85,7 @@ public class FileIO
      *
      *
      */
-    public boolean isFileAndExists()
+    public boolean isRealFile()
     {
         return Files.isRegularFile(path) && Files.exists(path);
     }
@@ -94,43 +103,55 @@ public class FileIO
     {
         try
         {
-            if(!isFileAndExists())
-                return;
-
-            Path dest = Paths.get(destination + "\\" + path.getFileName().toString());
-            Files.createDirectories(dest.getParent());
-            Files.copy(path, dest, StandardCopyOption.REPLACE_EXISTING);
+            if(isRealFile())
+            {
+                Path dest = Paths.get(destination + "\\" + path.getFileName().toString());
+                Files.createDirectories(dest.getParent());
+                Files.copy(path, dest, StandardCopyOption.REPLACE_EXISTING);
+            }
+        }
+        catch(InvalidPathException ex)
+        {
+            Logger.log(Logger.ERROR, "Die Datei " + path.toString() + " konnte nicht nach " + destination + " kopiert werden", "Ein Pfad ist fehlerhaft", "Bitte überprüfen Sie die vorangegangenen Angaben");
+        }
+        catch(SecurityException ex)
+        {
+            Logger.log(Logger.ERROR, "Die Datei " + path.toString() + " konnte nicht nach " + destination + " kopiert werden", Logger.SECURITY_EXCEPTION);
         }
         catch(IOException ex)
         {
-            java.util.logging.Logger.getLogger(FileIO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.log(Logger.ERROR, "Die Datei " + path.toString() + " konnte nicht nach " + destination + " kopiert werden", Logger.IO_EXCEPTION);
         }
     }
 
     /**
      * Kopiert Dateien aus dem Java-Package der Facharbeit.
      *
-     * @param dest Zielpfad
-     *
-     * @throws java.io.IOException
+     * @param destination
      *
      *
      */
-    public void copyFromRes(String dest)
+    public void copyFromRes(String destination)
     {
-//        FileIO f = new FileIO(dest + getName());
-//        f.getParentFile().mkdirs();
-//        if(!f.exists())
-//        {
-//            InputStream in = getClass().getResourceAsStream(getPath().replaceAll("\\\\", "/"));
-//            FileOutputStream out = new FileOutputStream(f);
-//
-//            for(int read; (read = in.read()) != -1;)
-//                out.write(read);
-//            out.flush();
-//
-//            Logger.log(f.getName() + " wurde kopiert", 0);
-//        }
+        try
+        {
+            Path dest = Paths.get(destination + "/" + path.getFileName().toString());
+            Files.createDirectories(dest.getParent());
+            String pathInvertedSlash = path.toString().replace("\\", "/");
+            Files.copy(getClass().getResourceAsStream(pathInvertedSlash), dest, StandardCopyOption.REPLACE_EXISTING);
+        }
+        catch(InvalidPathException ex)
+        {
+            Logger.log(Logger.ERROR, "Die Datei " + path.toString() + " konnte nicht nach " + destination + " kopiert werden", "Ein Pfad ist fehlerhaft", "Bitte überprüfen Sie die vorangegangenen Angaben");
+        }
+        catch(SecurityException ex)
+        {
+            Logger.log(Logger.ERROR, "Die Datei " + path.toString() + " konnte nicht nach " + destination + " kopiert werden", Logger.SECURITY_EXCEPTION);
+        }
+        catch(IOException ex)
+        {
+            Logger.log(Logger.ERROR, "Die Datei " + path.toString() + " konnte nicht nach " + destination + " kopiert werden", Logger.IO_EXCEPTION);
+        }
     }
 
     /**
@@ -178,11 +199,19 @@ public class FileIO
         {
             return Files.readAllLines(path, Charset.forName("ISO-8859-1")).toArray(new String[0]);
         }
+        catch(OutOfMemoryError ex)
+        {
+            Logger.log(Logger.ERROR, "Die Datei " + path.toString() + " konnte nicht gelesen werden", "Die Datei ist zu groß", "Verkleinern oder Löschen Sie die Datei");
+        }
+        catch(SecurityException ex)
+        {
+            Logger.log(Logger.ERROR, "Die Datei " + path.toString() + " konnte nicht gelesen werden", Logger.SECURITY_EXCEPTION);
+        }
         catch(IOException ex)
         {
-            java.util.logging.Logger.getLogger(FileIO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.log(Logger.ERROR, "Die Datei " + path.toString() + " konnte nicht gelesen werden", Logger.IO_EXCEPTION);
         }
-        return null;
+        return new String[0];
     }
 
     /**
@@ -215,9 +244,13 @@ public class FileIO
         {
             Files.write(path, Arrays.asList(text));
         }
+        catch(SecurityException ex)
+        {
+            Logger.log(Logger.ERROR, "Die Datei " + path.toString() + " konnte nicht geschrieben werden", Logger.SECURITY_EXCEPTION);
+        }
         catch(IOException ex)
         {
-            java.util.logging.Logger.getLogger(FileIO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.log(Logger.ERROR, "Die Datei " + path.toString() + " konnte nicht geschrieben werden", Logger.IO_EXCEPTION);
         }
     }
 
@@ -244,9 +277,13 @@ public class FileIO
         {
             Files.write(path, Arrays.asList(text), StandardOpenOption.APPEND);
         }
+        catch(SecurityException ex)
+        {
+            Logger.log(Logger.ERROR, "Die Datei " + path.toString() + " konnte nicht erweitert werden", Logger.SECURITY_EXCEPTION);
+        }
         catch(IOException ex)
         {
-            java.util.logging.Logger.getLogger(FileIO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.log(Logger.ERROR, "Die Datei " + path.toString() + " konnte nicht erweitert werden", Logger.IO_EXCEPTION);
         }
     }
 }

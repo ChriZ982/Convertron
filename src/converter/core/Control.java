@@ -2,13 +2,13 @@ package converter.core;
 
 import converter.core.Window;
 import converter.io.FileIO;
-import converter.util.Settings;
 import converter.modules.design.DesignView;
 import converter.modules.overview.OverviewView;
 import converter.modules.paths.PathsView;
 import converter.modules.settings.SettingsView;
 import converter.modules.sql.SqlView;
 import converter.util.Logger;
+import converter.util.Settings;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
@@ -54,6 +54,8 @@ public class Control
         Logger.log(Logger.HINT, "Die Datei " + " konnte nicht erstellt werden", Logger.SECURITY_EXCEPTION);
         Logger.log(Logger.ERROR, "Die Datei " + " konnte nicht erstellt werden", Logger.IO_EXCEPTION);
 
+        FileIO file = new FileIO("/converter/res/stdData/antonianumLogo.png");
+        file.copyFromRes("./Testsxtts");
         //queue = new ArrayList<QueueElement>();
 //            boolean firstStart = new FileIO("./local.settings").exists();
 //            if(!firstStart)

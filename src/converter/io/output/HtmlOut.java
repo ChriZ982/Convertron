@@ -3,7 +3,6 @@ package converter.io.output;
 import converter.data.Class;
 import converter.io.FileIO;
 import converter.util.Settings;
-import converter.util.Logger;
 import converter.util.Time;
 import java.io.*;
 
@@ -43,14 +42,14 @@ public class HtmlOut
         if(invalid(day, speed))
             return;
 
-        new FileIO(Settings.load("pathData") + "/" + type + ".html").write(new String[]
-                {
-                    new FileIO(Settings.load("pathData") + "/TEMPLATE heute morgen.html").asString()
-                    .replaceAll("GESCHW", speed)
-                    .replaceAll("TAG", day)
-                    .replaceAll("VERTRETUNGEN", classes)
-                });
-        Logger.log("Plan von " + type + " wurde generiert", 0);
+        new FileIO(Settings.load("pathData") + "/" + type + ".html").writeLines(new String[]
+        {
+            new FileIO(Settings.load("pathData") + "/TEMPLATE heute morgen.html").readAllString()
+            .replaceAll("GESCHW", speed)
+            .replaceAll("TAG", day)
+            .replaceAll("VERTRETUNGEN", classes)
+        });
+        //Logger.log("Plan von " + type + " wurde generiert", 0);
     }
 
     /**
@@ -70,13 +69,13 @@ public class HtmlOut
         if(text.equals("Laufschrift"))
             text = "";
 
-        new FileIO(Settings.load("pathData") + "/laufschrift.html").write(new String[]
-                {
-                    new FileIO(Settings.load("pathData") + "/TEMPLATE laufschrift.html").asString()
-                    .replaceAll("GESCHW", speed)
-                    .replaceAll("TEXT", text)
-                });
-        Logger.log("Laufschrift wurde generiert", 0);
+        new FileIO(Settings.load("pathData") + "/laufschrift.html").writeLines(new String[]
+        {
+            new FileIO(Settings.load("pathData") + "/TEMPLATE laufschrift.html").readAllString()
+            .replaceAll("GESCHW", speed)
+            .replaceAll("TEXT", text)
+        });
+        //Logger.log("Laufschrift wurde generiert", 0);
     }
 
     /**
@@ -127,24 +126,24 @@ public class HtmlOut
         if(invalid(plan, frame, datum1, datum2, stufe1, stufe2, tabelle1, tabelle2, tabelle3, schrift1, schrift2, schrift3))
             return;
 
-        new FileIO(Settings.load("pathData") + "/style.css").write(new String[]
-                {
-                    new FileIO(Settings.load("pathData") + "/TEMPLATE style.css").asString()
-                    .replaceAll("PLAN", plan)
-                    .replaceAll("FRAME", frame)
-                    .replaceAll("DATUM1", datum1)
-                    .replaceAll("DATUM2", datum2)
-                    .replaceAll("STUFE1", stufe1)
-                    .replaceAll("STUFE2", stufe2)
-                    .replaceAll("TABELLE1", tabelle1)
-                    .replaceAll("TABELLE2", tabelle2)
-                    .replaceAll("TABELLE", tabelle3)
-                    .replaceAll("SCHRIFT1", schrift1)
-                    .replaceAll("SCHRIFT2", schrift2)
-                    .replaceAll("SCHRIFT", schrift3)
-                    .replaceAll("OTHER", other)
-                });
-        Logger.log("Style wurde generiert", 0);
+        new FileIO(Settings.load("pathData") + "/style.css").writeLines(new String[]
+        {
+            new FileIO(Settings.load("pathData") + "/TEMPLATE style.css").readAllString()
+            .replaceAll("PLAN", plan)
+            .replaceAll("FRAME", frame)
+            .replaceAll("DATUM1", datum1)
+            .replaceAll("DATUM2", datum2)
+            .replaceAll("STUFE1", stufe1)
+            .replaceAll("STUFE2", stufe2)
+            .replaceAll("TABELLE1", tabelle1)
+            .replaceAll("TABELLE2", tabelle2)
+            .replaceAll("TABELLE", tabelle3)
+            .replaceAll("SCHRIFT1", schrift1)
+            .replaceAll("SCHRIFT2", schrift2)
+            .replaceAll("SCHRIFT", schrift3)
+            .replaceAll("OTHER", other)
+        });
+        //Logger.log("Style wurde generiert", 0);
     }
 
     /**
@@ -255,7 +254,7 @@ public class HtmlOut
         for(String s : test)
             if(s.equals(""))
             {
-                Logger.log("Eine Einstellung wurde noch nicht gemacht - Konnte nicht generieren!", 2);
+                //Logger.log("Eine Einstellung wurde noch nicht gemacht - Konnte nicht generieren!", 2);
                 return true;
             }
         return false;

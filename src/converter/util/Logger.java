@@ -29,14 +29,9 @@ public class Logger
     /**
      * Standard zur Ausgabe von Fehlern oder Informationen.
      *
-     * @param text        Ausgegebener Text
      * @param what
      * @param whyHelp
-     * @param whatWhyHelp
-     * @param error
-     * @param reason
-     * @param advice
-     * @param prio        Priorität des Textes. 0-INFO, 1-PROBLEM, 2-FEHLER
+     * @param prio    Priorität des Textes. 0-INFO, 1-PROBLEM, 2-FEHLER
      */
     public static void log(int prio, String what, String... whyHelp)
     {

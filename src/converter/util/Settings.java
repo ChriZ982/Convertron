@@ -1,7 +1,6 @@
 package converter.util;
 
 import converter.io.FileIO;
-import converter.util.Logger;
 import java.io.IOException;
 import java.util.*;
 import javax.swing.*;
@@ -56,9 +55,9 @@ public class Settings
         fileHandler = fileHandlerLocal;
         fileHandlerGlobal = new FileIO(load("pathData") + "\\global.settings");
 
-        System.out.println(fileHandler.asString());
+        System.out.println(fileHandler.readAllString());
 
-        Logger.log("\"settings.ini\" wurde geladen", 0);
+        // Logger.log("\"settings.ini\" wurde geladen", 0);
     }
 
     /**
@@ -85,11 +84,11 @@ public class Settings
         int line = line(name);
         String settings = name + ": \"" + setting + "\"";
         if(line == -1)
-            fileHandler.write(fileHandler.lineCount(), settings);
+            fileHandler.writeLine(fileHandler.lineCount(), settings);
         else
-            fileHandler.write(line, settings);
-        if(logging)
-            Logger.log("Einstellung \"" + name + "\" gespeichert", 0);
+            fileHandler.writeLine(line, settings);
+        //if(logging)
+        // Logger.log("Einstellung \"" + name + "\" gespeichert", 0);
     }
 
     /**
@@ -112,13 +111,13 @@ public class Settings
         int line = line(name);
         if(line == -1)
         {
-            if(logging)
-                Logger.log("Einstellung \"" + name + "\" nicht vorhanden", 1);
+            //if(logging)
+            //Logger.log("Einstellung \"" + name + "\" nicht vorhanden", 1);
             return "";
         }
         else
         {
-            String setting = fileHandler.read(line);
+            String setting = fileHandler.readLine(line);
             return setting.substring((name + ": \"").length(), setting.length() - 1);
         }
     }
@@ -198,11 +197,11 @@ public class Settings
             set += "\"" + s + "\",";
         set = set.substring(0, set.length() - 1) + "}";
         if(line == -1)
-            fileHandler.write(fileHandler.lineCount(), set);
+            fileHandler.writeLine(fileHandler.lineCount(), set);
         else
-            fileHandler.write(line, set);
-        if(logging)
-            Logger.log("Einstellung \"" + name + "\" gespeichert", 0);
+            fileHandler.writeLine(line, set);
+        //if(logging)
+        //Logger.log("Einstellung \"" + name + "\" gespeichert", 0);
     }
 
     /**
@@ -225,13 +224,13 @@ public class Settings
         int line = line(name);
         if(line == -1)
         {
-            if(logging)
-                Logger.log("Einstellung \"" + name + "\" nicht vorhanden", 1);
+            //if(logging)
+            //Logger.log("Einstellung \"" + name + "\" nicht vorhanden", 1);
             return null;
         }
         else
         {
-            String setting = fileHandler.read(line);
+            String setting = fileHandler.readLine(line);
             setting = setting.substring((name + ": {").length(), setting.length() - 2);
             String[] settings = setting.split("\",");
             for(int i = 0; i < settings.length; i++)
@@ -361,13 +360,13 @@ public class Settings
             return false;
 
         ArrayList<String> content = new ArrayList<String>();
-        content.addAll(Arrays.asList(fileHandler.read()));
+        content.addAll(Arrays.asList(fileHandler.readAllArray()));
         content.remove(line);
-        fileHandler.write(content.toArray(new String[]
+        fileHandler.writeLines(content.toArray(new String[]
         {
         }));
-        if(logging)
-            Logger.log("Einstellung \"" + name + "\" gelöscht", 0);
+        //if(logging)
+        //Logger.log("Einstellung \"" + name + "\" gelöscht", 0);
         return true;
     }
 
@@ -389,7 +388,7 @@ public class Settings
         else
             fileHandler = fileHandlerGlobal;
         ArrayList<String> names = new ArrayList<String>();
-        String[] file = fileHandler.read();
+        String[] file = fileHandler.readAllArray();
 
         for(String s : file)
             if(s.startsWith(name))
@@ -417,7 +416,7 @@ public class Settings
             fileHandler = fileHandlerLocal;
         else
             fileHandler = fileHandlerGlobal;
-        String[] content = fileHandler.read();
+        String[] content = fileHandler.readAllArray();
         int line = -1;
         for(int i = 0; i < content.length; i++)
             if(content[i] != null && content[i].startsWith(name))
@@ -446,8 +445,8 @@ public class Settings
      */
     public static void sort() throws IOException
     {
-        List<String> settings = Arrays.asList(fileHandler.read());
+        List<String> settings = Arrays.asList(fileHandler.readAllArray());
         Collections.sort(settings, String.CASE_INSENSITIVE_ORDER);
-        fileHandler.write((String[])settings.toArray());
+        fileHandler.writeLines((String[])settings.toArray());
     }
 }

@@ -1,7 +1,6 @@
 package converter.io;
 
 import converter.util.Settings;
-import converter.util.Logger;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -107,8 +106,7 @@ public class SqlIO
 
                     command += ");";
 
-                    Logger.log(command, 0);
-
+                   // Logger.log(command, 0);
                     query.execute(command);
                 }
         }

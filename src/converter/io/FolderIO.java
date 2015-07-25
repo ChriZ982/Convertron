@@ -1,6 +1,5 @@
 package converter.io;
 
-import converter.util.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
@@ -50,7 +49,7 @@ public class FolderIO
         Iterator it = Files.list(Paths.get(file.getPath())).iterator();
         while(it.hasNext())
             new FileIO(String.valueOf(it.next())).copy(dest);
-        Logger.log("\"" + file.getName() + "\" kopiert", 0);
+        //Logger.log("\"" + file.getName() + "\" kopiert", 0);
     }
 
     /**
@@ -66,7 +65,7 @@ public class FolderIO
         Iterator it = Files.list(Paths.get(file.getPath())).iterator();
         while(it.hasNext())
             new File(String.valueOf(it.next())).delete();
-        Logger.log("\"" + file.getName() + "\" gelöscht", 0);
+        // Logger.log("\"" + file.getName() + "\" gelöscht", 0);
     }
 
     /**
