@@ -1,6 +1,6 @@
 package converter.data;
 
-import converter.io.Settings;
+import converter.util.Settings;
 import converter.util.Time;
 import java.io.IOException;
 import java.util.*;
@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * Klasse, die alle Vertretungen (Entrys) einer Schulklasse beinhaltet.
  */
-public class ClassTMP
+public class Class
 {
     /**
      * Name der Schulklasse.
@@ -38,7 +38,7 @@ public class ClassTMP
      *
      * @param name Name der Klasse
      */
-    public ClassTMP(String name)
+    public Class(String name)
     {
         this.entries = new ArrayList<Lesson>();
         this.name = name;

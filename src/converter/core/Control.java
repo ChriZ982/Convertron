@@ -1,8 +1,8 @@
 package converter.core;
 
 import converter.core.Window;
-import converter.io.FileTMP;
-import converter.io.Settings;
+import converter.io.FileIO;
+import converter.util.Settings;
 import converter.modules.design.DesignView;
 import converter.modules.overview.OverviewView;
 import converter.modules.paths.PathsView;
@@ -49,18 +49,23 @@ public class Control
         setJavaLookAndFeel();
         createAndFillWindow();
 
+        Logger.log(Logger.INFO, "Die Datei " + " konnte nicht erstellt werden");
+
+        Logger.log(Logger.HINT, "Die Datei " + " konnte nicht erstellt werden", Logger.SECURITY_EXCEPTION);
+        Logger.log(Logger.ERROR, "Die Datei " + " konnte nicht erstellt werden", Logger.IO_EXCEPTION);
+
         //queue = new ArrayList<QueueElement>();
-//            boolean firstStart = new FileTMP("./local.settings").exists();
+//            boolean firstStart = new FileIO("./local.settings").exists();
 //            if(!firstStart)
-//                new FileTMP("/com/facharbeit/ressources/stdData/global.settings").copyFromRes("./Data/");
-//            new FileTMP("/com/facharbeit/ressources/stdData/local.settings").copyFromRes("./");
+//                new FileIO("/com/facharbeit/ressources/stdData/global.settings").copyFromRes("./Data/");
+//            new FileIO("/com/facharbeit/ressources/stdData/local.settings").copyFromRes("./");
 ////            if(firstStart)
-////                new FileTMP("/com/facharbeit/ressources/stdData/global.settings").copyFromRes(Settings.load("pathData") + "/");
+////                new FileIO("/com/facharbeit/ressources/stdData/global.settings").copyFromRes(Settings.load("pathData") + "/");
 //
 //            //Logger.init(frame.getStatusPane());
 //            Settings.init();
 //            if(firstStart)
-//                new FileTMP("/com/facharbeit/ressources/stdData/global.settings").copyFromRes(Settings.load("pathData") + "/");
+//                new FileIO("/com/facharbeit/ressources/stdData/global.settings").copyFromRes(Settings.load("pathData") + "/");
 //            initData();
 //            initTray();
 //
@@ -112,6 +117,7 @@ public class Control
         window.addTab(new PathsView());
         window.addTab(new DesignView());
         window.addTab(new SqlView());
+        window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setVisible(true);
     }
 
@@ -140,8 +146,8 @@ public class Control
         }
         catch(Exception ex)
         {
-            Logger.log("Fehler beim Beenden", 2);
-            Logger.error(ex);
+            //Logger.log("Fehler beim Beenden", 2);
+            //Logger.error(ex);
             System.exit(-1);
         }
     }
@@ -153,16 +159,16 @@ public class Control
     {
         try
         {
-            new FileTMP("/com/facharbeit/ressources/stdData/antonianumLogo.png").copyFromRes(Settings.load("pathData") + "/");
-            new FileTMP("/com/facharbeit/ressources/stdData/TEMPLATE heute morgen.html").copyFromRes(Settings.load("pathData") + "/");
-            new FileTMP("/com/facharbeit/ressources/stdData/TEMPLATE laufschrift.html").copyFromRes(Settings.load("pathData") + "/");
-            new FileTMP("/com/facharbeit/ressources/stdData/VERTRETUNGSPLAN.html").copyFromRes(Settings.load("pathData") + "/");
-            new FileTMP("/com/facharbeit/ressources/stdData/TEMPLATE style.css").copyFromRes(Settings.load("pathData") + "/");
+            new FileIO("/com/facharbeit/ressources/stdData/antonianumLogo.png").copyFromRes(Settings.load("pathData") + "/");
+            new FileIO("/com/facharbeit/ressources/stdData/TEMPLATE heute morgen.html").copyFromRes(Settings.load("pathData") + "/");
+            new FileIO("/com/facharbeit/ressources/stdData/TEMPLATE laufschrift.html").copyFromRes(Settings.load("pathData") + "/");
+            new FileIO("/com/facharbeit/ressources/stdData/VERTRETUNGSPLAN.html").copyFromRes(Settings.load("pathData") + "/");
+            new FileIO("/com/facharbeit/ressources/stdData/TEMPLATE style.css").copyFromRes(Settings.load("pathData") + "/");
         }
         catch(Exception ex)
         {
-            Logger.log("Data-Ordner konnte nicht initialisiert werden", 2);
-            Logger.error(ex);
+            //Logger.log("Data-Ordner konnte nicht initialisiert werden", 2);
+            //Logger.error(ex);
         }
     }
 
@@ -180,8 +186,8 @@ public class Control
         }
         catch(Exception ex)
         {
-            Logger.log("Fehler in der Main-Methode", 2);
-            Logger.error(ex);
+            //Logger.log("Fehler in der Main-Methode", 2);
+            //Logger.error(ex);
         }
     }
 
@@ -215,8 +221,8 @@ public class Control
         }
         catch(Exception ex)
         {
-            Logger.log("Fehler in der Programm-Schleife", 2);
-            Logger.error(ex);
+            //Logger.log("Fehler in der Programm-Schleife", 2);
+            //Logger.error(ex);
         }
     }
 
@@ -315,8 +321,8 @@ public class Control
         }
         catch(Exception ex)
         {
-            Logger.log("Tray konnte nicht initialisiert werden", 2);
-            Logger.error(ex);
+            //Logger.log("Tray konnte nicht initialisiert werden", 2);
+            //Logger.error(ex);
         }
     }
 

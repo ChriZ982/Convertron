@@ -1,5 +1,6 @@
-package converter.io;
+package converter.util;
 
+import converter.io.FileIO;
 import converter.util.Logger;
 import java.io.IOException;
 import java.util.*;
@@ -11,19 +12,19 @@ import javax.swing.*;
 public class Settings
 {
     /**
-     * FileTMP, der zum Umgang mit der Settings Datei verwendet wird.
+     * FileIO, der zum Umgang mit der Settings Datei verwendet wird.
      */
-    private static FileTMP fileHandler;
+    private static FileIO fileHandler;
 
     /**
      * Lokaler Speicherort
      */
-    private static FileTMP fileHandlerLocal;
+    private static FileIO fileHandlerLocal;
 
     /**
      * Globaler Speicherort
      */
-    private static FileTMP fileHandlerGlobal;
+    private static FileIO fileHandlerGlobal;
 
     /**
      * Soll das Logging aktiviert werden?.
@@ -51,9 +52,9 @@ public class Settings
         local.add("pathSource");
         local.add("position");
         logging = true;
-        fileHandlerLocal = new FileTMP("./local.settings");
+        fileHandlerLocal = new FileIO("./local.settings");
         fileHandler = fileHandlerLocal;
-        fileHandlerGlobal = new FileTMP(load("pathData") + "\\global.settings");
+        fileHandlerGlobal = new FileIO(load("pathData") + "\\global.settings");
 
         System.out.println(fileHandler.asString());
 
@@ -84,7 +85,7 @@ public class Settings
         int line = line(name);
         String settings = name + ": \"" + setting + "\"";
         if(line == -1)
-            fileHandler.write(fileHandler.length(), settings);
+            fileHandler.write(fileHandler.lineCount(), settings);
         else
             fileHandler.write(line, settings);
         if(logging)
@@ -197,7 +198,7 @@ public class Settings
             set += "\"" + s + "\",";
         set = set.substring(0, set.length() - 1) + "}";
         if(line == -1)
-            fileHandler.write(fileHandler.length(), set);
+            fileHandler.write(fileHandler.lineCount(), set);
         else
             fileHandler.write(line, set);
         if(logging)

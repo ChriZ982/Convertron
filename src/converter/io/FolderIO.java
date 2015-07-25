@@ -9,7 +9,7 @@ import java.util.Iterator;
 /**
  * Mit dieser Klasse werden Ordner verwaltet.
  */
-public class Folder
+public class FolderIO
 {
     /**
      * File das den Ordner enthält.
@@ -21,7 +21,7 @@ public class Folder
      *
      * @param path Pfad des Ordners.
      */
-    public Folder(String path)
+    public FolderIO(String path)
     {
         this(new File(path));
     }
@@ -31,7 +31,7 @@ public class Folder
      *
      * @param file File, das genutzt werden soll
      */
-    public Folder(File file)
+    public FolderIO(File file)
     {
         this.file = file;
     }
@@ -49,7 +49,7 @@ public class Folder
     {
         Iterator it = Files.list(Paths.get(file.getPath())).iterator();
         while(it.hasNext())
-            new FileTMP(String.valueOf(it.next())).copy(dest);
+            new FileIO(String.valueOf(it.next())).copy(dest);
         Logger.log("\"" + file.getName() + "\" kopiert", 0);
     }
 

@@ -1,11 +1,12 @@
 package converter.io;
 
+import converter.util.Settings;
 import converter.util.Logger;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class SqlTable
+public class SqlIO
 {
     /**
      * Die verschiedenen SQL-Modi.

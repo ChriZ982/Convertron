@@ -6,6 +6,7 @@
 package converter.modules.overview;
 
 import converter.modules.View;
+import converter.util.Logger;
 import javax.swing.*;
 
 /**
@@ -43,6 +44,7 @@ public class OverviewView extends View
         jSeparator6 = new javax.swing.JSeparator();
         jScrollPane4 = new javax.swing.JScrollPane();
         motdTxt = new javax.swing.JTextField();
+        jCheckBox1 = new javax.swing.JCheckBox();
 
         log.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         log.setToolTipText("Zeigt den Status des Programms an");
@@ -131,6 +133,16 @@ public class OverviewView extends View
         });
         jScrollPane4.setViewportView(motdTxt);
 
+        jCheckBox1.setSelected(true);
+        jCheckBox1.setText("Zeige Informationen");
+        jCheckBox1.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                jCheckBox1MouseReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -153,8 +165,9 @@ public class OverviewView extends View
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jCheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(10, 10, 10))
         );
         layout.setVerticalGroup(
@@ -162,14 +175,6 @@ public class OverviewView extends View
             .addGroup(layout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSeparator6)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1)
-                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -185,7 +190,17 @@ public class OverviewView extends View
                             .addComponent(genAllBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(15, 15, 15)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11))))
+                        .addGap(11, 11, 11))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jCheckBox1))
+                            .addComponent(jSeparator6))
+                        .addContainerGap())))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -224,12 +239,18 @@ public class OverviewView extends View
         //Application.addToQueue("motdTxtFocusLost");
     }//GEN-LAST:event_motdTxtFocusLost
 
+    private void jCheckBox1MouseReleased(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jCheckBox1MouseReleased
+    {//GEN-HEADEREND:event_jCheckBox1MouseReleased
+        Logger.setLogInfos(jCheckBox1.isSelected());
+    }//GEN-LAST:event_jCheckBox1MouseReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton createBackupBtn;
     private javax.swing.JButton genAllBtn;
     private javax.swing.JButton genMotdBtn;
     private javax.swing.JButton genTodayBtn;
     private javax.swing.JButton genTomorrowBtn;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;

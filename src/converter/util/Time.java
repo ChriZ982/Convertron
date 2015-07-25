@@ -1,6 +1,5 @@
 package converter.util;
 
-import converter.io.Settings;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Locale;
@@ -21,6 +20,12 @@ public class Time
     private static void instance()
     {
         c = Calendar.getInstance();
+    }
+
+    public static String date()
+    {
+        Calendar c = Calendar.getInstance();
+        return String.format("%1$TY-%1$Tm-%1$Td-%1$TH-%1$TM-%1$TS", c);
     }
 
     /**

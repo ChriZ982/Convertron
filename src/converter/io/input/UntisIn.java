@@ -1,5 +1,6 @@
-package converter.modules.overview.io.input;
+package converter.io.input;
 
+import converter.util.Settings;
 import converter.data.Lesson;
 import converter.io.*;
 import converter.unused.PathConverter;
@@ -11,7 +12,7 @@ import java.util.*;
 /**
  * Liest die HTML-Dateien für einzelne Klassen aus.
  */
-public class HtmlReader
+public class UntisIn
 {
     /**
      * Erste Stufe
@@ -51,9 +52,9 @@ public class HtmlReader
      *
      *
      */
-//    public static converter.data.ClassTMP[] today() throws Exception
+//    public static converter.data.Class[] today() throws Exception
 //    {
-//        converter.data.ClassTMP[] schoolClasses;
+//        converter.data.Class[] schoolClasses;
 //        if(Settings.load("sqlUse").equals("true") && SqlMode.READ.isActive())
 //           schoolClasses = getAllSql();
 //        else
@@ -61,7 +62,7 @@ public class HtmlReader
 //
 //        boolean found = false;
 //        String date = Time.htmlReading(0);
-//        for(converter.data.ClassTMP schoolClass : schoolClasses)
+//        for(converter.data.Class schoolClass : schoolClasses)
 //        {
 //            if(schoolClass.containsEntrysOfDate(date))
 //                found = true;
@@ -83,9 +84,9 @@ public class HtmlReader
      *
      *
      */
-//    public static converter.data.ClassTMP[] tomorrow() throws Exception
+//    public static converter.data.Class[] tomorrow() throws Exception
 //    {
-//        converter.data.ClassTMP[] schoolClasses;
+//        converter.data.Class[] schoolClasses;
 //        if(Settings.load("sqlUse").equals("true") && SqlMode.READ.isActive())
 //          schoolClasses = getAllSql();
 //        else
@@ -96,13 +97,13 @@ public class HtmlReader
 //        while(i < 10 && !found)
 //        {
 //            i++;
-//            for(converter.data.ClassTMP schoolClass : schoolClasses)
+//            for(converter.data.Class schoolClass : schoolClasses)
 //                if(schoolClass.containsEntrysOfDate(Time.htmlReading(i)))
 //                    found = true;
 //        }
 //        if(found)
 //        {
-//            for(converter.data.ClassTMP schoolClass : schoolClasses)
+//            for(converter.data.Class schoolClass : schoolClasses)
 //                schoolClass.onlyDate(Time.htmlReading(i));
 //            return schoolClasses;
 //        }
@@ -119,7 +120,7 @@ public class HtmlReader
      *
      *
      */
-    public static converter.data.ClassTMP[] forSql() throws InvocationTargetException, IllegalAccessException, IOException
+    public static converter.data.Class[] forSql() throws InvocationTargetException, IllegalAccessException, IOException
     {
         return sort(getAllHtml(PathConverter.convert(Settings.load("pathData") + "/Source/")));
     }
@@ -135,25 +136,25 @@ public class HtmlReader
      *
      *
      */
-    public static converter.data.ClassTMP[] getAllHtml(String path) throws IOException
+    public static converter.data.Class[] getAllHtml(String path) throws IOException
     {
-        if(new Folder(path).isEmpty())
-            return new converter.data.ClassTMP[]
+        if(new FolderIO(path).isEmpty())
+            return new converter.data.Class[]
             {
             };
 
         ArrayList<File> files = getFiles(path);
-        converter.data.ClassTMP[] schoolClasses = new converter.data.ClassTMP[files.size()];
+        converter.data.Class[] schoolClasses = new converter.data.Class[files.size()];
 
         for(int i = 0; i < schoolClasses.length; i++)
         {
             String filename = files.get(i).getName();
             String[] prefix = Settings.loadArray("fileName");
-            schoolClasses[i] = new converter.data.ClassTMP(filename.substring(prefix[0].length(), filename.indexOf(prefix[1])));
+            schoolClasses[i] = new converter.data.Class(filename.substring(prefix[0].length(), filename.indexOf(prefix[1])));
             if(schoolClasses[i].isEmpty())
                 schoolClasses[i].setEntries(new ArrayList<Lesson>());
 
-            String asString = getTable(new FileTMP(files.get(i)).asString());
+            String asString = "";//getTable(new FileTMP(files.get(i)).asString());
             asString = asString.substring(asString.indexOf(findHtmlTag(asString, "TR")) + findHtmlTag(asString, "TR").length());
 
             ArrayList<String> head = new ArrayList<>();
@@ -301,11 +302,11 @@ public class HtmlReader
      *
      *
      */
-    public static converter.data.ClassTMP[] sort(converter.data.ClassTMP[] schoolClasses)
+    public static converter.data.Class[] sort(converter.data.Class[] schoolClasses)
     {
         if(schoolClasses == null)
             return null;
-        for(converter.data.ClassTMP schoolClass : schoolClasses)
+        for(converter.data.Class schoolClass : schoolClasses)
         {
             ArrayList<Lesson> out = new ArrayList<>();
             while(schoolClass.getEntries().size() > 0)
@@ -376,10 +377,10 @@ public class HtmlReader
      *
      * @return alle Schulklassen
      */
-//    private static converter.data.ClassTMP[] getAllSql() throws Exception
+//    private static converter.data.Class[] getAllSql() throws Exception
 //    {
 //        String[] settings = Settings.loadArray("sql");
-//        ArrayList< converter.data.ClassTMP> asList = new ArrayList<>();
+//        ArrayList< converter.data.Class> asList = new ArrayList<>();
 //        SqlTableReader read = new SqlTableReader(PathConverter.convert(settings[0]),
 //                                                 Integer.parseInt(settings[1]),
 //                                                 PathConverter.convert(settings[2]),
@@ -392,11 +393,11 @@ public class HtmlReader
 //        for(String[] asArray : readIn)
 //        {
 //            Map<String, String> forEntry = new HashMap<>();
-//            for(int i = 0; i < asArray.length; i++)
+//            for(int i = 0; i < asArray.lineCount; i++)
 //                forEntry.put(sqlColumms[i], asArray[i]);
 //
 //            boolean added = false;
-//            for(converter.data.ClassTMP sc : asList)
+//            for(converter.data.Class sc : asList)
 //                if(sc.getName().equals(forEntry.get("Stufe")))
 //                {
 //                    sc.getEntries().add(new Lesson(forEntry));
@@ -404,11 +405,11 @@ public class HtmlReader
 //                }
 //            if(!added)
 //            {
-//                converter.data.ClassTMP sc = new converter.data.ClassTMP(forEntry.get("Stufe"));
+//                converter.data.Class sc = new converter.data.Class(forEntry.get("Stufe"));
 //                sc.getEntries().add(new Lesson(forEntry));
 //                asList.add(sc);
 //            }
 //        }
-//        return (converter.data.ClassTMP[])asList.toArray();
+//        return (converter.data.Class[])asList.toArray();
 //    }
 }

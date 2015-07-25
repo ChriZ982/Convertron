@@ -1,8 +1,8 @@
-package converter.modules.overview.io.output;
+package converter.io.output;
 
-import converter.data.ClassTMP;
-import converter.io.FileTMP;
-import converter.io.Settings;
+import converter.data.Class;
+import converter.io.FileIO;
+import converter.util.Settings;
 import converter.util.Logger;
 import converter.util.Time;
 import java.io.*;
@@ -10,7 +10,7 @@ import java.io.*;
 /**
  * Generiert die HTML-Dateien.
  */
-public class HtmlWriter
+public class HtmlOut
 {
     /**
      * Name der Spalten in die geschrieben werden soll. Editieren, falls andere Namen. Reihenfolge:
@@ -33,7 +33,7 @@ public class HtmlWriter
      *
      *
      */
-    public static void plan(String type, ClassTMP[] schoolClasses) throws UnsupportedEncodingException, FileNotFoundException, IOException
+    public static void plan(String type, Class[] schoolClasses) throws UnsupportedEncodingException, FileNotFoundException, IOException
     {
         if(type.equals("heute"))
             schoolClasses = cut(schoolClasses);
@@ -43,10 +43,9 @@ public class HtmlWriter
         if(invalid(day, speed))
             return;
 
-        new FileTMP(Settings.load("pathData") + "/" + type + ".html").write(
-                new String[]
+        new FileIO(Settings.load("pathData") + "/" + type + ".html").write(new String[]
                 {
-                    new FileTMP(Settings.load("pathData") + "/TEMPLATE heute morgen.html").asString()
+                    new FileIO(Settings.load("pathData") + "/TEMPLATE heute morgen.html").asString()
                     .replaceAll("GESCHW", speed)
                     .replaceAll("TAG", day)
                     .replaceAll("VERTRETUNGEN", classes)
@@ -71,10 +70,9 @@ public class HtmlWriter
         if(text.equals("Laufschrift"))
             text = "";
 
-        new FileTMP(Settings.load("pathData") + "/laufschrift.html").write(
-                new String[]
+        new FileIO(Settings.load("pathData") + "/laufschrift.html").write(new String[]
                 {
-                    new FileTMP(Settings.load("pathData") + "/TEMPLATE laufschrift.html").asString()
+                    new FileIO(Settings.load("pathData") + "/TEMPLATE laufschrift.html").asString()
                     .replaceAll("GESCHW", speed)
                     .replaceAll("TEXT", text)
                 });
@@ -129,10 +127,9 @@ public class HtmlWriter
         if(invalid(plan, frame, datum1, datum2, stufe1, stufe2, tabelle1, tabelle2, tabelle3, schrift1, schrift2, schrift3))
             return;
 
-        new FileTMP(Settings.load("pathData") + "/style.css").write(
-                new String[]
+        new FileIO(Settings.load("pathData") + "/style.css").write(new String[]
                 {
-                    new FileTMP(Settings.load("pathData") + "/TEMPLATE style.css").asString()
+                    new FileIO(Settings.load("pathData") + "/TEMPLATE style.css").asString()
                     .replaceAll("PLAN", plan)
                     .replaceAll("FRAME", frame)
                     .replaceAll("DATUM1", datum1)
@@ -161,7 +158,7 @@ public class HtmlWriter
 //    public static void sql() throws Exception
 //    {
 //        String[] settings = Settings.loadArray("sql");
-//        ClassTMP[] scs = HtmlReader.forSql();
+//        Class[] scs = HtmlReader.forSql();
 //        SqlTableWriter write = new SqlTableWriter(PathConverter.convert(settings[0]),
 //                                                  Integer.parseInt(settings[1]),
 //                                                  PathConverter.convert(settings[2]),
@@ -174,13 +171,13 @@ public class HtmlWriter
 //            write.clear();
 //
 //        ArrayList<String[]> forSql = new ArrayList<>();
-//        for(ClassTMP sc : scs)
+//        for(Class sc : scs)
 //            for(Lesson e : sc.getEntries())
 //            {
-//                String[] line = new String[e.getImportantContent().length + 2];
+//                String[] line = new String[e.getImportantContent().lineCount + 2];
 //                line[0] = sc.getName();
 //                line[1] = e.getDate();
-//                for(int i = 3; i < line.length; i++)
+//                for(int i = 3; i < line.lineCount; i++)
 //                    line[i] = e.getImportantContent()[i - 3];
 //                forSql.add(line);
 //            }
@@ -193,13 +190,13 @@ public class HtmlWriter
      *
      * @return Formatierte Schulklassen als String
      */
-    private static String classes(ClassTMP[] schoolClasses) throws IOException
+    private static String classes(Class[] schoolClasses) throws IOException
     {
         if(schoolClasses == null)
             return "'<p class=\"datum\">Keine Vertretungen</p><br /><br />'+";
 
         String s = "";
-        for(ClassTMP schoolClass : schoolClasses)
+        for(Class schoolClass : schoolClasses)
         {
             String[] or = Settings.loadArray("lessonOrder");
             schoolClass.sort(Integer.parseInt(or[0]),
@@ -223,11 +220,11 @@ public class HtmlWriter
      *
      * @return Das bearbeitete Array
      */
-    private static ClassTMP[] cut(ClassTMP[] scs) throws IOException
+    private static Class[] cut(Class[] scs) throws IOException
     {
         if(Settings.load("lessonUse").equals("true"))
             if(scs != null && scs.length > 0)
-                for(ClassTMP sc : scs)
+                for(Class sc : scs)
                     sc.cut();
         return scs;
     }
@@ -239,7 +236,7 @@ public class HtmlWriter
      *
      * @return Kopf der Seite
      */
-    private static String head(ClassTMP[] schoolClasses) throws IOException
+    private static String head(Class[] schoolClasses) throws IOException
     {
         if(schoolClasses == null)
             return "Keine Vertretungen";

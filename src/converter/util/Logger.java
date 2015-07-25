@@ -1,10 +1,8 @@
 package converter.util;
 
-import converter.io.FileTMP;
+import converter.io.FileIO;
 import converter.modules.overview.OverviewView;
 import java.awt.Color;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import javax.swing.text.*;
 
 /**
@@ -12,92 +10,85 @@ import javax.swing.text.*;
  */
 public class Logger
 {
-    /**
-     * Der interne Log. Wird bei Fehlerausgaben verwendet
-     */
-    private static String internLog = "";
+    public static final int INFO = 0;
+    public static final int HINT = 1;
+    public static final int ERROR = 2;
+
+    public static final String[] IO_EXCEPTION =
+    {
+        "Es gab einen Schreibfehler", "Prüfen Sie die Verfügbarkeit von Laufwerken, Ordnern und Berechtigungen"
+    };
+    public static final String[] SECURITY_EXCEPTION =
+    {
+        "Eine Sicherheitseinstellung wurde verletzt", "Prüfen Sie die Sicherteitseinstellungen"
+    };
+
+    private static FileIO log = new FileIO(".\\Logs\\" + Time.date() + ".log");
+    private static boolean logInfos = true;
 
     /**
      * Standard zur Ausgabe von Fehlern oder Informationen.
      *
-     * @param text Ausgegebener Text
-     * @param prio Priorität des Textes. 0-INFO, 1-PROBLEM, 2-FEHLER
+     * @param text        Ausgegebener Text
+     * @param what
+     * @param whyHelp
+     * @param whatWhyHelp
+     * @param error
+     * @param reason
+     * @param advice
+     * @param prio        Priorität des Textes. 0-INFO, 1-PROBLEM, 2-FEHLER
      */
-    public static void log(String text, int prio)
+    public static void log(int prio, String what, String... whyHelp)
+    {
+        String errorMessage = buildErrorMessage(what, whyHelp);
+        log.create();
+        log.appendLines(errorMessage);
+
+        if(prio == INFO && !logInfos)
+            return;
+        writeInTextBox(errorMessage, selectColor(prio));
+    }
+
+    protected static String buildErrorMessage(String what, String[] whyHelp)
+    {
+        String message = Time.log() + what + "\n";
+        if(whyHelp.length >= 1)
+            message += "WARUM: " + whyHelp[0] + "\n";
+        if(whyHelp.length == 2)
+            message += "HILFE: " + whyHelp[1] + "\n";
+        return message;
+    }
+
+    protected static Color selectColor(int prio)
+    {
+        if(prio == INFO)
+            return new Color(120, 120, 120);
+        else if(prio == HINT)
+            return new Color(0, 100, 0);
+        else if(prio == ERROR)
+            return new Color(160, 0, 0);
+        else
+            return Color.BLACK;
+    }
+
+    protected static void writeInTextBox(String errorMessage, Color color)
     {
         try
         {
-
-            Color color;
-            switch(prio)
-            {
-                case 0:
-                    color = new Color(0, 100, 0);
-                    break;
-
-                case 1:
-                    color = new Color(200, 165, 0);
-                    break;
-
-                case 2:
-                    color = new Color(160, 0, 0);
-                    break;
-
-                default:
-                    color = Color.BLACK;
-                    break;
-            }
-            String content = Time.log() + text + "\n";
-
-            logIntern(text);
-
             SimpleAttributeSet set = new SimpleAttributeSet();
             StyleConstants.setForeground(set, color);
             Document doc = OverviewView.getLog().getStyledDocument();
-            doc.insertString(doc.getLength(), content, set);
+            doc.insertString(doc.getLength(), errorMessage, set);
             OverviewView.getLog().setCaretPosition(doc.getLength());
-
         }
-        catch(Exception ex)
+        catch(BadLocationException ex)
         {
-            System.err.println("Konnte eine Aktion nicht dokumentieren");
-            ex.printStackTrace();
+            Logger.log(ERROR, "Es konnte nicht in die Textbox für Logs geschrieben werden", "Die Position zum Einfügen ist fehlerhaft", "Wenden Sie sich an einen Entwickler");
         }
     }
 
-    public static void logIntern(String text)
+    public static void setLogInfos(boolean logInfos)
     {
-        internLog += Time.log() + text + "\n\n";
-    }
-
-    /**
-     * Dokumentiert einen Fehler und speichert ihn.
-     *
-     * @param exception Der Fehler
-     */
-    public static void error(Exception exception)
-    {
-        try
-        {
-            FileTMP writer = new FileTMP("Errors/err" + Time.error() + ".txt");
-            writer.create();
-
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-
-            exception.printStackTrace(pw);
-            pw.print("\n");
-            if(exception.getCause() != null)
-                exception.getCause().printStackTrace(pw);
-
-            writer.write(0, sw.toString() + "\n"
-                            + internLog);
-
-        }
-        catch(Exception ex)
-        {
-            System.err.println("Error konnte nicht dokumentiert werden");
-            ex.printStackTrace();
-        }
+        Logger.logInfos = logInfos;
     }
 }
