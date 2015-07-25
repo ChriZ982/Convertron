@@ -131,7 +131,7 @@ public class FileIO
      *
      *
      */
-    public void copyFromRes(String destination)
+    public void copyFromPackage(String destination)
     {
         try
         {

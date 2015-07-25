@@ -7,7 +7,6 @@ import converter.modules.overview.OverviewView;
 import converter.modules.paths.PathsView;
 import converter.modules.settings.SettingsView;
 import converter.modules.sql.SqlView;
-import converter.util.Logger;
 import converter.util.Settings;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -45,30 +44,24 @@ public class Control
      */
     public Control()
     {
-        setFileEncoding();
         setJavaLookAndFeel();
         createAndFillWindow();
 
-        Logger.log(Logger.INFO, "Die Datei " + " konnte nicht erstellt werden");
-
-        Logger.log(Logger.HINT, "Die Datei " + " konnte nicht erstellt werden", Logger.SECURITY_EXCEPTION);
-        Logger.log(Logger.ERROR, "Die Datei " + " konnte nicht erstellt werden", Logger.IO_EXCEPTION);
-
-        FileIO file = new FileIO("/converter/res/stdData/antonianumLogo.png");
-        file.copyFromRes("./Testsxtts");
+        setFileEncoding();
+        copyFilesFromPackage();
         //queue = new ArrayList<QueueElement>();
 //            boolean firstStart = new FileIO("./local.settings").exists();
 //            if(!firstStart)
-//                new FileIO("/com/facharbeit/ressources/stdData/global.settings").copyFromRes("./Data/");
-//            new FileIO("/com/facharbeit/ressources/stdData/local.settings").copyFromRes("./");
+//                new FileIO("/com/facharbeit/ressources/stdData/global.settings").copyFromPackage("./Data/");
+//            new FileIO("/com/facharbeit/ressources/stdData/local.settings").copyFromPackage("./");
 ////            if(firstStart)
-////                new FileIO("/com/facharbeit/ressources/stdData/global.settings").copyFromRes(Settings.load("pathData") + "/");
+////                new FileIO("/com/facharbeit/ressources/stdData/global.settings").copyFromPackage(Settings.load("pathData") + "/");
 //
-//            //Logger.init(frame.getStatusPane());
+//         
 //            Settings.init();
 //            if(firstStart)
-//                new FileIO("/com/facharbeit/ressources/stdData/global.settings").copyFromRes(Settings.load("pathData") + "/");
-//            initData();
+//                new FileIO("/com/facharbeit/ressources/stdData/global.settings").copyFromPackage(Settings.load("pathData") + "/");
+//
 //            initTray();
 //
 //            String[] pos = Settings.loadArray("position");
@@ -79,21 +72,6 @@ public class Control
 //            //frame.addWindowListener(new FrameActions(frame, this));
 //            window.setVisible(true);
 //            running = true;
-    }
-
-    private void setFileEncoding()
-    {
-        try
-        {
-            System.setProperty("file.encoding", "ISO-8859-1");
-        }
-        catch(SecurityException e)
-        {
-            JOptionPane.showMessageDialog(null, "Das File Encoding konnte nicht auf ISO-8859-1 umgestellt werden.\n"
-                                                + "Es kann zu Anzeigeproblemen kommen.\n"
-                                                + "Bitte prüfen Sie die Sicherheitseinstellungen und installierte Charsets.",
-                                          "Warnung", JOptionPane.OK_OPTION);
-        }
     }
 
     private void setJavaLookAndFeel()
@@ -121,6 +99,42 @@ public class Control
         window.addTab(new SqlView());
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setVisible(true);
+    }
+
+    private void setFileEncoding()
+    {
+        try
+        {
+            System.setProperty("file.encoding", "ISO-8859-1");
+        }
+        catch(SecurityException e)
+        {
+            JOptionPane.showMessageDialog(null, "Das File Encoding konnte nicht auf ISO-8859-1 umgestellt werden.\n"
+                                                + "Es kann zu Anzeigeproblemen kommen.\n"
+                                                + "Bitte prüfen Sie die Sicherheitseinstellungen und installierte Charsets.",
+                                          "Warnung", JOptionPane.OK_OPTION);
+        }
+    }
+
+    /**
+     * Initialisiert den Data-Ordner.
+     */
+    private void copyFilesFromPackage()
+    {
+        String packagePath = "/converter/res/stdData/";
+        String destPath = "./TestData";
+
+        copyFileFromPackage(packagePath, "TEMPLATE heute morgen.html", destPath);
+        copyFileFromPackage(packagePath, "TEMPLATE laufschrift.html", destPath);
+        copyFileFromPackage(packagePath, "TEMPLATE style.css", destPath);
+        copyFileFromPackage(packagePath, "VERTRETUNGSPLAN.html", destPath);
+        copyFileFromPackage(packagePath, "antonianumLogo.png", destPath);
+    }
+
+    private void copyFileFromPackage(String packagePath, String fileName, String destPath)
+    {
+        FileIO file = new FileIO(packagePath + fileName);
+        file.copyFromPackage(destPath);
     }
 
     /**
@@ -151,26 +165,6 @@ public class Control
             //Logger.log("Fehler beim Beenden", 2);
             //Logger.error(ex);
             System.exit(-1);
-        }
-    }
-
-    /**
-     * Initialisiert den Data-Ordner.
-     */
-    private void initData()
-    {
-        try
-        {
-            new FileIO("/com/facharbeit/ressources/stdData/antonianumLogo.png").copyFromRes(Settings.load("pathData") + "/");
-            new FileIO("/com/facharbeit/ressources/stdData/TEMPLATE heute morgen.html").copyFromRes(Settings.load("pathData") + "/");
-            new FileIO("/com/facharbeit/ressources/stdData/TEMPLATE laufschrift.html").copyFromRes(Settings.load("pathData") + "/");
-            new FileIO("/com/facharbeit/ressources/stdData/VERTRETUNGSPLAN.html").copyFromRes(Settings.load("pathData") + "/");
-            new FileIO("/com/facharbeit/ressources/stdData/TEMPLATE style.css").copyFromRes(Settings.load("pathData") + "/");
-        }
-        catch(Exception ex)
-        {
-            //Logger.log("Data-Ordner konnte nicht initialisiert werden", 2);
-            //Logger.error(ex);
         }
     }
 
