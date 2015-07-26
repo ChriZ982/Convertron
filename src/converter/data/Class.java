@@ -3,7 +3,8 @@ package converter.data;
 import converter.util.Settings;
 import converter.util.Time;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Klasse, die alle Vertretungen (Entrys) einer Schulklasse beinhaltet.
@@ -113,7 +114,6 @@ public class Class
      */
     public void cut() throws IOException
     {
-        Settings.enable(false);
         ArrayList<Lesson> newEntries = new ArrayList<Lesson>();
         for(Lesson e : entries)
         {
@@ -127,7 +127,6 @@ public class Class
                 newEntries.add(e);
         }
         entries = newEntries;
-        Settings.enable(true);
     }
 
     /**
@@ -252,7 +251,30 @@ public class Class
         return curDate;
     }
 
+    public void addLesson(Lesson l)
+    {
+        entries.add(l);
+    }
+
+    public Lesson getLesson(int index)
+    {
+        return entries.get(index);
+    }
+
+    public int size()
+    {
+        return entries.size();
+    }
+
+    public void appendLesson(Lesson l)
+    {
+        Lesson last = entries.get(size() - 1);
+        for(String key : l.getContent().keySet())
+            l.append(key, l.getContent().get(key));
+    }
+
     /**
+     * @deprecated
      * Gibt Einträge.
      *
      * @return Einträge
@@ -263,6 +285,7 @@ public class Class
     }
 
     /**
+     * @deprecated
      * Setzt Einträge.
      *
      * @param entrys Neue Einträge

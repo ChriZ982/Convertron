@@ -1,5 +1,6 @@
 package converter.data;
 
+import converter.util.Validators;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +15,27 @@ public class Lesson
     public static final String[] defaultImportantContentOrder =
     {
         "Vertreter", "Raum", "Vertretungsart", "(Fach)", "(Lehrer)", "Verl. von", "Hinweise"
+    };
+
+    private static LessonValidator validator = new LessonValidator()
+    {
+        @Override
+        public boolean validateLesson(Lesson l)
+        {
+            if(!(l.lesson != -1 && l.content != null && l.date != null))
+                return false;
+
+            if(!(l.contains("Std") && l.contains("Datum")))
+                return false;
+
+            if(!Validators.validateAsNumber(l.get("Std"), '-', ' '))
+                return false;
+
+            if(!Validators.validateAsDate(l.get("Datum")))
+                return false;
+
+            return true;
+        }
     };
 
     /**
@@ -125,6 +147,7 @@ public class Lesson
     }
 
     /**
+     * @deprecated
      * Gibt Inhalt.
      *
      * @return Inhalt
@@ -135,6 +158,7 @@ public class Lesson
     }
 
     /**
+     * @deprecated
      * Setzt Inhalt.
      *
      * @param content Neuer Inhalt
@@ -142,6 +166,29 @@ public class Lesson
     public void setContent(Map<String, String> content)
     {
         this.content = content;
+    }
+
+    public void append(String key, String value)
+    {
+        if(content.containsKey(key))
+            content.put(key, content.get(key) + " " + value);
+        else
+            content.put(key, value);
+    }
+
+    public void put(String key, String value)
+    {
+        content.put(key, value);
+    }
+
+    public boolean contains(String key)
+    {
+        return content.containsKey(key);
+    }
+
+    public String get(String key)
+    {
+        return content.get(key);
     }
 
     /**
@@ -184,5 +231,10 @@ public class Lesson
     public void setImportantContentOrder(String[] importantContentOrder)
     {
         this.importantContentOrder = importantContentOrder;
+    }
+
+    public boolean isValid()
+    {
+        return validator.validateLesson(this);
     }
 }
