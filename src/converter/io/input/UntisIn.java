@@ -1,13 +1,16 @@
 package converter.io.input;
 
-import converter.util.Settings;
+import converter.data.Class;
 import converter.data.Lesson;
-import converter.io.*;
+import converter.io.FileIO;
+import converter.io.FolderIO;
 import converter.unused.PathConverter;
+import converter.util.Settings;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Liest die HTML-Dateien für einzelne Klassen aus.
@@ -143,62 +146,36 @@ public class UntisIn
             {
             };
 
-        ArrayList<File> files = getFiles(path);
-        converter.data.Class[] schoolClasses = new converter.data.Class[files.size()];
+        File[] files = getFiles(path);
+        converter.data.Class[] classes = new converter.data.Class[files.length];
 
-        for(int i = 0; i < schoolClasses.length; i++)
+        initalizeClasses(classes, files);
+
+        for(Class currClass : classes)
         {
-            String filename = files.get(i).getName();
-            String[] prefix = Settings.loadArray("fileName");
-            schoolClasses[i] = new converter.data.Class(filename.substring(prefix[0].length(), filename.indexOf(prefix[1])));
-            if(schoolClasses[i].isEmpty())
-                schoolClasses[i].setEntries(new ArrayList<Lesson>());
+            String[][] table = convertToTable(new FileIO(path).readAllString());
+            String[] colummNames = table[0];
 
-            String asString = "";//getTable(new FileTMP(files.get(i)).asString());
-            asString = asString.substring(asString.indexOf(findHtmlTag(asString, "TR")) + findHtmlTag(asString, "TR").length());
-
-            ArrayList<String> head = new ArrayList<>();
-            while(asString.indexOf(findHtmlTag(asString, "TD")) < asString.indexOf(findHtmlTag(asString, "TR")))
+            for(int i = 1; i < table.length; i++)
             {
-                asString = asString.substring(asString.indexOf(findHtmlTag(asString, "TD")) + findHtmlTag(asString, "TD").length());
-                head.add(readEntry(asString.substring(0, asString.indexOf(findHtmlTag(asString, "/TD")))));
-            }
+                String[] currRow = table[i];
 
-            while(true)
-            {
-                asString = asString.substring(asString.indexOf(findHtmlTag(asString, "TR")) + 4);
-                HashMap<String, String> entries = new HashMap<>();
+                HashMap<String, String> data = new HashMap<>();
 
-                for(String head1 : head)
+                for(int j = 0; j < currRow.length; j++)
                 {
-                    asString = asString.substring(asString.indexOf(findHtmlTag(asString, "TD")) + findHtmlTag(asString, "TD").length());
-                    entries.put(head1, readEntry(asString.substring(0, asString.indexOf(findHtmlTag(asString, "/TD")))));
+                    data.put(colummNames[j], currRow[j]);
                 }
 
-                boolean valid = true;
-                if(entries.containsKey("Std"))
-                    if(!validateAsNumber(entries.get("Std"), '-', ' '))
-                        valid = false;
-                if(entries.containsKey("Datum"))
-                    if(!validateAsNumber(entries.get("Datum"), '.'))
-                        valid = false;
-                if(valid)
-                    schoolClasses[i].getEntries().add(new Lesson(entries));
+                //TODO: Class erkennt selbst ob lesson valid ist
+                Lesson lesson = new Lesson(data);
+                if(lesson.isValid())
+                    currClass.addLesson(new Lesson(data));
                 else
-                {
-                    Lesson e = schoolClasses[i].getEntries().get(schoolClasses[i].getEntries().size() - 1);
-                    for(String key : entries.keySet())
-                        if(e.getContent().containsKey(key))
-                            e.getContent().put(key, e.getContent().get(key) + " " + entries.get(key));
-                        else
-                            e.getContent().put(key, entries.get(key));
-                }
-                asString = asString.substring(asString.indexOf(findHtmlTag(asString, "/TD")) + findHtmlTag(asString, "/TD").length());
-                if(!asString.contains("<TR>"))
-                    break;
+                    currClass.appendLesson(new Lesson(data));
             }
         }
-        return schoolClasses;
+        return classes;
     }
 
     /**
@@ -233,40 +210,40 @@ public class UntisIn
         return source;
     }
 
-    /**
-     * Prüft ob der String zu einer Zahl konvertiert werden kann.
-     *
-     * @param s          Der String der überprüft wird
-     * @param extraChars zusätzlich zugelassene Zeichen (neben Ziffern)
-     *
-     * @return Ob der String nur aus Ziffern und "extraChars" besteht
-     */
-    private static boolean validateAsNumber(String s, char... extraChars)
+    private static void initalizeClasses(converter.data.Class[] classes, File[] files)
     {
-        boolean found = false;
-        if(s.isEmpty())
-            return false;
+        for(int i = 0; i < classes.length; i++)
+        {
+            String filename = files[i].getName();
+            String[] prefix = Settings.loadArray("fileName");
+            classes[i] = new converter.data.Class(filename.substring(prefix[0].length(), filename.indexOf(prefix[1])));
+        }
+    }
 
-        for(char c : s.toCharArray())
-            if(Character.isDigit(c))
-                found = true;
-        if(!found)
-            return false;
+    private static String[][] convertToTable(String rawFile)
+    {
+        ArrayList<String[]> rows = new ArrayList<>();
 
-        for(char c : s.toCharArray())
-            if(!Character.isDigit(c))
-            {
-                found = false;
-                for(char extra : extraChars)
-                    if(c == extra)
-                    {
-                        found = true;
-                        break;
-                    }
-                if(!found)
-                    return false;
-            }
-        return true;
+        rawFile = getTable(rawFile);
+
+        while(rawFile.contains("<TR>"))
+        {
+            rawFile = rawFile.substring(rawFile.indexOf(findHtmlTag(rawFile, "TR")) + 4);
+            rows.add(readRow(rawFile.substring(0, rawFile.indexOf(findHtmlTag(rawFile, "/TR")))));
+        }
+
+        return rows.toArray(new String[0][]);
+    }
+
+    private static String[] readRow(String rawRow)
+    {
+        ArrayList<String> columms = new ArrayList<>();
+        while(rawRow.indexOf(findHtmlTag(rawRow, "TD")) < rawRow.indexOf(findHtmlTag(rawRow, "TR")))
+        {
+            rawRow = rawRow.substring(rawRow.indexOf(findHtmlTag(rawRow, "TD")) + findHtmlTag(rawRow, "TD").length());
+            columms.add(readEntry(rawRow.substring(0, rawRow.indexOf(findHtmlTag(rawRow, "/TD")))));
+        }
+        return columms.toArray(new String[0]);
     }
 
     /**
@@ -341,7 +318,7 @@ public class UntisIn
      *
      * @return Liste der Dateien
      */
-    private static ArrayList<File> getFiles(String path) throws IOException
+    private static File[] getFiles(String path) throws IOException
     {
         while(path.endsWith("\\"))
             path = path.substring(0, path.length() - 1);
@@ -369,7 +346,7 @@ public class UntisIn
             if(file.exists())
                 files.add(file);
         }
-        return files;
+        return files.toArray(new File[0]);
     }
 
     /**
