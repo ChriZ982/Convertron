@@ -8,49 +8,56 @@ import javax.swing.text.Document;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
-/**
- * Klasse, die alle Aktionen registriert und im Programm ausgibt.
- */
+/** Klasse, die alle Aktionen registriert und sowohl im Programm als auch in einer Datei ausgibt. */
 public class Logger
 {
+    /** Wird zur Priorisierung verwendet (Information). */
     public static final int INFO = 0;
+    /** Wird zur Priorisierung verwendet (Hinweis). */
     public static final int HINT = 1;
-    public static final int ERROR = 2;
+    /** Wird zur Priorisierung verwendet (Warnung). */
+    public static final int WARNING = 2;
+    /** Wird zur Priorisierung verwendet (Fehler). */
+    public static final int ERROR = 3;
 
-    public static final String[] IO_EXCEPTION =
-    {
-        "Es gab einen Schreibfehler", "Prüfen Sie die Verfügbarkeit von Laufwerken, Ordnern und Berechtigungen"
-    };
-    public static final String[] SECURITY_EXCEPTION =
-    {
-        "Eine Sicherheitseinstellung wurde verletzt", "Prüfen Sie die Sicherteitseinstellungen"
-    };
-    public static final String[] INVALIDPATH_EXCEPTION =
-    {
-        "Ein Pfad ist fehlerhaft", "Bitte überprüfen Sie die vorangegangenen Angaben"
-    };
+    /** Wird zum Speichern des Logs verwendet. */
+    protected static FileIO log = new FileIO("./Logs/" + Time.date() + ".log");
 
-    private static FileIO log = new FileIO("./Logs/" + Time.date() + ".log");
-    private static boolean logInfos = true;
+    /** Wird nur im Programm zum Ausblenden von unwichtigen Optionen verwendet. */
+    protected static boolean logInfos = true;
 
     /**
      * Standard zur Ausgabe von Fehlern oder Informationen.
-     *
-     * @param what
-     * @param whyHelp
-     * @param prio    Priorität des Textes. 0-INFO, 1-PROBLEM, 2-FEHLER
+     * @param what    Was ist passiert?
+     * @param whyHelp Warum kam es zum Fehler? Wie kann man ihn beheben?
+     * @param prio    Priorität des Textes. Nutzung der statischen Variablen z.B. Logger.ERROR
      */
     public static void log(int prio, String what, String... whyHelp)
     {
         String errorMessage = buildErrorMessage(what, whyHelp);
         log.create();
         log.appendLines(errorMessage);
-
         if(prio == INFO && !logInfos)
             return;
         writeInTextBox(errorMessage, selectColor(prio));
     }
 
+    public static void error(int prio, RuntimeException exception)
+    {
+        String errorMessage = buildErrorMessage(what, whyHelp);
+        log.create();
+        log.appendLines(errorMessage);
+        if(prio == INFO && !logInfos)
+            return;
+        writeInTextBox(errorMessage, selectColor(prio));
+    }
+
+    /**
+     * Erzeugt die eigentliche Fehler Nachricht.
+     * @param what    Was ist passiert?
+     * @param whyHelp Warum kam es zum Fehler? Wie kann man ihn beheben?
+     * @return Fehler Nachricht
+     */
     protected static String buildErrorMessage(String what, String[] whyHelp)
     {
         String message = Time.log() + what + "\n";
@@ -61,6 +68,11 @@ public class Logger
         return message;
     }
 
+    /**
+     * Wählt die Farbe im Programm anhand von der Priorität.
+     * @param prio Priorität
+     * @return Farbe
+     */
     protected static Color selectColor(int prio)
     {
         if(prio == INFO)
@@ -73,6 +85,11 @@ public class Logger
             return Color.BLACK;
     }
 
+    /**
+     * Schreibt den Text in die vorgesehene Box im Programm.
+     * @param errorMessage Text
+     * @param color        Farbe des Textes
+     */
     protected static void writeInTextBox(String errorMessage, Color color)
     {
         try
@@ -89,6 +106,10 @@ public class Logger
         }
     }
 
+    /**
+     * Bestimmt ob unwichtige Informationen angezeigt werden sollen.
+     * @param logInfos Sollen Informationen angezeigt werden?
+     */
     public static void setLogInfos(boolean logInfos)
     {
         Logger.logInfos = logInfos;

@@ -11,16 +11,14 @@ import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 
-/**
- * Mit dieser Klasse können, hauptsächlic Textdateien, gelesen und geschrieben werden.
- */
+/** Mit dieser Klasse können, hauptsächlich Textdateien, gelesen und geschrieben werden. */
 public class FileIO
 {
-    private Path path;
+    /** Pfad und Name der Datei. */
+    protected Path path;
 
     /**
-     * Erstellt einen FileHandler.
-     *
+     * Initialisiert das Objekt.
      * @param path Pfad zur Datei inklusive Dateiname
      */
     public FileIO(String path)
@@ -35,12 +33,7 @@ public class FileIO
         }
     }
 
-    /**
-     * Erstellt eine neue Datei.
-     *
-     *
-     * @throws java.io.IOException
-     */
+    /** Erstellt eine neue Datei. */
     public void create()
     {
         try
@@ -61,11 +54,7 @@ public class FileIO
         }
     }
 
-    /**
-     * Löscht eine bestehende Datei.
-     *
-     *
-     */
+    /** Löscht eine bestehende Datei. */
     public void remove()
     {
         try
@@ -86,10 +75,7 @@ public class FileIO
 
     /**
      * Prüft ob die Datei existiert.
-     *
      * @return Existiert die Datei?
-     *
-     *
      */
     public boolean isRealFile()
     {
@@ -98,12 +84,7 @@ public class FileIO
 
     /**
      * Kopiert eine Datei zu einem Pfad.
-     *
      * @param destination Zielpfad
-     *
-     * @throws java.io.IOException
-     *
-     *
      */
     public void copy(String destination)
     {
@@ -131,11 +112,8 @@ public class FileIO
     }
 
     /**
-     * Kopiert Dateien aus dem Java-Package der Facharbeit.
-     *
-     * @param destination
-     *
-     *
+     * Kopiert Dateien aus dem Java-Package.
+     * @param destination Zielpfad
      */
     public void copyFromPackage(String destination)
     {
@@ -164,12 +142,7 @@ public class FileIO
 
     /**
      * Gibt die Zeilenanzahl von Textdateien zurück.
-     *
      * @return Anzahl der Zeilen
-     *
-     * @throws java.io.IOException
-     *
-     *
      */
     public int lineCount()
     {
@@ -178,14 +151,8 @@ public class FileIO
 
     /**
      * Liest eine Zeile der Datei.
-     *
      * @param lineNumber Zeile, die gelesen werden soll
-     *
      * @return Inhalt dieser Zeile
-     *
-     * @throws java.io.IOException
-     *
-     *
      */
     public String readLine(int lineNumber)
     {
@@ -194,12 +161,7 @@ public class FileIO
 
     /**
      * Liest die ganze Datei aus.
-     *
      * @return Ganze Datei als String Array
-     *
-     * @throws java.io.IOException
-     *
-     *
      */
     public String[] readAllArray()
     {
@@ -224,12 +186,7 @@ public class FileIO
 
     /**
      * Konvertiert die Datei in einen einzelnen String.
-     *
      * @return Ganze Datei als String
-     *
-     * @throws java.io.IOException
-     *
-     *
      */
     public String readAllString()
     {
@@ -238,13 +195,7 @@ public class FileIO
 
     /**
      * Schreibt eine ganze Datei neu.
-     *
-     * @param text Daten, die in die Datei geschrieben werder sollen
-     *
-     * @throws java.io.UnsupportedEncodingException
-     * @throws java.io.FileNotFoundException
-     *
-     *
+     * @param text Text, der in die Datei geschrieben werden soll
      */
     public void writeLines(String... text)
     {
@@ -264,13 +215,8 @@ public class FileIO
 
     /**
      * Schreibt nur eine Zeile einer Datei neu.
-     *
      * @param lineNumber Zeile, die neu geschrieben werden soll
      * @param newText    Text, der geschrieben werden soll
-     *
-     * @throws java.io.IOException
-     *
-     *
      */
     public void writeLine(int lineNumber, String newText)
     {
@@ -279,6 +225,10 @@ public class FileIO
         writeLines(oldText);
     }
 
+    /**
+     * Hängt Zeilen an eine bestehende Datei an.
+     * @param text Text, der angehängt werden soll
+     */
     public void appendLines(String... text)
     {
         try

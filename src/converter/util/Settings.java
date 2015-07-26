@@ -9,10 +9,10 @@ import java.util.List;
 public class Settings
 {
     /** Für den Umgang mit der Settings Datei. */
-    private static FileIO file;
+    protected static FileIO file;
 
     /** Einstellungen, die lokal gespeichert werden. Der Rest wird global gespeichert. */
-    private static String[] localSettingNames = new String[]
+    protected static String[] localSettingNames = new String[]
     {
         "pathBackup", "pathData", "pathDests", "pathSource", "position"
     };
@@ -31,7 +31,6 @@ public class Settings
             file.appendLines(settingLine);
         else
             file.writeLine(lineNumber, settingLine);
-
         Logger.log(Logger.INFO, "Einstellung " + settingName + " wurde auf den Wert " + settingValue + " gesetzt");
     }
 
@@ -49,13 +48,10 @@ public class Settings
             Logger.log(Logger.INFO, "Einstellung " + settingName + " nicht vorhanden");
             return "";
         }
-        else
-        {
-            String settingLine = file.readLine(line);
-            String settingValue = settingLine.substring((settingName + ":").length());
-            Logger.log(Logger.INFO, "Einstellung " + settingName + " wurde mit dem Wert " + settingValue + " geladen");
-            return settingValue;
-        }
+        String settingLine = file.readLine(line);
+        String settingValue = settingLine.substring((settingName + ":").length());
+        Logger.log(Logger.INFO, "Einstellung " + settingName + " wurde mit dem Wert " + settingValue + " geladen");
+        return settingValue;
     }
 
     /**
@@ -89,14 +85,11 @@ public class Settings
             Logger.log(Logger.INFO, "Einstellung " + settingName + " nicht vorhanden");
             return new String[0];
         }
-        else
-        {
-            String settingLine = file.readLine(line);
-            settingLine = settingLine.substring((settingName + ":").length());
-            String[] settingValues = settingLine.split(";");
-            Logger.log(Logger.INFO, "Einstellung " + settingName + " wurde mit den Werten " + Arrays.toString(settingValues) + " geladen");
-            return settingValues;
-        }
+        String settingLine = file.readLine(line);
+        settingLine = settingLine.substring((settingName + ":").length());
+        String[] settingValues = settingLine.split(";");
+        Logger.log(Logger.INFO, "Einstellung " + settingName + " wurde mit den Werten " + Arrays.toString(settingValues) + " geladen");
+        return settingValues;
     }
 
     /**
@@ -110,7 +103,6 @@ public class Settings
         int line = lineNumberOfSetting(settingName);
         if(line == -1)
             return false;
-
         List<String> fileLines = Arrays.asList(file.readAllArray());
         fileLines.remove(line);
         file.writeLines(fileLines.toArray(new String[0]));
@@ -139,7 +131,7 @@ public class Settings
      * Wählt die globale oder lokale Datei als Speicherort.
      * @param settingName Name der Einstellung
      */
-    private static void selectCorrectFile(String settingName)
+    protected static void selectCorrectFile(String settingName)
     {
         file = new FileIO("./local.settings");
         if(!Arrays.asList(localSettingNames).contains(settingName))
@@ -151,7 +143,7 @@ public class Settings
      * @param settingName Name der Einstellung
      * @return Zeilennummer der Einstellung (-1 wenn nicht vorhanden)
      */
-    private static int lineNumberOfSetting(String settingName)
+    protected static int lineNumberOfSetting(String settingName)
     {
         String[] fileLines = file.readAllArray();
         for(int i = 0; i < fileLines.length; i++)
