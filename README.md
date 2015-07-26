@@ -1,7 +1,34 @@
-# README #
+# **Facharbeit 2015** #
+**ca. 5800 Zeilen**
 
-Facharbeit 2015
+# LAST STABLE VERSION 3.4 #
 
-#FINAL VERSION 3.4#
-
-ca. 5800 Zeilen
+C:Recoded
+D:Documented
+T:UnitTested
+# TODO #
+* □ □ □ Control
+* □ □ □ Window
+* □ □ □ Class
+* □ □ □ Lesson
+* □ □ □ UntisIn
+* □ □ □ HtmlOut
+* C D □ FileIO
+* □ □ □ FolderIO
+* □ □ □ SqlIO
+* □ □ □ DesignView
+* □ □ □ OverviewView
+* □ □ □ PathsView
+* □ □ □ SettingsView
+* □ □ □ SqlView
+* □ □ □ View
+* C D □ Logger
+* C D □ Settings
+* □ □ □ Storage
+* □ □ □ Time
+* □
+* *□ □ □ ConvertableExpressions*
+* *□ □ □ FrameActions*
+* *□ □ □ PathConverter*
+* *□ □ □ QueueElement*
+* *□ □ □ QueueableMethods*
