@@ -1,5 +1,0 @@
-pathData:.\Data
-pathBackup:.\TestBackup
-pathSource:.\TestDateien
-pathDests:.\TestZiel1;.\TestZiel2
-position:200;200
