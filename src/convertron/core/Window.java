@@ -1,6 +1,6 @@
-package converter.core;
+package convertron.core;
 
-import converter.modules.View;
+import interlib.interfaces.View;
 
 /**
  * Anzeige-Fenster der Anwendung.

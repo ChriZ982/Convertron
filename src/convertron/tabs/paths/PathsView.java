@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package converter.modules.paths;
+package convertron.tabs.paths;
 
-import converter.modules.View;
+import interlib.interfaces.View;
 
 /**
  *

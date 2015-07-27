@@ -1,13 +1,11 @@
-package converter.core;
+package convertron.core;
 
-import converter.io.FileIO;
-import converter.modules.design.DesignView;
-import converter.modules.overview.OverviewView;
-import converter.modules.paths.PathsView;
-import converter.modules.settings.SettingsView;
-import converter.modules.sql.SqlView;
-import converter.util.Logger;
-import converter.util.Settings;
+import convertron.tabs.overview.OverviewView;
+import convertron.tabs.paths.PathsView;
+import convertron.tabs.settings.SettingsView;
+import interlib.io.FileIO;
+import interlib.util.Logger;
+import interlib.util.Settings;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
@@ -81,11 +79,11 @@ public class Control
         window.addTab(new OverviewView());
         window.addTab(new SettingsView());
         window.addTab(new PathsView());
-        window.addTab(new DesignView());
-        window.addTab(new SqlView());
+//        window.addTab(new DesignView());
+//        window.addTab(new SqlView());
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setVisible(true);
-        Logger.log(Logger.INFO, "Fenster wurde erstellt und gefüllt");
+        Logger.logMessage(Logger.INFO, "Fenster wurde erstellt und gefüllt");
     }
 
     private void setFileEncoding()
@@ -93,7 +91,7 @@ public class Control
         try
         {
             System.setProperty("file.encoding", "ISO-8859-1");
-            Logger.log(Logger.INFO, "File Encoding wurde konfiguriert");
+            Logger.logMessage(Logger.INFO, "File Encoding wurde konfiguriert");
         }
         catch(SecurityException e)
         {
@@ -119,7 +117,7 @@ public class Control
         copyFileFromPackage(packagePath, "VERTRETUNGSPLAN.html", destPath);
         copyFileFromPackage(packagePath, "TEMPLATE laufschrift.html", destPath);
         copyFileFromPackage(packagePath, "TEMPLATE heute morgen.html", destPath);
-        Logger.log(Logger.INFO, "Alle Dateien wurden erstellt oder überprüft");
+        Logger.logMessage(Logger.INFO, "Alle Dateien wurden erstellt oder überprüft");
     }
 
     private void copyFileFromPackage(String packagePath, String fileName, String destPath)
@@ -133,7 +131,7 @@ public class Control
         String[] positions = Settings.loadArray("position");
         if(!positions[0].isEmpty() && !positions[1].isEmpty())
             window.setLocation(Integer.parseInt(positions[0]), Integer.parseInt(positions[1]));
-        Logger.log(Logger.INFO, "Fenster Position wurde geladen");
+        Logger.logMessage(Logger.INFO, "Fenster Position wurde geladen");
     }
 
     /**
@@ -160,7 +158,7 @@ public class Control
         }
         catch(Exception ex)
         {
-            //Logger.log("Fehler beim Beenden", 2);
+            //Logger.logMessage("Fehler beim Beenden", 2);
             //Logger.error(ex);
             System.exit(-1);
         }
@@ -180,7 +178,7 @@ public class Control
         }
         catch(Exception ex)
         {
-            //Logger.log("Fehler in der Main-Methode", 2);
+            //Logger.logMessage("Fehler in der Main-Methode", 2);
             //Logger.error(ex);
         }
     }
@@ -215,7 +213,7 @@ public class Control
         }
         catch(Exception ex)
         {
-            //Logger.log("Fehler in der Programm-Schleife", 2);
+            //Logger.logMessage("Fehler in der Programm-Schleife", 2);
             //Logger.error(ex);
         }
     }
@@ -241,7 +239,7 @@ public class Control
 //        }
 //        catch(Exception ex)
 //        {
-//            Logger.log("Methode \"" + methodName + "\"konnte nicht zur Warteschlange hinzugefügt werden", 2);
+//            Logger.logMessage("Methode \"" + methodName + "\"konnte nicht zur Warteschlange hinzugefügt werden", 2);
 //            Logger.error(ex);
 //        }
     }
@@ -262,7 +260,7 @@ public class Control
 //        }
 //        catch(Exception ex)
 //        {
-//            Logger.log("Element der Warteschlange konnte nicht ausgeführt werden", 2);
+//            Logger.logMessage("Element der Warteschlange konnte nicht ausgeführt werden", 2);
 //            Logger.error(ex);
 //        }
     }
@@ -315,7 +313,7 @@ public class Control
         }
         catch(Exception ex)
         {
-            //Logger.log("Tray konnte nicht initialisiert werden", 2);
+            //Logger.logMessage("Tray konnte nicht initialisiert werden", 2);
             //Logger.error(ex);
         }
     }
