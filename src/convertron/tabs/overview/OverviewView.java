@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package converter.modules.overview;
+package convertron.tabs.overview;
 
-import converter.modules.View;
-import converter.util.Logger;
-import javax.swing.*;
+import interlib.interfaces.View;
+import interlib.util.Logger;
+import javax.swing.JTextPane;
 
 /**
  *
