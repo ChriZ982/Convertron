@@ -1,4 +1,4 @@
-package convertron.core;
+package convertron.tabs.modules;
 
 import interlib.util.Logger;
 import java.io.File;
@@ -10,11 +10,11 @@ import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-public class PluginLoader
+public class ModuleLoader
 {
-    public Class[] loadAllModuleClasses(File jarFile) throws IOException
+    public ClassLocation[] getAvailableModuleClasses(File jarFile) throws IOException
     {
-        ArrayList<Class> moduleClasses = new ArrayList<>();
+        ArrayList<ClassLocation> moduleClasses = new ArrayList<>();
 
         JarFile jar = new JarFile(jarFile);
         URL url = jarFile.toURI().toURL();
@@ -27,17 +27,27 @@ public class PluginLoader
             if(!validateJarEntryAsClass(e))
                 continue;
 
-            Class cl = loadClass(url, e);
-            if(isModule(cl))
-                moduleClasses.add(cl);
+            try
+            {
+                ClassLocation location = new ClassLocation(url, e.getName());
+
+                Class cl = loadClass(location);
+                if(isModule(cl))
+                    moduleClasses.add(location);
+            }
+            catch(Exception ex)
+            {
+                Logger.logError(Logger.INFO, ex);
+            }
         }
 
-        return moduleClasses.toArray(new Class[0]);
+        return moduleClasses.toArray(new ClassLocation[0]);
     }
 
-    protected static Class loadClass(URL jarFileUrl, JarEntry e)
+    public static Class loadClass(ClassLocation location)
     {
-        String logPart = "Try to load " + parseClassName(e.getName()) + " from Jar " + jarFileUrl;
+        String logPart = parseClassName(location.getJarEntryName())
+                         + " from Jar " + location.getJarFileUrl();
 
         try
         {
@@ -45,8 +55,8 @@ public class PluginLoader
 
             Class clazz = new URLClassLoader(new URL[]
             {
-                jarFileUrl
-            }).loadClass(parseClassName(e.getName()));
+                location.getJarFileUrl()
+            }).loadClass(parseClassName(location.getJarEntryName()));
 
             Logger.logMessage(Logger.INFO, logPart + " loaded");
 
@@ -54,9 +64,7 @@ public class PluginLoader
         }
         catch(Throwable t)
         {
-            Logger.logMessage(Logger.INFO, "Failed to load " + logPart);
-            Logger.logError(Logger.INFO, t);
-            return null;
+            throw new RuntimeException("Failed to load " + logPart, t);
         }
     }
 

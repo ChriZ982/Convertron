@@ -3,65 +3,57 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package convertron.core;
+package convertron.tabs.modules;
 
 import interlib.interfaces.View;
 import java.util.jar.JarEntry;
-import org.junit.After;
-import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
  *
  * @author Mirko
  */
-public class PluginLoaderTest
+public class ModuleLoaderTest
 {
 
-    public PluginLoaderTest()
+    public ModuleLoaderTest()
     {
     }
 
-    @BeforeClass
-    public static void setUpClass()
+    /**
+     * Test of getAvailableModuleClasses method, of class ModuleLoader.
+     */
+    @Test
+    public void testGetAvailableModuleClasses()
     {
-    }
-
-    @AfterClass
-    public static void tearDownClass()
-    {
-    }
-
-    @Before
-    public void setUp()
-    {
-    }
-
-    @After
-    public void tearDown()
-    {
-    }
-
-//    /**
-//     * Test of loadAllModuleClasses method, of class PluginLoader.
-//     */
-//    @Test
-//    public void testLoadAllModuleClasses()
-//    {
-//        System.out.println("loadAllModuleClasses");
+//        System.out.println("getAvailableModuleClasses");
 //        File jarFile = null;
-//        PluginLoader instance = new PluginLoader();
-//        Class[] expResult = null;
-//        Class[] result = instance.loadAllModuleClasses(jarFile);
+//        ModuleLoader instance = new ModuleLoader();
+//        ClassLocation[] expResult = null;
+//        ClassLocation[] result = instance.getAvailableModuleClasses(jarFile);
 //        assertArrayEquals(expResult, result);
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
-//    }
+    }
+
     /**
-     * Test of parseClassName method, of class PluginLoader.
+     * Test of loadClass method, of class ModuleLoader.
+     */
+    @Test
+    public void testLoadClass()
+    {
+//        System.out.println("loadClass");
+//        ClassLocation location = null;
+//        Class expResult = null;
+//        Class result = ModuleLoader.loadClass(location);
+//        assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of parseClassName method, of class ModuleLoader.
      */
     @Test
     public void testParseClassName()
@@ -69,12 +61,12 @@ public class PluginLoaderTest
         System.out.println("parseClassName");
         String jarEntryName = "package/anotherpackage/testclass.class";
         String expResult = "package.anotherpackage.testclass";
-        String result = PluginLoader.parseClassName(jarEntryName);
+        String result = ModuleLoader.parseClassName(jarEntryName);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of validateJarEntryAsClass method, of class PluginLoader.
+     * Test of validateJarEntryAsClass method, of class ModuleLoader.
      */
     @Test
     public void testValidateJarEntryAsClass()
@@ -82,12 +74,12 @@ public class PluginLoaderTest
         System.out.println("validateJarEntryAsClass");
         JarEntry e = new JarEntry("package/classname.class");
         boolean expResult = true;
-        boolean result = PluginLoader.validateJarEntryAsClass(e);
+        boolean result = ModuleLoader.validateJarEntryAsClass(e);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of validateJarEntryAsClass method, of class PluginLoader.
+     * Test of validateJarEntryAsClass method, of class ModuleLoader.
      */
     @Test
     public void testValidateJarEntryAsClass2()
@@ -95,12 +87,12 @@ public class PluginLoaderTest
         System.out.println("validateJarEntryAsClass");
         JarEntry e = new JarEntry("package/classname.notclass");
         boolean expResult = false;
-        boolean result = PluginLoader.validateJarEntryAsClass(e);
+        boolean result = ModuleLoader.validateJarEntryAsClass(e);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of isModule method, of class PluginLoader.
+     * Test of isModule method, of class ModuleLoader.
      */
     @Test
     public void testIsModule()
@@ -121,12 +113,12 @@ public class PluginLoaderTest
             }
         }.getClass();
         boolean expResult = true;
-        boolean result = PluginLoader.isModule(c);
+        boolean result = ModuleLoader.isModule(c);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of isModule method, of class PluginLoader.
+     * Test of isModule method, of class ModuleLoader.
      */
     @Test
     public void testIsModule2()
@@ -134,12 +126,12 @@ public class PluginLoaderTest
         System.out.println("isModule");
         Class c = new Object().getClass();
         boolean expResult = false;
-        boolean result = PluginLoader.isModule(c);
+        boolean result = ModuleLoader.isModule(c);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of isModule method, of class PluginLoader.
+     * Test of isModule method, of class ModuleLoader.
      */
     @Test
     public void testIsModule3()
@@ -154,16 +146,20 @@ public class PluginLoaderTest
         System.out.println("isModule");
         Class c = new Module().getClass();
         boolean expResult = false;
-        boolean result = PluginLoader.isModule(c);
+        boolean result = ModuleLoader.isModule(c);
         assertEquals(expResult, result);
     }
 
+    /**
+     * Test of isModule method, of class ModuleLoader.
+     */
     public void testIsModule4()
     {
         System.out.println("isModule");
         Class c = null;
         boolean expResult = false;
-        boolean result = PluginLoader.isModule(c);
+        boolean result = ModuleLoader.isModule(c);
         assertEquals(expResult, result);
     }
+
 }
