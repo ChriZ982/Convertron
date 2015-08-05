@@ -59,7 +59,7 @@ public class ModuleLoaderTest
     {
         System.out.println("parseClassName");
 
-        ModuleLoader instance = new ModuleLoader(null);
+        ModuleLoader instance = new ModuleLoader();
 
         String jarEntryName = "package/anotherpackage/testclass.class";
         String expResult = "package.anotherpackage.testclass";
@@ -75,7 +75,7 @@ public class ModuleLoaderTest
     {
         System.out.println("validateJarEntryAsClass");
 
-        ModuleLoader instance = new ModuleLoader(null);
+        ModuleLoader instance = new ModuleLoader();
 
         JarEntry e = new JarEntry("package/classname.class");
         boolean expResult = true;
@@ -91,7 +91,7 @@ public class ModuleLoaderTest
     {
         System.out.println("validateJarEntryAsClass");
 
-        ModuleLoader instance = new ModuleLoader(null);
+        ModuleLoader instance = new ModuleLoader();
 
         JarEntry e = new JarEntry("package/classname.notclass");
         boolean expResult = false;
@@ -107,7 +107,7 @@ public class ModuleLoaderTest
     {
         System.out.println("isModule");
 
-        ModuleLoader instance = new ModuleLoader(null);
+        ModuleLoader instance = new ModuleLoader();
 
         Class c = new interlib.interfaces.Module()
         {
@@ -136,7 +136,7 @@ public class ModuleLoaderTest
     {
         System.out.println("isModule");
 
-        ModuleLoader instance = new ModuleLoader(null);
+        ModuleLoader instance = new ModuleLoader();
 
         Class c = new Object().getClass();
         boolean expResult = false;
@@ -159,7 +159,7 @@ public class ModuleLoaderTest
 
         System.out.println("isModule");
 
-        ModuleLoader instance = new ModuleLoader(null);
+        ModuleLoader instance = new ModuleLoader();
 
         Class c = new Module().getClass();
         boolean expResult = false;
@@ -174,7 +174,7 @@ public class ModuleLoaderTest
     {
         System.out.println("isModule");
 
-        ModuleLoader instance = new ModuleLoader(null);
+        ModuleLoader instance = new ModuleLoader();
 
         Class c = null;
         boolean expResult = false;

@@ -6,6 +6,7 @@
     </Component>
   </NonVisualComponents>
   <Properties>
+    <Property name="defaultCloseOperation" type="int" value="0"/>
     <Property name="title" type="java.lang.String" value="Module verwalten"/>
   </Properties>
   <SyntheticProperties>
@@ -52,7 +53,6 @@
                           <Component id="jLabel2" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="saveProgBar" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -81,15 +81,13 @@
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" pref="165" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="removeModuleBtn" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="saveAndCloseBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="saveProgBar" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -111,6 +109,7 @@
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JList&lt;ClassLocation&gt;(modulesInJarListModel)"/>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;ClassLocation&gt;"/>
           </AuxValues>
         </Component>
@@ -138,6 +137,9 @@
         <Property name="text" type="java.lang.String" value="importieren"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="importModuleBtnActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator1">
       <Properties>
@@ -158,6 +160,7 @@
             </Property>
           </Properties>
           <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JList&lt;ClassLocation&gt;(allModulesListModel)"/>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;ClassLocation&gt;"/>
           </AuxValues>
         </Component>
@@ -167,6 +170,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="entfernen"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removeModuleBtnActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
@@ -177,8 +183,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="speichern und schlie&#xdf;en"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JProgressBar" name="saveProgBar">
     </Component>
   </SubComponents>
 </Form>

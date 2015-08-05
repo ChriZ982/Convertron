@@ -23,13 +23,10 @@ public class ModuleManager implements Input, Output
     private ModuleViewListeners listeners;
     private ModuleLoader loader;
 
-    public ModuleManager(Window mainWindow)
+    public ModuleManager(Window window)
     {
-        view = new ModuleView();
         listeners = new ModuleViewListeners();
-        loader = new ModuleLoader(mainWindow);
-
-        mainWindow.addTab(view);
+        loader = new ModuleLoader();
 
         Module[] modules = loader.loadAllImportedModules();
 
@@ -42,6 +39,18 @@ public class ModuleManager implements Input, Output
         }
 
         loadActive();
+
+        view = new ModuleView(allOutputs.toArray(),
+                              activeOutputs.toArray(),
+                              allInputs.toArray(),
+                              activeInput);
+        window.addTab(view);
+
+        for(Module module : modules)
+        {
+            if(module.getView() != null)
+                window.addTab(module.getView());
+        }
     }
 
     @Override
@@ -131,8 +140,10 @@ public class ModuleManager implements Input, Output
         protected ModuleViewListeners()
         {
             initSaveListener();
+            initManageModulesListener();
         }
 
+        // <editor-fold defaultstate="collapsed" desc="Listeners">
         protected void initSaveListener()
         {
             view.getSaveBtn().addActionListener(new ActionListener()
@@ -150,7 +161,7 @@ public class ModuleManager implements Input, Output
                     }
 
                     activeInput = null;
-                    ModuleHolder inputMarkedAsActive = (ModuleHolder)view.getActiveInputModuleComboModel().getSelectedItem();
+                    ModuleHolder inputMarkedAsActive = (ModuleHolder)view.getAvailableInputModulesComboModel().getSelectedItem();
                     if(inputMarkedAsActive instanceof Input)
                         activeInput = (Input)inputMarkedAsActive;
 
@@ -158,6 +169,19 @@ public class ModuleManager implements Input, Output
                 }
             });
         }
+
+        protected void initManageModulesListener()
+        {
+            view.getManageModulesBtn().addActionListener(new ActionListener()
+            {
+                @Override
+                public void actionPerformed(ActionEvent e)
+                {
+                    loader.showModuleManageWindow();
+                }
+            });
+        }
+        //</editor-fold>
     }
 
 }

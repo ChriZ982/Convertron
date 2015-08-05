@@ -8,6 +8,7 @@ package convertron.tabs.modules;
 import java.io.File;
 import java.net.URL;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import org.junit.Test;
 
 /**
@@ -23,20 +24,26 @@ public class ClassLocationTest
 
     /**
      * Test of constructors, of class ClassLocation.
+     * @throws java.lang.Exception
      */
     @Test
     public void testConstructor_compareConstructors() throws Exception
     {
+        System.out.println("constructor");
+
         ClassLocation instance = new ClassLocation("package1.package2.className@file:/C:/path1/path2/file.name");
         assertEquals(new ClassLocation(new URL("file:/C:/path1/path2/file.name"), "package1.package2.className"), instance);
     }
 
     /**
      * Test of constructor (single String), of class ClassLocation
+     * @throws java.lang.Exception
      */
     @Test
     public void testConstructor_singleArgument() throws Exception
     {
+        System.out.println("constructor");
+
         ClassLocation instance = new ClassLocation("package1.package2.className@file:/C:/path1/path2/file.name");
         String expectedName = "package1.package2.className";
         assertEquals(expectedName, instance.getClassName());
@@ -47,10 +54,32 @@ public class ClassLocationTest
 
     /**
      * Test of constructor (single String), of class ClassLocation
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testConstructor_singleArgumentWrong() throws Exception
+    {
+        System.out.println("constructor");
+
+        try
+        {
+            ClassLocation instance = new ClassLocation("package1.package2.className:file:/C:/path1/path2/file.name");
+            fail("An IllegalArgumentException should have been thrown here");
+        }
+        catch(IllegalArgumentException ex)
+        {
+        }
+    }
+
+    /**
+     * Test of constructor (single String), of class ClassLocation
+     * @throws java.lang.Exception
      */
     @Test
     public void testConstructor_singleArgumentWithSecondAt() throws Exception
     {
+        System.out.println("constructor");
+
         ClassLocation instance = new ClassLocation("package1.package2.className@file:/C:/path1/path2/file.n@me");
         String expectedName = "package1.package2.className";
         assertEquals(expectedName, instance.getClassName());
@@ -61,6 +90,7 @@ public class ClassLocationTest
 
     /**
      * Test of forSaving method, of class ClassLocation.
+     * @throws java.lang.Exception
      */
     @Test
     public void testForSaving() throws Exception

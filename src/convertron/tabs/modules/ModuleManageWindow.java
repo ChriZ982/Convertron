@@ -1,15 +1,24 @@
 package convertron.tabs.modules;
 
 import java.io.File;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
 
 public class ModuleManageWindow extends javax.swing.JFrame
 {
     private static final long serialVersionUID = 1L;
 
-    public ModuleManageWindow()
+    public ModuleManageWindow(ClassLocation[] allModules)
     {
+        allModulesListModel = new DefaultListModel<>();
+        for(ClassLocation loc : allModules)
+            allModulesListModel.addElement(loc);
+
+        modulesInJarListModel = new DefaultListModel<>();
+
         initComponents();
 
         jarFileChooser.setFileFilter(new FileFilter()
@@ -34,7 +43,7 @@ public class ModuleManageWindow extends javax.swing.JFrame
 
         jarFileChooser = new javax.swing.JFileChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
-        modulesInJarList = new javax.swing.JList<ClassLocation>();
+        modulesInJarList = new javax.swing.JList<ClassLocation>(modulesInJarListModel);
         jarFileTxt = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         chooseJarBtn = new javax.swing.JButton();
@@ -42,12 +51,12 @@ public class ModuleManageWindow extends javax.swing.JFrame
         importModuleBtn = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
-        allModulesList = new javax.swing.JList<ClassLocation>();
+        allModulesList = new javax.swing.JList<ClassLocation>(allModulesListModel);
         removeModuleBtn = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         saveAndCloseBtn = new javax.swing.JButton();
-        saveProgBar = new javax.swing.JProgressBar();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Module verwalten");
 
         modulesInJarList.setEnabled(false);
@@ -67,12 +76,26 @@ public class ModuleManageWindow extends javax.swing.JFrame
 
         importModuleBtn.setText("importieren");
         importModuleBtn.setEnabled(false);
+        importModuleBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                importModuleBtnActionPerformed(evt);
+            }
+        });
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         jScrollPane2.setViewportView(allModulesList);
 
         removeModuleBtn.setText("entfernen");
+        removeModuleBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                removeModuleBtnActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Alle Module");
 
@@ -102,8 +125,7 @@ public class ModuleManageWindow extends javax.swing.JFrame
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(removeModuleBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(saveProgBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -127,13 +149,11 @@ public class ModuleManageWindow extends javax.swing.JFrame
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(removeModuleBtn)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(saveAndCloseBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(saveProgBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -146,17 +166,22 @@ public class ModuleManageWindow extends javax.swing.JFrame
             jarFileTxt.setText(jarFileChooser.getSelectedFile().getPath());
     }//GEN-LAST:event_chooseJarBtnActionPerformed
 
-    public static void main(String args[])
-    {
-        java.awt.EventQueue.invokeLater(new Runnable()
+    private void importModuleBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_importModuleBtnActionPerformed
+    {//GEN-HEADEREND:event_importModuleBtnActionPerformed
+        for(ClassLocation loc : modulesInJarList.getSelectedValuesList())
         {
-            @Override
-            public void run()
-            {
-                new ModuleManageWindow().setVisible(true);
-            }
-        });
-    }
+            allModulesListModel.addElement(loc);
+            modulesInJarListModel.removeElement(loc);
+        }
+    }//GEN-LAST:event_importModuleBtnActionPerformed
+
+    private void removeModuleBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_removeModuleBtnActionPerformed
+    {//GEN-HEADEREND:event_removeModuleBtnActionPerformed
+        for(ClassLocation loc : allModulesList.getSelectedValuesList())
+        {
+            allModulesListModel.removeElement(loc);
+        }
+    }//GEN-LAST:event_removeModuleBtnActionPerformed
 
     public void setFileOpened(boolean opened)
     {
@@ -164,6 +189,35 @@ public class ModuleManageWindow extends javax.swing.JFrame
         modulesInJarList.setEnabled(opened);
     }
 
+    // <editor-fold defaultstate="collapsed" desc="Getter">
+    public DefaultListModel<ClassLocation> getAllModulesListModel()
+    {
+        return allModulesListModel;
+    }
+
+    public DefaultListModel<ClassLocation> getModulesInJarListModel()
+    {
+        return modulesInJarListModel;
+    }
+
+    public JTextField getJarFileTxt()
+    {
+        return jarFileTxt;
+    }
+
+    public JButton getOpenJarBtn()
+    {
+        return openJarBtn;
+    }
+
+    public JButton getSaveAndCloseBtn()
+    {
+        return saveAndCloseBtn;
+    }
+    // </editor-fold>
+
+    private javax.swing.DefaultListModel<ClassLocation> allModulesListModel;
+    private javax.swing.DefaultListModel<ClassLocation> modulesInJarListModel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList<ClassLocation> allModulesList;
     private javax.swing.JButton chooseJarBtn;
@@ -179,6 +233,5 @@ public class ModuleManageWindow extends javax.swing.JFrame
     private javax.swing.JButton openJarBtn;
     private javax.swing.JButton removeModuleBtn;
     private javax.swing.JButton saveAndCloseBtn;
-    private javax.swing.JProgressBar saveProgBar;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,6 +1,8 @@
 package convertron.tabs.modules;
 
+import interlib.interfaces.Module;
 import interlib.interfaces.View;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -10,14 +12,33 @@ public class ModuleView extends View
 {
     private static final long serialVersionUID = 1L;
 
-    /** Creates new form ModuleView */
-    public ModuleView()
+    public ModuleView(Object[] allOutputs, Object[] activeOutputs, Object[] allInputs, Object activeInput)
     {
-        initComponents();
+        activeOutputModulesListModel = new DefaultListModel<>();
+        for(Object activeOutput : activeOutputs)
+        {
+            if(activeOutput instanceof Module)
+                activeOutputModulesListModel.addElement(new ModuleHolder((Module)activeOutput));
+        }
 
         availableOutputModulesListModel = new DefaultListModel<>();
-        activeOutputModulesListModel = new DefaultListModel<>();
-        activeInputModuleComboModel = new DefaultComboBoxModel<>();
+        for(Object availableOutput : allOutputs)
+        {
+            if(availableOutput instanceof Module)
+                if(!Arrays.asList(activeOutputs).contains(availableOutput))
+                    availableOutputModulesListModel.addElement(new ModuleHolder((Module)availableOutput));
+        }
+
+        availableInputModulesComboModel = new DefaultComboBoxModel<>();
+        for(Object input : allInputs)
+        {
+            if(input instanceof Module)
+                availableInputModulesComboModel.addElement(new ModuleHolder((Module)input));
+        }
+
+        availableInputModulesComboModel.setSelectedItem(activeInput);
+
+        initComponents();
     }
 
     /** This method is called from within the constructor to
@@ -188,9 +209,9 @@ public class ModuleView extends View
         return availableOutputModulesListModel;
     }
 
-    public DefaultComboBoxModel<ModuleHolder> getActiveInputModuleComboModel()
+    public DefaultComboBoxModel<ModuleHolder> getAvailableInputModulesComboModel()
     {
-        return activeInputModuleComboModel;
+        return availableInputModulesComboModel;
     }
 
     public JButton getManageModulesBtn()
@@ -206,7 +227,7 @@ public class ModuleView extends View
 
     private javax.swing.DefaultListModel<ModuleHolder> activeOutputModulesListModel;
     private javax.swing.DefaultListModel<ModuleHolder> availableOutputModulesListModel;
-    private javax.swing.DefaultComboBoxModel<ModuleHolder> activeInputModuleComboModel;
+    private javax.swing.DefaultComboBoxModel<ModuleHolder> availableInputModulesComboModel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton activateBtn;
     private javax.swing.JComboBox<ModuleHolder> activeInputModuleCombo;
