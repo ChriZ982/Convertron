@@ -1,5 +1,8 @@
 package convertron.tabs.modules;
 
+import convertron.core.Window;
+import interlib.interfaces.Module;
+import interlib.interfaces.View;
 import interlib.util.Logger;
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +15,34 @@ import java.util.jar.JarFile;
 
 public class ModuleLoader
 {
-    public ClassLocation[] getAvailableModuleClasses(File jarFile) throws IOException
+    private ArrayList<ClassLocation> locationOfImportedModules;
+    private Window mainWindow;
+
+    public ModuleLoader(Window mainWindow)
+    {
+        this.mainWindow = mainWindow;
+        locationOfImportedModules = new ArrayList<>();
+    }
+
+    public Module[] loadAllImportedModules()
+    {
+        ArrayList<Module> modules = new ArrayList<>();
+
+        for(ClassLocation loc : locationOfImportedModules)
+            try
+            {
+                modules.add(loadModule(loc));
+            }
+            catch(RuntimeException ex)
+            {
+                Logger.logMessage(Logger.WARNING, "Laden des Modules" + loc.toString() + " fehlgeschlagen");
+                Logger.logError(Logger.INFO, ex);
+            }
+
+        return modules.toArray(new Module[modules.size()]);
+    }
+
+    protected ClassLocation[] getAvailableModules(File jarFile) throws IOException
     {
         ArrayList<ClassLocation> moduleClasses = new ArrayList<>();
 
@@ -29,7 +59,7 @@ public class ModuleLoader
 
             try
             {
-                ClassLocation location = new ClassLocation(url, e.getName());
+                ClassLocation location = new ClassLocation(url, parseClassName(e.getName()));
 
                 Class cl = loadClass(location);
                 if(isModule(cl))
@@ -41,12 +71,37 @@ public class ModuleLoader
             }
         }
 
-        return moduleClasses.toArray(new ClassLocation[0]);
+        return moduleClasses.toArray(new ClassLocation[moduleClasses.size()]);
     }
 
-    public static Class loadClass(ClassLocation location)
+    protected Module loadModule(ClassLocation location)
     {
-        String logPart = parseClassName(location.getJarEntryName())
+        try
+        {
+            Module module = (Module)loadClass(location).newInstance();
+            View modulesView = module.getView();
+            if(modulesView != null && mainWindow != null)
+                mainWindow.addTab(modulesView);
+
+            return module;
+        }
+        catch(ClassCastException ex)
+        {
+            throw new RuntimeException(location.forSaving() + " isn't a Module", ex);
+        }
+        catch(InstantiationException ex)
+        {
+            throw new RuntimeException("Failed to create an Instance of " + location.forSaving(), ex);
+        }
+        catch(Throwable t)
+        {
+            throw new RuntimeException("Failed to load Module" + location.forSaving(), t);
+        }
+    }
+
+    protected Class loadClass(ClassLocation location)
+    {
+        String logPart = location.getClassName()
                          + " from Jar " + location.getJarFileUrl();
 
         try
@@ -56,7 +111,7 @@ public class ModuleLoader
             Class clazz = new URLClassLoader(new URL[]
             {
                 location.getJarFileUrl()
-            }).loadClass(parseClassName(location.getJarEntryName()));
+            }).loadClass(location.getClassName());
 
             Logger.logMessage(Logger.INFO, logPart + " loaded");
 
@@ -68,17 +123,17 @@ public class ModuleLoader
         }
     }
 
-    protected static String parseClassName(String jarEntryName)
+    protected String parseClassName(String jarEntryName)
     {
         return jarEntryName.substring(0, jarEntryName.length() - ".class".length()).replaceAll("/", ".");
     }
 
-    protected static boolean validateJarEntryAsClass(JarEntry e)
+    protected boolean validateJarEntryAsClass(JarEntry e)
     {
         return e.getName().endsWith(".class");
     }
 
-    protected static boolean isModule(Class c)
+    protected boolean isModule(Class c)
     {
         if(c == null)
             return false;
@@ -91,5 +146,10 @@ public class ModuleLoader
                 return true;
         }
         return false;
+    }
+
+    public class ModuleImporterListeners
+    {
+
     }
 }

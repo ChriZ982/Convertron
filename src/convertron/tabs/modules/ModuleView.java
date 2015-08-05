@@ -1,9 +1,10 @@
 package convertron.tabs.modules;
 
 import interlib.interfaces.View;
-import java.io.File;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 
 public class ModuleView extends View
 {
@@ -13,6 +14,10 @@ public class ModuleView extends View
     public ModuleView()
     {
         initComponents();
+
+        availableOutputModulesListModel = new DefaultListModel<>();
+        activeOutputModulesListModel = new DefaultListModel<>();
+        activeInputModuleComboModel = new DefaultComboBoxModel<>();
     }
 
     /** This method is called from within the constructor to
@@ -27,22 +32,19 @@ public class ModuleView extends View
 
         fileChooser = new javax.swing.JFileChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
-        availableOutputModulesList = new javax.swing.JList();
+        availableOutputModulesList = new javax.swing.JList<ModuleHolder>(availableOutputModulesListModel);
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        activeOutputModulesList = new javax.swing.JList();
+        activeOutputModulesList = new javax.swing.JList<ModuleHolder>(activeOutputModulesListModel);
         activateBtn = new javax.swing.JButton();
         deactivateBtn = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        activeInputModuleCombo = new javax.swing.JComboBox();
+        activeInputModuleCombo = new javax.swing.JComboBox<ModuleHolder>();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         saveBtn = new javax.swing.JButton();
         manageModulesBtn = new javax.swing.JButton();
-        jarPathTxt = new javax.swing.JTextField();
-        addFromJarBtn = new javax.swing.JButton();
-        selectJarBtn = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
 
         setPreferredSize(new java.awt.Dimension(642, 201));
@@ -58,8 +60,22 @@ public class ModuleView extends View
         jScrollPane2.setViewportView(activeOutputModulesList);
 
         activateBtn.setText("->");
+        activateBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                activateBtnActionPerformed(evt);
+            }
+        });
 
         deactivateBtn.setText("<-");
+        deactivateBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                deactivateBtnActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Aktive Output Module");
 
@@ -68,18 +84,9 @@ public class ModuleView extends View
         jLabel3.setText("Aktives Input Modul");
 
         saveBtn.setText("speichern");
+        saveBtn.setToolTipText("Speichert die Änderungen, damit sie nach einem Neustart erhalten bleiben");
 
         manageModulesBtn.setText("Module verwalten");
-
-        addFromJarBtn.setText("Module aus .jar hinzufügen");
-
-        selectJarBtn.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                selectJarBtnActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -96,7 +103,7 @@ public class ModuleView extends View
                     .addComponent(deactivateBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -104,14 +111,9 @@ public class ModuleView extends View
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(saveBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jarPathTxt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(selectJarBtn))
-                    .addComponent(addFromJarBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                     .addComponent(jSeparator2)
                     .addComponent(activeInputModuleCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(manageModulesBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(manageModulesBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                     .addComponent(jSeparator3))
                 .addContainerGap())
         );
@@ -124,20 +126,14 @@ public class ModuleView extends View
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(activeInputModuleCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jarPathTxt)
-                            .addComponent(selectJarBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(addFromJarBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(manageModulesBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(manageModulesBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(saveBtn))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(saveBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jSeparator1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -155,29 +151,25 @@ public class ModuleView extends View
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void selectJarBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_selectJarBtnActionPerformed
-    {//GEN-HEADEREND:event_selectJarBtnActionPerformed
-        fileChooser.setFileFilter(new FileFilter()
+    private void activateBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_activateBtnActionPerformed
+    {//GEN-HEADEREND:event_activateBtnActionPerformed
+        List<ModuleHolder> affected = availableOutputModulesList.getSelectedValuesList();
+        for(ModuleHolder m : affected)
         {
-            @Override
-            public boolean accept(File f)
-            {
-                if(f.isDirectory())
-                    return true;
+            activeOutputModulesListModel.addElement(m);
+            availableOutputModulesListModel.removeElement(m);
+        }
+    }//GEN-LAST:event_activateBtnActionPerformed
 
-                return f.getName().endsWith(".jar");
-            }
-
-            @Override
-            public String getDescription()
-            {
-                return ".jar Dateien";
-            }
-        });
-
-        if(fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
-            jarPathTxt.setText(fileChooser.getSelectedFile().getPath());
-    }//GEN-LAST:event_selectJarBtnActionPerformed
+    private void deactivateBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deactivateBtnActionPerformed
+    {//GEN-HEADEREND:event_deactivateBtnActionPerformed
+        List<ModuleHolder> affected = activeOutputModulesList.getSelectedValuesList();
+        for(ModuleHolder m : affected)
+        {
+            availableOutputModulesListModel.addElement(m);
+            activeOutputModulesListModel.removeElement(m);
+        }
+    }//GEN-LAST:event_deactivateBtnActionPerformed
 
     @Override
     public String getTabTitle()
@@ -185,12 +177,41 @@ public class ModuleView extends View
         return "Module";
     }
 
+    // <editor-fold defaultstate="collapsed" desc="Getter">
+    public DefaultListModel<ModuleHolder> getActiveOutputModulesListModel()
+    {
+        return activeOutputModulesListModel;
+    }
+
+    public DefaultListModel<ModuleHolder> getAvailableOutputModulesListModel()
+    {
+        return availableOutputModulesListModel;
+    }
+
+    public DefaultComboBoxModel<ModuleHolder> getActiveInputModuleComboModel()
+    {
+        return activeInputModuleComboModel;
+    }
+
+    public JButton getManageModulesBtn()
+    {
+        return manageModulesBtn;
+    }
+
+    public JButton getSaveBtn()
+    {
+        return saveBtn;
+    }
+    // </editor-fold>
+
+    private javax.swing.DefaultListModel<ModuleHolder> activeOutputModulesListModel;
+    private javax.swing.DefaultListModel<ModuleHolder> availableOutputModulesListModel;
+    private javax.swing.DefaultComboBoxModel<ModuleHolder> activeInputModuleComboModel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton activateBtn;
-    private javax.swing.JComboBox activeInputModuleCombo;
-    private javax.swing.JList activeOutputModulesList;
-    private javax.swing.JButton addFromJarBtn;
-    private javax.swing.JList availableOutputModulesList;
+    private javax.swing.JComboBox<ModuleHolder> activeInputModuleCombo;
+    private javax.swing.JList<ModuleHolder> activeOutputModulesList;
+    private javax.swing.JList<ModuleHolder> availableOutputModulesList;
     private javax.swing.JButton deactivateBtn;
     private javax.swing.JFileChooser fileChooser;
     private javax.swing.JLabel jLabel1;
@@ -201,9 +222,7 @@ public class ModuleView extends View
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTextField jarPathTxt;
     private javax.swing.JButton manageModulesBtn;
     private javax.swing.JButton saveBtn;
-    private javax.swing.JButton selectJarBtn;
     // End of variables declaration//GEN-END:variables
 }

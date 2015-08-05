@@ -16,22 +16,21 @@ import org.junit.Test;
  */
 public class ModuleLoaderTest
 {
-
     public ModuleLoaderTest()
     {
     }
 
     /**
-     * Test of getAvailableModuleClasses method, of class ModuleLoader.
+     * Test of getAvailableModules method, of class ModuleLoader.
      */
     @Test
     public void testGetAvailableModuleClasses()
     {
-//        System.out.println("getAvailableModuleClasses");
+//        System.out.println("getAvailableModules");
 //        File jarFile = null;
-//        ModuleLoader instance = new ModuleLoader();
+//        ModuleLoader instance = new ModuleLoader(null);
 //        ClassLocation[] expResult = null;
-//        ClassLocation[] result = instance.getAvailableModuleClasses(jarFile);
+//        ClassLocation[] result = instance.getAvailableModules(jarFile);
 //        assertArrayEquals(expResult, result);
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
@@ -59,9 +58,12 @@ public class ModuleLoaderTest
     public void testParseClassName()
     {
         System.out.println("parseClassName");
+
+        ModuleLoader instance = new ModuleLoader(null);
+
         String jarEntryName = "package/anotherpackage/testclass.class";
         String expResult = "package.anotherpackage.testclass";
-        String result = ModuleLoader.parseClassName(jarEntryName);
+        String result = instance.parseClassName(jarEntryName);
         assertEquals(expResult, result);
     }
 
@@ -72,9 +74,12 @@ public class ModuleLoaderTest
     public void testValidateJarEntryAsClass()
     {
         System.out.println("validateJarEntryAsClass");
+
+        ModuleLoader instance = new ModuleLoader(null);
+
         JarEntry e = new JarEntry("package/classname.class");
         boolean expResult = true;
-        boolean result = ModuleLoader.validateJarEntryAsClass(e);
+        boolean result = instance.validateJarEntryAsClass(e);
         assertEquals(expResult, result);
     }
 
@@ -85,9 +90,12 @@ public class ModuleLoaderTest
     public void testValidateJarEntryAsClass2()
     {
         System.out.println("validateJarEntryAsClass");
+
+        ModuleLoader instance = new ModuleLoader(null);
+
         JarEntry e = new JarEntry("package/classname.notclass");
         boolean expResult = false;
-        boolean result = ModuleLoader.validateJarEntryAsClass(e);
+        boolean result = instance.validateJarEntryAsClass(e);
         assertEquals(expResult, result);
     }
 
@@ -98,6 +106,9 @@ public class ModuleLoaderTest
     public void testIsModule()
     {
         System.out.println("isModule");
+
+        ModuleLoader instance = new ModuleLoader(null);
+
         Class c = new interlib.interfaces.Module()
         {
             @Override
@@ -113,7 +124,7 @@ public class ModuleLoaderTest
             }
         }.getClass();
         boolean expResult = true;
-        boolean result = ModuleLoader.isModule(c);
+        boolean result = instance.isModule(c);
         assertEquals(expResult, result);
     }
 
@@ -124,9 +135,12 @@ public class ModuleLoaderTest
     public void testIsModule2()
     {
         System.out.println("isModule");
+
+        ModuleLoader instance = new ModuleLoader(null);
+
         Class c = new Object().getClass();
         boolean expResult = false;
-        boolean result = ModuleLoader.isModule(c);
+        boolean result = instance.isModule(c);
         assertEquals(expResult, result);
     }
 
@@ -144,9 +158,12 @@ public class ModuleLoaderTest
         }
 
         System.out.println("isModule");
+
+        ModuleLoader instance = new ModuleLoader(null);
+
         Class c = new Module().getClass();
         boolean expResult = false;
-        boolean result = ModuleLoader.isModule(c);
+        boolean result = instance.isModule(c);
         assertEquals(expResult, result);
     }
 
@@ -156,9 +173,12 @@ public class ModuleLoaderTest
     public void testIsModule4()
     {
         System.out.println("isModule");
+
+        ModuleLoader instance = new ModuleLoader(null);
+
         Class c = null;
         boolean expResult = false;
-        boolean result = ModuleLoader.isModule(c);
+        boolean result = instance.isModule(c);
         assertEquals(expResult, result);
     }
 
