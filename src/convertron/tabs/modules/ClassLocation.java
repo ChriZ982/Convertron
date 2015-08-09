@@ -1,5 +1,6 @@
 package convertron.tabs.modules;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Objects;
@@ -9,10 +10,15 @@ public class ClassLocation
     private URL jarFileUrl;
     private String className;
 
-    public ClassLocation(URL jarFileUrl, String jarEntryName)
+    public ClassLocation(URL jarFileUrl, String className)
     {
         this.jarFileUrl = jarFileUrl;
-        this.className = jarEntryName;
+        this.className = className;
+    }
+
+    public ClassLocation(File jarFile, String className) throws MalformedURLException
+    {
+        this(jarFile.toURI().toURL(), className);
     }
 
     public ClassLocation(String settingEntry) throws MalformedURLException

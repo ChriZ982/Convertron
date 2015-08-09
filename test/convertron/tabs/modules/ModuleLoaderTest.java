@@ -5,9 +5,19 @@
  */
 package convertron.tabs.modules;
 
+import interlib.interfaces.Input;
+import interlib.interfaces.Module;
+import interlib.interfaces.Output;
 import interlib.interfaces.View;
+import interlib.io.FileIO;
+import interlib.util.Settings;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.jar.JarEntry;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
@@ -16,39 +26,57 @@ import org.junit.Test;
  */
 public class ModuleLoaderTest
 {
-    public ModuleLoaderTest()
+    public ModuleLoaderTest() throws IOException
     {
+        FileIO file = new FileIO("./local.settings");
+        file.create();
+        file.writeLines("pathBackup: \".\\TestBackup\"",
+                        "pathData: ",
+                        "pathDests: {\".\\TestZiel1\",\".\\TestZiel2\",\".\\TestZiel3\"}",
+                        "pathSource: \".\\TestDateien\"",
+                        "position: {\"335\",\"101\"}");
+        String[] imported = Settings.loadArray("locationOfImportedModules");
+        System.out.println(imported.length);
     }
 
     /**
      * Test of getAvailableModules method, of class ModuleLoader.
+     * @throws java.io.IOException
      */
     @Test
-    public void testGetAvailableModuleClasses()
+    public void testGetAvailableModules() throws IOException
     {
-//        System.out.println("getAvailableModules");
-//        File jarFile = null;
-//        ModuleLoader instance = new ModuleLoader(null);
-//        ClassLocation[] expResult = null;
-//        ClassLocation[] result = instance.getAvailableModules(jarFile);
-//        assertArrayEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
+        System.out.println("getAvailableModules");
+        File jarFile = new File("test/testRessources/TestModules.jar");
+        ModuleLoader instance = new ModuleLoader();
+        ClassLocation[] expResult =
+        {
+            new ClassLocation(jarFile, "testmodules.main.ModuleI"),
+            new ClassLocation(jarFile, "testmodules.main.ModuleIO"),
+            new ClassLocation(jarFile, "testmodules.main.ModuleO"),
+            new ClassLocation(jarFile, "testmodules.main.RawModule"),
+        };
+        ClassLocation[] result = instance.getAvailableModules(jarFile);
+        assertArrayEquals(expResult, result);
     }
 
     /**
      * Test of loadClass method, of class ModuleLoader.
+     * @throws java.net.MalformedURLException
      */
     @Test
-    public void testLoadClass()
+    public void testLoadClass() throws MalformedURLException
     {
-//        System.out.println("loadClass");
-//        ClassLocation location = null;
-//        Class expResult = null;
-//        Class result = ModuleLoader.loadClass(location);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
+        System.out.println("loadClass");
+        ClassLocation loc = new ClassLocation(new File("test/testRessources/TestModules.jar"), "testmodules.main.ModuleIO");
+
+        ModuleLoader instance = new ModuleLoader();
+
+        Module m = instance.loadModule(loc);
+
+        assertEquals("testmodules.main.ModuleIO", m.getClass().getName());
+        assertTrue(m instanceof Input);
+        assertTrue(m instanceof Output);
     }
 
     /**
