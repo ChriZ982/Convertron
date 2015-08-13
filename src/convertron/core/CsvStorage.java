@@ -40,8 +40,7 @@ public class CsvStorage implements Storage
         }
         catch(Exception ex)
         {
-            Logger.logMessage(Logger.ERROR, "Fehler beim Speichern der Vertretungsplaninformationen");
-            Logger.logError(Logger.ERROR, ex);
+            Logger.logError(Logger.ERROR, "Fehler beim Speichern der Vertretungsplaninformationen", ex);
         }
     }
 

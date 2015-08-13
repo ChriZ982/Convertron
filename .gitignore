@@ -6,5 +6,5 @@
 !/manifest.mf
 !/README.md
 !/.gitignore
-!/Convertron_-_InterfaceLibrary.jar
+!/lib
 !/build.xml

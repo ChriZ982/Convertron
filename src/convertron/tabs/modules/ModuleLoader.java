@@ -40,8 +40,7 @@ public class ModuleLoader
             }
             catch(RuntimeException ex)
             {
-                Logger.logMessage(Logger.WARNING, "Laden des Modules" + loc.toString() + " fehlgeschlagen");
-                Logger.logError(Logger.INFO, ex);
+                Logger.logError(Logger.INFO, "Laden des Modules" + loc.toString() + " fehlgeschlagen", ex);
             }
 
         return modules.toArray(new Module[modules.size()]);
@@ -82,7 +81,7 @@ public class ModuleLoader
             }
             catch(Exception ex)
             {
-                Logger.logError(Logger.INFO, ex);
+                Logger.logError(Logger.INFO, "Mirko Bitte Hinzufügen!", ex);
             }
         }
 
@@ -165,12 +164,12 @@ public class ModuleLoader
         {
             arrayForSetting[i] = locationOfImportedModules.get(i).forSaving();
         }
-        Settings.saveArray("locationOfImportedModules", arrayForSetting);
+        Settings.saveArray(true, "locationOfImportedModules", arrayForSetting);
     }
 
     protected void loadImported()
     {
-        String[] fromSetting = Settings.loadArray("locationOfImportedModules");
+        String[] fromSetting = Settings.loadArray(true, "locationOfImportedModules");
         for(String locationAsString : fromSetting)
         {
             try
@@ -179,8 +178,7 @@ public class ModuleLoader
             }
             catch(Exception ex)
             {
-                Logger.logMessage(Logger.WARNING, "Konnte das Modul " + locationAsString + " nicht laden");
-                Logger.logError(Logger.INFO, ex);
+                Logger.logError(Logger.INFO, "Konnte das Modul " + locationAsString + " nicht laden", ex);
             }
         }
     }
@@ -262,12 +260,7 @@ public class ModuleLoader
                     }
                     catch(IOException ex)
                     {
-                        Logger.logMessage(Logger.WARNING, "Fehler beim öffnen oder lesen der Datei");
-                        Logger.logError(Logger.INFO, ex);
-                    }
-                    catch(Exception ex)
-                    {
-                        Logger.logError(Logger.WARNING, ex);
+                        Logger.logError(Logger.INFO, "Fehler beim öffnen oder lesen der Datei", ex);
                     }
                 }
             });

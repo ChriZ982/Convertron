@@ -110,7 +110,7 @@ public class Control
         String packagePath = "/converter/res/stdData/";
         copyFileFromPackage(packagePath, "local.settings", "./");
 
-        String destPath = Settings.load("pathData");
+        String destPath = Settings.load(true, "pathData");
         copyFileFromPackage(packagePath, "global.settings", destPath);
         copyFileFromPackage(packagePath, "antonianumLogo.png", destPath);
         copyFileFromPackage(packagePath, "TEMPLATE style.css", destPath);
@@ -128,7 +128,7 @@ public class Control
 
     private void loadWindowPosition()
     {
-        String[] positions = Settings.loadArray("position");
+        String[] positions = Settings.loadArray(true, "position");
         if(!positions[0].isEmpty() && !positions[1].isEmpty())
             window.setLocation(Integer.parseInt(positions[0]), Integer.parseInt(positions[1]));
         Logger.logMessage(Logger.INFO, "Fenster Position wurde geladen");
@@ -145,7 +145,7 @@ public class Control
 //            for(QueueElement element : queue)
 //                element.invoke();
 
-            Settings.saveArray("position",
+            Settings.saveArray(true, "position",
                                new String[]
                                {
                                    String.valueOf((int)window.getLocation().getX()),
