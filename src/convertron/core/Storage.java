@@ -1,14 +1,19 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package convertron.core;
 
-public class Storage
-{
-    public void save(Class[] classes)
-    {
-        throw new UnsupportedOperationException("Not yet implemtented");
-    }
+import interlib.data.Lesson;
 
-    public Class[] load()
-    {
-        throw new UnsupportedOperationException("Not yet implemtented");
-    }
+/**
+ *
+ * @author Mirko
+ */
+public interface Storage
+{
+    public void save(Lesson[] lessons);
+
+    public Lesson[] load();
 }
