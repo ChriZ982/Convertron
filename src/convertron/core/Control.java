@@ -53,6 +53,8 @@ public class Control
 
         loadWindowPosition();
 
+        Logger.logMessage(Logger.WARNING, "HELP");
+
 //            initTray();
 //            //QueueableMethods.loadSettings();
 //            //frame.addWindowListener(new FrameActions(frame, this));

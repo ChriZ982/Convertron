@@ -1,0 +1,85 @@
+<html>
+    <head>
+        <script type="text/javascript">
+            var height = 0;
+            var feineinstellung = 8;
+            var reloadcounter = 0;
+
+            function scroll()
+            {
+                var position = window.pageYOffset + feineinstellung;
+
+                if (position < height)
+                    window.scrollBy(0, 2);
+                else
+                {
+                    window.scrollTo(0, 0);
+                    if (reloadcounter < 4)
+                        reloadcounter = reloadcounter + 1;
+                    else
+                    {
+                        reload();
+                        reloadcounter = 0;
+                    }
+                }
+            }
+
+            function reload()
+            {
+                location.reload(true);
+            }
+
+            function start()
+            {
+                window.scrollBy(0, 1000000);
+                height = (window.pageYOffset + window.innerHeight) / 2;
+
+                if (window.pageYOffset > 0)
+                    window.setInterval("scroll()", GESCHW * 2);
+                else
+                    window.setInterval("reload()", 60000);
+            }
+        </script>
+
+        <title>Vertretungsplan</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <meta charset="windows-1252">
+    </head>
+    <body class="body1" onLoad="start()">
+
+        <script type="text/javascript">
+            body(false);
+
+            window.scrollBy(0, 10);
+
+            if (window.pageYOffset !== 0)
+                body(true);
+
+            function body(lines)
+            {
+                document.open();
+				if(lines)
+				{
+					document.write('<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>' +
+							'');
+				}
+                document.write('<table width="100%" >' +
+                        '<tr>' +
+                        '<td ><img src="antonianumLogo.png" height="130" alt="Gymnasium Antonianum - Logo" /></td>' +
+                        '<td class="datum">TAG</td>' +
+                        '</tr>' +
+                        '</table>' +
+                        '' +
+                        VERTRETUNGEN
+                        '');
+				if(lines)
+				{
+					document.write('<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>' +
+							'');
+				}
+                document.close();
+            }
+        </script>
+
+    </body>
+</html>

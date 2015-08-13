@@ -7,7 +7,6 @@ package convertron.tabs.overview;
 
 import interlib.interfaces.View;
 import interlib.util.Logger;
-import javax.swing.JTextPane;
 
 /**
  *
@@ -20,6 +19,7 @@ public class OverviewView extends View
     public OverviewView()
     {
         initComponents();
+        Logger.setLogTextBox(log);
     }
 
     /** This method is called from within the constructor to
@@ -105,7 +105,7 @@ public class OverviewView extends View
             }
         });
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/facharbeit/ressources/antonianumLogo.jpg"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/convertron/res/antonianumLogo.jpg"))); // NOI18N
         jLabel5.setToolTipText("Antonianum Logo");
 
         jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -264,12 +264,5 @@ public class OverviewView extends View
     public String getTabTitle()
     {
         return "Übersicht";
-    }
-
-    public static JTextPane getLog()
-    {
-        if(log == null)
-            throw new NullPointerException("Zugriff auf das Textfeld vor der Initialisierung");
-        return log;
     }
 }

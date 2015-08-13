@@ -58,7 +58,7 @@ public class PathsView extends View
 
         sourceTxt.setToolTipText("Quellpfad für die Vertretungs-Dateien");
 
-        selectSourceTodayBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/facharbeit/ressources/ordner.png"))); // NOI18N
+        selectSourceTodayBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/convertron/res/ordner.png"))); // NOI18N
         selectSourceTodayBtn.setToolTipText("Quellpfad auswählen");
         selectSourceTodayBtn.addActionListener(new java.awt.event.ActionListener()
         {
@@ -68,7 +68,7 @@ public class PathsView extends View
             }
         });
 
-        selectBackupBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/facharbeit/ressources/ordner.png"))); // NOI18N
+        selectBackupBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/convertron/res/ordner.png"))); // NOI18N
         selectBackupBtn.setToolTipText("Backuppfad auswählen");
         selectBackupBtn.addActionListener(new java.awt.event.ActionListener()
         {
@@ -78,7 +78,7 @@ public class PathsView extends View
             }
         });
 
-        selectDestBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/facharbeit/ressources/ordner.png"))); // NOI18N
+        selectDestBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/convertron/res/ordner.png"))); // NOI18N
         selectDestBtn.setToolTipText("Zielpfad hinzufügen");
         selectDestBtn.addActionListener(new java.awt.event.ActionListener()
         {
@@ -125,7 +125,7 @@ public class PathsView extends View
 
         dataPathTxt.setToolTipText("Pfad zum Data-Ordner");
 
-        selectDataPathBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/facharbeit/ressources/ordner.png"))); // NOI18N
+        selectDataPathBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/convertron/res/ordner.png"))); // NOI18N
         selectDataPathBtn.setToolTipText("Data-Ordner-Pfad wählen");
         selectDataPathBtn.addActionListener(new java.awt.event.ActionListener()
         {

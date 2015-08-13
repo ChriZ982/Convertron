@@ -169,7 +169,7 @@
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/com/facharbeit/ressources/antonianumLogo.jpg"/>
+          <Image iconType="3" name="/convertron/res/antonianumLogo.jpg"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Antonianum Logo"/>
       </Properties>
