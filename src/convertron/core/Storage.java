@@ -15,5 +15,9 @@ public interface Storage
 {
     public void save(Lesson[] lessons);
 
+    public void saveMotd(String motd);
+
     public Lesson[] load();
+
+    public String loadMotd();
 }

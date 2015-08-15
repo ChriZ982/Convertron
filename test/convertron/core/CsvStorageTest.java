@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import org.junit.Test;
 
 /**
  *
@@ -53,113 +52,6 @@ public class CsvStorageTest
     }
 
     /**
-     * Test of splitOutsideCellBorders method, of class CsvStorage.
-     */
-//    @Test
-    public void testSplit()
-    {
-        System.out.println("split");
-        String source = "";
-        String spliterator = "";
-        CsvStorage instance = new CsvStorage();
-        String[] expResult = null;
-        String[] result = instance.splitOutsideCellBorders(source, spliterator);
-        assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of indexOfSingleCellBorder method, of class CsvStorage.
-     */
-    @Test
-    public void testIndexOfSingleCellBorder()
-    {
-        System.out.println("indexOfSingleCellBorder");
-        String source = "";
-        int start = 0;
-        CsvStorage instance = new CsvStorage();
-        int expResult = -1;
-        int result = instance.indexOfSingleCellBorder(source, start);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of indexOfSingleCellBorder method, of class CsvStorage.
-     */
-    @Test
-    public void testIndexOfSingleCellBorder1()
-    {
-        System.out.println("indexOfSingleCellBorder");
-        String source = "ioauvbasoivb";
-        int start = 0;
-        CsvStorage instance = new CsvStorage();
-        int expResult = -1;
-        int result = instance.indexOfSingleCellBorder(source, start);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of indexOfSingleCellBorder method, of class CsvStorage.
-     */
-    @Test
-    public void testIndexOfSingleCellBorder2()
-    {
-        System.out.println("indexOfSingleCellBorder");
-        String source = "\"\"";
-        int start = 0;
-        CsvStorage instance = new CsvStorage();
-        int expResult = -1;
-        int result = instance.indexOfSingleCellBorder(source, start);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of indexOfSingleCellBorder method, of class CsvStorage.
-     */
-    @Test
-    public void testIndexOfSingleCellBorder3()
-    {
-        System.out.println("indexOfSingleCellBorder");
-        String source = "\"";
-        int start = 0;
-        CsvStorage instance = new CsvStorage();
-        int expResult = 0;
-        int result = instance.indexOfSingleCellBorder(source, start);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of indexOfSingleCellBorder method, of class CsvStorage.
-     */
-    @Test
-    public void testIndexOfSingleCellBorder4()
-    {
-        System.out.println("indexOfSingleCellBorder");
-        String source = "\"\"\"";
-        int start = 0;
-        CsvStorage instance = new CsvStorage();
-        int expResult = 2;
-        int result = instance.indexOfSingleCellBorder(source, start);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of indexOfSingleCellBorder method, of class CsvStorage.
-     */
-    @Test
-    public void testIndexOfSingleCellBorder5()
-    {
-        System.out.println("indexOfSingleCellBorder");
-        String source = "\"\"\"\"\"";
-        int start = 0;
-        CsvStorage instance = new CsvStorage();
-        int expResult = 4;
-        int result = instance.indexOfSingleCellBorder(source, start);
-        assertEquals(expResult, result);
-    }
-
-    /**
      * Test of toCsvText method, of class CsvStorage.
      */
 //    @Test
@@ -192,7 +84,7 @@ public class CsvStorageTest
     }
 
     /**
-     * Test of clearString method, of class CsvStorage.
+     * Test of toCsvCell method, of class CsvStorage.
      */
 //    @Test
     public void testClearString()
@@ -201,7 +93,7 @@ public class CsvStorageTest
         String s = "";
         CsvStorage instance = new CsvStorage();
         String expResult = "";
-        String result = instance.clearString(s);
+        String result = instance.toCsvCell(s);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
