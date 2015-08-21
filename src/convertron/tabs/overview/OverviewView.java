@@ -244,6 +244,16 @@ public class OverviewView extends View
         Logger.setLogInfos(jCheckBox1.isSelected());
     }//GEN-LAST:event_jCheckBox1MouseReleased
 
+    public void setCurrentTaskMessage(String message)
+    {
+
+    }
+
+    public void setCurrentState(boolean working)
+    {
+
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton createBackupBtn;
     private javax.swing.JButton genAllBtn;

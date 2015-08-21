@@ -1,17 +1,21 @@
 package convertron.core;
 
+import convertron.tabs.modules.ModuleManager;
 import convertron.tabs.overview.OverviewView;
 import convertron.tabs.paths.PathsView;
 import convertron.tabs.settings.SettingsView;
 import interlib.io.FileIO;
 import interlib.util.Logger;
 import interlib.util.Settings;
+import java.awt.EventQueue;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -24,27 +28,43 @@ import javax.swing.WindowConstants;
  */
 public class Control
 {
-
     /**
      * Das Fenster des Programms.
      */
-    private Window window;
+    private static Window window;
+
+    /**
+     * Des OverviewTab des Fensters.
+     */
+    private static OverviewView overviewTab;
+
+    /**
+     * Der Modulverwalter.
+     */
+    private static ModuleManager moduleManager;
 
     /**
      * Das Symbol der Anwendung im Tray.
      */
-    private TrayIcon trayIcon;
+    private static TrayIcon trayIcon;
+
+    /**
+     * Die Liste mit den noch zu erledigenden Aufgaben.
+     */
+    private static ArrayList<Task> tasks;
 
     /**
      * Gibt an ob die Anwendung laufen soll.
      */
-    private boolean running;
+    private static boolean running;
 
     /**
      * Erstellt die Anwendung.
      */
     public Control()
     {
+        tasks = new ArrayList<>();
+
         setJavaLookAndFeel();
         createAndFillWindow();
 
@@ -60,7 +80,7 @@ public class Control
 //            //frame.addWindowListener(new FrameActions(frame, this));
     }
 
-    private void setJavaLookAndFeel()
+    private static void setJavaLookAndFeel()
     {
         try
         {
@@ -75,20 +95,20 @@ public class Control
         }
     }
 
-    private void createAndFillWindow()
+    private static void createAndFillWindow()
     {
         window = new Window();
-        window.addTab(new OverviewView());
+        overviewTab = new OverviewView();
+
+        window.addTab(overviewTab);
         window.addTab(new SettingsView());
         window.addTab(new PathsView());
-//        window.addTab(new DesignView());
-//        window.addTab(new SqlView());
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setVisible(true);
         Logger.logMessage(Logger.INFO, "Fenster wurde erstellt und gefüllt");
     }
 
-    private void setFileEncoding()
+    private static void setFileEncoding()
     {
         try
         {
@@ -107,7 +127,7 @@ public class Control
     /**
      * Initialisiert den Data-Ordner.
      */
-    private void copyFilesFromPackage()
+    private static void copyFilesFromPackage()
     {
         String packagePath = "/converter/res/stdData/";
         copyFileFromPackage(packagePath, "local.settings", "./");
@@ -122,13 +142,13 @@ public class Control
         Logger.logMessage(Logger.INFO, "Alle Dateien wurden erstellt oder überprüft");
     }
 
-    private void copyFileFromPackage(String packagePath, String fileName, String destPath)
+    private static void copyFileFromPackage(String packagePath, String fileName, String destPath)
     {
         FileIO file = new FileIO(packagePath + fileName);
         file.copyFromPackage(destPath);
     }
 
-    private void loadWindowPosition()
+    private static void loadWindowPosition()
     {
         String[] positions = Settings.loadArray(true, "position");
         if(!positions[0].isEmpty() && !positions[1].isEmpty())
@@ -139,7 +159,7 @@ public class Control
     /**
      * Beendet das Programm.
      */
-    public void exit()
+    public static void exit()
     {
         try
         {
@@ -176,7 +196,6 @@ public class Control
         try
         {
             Control app = new Control();
-            app.run();
         }
         catch(Exception ex)
         {
@@ -186,119 +205,52 @@ public class Control
     }
 
     /**
-     * While-Schleife, die das ganze Programm über läuft. Ähnlich der main.Methode.
-     */
-    public void run()
-    {
-        try
-        {
-            long beforeTime;
-            long afterTime;
-            long lastTime = System.currentTimeMillis();
-            long currentTime;
-            while(running)
-            {
-                beforeTime = System.currentTimeMillis();
-                runOneElementOfQueue();
-                afterTime = System.currentTimeMillis();
-                currentTime = System.currentTimeMillis();
-
-                if(afterTime < beforeTime + 100 && afterTime > beforeTime)
-                    Thread.sleep((beforeTime - afterTime) + 100);
-
-                if(lastTime < currentTime - 120000)
-                {
-                    lastTime = System.currentTimeMillis();
-                    Control.addToQueue("genAllBtnActionPerformed");
-                }
-            }
-        }
-        catch(Exception ex)
-        {
-            //Logger.logMessage("Fehler in der Programm-Schleife", 2);
-            //Logger.error(ex);
-        }
-    }
-
-    /**
      * Fügt Methoden aus "QueueableMethods" zur Warteschlange hinzu.
      *
-     * @param methodName Name der Methode
+     * @param task Runnable, dessen run() Methode ausgeführt werden soll
      */
-    public static void addToQueue(String methodName)
+    public static void addToQueue(Runnable task)
     {
-//        try
-//        {
-//            Method[] methods = QueueableMethods.class.getDeclaredMethods();
-//            Method theMethod = null;
-//            for(Method method : methods)
-//                if(method.getName().equals(methodName))
-//                {
-//                    theMethod = method;
-//                    break;
-//                }
-//            queue.add(new QueueElement(theMethod));
-//        }
-//        catch(Exception ex)
-//        {
-//            Logger.logMessage("Methode \"" + methodName + "\"konnte nicht zur Warteschlange hinzugefügt werden", 2);
-//            Logger.error(ex);
-//        }
+        addToQueue(task, "");
     }
 
-    /**
-     * Führt das erste Element der Schlange aus.
-     */
-    private void runOneElementOfQueue()
+    public static void addToQueue(Runnable task, String message)
     {
-//        try
-//        {
-//            //frame.getProgBar().setValue(queue.size());
-//            if(queue.size() > 0)
-//            {
-//                queue.get(0).invoke();
-//                queue.remove(0);
-//            }
-//        }
-//        catch(Exception ex)
-//        {
-//            Logger.logMessage("Element der Warteschlange konnte nicht ausgeführt werden", 2);
-//            Logger.error(ex);
-//        }
+        EventQueue.invokeLater(new Task(task, message));
     }
 
     /**
      * Initialisiert den Tray.
      */
-    private void initTray()
+    private static void initTray()
     {
         try
         {
-            BufferedImage icon = ImageIO.read(getClass().getResource("/com/facharbeit/ressources/trayLogo.png"));
+            BufferedImage icon = ImageIO.read(Control.class.getResource("/com/facharbeit/ressources/trayLogo.png"));
             PopupMenu popup = new PopupMenu();
             trayIcon = new TrayIcon(icon);
             SystemTray tray = SystemTray.getSystemTray();
 
-            MenuItem genAll = new MenuItem("Alles generieren");
-            MenuItem genToday = new MenuItem("Heute generieren");
-            MenuItem genTomorrow = new MenuItem("Morgen generieren");
-            MenuItem backup = new MenuItem("Backup erstellen");
-            MenuItem show = new MenuItem("Maximieren");
-            MenuItem hide = new MenuItem("Minimieren");
-            MenuItem exitItem = new MenuItem("Beenden");
+            initTrayMenuItem("Alles generieren", Tasks.GENALL, "Generieren...", popup);
+            initTrayMenuItem("Backup erstellen", Tasks.BACKUP, "Backup erstellen...", popup);
 
-            setMenuItems(genAll, genToday, genTomorrow, backup, show, hide, exitItem);
+            initTrayMenuItem("Maximieren", (java.awt.event.ActionEvent evt) ->
+                     {
+                         window.setExtendedState(JFrame.NORMAL);
+                         window.setVisible(true);
+                         window.toFront();
+                         window.requestFocus();
+            }, popup);
 
-            popup.add(genAll);
-            popup.add(genToday);
-            popup.add(genTomorrow);
-            popup.addSeparator();
-            popup.add(backup);
-            popup.addSeparator();
-            popup.add(show);
-            popup.add(hide);
-            popup.addSeparator();
-            popup.add(exitItem);
+            initTrayMenuItem("Minimieren", (java.awt.event.ActionEvent evt) ->
+                     {
+                         window.setVisible(false);
+            }, popup);
+
+            initTrayMenuItem("Beenden", (java.awt.event.ActionEvent evt) ->
+                     {
+                         Control.exit();
+            }, popup);
 
             trayIcon.setPopupMenu(popup);
             trayIcon.setToolTip("Vertretungsplan-Generator");
@@ -320,56 +272,62 @@ public class Control
         }
     }
 
-    /**
-     * Setzt die Aktionen der verschiedenen Items.
-     *
-     * @param genAll      Item
-     * @param genToday    Item
-     * @param genTomorrow Item
-     * @param backup      Item
-     * @param show        Item
-     * @param hide        Item
-     * @param exitItem    Item
-     */
-    private void setMenuItems(MenuItem genAll, MenuItem genToday, MenuItem genTomorrow, MenuItem backup,
-                              MenuItem show, MenuItem hide, MenuItem exitItem)
+    private static void initTrayMenuItem(String text, Runnable task, String taskMessage, PopupMenu menu)
     {
-        genAll.addActionListener((java.awt.event.ActionEvent evt) ->
-        {
-            Control.addToQueue("genAllBtnActionPerformed");
-        });
-        genToday.addActionListener((java.awt.event.ActionEvent evt) ->
-        {
-            Control.addToQueue("genTodayBtnActionPerformed");
-        });
-        genTomorrow.addActionListener((java.awt.event.ActionEvent evt) ->
-        {
-            Control.addToQueue("genTomorrowBtnActionPerformed");
-        });
-        backup.addActionListener((java.awt.event.ActionEvent evt) ->
-        {
-            Control.addToQueue("createBackupBtnActionPerformed");
-        });
-        show.addActionListener((java.awt.event.ActionEvent evt) ->
-        {
-            window.setExtendedState(JFrame.NORMAL);
-            window.setVisible(true);
-            window.toFront();
-            window.requestFocus();
-        });
-        hide.addActionListener((java.awt.event.ActionEvent evt) ->
-        {
-            window.setVisible(false);
-        });
-        exitItem.addActionListener((java.awt.event.ActionEvent evt) ->
-        {
-            System.exit(0);
-        });
+        initTrayMenuItem(text, (ActionEvent e) ->
+                 {
+                     Control.addToQueue(task, taskMessage);
+        }, menu);
     }
 
-    public Window getWindow()
+    private static void initTrayMenuItem(String text, ActionListener listener, PopupMenu menu)
+    {
+        MenuItem item = new MenuItem(text);
+        item.addActionListener(listener);
+
+        menu.add(item);
+    }
+
+    public static Window getWindow()
     {
         return window;
     }
 
+    public static void genAll()
+    {
+
+    }
+
+    public static void genLessons()
+    {
+
+    }
+
+    public static void genMotd()
+    {
+
+    }
+
+    private static class Task implements Runnable
+    {
+        private Runnable task;
+        private String message;
+
+        Task(Runnable task, String message)
+        {
+            this.task = task;
+            this.message = message;
+        }
+
+        @Override
+        public void run()
+        {
+            if(message != null && !message.isEmpty() && overviewTab != null)
+                overviewTab.setCurrentTaskMessage(message);
+
+            overviewTab.setCurrentState(true);
+            task.run();
+            overviewTab.setCurrentState(false);
+        }
+    }
 }
