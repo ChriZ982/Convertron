@@ -17,32 +17,29 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                      <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="genAllBtn" min="-2" pref="120" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="genTodayBtn" alignment="0" min="-2" pref="174" max="-2" attributes="0"/>
-                              <Component id="genTomorrowBtn" alignment="0" min="-2" pref="174" max="-2" attributes="0"/>
-                              <Component id="genMotdBtn" alignment="0" min="-2" pref="174" max="-2" attributes="0"/>
-                              <Component id="createBackupBtn" alignment="0" min="-2" pref="174" max="-2" attributes="0"/>
-                          </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="genAllBtn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="importLessonsBtn" pref="179" max="32767" attributes="0"/>
+                          <Component id="exportLessonsBtn" alignment="0" max="32767" attributes="0"/>
+                          <Component id="createBackupBtn" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="jScrollPane4" alignment="1" min="-2" pref="300" max="-2" attributes="0"/>
+                  <Component id="saveMotdBtn" alignment="0" min="-2" pref="300" max="-2" attributes="0"/>
+                  <Component id="jLabel5" min="-2" pref="300" max="-2" attributes="0"/>
+                  <Component id="jScrollPane4" alignment="0" min="-2" pref="300" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jSeparator6" min="-2" pref="2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel1" alignment="0" pref="300" max="32767" attributes="0"/>
+                  <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
                   <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jCheckBox1" max="32767" attributes="0"/>
+                  <Component id="showInfosCheck" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -52,38 +49,33 @@
               <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabel5" max="32767" attributes="0"/>
-                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="genTodayBtn" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                              <Component id="genTomorrowBtn" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                              <Component id="genMotdBtn" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
+                      <Component id="jLabel5" min="-2" pref="142" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="importLessonsBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="exportLessonsBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="createBackupBtn" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="genAllBtn" alignment="0" min="-2" pref="113" max="-2" attributes="0"/>
+                          <Component id="genAllBtn" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jScrollPane4" min="-2" pref="40" max="-2" attributes="0"/>
-                      <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="saveMotdBtn" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane1" max="32767" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="jSeparator6" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="showInfosCheck" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="jSeparator6" alignment="1" max="32767" attributes="0"/>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -104,9 +96,6 @@
             <Property name="toolTipText" type="java.lang.String" value="Zeigt den Status des Programms an"/>
             <Property name="focusable" type="boolean" value="false"/>
           </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
-          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
@@ -115,22 +104,13 @@
         <Property name="text" type="java.lang.String" value="Status:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="genTodayBtn">
+    <Component class="javax.swing.JButton" name="importLessonsBtn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Heutigen Plan generieren"/>
-        <Property name="toolTipText" type="java.lang.String" value="Generiert nur den heutigen Plan"/>
+        <Property name="text" type="java.lang.String" value="Vertretungsplan importieren"/>
+        <Property name="toolTipText" type="java.lang.String" value="Importiert den Plan mithilfe des gew&#xe4;hlten Import-Modules"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="genTodayBtnActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="genTomorrowBtn">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Morgigen Plan generieren"/>
-        <Property name="toolTipText" type="java.lang.String" value="Generiert nur den morgigen Plan"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="genTomorrowBtnActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="importLessonsBtnActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="genAllBtn">
@@ -148,13 +128,13 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="genAllBtnActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="genMotdBtn">
+    <Component class="javax.swing.JButton" name="exportLessonsBtn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Laufschrift generieren"/>
-        <Property name="toolTipText" type="java.lang.String" value="Generiert UND SPEICHERT nur die Laufschrift"/>
+        <Property name="text" type="java.lang.String" value="Vertretungplan exportieren"/>
+        <Property name="toolTipText" type="java.lang.String" value="Exportiert den Plan mithilfe der aktivierten Export-Module"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="genMotdBtnActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportLessonsBtnActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="createBackupBtn">
@@ -213,20 +193,22 @@
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="motdTxtFocusGained"/>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="motdTxtFocusLost"/>
           </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JCheckBox" name="jCheckBox1">
+    <Component class="javax.swing.JCheckBox" name="showInfosCheck">
       <Properties>
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Zeige Informationen"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jCheckBox1MouseReleased"/>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="showInfosCheckItemStateChanged"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="saveMotdBtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Laufschrift speichern"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

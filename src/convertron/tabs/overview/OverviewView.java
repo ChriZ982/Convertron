@@ -14,6 +14,7 @@ import interlib.util.Logger;
  */
 public class OverviewView extends View
 {
+    private static final long serialVersionUID = 1L;
 
     /** Creates new form View */
     public OverviewView()
@@ -35,16 +36,16 @@ public class OverviewView extends View
         jScrollPane1 = new javax.swing.JScrollPane();
         log = new javax.swing.JTextPane();
         jLabel1 = new javax.swing.JLabel();
-        genTodayBtn = new javax.swing.JButton();
-        genTomorrowBtn = new javax.swing.JButton();
+        importLessonsBtn = new javax.swing.JButton();
         genAllBtn = new javax.swing.JButton();
-        genMotdBtn = new javax.swing.JButton();
+        exportLessonsBtn = new javax.swing.JButton();
         createBackupBtn = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
         jScrollPane4 = new javax.swing.JScrollPane();
         motdTxt = new javax.swing.JTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        showInfosCheck = new javax.swing.JCheckBox();
+        saveMotdBtn = new javax.swing.JButton();
 
         log.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         log.setToolTipText("Zeigt den Status des Programms an");
@@ -53,23 +54,13 @@ public class OverviewView extends View
 
         jLabel1.setText("Status:");
 
-        genTodayBtn.setText("Heutigen Plan generieren");
-        genTodayBtn.setToolTipText("Generiert nur den heutigen Plan");
-        genTodayBtn.addActionListener(new java.awt.event.ActionListener()
+        importLessonsBtn.setText("Vertretungsplan importieren");
+        importLessonsBtn.setToolTipText("Importiert den Plan mithilfe des gewählten Import-Modules");
+        importLessonsBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                genTodayBtnActionPerformed(evt);
-            }
-        });
-
-        genTomorrowBtn.setText("Morgigen Plan generieren");
-        genTomorrowBtn.setToolTipText("Generiert nur den morgigen Plan");
-        genTomorrowBtn.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                genTomorrowBtnActionPerformed(evt);
+                importLessonsBtnActionPerformed(evt);
             }
         });
 
@@ -85,13 +76,13 @@ public class OverviewView extends View
             }
         });
 
-        genMotdBtn.setText("Laufschrift generieren");
-        genMotdBtn.setToolTipText("Generiert UND SPEICHERT nur die Laufschrift");
-        genMotdBtn.addActionListener(new java.awt.event.ActionListener()
+        exportLessonsBtn.setText("Vertretungplan exportieren");
+        exportLessonsBtn.setToolTipText("Exportiert den Plan mithilfe der aktivierten Export-Module");
+        exportLessonsBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                genMotdBtnActionPerformed(evt);
+                exportLessonsBtnActionPerformed(evt);
             }
         });
 
@@ -133,15 +124,17 @@ public class OverviewView extends View
         });
         jScrollPane4.setViewportView(motdTxt);
 
-        jCheckBox1.setSelected(true);
-        jCheckBox1.setText("Zeige Informationen");
-        jCheckBox1.addMouseListener(new java.awt.event.MouseAdapter()
+        showInfosCheck.setSelected(true);
+        showInfosCheck.setText("Zeige Informationen");
+        showInfosCheck.addItemListener(new java.awt.event.ItemListener()
         {
-            public void mouseReleased(java.awt.event.MouseEvent evt)
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
             {
-                jCheckBox1MouseReleased(evt);
+                showInfosCheckItemStateChanged(evt);
             }
         });
+
+        saveMotdBtn.setText("Laufschrift speichern");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -149,26 +142,24 @@ public class OverviewView extends View
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel5)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(genAllBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(genTodayBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(genTomorrowBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(genMotdBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(createBackupBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(genAllBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(importLessonsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                            .addComponent(exportLessonsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(createBackupBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(saveMotdBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1)
-                    .addComponent(jCheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(10, 10, 10))
+                    .addComponent(showInfosCheck, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,53 +167,45 @@ public class OverviewView extends View
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(genTodayBtn)
-                                .addGap(6, 6, 6)
-                                .addComponent(genTomorrowBtn)
-                                .addGap(6, 6, 6)
-                                .addComponent(genMotdBtn)
-                                .addGap(8, 8, 8)
-                                .addComponent(createBackupBtn))
-                            .addComponent(genAllBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
+                                .addComponent(importLessonsBtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jCheckBox1))
-                            .addComponent(jSeparator6))
-                        .addContainerGap())))
+                                .addComponent(exportLessonsBtn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(createBackupBtn))
+                            .addComponent(genAllBtn))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(saveMotdBtn))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(showInfosCheck))
+                    .addComponent(jSeparator6, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void genTodayBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_genTodayBtnActionPerformed
-    {//GEN-HEADEREND:event_genTodayBtnActionPerformed
+    private void importLessonsBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_importLessonsBtnActionPerformed
+    {//GEN-HEADEREND:event_importLessonsBtnActionPerformed
         //Application.addToQueue("genTodayBtnActionPerformed");
-    }//GEN-LAST:event_genTodayBtnActionPerformed
-
-    private void genTomorrowBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_genTomorrowBtnActionPerformed
-    {//GEN-HEADEREND:event_genTomorrowBtnActionPerformed
-        //Application.addToQueue("genTomorrowBtnActionPerformed");
-    }//GEN-LAST:event_genTomorrowBtnActionPerformed
+    }//GEN-LAST:event_importLessonsBtnActionPerformed
 
     private void genAllBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_genAllBtnActionPerformed
     {//GEN-HEADEREND:event_genAllBtnActionPerformed
         //Application.addToQueue("genAllBtnActionPerformed");
     }//GEN-LAST:event_genAllBtnActionPerformed
 
-    private void genMotdBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_genMotdBtnActionPerformed
-    {//GEN-HEADEREND:event_genMotdBtnActionPerformed
+    private void exportLessonsBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_exportLessonsBtnActionPerformed
+    {//GEN-HEADEREND:event_exportLessonsBtnActionPerformed
         //Application.addToQueue("genMotdBtnActionPerformed");
-    }//GEN-LAST:event_genMotdBtnActionPerformed
+    }//GEN-LAST:event_exportLessonsBtnActionPerformed
 
     private void createBackupBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_createBackupBtnActionPerformed
     {//GEN-HEADEREND:event_createBackupBtnActionPerformed
@@ -239,10 +222,10 @@ public class OverviewView extends View
         //Application.addToQueue("motdTxtFocusLost");
     }//GEN-LAST:event_motdTxtFocusLost
 
-    private void jCheckBox1MouseReleased(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jCheckBox1MouseReleased
-    {//GEN-HEADEREND:event_jCheckBox1MouseReleased
-        Logger.setLogInfos(jCheckBox1.isSelected());
-    }//GEN-LAST:event_jCheckBox1MouseReleased
+    private void showInfosCheckItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_showInfosCheckItemStateChanged
+    {//GEN-HEADEREND:event_showInfosCheckItemStateChanged
+        Logger.setLogInfos(showInfosCheck.isSelected());
+    }//GEN-LAST:event_showInfosCheckItemStateChanged
 
     public void setCurrentTaskMessage(String message)
     {
@@ -256,18 +239,18 @@ public class OverviewView extends View
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton createBackupBtn;
+    private javax.swing.JButton exportLessonsBtn;
     private javax.swing.JButton genAllBtn;
-    private javax.swing.JButton genMotdBtn;
-    private javax.swing.JButton genTodayBtn;
-    private javax.swing.JButton genTomorrowBtn;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JButton importLessonsBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator6;
-    private static javax.swing.JTextPane log;
-    protected static javax.swing.JTextField motdTxt;
+    private javax.swing.JTextPane log;
+    private javax.swing.JTextField motdTxt;
+    private javax.swing.JButton saveMotdBtn;
+    private javax.swing.JCheckBox showInfosCheck;
     // End of variables declaration//GEN-END:variables
 
     @Override

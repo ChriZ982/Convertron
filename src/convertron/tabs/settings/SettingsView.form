@@ -16,114 +16,129 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabel25" min="-2" pref="608" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="settingsSaveBtn" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jSeparator8" alignment="1" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="customSourceCheck" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="autoBackupCheck" alignment="0" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="jLabel14" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jLabel7" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="speedPlanTxt" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="speedMotdTxt" alignment="0" pref="28" max="32767" attributes="0"/>
-                                          <Component id="weekTxt" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="customTodayLabel" alignment="0" min="-2" pref="36" max="-2" attributes="0"/>
+                                          <Component id="customTomorrowLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel20" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel21" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel24" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="customTodayTxt" max="32767" attributes="0"/>
+                                          <Component id="customTomorrowTxt" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
+                                  <Component id="customDateCheck" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="automaticModeCheck" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jLabel22" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel10" alignment="0" max="32767" attributes="0"/>
+                                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="autoImportCheck" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="autoExportCheck" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="autoBackupCheck" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="sourceTodayTxt" alignment="0" min="-2" pref="143" max="-2" attributes="0"/>
-                                          <Component id="sourceTomorrowTxt" alignment="0" min="-2" pref="144" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jSeparator2" min="-2" pref="2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                              <Component id="jSeparator2" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="hoursHeadLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="hour9Label" alignment="1" max="32767" attributes="0"/>
-                                          <Component id="hour7Label" alignment="1" max="32767" attributes="0"/>
-                                          <Component id="hour5Label" alignment="1" max="32767" attributes="0"/>
-                                          <Component id="hour3Label" alignment="1" max="32767" attributes="0"/>
-                                          <Component id="hour1Label" alignment="1" min="-2" pref="53" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="hour3Txt" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="hour5Txt" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="hour7Txt" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="hour9Txt" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="hour1Txt" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="hour8Label" min="-2" pref="53" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="hour8Txt" min="-2" pref="80" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="hour10Label" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="hour10Txt" min="-2" pref="80" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="hour6Label" min="-2" pref="53" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="hour6Txt" min="-2" pref="80" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="1" attributes="0">
+                                      <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="weekCombo" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="hoursHeadLabel" alignment="0" min="-2" pref="209" max="-2" attributes="0"/>
+                                          <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="hour2Label" alignment="1" min="-2" pref="53" max="-2" attributes="0"/>
-                                                  <Component id="hour4Label" alignment="1" min="-2" pref="53" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                                      <Component id="hour9Label" alignment="1" max="32767" attributes="0"/>
+                                                      <Component id="hour7Label" alignment="1" max="32767" attributes="0"/>
+                                                      <Component id="hour5Label" alignment="1" max="32767" attributes="0"/>
+                                                      <Component id="hour3Label" alignment="1" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <Component id="hour1Label" alignment="0" min="-2" pref="53" max="-2" attributes="0"/>
                                               </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="hour2Txt" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="hour4Txt" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="hour7Txt" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="hour5Txt" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="hour3Txt" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="hour1Txt" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="hour9Txt" max="32767" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="1" attributes="0">
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="hour10Label" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="hour10Txt" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="hour8Label" min="-2" pref="53" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="hour8Txt" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="hour6Label" min="-2" pref="53" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="hour6Txt" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="hour4Label" min="-2" pref="53" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="hour4Txt" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="hour2Label" min="-2" pref="53" max="-2" attributes="0"/>
+                                                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                                                      <Component id="hour2Txt" max="32767" attributes="0"/>
+                                                  </Group>
                                               </Group>
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <Component id="useHoursCheck" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="useHoursCheck" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="jSeparator8" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jScrollPane3" alignment="1" max="32767" attributes="0"/>
-                          <Component id="settingsSaveBtn" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jLabel6" max="32767" attributes="0"/>
+                          <Component id="jLabel5" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="dataPathTxt" max="32767" attributes="0"/>
+                          <Component id="backupPathTxt" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="dataPathChooseBtn" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="backupPathChooseBtn" min="-2" pref="30" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -131,7 +146,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="useHoursCheck" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -171,50 +186,56 @@
                           <Component id="hour10Txt" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="hour10Label" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="autoBackupCheck" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="speedPlanTxt" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="speedMotdTxt" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="weekTxt" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                      <Component id="jLabel24" min="-2" pref="20" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="customSourceCheck" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="sourceTodayTxt" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="sourceTomorrowTxt" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel22" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="weekCombo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="jSeparator2" alignment="0" min="-2" pref="225" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="automaticModeCheck" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" pref="14" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="autoBackupCheck" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="autoImportCheck" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="autoExportCheck" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="customDateCheck" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="customTodayTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="customTodayLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="customTomorrowTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="customTomorrowLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Component id="jSeparator2" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jSeparator8" min="-2" pref="2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane3" min="-2" pref="43" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="32767" attributes="0"/>
+              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="dataPathTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="dataPathChooseBtn" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="backupPathTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="backupPathChooseBtn" min="-2" pref="20" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="settingsSaveBtn" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -222,49 +243,10 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="jLabel14">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Scrollgeschwindigkeit"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="speedPlanTxt">
-      <Properties>
-        <Property name="toolTipText" type="java.lang.String" value="Scrollgeschwindigkeit des Plans in % z.B. &quot;100&quot;"/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel7">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Laufschriftgeschw."/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="speedMotdTxt">
-      <Properties>
-        <Property name="toolTipText" type="java.lang.String" value="Scrollgeschwindigkeit der Laufschrift in % z.B. &quot;100&quot;"/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
-    </Component>
     <Component class="javax.swing.JCheckBox" name="autoBackupCheck">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Automatisches Backup"/>
+        <Property name="text" type="java.lang.String" value="Backup"/>
         <Property name="toolTipText" type="java.lang.String" value="Soll ein automatisches Backup beim Generieren erstellt werden?"/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel20">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="%"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel21">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="%"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="settingsSaveBtn">
@@ -279,298 +261,248 @@
     <Component class="javax.swing.JTextField" name="hour10Txt">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die zehnte Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="hour10Label">
       <Properties>
         <Property name="text" type="java.lang.String" value="10. Stunde"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="hour9Txt">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die neunte Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="hour9Label">
       <Properties>
         <Property name="text" type="java.lang.String" value="9. Stunde"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="hour7Label">
       <Properties>
         <Property name="text" type="java.lang.String" value="7. Stunde"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="hour7Txt">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die siebte Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="hour8Txt">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die achte Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="hour6Txt">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die sechste Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="hour4Txt">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die vierte Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="hour2Txt">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die zweite Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="hour1Txt">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die erste Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="hour3Txt">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die dritte Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="hour5Txt">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die f&#xfc;nfte Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="hour5Label">
       <Properties>
         <Property name="text" type="java.lang.String" value="5. Stunde"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="hour3Label">
       <Properties>
         <Property name="text" type="java.lang.String" value="3. Stunde"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="hour1Label">
       <Properties>
         <Property name="text" type="java.lang.String" value="1. Stunde"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="hour2Label">
       <Properties>
         <Property name="text" type="java.lang.String" value="2. Stunde"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="hour4Label">
       <Properties>
         <Property name="text" type="java.lang.String" value="4. Stunde"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="hour6Label">
       <Properties>
         <Property name="text" type="java.lang.String" value="6. Stunde"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="hour8Label">
       <Properties>
         <Property name="text" type="java.lang.String" value="8. Stunde"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="hoursHeadLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Stunden ausblenden ab:"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JCheckBox" name="useHoursCheck">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Vergangene Vertretungen automatisch ausblenden"/>
+        <Property name="text" type="java.lang.String" value="Vergangene Vertretungen ausblenden"/>
         <Property name="toolTipText" type="java.lang.String" value="Sollen vergangene Stunden ausgeblendet werden?"/>
       </Properties>
       <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="useHoursCheckItemStateChanged"/>
         <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="useHoursCheckStateChanged"/>
       </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator2">
       <Properties>
         <Property name="orientation" type="int" value="1"/>
       </Properties>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane3">
-      <AuxValues>
-        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-      </AuxValues>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Component class="javax.swing.JTable" name="table">
-          <Properties>
-            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="7" rowCount="1">
-                <Column editable="false" title="Vertreter" type="java.lang.Object">
-                  <Data value="ker"/>
-                </Column>
-                <Column editable="false" title="Raum" type="java.lang.Object">
-                  <Data value="info1"/>
-                </Column>
-                <Column editable="false" title="Art" type="java.lang.Object">
-                  <Data value="Raum-Vtr."/>
-                </Column>
-                <Column editable="false" title="Fach" type="java.lang.Object">
-                  <Data value="IF-LK1"/>
-                </Column>
-                <Column editable="false" title="Lehrer" type="java.lang.Object">
-                  <Data value="ker"/>
-                </Column>
-                <Column editable="false" title="Verl. von" type="java.lang.Object">
-                  <Data value=""/>
-                </Column>
-                <Column editable="false" title="Hinweise" type="java.lang.Object">
-                  <Data value="Raum&#xe4;nderung"/>
-                </Column>
-              </Table>
-            </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Ver&#xe4;ndern der Spalten-Sortierung und -Gr&#xf6;&#xdf;e auf dem Vertretungsplan"/>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-          </AuxValues>
-        </Component>
-      </SubComponents>
-    </Container>
     <Component class="javax.swing.JLabel" name="jLabel18">
       <Properties>
         <Property name="text" type="java.lang.String" value="Gerade Woche"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="weekTxt">
-      <Properties>
-        <Property name="toolTipText" type="java.lang.String" value="Buchstaben f&#xfc;r die Gerade Woche definieren z.B. &quot;B&quot;"/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JCheckBox" name="customSourceCheck">
+    <Component class="javax.swing.JCheckBox" name="customDateCheck">
       <Properties>
         <Property name="text" type="java.lang.String" value="Benutzerdefiniertes Datum"/>
         <Property name="toolTipText" type="java.lang.String" value="Soll ein benutzerdefiniertes Datum f&#xfc;r heute und morgen angenommen werden?"/>
       </Properties>
       <Events>
-        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="customSourceCheckStateChanged"/>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="customDateCheckItemStateChanged"/>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="customDateCheckStateChanged"/>
       </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel10">
+    <Component class="javax.swing.JLabel" name="customTodayLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Heute"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
     </Component>
-    <Component class="javax.swing.JTextField" name="sourceTodayTxt">
+    <Component class="javax.swing.JTextField" name="customTodayTxt">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Neues Datum f&#xfc;r den heutigen Plan z.B. &quot;24.12.&quot;"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel22">
+    <Component class="javax.swing.JLabel" name="customTomorrowLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Morgen"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
     </Component>
-    <Component class="javax.swing.JTextField" name="sourceTomorrowTxt">
+    <Component class="javax.swing.JTextField" name="customTomorrowTxt">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Neues Datum f&#xfc;r den morgigen Plan z.B. &quot;25.12.&quot;"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel24">
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator8">
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel25">
+    <Component class="javax.swing.JCheckBox" name="automaticModeCheck">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Spaltensortierung:"/>
+        <Property name="text" type="java.lang.String" value="Automatikmodus"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="autoImportCheck">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Vertretungsplan importieren"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="autoExportCheck">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Vertretungsplan exportieren"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="weekCombo">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="2">
+            <StringItem index="0" value="A"/>
+            <StringItem index="1" value="B"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Alles generieren:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Pfade:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel5">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Data"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel6">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Backup"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="dataPathTxt">
+    </Component>
+    <Component class="javax.swing.JTextField" name="backupPathTxt">
+    </Component>
+    <Component class="javax.swing.JButton" name="dataPathChooseBtn">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/convertron/res/ordner.png"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="backupPathChooseBtn">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/convertron/res/ordner.png"/>
+        </Property>
       </Properties>
     </Component>
   </SubComponents>
