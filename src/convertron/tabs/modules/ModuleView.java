@@ -3,6 +3,8 @@ package convertron.tabs.modules;
 import interlib.interfaces.Module;
 import interlib.interfaces.View;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Enumeration;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -123,7 +125,7 @@ public class ModuleView extends View
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,7 +133,7 @@ public class ModuleView extends View
                             .addComponent(deactivateBtn))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                     .addComponent(jSeparator3))
                 .addContainerGap())
@@ -205,22 +207,21 @@ public class ModuleView extends View
         return "Module";
     }
 
-    // <editor-fold defaultstate="collapsed" desc="Getter">
-    public DefaultListModel<ModuleHolder> getActiveOutputModulesListModel()
+    public Module[] getActiveOutputModules()
     {
-        return activeOutputModulesListModel;
+        return enumerationToArray(activeOutputModulesListModel.elements());
     }
 
-    public DefaultListModel<ModuleHolder> getAvailableOutputModulesListModel()
+    public Module getActiveInputModule()
     {
-        return availableOutputModulesListModel;
+        return ((ModuleHolder)availableInputModulesComboModel.getSelectedItem()).module;
     }
 
-    public DefaultComboBoxModel<ModuleHolder> getAvailableInputModulesComboModel()
+    private Module[] enumerationToArray(Enumeration<ModuleHolder> modules)
     {
-        return availableInputModulesComboModel;
+        List<ModuleHolder> list = Collections.list(modules);
+        return ModuleHolder.toModule(list.toArray(new ModuleHolder[list.size()]));
     }
-    // </editor-fold>
 
     private javax.swing.DefaultListModel<ModuleHolder> activeOutputModulesListModel;
     private javax.swing.DefaultListModel<ModuleHolder> availableOutputModulesListModel;

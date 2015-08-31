@@ -7,8 +7,6 @@ import interlib.interfaces.Module;
 import interlib.interfaces.Output;
 import interlib.util.Settings;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class ModuleManager implements Input, Output
 {
@@ -68,15 +66,15 @@ public class ModuleManager implements Input, Output
     {
         activeOutputs.clear();
 
-        List<ModuleHolder> outputsMarkedAsActive = Collections.list(view.getActiveOutputModulesListModel().elements());
-        for(ModuleHolder holder : outputsMarkedAsActive)
+        Module[] outputsMarkedAsActive = view.getActiveOutputModules();
+        for(Module out : outputsMarkedAsActive)
         {
-            if(holder.module instanceof Output)
-                activeOutputs.add((Output)holder.module);
+            if(out instanceof Output)
+                activeOutputs.add((Output)out);
         }
 
         activeInput = null;
-        ModuleHolder inputMarkedAsActive = (ModuleHolder)view.getAvailableInputModulesComboModel().getSelectedItem();
+        Module inputMarkedAsActive = view.getActiveInputModule();
         if(inputMarkedAsActive instanceof Input)
             activeInput = (Input)inputMarkedAsActive;
 
