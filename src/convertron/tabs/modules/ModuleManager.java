@@ -1,6 +1,6 @@
 package convertron.tabs.modules;
 
-import convertron.core.Window;
+import convertron.core.Control;
 import interlib.data.Lesson;
 import interlib.interfaces.Input;
 import interlib.interfaces.Module;
@@ -18,7 +18,7 @@ public class ModuleManager implements Input, Output
     private ModuleView view;
     private ModuleLoader loader;
 
-    public ModuleManager(Window window)
+    public ModuleManager()
     {
         loader = new ModuleLoader();
 
@@ -38,12 +38,12 @@ public class ModuleManager implements Input, Output
                               activeOutputs.toArray(),
                               allInputs.toArray(),
                               activeInput);
-        window.addTab(view);
+        Control.addViewToWindow(view);
 
         for(Module module : modules)
         {
             if(module.getView() != null)
-                window.addTab(module.getView());
+                Control.addViewToWindow(module.getView());
         }
 
         initializeListeners();
@@ -51,11 +51,6 @@ public class ModuleManager implements Input, Output
 
     private void initializeListeners()
     {
-        view.addManageModulesListener(() ->
-        {
-            manageModulesAction();
-        });
-
         view.addSaveListener(() ->
         {
             saveAction();
@@ -79,11 +74,6 @@ public class ModuleManager implements Input, Output
             activeInput = (Input)inputMarkedAsActive;
 
         saveActive();
-    }
-
-    private void manageModulesAction()
-    {
-        loader.showModuleManageWindow();
     }
 
     @Override

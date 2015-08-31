@@ -1,8 +1,9 @@
 package convertron.core;
 
 import convertron.tabs.modules.ModuleManager;
-import convertron.tabs.overview.OverviewView;
-import convertron.tabs.settings.SettingsView;
+import convertron.tabs.overview.OverviewControl;
+import convertron.tabs.settings.SettingsControl;
+import interlib.interfaces.View;
 import interlib.io.FileIO;
 import interlib.util.Logger;
 import interlib.util.Settings;
@@ -14,6 +15,8 @@ import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.nio.charset.Charset;
+import java.nio.charset.UnsupportedCharsetException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -31,14 +34,8 @@ public class Control
      */
     private static Window window;
 
-    /**
-     * Des OverviewTab des Fensters.
-     */
-    private static OverviewView overviewTab;
-
-    /**
-     * Der Modulverwalter.
-     */
+    private static OverviewControl overview;
+    private static SettingsControl settings;
     private static ModuleManager moduleManager;
 
     /**
@@ -47,28 +44,35 @@ public class Control
     private static TrayIcon trayIcon;
 
     /**
-     * Gibt an ob die Anwendung laufen soll.
+     * Ruft die "main-Methode" der Anwendung auf.
+     *
+     * @param args Parameter, die beim Aufruf des Programms übergeben wurden
      */
-    private static boolean running;
-
-    /**
-     * Erstellt die Anwendung.
-     */
-    public Control()
+    public static void main(String[] args)
     {
-        setJavaLookAndFeel();
-        createAndFillWindow();
+        try
+        {
+            setFileEncoding("ISO-8859-1");
 
-        setFileEncoding();
-        copyFilesFromPackage();
+            setJavaLookAndFeel();
 
-        loadWindowPosition();
+            copyFilesFromPackage();
 
-        Logger.logMessage(Logger.WARNING, "HELP");
+            createAndFillWindow();
 
-//            initTray();
-//            //QueueableMethods.loadSettings();
-//            //frame.addWindowListener(new FrameActions(frame, this));
+            loadWindowPosition();
+
+            initTray();
+
+            //ToDo init Settings & Logger
+        }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(null,
+                                          "Fehler beim initialisieren der Anwendung!",
+                                          "Schwerwiegender Fehler",
+                                          JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private static void setJavaLookAndFeel()
@@ -77,7 +81,7 @@ public class Control
         {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         }
-        catch(ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException classNotFoundException)
+        catch(ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex)
         {
             JOptionPane.showMessageDialog(null, "Das Design der Anwendung konnte nicht geändert werden.\n"
                                                 + "Es kann zu Anzeigeproblemen kommen.\n"
@@ -89,23 +93,31 @@ public class Control
     private static void createAndFillWindow()
     {
         window = new Window();
-        overviewTab = new OverviewView();
 
-        window.addTab(overviewTab);
-        window.addTab(new SettingsView());
+        overview = new OverviewControl();
+        settings = new SettingsControl();
+        moduleManager = new ModuleManager();
+
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setVisible(true);
         Logger.logMessage(Logger.INFO, "Fenster wurde erstellt und gefüllt");
     }
 
-    private static void setFileEncoding()
+    private static void setFileEncoding(String charsetName)
     {
         try
         {
-            System.setProperty("file.encoding", "ISO-8859-1");
-            Logger.logMessage(Logger.INFO, "File Encoding wurde konfiguriert");
+            if(Charset.isSupported(charsetName))
+            {
+                System.setProperty("file.encoding", charsetName);
+                Logger.logMessage(Logger.INFO, "File Encoding wurde konfiguriert");
+            }
+            else
+            {
+                throw new UnsupportedCharsetException(charsetName);
+            }
         }
-        catch(SecurityException e)
+        catch(Exception ex)
         {
             JOptionPane.showMessageDialog(null, "Das File Encoding konnte nicht auf ISO-8859-1 umgestellt werden.\n"
                                                 + "Es kann zu Anzeigeproblemen kommen.\n"
@@ -147,15 +159,96 @@ public class Control
     }
 
     /**
+     * Initialisiert den Tray.
+     */
+    private static void initTray()
+    {
+        trayIcon = null;
+        try
+        {
+            if(SystemTray.isSupported())
+            {
+                SystemTray tray = SystemTray.getSystemTray();
+
+                BufferedImage icon = ImageIO.read(Control.class.getResource("/com/facharbeit/ressources/trayLogo.png"));
+                trayIcon = new TrayIcon(icon);
+
+                PopupMenu popup = new PopupMenu();
+
+                initTrayMenuItem("Alles generieren", popup, Tasks.GENALL, "Generieren...");
+                initTrayMenuItem("Backup erstellen", popup, Tasks.BACKUP, "Backup erstellen...");
+
+                initTrayMenuItem("Maximieren", popup,
+                                 (java.awt.event.ActionEvent evt) ->
+                                 {
+                                     window.setExtendedState(JFrame.NORMAL);
+                                     window.setVisible(true);
+                                     window.toFront();
+                                     window.requestFocus();
+                                 });
+
+                initTrayMenuItem("Minimieren", popup,
+                                 (java.awt.event.ActionEvent evt) ->
+                                 {
+                                     window.setVisible(false);
+                                 });
+
+                initTrayMenuItem("Beenden", popup,
+                                 (java.awt.event.ActionEvent evt) ->
+                                 {
+                                     Control.exit();
+                                 });
+
+                trayIcon.setPopupMenu(popup);
+                trayIcon.setToolTip("Vertretungsplan-Generator");
+
+                trayIcon.addActionListener((ActionEvent e) ->
+                {
+                    window.setExtendedState(JFrame.NORMAL);
+                    window.setVisible(true);
+                    window.toFront();
+                    window.requestFocus();
+                });
+
+                tray.add(trayIcon);
+            }
+            else
+            {
+                Logger.logMessage(Logger.INFO, "Das Betriebssystem unterstützt kein Tray, "
+                                               + "es wurde kein Tray initialisiert");
+            }
+        }
+        catch(Exception ex)
+        {
+            Logger.logError(Logger.WARNING, "Tray konnte nicht initialisiert werden", ex);
+        }
+    }
+
+    private static void initTrayMenuItem(String text, PopupMenu menu, Runnable task, String taskMessage)
+    {
+        initTrayMenuItem(text, menu, (ActionEvent e) ->
+                 {
+                     //ToDo Message!?
+                     EventQueue.invokeLater(task);
+        });
+    }
+
+    private static void initTrayMenuItem(String text, PopupMenu menu, ActionListener listener)
+    {
+        MenuItem item = new MenuItem(text);
+        item.addActionListener(listener);
+
+        menu.add(item);
+    }
+
+    /**
      * Beendet das Programm.
      */
     public static void exit()
     {
         try
         {
-            running = false;
-//            for(QueueElement element : queue)
-//                element.invoke();
+            //ToDo Exit Tabs -> Pending Changes?!
 
             Settings.saveArray(true, "position",
                                new String[]
@@ -164,123 +257,37 @@ public class Control
                                    String.valueOf((int)window.getLocation().getY())
                                });
 
-            SystemTray.getSystemTray().remove(trayIcon);
+            if(trayIcon != null)
+                SystemTray.getSystemTray().remove(trayIcon);
+
             window.dispose();
             System.exit(0);
         }
         catch(Exception ex)
         {
-            //Logger.logMessage("Fehler beim Beenden", 2);
-            //Logger.error(ex);
+            Logger.logError(Logger.ERROR, "Fehler beim Beenden", ex);
             System.exit(-1);
         }
     }
 
-    /**
-     * Ruft die "main-Methode" der Anwendung auf.
-     *
-     * @param args Parameter, die beim Aufruf des Programms übergeben wurden
-     */
-    public static void main(String[] args)
+    public static void addViewToWindow(View view)
     {
-        try
-        {
-            Control app = new Control();
-        }
-        catch(Exception ex)
-        {
-            //Logger.logMessage("Fehler in der Main-Methode", 2);
-            //Logger.error(ex);
-        }
-    }
-
-    /**
-     * Initialisiert den Tray.
-     */
-    private static void initTray()
-    {
-        try
-        {
-            BufferedImage icon = ImageIO.read(Control.class.getResource("/com/facharbeit/ressources/trayLogo.png"));
-            PopupMenu popup = new PopupMenu();
-            trayIcon = new TrayIcon(icon);
-            SystemTray tray = SystemTray.getSystemTray();
-
-            initTrayMenuItem("Alles generieren", Tasks.GENALL, "Generieren...", popup);
-            initTrayMenuItem("Backup erstellen", Tasks.BACKUP, "Backup erstellen...", popup);
-
-            initTrayMenuItem("Maximieren", (java.awt.event.ActionEvent evt) ->
-                     {
-                         window.setExtendedState(JFrame.NORMAL);
-                         window.setVisible(true);
-                         window.toFront();
-                         window.requestFocus();
-            }, popup);
-
-            initTrayMenuItem("Minimieren", (java.awt.event.ActionEvent evt) ->
-                     {
-                         window.setVisible(false);
-            }, popup);
-
-            initTrayMenuItem("Beenden", (java.awt.event.ActionEvent evt) ->
-                     {
-                         Control.exit();
-            }, popup);
-
-            trayIcon.setPopupMenu(popup);
-            trayIcon.setToolTip("Vertretungsplan-Generator");
-
-            trayIcon.addActionListener((ActionEvent e) ->
-            {
-                window.setExtendedState(JFrame.NORMAL);
-                window.setVisible(true);
-                window.toFront();
-                window.requestFocus();
-            });
-
-            tray.add(trayIcon);
-        }
-        catch(Exception ex)
-        {
-            //Logger.logMessage("Tray konnte nicht initialisiert werden", 2);
-            //Logger.error(ex);
-        }
-    }
-
-    private static void initTrayMenuItem(String text, Runnable task, String taskMessage, PopupMenu menu)
-    {
-        initTrayMenuItem(text, (ActionEvent e) ->
-                 {
-                     //ToDo Message!?
-                     EventQueue.invokeLater(task);
-        }, menu);
-    }
-
-    private static void initTrayMenuItem(String text, ActionListener listener, PopupMenu menu)
-    {
-        MenuItem item = new MenuItem(text);
-        item.addActionListener(listener);
-
-        menu.add(item);
-    }
-
-    public static Window getWindow()
-    {
-        return window;
+        if(window != null)
+            window.addTab(view);
     }
 
     public static void genAll()
     {
-
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 
     public static void genLessons()
     {
-
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 
     public static void genMotd()
     {
-
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 }

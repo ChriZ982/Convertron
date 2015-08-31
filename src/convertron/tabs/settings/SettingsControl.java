@@ -1,5 +1,7 @@
 package convertron.tabs.settings;
 
+import convertron.core.Control;
+
 public class SettingsControl
 {
     private SettingsView view;
@@ -7,6 +9,9 @@ public class SettingsControl
     public SettingsControl()
     {
         view = new SettingsView();
+
+        Control.addViewToWindow(view);
+
         initializeListeners();
     }
 

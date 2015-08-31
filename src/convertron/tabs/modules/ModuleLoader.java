@@ -1,17 +1,15 @@
 package convertron.tabs.modules;
 
+import convertron.core.Control;
 import interlib.interfaces.Module;
 import interlib.util.Logger;
 import interlib.util.Settings;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -21,12 +19,61 @@ public class ModuleLoader
 {
     private ArrayList<ClassLocation> locationOfImportedModules;
 
-    private ModuleManageWindow moduleManageWindow;
-    private ModuleManageWindowListeners listeners;
+    private ModuleManageView view;
 
     public ModuleLoader()
     {
+        locationOfImportedModules = new ArrayList<>();
         loadImported();
+
+        view = new ModuleManageView(locationOfImportedModules.toArray(
+                new ClassLocation[locationOfImportedModules.size()]));
+
+        Control.addViewToWindow(view);
+
+        initializeListeners();
+    }
+
+    private void initializeListeners()
+    {
+        view.addSaveListener(() ->
+        {
+            saveAction();
+        });
+
+        view.addOpenJarListener(() ->
+        {
+            openJarAction();
+        });
+    }
+
+    private void saveAction()
+    {
+        locationOfImportedModules.clear();
+        locationOfImportedModules.addAll(view.getAllModules());
+
+        saveImported();
+
+        JOptionPane.showMessageDialog(null, "Die Änderungen werden erst nach einem Neustart der Anwendung wirksam!");
+    }
+
+    private void openJarAction()
+    {
+        try
+        {
+            view.setFileOpened(false);
+
+            File jarFile = new File(view.getJarFile());
+            ClassLocation[] foundModules = getAvailableModules(jarFile);
+
+            view.setModulesInJar(Arrays.asList(foundModules));
+
+            view.setFileOpened(true);
+        }
+        catch(IOException ex)
+        {
+            Logger.logError(Logger.INFO, "Fehler beim öffnen oder lesen der Datei", ex);
+        }
     }
 
     public Module[] loadAllImportedModules()
@@ -44,16 +91,6 @@ public class ModuleLoader
             }
 
         return modules.toArray(new Module[modules.size()]);
-    }
-
-    public void showModuleManageWindow()
-    {
-        moduleManageWindow = new ModuleManageWindow(locationOfImportedModules
-                .toArray(new ClassLocation[locationOfImportedModules.size()]));
-
-        listeners = new ModuleManageWindowListeners();
-
-        moduleManageWindow.setVisible(true);
     }
 
     protected ClassLocation[] getAvailableModules(File jarFile) throws IOException
@@ -181,116 +218,5 @@ public class ModuleLoader
                 Logger.logError(Logger.INFO, "Konnte das Modul " + locationAsString + " nicht laden", ex);
             }
         }
-    }
-
-    protected void saveChangesInWindow()
-    {
-        Enumeration<ClassLocation> newImportedClassLocations = moduleManageWindow.getAllModulesListModel().elements();
-        locationOfImportedModules.clear();
-
-        while(newImportedClassLocations.hasMoreElements())
-        {
-            locationOfImportedModules.add(newImportedClassLocations.nextElement());
-        }
-
-        saveImported();
-
-        JOptionPane.showMessageDialog(null, "Die Änderungen werden erst nach einem Neustart der Anwendung wirksam!");
-    }
-
-    protected void closeWindow()
-    {
-        if(moduleManageWindow != null)
-            moduleManageWindow.dispose();
-        moduleManageWindow = null;
-        listeners = null;
-    }
-
-    @Override
-    protected void finalize() throws Throwable
-    {
-        closeWindow();
-        super.finalize();
-    }
-
-    protected class ModuleManageWindowListeners
-    {
-        protected ModuleManageWindowListeners()
-        {
-            initSaveListener();
-            initOpenJarListener();
-            initWindowListener();
-        }
-
-        // <editor-fold defaultstate="collapsed" desc="Listeners">
-        protected void initSaveListener()
-        {
-            moduleManageWindow.getSaveAndCloseBtn().addActionListener(new ActionListener()
-            {
-                @Override
-                public void actionPerformed(ActionEvent e)
-                {
-                    saveChangesInWindow();
-                    closeWindow();
-                }
-            });
-        }
-
-        protected void initOpenJarListener()
-        {
-            moduleManageWindow.getOpenJarBtn().addActionListener(new ActionListener()
-            {
-                @Override
-                public void actionPerformed(ActionEvent e)
-                {
-                    try
-                    {
-                        moduleManageWindow.setFileOpened(false);
-                        moduleManageWindow.getModulesInJarListModel().removeAllElements();
-
-                        File jarFile = new File(moduleManageWindow.getJarFileTxt().getText());
-                        ClassLocation[] foundModules = getAvailableModules(jarFile);
-
-                        for(ClassLocation foundModule : foundModules)
-                        {
-                            moduleManageWindow.getModulesInJarListModel().addElement(foundModule);
-                        }
-
-                        moduleManageWindow.setFileOpened(true);
-                    }
-                    catch(IOException ex)
-                    {
-                        Logger.logError(Logger.INFO, "Fehler beim öffnen oder lesen der Datei", ex);
-                    }
-                }
-            });
-        }
-
-        protected void initWindowListener()
-        {
-            moduleManageWindow.addWindowListener(new WindowAdapter()
-            {
-                @Override
-                public void windowClosing(WindowEvent e)
-                {
-                    switch(JOptionPane.showConfirmDialog(null,
-                                                         "Wollen Sie die Änderungen speichern?",
-                                                         "Änderungen speichern?",
-                                                         JOptionPane.YES_NO_CANCEL_OPTION))
-                    {
-                        case JOptionPane.YES_OPTION:
-                            saveChangesInWindow();
-                            closeWindow();
-                            break;
-                        case JOptionPane.NO_OPTION:
-                            closeWindow();
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            });
-        }
-        //</editor-fold>
     }
 }

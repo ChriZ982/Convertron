@@ -1,5 +1,7 @@
 package convertron.tabs.overview;
 
+import convertron.core.Control;
+
 public class OverviewControl
 {
     private OverviewView view;
@@ -7,6 +9,9 @@ public class OverviewControl
     public OverviewControl()
     {
         view = new OverviewView();
+
+        Control.addViewToWindow(view);
+
         initializeListeners();
     }
 
