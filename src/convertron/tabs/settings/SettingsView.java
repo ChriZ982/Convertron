@@ -6,7 +6,10 @@
 package convertron.tabs.settings;
 
 import interlib.interfaces.View;
+import java.io.File;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
 
 public class SettingsView extends View
 {
@@ -18,6 +21,21 @@ public class SettingsView extends View
     public SettingsView()
     {
         initComponents();
+
+        folderChooser.setFileFilter(new FileFilter()
+        {
+            @Override
+            public boolean accept(File f)
+            {
+                return f.isDirectory();
+            }
+
+            @Override
+            public String getDescription()
+            {
+                return "Ordner";
+            }
+        });
 
         useHoursComponents = new JComponent[]
         {
@@ -50,6 +68,7 @@ public class SettingsView extends View
     private void initComponents()
     {
 
+        folderChooser = new javax.swing.JFileChooser();
         autoBackupCheck = new javax.swing.JCheckBox();
         settingsSaveBtn = new javax.swing.JButton();
         hour10Txt = new javax.swing.JTextField();
@@ -100,13 +119,6 @@ public class SettingsView extends View
 
         settingsSaveBtn.setText("speichern");
         settingsSaveBtn.setToolTipText("Speichert die Einstellungen der gesamten Seite, wendet sie aber nicht an");
-        settingsSaveBtn.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                settingsSaveBtnActionPerformed(evt);
-            }
-        });
 
         hour10Txt.setToolTipText("Zeit, nach der die zehnte Stunde gelöscht wird z.B. \"9:25\"");
         hour10Txt.setEnabled(false);
@@ -179,13 +191,6 @@ public class SettingsView extends View
                 useHoursCheckItemStateChanged(evt);
             }
         });
-        useHoursCheck.addChangeListener(new javax.swing.event.ChangeListener()
-        {
-            public void stateChanged(javax.swing.event.ChangeEvent evt)
-            {
-                useHoursCheckStateChanged(evt);
-            }
-        });
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -198,13 +203,6 @@ public class SettingsView extends View
             public void itemStateChanged(java.awt.event.ItemEvent evt)
             {
                 customDateCheckItemStateChanged(evt);
-            }
-        });
-        customDateCheck.addChangeListener(new javax.swing.event.ChangeListener()
-        {
-            public void stateChanged(javax.swing.event.ChangeEvent evt)
-            {
-                customDateCheckStateChanged(evt);
             }
         });
 
@@ -237,8 +235,22 @@ public class SettingsView extends View
         jLabel6.setText("Backup");
 
         dataPathChooseBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/convertron/res/ordner.png"))); // NOI18N
+        dataPathChooseBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                dataPathChooseBtnActionPerformed(evt);
+            }
+        });
 
         backupPathChooseBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/convertron/res/ordner.png"))); // NOI18N
+        backupPathChooseBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                backupPathChooseBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -395,9 +407,9 @@ public class SettingsView extends View
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(customDateCheck)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(customTodayTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(customTodayLabel))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(customTodayLabel)
+                            .addComponent(customTodayTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(customTomorrowTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -408,10 +420,11 @@ public class SettingsView extends View
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(dataPathTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dataPathChooseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dataPathChooseBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(dataPathTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -424,20 +437,11 @@ public class SettingsView extends View
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void settingsSaveBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_settingsSaveBtnActionPerformed
-    {//GEN-HEADEREND:event_settingsSaveBtnActionPerformed
-        //Application.addToQueue("settingsSaveBtnActionPerformed");
-    }//GEN-LAST:event_settingsSaveBtnActionPerformed
-
-    private void useHoursCheckStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_useHoursCheckStateChanged
-    {//GEN-HEADEREND:event_useHoursCheckStateChanged
-        //Application.addToQueue("useHoursCheckStateChanged");
-    }//GEN-LAST:event_useHoursCheckStateChanged
-
-    private void customDateCheckStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_customDateCheckStateChanged
-    {//GEN-HEADEREND:event_customDateCheckStateChanged
-        //Application.addToQueue("customSourceCheckStateChanged");
-    }//GEN-LAST:event_customDateCheckStateChanged
+    private void useHoursCheckItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_useHoursCheckItemStateChanged
+    {//GEN-HEADEREND:event_useHoursCheckItemStateChanged
+        for(JComponent comp : useHoursComponents)
+            comp.setEnabled(useHoursCheck.isSelected());
+    }//GEN-LAST:event_useHoursCheckItemStateChanged
 
     private void customDateCheckItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_customDateCheckItemStateChanged
     {//GEN-HEADEREND:event_customDateCheckItemStateChanged
@@ -445,11 +449,94 @@ public class SettingsView extends View
             comp.setEnabled(customDateCheck.isSelected());
     }//GEN-LAST:event_customDateCheckItemStateChanged
 
-    private void useHoursCheckItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_useHoursCheckItemStateChanged
-    {//GEN-HEADEREND:event_useHoursCheckItemStateChanged
-        for(JComponent comp : useHoursComponents)
-            comp.setEnabled(useHoursCheck.isSelected());
-    }//GEN-LAST:event_useHoursCheckItemStateChanged
+    private void dataPathChooseBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_dataPathChooseBtnActionPerformed
+    {//GEN-HEADEREND:event_dataPathChooseBtnActionPerformed
+        if(folderChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+            dataPathTxt.setText(folderChooser.getSelectedFile().getPath());
+    }//GEN-LAST:event_dataPathChooseBtnActionPerformed
+
+    private void backupPathChooseBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_backupPathChooseBtnActionPerformed
+    {//GEN-HEADEREND:event_backupPathChooseBtnActionPerformed
+        if(folderChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+            backupPathTxt.setText(folderChooser.getSelectedFile().getPath());
+    }//GEN-LAST:event_backupPathChooseBtnActionPerformed
+
+    public void addSaveListener(Runnable task)
+    {
+        settingsSaveBtn.addActionListener(getActionListenerToRunnable(task));
+    }
+
+    public String[] getTimeCutHours()
+    {
+        return new String[]
+        {
+            hour1Txt.getText(),
+            hour2Txt.getText(),
+            hour3Txt.getText(),
+            hour4Txt.getText(),
+            hour5Txt.getText(),
+            hour6Txt.getText(),
+            hour7Txt.getText(),
+            hour8Txt.getText(),
+            hour9Txt.getText(),
+            hour10Txt.getText(),
+        };
+    }
+
+    public boolean useCutHours()
+    {
+        return useHoursCheck.isSelected();
+    }
+
+    public String getNameOfFlatWeek()
+    {
+        return weekCombo.getSelectedItem().toString();
+    }
+
+    public boolean autoMode()
+    {
+        return automaticModeCheck.isSelected();
+    }
+
+    public boolean autoBackup()
+    {
+        return autoBackupCheck.isSelected();
+    }
+
+    public boolean autoImport()
+    {
+        return autoImportCheck.isSelected();
+    }
+
+    public boolean autoExport()
+    {
+        return autoExportCheck.isSelected();
+    }
+
+    public boolean useCustomDate()
+    {
+        return customDateCheck.isSelected();
+    }
+
+    public String getCustumDateToday()
+    {
+        return customTodayTxt.getText();
+    }
+
+    public String getCustumDateTomorrow()
+    {
+        return customTomorrowTxt.getText();
+    }
+
+    public String getBackupPath()
+    {
+        return backupPathTxt.getText();
+    }
+
+    public String getDataPath()
+    {
+        return dataPathTxt.getText();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox autoBackupCheck;
@@ -465,6 +552,7 @@ public class SettingsView extends View
     private javax.swing.JTextField customTomorrowTxt;
     private javax.swing.JButton dataPathChooseBtn;
     private javax.swing.JTextField dataPathTxt;
+    private javax.swing.JFileChooser folderChooser;
     private javax.swing.JLabel hour10Label;
     private javax.swing.JTextField hour10Txt;
     private javax.swing.JLabel hour1Label;

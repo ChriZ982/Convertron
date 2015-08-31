@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
-import javax.swing.JButton;
 
 public class ModuleView extends View
 {
@@ -124,7 +123,7 @@ public class ModuleView extends View
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,7 +131,7 @@ public class ModuleView extends View
                             .addComponent(deactivateBtn))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                     .addComponent(jSeparator3))
                 .addContainerGap())
@@ -190,6 +189,16 @@ public class ModuleView extends View
         }
     }//GEN-LAST:event_deactivateBtnActionPerformed
 
+    public void addSaveListener(Runnable task)
+    {
+        saveBtn.addActionListener(getActionListenerToRunnable(task));
+    }
+
+    public void addManageModulesListener(Runnable task)
+    {
+        manageModulesBtn.addActionListener(getActionListenerToRunnable(task));
+    }
+
     @Override
     public String getTabTitle()
     {
@@ -210,16 +219,6 @@ public class ModuleView extends View
     public DefaultComboBoxModel<ModuleHolder> getAvailableInputModulesComboModel()
     {
         return availableInputModulesComboModel;
-    }
-
-    public JButton getManageModulesBtn()
-    {
-        return manageModulesBtn;
-    }
-
-    public JButton getSaveBtn()
-    {
-        return saveBtn;
     }
     // </editor-fold>
 

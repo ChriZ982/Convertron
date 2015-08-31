@@ -2,7 +2,6 @@ package convertron.core;
 
 import convertron.tabs.modules.ModuleManager;
 import convertron.tabs.overview.OverviewView;
-import convertron.tabs.paths.PathsView;
 import convertron.tabs.settings.SettingsView;
 import interlib.io.FileIO;
 import interlib.util.Logger;
@@ -15,7 +14,6 @@ import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -49,11 +47,6 @@ public class Control
     private static TrayIcon trayIcon;
 
     /**
-     * Die Liste mit den noch zu erledigenden Aufgaben.
-     */
-    private static ArrayList<Task> tasks;
-
-    /**
      * Gibt an ob die Anwendung laufen soll.
      */
     private static boolean running;
@@ -63,8 +56,6 @@ public class Control
      */
     public Control()
     {
-        tasks = new ArrayList<>();
-
         setJavaLookAndFeel();
         createAndFillWindow();
 
@@ -102,7 +93,6 @@ public class Control
 
         window.addTab(overviewTab);
         window.addTab(new SettingsView());
-        window.addTab(new PathsView());
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setVisible(true);
         Logger.logMessage(Logger.INFO, "Fenster wurde erstellt und gefüllt");
@@ -205,21 +195,6 @@ public class Control
     }
 
     /**
-     * Fügt Methoden aus "QueueableMethods" zur Warteschlange hinzu.
-     *
-     * @param task Runnable, dessen run() Methode ausgeführt werden soll
-     */
-    public static void addToQueue(Runnable task)
-    {
-        addToQueue(task, "");
-    }
-
-    public static void addToQueue(Runnable task, String message)
-    {
-        EventQueue.invokeLater(new Task(task, message));
-    }
-
-    /**
      * Initialisiert den Tray.
      */
     private static void initTray()
@@ -276,7 +251,8 @@ public class Control
     {
         initTrayMenuItem(text, (ActionEvent e) ->
                  {
-                     Control.addToQueue(task, taskMessage);
+                     //ToDo Message!?
+                     EventQueue.invokeLater(task);
         }, menu);
     }
 
@@ -306,28 +282,5 @@ public class Control
     public static void genMotd()
     {
 
-    }
-
-    private static class Task implements Runnable
-    {
-        private Runnable task;
-        private String message;
-
-        Task(Runnable task, String message)
-        {
-            this.task = task;
-            this.message = message;
-        }
-
-        @Override
-        public void run()
-        {
-            if(message != null && !message.isEmpty() && overviewTab != null)
-                overviewTab.setCurrentTaskMessage(message);
-
-            overviewTab.setCurrentState(true);
-            task.run();
-            overviewTab.setCurrentState(false);
-        }
     }
 }

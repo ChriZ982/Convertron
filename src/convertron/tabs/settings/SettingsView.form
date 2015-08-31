@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.JFileChooser" name="folderChooser">
+    </Component>
+  </NonVisualComponents>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -205,9 +209,9 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="customDateCheck" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="customTodayTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="customTodayLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="customTodayTxt" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -222,10 +226,12 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="dataPathTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="dataPathChooseBtn" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="dataPathTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -254,9 +260,6 @@
         <Property name="text" type="java.lang.String" value="speichern"/>
         <Property name="toolTipText" type="java.lang.String" value="Speichert die Einstellungen der gesamten Seite, wendet sie aber nicht an"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="settingsSaveBtnActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="hour10Txt">
       <Properties>
@@ -390,7 +393,6 @@
       </Properties>
       <Events>
         <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="useHoursCheckItemStateChanged"/>
-        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="useHoursCheckStateChanged"/>
       </Events>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator2">
@@ -410,7 +412,6 @@
       </Properties>
       <Events>
         <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="customDateCheckItemStateChanged"/>
-        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="customDateCheckStateChanged"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="customTodayLabel">
@@ -497,6 +498,9 @@
           <Image iconType="3" name="/convertron/res/ordner.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dataPathChooseBtnActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="backupPathChooseBtn">
       <Properties>
@@ -504,6 +508,9 @@
           <Image iconType="3" name="/convertron/res/ordner.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="backupPathChooseBtnActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

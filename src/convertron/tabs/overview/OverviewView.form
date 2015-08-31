@@ -110,9 +110,6 @@
         <Property name="text" type="java.lang.String" value="Vertretungsplan importieren"/>
         <Property name="toolTipText" type="java.lang.String" value="Importiert den Plan mithilfe des gew&#xe4;hlten Import-Modules"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="importLessonsBtnActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="genAllBtn">
       <Properties>
@@ -125,27 +122,18 @@
           <Color id="Standardcursor"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="genAllBtnActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="exportLessonsBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Vertretungplan exportieren"/>
         <Property name="toolTipText" type="java.lang.String" value="Exportiert den Plan mithilfe der aktivierten Export-Module"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportLessonsBtnActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="createBackupBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Backup erstellen"/>
         <Property name="toolTipText" type="java.lang.String" value="Erstellt ein Backup des aktuellen Plans"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="createBackupBtnActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
@@ -190,10 +178,6 @@
               <Color id="Textcursor"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="motdTxtFocusGained"/>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="motdTxtFocusLost"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -202,9 +186,6 @@
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Zeige Informationen"/>
       </Properties>
-      <Events>
-        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="showInfosCheckItemStateChanged"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="saveMotdBtn">
       <Properties>

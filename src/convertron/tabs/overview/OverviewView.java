@@ -7,6 +7,8 @@ package convertron.tabs.overview;
 
 import interlib.interfaces.View;
 import interlib.util.Logger;
+import java.awt.EventQueue;
+import java.awt.event.ItemEvent;
 
 /**
  *
@@ -56,45 +58,17 @@ public class OverviewView extends View
 
         importLessonsBtn.setText("Vertretungsplan importieren");
         importLessonsBtn.setToolTipText("Importiert den Plan mithilfe des gewählten Import-Modules");
-        importLessonsBtn.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                importLessonsBtnActionPerformed(evt);
-            }
-        });
 
         genAllBtn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         genAllBtn.setText("<html><center>Alles<br>\ngenerieren</center></html>");
         genAllBtn.setToolTipText("Generiert den kompletten Plan");
         genAllBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        genAllBtn.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                genAllBtnActionPerformed(evt);
-            }
-        });
 
         exportLessonsBtn.setText("Vertretungplan exportieren");
         exportLessonsBtn.setToolTipText("Exportiert den Plan mithilfe der aktivierten Export-Module");
-        exportLessonsBtn.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                exportLessonsBtnActionPerformed(evt);
-            }
-        });
 
         createBackupBtn.setText("Backup erstellen");
         createBackupBtn.setToolTipText("Erstellt ein Backup des aktuellen Plans");
-        createBackupBtn.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                createBackupBtnActionPerformed(evt);
-            }
-        });
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/convertron/res/antonianumLogo.jpg"))); // NOI18N
         jLabel5.setToolTipText("Antonianum Logo");
@@ -111,28 +85,10 @@ public class OverviewView extends View
         motdTxt.setToolTipText("Text, der als Laufschrift angezeigt werden soll z.B. \"Dies ist eine Laufschrift\"");
         motdTxt.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 5));
         motdTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        motdTxt.addFocusListener(new java.awt.event.FocusAdapter()
-        {
-            public void focusGained(java.awt.event.FocusEvent evt)
-            {
-                motdTxtFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt)
-            {
-                motdTxtFocusLost(evt);
-            }
-        });
         jScrollPane4.setViewportView(motdTxt);
 
         showInfosCheck.setSelected(true);
         showInfosCheck.setText("Zeige Informationen");
-        showInfosCheck.addItemListener(new java.awt.event.ItemListener()
-        {
-            public void itemStateChanged(java.awt.event.ItemEvent evt)
-            {
-                showInfosCheckItemStateChanged(evt);
-            }
-        });
 
         saveMotdBtn.setText("Laufschrift speichern");
 
@@ -193,49 +149,47 @@ public class OverviewView extends View
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void importLessonsBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_importLessonsBtnActionPerformed
-    {//GEN-HEADEREND:event_importLessonsBtnActionPerformed
-        //Application.addToQueue("genTodayBtnActionPerformed");
-    }//GEN-LAST:event_importLessonsBtnActionPerformed
-
-    private void genAllBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_genAllBtnActionPerformed
-    {//GEN-HEADEREND:event_genAllBtnActionPerformed
-        //Application.addToQueue("genAllBtnActionPerformed");
-    }//GEN-LAST:event_genAllBtnActionPerformed
-
-    private void exportLessonsBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_exportLessonsBtnActionPerformed
-    {//GEN-HEADEREND:event_exportLessonsBtnActionPerformed
-        //Application.addToQueue("genMotdBtnActionPerformed");
-    }//GEN-LAST:event_exportLessonsBtnActionPerformed
-
-    private void createBackupBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_createBackupBtnActionPerformed
-    {//GEN-HEADEREND:event_createBackupBtnActionPerformed
-        //Application.addToQueue("createBackupBtnActionPerformed");
-    }//GEN-LAST:event_createBackupBtnActionPerformed
-
-    private void motdTxtFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_motdTxtFocusGained
-    {//GEN-HEADEREND:event_motdTxtFocusGained
-        //Application.addToQueue("motdTxtFocusGained");
-    }//GEN-LAST:event_motdTxtFocusGained
-
-    private void motdTxtFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_motdTxtFocusLost
-    {//GEN-HEADEREND:event_motdTxtFocusLost
-        //Application.addToQueue("motdTxtFocusLost");
-    }//GEN-LAST:event_motdTxtFocusLost
-
-    private void showInfosCheckItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_showInfosCheckItemStateChanged
-    {//GEN-HEADEREND:event_showInfosCheckItemStateChanged
-        Logger.setLogInfos(showInfosCheck.isSelected());
-    }//GEN-LAST:event_showInfosCheckItemStateChanged
-
-    public void setCurrentTaskMessage(String message)
+    public void addGenAllListener(Runnable task)
     {
-
+        genAllBtn.addActionListener(getActionListenerToRunnable(task));
     }
 
-    public void setCurrentState(boolean working)
+    public void addImportListener(Runnable task)
     {
+        importLessonsBtn.addActionListener(getActionListenerToRunnable(task));
+    }
 
+    public void addExportListener(Runnable task)
+    {
+        exportLessonsBtn.addActionListener(getActionListenerToRunnable(task));
+    }
+
+    public void addBackupListener(Runnable task)
+    {
+        createBackupBtn.addActionListener(getActionListenerToRunnable(task));
+    }
+
+    public void addSaveMotdListener(Runnable task)
+    {
+        saveMotdBtn.addActionListener(getActionListenerToRunnable(task));
+    }
+
+    public void addShowInfosListener(Runnable task)
+    {
+        showInfosCheck.addItemListener((ItemEvent e) ->
+        {
+            EventQueue.invokeLater(task);
+        });
+    }
+
+    public String getMotdText()
+    {
+        return motdTxt.getText();
+    }
+
+    public boolean showInfos()
+    {
+        return showInfosCheck.isSelected();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

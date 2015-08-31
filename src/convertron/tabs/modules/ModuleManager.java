@@ -6,8 +6,6 @@ import interlib.interfaces.Input;
 import interlib.interfaces.Module;
 import interlib.interfaces.Output;
 import interlib.util.Settings;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,12 +18,10 @@ public class ModuleManager implements Input, Output
     private Input activeInput;
 
     private ModuleView view;
-    private ModuleViewListeners listeners;
     private ModuleLoader loader;
 
     public ModuleManager(Window window)
     {
-        listeners = new ModuleViewListeners();
         loader = new ModuleLoader();
 
         Module[] modules = loader.loadAllImportedModules();
@@ -51,6 +47,45 @@ public class ModuleManager implements Input, Output
             if(module.getView() != null)
                 window.addTab(module.getView());
         }
+
+        initializeListeners();
+    }
+
+    private void initializeListeners()
+    {
+        view.addManageModulesListener(() ->
+        {
+            manageModulesAction();
+        });
+
+        view.addSaveListener(() ->
+        {
+            saveAction();
+        });
+    }
+
+    private void saveAction()
+    {
+        activeOutputs.clear();
+
+        List<ModuleHolder> outputsMarkedAsActive = Collections.list(view.getActiveOutputModulesListModel().elements());
+        for(ModuleHolder holder : outputsMarkedAsActive)
+        {
+            if(holder.module instanceof Output)
+                activeOutputs.add((Output)holder.module);
+        }
+
+        activeInput = null;
+        ModuleHolder inputMarkedAsActive = (ModuleHolder)view.getAvailableInputModulesComboModel().getSelectedItem();
+        if(inputMarkedAsActive instanceof Input)
+            activeInput = (Input)inputMarkedAsActive;
+
+        saveActive();
+    }
+
+    private void manageModulesAction()
+    {
+        loader.showModuleManageWindow();
     }
 
     @Override
@@ -134,54 +169,4 @@ public class ModuleManager implements Input, Output
 
         return module;
     }
-
-    protected class ModuleViewListeners
-    {
-        protected ModuleViewListeners()
-        {
-            initSaveListener();
-            initManageModulesListener();
-        }
-
-        // <editor-fold defaultstate="collapsed" desc="Listeners">
-        protected void initSaveListener()
-        {
-            view.getSaveBtn().addActionListener(new ActionListener()
-            {
-                @Override
-                public void actionPerformed(ActionEvent e)
-                {
-                    activeOutputs.clear();
-
-                    List<ModuleHolder> outputsMarkedAsActive = Collections.list(view.getActiveOutputModulesListModel().elements());
-                    for(ModuleHolder holder : outputsMarkedAsActive)
-                    {
-                        if(holder.module instanceof Output)
-                            activeOutputs.add((Output)holder.module);
-                    }
-
-                    activeInput = null;
-                    ModuleHolder inputMarkedAsActive = (ModuleHolder)view.getAvailableInputModulesComboModel().getSelectedItem();
-                    if(inputMarkedAsActive instanceof Input)
-                        activeInput = (Input)inputMarkedAsActive;
-
-                    saveActive();
-                }
-            });
-        }
-
-        protected void initManageModulesListener()
-        {
-            view.getManageModulesBtn().addActionListener(new ActionListener()
-            {
-                @Override
-                public void actionPerformed(ActionEvent e)
-                {
-                    loader.showModuleManageWindow();
-                }
-            });
-        }
-        //</editor-fold>
-    }
-
 }
