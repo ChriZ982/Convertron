@@ -1,16 +1,12 @@
 package convertron.tabs.modules;
 
-import convertron.core.Window;
-import interlib.data.Class;
+import convertron.core.Control;
+import interlib.data.Lesson;
 import interlib.interfaces.Input;
 import interlib.interfaces.Module;
 import interlib.interfaces.Output;
 import interlib.util.Settings;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class ModuleManager implements Input, Output
 {
@@ -20,12 +16,10 @@ public class ModuleManager implements Input, Output
     private Input activeInput;
 
     private ModuleView view;
-    private ModuleViewListeners listeners;
     private ModuleLoader loader;
 
-    public ModuleManager(Window window)
+    public ModuleManager()
     {
-        listeners = new ModuleViewListeners();
         loader = new ModuleLoader();
 
         Module[] modules = loader.loadAllImportedModules();
@@ -44,23 +38,52 @@ public class ModuleManager implements Input, Output
                               activeOutputs.toArray(),
                               allInputs.toArray(),
                               activeInput);
-        window.addTab(view);
+        Control.addViewToWindow(view);
 
         for(Module module : modules)
         {
             if(module.getView() != null)
-                window.addTab(module.getView());
+                Control.addViewToWindow(module.getView());
         }
+
+        initializeListeners();
+    }
+
+    private void initializeListeners()
+    {
+        view.addSaveListener(() ->
+        {
+            saveAction();
+        });
+    }
+
+    private void saveAction()
+    {
+        activeOutputs.clear();
+
+        Module[] outputsMarkedAsActive = view.getActiveOutputModules();
+        for(Module out : outputsMarkedAsActive)
+        {
+            if(out instanceof Output)
+                activeOutputs.add((Output)out);
+        }
+
+        activeInput = null;
+        Module inputMarkedAsActive = view.getActiveInputModule();
+        if(inputMarkedAsActive instanceof Input)
+            activeInput = (Input)inputMarkedAsActive;
+
+        saveActive();
     }
 
     @Override
-    public Class[] in()
+    public Lesson[] in()
     {
         return activeInput.in();
     }
 
     @Override
-    public void out(Class[] types)
+    public void out(Lesson[] types)
     {
         for(Output out : activeOutputs)
             out.out(types);
@@ -73,15 +96,15 @@ public class ModuleManager implements Input, Output
         {
             forSaving[i] = forSaving(activeOutputs.get(i));
         }
-        Settings.saveArray("activeOutputs", forSaving);
+        Settings.saveArray(true, "activeOutputs", forSaving);
 
-        Settings.save("activeInput", forSaving(activeInput));
+        Settings.save(true, "activeInput", forSaving(activeInput));
     }
 
     protected void loadActive()
     {
         activeOutputs.clear();
-        String[] fromSaving = Settings.loadArray("activeOutputs");
+        String[] fromSaving = Settings.loadArray(true, "activeOutputs");
         for(String className : fromSaving)
         {
             Module m = fromSaving(className);
@@ -90,7 +113,7 @@ public class ModuleManager implements Input, Output
         }
 
         activeInput = null;
-        Module m = fromSaving(Settings.load("activeInput"));
+        Module m = fromSaving(Settings.load(true, "activeInput"));
 
         if(m != null && m instanceof Input)
             activeInput = (Input)m;
@@ -134,54 +157,4 @@ public class ModuleManager implements Input, Output
 
         return module;
     }
-
-    protected class ModuleViewListeners
-    {
-        protected ModuleViewListeners()
-        {
-            initSaveListener();
-            initManageModulesListener();
-        }
-
-        // <editor-fold defaultstate="collapsed" desc="Listeners">
-        protected void initSaveListener()
-        {
-            view.getSaveBtn().addActionListener(new ActionListener()
-            {
-                @Override
-                public void actionPerformed(ActionEvent e)
-                {
-                    activeOutputs.clear();
-
-                    List<ModuleHolder> outputsMarkedAsActive = Collections.list(view.getActiveOutputModulesListModel().elements());
-                    for(ModuleHolder holder : outputsMarkedAsActive)
-                    {
-                        if(holder.module instanceof Output)
-                            activeOutputs.add((Output)holder.module);
-                    }
-
-                    activeInput = null;
-                    ModuleHolder inputMarkedAsActive = (ModuleHolder)view.getAvailableInputModulesComboModel().getSelectedItem();
-                    if(inputMarkedAsActive instanceof Input)
-                        activeInput = (Input)inputMarkedAsActive;
-
-                    saveActive();
-                }
-            });
-        }
-
-        protected void initManageModulesListener()
-        {
-            view.getManageModulesBtn().addActionListener(new ActionListener()
-            {
-                @Override
-                public void actionPerformed(ActionEvent e)
-                {
-                    loader.showModuleManageWindow();
-                }
-            });
-        }
-        //</editor-fold>
-    }
-
 }

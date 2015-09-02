@@ -3,7 +3,10 @@ package convertron.core;
 import interlib.data.Lesson;
 import interlib.io.FileIO;
 import interlib.util.Logger;
+import interlib.util.Settings;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class CsvStorage implements Storage
 {
@@ -12,6 +15,23 @@ public class CsvStorage implements Storage
     private static final String lineSpliterator = System.getProperty("line.seperator");
     private static final String columnSpliterator = ";";
     private static final String cellBorders = "\"";
+
+    public CsvStorage()
+    {
+        csvFileIO = new FileIO(Settings.load(true, "pathData") + "/data.csv");
+    }
+
+    @Override
+    public void saveMotd(String motd)
+    {
+        Settings.save(false, "motdText", motd);
+    }
+
+    @Override
+    public String loadMotd()
+    {
+        return Settings.load(false, "motdText");
+    }
 
     @Override
     public void save(Lesson[] lessons)
@@ -47,37 +67,52 @@ public class CsvStorage implements Storage
     @Override
     public Lesson[] load()
     {
-        throw new UnsupportedOperationException("Not yet implemtented"); //TODO implement
-    }
+        String fileAsString = csvFileIO.readAllString().trim();
+        assertValidFile(fileAsString);
 
-    protected String[] splitOutsideCellBorders(String source, String spliterator)
-    {
-        ArrayList<String> parts = new ArrayList<>();
+        ArrayList<Lesson> result = new ArrayList<>();
 
-        int beginIndex = 0;
-        int endIndex = 0;
+        fileAsString = fileAsString.substring(cellBorders.length(),
+                                              fileAsString.length() - cellBorders.length());
 
-        if(indexOfSingleCellBorder(source, 0) < 0)
-            return source.split(spliterator.replaceAll("\\\\", "\\\\"));
+        String[] rows = fileAsString.split((cellBorders + lineSpliterator + cellBorders)
+                .replaceAll("\\\\", "\\\\"));
 
-        while(source.indexOf(spliterator, beginIndex) >= 0)
+        String[] columnNames = getColumns(rows[0]);
+
+        for(int i = 1; i < rows.length; i++)
         {
-            //TODO add Code
+            String[] columns = getColumns(rows[i]);
+
+            TreeMap<String, String> content = new TreeMap<>();
+            putAll(content, columnNames, columns);
+            result.add(new Lesson(content));
         }
 
-        parts.add(source.substring(beginIndex));
-        return parts.toArray(new String[parts.size()]);
+        return result.toArray(new Lesson[result.size()]);
     }
 
-    protected int indexOfSingleCellBorder(String source, int start)
+    protected String[] getColumns(String row)
     {
-        int i = start;
-        while(source.indexOf(cellBorders + cellBorders, i) >= 0
-              && source.indexOf(cellBorders + cellBorders, i) <= source.indexOf(cellBorders, i))
+        return row.split((cellBorders + columnSpliterator + cellBorders)
+                .replaceAll("\\\\", "\\\\"));
+    }
+
+    protected void putAll(Map<String, String> map, String[] keys, String[] values)
+    {
+        if(keys.length != values.length)
+            throw new IllegalArgumentException("Keys and Values differ in length");
+
+        for(int i = 0; i < keys.length; i++)
         {
-            i = source.indexOf(cellBorders + cellBorders, i) + 2;
+            map.put(keys[i], values[i]);
         }
-        return source.indexOf(cellBorders, i);
+    }
+
+    protected void assertValidFile(String fileAsString)
+    {
+        if(!fileAsString.startsWith(cellBorders) || !fileAsString.endsWith(cellBorders))
+            throw new RuntimeException("Malformed Csv-File: The File must start and end with " + cellBorders);
     }
 
     protected String toCsvText(String[][] table)
@@ -94,7 +129,7 @@ public class CsvStorage implements Storage
         String result = "";
         for(String cell : row)
         {
-            result += clearString(cell) + columnSpliterator;
+            result += toCsvCell(cell) + columnSpliterator;
         }
         if(result.endsWith(columnSpliterator))
             result = result.substring(0, result.length() - columnSpliterator.length());
@@ -102,15 +137,9 @@ public class CsvStorage implements Storage
         return result;
     }
 
-    protected String clearString(String s)
+    protected String toCsvCell(String s)
     {
-        boolean needsDoubleQuotes = s.contains(lineSpliterator) || s.contains(columnSpliterator);
-        s = s.replaceAll(cellBorders, cellBorders + cellBorders);
-
-        if(needsDoubleQuotes)
-            s = cellBorders + s + cellBorders;
-
-        return s;
+        return cellBorders + (s.replaceAll("\"", "'")) + cellBorders;
     }
 
     protected int getIndexOfColumnByName(ArrayList<String> columms, String colummName)

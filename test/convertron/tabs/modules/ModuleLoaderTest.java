@@ -35,7 +35,7 @@ public class ModuleLoaderTest
                         "pathDests: {\".\\TestZiel1\",\".\\TestZiel2\",\".\\TestZiel3\"}",
                         "pathSource: \".\\TestDateien\"",
                         "position: {\"335\",\"101\"}");
-        String[] imported = Settings.loadArray("locationOfImportedModules");
+        String[] imported = Settings.loadArray(true, "locationOfImportedModules");
         System.out.println(imported.length);
     }
 
