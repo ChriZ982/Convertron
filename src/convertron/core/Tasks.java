@@ -11,18 +11,36 @@ public final class Tasks
         }
     };
 
-    public static final Runnable GENLESSONS = new Runnable()
+    public static final Runnable IMPORTLESSONS = new Runnable()
     {
         @Override
         public void run()
         {
-            Control.genLessons();
+            Control.importLessons();
+        }
+    };
+
+    public static final Runnable EXPORTLESSONSANDMOTD = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            Control.exportLessons();
+            Control.exportMotd();
+        }
+    };
+
+    public static final Runnable IMPORTMOTD = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            Control.importMotd();
         }
     };
 
     public static final Runnable BACKUP = new Runnable()
     {
-
         @Override
         public void run()
         {

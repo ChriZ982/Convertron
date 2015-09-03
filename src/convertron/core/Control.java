@@ -38,6 +38,8 @@ public class Control
     private static SettingsControl settings;
     private static ModuleManager moduleManager;
 
+    private static Storage storage;
+
     /**
      * Das Symbol der Anwendung im Tray.
      */
@@ -88,6 +90,11 @@ public class Control
                                                 + "Bitte prüfen Sie die Sicherheitseinstellungen und installierte Java Looks and Feels.",
                                           "Warnung", JOptionPane.OK_OPTION);
         }
+    }
+
+    private static void initializeStorage()
+    {
+        storage = new CsvStorage();
     }
 
     private static void createAndFillWindow()
@@ -281,13 +288,23 @@ public class Control
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
-    public static void genLessons()
+    public static void importLessons()
     {
-        throw new UnsupportedOperationException("Not implemented yet");
+        storage.save(moduleManager.in());
     }
 
-    public static void genMotd()
+    public static void importMotd()
     {
-        throw new UnsupportedOperationException("Not implemented yet");
+        storage.saveMotd(overview.getMotdText());
+    }
+
+    public static void exportLessons()
+    {
+        moduleManager.out(storage.load());
+    }
+
+    public static void exportMotd()
+    {
+        moduleManager.motdOut(storage.loadMotd());
     }
 }

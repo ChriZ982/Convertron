@@ -77,4 +77,9 @@ public class OverviewControl
     {
         throw new UnsupportedOperationException("Not implemented yet");
     }
+
+    public String getMotdText()
+    {
+        return view.getMotdText();
+    }
 }
