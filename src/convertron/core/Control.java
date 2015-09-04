@@ -5,8 +5,8 @@ import convertron.tabs.overview.OverviewControl;
 import convertron.tabs.settings.SettingsControl;
 import interlib.interfaces.View;
 import interlib.io.FileIO;
-import interlib.util.LogPriority;
-import interlib.util.Logger;
+import interlib.logging.LogPriority;
+import interlib.logging.Logger;
 import interlib.util.Settings;
 import java.awt.EventQueue;
 import java.awt.MenuItem;
@@ -68,12 +68,12 @@ public class Control
             loadWindowPosition();
 
             initTray();
-            Logger.logMessage(LogPriority.INFO, "test");
 
             //ToDo init Settings & Logger
         }
         catch(Exception ex)
         {
+            Logger.logError(LogPriority.ERROR, "Fehler beim initialisieren der Anwendung", ex);
             JOptionPane.showMessageDialog(null,
                                           "Fehler beim initialisieren der Anwendung!",
                                           "Schwerwiegender Fehler",
@@ -89,10 +89,7 @@ public class Control
         }
         catch(ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex)
         {
-            JOptionPane.showMessageDialog(null, "Das Design der Anwendung konnte nicht geändert werden.\n"
-                                                + "Es kann zu Anzeigeproblemen kommen.\n"
-                                                + "Bitte prüfen Sie die Sicherheitseinstellungen und installierte Java Looks and Feels.",
-                                          "Warnung", JOptionPane.OK_OPTION);
+            Logger.logError(LogPriority.ERROR, "Das Design der Anwendung konnte nicht geändert werden", ex);
         }
     }
 
@@ -161,7 +158,7 @@ public class Control
         file.copyFromPackage(destPath);
     }
 
-    private static void loadWindowPosition()
+    public static void loadWindowPosition()
     {
         String[] positions = Settings.loadArray(true, "position");
         if(!positions[0].isEmpty() && !positions[1].isEmpty())

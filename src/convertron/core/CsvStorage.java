@@ -2,8 +2,8 @@ package convertron.core;
 
 import interlib.data.Lesson;
 import interlib.io.FileIO;
-import interlib.util.LogPriority;
-import interlib.util.Logger;
+import interlib.logging.LogPriority;
+import interlib.logging.Logger;
 import interlib.util.Settings;
 import java.util.ArrayList;
 import java.util.Map;

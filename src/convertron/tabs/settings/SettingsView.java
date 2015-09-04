@@ -114,6 +114,8 @@ public class SettingsView extends View
         dataPathChooseBtn = new javax.swing.JButton();
         backupPathChooseBtn = new javax.swing.JButton();
 
+        setMinimumSize(new java.awt.Dimension(443, 336));
+
         autoBackupCheck.setText("Backup");
         autoBackupCheck.setToolTipText("Soll ein automatisches Backup beim Generieren erstellt werden?");
 

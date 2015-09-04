@@ -1,6 +1,9 @@
 package convertron.core;
 
 import interlib.interfaces.View;
+import java.awt.Component;
+import java.awt.Dimension;
+import javax.swing.JPanel;
 
 /**
  * Anzeige-Fenster der Anwendung.
@@ -33,21 +36,38 @@ public class Window extends javax.swing.JFrame
         setTitle("Vertretungsplan");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
+        tabs.setTabPlacement(javax.swing.JTabbedPane.LEFT);
         tabs.setToolTipText("");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
-        );
+        tabs.addChangeListener(new javax.swing.event.ChangeListener()
+        {
+            public void stateChanged(javax.swing.event.ChangeEvent evt)
+            {
+                tabsStateChanged(evt);
+            }
+        });
+        getContentPane().add(tabs, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tabsStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_tabsStateChanged
+    {//GEN-HEADEREND:event_tabsStateChanged
+        JPanel panel = (JPanel)tabs.getSelectedComponent();
+        Dimension size = panel.getMinimumSize();
+
+        getContentPane().setPreferredSize(getDifference(getContentPane(), panel, size));
+        tabs.setPreferredSize(getDifference(tabs, panel, size));
+        panel.setPreferredSize(size);
+
+        Control.loadWindowPosition();
+        pack();
+    }//GEN-LAST:event_tabsStateChanged
+
+    private Dimension getDifference(Component greater, Component smaller, Dimension additional)
+    {
+        return new Dimension(greater.getWidth() - smaller.getWidth() + (int)additional.getWidth(),
+                             greater.getHeight() - smaller.getHeight() + (int)additional.getHeight());
+    }
 
     public void addTab(View view)
     {
@@ -55,7 +75,7 @@ public class Window extends javax.swing.JFrame
         tabs.setTitleAt(tabCount() - 1, view.getTabTitle());
     }
 
-    public int tabCount()
+    private int tabCount()
     {
         return tabs.getTabCount();
     }

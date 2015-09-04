@@ -6,7 +6,8 @@
 package convertron.tabs.overview;
 
 import interlib.interfaces.View;
-import interlib.util.Logger;
+import interlib.logging.LogRenderer;
+import interlib.logging.LogTable;
 import java.awt.EventQueue;
 import java.awt.event.ItemEvent;
 
@@ -22,7 +23,13 @@ public class OverviewView extends View
     public OverviewView()
     {
         initComponents();
-        log.setStyledDocument(Logger.getLogTextField());
+
+        jTable1.setModel(LogTable.getLogTable());
+        jTable1.getColumnModel().getColumn(0).setMaxWidth(50);
+
+        LogRenderer logRenderer = new LogRenderer();
+        jTable1.getColumnModel().getColumn(0).setCellRenderer(logRenderer);
+        jTable1.getColumnModel().getColumn(1).setCellRenderer(logRenderer);
     }
 
     /** This method is called from within the constructor to
@@ -35,8 +42,6 @@ public class OverviewView extends View
     private void initComponents()
     {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        log = new javax.swing.JTextPane();
         jLabel1 = new javax.swing.JLabel();
         importLessonsBtn = new javax.swing.JButton();
         genAllBtn = new javax.swing.JButton();
@@ -48,19 +53,23 @@ public class OverviewView extends View
         motdTxt = new javax.swing.JTextField();
         showInfosCheck = new javax.swing.JCheckBox();
         saveMotdBtn = new javax.swing.JButton();
+        showInfosCheck1 = new javax.swing.JCheckBox();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
+        jSeparator4 = new javax.swing.JSeparator();
 
-        log.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        log.setToolTipText("Zeigt den Status des Programms an");
-        log.setFocusable(false);
-        jScrollPane1.setViewportView(log);
+        setMinimumSize(new java.awt.Dimension(793, 493));
+        setPreferredSize(new java.awt.Dimension(793, 493));
 
         jLabel1.setText("Status:");
 
         importLessonsBtn.setText("Vertretungsplan importieren");
         importLessonsBtn.setToolTipText("Importiert den Plan mithilfe des gewählten Import-Modules");
 
-        genAllBtn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        genAllBtn.setText("<html><center>Alles<br>\ngenerieren</center></html>");
+        genAllBtn.setText("Alles Generieren");
         genAllBtn.setToolTipText("Generiert den kompletten Plan");
         genAllBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -88,63 +97,91 @@ public class OverviewView extends View
         jScrollPane4.setViewportView(motdTxt);
 
         showInfosCheck.setSelected(true);
-        showInfosCheck.setText("Zeige Informationen");
+        showInfosCheck.setText("Zeige Entwickler-Informationen im Status");
 
         saveMotdBtn.setText("Laufschrift speichern");
+
+        showInfosCheck1.setSelected(true);
+        showInfosCheck1.setText("Zeige Details im Status");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][]
+            {
+
+            },
+            new String []
+            {
+
+            }
+        ));
+        jTable1.setShowVerticalLines(false);
+        jTable1.setTableHeader(null);
+        jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(genAllBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(importLessonsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-                            .addComponent(exportLessonsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(createBackupBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(saveMotdBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(saveMotdBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                    .addComponent(exportLessonsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                    .addComponent(genAllBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(createBackupBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(importLessonsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                    .addComponent(jSeparator1)
+                    .addComponent(showInfosCheck, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(showInfosCheck1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)
-                    .addComponent(showInfosCheck, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(11, 11, 11)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator6, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(importLessonsBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(exportLessonsBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(createBackupBtn))
-                            .addComponent(genAllBtn))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(10, 10, 10)
+                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(genAllBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(importLessonsBtn)
+                        .addGap(10, 10, 10)
+                        .addComponent(exportLessonsBtn)
+                        .addGap(10, 10, 10)
+                        .addComponent(createBackupBtn)
+                        .addGap(10, 10, 10)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(saveMotdBtn)
+                        .addGap(10, 10, 10)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(saveMotdBtn))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(10, 10, 10)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(showInfosCheck1)
+                        .addGap(10, 10, 10)
                         .addComponent(showInfosCheck))
-                    .addComponent(jSeparator6, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(10, 10, 10)
+                        .addComponent(jScrollPane2)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -199,13 +236,18 @@ public class OverviewView extends View
     private javax.swing.JButton importLessonsBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JTextPane log;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField motdTxt;
     private javax.swing.JButton saveMotdBtn;
     private javax.swing.JCheckBox showInfosCheck;
+    private javax.swing.JCheckBox showInfosCheck1;
     // End of variables declaration//GEN-END:variables
 
     @Override

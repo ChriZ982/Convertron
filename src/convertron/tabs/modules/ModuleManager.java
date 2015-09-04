@@ -5,8 +5,8 @@ import interlib.data.Lesson;
 import interlib.interfaces.Input;
 import interlib.interfaces.Module;
 import interlib.interfaces.Output;
-import interlib.util.LogPriority;
-import interlib.util.Logger;
+import interlib.logging.LogPriority;
+import interlib.logging.Logger;
 import interlib.util.Settings;
 import java.util.ArrayList;
 
