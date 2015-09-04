@@ -2,6 +2,7 @@ package convertron.tabs.modules;
 
 import convertron.core.Control;
 import interlib.interfaces.Module;
+import interlib.util.LogPriority;
 import interlib.util.Logger;
 import interlib.util.Settings;
 import java.io.File;
@@ -15,6 +16,11 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import javax.swing.JOptionPane;
 
+/**
+ * Der ModuleLoader ist für das importieren und laden (Instanz erzeugen) der Module zuständig.
+ *
+ * @see convertron.tabs.modules.ModuleManager
+ */
 public class ModuleLoader
 {
     private ArrayList<ClassLocation> locationOfImportedModules;
@@ -72,7 +78,7 @@ public class ModuleLoader
         }
         catch(IOException ex)
         {
-            Logger.logError(Logger.INFO, "Fehler beim öffnen oder lesen der Datei", ex);
+            Logger.logError(LogPriority.INFO, "Fehler beim öffnen oder lesen der Datei", ex);
         }
     }
 
@@ -87,7 +93,7 @@ public class ModuleLoader
             }
             catch(RuntimeException ex)
             {
-                Logger.logError(Logger.INFO, "Laden des Modules" + loc.toString() + " fehlgeschlagen", ex);
+                Logger.logError(LogPriority.INFO, "Laden des Modules" + loc.toString() + " fehlgeschlagen", ex);
             }
 
         return modules.toArray(new Module[modules.size()]);
@@ -118,7 +124,7 @@ public class ModuleLoader
             }
             catch(Exception ex)
             {
-                Logger.logError(Logger.INFO, "Mirko Bitte Hinzufügen!", ex);
+                Logger.logError(LogPriority.INFO, "Fehler beim Laden einer Klasse die potentiell ein Modul ist", ex);
             }
         }
 
@@ -152,14 +158,14 @@ public class ModuleLoader
 
         try
         {
-            Logger.logMessage(Logger.INFO, "Try to load " + logPart);
+            Logger.logMessage(LogPriority.INFO, "Try to load " + logPart);
 
             Class clazz = new URLClassLoader(new URL[]
             {
                 location.getJarFileUrl()
             }).loadClass(location.getClassName());
 
-            Logger.logMessage(Logger.INFO, logPart + " loaded");
+            Logger.logMessage(LogPriority.INFO, logPart + " loaded");
 
             return clazz;
         }
@@ -215,7 +221,7 @@ public class ModuleLoader
             }
             catch(Exception ex)
             {
-                Logger.logError(Logger.INFO, "Konnte das Modul " + locationAsString + " nicht laden", ex);
+                Logger.logError(LogPriority.INFO, "Konnte das Modul " + locationAsString + " nicht laden", ex);
             }
         }
     }

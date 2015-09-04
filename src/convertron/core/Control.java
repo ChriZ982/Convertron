@@ -57,6 +57,8 @@ public class Control
         {
             setFileEncoding("ISO-8859-1");
 
+            initializeStorage();
+
             setJavaLookAndFeel();
 
             copyFilesFromPackage();
@@ -184,8 +186,17 @@ public class Control
 
                 PopupMenu popup = new PopupMenu();
 
-                initTrayMenuItem("Alles generieren", popup, Tasks.GENALL, "Generieren...");
-                initTrayMenuItem("Backup erstellen", popup, Tasks.BACKUP, "Backup erstellen...");
+                initTrayMenuItem("Alles generieren", popup,
+                                 () ->
+                                 {
+                                     Control.genAll();
+                                 });
+
+                initTrayMenuItem("Backup erstellen", popup,
+                                 () ->
+                                 {
+                                     Control.createBackup();
+                                 });
 
                 initTrayMenuItem("Maximieren", popup,
                                  (java.awt.event.ActionEvent evt) ->
@@ -233,13 +244,13 @@ public class Control
         }
     }
 
-    private static void initTrayMenuItem(String text, PopupMenu menu, Runnable task, String taskMessage)
+    private static void initTrayMenuItem(String text, PopupMenu menu, Runnable task)
     {
-        initTrayMenuItem(text, menu, (ActionEvent e) ->
-                 {
-                     //ToDo Message!?
-                     EventQueue.invokeLater(task);
-        });
+        initTrayMenuItem(text, menu,
+                         (ActionEvent e) ->
+                         {
+                             EventQueue.invokeLater(task);
+                         });
     }
 
     private static void initTrayMenuItem(String text, PopupMenu menu, ActionListener listener)
@@ -308,5 +319,10 @@ public class Control
     public static void exportMotd()
     {
         moduleManager.motdOut(storage.loadMotd());
+    }
+
+    public static void createBackup()
+    {
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 }

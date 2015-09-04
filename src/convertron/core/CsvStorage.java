@@ -2,12 +2,16 @@ package convertron.core;
 
 import interlib.data.Lesson;
 import interlib.io.FileIO;
+import interlib.util.LogPriority;
 import interlib.util.Logger;
 import interlib.util.Settings;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * Die Klasse zum Zwischenspeichern von Stunden-Array und Laufschrift mithilfe von Csv-Dateien.
+ */
 public class CsvStorage implements Storage
 {
     private FileIO csvFileIO;
@@ -60,7 +64,7 @@ public class CsvStorage implements Storage
         }
         catch(Exception ex)
         {
-            Logger.logError(Logger.ERROR, "Fehler beim Speichern der Vertretungsplaninformationen", ex);
+            Logger.logError(LogPriority.ERROR, "Fehler beim Speichern der Vertretungsplaninformationen", ex);
         }
     }
 

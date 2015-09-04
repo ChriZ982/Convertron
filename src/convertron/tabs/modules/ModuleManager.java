@@ -5,10 +5,18 @@ import interlib.data.Lesson;
 import interlib.interfaces.Input;
 import interlib.interfaces.Module;
 import interlib.interfaces.Output;
+import interlib.util.LogPriority;
 import interlib.util.Logger;
 import interlib.util.Settings;
 import java.util.ArrayList;
 
+/**
+ * Der ModuleManager ist für das im- und exportieren mithilfe der Module zuständig.
+ * Außerdem ist er für das aktivieren und deaktivieren von Modulen zuständig,
+ * nicht jedoch für das importieren von Modulen.
+ *
+ * @see convertron.tabs.modules.ModuleLoader
+ */
 public class ModuleManager implements Input, Output
 {
     private ArrayList<Output> allOutputs;
@@ -21,6 +29,12 @@ public class ModuleManager implements Input, Output
 
     public ModuleManager()
     {
+        allOutputs = new ArrayList<>();
+        activeOutputs = new ArrayList<>();
+
+        allInputs = new ArrayList<>();
+        activeInput = null;
+
         loader = new ModuleLoader();
 
         Module[] modules = loader.loadAllImportedModules();
@@ -97,9 +111,9 @@ public class ModuleManager implements Input, Output
                 out.out(copy);
             }
         }
-        catch(CloneNotSupportedException ex)
+        catch(CloneNotSupportedException | ClassCastException ex)
         {
-            Logger.logError(Logger.ERROR, "Unerwarteter Fehler beim duplizieren der Stunden-Objekte", ex);
+            Logger.logError(LogPriority.ERROR, "Unerwarteter Fehler beim duplizieren der Stunden-Objekte", ex);
         }
     }
 
