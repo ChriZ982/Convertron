@@ -22,7 +22,7 @@ public class OverviewView extends View
     public OverviewView()
     {
         initComponents();
-        Logger.setLogTextBox(log);
+        log.setStyledDocument(Logger.getLogTextField());
     }
 
     /** This method is called from within the constructor to

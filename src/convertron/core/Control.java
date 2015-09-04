@@ -5,6 +5,7 @@ import convertron.tabs.overview.OverviewControl;
 import convertron.tabs.settings.SettingsControl;
 import interlib.interfaces.View;
 import interlib.io.FileIO;
+import interlib.util.LogPriority;
 import interlib.util.Logger;
 import interlib.util.Settings;
 import java.awt.EventQueue;
@@ -63,6 +64,7 @@ public class Control
             loadWindowPosition();
 
             initTray();
+            Logger.logMessage(LogPriority.INFO, "test");
 
             //ToDo init Settings & Logger
         }
@@ -100,7 +102,7 @@ public class Control
 
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setVisible(true);
-        Logger.logMessage(Logger.INFO, "Fenster wurde erstellt und gefüllt");
+        Logger.logMessage(LogPriority.INFO, "Fenster wurde erstellt und gefüllt");
     }
 
     private static void setFileEncoding(String charsetName)
@@ -110,7 +112,7 @@ public class Control
             if(Charset.isSupported(charsetName))
             {
                 System.setProperty("file.encoding", charsetName);
-                Logger.logMessage(Logger.INFO, "File Encoding wurde konfiguriert");
+                Logger.logMessage(LogPriority.INFO, "File Encoding wurde konfiguriert");
             }
             else
             {
@@ -131,7 +133,7 @@ public class Control
      */
     private static void copyFilesFromPackage()
     {
-        String packagePath = "/converter/res/stdData/";
+        String packagePath = "/convertron/res/stdData/";
         copyFileFromPackage(packagePath, "local.settings", "./");
 
         String destPath = Settings.load(true, "pathData");
@@ -141,7 +143,7 @@ public class Control
         copyFileFromPackage(packagePath, "VERTRETUNGSPLAN.html", destPath);
         copyFileFromPackage(packagePath, "TEMPLATE laufschrift.html", destPath);
         copyFileFromPackage(packagePath, "TEMPLATE heute morgen.html", destPath);
-        Logger.logMessage(Logger.INFO, "Alle Dateien wurden erstellt oder überprüft");
+        Logger.logMessage(LogPriority.INFO, "Alle Dateien wurden erstellt oder überprüft");
     }
 
     private static void copyFileFromPackage(String packagePath, String fileName, String destPath)
@@ -155,7 +157,7 @@ public class Control
         String[] positions = Settings.loadArray(true, "position");
         if(!positions[0].isEmpty() && !positions[1].isEmpty())
             window.setLocation(Integer.parseInt(positions[0]), Integer.parseInt(positions[1]));
-        Logger.logMessage(Logger.INFO, "Fenster Position wurde geladen");
+        Logger.logMessage(LogPriority.INFO, "Fenster Position wurde geladen");
     }
 
     /**
@@ -214,13 +216,13 @@ public class Control
             }
             else
             {
-                Logger.logMessage(Logger.INFO, "Das Betriebssystem unterstützt kein Tray, "
-                                               + "es wurde kein Tray initialisiert");
+                Logger.logMessage(LogPriority.INFO, "Das Betriebssystem unterstützt kein Tray, "
+                                                    + "es wurde kein Tray initialisiert");
             }
         }
         catch(Exception ex)
         {
-            Logger.logError(Logger.WARNING, "Tray konnte nicht initialisiert werden", ex);
+            Logger.logError(LogPriority.WARNING, "Tray konnte nicht initialisiert werden", ex);
         }
     }
 
@@ -265,7 +267,7 @@ public class Control
         }
         catch(Exception ex)
         {
-            Logger.logError(Logger.ERROR, "Fehler beim Beenden", ex);
+            Logger.logError(LogPriority.ERROR, "Fehler beim Beenden", ex);
             System.exit(-1);
         }
     }
