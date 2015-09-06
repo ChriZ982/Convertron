@@ -3,7 +3,6 @@
 !/lib
 !/src
 !/test
-!/testdata
 !/.gitignore
 !/build.xml
 !/manifest.mf
