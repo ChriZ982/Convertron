@@ -8,23 +8,24 @@ package convertron.tabs.overview;
 import interlib.interfaces.View;
 import interlib.logging.LogRenderer;
 import interlib.logging.LogTable;
-import java.awt.EventQueue;
-import java.awt.event.ItemEvent;
 
 /**
  *
  * @author Christopher
  */
+@SuppressWarnings("serial")
 public class OverviewView extends View
 {
-    private static final long serialVersionUID = 1L;
-
     /** Creates new form View */
     public OverviewView()
     {
         initComponents();
+        initTable();
+    }
 
-        jTable1.setModel(LogTable.getLogTable());
+    private void initTable()
+    {
+        jTable1.setModel(LogTable.getLogModel());
         jTable1.getColumnModel().getColumn(0).setMaxWidth(50);
 
         LogRenderer logRenderer = new LogRenderer();
@@ -51,9 +52,9 @@ public class OverviewView extends View
         jSeparator6 = new javax.swing.JSeparator();
         jScrollPane4 = new javax.swing.JScrollPane();
         motdTxt = new javax.swing.JTextField();
-        showInfosCheck = new javax.swing.JCheckBox();
+        showDevInfosCheck = new javax.swing.JCheckBox();
         saveMotdBtn = new javax.swing.JButton();
-        showInfosCheck1 = new javax.swing.JCheckBox();
+        showInfosCheck = new javax.swing.JCheckBox();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
@@ -96,13 +97,25 @@ public class OverviewView extends View
         motdTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jScrollPane4.setViewportView(motdTxt);
 
-        showInfosCheck.setSelected(true);
-        showInfosCheck.setText("Zeige Entwickler-Informationen im Status");
+        showDevInfosCheck.setText("Zeige Entwickler-Informationen im Status");
+        showDevInfosCheck.addChangeListener(new javax.swing.event.ChangeListener()
+        {
+            public void stateChanged(javax.swing.event.ChangeEvent evt)
+            {
+                showDevInfosCheckStateChanged(evt);
+            }
+        });
 
         saveMotdBtn.setText("Laufschrift speichern");
 
-        showInfosCheck1.setSelected(true);
-        showInfosCheck1.setText("Zeige Details im Status");
+        showInfosCheck.setText("Zeige Informationen im Status");
+        showInfosCheck.addChangeListener(new javax.swing.event.ChangeListener()
+        {
+            public void stateChanged(javax.swing.event.ChangeEvent evt)
+            {
+                showInfosCheckStateChanged(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][]
@@ -136,8 +149,8 @@ public class OverviewView extends View
                     .addComponent(importLessonsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator3, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
                     .addComponent(jSeparator1)
-                    .addComponent(showInfosCheck, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(showInfosCheck1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(showDevInfosCheck, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(showInfosCheck, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(10, 10, 10)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
@@ -175,9 +188,9 @@ public class OverviewView extends View
                         .addGap(10, 10, 10)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
-                        .addComponent(showInfosCheck1)
+                        .addComponent(showInfosCheck)
                         .addGap(10, 10, 10)
-                        .addComponent(showInfosCheck))
+                        .addComponent(showDevInfosCheck))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(10, 10, 10)
@@ -185,6 +198,16 @@ public class OverviewView extends View
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void showInfosCheckStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_showInfosCheckStateChanged
+    {//GEN-HEADEREND:event_showInfosCheckStateChanged
+        LogTable.setLogInfos(showInfosCheck.isSelected());
+    }//GEN-LAST:event_showInfosCheckStateChanged
+
+    private void showDevInfosCheckStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_showDevInfosCheckStateChanged
+    {//GEN-HEADEREND:event_showDevInfosCheckStateChanged
+        LogTable.setLogDevInfos(showDevInfosCheck.isSelected());
+    }//GEN-LAST:event_showDevInfosCheckStateChanged
 
     public void addGenAllListener(Runnable task)
     {
@@ -211,22 +234,9 @@ public class OverviewView extends View
         saveMotdBtn.addActionListener(getActionListenerToRunnable(task));
     }
 
-    public void addShowInfosListener(Runnable task)
-    {
-        showInfosCheck.addItemListener((ItemEvent e) ->
-        {
-            EventQueue.invokeLater(task);
-        });
-    }
-
     public String getMotdText()
     {
         return motdTxt.getText();
-    }
-
-    public boolean showInfos()
-    {
-        return showInfosCheck.isSelected();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -246,8 +256,8 @@ public class OverviewView extends View
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField motdTxt;
     private javax.swing.JButton saveMotdBtn;
+    private javax.swing.JCheckBox showDevInfosCheck;
     private javax.swing.JCheckBox showInfosCheck;
-    private javax.swing.JCheckBox showInfosCheck1;
     // End of variables declaration//GEN-END:variables
 
     @Override

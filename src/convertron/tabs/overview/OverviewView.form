@@ -38,8 +38,8 @@
                   <Component id="importLessonsBtn" alignment="0" max="32767" attributes="0"/>
                   <Component id="jSeparator3" alignment="0" pref="304" max="32767" attributes="0"/>
                   <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
-                  <Component id="showInfosCheck" max="32767" attributes="0"/>
-                  <Component id="showInfosCheck1" alignment="0" max="32767" attributes="0"/>
+                  <Component id="showDevInfosCheck" max="32767" attributes="0"/>
+                  <Component id="showInfosCheck" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               <Component id="jSeparator6" min="-2" pref="2" max="-2" attributes="0"/>
@@ -81,9 +81,9 @@
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Component id="jSeparator1" min="-2" pref="3" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                      <Component id="showInfosCheck1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Component id="showInfosCheck" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <Component id="showDevInfosCheck" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -175,22 +175,26 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JCheckBox" name="showInfosCheck">
+    <Component class="javax.swing.JCheckBox" name="showDevInfosCheck">
       <Properties>
-        <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Zeige Entwickler-Informationen im Status"/>
       </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="showDevInfosCheckStateChanged"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="saveMotdBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Laufschrift speichern"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="showInfosCheck1">
+    <Component class="javax.swing.JCheckBox" name="showInfosCheck">
       <Properties>
-        <Property name="selected" type="boolean" value="true"/>
-        <Property name="text" type="java.lang.String" value="Zeige Details im Status"/>
+        <Property name="text" type="java.lang.String" value="Zeige Informationen im Status"/>
       </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="showInfosCheckStateChanged"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane2">
       <AuxValues>

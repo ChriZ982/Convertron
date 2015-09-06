@@ -41,11 +41,6 @@ public class OverviewControl
         {
             saveMotdAction();
         });
-
-        view.addShowInfosListener(() ->
-        {
-            showInfoStateChanged();
-        });
     }
 
     private void genAllAction()
