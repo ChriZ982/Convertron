@@ -26,18 +26,6 @@ public class CsvStorage implements Storage
     }
 
     @Override
-    public void saveMotd(String motd)
-    {
-        Settings.save(false, "motdText", motd);
-    }
-
-    @Override
-    public String loadMotd()
-    {
-        return Settings.load(false, "motdText");
-    }
-
-    @Override
     public void save(Lesson[] lessons)
     {
         try

@@ -3,6 +3,8 @@ package convertron.core;
 import convertron.tabs.modules.ModuleManager;
 import convertron.tabs.overview.OverviewControl;
 import convertron.tabs.settings.SettingsControl;
+import interlib.data.Lesson;
+import interlib.filter.TableOptions;
 import interlib.interfaces.View;
 import interlib.io.FileIO;
 import interlib.logging.LogPriority;
@@ -300,12 +302,14 @@ public class Control
 
     public static void importLessons()
     {
-        storage.save(moduleManager.in());
+        Lesson[] in = moduleManager.in();
+        if(in != null)
+            storage.save(TableOptions.compress(in));
     }
 
     public static void importMotd()
     {
-        storage.saveMotd(overview.getMotdText());
+        Settings.save(false, "motdText", overview.getMotdText());
     }
 
     public static void exportLessons()
@@ -315,7 +319,7 @@ public class Control
 
     public static void exportMotd()
     {
-        moduleManager.motdOut(storage.loadMotd());
+        moduleManager.motdOut(Settings.load(false, "motdText"));
     }
 
     public static void createBackup()

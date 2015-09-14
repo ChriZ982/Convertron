@@ -19,20 +19,8 @@ public interface Storage
     public void save(Lesson[] lessons);
 
     /**
-     * Speichert der Laufschrift global zwischen.
-     * @param motd Die Laufschrift, welche gespeichert werden soll
-     */
-    public void saveMotd(String motd);
-
-    /**
      * Lädt das Stunden-Array aus dem globalem Zwischenspeicher.
      * @return Das Stunden-Array, welches aus dem Zwischenspeicher geladen wurde
      */
     public Lesson[] load();
-
-    /**
-     * Lädt die Laufschrift aus dem globalem Zwischenspeicher.
-     * @return Die Laufschrift, welche aus dem Zwischenspeicher geladen wurde
-     */
-    public String loadMotd();
 }
