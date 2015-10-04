@@ -11,13 +11,6 @@
     <description>Builds, tests, and runs the project Facharbeit.</description>
     <import file="nbproject/build-impl.xml"/>	
 	
-	<target name="-post-jar">
-		<delete dir="build"/>
-		<delete dir="testdata/write"/>
-		<mkdir dir="testdata/write"/>
-		<mkdir dir="testdata/read"/>
-    </target>
-	
     <!--
 
     There exist several targets which are by default empty and which can be 

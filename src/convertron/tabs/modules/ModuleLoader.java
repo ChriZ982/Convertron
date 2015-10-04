@@ -4,7 +4,6 @@ import convertron.core.Control;
 import interlib.interfaces.Module;
 import interlib.logging.LogPriority;
 import interlib.logging.Logger;
-import interlib.util.Settings;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -207,12 +206,12 @@ public class ModuleLoader
         {
             arrayForSetting[i] = locationOfImportedModules.get(i).forSaving();
         }
-        Settings.saveArray(true, "locationOfImportedModules", arrayForSetting);
+        ModuleSettings.locationOfImportedModules.saveArray(arrayForSetting);
     }
 
     protected void loadImported()
     {
-        String[] fromSetting = Settings.loadArray(true, "locationOfImportedModules");
+        String[] fromSetting = ModuleSettings.locationOfImportedModules.loadArray();
         for(String locationAsString : fromSetting)
         {
             try

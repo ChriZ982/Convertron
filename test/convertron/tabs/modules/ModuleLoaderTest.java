@@ -10,7 +10,8 @@ import interlib.interfaces.Module;
 import interlib.interfaces.Output;
 import interlib.interfaces.View;
 import interlib.io.FileIO;
-import interlib.util.Settings;
+import interlib.settings.SettingLocation;
+import interlib.settings.Settings;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -35,7 +36,7 @@ public class ModuleLoaderTest
                         "pathDests: {\".\\TestZiel1\",\".\\TestZiel2\",\".\\TestZiel3\"}",
                         "pathSource: \".\\TestDateien\"",
                         "position: {\"335\",\"101\"}");
-        String[] imported = Settings.loadArray(true, "locationOfImportedModules");
+        String[] imported = Settings.loadArray(SettingLocation.LOCAL, "locationOfImportedModules");
         System.out.println(imported.length);
     }
 
