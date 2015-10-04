@@ -5,6 +5,8 @@
  */
 package convertron.tabs.settings;
 
+import convertron.core.CoreArraySettings;
+import convertron.core.CoreSettings;
 import interlib.interfaces.View;
 import java.io.File;
 import javax.swing.JComponent;
@@ -468,76 +470,36 @@ public class SettingsView extends View
         settingsSaveBtn.addActionListener(getActionListenerToRunnable(task));
     }
 
-    public String[] getTimeCutHours()
+    public SettingHandler[] createHandlers()
     {
-        return new String[]
+        return new SettingHandler[]
         {
-            hour1Txt.getText(),
-            hour2Txt.getText(),
-            hour3Txt.getText(),
-            hour4Txt.getText(),
-            hour5Txt.getText(),
-            hour6Txt.getText(),
-            hour7Txt.getText(),
-            hour8Txt.getText(),
-            hour9Txt.getText(),
-            hour10Txt.getText(),
+            new CheckBoxHandler(automaticModeCheck, CoreSettings.autoMode),
+            new CheckBoxHandler(autoImportCheck, CoreSettings.autoImport),
+            new CheckBoxHandler(autoExportCheck, CoreSettings.autoExport),
+            new CheckBoxHandler(autoBackupCheck, CoreSettings.autoBackup),
+            //-----
+            new CheckBoxHandler(customDateCheck, CoreSettings.useCustomDate),
+            new TextFieldHandler(customTodayTxt, CoreSettings.customDateToday),
+            new TextFieldHandler(customTomorrowTxt, CoreSettings.customDateTomorrow),
+            //-----
+            new CheckBoxHandler(useHoursCheck, CoreSettings.useCutHours),
+            new TextFieldHandler(hour1Txt, CoreArraySettings.cutHours, 0),
+            new TextFieldHandler(hour2Txt, CoreArraySettings.cutHours, 1),
+            new TextFieldHandler(hour3Txt, CoreArraySettings.cutHours, 2),
+            new TextFieldHandler(hour4Txt, CoreArraySettings.cutHours, 3),
+            new TextFieldHandler(hour5Txt, CoreArraySettings.cutHours, 4),
+            new TextFieldHandler(hour6Txt, CoreArraySettings.cutHours, 5),
+            new TextFieldHandler(hour7Txt, CoreArraySettings.cutHours, 6),
+            new TextFieldHandler(hour8Txt, CoreArraySettings.cutHours, 7),
+            new TextFieldHandler(hour9Txt, CoreArraySettings.cutHours, 8),
+            new TextFieldHandler(hour10Txt, CoreArraySettings.cutHours, 9),
+            //-----
+            new ComboBoxHandler(weekCombo, CoreSettings.flatWeekChar),
+            //-----
+            new TextFieldHandler(dataPathTxt, CoreSettings.pathData),
+            new TextFieldHandler(backupPathTxt, CoreSettings.pathBackup)
         };
-    }
-
-    public boolean useCutHours()
-    {
-        return useHoursCheck.isSelected();
-    }
-
-    public String getNameOfFlatWeek()
-    {
-        return weekCombo.getSelectedItem().toString();
-    }
-
-    public boolean autoMode()
-    {
-        return automaticModeCheck.isSelected();
-    }
-
-    public boolean autoBackup()
-    {
-        return autoBackupCheck.isSelected();
-    }
-
-    public boolean autoImport()
-    {
-        return autoImportCheck.isSelected();
-    }
-
-    public boolean autoExport()
-    {
-        return autoExportCheck.isSelected();
-    }
-
-    public boolean useCustomDate()
-    {
-        return customDateCheck.isSelected();
-    }
-
-    public String getCustumDateToday()
-    {
-        return customTodayTxt.getText();
-    }
-
-    public String getCustumDateTomorrow()
-    {
-        return customTomorrowTxt.getText();
-    }
-
-    public String getBackupPath()
-    {
-        return backupPathTxt.getText();
-    }
-
-    public String getDataPath()
-    {
-        return dataPathTxt.getText();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

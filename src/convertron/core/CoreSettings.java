@@ -12,11 +12,22 @@ import interlib.settings.Settings;
 public enum CoreSettings implements SettingID
 {
     pathData,
+    pathBackup,
     positionX,
     positionY,
-    motdText;
+    motdText,
+    activeInput,
+    useCutHours,
+    autoMode,
+    autoImport,
+    autoExport,
+    autoBackup,
+    useCustomDate,
+    customDateToday,
+    customDateTomorrow,
+    flatWeekChar;
 
-    public static final String PREFIX = "core.";
+    public static final String PREFIX = "core.strings.";
 
     @Override
     public SettingLocation getLocation()
@@ -24,8 +35,14 @@ public enum CoreSettings implements SettingID
         switch(this)
         {
             case pathData:
+            case pathBackup:
             case positionX:
             case positionY:
+            case activeInput:
+            case autoMode:
+            case autoImport:
+            case autoExport:
+            case autoBackup:
                 return SettingLocation.LOCAL;
 
             default:

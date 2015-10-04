@@ -3,40 +3,41 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package convertron.tabs.modules;
+package convertron.core;
 
 import interlib.settings.SettingID;
 import interlib.settings.SettingLocation;
 import interlib.settings.Settings;
 
-public enum ModuleSettings implements SettingID
+/**
+ *
+ * @author Mirko
+ */
+public enum CoreArraySettings implements SettingID
 {
     locationOfImportedModules,
-    activeInput,
-    activeOutputs;
+    activeOutputs,
+    cutHours;
 
-    public static final String PREFIX = "core.modules.";
+    public static final String PREFIX = "core.arrays.";
 
     @Override
     public SettingLocation getLocation()
     {
-        return SettingLocation.LOCAL;
+        switch(this)
+        {
+            case locationOfImportedModules:
+            case activeOutputs:
+                return SettingLocation.LOCAL;
+            default:
+                return SettingLocation.GLOBAL;
+        }
     }
 
     @Override
     public String getName()
     {
         return PREFIX + this.toString();
-    }
-
-    public void save(String value)
-    {
-        Settings.save(this, value);
-    }
-
-    public String load()
-    {
-        return Settings.load(this);
     }
 
     public void saveArray(String... values)

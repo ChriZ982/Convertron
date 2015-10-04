@@ -16,7 +16,11 @@ import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
 import javax.imageio.ImageIO;
@@ -24,7 +28,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.WindowConstants;
 
 /**
  * Verwaltet alle Aktionen, die im Programm geschehen sollen.
@@ -70,15 +73,19 @@ public class Control
 
             initTray();
 
-            //ToDo init Settings & Logger
+            Logger.logMessage(LogPriority.HINT, "Anwendung gestartet");
         }
         catch(Exception ex)
         {
             Logger.logError(LogPriority.ERROR, "Fehler beim initialisieren der Anwendung", ex);
+            StringWriter writer = new StringWriter();
+            ex.printStackTrace(new PrintWriter(writer));
             JOptionPane.showMessageDialog(null,
-                                          "Fehler beim initialisieren der Anwendung!",
+                                          "Fehler beim initialisieren der Anwendung!\n"
+                                          + writer.toString(),
                                           "Schwerwiegender Fehler",
                                           JOptionPane.ERROR_MESSAGE);
+            System.exit(-1);
         }
     }
 
@@ -107,7 +114,24 @@ public class Control
         settings = new SettingsControl();
         moduleManager = new ModuleManager();
 
-        window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        window.addWindowListener(new WindowAdapter()
+        {
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+                exit();
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e)
+            {
+                if(trayIcon != null)
+                {
+                    window.setVisible(false);
+                }
+            }
+        });
+
         window.setVisible(true);
         Logger.logMessage(LogPriority.INFO, "Fenster wurde erstellt und gefüllt");
     }
@@ -186,7 +210,7 @@ public class Control
             {
                 SystemTray tray = SystemTray.getSystemTray();
 
-                BufferedImage icon = ImageIO.read(Control.class.getResource("/com/facharbeit/ressources/trayLogo.png"));
+                BufferedImage icon = ImageIO.read(Control.class.getResource("/convertron/res/trayLogo.png"));
                 trayIcon = new TrayIcon(icon);
 
                 PopupMenu popup = new PopupMenu();
@@ -203,6 +227,8 @@ public class Control
                                      Control.createBackup();
                                  });
 
+                popup.addSeparator();
+
                 initTrayMenuItem("Maximieren", popup,
                                  (java.awt.event.ActionEvent evt) ->
                                  {
@@ -217,6 +243,8 @@ public class Control
                                  {
                                      window.setVisible(false);
                                  });
+
+                popup.addSeparator();
 
                 initTrayMenuItem("Beenden", popup,
                                  (java.awt.event.ActionEvent evt) ->
@@ -299,7 +327,14 @@ public class Control
 
     public static void genAll()
     {
-        throw new UnsupportedOperationException("Not implemented yet");
+        if(CoreSettings.autoBackup.load().equals("true"))
+            createBackup();
+
+        if(CoreSettings.autoImport.load().equals("true"))
+            importLessons();
+
+        if(CoreSettings.autoExport.load().equals("true"))
+            exportLessonsAndMotd();
     }
 
     public static void importLessons()
@@ -309,23 +344,16 @@ public class Control
             storage.save(TableOptions.compress(in));
     }
 
-    public static void importMotd()
-    {
-        CoreSettings.motdText.save(overview.getMotdText());
-    }
-
-    public static void exportLessons()
+    public static void exportLessonsAndMotd()
     {
         moduleManager.out(storage.load());
-    }
 
-    public static void exportMotd()
-    {
         moduleManager.motdOut(CoreSettings.motdText.load());
     }
 
     public static void createBackup()
     {
-        throw new UnsupportedOperationException("Not implemented yet");
+        //ToDo implement (FolderIO missing)
+        Logger.logMessage(LogPriority.HINT, "Backup wurde versucht zu erstellen, jedoch wird dieses Feature noch nicht unterstützt");
     }
 }

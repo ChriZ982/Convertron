@@ -143,13 +143,13 @@ public class ModuleLoaderTest
             @Override
             public String getName()
             {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                throw new RuntimeException("Dummy here");
             }
 
             @Override
             public View getView()
             {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                throw new RuntimeException("Dummy here");
             }
         }.getClass();
         boolean expResult = true;

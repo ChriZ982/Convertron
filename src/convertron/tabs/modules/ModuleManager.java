@@ -1,6 +1,8 @@
 package convertron.tabs.modules;
 
 import convertron.core.Control;
+import convertron.core.CoreArraySettings;
+import convertron.core.CoreSettings;
 import interlib.data.Lesson;
 import interlib.interfaces.Input;
 import interlib.interfaces.Module;
@@ -130,15 +132,15 @@ public class ModuleManager implements Input, Output
         {
             forSaving[i] = forSaving(activeOutputs.get(i));
         }
-        ModuleSettings.activeOutputs.saveArray(forSaving);
+        CoreArraySettings.activeOutputs.saveArray(forSaving);
 
-        ModuleSettings.activeInput.save(forSaving(activeInput));
+        CoreSettings.activeInput.save(forSaving(activeInput));
     }
 
     protected void loadActive()
     {
         activeOutputs.clear();
-        String[] fromSaving = ModuleSettings.activeOutputs.loadArray();
+        String[] fromSaving = CoreArraySettings.activeOutputs.loadArray();
         for(String className : fromSaving)
         {
             Module m = fromSaving(className);
@@ -147,7 +149,7 @@ public class ModuleManager implements Input, Output
         }
 
         activeInput = null;
-        Module m = fromSaving(ModuleSettings.activeInput.load());
+        Module m = fromSaving(CoreSettings.activeInput.load());
 
         if(m != null && m instanceof Input)
             activeInput = (Input)m;
