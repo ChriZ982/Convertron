@@ -7,7 +7,7 @@ import interlib.data.Lesson;
 import interlib.filter.TableOptions;
 import interlib.interfaces.View;
 import interlib.io.FileIO;
-import interlib.logging.LogPriority;
+import interlib.logging.messages.LogPriority;
 import interlib.logging.Logger;
 import java.awt.EventQueue;
 import java.awt.MenuItem;
