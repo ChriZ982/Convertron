@@ -7,7 +7,6 @@ import interlib.interfaces.Module;
 import interlib.interfaces.Output;
 import interlib.logging.LogPriority;
 import interlib.logging.Logger;
-import interlib.util.Settings;
 import java.util.ArrayList;
 
 /**
@@ -131,15 +130,15 @@ public class ModuleManager implements Input, Output
         {
             forSaving[i] = forSaving(activeOutputs.get(i));
         }
-        Settings.saveArray(true, "activeOutputs", forSaving);
+        ModuleSettings.activeOutputs.saveArray(forSaving);
 
-        Settings.save(true, "activeInput", forSaving(activeInput));
+        ModuleSettings.activeInput.save(forSaving(activeInput));
     }
 
     protected void loadActive()
     {
         activeOutputs.clear();
-        String[] fromSaving = Settings.loadArray(true, "activeOutputs");
+        String[] fromSaving = ModuleSettings.activeOutputs.loadArray();
         for(String className : fromSaving)
         {
             Module m = fromSaving(className);
@@ -148,7 +147,7 @@ public class ModuleManager implements Input, Output
         }
 
         activeInput = null;
-        Module m = fromSaving(Settings.load(true, "activeInput"));
+        Module m = fromSaving(ModuleSettings.activeInput.load());
 
         if(m != null && m instanceof Input)
             activeInput = (Input)m;

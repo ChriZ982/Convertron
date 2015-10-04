@@ -9,7 +9,6 @@ import interlib.interfaces.View;
 import interlib.io.FileIO;
 import interlib.logging.LogPriority;
 import interlib.logging.Logger;
-import interlib.util.Settings;
 import java.awt.EventQueue;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
@@ -144,7 +143,7 @@ public class Control
         String packagePath = "/convertron/res/stdData/";
         copyFileFromPackage(packagePath, "local.settings", "./");
 
-        String destPath = Settings.load(true, "pathData");
+        String destPath = CoreSettings.pathData.load();
         copyFileFromPackage(packagePath, "global.settings", destPath);
         copyFileFromPackage(packagePath, "antonianumLogo.png", destPath);
         copyFileFromPackage(packagePath, "TEMPLATE style.css", destPath);
@@ -162,10 +161,17 @@ public class Control
 
     public static void loadWindowPosition()
     {
-        String[] positions = Settings.loadArray(true, "position");
-        if(!positions[0].isEmpty() && !positions[1].isEmpty())
-            window.setLocation(Integer.parseInt(positions[0]), Integer.parseInt(positions[1]));
-        Logger.logMessage(LogPriority.INFO, "Fenster Position wurde geladen");
+        String x = CoreSettings.positionX.load();
+        String y = CoreSettings.positionY.load();
+        try
+        {
+            window.setLocation(Integer.parseInt(x), Integer.parseInt(y));
+            Logger.logMessage(LogPriority.INFO, "Fenster Position wurde geladen");
+        }
+        catch(NumberFormatException ex)
+        {
+            Logger.logMessage(LogPriority.INFO, "Fenster Position konnte nicht geladen werden");
+        }
     }
 
     /**
@@ -269,12 +275,8 @@ public class Control
         {
             //ToDo Exit Tabs -> Pending Changes?!
 
-            Settings.saveArray(true, "position",
-                               new String[]
-                               {
-                                   String.valueOf((int)window.getLocation().getX()),
-                                   String.valueOf((int)window.getLocation().getY())
-                               });
+            CoreSettings.positionX.save(String.valueOf((int)window.getLocation().getX()));
+            CoreSettings.positionY.save(String.valueOf((int)window.getLocation().getY()));
 
             if(trayIcon != null)
                 SystemTray.getSystemTray().remove(trayIcon);
@@ -309,7 +311,7 @@ public class Control
 
     public static void importMotd()
     {
-        Settings.save(false, "motdText", overview.getMotdText());
+        CoreSettings.motdText.save(overview.getMotdText());
     }
 
     public static void exportLessons()
@@ -319,7 +321,7 @@ public class Control
 
     public static void exportMotd()
     {
-        moduleManager.motdOut(Settings.load(false, "motdText"));
+        moduleManager.motdOut(CoreSettings.motdText.load());
     }
 
     public static void createBackup()

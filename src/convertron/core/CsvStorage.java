@@ -4,7 +4,6 @@ import interlib.data.Lesson;
 import interlib.io.FileIO;
 import interlib.logging.LogPriority;
 import interlib.logging.Logger;
-import interlib.util.Settings;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
@@ -22,7 +21,7 @@ public class CsvStorage implements Storage
 
     public CsvStorage()
     {
-        csvFileIO = new FileIO(Settings.load(true, "pathData") + "/data.csv");
+        csvFileIO = new FileIO(CoreSettings.pathData.load() + "/data.csv");
     }
 
     @Override
