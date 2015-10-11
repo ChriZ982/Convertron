@@ -2,7 +2,7 @@ package convertron.core;
 
 import interlib.data.Lesson;
 import interlib.io.FileIO;
-import interlib.logging.LogPriority;
+import interlib.logging.messages.LogPriority;
 import interlib.logging.Logger;
 import java.util.ArrayList;
 import java.util.Map;

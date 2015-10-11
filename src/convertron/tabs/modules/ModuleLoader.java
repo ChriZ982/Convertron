@@ -2,7 +2,7 @@ package convertron.tabs.modules;
 
 import convertron.core.Control;
 import interlib.interfaces.Module;
-import interlib.logging.LogPriority;
+import interlib.logging.messages.LogPriority;
 import interlib.logging.Logger;
 import java.io.File;
 import java.io.IOException;
