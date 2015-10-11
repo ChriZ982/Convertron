@@ -1,9 +1,9 @@
 package convertron.core;
 
 import interlib.data.Lesson;
-import interlib.io.FileIO;
-import interlib.logging.messages.LogPriority;
+import interlib.io.TextFile;
 import interlib.logging.Logger;
+import interlib.logging.messages.LogPriority;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
@@ -13,15 +13,15 @@ import java.util.TreeMap;
  */
 public class CsvStorage implements Storage
 {
-    private FileIO csvFileIO;
-
     private static final String lineSpliterator = System.getProperty("line.seperator");
     private static final String columnSpliterator = ";";
     private static final String cellBorders = "\"";
 
+    private TextFile csvFile;
+
     public CsvStorage()
     {
-        csvFileIO = new FileIO(CoreSettings.pathData.load() + "/data.csv");
+        csvFile = new TextFile(CoreSettings.pathData.load() + "/data.csv");
     }
 
     @Override
@@ -47,7 +47,7 @@ public class CsvStorage implements Storage
 
             String toWrite = toCsvText(rowsAsStringArray.toArray(new String[0][]));
 
-            csvFileIO.writeLines(toWrite);
+            csvFile.writeLines(toWrite);
         }
         catch(Exception ex)
         {
@@ -58,7 +58,7 @@ public class CsvStorage implements Storage
     @Override
     public Lesson[] load()
     {
-        String fileAsString = csvFileIO.readAllString().trim();
+        String fileAsString = csvFile.readAllToString().trim();
         assertValidFile(fileAsString);
 
         ArrayList<Lesson> result = new ArrayList<>();
