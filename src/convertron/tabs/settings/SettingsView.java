@@ -1,7 +1,7 @@
 package convertron.tabs.settings;
 
-import convertron.core.CoreArraySettings;
-import convertron.core.CoreSettings;
+import convertron.settings.CoreArraySettings;
+import convertron.settings.CoreSettings;
 import interlib.interfaces.View;
 import java.io.File;
 import javax.swing.JComponent;

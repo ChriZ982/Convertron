@@ -1,7 +1,7 @@
 package convertron.tabs.modules;
 
 import convertron.core.Control;
-import convertron.core.CoreArraySettings;
+import convertron.settings.CoreArraySettings;
 import interlib.interfaces.Module;
 import interlib.logging.messages.LogPriority;
 import interlib.logging.Logger;

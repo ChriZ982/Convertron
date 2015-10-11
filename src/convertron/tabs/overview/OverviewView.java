@@ -1,6 +1,6 @@
 package convertron.tabs.overview;
 
-import convertron.core.CoreSettings;
+import convertron.settings.CoreSettings;
 import convertron.tabs.settings.SettingHandler;
 import convertron.tabs.settings.TextFieldHandler;
 import interlib.interfaces.View;

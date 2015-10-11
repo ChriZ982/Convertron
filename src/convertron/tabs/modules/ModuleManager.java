@@ -1,8 +1,8 @@
 package convertron.tabs.modules;
 
 import convertron.core.Control;
-import convertron.core.CoreArraySettings;
-import convertron.core.CoreSettings;
+import convertron.settings.CoreArraySettings;
+import convertron.settings.CoreSettings;
 import interlib.data.Lesson;
 import interlib.interfaces.Input;
 import interlib.interfaces.Module;

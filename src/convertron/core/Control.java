@@ -1,5 +1,8 @@
 package convertron.core;
 
+import convertron.settings.CoreSettings;
+import convertron.data.CsvStorage;
+import convertron.data.Storage;
 import convertron.tabs.modules.ModuleManager;
 import convertron.tabs.overview.OverviewControl;
 import convertron.tabs.settings.SettingsControl;

@@ -1,5 +1,6 @@
-package convertron.core;
+package convertron.data;
 
+import convertron.settings.CoreSettings;
 import interlib.data.Lesson;
 import interlib.io.TextFile;
 import interlib.logging.Logger;

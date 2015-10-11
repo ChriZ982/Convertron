@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package convertron.tabs.modules;
 
 import interlib.interfaces.View;
@@ -14,10 +9,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
-/**
- *
- * @author Mirko
- */
 public class ModuleManageView extends View
 {
     private static final long serialVersionUID = 1L;
