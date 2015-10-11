@@ -5,11 +5,6 @@
     <Component class="javax.swing.JFileChooser" name="folderChooser">
     </Component>
   </NonVisualComponents>
-  <Properties>
-    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[443, 336]"/>
-    </Property>
-  </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -29,12 +24,12 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="settingsSaveBtn" max="32767" attributes="0"/>
+                      <Component id="saveSettingsButton" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jSeparator8" alignment="1" max="32767" attributes="0"/>
+                          <Component id="separator1" alignment="1" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
@@ -45,30 +40,30 @@
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="customTodayTxt" max="32767" attributes="0"/>
-                                          <Component id="customTomorrowTxt" max="32767" attributes="0"/>
+                                          <Component id="customTodayTextField" max="32767" attributes="0"/>
+                                          <Component id="customTomorrowTextField" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Component id="customDateCheck" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="automaticModeCheck" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="customDateCheckBox" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="automaticModeCheckBox" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="generateAllLabel" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="autoImportCheck" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="autoExportCheck" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="autoBackupCheck" max="32767" attributes="0"/>
+                                          <Component id="autoImportCheckBox" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="autoExportCheckBox" alignment="0" pref="340" max="32767" attributes="0"/>
+                                          <Component id="autoBackupCheckBox" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
                               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                              <Component id="jSeparator2" min="-2" max="-2" attributes="0"/>
+                              <Component id="separator2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                                      <Component id="evenWeekLabel" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="weekCombo" min="-2" max="-2" attributes="0"/>
+                                      <Component id="evenWeekComboBox" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
@@ -86,64 +81,64 @@
                                               </Group>
                                               <EmptySpace min="-2" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="hour7Txt" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="hour5Txt" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="hour3Txt" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="hour1Txt" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="hour9Txt" max="32767" attributes="0"/>
+                                                  <Component id="hour7TextField" alignment="0" pref="135" max="32767" attributes="0"/>
+                                                  <Component id="hour5TextField" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="hour3TextField" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="hour1TextField" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="hour9TextField" max="32767" attributes="0"/>
                                               </Group>
                                               <EmptySpace min="-2" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="1" attributes="0">
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <Component id="hour10Label" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="hour10Txt" max="32767" attributes="0"/>
+                                                      <Component id="hour10TextField" pref="134" max="32767" attributes="0"/>
                                                   </Group>
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <Component id="hour8Label" min="-2" pref="53" max="-2" attributes="0"/>
                                                       <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="hour8Txt" max="32767" attributes="0"/>
+                                                      <Component id="hour8TextField" max="32767" attributes="0"/>
                                                   </Group>
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <Component id="hour6Label" min="-2" pref="53" max="-2" attributes="0"/>
                                                       <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="hour6Txt" max="32767" attributes="0"/>
+                                                      <Component id="hour6TextField" max="32767" attributes="0"/>
                                                   </Group>
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <Component id="hour4Label" min="-2" pref="53" max="-2" attributes="0"/>
                                                       <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="hour4Txt" max="32767" attributes="0"/>
+                                                      <Component id="hour4TextField" max="32767" attributes="0"/>
                                                   </Group>
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <Component id="hour2Label" min="-2" pref="53" max="-2" attributes="0"/>
                                                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                                                      <Component id="hour2Txt" max="32767" attributes="0"/>
+                                                      <Component id="hour2TextField" max="32767" attributes="0"/>
                                                   </Group>
                                               </Group>
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <Component id="useHoursCheck" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="useHoursCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
+                          <Component id="pathsLabel" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jLabel6" max="32767" attributes="0"/>
-                          <Component id="jLabel5" max="32767" attributes="0"/>
+                          <Component id="backupPathLabel" max="32767" attributes="0"/>
+                          <Component id="dataPathLabel" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="dataPathTxt" max="32767" attributes="0"/>
-                          <Component id="backupPathTxt" max="32767" attributes="0"/>
+                          <Component id="dataPathTextField" max="32767" attributes="0"/>
+                          <Component id="backupPathTextField" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="dataPathChooseBtn" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="backupPathChooseBtn" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="dataPathChooseButton" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="backupPathChooseButton" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -157,116 +152,116 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="useHoursCheck" min="-2" max="-2" attributes="0"/>
+                      <Component id="useHoursCheckBox" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="hoursHeadLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="hour1Txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="hour1TextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="hour1Label" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="hour2Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="hour2Txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="hour2TextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="hour3Txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="hour3TextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="hour3Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="hour4Txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="hour4TextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="hour4Label" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="hour5Txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="hour5TextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="hour5Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="hour6Txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="hour6TextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="hour6Label" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="hour7Txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="hour7TextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="hour7Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="hour8Txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="hour8TextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="hour8Label" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="hour9Txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="hour9TextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="hour9Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="hour10Txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="hour10TextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="hour10Label" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="weekCombo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="evenWeekLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="evenWeekComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="automaticModeCheck" min="-2" max="-2" attributes="0"/>
+                      <Component id="automaticModeCheckBox" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" pref="14" max="-2" attributes="0"/>
+                      <Component id="generateAllLabel" min="-2" pref="14" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="autoBackupCheck" min="-2" max="-2" attributes="0"/>
+                      <Component id="autoBackupCheckBox" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="autoImportCheck" min="-2" max="-2" attributes="0"/>
+                      <Component id="autoImportCheckBox" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="autoExportCheck" min="-2" max="-2" attributes="0"/>
+                      <Component id="autoExportCheckBox" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="customDateCheck" min="-2" max="-2" attributes="0"/>
+                      <Component id="customDateCheckBox" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="customTodayLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="customTodayTxt" min="-2" max="-2" attributes="0"/>
+                          <Component id="customTodayTextField" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="customTomorrowTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="customTomorrowTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="customTomorrowLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="jSeparator2" max="32767" attributes="0"/>
+                  <Component id="separator2" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jSeparator8" min="-2" pref="2" max="-2" attributes="0"/>
+              <Component id="separator1" min="-2" pref="2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+              <Component id="pathsLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="dataPathChooseBtn" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="dataPathChooseButton" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="dataPathTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="dataPathLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="dataPathTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="backupPathTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="backupPathLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="backupPathTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="backupPathChooseBtn" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="backupPathChooseButton" min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="settingsSaveBtn" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="270" max="32767" attributes="0"/>
+              <Component id="saveSettingsButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JCheckBox" name="autoBackupCheck">
+    <Component class="javax.swing.JCheckBox" name="autoBackupCheckBox">
       <Properties>
         <Property name="text" type="java.lang.String" value="Backup"/>
         <Property name="toolTipText" type="java.lang.String" value="Soll ein automatisches Backup beim Generieren erstellt werden?"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="settingsSaveBtn">
+    <Component class="javax.swing.JButton" name="saveSettingsButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="speichern"/>
         <Property name="toolTipText" type="java.lang.String" value="Speichert die Einstellungen der gesamten Seite, wendet sie aber nicht an"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="hour10Txt">
+    <Component class="javax.swing.JTextField" name="hour10TextField">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die zehnte Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
         <Property name="enabled" type="boolean" value="false"/>
@@ -278,7 +273,7 @@
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="hour9Txt">
+    <Component class="javax.swing.JTextField" name="hour9TextField">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die neunte Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
         <Property name="enabled" type="boolean" value="false"/>
@@ -296,49 +291,49 @@
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="hour7Txt">
+    <Component class="javax.swing.JTextField" name="hour7TextField">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die siebte Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="hour8Txt">
+    <Component class="javax.swing.JTextField" name="hour8TextField">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die achte Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="hour6Txt">
+    <Component class="javax.swing.JTextField" name="hour6TextField">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die sechste Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="hour4Txt">
+    <Component class="javax.swing.JTextField" name="hour4TextField">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die vierte Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="hour2Txt">
+    <Component class="javax.swing.JTextField" name="hour2TextField">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die zweite Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="hour1Txt">
+    <Component class="javax.swing.JTextField" name="hour1TextField">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die erste Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="hour3Txt">
+    <Component class="javax.swing.JTextField" name="hour3TextField">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die dritte Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="hour5Txt">
+    <Component class="javax.swing.JTextField" name="hour5TextField">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Zeit, nach der die f&#xfc;nfte Stunde gel&#xf6;scht wird z.B. &quot;9:25&quot;"/>
         <Property name="enabled" type="boolean" value="false"/>
@@ -391,32 +386,32 @@
         <Property name="text" type="java.lang.String" value="Stunden ausblenden ab:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="useHoursCheck">
+    <Component class="javax.swing.JCheckBox" name="useHoursCheckBox">
       <Properties>
         <Property name="text" type="java.lang.String" value="Vergangene Vertretungen ausblenden"/>
         <Property name="toolTipText" type="java.lang.String" value="Sollen vergangene Stunden ausgeblendet werden?"/>
       </Properties>
       <Events>
-        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="useHoursCheckItemStateChanged"/>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="useHoursCheckBoxItemStateChanged"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JSeparator" name="jSeparator2">
+    <Component class="javax.swing.JSeparator" name="separator2">
       <Properties>
         <Property name="orientation" type="int" value="1"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel18">
+    <Component class="javax.swing.JLabel" name="evenWeekLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Gerade Woche"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="customDateCheck">
+    <Component class="javax.swing.JCheckBox" name="customDateCheckBox">
       <Properties>
         <Property name="text" type="java.lang.String" value="Benutzerdefiniertes Datum"/>
         <Property name="toolTipText" type="java.lang.String" value="Soll ein benutzerdefiniertes Datum f&#xfc;r heute und morgen angenommen werden?"/>
       </Properties>
       <Events>
-        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="customDateCheckItemStateChanged"/>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="customDateCheckBoxItemStateChanged"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="customTodayLabel">
@@ -425,7 +420,7 @@
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="customTodayTxt">
+    <Component class="javax.swing.JTextField" name="customTodayTextField">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Neues Datum f&#xfc;r den heutigen Plan z.B. &quot;24.12.&quot;"/>
         <Property name="enabled" type="boolean" value="false"/>
@@ -437,30 +432,30 @@
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="customTomorrowTxt">
+    <Component class="javax.swing.JTextField" name="customTomorrowTextField">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Neues Datum f&#xfc;r den morgigen Plan z.B. &quot;25.12.&quot;"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JSeparator" name="jSeparator8">
+    <Component class="javax.swing.JSeparator" name="separator1">
     </Component>
-    <Component class="javax.swing.JCheckBox" name="automaticModeCheck">
+    <Component class="javax.swing.JCheckBox" name="automaticModeCheckBox">
       <Properties>
         <Property name="text" type="java.lang.String" value="Automatikmodus"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="autoImportCheck">
+    <Component class="javax.swing.JCheckBox" name="autoImportCheckBox">
       <Properties>
         <Property name="text" type="java.lang.String" value="Vertretungsplan importieren"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="autoExportCheck">
+    <Component class="javax.swing.JCheckBox" name="autoExportCheckBox">
       <Properties>
         <Property name="text" type="java.lang.String" value="Vertretungsplan exportieren"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="weekCombo">
+    <Component class="javax.swing.JComboBox" name="evenWeekComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="2">
@@ -473,48 +468,48 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="generateAllLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Alles generieren:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel4">
+    <Component class="javax.swing.JLabel" name="pathsLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Pfade:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel5">
+    <Component class="javax.swing.JLabel" name="dataPathLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Data"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel6">
+    <Component class="javax.swing.JLabel" name="backupPathLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Backup"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="dataPathTxt">
+    <Component class="javax.swing.JTextField" name="dataPathTextField">
     </Component>
-    <Component class="javax.swing.JTextField" name="backupPathTxt">
+    <Component class="javax.swing.JTextField" name="backupPathTextField">
     </Component>
-    <Component class="javax.swing.JButton" name="dataPathChooseBtn">
+    <Component class="javax.swing.JButton" name="dataPathChooseButton">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/convertron/res/ordner.png"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dataPathChooseBtnActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dataPathChooseButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="backupPathChooseBtn">
+    <Component class="javax.swing.JButton" name="backupPathChooseButton">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/convertron/res/ordner.png"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="backupPathChooseBtnActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="backupPathChooseButtonActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

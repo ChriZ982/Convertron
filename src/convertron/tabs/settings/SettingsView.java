@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package convertron.tabs.settings;
 
 import convertron.core.CoreArraySettings;
@@ -41,22 +36,22 @@ public class SettingsView extends View
 
         useHoursComponents = new JComponent[]
         {
-            hour1Label, hour1Txt,
-            hour2Label, hour2Txt,
-            hour3Label, hour3Txt,
-            hour4Label, hour4Txt,
-            hour5Label, hour5Txt,
-            hour6Label, hour6Txt,
-            hour7Label, hour7Txt,
-            hour8Label, hour8Txt,
-            hour9Label, hour9Txt,
-            hour10Label, hour10Txt
+            hour1Label, hour1TextField,
+            hour2Label, hour2TextField,
+            hour3Label, hour3TextField,
+            hour4Label, hour4TextField,
+            hour5Label, hour5TextField,
+            hour6Label, hour6TextField,
+            hour7Label, hour7TextField,
+            hour8Label, hour8TextField,
+            hour9Label, hour9TextField,
+            hour10Label, hour10TextField
         };
 
         customDateComponents = new JComponent[]
         {
-            customTodayLabel, customTodayTxt,
-            customTomorrowLabel, customTomorrowTxt
+            customTodayLabel, customTodayTextField,
+            customTomorrowLabel, customTomorrowTextField
         };
     }
 
@@ -71,21 +66,21 @@ public class SettingsView extends View
     {
 
         folderChooser = new javax.swing.JFileChooser();
-        autoBackupCheck = new javax.swing.JCheckBox();
-        settingsSaveBtn = new javax.swing.JButton();
-        hour10Txt = new javax.swing.JTextField();
+        autoBackupCheckBox = new javax.swing.JCheckBox();
+        saveSettingsButton = new javax.swing.JButton();
+        hour10TextField = new javax.swing.JTextField();
         hour10Label = new javax.swing.JLabel();
-        hour9Txt = new javax.swing.JTextField();
+        hour9TextField = new javax.swing.JTextField();
         hour9Label = new javax.swing.JLabel();
         hour7Label = new javax.swing.JLabel();
-        hour7Txt = new javax.swing.JTextField();
-        hour8Txt = new javax.swing.JTextField();
-        hour6Txt = new javax.swing.JTextField();
-        hour4Txt = new javax.swing.JTextField();
-        hour2Txt = new javax.swing.JTextField();
-        hour1Txt = new javax.swing.JTextField();
-        hour3Txt = new javax.swing.JTextField();
-        hour5Txt = new javax.swing.JTextField();
+        hour7TextField = new javax.swing.JTextField();
+        hour8TextField = new javax.swing.JTextField();
+        hour6TextField = new javax.swing.JTextField();
+        hour4TextField = new javax.swing.JTextField();
+        hour2TextField = new javax.swing.JTextField();
+        hour1TextField = new javax.swing.JTextField();
+        hour3TextField = new javax.swing.JTextField();
+        hour5TextField = new javax.swing.JTextField();
         hour5Label = new javax.swing.JLabel();
         hour3Label = new javax.swing.JLabel();
         hour1Label = new javax.swing.JLabel();
@@ -94,44 +89,42 @@ public class SettingsView extends View
         hour6Label = new javax.swing.JLabel();
         hour8Label = new javax.swing.JLabel();
         hoursHeadLabel = new javax.swing.JLabel();
-        useHoursCheck = new javax.swing.JCheckBox();
-        jSeparator2 = new javax.swing.JSeparator();
-        jLabel18 = new javax.swing.JLabel();
-        customDateCheck = new javax.swing.JCheckBox();
+        useHoursCheckBox = new javax.swing.JCheckBox();
+        separator2 = new javax.swing.JSeparator();
+        evenWeekLabel = new javax.swing.JLabel();
+        customDateCheckBox = new javax.swing.JCheckBox();
         customTodayLabel = new javax.swing.JLabel();
-        customTodayTxt = new javax.swing.JTextField();
+        customTodayTextField = new javax.swing.JTextField();
         customTomorrowLabel = new javax.swing.JLabel();
-        customTomorrowTxt = new javax.swing.JTextField();
-        jSeparator8 = new javax.swing.JSeparator();
-        automaticModeCheck = new javax.swing.JCheckBox();
-        autoImportCheck = new javax.swing.JCheckBox();
-        autoExportCheck = new javax.swing.JCheckBox();
-        weekCombo = new javax.swing.JComboBox<String>();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        dataPathTxt = new javax.swing.JTextField();
-        backupPathTxt = new javax.swing.JTextField();
-        dataPathChooseBtn = new javax.swing.JButton();
-        backupPathChooseBtn = new javax.swing.JButton();
+        customTomorrowTextField = new javax.swing.JTextField();
+        separator1 = new javax.swing.JSeparator();
+        automaticModeCheckBox = new javax.swing.JCheckBox();
+        autoImportCheckBox = new javax.swing.JCheckBox();
+        autoExportCheckBox = new javax.swing.JCheckBox();
+        evenWeekComboBox = new javax.swing.JComboBox<String>();
+        generateAllLabel = new javax.swing.JLabel();
+        pathsLabel = new javax.swing.JLabel();
+        dataPathLabel = new javax.swing.JLabel();
+        backupPathLabel = new javax.swing.JLabel();
+        dataPathTextField = new javax.swing.JTextField();
+        backupPathTextField = new javax.swing.JTextField();
+        dataPathChooseButton = new javax.swing.JButton();
+        backupPathChooseButton = new javax.swing.JButton();
 
-        setMinimumSize(new java.awt.Dimension(443, 336));
+        autoBackupCheckBox.setText("Backup");
+        autoBackupCheckBox.setToolTipText("Soll ein automatisches Backup beim Generieren erstellt werden?");
 
-        autoBackupCheck.setText("Backup");
-        autoBackupCheck.setToolTipText("Soll ein automatisches Backup beim Generieren erstellt werden?");
+        saveSettingsButton.setText("speichern");
+        saveSettingsButton.setToolTipText("Speichert die Einstellungen der gesamten Seite, wendet sie aber nicht an");
 
-        settingsSaveBtn.setText("speichern");
-        settingsSaveBtn.setToolTipText("Speichert die Einstellungen der gesamten Seite, wendet sie aber nicht an");
-
-        hour10Txt.setToolTipText("Zeit, nach der die zehnte Stunde gelöscht wird z.B. \"9:25\"");
-        hour10Txt.setEnabled(false);
+        hour10TextField.setToolTipText("Zeit, nach der die zehnte Stunde gelöscht wird z.B. \"9:25\"");
+        hour10TextField.setEnabled(false);
 
         hour10Label.setText("10. Stunde");
         hour10Label.setEnabled(false);
 
-        hour9Txt.setToolTipText("Zeit, nach der die neunte Stunde gelöscht wird z.B. \"9:25\"");
-        hour9Txt.setEnabled(false);
+        hour9TextField.setToolTipText("Zeit, nach der die neunte Stunde gelöscht wird z.B. \"9:25\"");
+        hour9TextField.setEnabled(false);
 
         hour9Label.setText("9. Stunde");
         hour9Label.setEnabled(false);
@@ -139,29 +132,29 @@ public class SettingsView extends View
         hour7Label.setText("7. Stunde");
         hour7Label.setEnabled(false);
 
-        hour7Txt.setToolTipText("Zeit, nach der die siebte Stunde gelöscht wird z.B. \"9:25\"");
-        hour7Txt.setEnabled(false);
+        hour7TextField.setToolTipText("Zeit, nach der die siebte Stunde gelöscht wird z.B. \"9:25\"");
+        hour7TextField.setEnabled(false);
 
-        hour8Txt.setToolTipText("Zeit, nach der die achte Stunde gelöscht wird z.B. \"9:25\"");
-        hour8Txt.setEnabled(false);
+        hour8TextField.setToolTipText("Zeit, nach der die achte Stunde gelöscht wird z.B. \"9:25\"");
+        hour8TextField.setEnabled(false);
 
-        hour6Txt.setToolTipText("Zeit, nach der die sechste Stunde gelöscht wird z.B. \"9:25\"");
-        hour6Txt.setEnabled(false);
+        hour6TextField.setToolTipText("Zeit, nach der die sechste Stunde gelöscht wird z.B. \"9:25\"");
+        hour6TextField.setEnabled(false);
 
-        hour4Txt.setToolTipText("Zeit, nach der die vierte Stunde gelöscht wird z.B. \"9:25\"");
-        hour4Txt.setEnabled(false);
+        hour4TextField.setToolTipText("Zeit, nach der die vierte Stunde gelöscht wird z.B. \"9:25\"");
+        hour4TextField.setEnabled(false);
 
-        hour2Txt.setToolTipText("Zeit, nach der die zweite Stunde gelöscht wird z.B. \"9:25\"");
-        hour2Txt.setEnabled(false);
+        hour2TextField.setToolTipText("Zeit, nach der die zweite Stunde gelöscht wird z.B. \"9:25\"");
+        hour2TextField.setEnabled(false);
 
-        hour1Txt.setToolTipText("Zeit, nach der die erste Stunde gelöscht wird z.B. \"9:25\"");
-        hour1Txt.setEnabled(false);
+        hour1TextField.setToolTipText("Zeit, nach der die erste Stunde gelöscht wird z.B. \"9:25\"");
+        hour1TextField.setEnabled(false);
 
-        hour3Txt.setToolTipText("Zeit, nach der die dritte Stunde gelöscht wird z.B. \"9:25\"");
-        hour3Txt.setEnabled(false);
+        hour3TextField.setToolTipText("Zeit, nach der die dritte Stunde gelöscht wird z.B. \"9:25\"");
+        hour3TextField.setEnabled(false);
 
-        hour5Txt.setToolTipText("Zeit, nach der die fünfte Stunde gelöscht wird z.B. \"9:25\"");
-        hour5Txt.setEnabled(false);
+        hour5TextField.setToolTipText("Zeit, nach der die fünfte Stunde gelöscht wird z.B. \"9:25\"");
+        hour5TextField.setEnabled(false);
 
         hour5Label.setText("5. Stunde");
         hour5Label.setEnabled(false);
@@ -186,73 +179,73 @@ public class SettingsView extends View
 
         hoursHeadLabel.setText("Stunden ausblenden ab:");
 
-        useHoursCheck.setText("Vergangene Vertretungen ausblenden");
-        useHoursCheck.setToolTipText("Sollen vergangene Stunden ausgeblendet werden?");
-        useHoursCheck.addItemListener(new java.awt.event.ItemListener()
+        useHoursCheckBox.setText("Vergangene Vertretungen ausblenden");
+        useHoursCheckBox.setToolTipText("Sollen vergangene Stunden ausgeblendet werden?");
+        useHoursCheckBox.addItemListener(new java.awt.event.ItemListener()
         {
             public void itemStateChanged(java.awt.event.ItemEvent evt)
             {
-                useHoursCheckItemStateChanged(evt);
+                useHoursCheckBoxItemStateChanged(evt);
             }
         });
 
-        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        separator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jLabel18.setText("Gerade Woche");
+        evenWeekLabel.setText("Gerade Woche");
 
-        customDateCheck.setText("Benutzerdefiniertes Datum");
-        customDateCheck.setToolTipText("Soll ein benutzerdefiniertes Datum für heute und morgen angenommen werden?");
-        customDateCheck.addItemListener(new java.awt.event.ItemListener()
+        customDateCheckBox.setText("Benutzerdefiniertes Datum");
+        customDateCheckBox.setToolTipText("Soll ein benutzerdefiniertes Datum für heute und morgen angenommen werden?");
+        customDateCheckBox.addItemListener(new java.awt.event.ItemListener()
         {
             public void itemStateChanged(java.awt.event.ItemEvent evt)
             {
-                customDateCheckItemStateChanged(evt);
+                customDateCheckBoxItemStateChanged(evt);
             }
         });
 
         customTodayLabel.setText("Heute");
         customTodayLabel.setEnabled(false);
 
-        customTodayTxt.setToolTipText("Neues Datum für den heutigen Plan z.B. \"24.12.\"");
-        customTodayTxt.setEnabled(false);
+        customTodayTextField.setToolTipText("Neues Datum für den heutigen Plan z.B. \"24.12.\"");
+        customTodayTextField.setEnabled(false);
 
         customTomorrowLabel.setText("Morgen");
         customTomorrowLabel.setEnabled(false);
 
-        customTomorrowTxt.setToolTipText("Neues Datum für den morgigen Plan z.B. \"25.12.\"");
-        customTomorrowTxt.setEnabled(false);
+        customTomorrowTextField.setToolTipText("Neues Datum für den morgigen Plan z.B. \"25.12.\"");
+        customTomorrowTextField.setEnabled(false);
 
-        automaticModeCheck.setText("Automatikmodus");
+        automaticModeCheckBox.setText("Automatikmodus");
 
-        autoImportCheck.setText("Vertretungsplan importieren");
+        autoImportCheckBox.setText("Vertretungsplan importieren");
 
-        autoExportCheck.setText("Vertretungsplan exportieren");
+        autoExportCheckBox.setText("Vertretungsplan exportieren");
 
-        weekCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "B" }));
+        evenWeekComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "B" }));
 
-        jLabel1.setText("Alles generieren:");
+        generateAllLabel.setText("Alles generieren:");
 
-        jLabel4.setText("Pfade:");
+        pathsLabel.setText("Pfade:");
 
-        jLabel5.setText("Data");
+        dataPathLabel.setText("Data");
 
-        jLabel6.setText("Backup");
+        backupPathLabel.setText("Backup");
 
-        dataPathChooseBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/convertron/res/ordner.png"))); // NOI18N
-        dataPathChooseBtn.addActionListener(new java.awt.event.ActionListener()
+        dataPathChooseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/convertron/res/ordner.png"))); // NOI18N
+        dataPathChooseButton.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                dataPathChooseBtnActionPerformed(evt);
+                dataPathChooseButtonActionPerformed(evt);
             }
         });
 
-        backupPathChooseBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/convertron/res/ordner.png"))); // NOI18N
-        backupPathChooseBtn.addActionListener(new java.awt.event.ActionListener()
+        backupPathChooseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/convertron/res/ordner.png"))); // NOI18N
+        backupPathChooseButton.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                backupPathChooseBtnActionPerformed(evt);
+                backupPathChooseButtonActionPerformed(evt);
             }
         });
 
@@ -264,11 +257,11 @@ public class SettingsView extends View
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(settingsSaveBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(saveSettingsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator8, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(separator1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -278,25 +271,25 @@ public class SettingsView extends View
                                             .addComponent(customTomorrowLabel))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(customTodayTxt)
-                                            .addComponent(customTomorrowTxt)))
-                                    .addComponent(customDateCheck, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(automaticModeCheck, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(customTodayTextField)
+                                            .addComponent(customTomorrowTextField)))
+                                    .addComponent(customDateCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(automaticModeCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(generateAllLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(10, 10, 10)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(autoImportCheck, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(autoExportCheck, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(autoBackupCheck, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                            .addComponent(autoImportCheckBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(autoExportCheckBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                                            .addComponent(autoBackupCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(separator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel18)
+                                        .addComponent(evenWeekLabel)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(weekCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(evenWeekComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(21, 21, 21)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -311,48 +304,48 @@ public class SettingsView extends View
                                                     .addComponent(hour1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(hour7Txt)
-                                                    .addComponent(hour5Txt)
-                                                    .addComponent(hour3Txt)
-                                                    .addComponent(hour1Txt)
-                                                    .addComponent(hour9Txt))
+                                                    .addComponent(hour7TextField, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                                                    .addComponent(hour5TextField)
+                                                    .addComponent(hour3TextField)
+                                                    .addComponent(hour1TextField)
+                                                    .addComponent(hour9TextField))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                                         .addComponent(hour10Label)
                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(hour10Txt))
+                                                        .addComponent(hour10TextField, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))
                                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                                         .addComponent(hour8Label, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(hour8Txt))
+                                                        .addComponent(hour8TextField))
                                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                                         .addComponent(hour6Label, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(hour6Txt))
+                                                        .addComponent(hour6TextField))
                                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                                         .addComponent(hour4Label, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(hour4Txt))
+                                                        .addComponent(hour4TextField))
                                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                                         .addComponent(hour2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(hour2Txt))))))
-                                    .addComponent(useHoursCheck)))
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                                        .addComponent(hour2TextField))))))
+                                    .addComponent(useHoursCheckBox)))
+                            .addComponent(pathsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(backupPathLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(dataPathLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dataPathTxt)
-                            .addComponent(backupPathTxt))
+                            .addComponent(dataPathTextField)
+                            .addComponent(backupPathTextField))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dataPathChooseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(backupPathChooseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(dataPathChooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(backupPathChooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -361,198 +354,198 @@ public class SettingsView extends View
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(useHoursCheck)
+                        .addComponent(useHoursCheckBox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(hoursHeadLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(hour1Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(hour1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(hour1Label)
                             .addComponent(hour2Label)
-                            .addComponent(hour2Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(hour2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(hour3Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(hour3TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(hour3Label)
-                            .addComponent(hour4Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(hour4TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(hour4Label))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(hour5Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(hour5TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(hour5Label)
-                            .addComponent(hour6Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(hour6TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(hour6Label))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(hour7Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(hour7TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(hour7Label)
-                            .addComponent(hour8Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(hour8TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(hour8Label))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(hour9Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(hour9TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(hour9Label)
-                            .addComponent(hour10Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(hour10TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(hour10Label))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel18)
-                            .addComponent(weekCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(evenWeekLabel)
+                            .addComponent(evenWeekComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(automaticModeCheck)
+                        .addComponent(automaticModeCheckBox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(generateAllLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(autoBackupCheck)
+                        .addComponent(autoBackupCheckBox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(autoImportCheck)
+                        .addComponent(autoImportCheckBox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(autoExportCheck)
+                        .addComponent(autoExportCheckBox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(customDateCheck)
+                        .addComponent(customDateCheckBox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(customTodayLabel)
-                            .addComponent(customTodayTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(customTodayTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(customTomorrowTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(customTomorrowTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(customTomorrowLabel)))
-                    .addComponent(jSeparator2))
+                    .addComponent(separator2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(separator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dataPathChooseBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5)
-                        .addComponent(dataPathTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(pathsLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dataPathChooseButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel6)
-                        .addComponent(backupPathTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(backupPathChooseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(settingsSaveBtn)
+                        .addComponent(dataPathLabel)
+                        .addComponent(dataPathTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(backupPathLabel)
+                        .addComponent(backupPathTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(backupPathChooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 270, Short.MAX_VALUE)
+                .addComponent(saveSettingsButton)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void useHoursCheckItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_useHoursCheckItemStateChanged
-    {//GEN-HEADEREND:event_useHoursCheckItemStateChanged
+    private void useHoursCheckBoxItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_useHoursCheckBoxItemStateChanged
+    {//GEN-HEADEREND:event_useHoursCheckBoxItemStateChanged
         for(JComponent comp : useHoursComponents)
-            comp.setEnabled(useHoursCheck.isSelected());
-    }//GEN-LAST:event_useHoursCheckItemStateChanged
+            comp.setEnabled(useHoursCheckBox.isSelected());
+    }//GEN-LAST:event_useHoursCheckBoxItemStateChanged
 
-    private void customDateCheckItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_customDateCheckItemStateChanged
-    {//GEN-HEADEREND:event_customDateCheckItemStateChanged
+    private void customDateCheckBoxItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_customDateCheckBoxItemStateChanged
+    {//GEN-HEADEREND:event_customDateCheckBoxItemStateChanged
         for(JComponent comp : customDateComponents)
-            comp.setEnabled(customDateCheck.isSelected());
-    }//GEN-LAST:event_customDateCheckItemStateChanged
+            comp.setEnabled(customDateCheckBox.isSelected());
+    }//GEN-LAST:event_customDateCheckBoxItemStateChanged
 
-    private void dataPathChooseBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_dataPathChooseBtnActionPerformed
-    {//GEN-HEADEREND:event_dataPathChooseBtnActionPerformed
+    private void dataPathChooseButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_dataPathChooseButtonActionPerformed
+    {//GEN-HEADEREND:event_dataPathChooseButtonActionPerformed
         if(folderChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
-            dataPathTxt.setText(folderChooser.getSelectedFile().getPath());
-    }//GEN-LAST:event_dataPathChooseBtnActionPerformed
+            dataPathTextField.setText(folderChooser.getSelectedFile().getPath());
+    }//GEN-LAST:event_dataPathChooseButtonActionPerformed
 
-    private void backupPathChooseBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_backupPathChooseBtnActionPerformed
-    {//GEN-HEADEREND:event_backupPathChooseBtnActionPerformed
+    private void backupPathChooseButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_backupPathChooseButtonActionPerformed
+    {//GEN-HEADEREND:event_backupPathChooseButtonActionPerformed
         if(folderChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
-            backupPathTxt.setText(folderChooser.getSelectedFile().getPath());
-    }//GEN-LAST:event_backupPathChooseBtnActionPerformed
+            backupPathTextField.setText(folderChooser.getSelectedFile().getPath());
+    }//GEN-LAST:event_backupPathChooseButtonActionPerformed
 
     public void addSaveListener(Runnable task)
     {
-        settingsSaveBtn.addActionListener(getActionListenerToRunnable(task));
+        saveSettingsButton.addActionListener(getActionListenerToRunnable(task));
     }
 
     public SettingHandler[] createHandlers()
     {
         return new SettingHandler[]
         {
-            new CheckBoxHandler(automaticModeCheck, CoreSettings.autoMode),
-            new CheckBoxHandler(autoImportCheck, CoreSettings.autoImport),
-            new CheckBoxHandler(autoExportCheck, CoreSettings.autoExport),
-            new CheckBoxHandler(autoBackupCheck, CoreSettings.autoBackup),
+            new CheckBoxHandler(automaticModeCheckBox, CoreSettings.autoMode),
+            new CheckBoxHandler(autoImportCheckBox, CoreSettings.autoImport),
+            new CheckBoxHandler(autoExportCheckBox, CoreSettings.autoExport),
+            new CheckBoxHandler(autoBackupCheckBox, CoreSettings.autoBackup),
             //-----
-            new CheckBoxHandler(customDateCheck, CoreSettings.useCustomDate),
-            new TextFieldHandler(customTodayTxt, CoreSettings.customDateToday),
-            new TextFieldHandler(customTomorrowTxt, CoreSettings.customDateTomorrow),
+            new CheckBoxHandler(customDateCheckBox, CoreSettings.useCustomDate),
+            new TextFieldHandler(customTodayTextField, CoreSettings.customDateToday),
+            new TextFieldHandler(customTomorrowTextField, CoreSettings.customDateTomorrow),
             //-----
-            new CheckBoxHandler(useHoursCheck, CoreSettings.useCutHours),
-            new TextFieldHandler(hour1Txt, CoreArraySettings.cutHours, 0),
-            new TextFieldHandler(hour2Txt, CoreArraySettings.cutHours, 1),
-            new TextFieldHandler(hour3Txt, CoreArraySettings.cutHours, 2),
-            new TextFieldHandler(hour4Txt, CoreArraySettings.cutHours, 3),
-            new TextFieldHandler(hour5Txt, CoreArraySettings.cutHours, 4),
-            new TextFieldHandler(hour6Txt, CoreArraySettings.cutHours, 5),
-            new TextFieldHandler(hour7Txt, CoreArraySettings.cutHours, 6),
-            new TextFieldHandler(hour8Txt, CoreArraySettings.cutHours, 7),
-            new TextFieldHandler(hour9Txt, CoreArraySettings.cutHours, 8),
-            new TextFieldHandler(hour10Txt, CoreArraySettings.cutHours, 9),
+            new CheckBoxHandler(useHoursCheckBox, CoreSettings.useCutHours),
+            new TextFieldHandler(hour1TextField, CoreArraySettings.cutHours, 0),
+            new TextFieldHandler(hour2TextField, CoreArraySettings.cutHours, 1),
+            new TextFieldHandler(hour3TextField, CoreArraySettings.cutHours, 2),
+            new TextFieldHandler(hour4TextField, CoreArraySettings.cutHours, 3),
+            new TextFieldHandler(hour5TextField, CoreArraySettings.cutHours, 4),
+            new TextFieldHandler(hour6TextField, CoreArraySettings.cutHours, 5),
+            new TextFieldHandler(hour7TextField, CoreArraySettings.cutHours, 6),
+            new TextFieldHandler(hour8TextField, CoreArraySettings.cutHours, 7),
+            new TextFieldHandler(hour9TextField, CoreArraySettings.cutHours, 8),
+            new TextFieldHandler(hour10TextField, CoreArraySettings.cutHours, 9),
             //-----
-            new ComboBoxHandler(weekCombo, CoreSettings.flatWeekChar),
+            new ComboBoxHandler(evenWeekComboBox, CoreSettings.flatWeekChar),
             //-----
-            new TextFieldHandler(dataPathTxt, CoreSettings.pathData),
-            new TextFieldHandler(backupPathTxt, CoreSettings.pathBackup)
+            new TextFieldHandler(dataPathTextField, CoreSettings.pathData),
+            new TextFieldHandler(backupPathTextField, CoreSettings.pathBackup)
         };
     }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox autoBackupCheck;
-    private javax.swing.JCheckBox autoExportCheck;
-    private javax.swing.JCheckBox autoImportCheck;
-    private javax.swing.JCheckBox automaticModeCheck;
-    private javax.swing.JButton backupPathChooseBtn;
-    private javax.swing.JTextField backupPathTxt;
-    private javax.swing.JCheckBox customDateCheck;
-    private javax.swing.JLabel customTodayLabel;
-    private javax.swing.JTextField customTodayTxt;
-    private javax.swing.JLabel customTomorrowLabel;
-    private javax.swing.JTextField customTomorrowTxt;
-    private javax.swing.JButton dataPathChooseBtn;
-    private javax.swing.JTextField dataPathTxt;
-    private javax.swing.JFileChooser folderChooser;
-    private javax.swing.JLabel hour10Label;
-    private javax.swing.JTextField hour10Txt;
-    private javax.swing.JLabel hour1Label;
-    private javax.swing.JTextField hour1Txt;
-    private javax.swing.JLabel hour2Label;
-    private javax.swing.JTextField hour2Txt;
-    private javax.swing.JLabel hour3Label;
-    private javax.swing.JTextField hour3Txt;
-    private javax.swing.JLabel hour4Label;
-    private javax.swing.JTextField hour4Txt;
-    private javax.swing.JLabel hour5Label;
-    private javax.swing.JTextField hour5Txt;
-    private javax.swing.JLabel hour6Label;
-    private javax.swing.JTextField hour6Txt;
-    private javax.swing.JLabel hour7Label;
-    private javax.swing.JTextField hour7Txt;
-    private javax.swing.JLabel hour8Label;
-    private javax.swing.JTextField hour8Txt;
-    private javax.swing.JLabel hour9Label;
-    private javax.swing.JTextField hour9Txt;
-    private javax.swing.JLabel hoursHeadLabel;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator8;
-    private javax.swing.JButton settingsSaveBtn;
-    private javax.swing.JCheckBox useHoursCheck;
-    private javax.swing.JComboBox<String> weekCombo;
-    // End of variables declaration//GEN-END:variables
 
     @Override
     public String getTabTitle()
     {
         return "Einstellungen";
     }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox autoBackupCheckBox;
+    private javax.swing.JCheckBox autoExportCheckBox;
+    private javax.swing.JCheckBox autoImportCheckBox;
+    private javax.swing.JCheckBox automaticModeCheckBox;
+    private javax.swing.JButton backupPathChooseButton;
+    private javax.swing.JLabel backupPathLabel;
+    private javax.swing.JTextField backupPathTextField;
+    private javax.swing.JCheckBox customDateCheckBox;
+    private javax.swing.JLabel customTodayLabel;
+    private javax.swing.JTextField customTodayTextField;
+    private javax.swing.JLabel customTomorrowLabel;
+    private javax.swing.JTextField customTomorrowTextField;
+    private javax.swing.JButton dataPathChooseButton;
+    private javax.swing.JLabel dataPathLabel;
+    private javax.swing.JTextField dataPathTextField;
+    private javax.swing.JComboBox<String> evenWeekComboBox;
+    private javax.swing.JLabel evenWeekLabel;
+    private javax.swing.JFileChooser folderChooser;
+    private javax.swing.JLabel generateAllLabel;
+    private javax.swing.JLabel hour10Label;
+    private javax.swing.JTextField hour10TextField;
+    private javax.swing.JLabel hour1Label;
+    private javax.swing.JTextField hour1TextField;
+    private javax.swing.JLabel hour2Label;
+    private javax.swing.JTextField hour2TextField;
+    private javax.swing.JLabel hour3Label;
+    private javax.swing.JTextField hour3TextField;
+    private javax.swing.JLabel hour4Label;
+    private javax.swing.JTextField hour4TextField;
+    private javax.swing.JLabel hour5Label;
+    private javax.swing.JTextField hour5TextField;
+    private javax.swing.JLabel hour6Label;
+    private javax.swing.JTextField hour6TextField;
+    private javax.swing.JLabel hour7Label;
+    private javax.swing.JTextField hour7TextField;
+    private javax.swing.JLabel hour8Label;
+    private javax.swing.JTextField hour8TextField;
+    private javax.swing.JLabel hour9Label;
+    private javax.swing.JTextField hour9TextField;
+    private javax.swing.JLabel hoursHeadLabel;
+    private javax.swing.JLabel pathsLabel;
+    private javax.swing.JButton saveSettingsButton;
+    private javax.swing.JSeparator separator1;
+    private javax.swing.JSeparator separator2;
+    private javax.swing.JCheckBox useHoursCheckBox;
+    // End of variables declaration//GEN-END:variables
 }

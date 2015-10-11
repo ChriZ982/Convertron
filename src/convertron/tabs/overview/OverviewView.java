@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package convertron.tabs.overview;
 
 import convertron.core.CoreSettings;
@@ -12,10 +7,6 @@ import interlib.interfaces.View;
 import interlib.logging.LogRenderer;
 import interlib.logging.LogTable;
 
-/**
- *
- * @author Christopher
- */
 @SuppressWarnings("serial")
 public class OverviewView extends View
 {
@@ -28,12 +19,12 @@ public class OverviewView extends View
 
     private void initTable()
     {
-        jTable1.setModel(LogTable.getLogModel());
-        jTable1.getColumnModel().getColumn(0).setMaxWidth(50);
+        statusTable.setModel(LogTable.getLogModel());
+        statusTable.getColumnModel().getColumn(0).setMaxWidth(50);
 
         LogRenderer logRenderer = new LogRenderer();
-        jTable1.getColumnModel().getColumn(0).setCellRenderer(logRenderer);
-        jTable1.getColumnModel().getColumn(1).setCellRenderer(logRenderer);
+        statusTable.getColumnModel().getColumn(0).setCellRenderer(logRenderer);
+        statusTable.getColumnModel().getColumn(1).setCellRenderer(logRenderer);
     }
 
     /** This method is called from within the constructor to
@@ -46,81 +37,78 @@ public class OverviewView extends View
     private void initComponents()
     {
 
-        jLabel1 = new javax.swing.JLabel();
-        importLessonsBtn = new javax.swing.JButton();
-        genAllBtn = new javax.swing.JButton();
-        exportLessonsBtn = new javax.swing.JButton();
-        createBackupBtn = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        jSeparator6 = new javax.swing.JSeparator();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        motdTxt = new javax.swing.JTextField();
-        showDevInfosCheck = new javax.swing.JCheckBox();
-        saveMotdBtn = new javax.swing.JButton();
-        showInfosCheck = new javax.swing.JCheckBox();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jSeparator1 = new javax.swing.JSeparator();
-        jSeparator2 = new javax.swing.JSeparator();
-        jSeparator3 = new javax.swing.JSeparator();
-        jSeparator4 = new javax.swing.JSeparator();
+        statusLabel = new javax.swing.JLabel();
+        importLessonsButton = new javax.swing.JButton();
+        generateAllButton = new javax.swing.JButton();
+        exportLessonsButton = new javax.swing.JButton();
+        createBackupButton = new javax.swing.JButton();
+        logoLabel = new javax.swing.JLabel();
+        separator5 = new javax.swing.JSeparator();
+        motdScrollPane = new javax.swing.JScrollPane();
+        motdTextField = new javax.swing.JTextField();
+        showDevInfosCheckBox = new javax.swing.JCheckBox();
+        saveMotdButton = new javax.swing.JButton();
+        showInfosCheckBox = new javax.swing.JCheckBox();
+        statusScrollPane = new javax.swing.JScrollPane();
+        statusTable = new javax.swing.JTable();
+        separator1 = new javax.swing.JSeparator();
+        separator2 = new javax.swing.JSeparator();
+        separator3 = new javax.swing.JSeparator();
+        separator4 = new javax.swing.JSeparator();
 
-        setMinimumSize(new java.awt.Dimension(793, 493));
-        setPreferredSize(new java.awt.Dimension(793, 493));
+        statusLabel.setText("Status:");
 
-        jLabel1.setText("Status:");
+        importLessonsButton.setText("Vertretungsplan importieren");
+        importLessonsButton.setToolTipText("Importiert den Plan mithilfe des gewählten Import-Modules");
 
-        importLessonsBtn.setText("Vertretungsplan importieren");
-        importLessonsBtn.setToolTipText("Importiert den Plan mithilfe des gewählten Import-Modules");
+        generateAllButton.setText("Alles Generieren");
+        generateAllButton.setToolTipText("Generiert den kompletten Plan");
+        generateAllButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        genAllBtn.setText("Alles Generieren");
-        genAllBtn.setToolTipText("Generiert den kompletten Plan");
-        genAllBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        exportLessonsButton.setText("Vertretungplan exportieren");
+        exportLessonsButton.setToolTipText("Exportiert den Plan mithilfe der aktivierten Export-Module");
 
-        exportLessonsBtn.setText("Vertretungplan exportieren");
-        exportLessonsBtn.setToolTipText("Exportiert den Plan mithilfe der aktivierten Export-Module");
+        createBackupButton.setText("Backup erstellen");
+        createBackupButton.setToolTipText("Erstellt ein Backup des aktuellen Plans");
 
-        createBackupBtn.setText("Backup erstellen");
-        createBackupBtn.setToolTipText("Erstellt ein Backup des aktuellen Plans");
+        logoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/convertron/res/antonianumLogo.jpg"))); // NOI18N
+        logoLabel.setToolTipText("Antonianum Logo");
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/convertron/res/antonianumLogo.jpg"))); // NOI18N
-        jLabel5.setToolTipText("Antonianum Logo");
+        separator5.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        motdScrollPane.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        motdScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        motdScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        motdScrollPane.setAutoscrolls(true);
+        motdScrollPane.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jScrollPane4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jScrollPane4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        jScrollPane4.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        jScrollPane4.setAutoscrolls(true);
-        jScrollPane4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        motdTextField.setText("Laufschrift");
+        motdTextField.setToolTipText("Text, der als Laufschrift angezeigt werden soll z.B. \"Dies ist eine Laufschrift\"");
+        motdTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 5));
+        motdTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        motdScrollPane.setViewportView(motdTextField);
 
-        motdTxt.setText("Laufschrift");
-        motdTxt.setToolTipText("Text, der als Laufschrift angezeigt werden soll z.B. \"Dies ist eine Laufschrift\"");
-        motdTxt.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 5));
-        motdTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jScrollPane4.setViewportView(motdTxt);
-
-        showDevInfosCheck.setText("Zeige Entwickler-Informationen im Status");
-        showDevInfosCheck.addChangeListener(new javax.swing.event.ChangeListener()
+        showDevInfosCheckBox.setText("Zeige Entwickler-Informationen im Status");
+        showDevInfosCheckBox.addChangeListener(new javax.swing.event.ChangeListener()
         {
             public void stateChanged(javax.swing.event.ChangeEvent evt)
             {
-                showDevInfosCheckStateChanged(evt);
+                showDevInfosCheckBoxStateChanged(evt);
             }
         });
 
-        saveMotdBtn.setText("Laufschrift speichern");
+        saveMotdButton.setText("Laufschrift speichern");
 
-        showInfosCheck.setText("Zeige Informationen im Status");
-        showInfosCheck.addChangeListener(new javax.swing.event.ChangeListener()
+        showInfosCheckBox.setText("Zeige Informationen im Status");
+        showInfosCheckBox.addChangeListener(new javax.swing.event.ChangeListener()
         {
             public void stateChanged(javax.swing.event.ChangeEvent evt)
             {
-                showInfosCheckStateChanged(evt);
+                showInfosCheckBoxStateChanged(evt);
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        statusTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][]
             {
 
@@ -130,9 +118,9 @@ public class OverviewView extends View
 
             }
         ));
-        jTable1.setShowVerticalLines(false);
-        jTable1.setTableHeader(null);
-        jScrollPane2.setViewportView(jTable1);
+        statusTable.setShowVerticalLines(false);
+        statusTable.setTableHeader(null);
+        statusScrollPane.setViewportView(statusTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -141,131 +129,130 @@ public class OverviewView extends View
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(saveMotdBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
-                    .addComponent(exportLessonsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
-                    .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
-                    .addComponent(genAllBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(createBackupBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(importLessonsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSeparator3, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
-                    .addComponent(jSeparator1)
-                    .addComponent(showDevInfosCheck, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(showInfosCheck, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(saveMotdButton, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                    .addComponent(motdScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                    .addComponent(exportLessonsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(logoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                    .addComponent(separator4, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                    .addComponent(separator2, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                    .addComponent(generateAllButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(createBackupButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(importLessonsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(separator3, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                    .addComponent(separator1)
+                    .addComponent(showDevInfosCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(showInfosCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(10, 10, 10)
-                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(separator5, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(statusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
+                    .addComponent(statusScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator6, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(separator5, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(logoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(separator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
-                        .addComponent(genAllBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(generateAllButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
-                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(separator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
-                        .addComponent(importLessonsBtn)
+                        .addComponent(importLessonsButton)
                         .addGap(10, 10, 10)
-                        .addComponent(exportLessonsBtn)
+                        .addComponent(exportLessonsButton)
                         .addGap(10, 10, 10)
-                        .addComponent(createBackupBtn)
+                        .addComponent(createBackupButton)
                         .addGap(10, 10, 10)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(separator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
-                        .addComponent(saveMotdBtn)
+                        .addComponent(saveMotdButton)
                         .addGap(10, 10, 10)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(motdScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(separator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
-                        .addComponent(showInfosCheck)
+                        .addComponent(showInfosCheckBox)
                         .addGap(10, 10, 10)
-                        .addComponent(showDevInfosCheck))
+                        .addComponent(showDevInfosCheckBox))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(statusLabel)
                         .addGap(10, 10, 10)
-                        .addComponent(jScrollPane2)))
+                        .addComponent(statusScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void showInfosCheckStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_showInfosCheckStateChanged
-    {//GEN-HEADEREND:event_showInfosCheckStateChanged
-        LogTable.setLogInfos(showInfosCheck.isSelected());
-    }//GEN-LAST:event_showInfosCheckStateChanged
+    private void showInfosCheckBoxStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_showInfosCheckBoxStateChanged
+    {//GEN-HEADEREND:event_showInfosCheckBoxStateChanged
+        LogTable.setLogInfos(showInfosCheckBox.isSelected());
+    }//GEN-LAST:event_showInfosCheckBoxStateChanged
 
-    private void showDevInfosCheckStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_showDevInfosCheckStateChanged
-    {//GEN-HEADEREND:event_showDevInfosCheckStateChanged
-        LogTable.setLogDevInfos(showDevInfosCheck.isSelected());
-    }//GEN-LAST:event_showDevInfosCheckStateChanged
+    private void showDevInfosCheckBoxStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_showDevInfosCheckBoxStateChanged
+    {//GEN-HEADEREND:event_showDevInfosCheckBoxStateChanged
+        LogTable.setLogDevInfos(showDevInfosCheckBox.isSelected());
+    }//GEN-LAST:event_showDevInfosCheckBoxStateChanged
 
     public void addGenAllListener(Runnable task)
     {
-        genAllBtn.addActionListener(getActionListenerToRunnable(task));
+        generateAllButton.addActionListener(getActionListenerToRunnable(task));
     }
 
     public void addImportListener(Runnable task)
     {
-        importLessonsBtn.addActionListener(getActionListenerToRunnable(task));
+        importLessonsButton.addActionListener(getActionListenerToRunnable(task));
     }
 
     public void addExportListener(Runnable task)
     {
-        exportLessonsBtn.addActionListener(getActionListenerToRunnable(task));
+        exportLessonsButton.addActionListener(getActionListenerToRunnable(task));
     }
 
     public void addBackupListener(Runnable task)
     {
-        createBackupBtn.addActionListener(getActionListenerToRunnable(task));
+        createBackupButton.addActionListener(getActionListenerToRunnable(task));
     }
 
     public void addSaveMotdListener(Runnable task)
     {
-        saveMotdBtn.addActionListener(getActionListenerToRunnable(task));
+        saveMotdButton.addActionListener(getActionListenerToRunnable(task));
     }
 
     public SettingHandler createMotdSettingHandler()
     {
-        return new TextFieldHandler(motdTxt, CoreSettings.motdText);
+        return new TextFieldHandler(motdTextField, CoreSettings.motdText);
     }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton createBackupBtn;
-    private javax.swing.JButton exportLessonsBtn;
-    private javax.swing.JButton genAllBtn;
-    private javax.swing.JButton importLessonsBtn;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField motdTxt;
-    private javax.swing.JButton saveMotdBtn;
-    private javax.swing.JCheckBox showDevInfosCheck;
-    private javax.swing.JCheckBox showInfosCheck;
-    // End of variables declaration//GEN-END:variables
 
     @Override
     public String getTabTitle()
     {
         return "Übersicht";
     }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton createBackupButton;
+    private javax.swing.JButton exportLessonsButton;
+    private javax.swing.JButton generateAllButton;
+    private javax.swing.JButton importLessonsButton;
+    private javax.swing.JLabel logoLabel;
+    private javax.swing.JScrollPane motdScrollPane;
+    private javax.swing.JTextField motdTextField;
+    private javax.swing.JButton saveMotdButton;
+    private javax.swing.JSeparator separator1;
+    private javax.swing.JSeparator separator2;
+    private javax.swing.JSeparator separator3;
+    private javax.swing.JSeparator separator4;
+    private javax.swing.JSeparator separator5;
+    private javax.swing.JCheckBox showDevInfosCheckBox;
+    private javax.swing.JCheckBox showInfosCheckBox;
+    private javax.swing.JLabel statusLabel;
+    private javax.swing.JScrollPane statusScrollPane;
+    private javax.swing.JTable statusTable;
+    // End of variables declaration//GEN-END:variables
 }
