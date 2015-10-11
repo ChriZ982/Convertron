@@ -1,6 +1,7 @@
 package convertron.tabs.modules;
 
 import convertron.core.Control;
+import convertron.core.CoreArraySettings;
 import interlib.interfaces.Module;
 import interlib.logging.messages.LogPriority;
 import interlib.logging.Logger;
@@ -206,12 +207,12 @@ public class ModuleLoader
         {
             arrayForSetting[i] = locationOfImportedModules.get(i).forSaving();
         }
-        ModuleSettings.locationOfImportedModules.saveArray(arrayForSetting);
+        CoreArraySettings.locationOfImportedModules.saveArray(arrayForSetting);
     }
 
     protected void loadImported()
     {
-        String[] fromSetting = ModuleSettings.locationOfImportedModules.loadArray();
+        String[] fromSetting = CoreArraySettings.locationOfImportedModules.loadArray();
         for(String locationAsString : fromSetting)
         {
             try

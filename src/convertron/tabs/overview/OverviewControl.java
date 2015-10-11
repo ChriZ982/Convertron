@@ -1,18 +1,21 @@
 package convertron.tabs.overview;
 
 import convertron.core.Control;
+import convertron.tabs.settings.SettingHandler;
 
 public class OverviewControl
 {
     private OverviewView view;
+    private SettingHandler motdHandler;
 
     public OverviewControl()
     {
         view = new OverviewView();
-
-        Control.addViewToWindow(view);
+        motdHandler = view.createMotdSettingHandler();
+        loadMotdText();
 
         initializeListeners();
+        Control.addViewToWindow(view);
     }
 
     private void initializeListeners()
@@ -39,42 +42,37 @@ public class OverviewControl
 
         view.addSaveMotdListener(() ->
         {
-            saveMotdAction();
+            saveMotdText();
         });
     }
 
     private void genAllAction()
     {
-        throw new UnsupportedOperationException("Not implemented yet");
+        Control.genAll();
     }
 
     private void importAction()
     {
-        throw new UnsupportedOperationException("Not implemented yet");
+        Control.importLessons();
     }
 
     private void exportAction()
     {
-        throw new UnsupportedOperationException("Not implemented yet");
+        Control.exportLessonsAndMotd();
     }
 
     private void backupAction()
     {
-        throw new UnsupportedOperationException("Not implemented yet");
+        Control.createBackup();
     }
 
-    private void saveMotdAction()
+    public void saveMotdText()
     {
-        throw new UnsupportedOperationException("Not implemented yet");
+        motdHandler.save();
     }
 
-    private void showInfoStateChanged()
+    public void loadMotdText()
     {
-        throw new UnsupportedOperationException("Not implemented yet");
-    }
-
-    public String getMotdText()
-    {
-        return view.getMotdText();
+        motdHandler.load();
     }
 }

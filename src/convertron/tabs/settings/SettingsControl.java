@@ -5,26 +5,35 @@ import convertron.core.Control;
 public class SettingsControl
 {
     private SettingsView view;
+    private SettingHandler[] settingHandlers;
 
     public SettingsControl()
     {
         view = new SettingsView();
-
-        Control.addViewToWindow(view);
+        settingHandlers = view.createHandlers();
+        load();
 
         initializeListeners();
+        Control.addViewToWindow(view);
     }
 
     private void initializeListeners()
     {
         view.addSaveListener(() ->
         {
-            saveAction();
+            save();
         });
     }
 
-    private void saveAction()
+    public void save()
     {
-        throw new UnsupportedOperationException("Not implemented yet");
+        for(SettingHandler handler : settingHandlers)
+            handler.save();
+    }
+
+    public void load()
+    {
+        for(SettingHandler handler : settingHandlers)
+            handler.load();
     }
 }

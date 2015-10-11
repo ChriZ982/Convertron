@@ -5,6 +5,9 @@
  */
 package convertron.tabs.overview;
 
+import convertron.core.CoreSettings;
+import convertron.tabs.settings.SettingHandler;
+import convertron.tabs.settings.TextFieldHandler;
 import interlib.interfaces.View;
 import interlib.logging.LogRenderer;
 import interlib.logging.LogTable;
@@ -234,9 +237,9 @@ public class OverviewView extends View
         saveMotdBtn.addActionListener(getActionListenerToRunnable(task));
     }
 
-    public String getMotdText()
+    public SettingHandler createMotdSettingHandler()
     {
-        return motdTxt.getText();
+        return new TextFieldHandler(motdTxt, CoreSettings.motdText);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
