@@ -89,22 +89,22 @@ public class OverviewView extends View
         motdScrollPane.setViewportView(motdTextField);
 
         showDevInfosCheckBox.setText("Zeige Entwickler-Informationen im Status");
-        showDevInfosCheckBox.addChangeListener(new javax.swing.event.ChangeListener()
+        showDevInfosCheckBox.addItemListener(new java.awt.event.ItemListener()
         {
-            public void stateChanged(javax.swing.event.ChangeEvent evt)
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
             {
-                showDevInfosCheckBoxStateChanged(evt);
+                showDevInfosCheckBoxItemStateChanged(evt);
             }
         });
 
         saveMotdButton.setText("Laufschrift speichern");
 
         showInfosCheckBox.setText("Zeige Informationen im Status");
-        showInfosCheckBox.addChangeListener(new javax.swing.event.ChangeListener()
+        showInfosCheckBox.addItemListener(new java.awt.event.ItemListener()
         {
-            public void stateChanged(javax.swing.event.ChangeEvent evt)
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
             {
-                showInfosCheckBoxStateChanged(evt);
+                showInfosCheckBoxItemStateChanged(evt);
             }
         });
 
@@ -146,8 +146,10 @@ public class OverviewView extends View
                 .addComponent(separator5, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(statusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
-                    .addComponent(statusScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addComponent(statusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(statusScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,20 +186,20 @@ public class OverviewView extends View
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(statusLabel)
                         .addGap(10, 10, 10)
-                        .addComponent(statusScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)))
+                        .addComponent(statusScrollPane)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void showInfosCheckBoxStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_showInfosCheckBoxStateChanged
-    {//GEN-HEADEREND:event_showInfosCheckBoxStateChanged
+    private void showInfosCheckBoxItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_showInfosCheckBoxItemStateChanged
+    {//GEN-HEADEREND:event_showInfosCheckBoxItemStateChanged
         LogTable.setLogInfos(showInfosCheckBox.isSelected());
-    }//GEN-LAST:event_showInfosCheckBoxStateChanged
+    }//GEN-LAST:event_showInfosCheckBoxItemStateChanged
 
-    private void showDevInfosCheckBoxStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_showDevInfosCheckBoxStateChanged
-    {//GEN-HEADEREND:event_showDevInfosCheckBoxStateChanged
+    private void showDevInfosCheckBoxItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_showDevInfosCheckBoxItemStateChanged
+    {//GEN-HEADEREND:event_showDevInfosCheckBoxItemStateChanged
         LogTable.setLogDevInfos(showDevInfosCheckBox.isSelected());
-    }//GEN-LAST:event_showDevInfosCheckBoxStateChanged
+    }//GEN-LAST:event_showDevInfosCheckBoxItemStateChanged
 
     public void addGenAllListener(Runnable task)
     {

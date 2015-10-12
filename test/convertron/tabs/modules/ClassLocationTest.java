@@ -87,7 +87,7 @@ public class ClassLocationTest
     public void testForSaving() throws Exception
     {
         System.out.println("forSaving");
-        ClassLocation instance = new ClassLocation(new File("/path1/path2/file.name").toURI().toURL(), "package1.package2.className");
+        ClassLocation instance = new ClassLocation(new File("C:/path1/path2/file.name").toURI().toURL(), "package1.package2.className");
         String expResult = "package1.package2.className@file:/C:/path1/path2/file.name";
         String result = instance.forSaving();
         assertEquals(expResult, result);

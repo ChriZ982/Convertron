@@ -4,7 +4,7 @@ import interlib.interfaces.Input;
 import interlib.interfaces.Module;
 import interlib.interfaces.Output;
 import interlib.interfaces.View;
-import interlib.io.FileIO;
+import interlib.io.TextFile;
 import interlib.settings.SettingLocation;
 import interlib.settings.Settings;
 import java.io.File;
@@ -20,14 +20,14 @@ public class ModuleLoaderTest
 {
     public ModuleLoaderTest() throws IOException
     {
-        FileIO file = new FileIO("./local.settings");
+        TextFile file = new TextFile("./local.settings");
         file.create();
         file.writeLines("pathBackup: \".\\TestBackup\"",
                         "pathData: ",
                         "pathDests: {\".\\TestZiel1\",\".\\TestZiel2\",\".\\TestZiel3\"}",
                         "pathSource: \".\\TestDateien\"",
                         "position: {\"335\",\"101\"}");
-        String[] imported = Settings.loadArray(SettingLocation.LOCAL, "locationOfImportedModules");
+        String[] imported = Settings.loadArray(SettingLocation.LOCAL.getFile(), "locationOfImportedModules");
         System.out.println(imported.length);
     }
 
