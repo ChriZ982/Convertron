@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package convertron.core;
+package convertron.settings;
 
 import interlib.settings.SettingID;
 import interlib.settings.SettingLocation;
 import interlib.settings.Settings;
 
-/**
- *
- * @author Mirko
- */
 public enum CoreArraySettings implements SettingID
 {
     locationOfImportedModules,
