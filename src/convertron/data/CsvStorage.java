@@ -22,7 +22,12 @@ public class CsvStorage implements Storage
 
     public CsvStorage()
     {
-        csvFile = new TextFile(CoreSettings.pathData.load() + "/data.csv");
+        this(new TextFile(CoreSettings.pathData.load() + "/data.csv"));
+    }
+
+    public CsvStorage(TextFile csvFile)
+    {
+        this.csvFile = csvFile;
     }
 
     @Override

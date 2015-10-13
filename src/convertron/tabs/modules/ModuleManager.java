@@ -7,8 +7,6 @@ import interlib.data.Lesson;
 import interlib.interfaces.Input;
 import interlib.interfaces.Module;
 import interlib.interfaces.Output;
-import interlib.logging.messages.LogPriority;
-import interlib.logging.Logger;
 import java.util.ArrayList;
 
 /**
@@ -101,20 +99,13 @@ public class ModuleManager implements Input, Output
     @Override
     public void out(Lesson[] types)
     {
-        try
+        for(Output out : activeOutputs)
         {
-            for(Output out : activeOutputs)
-            {
-                Lesson[] copy = new Lesson[types.length];
-                for(int i = 0; i < types.length; i++)
-                    copy[i] = types[i].clone();
+            Lesson[] copy = new Lesson[types.length];
+            for(int i = 0; i < types.length; i++)
+                copy[i] = new Lesson(types[i]);
 
-                out.out(copy);
-            }
-        }
-        catch(CloneNotSupportedException | ClassCastException ex)
-        {
-            Logger.logError(LogPriority.ERROR, "Unerwarteter Fehler beim duplizieren der Stunden-Objekte", ex);
+            out.out(copy);
         }
     }
 
