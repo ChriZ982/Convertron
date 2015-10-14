@@ -1,19 +1,19 @@
-package convertron.tabs.settings;
+package convertron.settings;
 
 import interlib.settings.SettingID;
 import javax.swing.text.JTextComponent;
 
-public class TextFieldHandler extends SettingHandler
+public class TextFieldSetting extends ComponentSetting
 {
     private JTextComponent comp;
 
-    public TextFieldHandler(JTextComponent comp, SettingID setting)
+    public TextFieldSetting(JTextComponent comp, SettingID setting)
     {
         super(setting);
         this.comp = comp;
     }
 
-    public TextFieldHandler(JTextComponent comp, SettingID arraySetting, int index)
+    public TextFieldSetting(JTextComponent comp, SettingID arraySetting, int index)
     {
         super(arraySetting, index);
         this.comp = comp;

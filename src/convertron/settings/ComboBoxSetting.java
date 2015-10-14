@@ -1,19 +1,19 @@
-package convertron.tabs.settings;
+package convertron.settings;
 
 import interlib.settings.SettingID;
 import javax.swing.JComboBox;
 
-public class ComboBoxHandler extends SettingHandler
+public class ComboBoxSetting extends ComponentSetting
 {
     private JComboBox<? extends Object> comp;
 
-    public ComboBoxHandler(JComboBox<? extends Object> comp, SettingID setting)
+    public ComboBoxSetting(JComboBox<? extends Object> comp, SettingID setting)
     {
         super(setting);
         this.comp = comp;
     }
 
-    public ComboBoxHandler(JComboBox<? extends Object> comp, SettingID arraySetting, int index)
+    public ComboBoxSetting(JComboBox<? extends Object> comp, SettingID arraySetting, int index)
     {
         super(arraySetting, index);
         this.comp = comp;

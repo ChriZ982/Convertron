@@ -1,7 +1,9 @@
 package convertron.tabs.modules;
 
 import convertron.core.Control;
+import convertron.modules.ClassLocation;
 import convertron.settings.CoreArraySettings;
+import convertron.tabs.modules.ModuleManagerView;
 import interlib.interfaces.Module;
 import interlib.logging.Logger;
 import interlib.logging.messages.LogPriority;
@@ -17,22 +19,22 @@ import java.util.jar.JarFile;
 import javax.swing.JOptionPane;
 
 /**
- * Der ModuleLoader ist für das importieren und laden (Instanz erzeugen) der Module zuständig.
+ * Der ModuleManagerControl ist für das importieren und laden (Instanz erzeugen) der Module zuständig.
  *
  * @see convertron.tabs.modules.ModuleManager
  */
-public class ModuleLoader
+public class ModuleManagerControl
 {
     private ArrayList<ClassLocation> locationOfImportedModules;
 
-    private ModuleManageView view;
+    private ModuleManagerView view;
 
-    public ModuleLoader()
+    public ModuleManagerControl()
     {
         locationOfImportedModules = new ArrayList<>();
         loadImported();
 
-        view = new ModuleManageView(locationOfImportedModules.toArray(
+        view = new ModuleManagerView(locationOfImportedModules.toArray(
                 new ClassLocation[locationOfImportedModules.size()]));
 
         Control.addViewToWindow(view);

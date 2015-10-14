@@ -8,6 +8,7 @@ public enum CoreArraySettings implements SettingID
 {
     locationOfImportedModules,
     activeOutputs,
+
     cutHours;
 
     public static final String PREFIX = "core.arrays.";

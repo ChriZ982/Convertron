@@ -15,17 +15,18 @@ public enum CoreSettings implements SettingID
     pathBackup,
     positionX,
     positionY,
-    motdText,
     activeInput,
-    useCutHours,
     autoMode,
     autoImport,
     autoExport,
     autoBackup,
+
+    motdText,
+    useCutHours,
     useCustomDate,
     customDateToday,
     customDateTomorrow,
-    flatWeekChar;
+    evenWeekChar;
 
     public static final String PREFIX = "core.strings.";
 

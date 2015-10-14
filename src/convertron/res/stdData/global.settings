@@ -1,29 +1,7 @@
-autoGenUse:false
-autoBackupUse:true
-autoDeleteUse:false
-customWeek:B
-customUse:false
-customDates:20.1.;21.1.
-fileName:Druck_Klasse_;.htm
-lessonUse:true
-lessonOrder:0;1;2;3;4;5;6
-lessonSizes:9;10;11;8;9;10;26
-lessons:8:40;9:25;10:30;11:15;12:20;13:05;14:45;15:30;16:20;17:05
-laufschriftText:Dies ist ein Text
-sqlMode:ADD
-sqlUse:false
-sql:localhost;-1;mysql;facharbeit_test;program;1234
-speed:100;100
-colorRahmen:004a80
-colorSchrift:517c94
-colorSchwarz:000000
-colorTabelle:e7e7e7
-colorTabRaum:d1d1d1
-colorAntonsblau:026398
-borderColor:Rahmen
-planColor:Antonsblau
-stufennameFont:bold;30;calibri;Schwarz
-tabelleFont:;16;calibri;Schwarz;Tabelle
-überschriftFont:bold;40;calibri;Schwarz
-laufschriftFont:bold;50;calibri;Schwarz;Schrift
-variantRaum-VtrFont:;16;calibri;Schwarz;TabRaum
+core.strings.motdText:Dies ist die Laufschrift
+core.strings.useCutHours:true
+core.strings.useCustomDate:false
+core.strings.customDateToday:20.1.
+core.strings.customDateTomorrow:21.1.
+core.strings.evenWeekChar:B
+core.arrays.cutHours:8:40;9:25;10:30;11:15;12:20;13:05;14:45;15:30;16:20;17:05

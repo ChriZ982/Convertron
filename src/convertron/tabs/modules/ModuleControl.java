@@ -10,13 +10,13 @@ import interlib.interfaces.Output;
 import java.util.ArrayList;
 
 /**
- * Der ModuleManager ist für das im- und exportieren mithilfe der Module zuständig.
+ * Der ModuleControl ist für das im- und exportieren mithilfe der Module zuständig.
  * Außerdem ist er für das aktivieren und deaktivieren von Modulen zuständig,
  * nicht jedoch für das importieren von Modulen.
  *
- * @see convertron.tabs.modules.ModuleLoader
+ * @see convertron.tabs.modules.ModuleManagerControl
  */
-public class ModuleManager implements Input, Output
+public class ModuleControl implements Input, Output
 {
     private ArrayList<Output> allOutputs;
     private ArrayList<Output> activeOutputs;
@@ -24,17 +24,17 @@ public class ModuleManager implements Input, Output
     private Input activeInput;
 
     private ModuleView view;
-    private ModuleLoader loader;
+    private ModuleManagerControl loader;
 
-    public ModuleManager()
+    public ModuleControl()
     {
-        allOutputs = new ArrayList<>();
-        activeOutputs = new ArrayList<>();
+        allOutputs = new ArrayList<Output>();
+        activeOutputs = new ArrayList<Output>();
 
-        allInputs = new ArrayList<>();
+        allInputs = new ArrayList<Input>();
         activeInput = null;
 
-        loader = new ModuleLoader();
+        loader = new ModuleManagerControl();
 
         Module[] modules = loader.loadAllImportedModules();
 

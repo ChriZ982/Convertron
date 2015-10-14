@@ -3,7 +3,7 @@ package convertron.core;
 import convertron.data.CsvStorage;
 import convertron.data.Storage;
 import convertron.settings.CoreSettings;
-import convertron.tabs.modules.ModuleManager;
+import convertron.tabs.modules.ModuleControl;
 import convertron.tabs.overview.OverviewControl;
 import convertron.tabs.settings.SettingsControl;
 import interlib.data.Lesson;
@@ -44,7 +44,7 @@ public class Control
 
     private static OverviewControl overview;
     private static SettingsControl settings;
-    private static ModuleManager moduleManager;
+    private static ModuleControl moduleManager;
 
     private static Storage storage;
 
@@ -62,13 +62,13 @@ public class Control
     {
         try
         {
-            setFileEncoding("ISO-8859-1");
-
-            initializeStorage();
+            setFileEncoding("UTF-8");
 
             setJavaLookAndFeel();
 
             copyFilesFromPackage();
+
+            initializeStorage();
 
             createAndFillWindow();
 
@@ -115,7 +115,7 @@ public class Control
 
         overview = new OverviewControl();
         settings = new SettingsControl();
-        moduleManager = new ModuleManager();
+        moduleManager = new ModuleControl();
 
         window.addWindowListener(new WindowAdapter()
         {

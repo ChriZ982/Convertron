@@ -1,5 +1,6 @@
-package convertron.tabs.modules;
+package convertron.modules;
 
+import convertron.modules.ClassLocation;
 import java.io.File;
 import java.net.URL;
 import static org.junit.Assert.assertEquals;

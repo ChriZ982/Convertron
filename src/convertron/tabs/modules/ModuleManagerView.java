@@ -1,5 +1,6 @@
 package convertron.tabs.modules;
 
+import convertron.modules.ClassLocation;
 import interlib.interfaces.View;
 import java.io.File;
 import java.util.ArrayList;
@@ -9,11 +10,11 @@ import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
-public class ModuleManageView extends View
+public class ModuleManagerView extends View
 {
     private static final long serialVersionUID = 1L;
 
-    public ModuleManageView(ClassLocation[] allModules)
+    public ModuleManagerView(ClassLocation[] allModules)
     {
         allModulesListModel = new DefaultListModel<>();
         for(ClassLocation loc : allModules)

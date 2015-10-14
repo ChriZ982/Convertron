@@ -1,8 +1,8 @@
 package convertron.tabs.overview;
 
 import convertron.settings.CoreSettings;
-import convertron.tabs.settings.SettingHandler;
-import convertron.tabs.settings.TextFieldHandler;
+import convertron.settings.ComponentSetting;
+import convertron.settings.TextFieldSetting;
 import interlib.interfaces.View;
 import interlib.logging.LogRenderer;
 import interlib.logging.LogTable;
@@ -226,9 +226,9 @@ public class OverviewView extends View
         saveMotdButton.addActionListener(getActionListenerToRunnable(task));
     }
 
-    public SettingHandler createMotdSettingHandler()
+    public ComponentSetting createMotdSettingHandler()
     {
-        return new TextFieldHandler(motdTextField, CoreSettings.motdText);
+        return new TextFieldSetting(motdTextField, CoreSettings.motdText);
     }
 
     @Override

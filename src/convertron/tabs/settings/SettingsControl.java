@@ -1,11 +1,12 @@
 package convertron.tabs.settings;
 
+import convertron.settings.ComponentSetting;
 import convertron.core.Control;
 
 public class SettingsControl
 {
     private SettingsView view;
-    private SettingHandler[] settingHandlers;
+    private ComponentSetting[] settingHandlers;
 
     public SettingsControl()
     {
@@ -27,13 +28,13 @@ public class SettingsControl
 
     public void save()
     {
-        for(SettingHandler handler : settingHandlers)
+        for(ComponentSetting handler : settingHandlers)
             handler.save();
     }
 
     public void load()
     {
-        for(SettingHandler handler : settingHandlers)
+        for(ComponentSetting handler : settingHandlers)
             handler.load();
     }
 }
