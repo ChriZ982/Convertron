@@ -14,7 +14,7 @@ import java.util.TreeMap;
  */
 public class CsvStorage implements Storage
 {
-    private static final String lineSpliterator = System.getProperty("line.seperator");
+    private static final String lineSpliterator = "\n";
     private static final String columnSpliterator = ";";
     private static final String cellBorders = "\"";
 
