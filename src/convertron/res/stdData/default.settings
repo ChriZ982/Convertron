@@ -9,5 +9,12 @@ core.strings.autoMode:true
 core.strings.autoImport:true
 core.strings.autoExport:true
 core.strings.autoBackup:true
+core.strings.motdText:Dies ist die Laufschrift
+core.strings.useCutHours:true
+core.strings.useCustomDate:false
+core.strings.customDateToday:20.1.
+core.strings.customDateTomorrow:21.1.
+core.strings.evenWeekChar:B
+core.arrays.cutHours:8:40;9:25;10:30;11:15;12:20;13:05;14:45;15:30;16:20;17:05
 core.arrays.locationOfImportedModules:
 core.arrays.activeOutputs:

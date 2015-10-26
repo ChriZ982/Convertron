@@ -5,8 +5,11 @@
  */
 package convertron.settings;
 
+import interlib.io.ResourceFile;
+import interlib.io.TextFile;
 import interlib.settings.SettingID;
 import interlib.settings.SettingLocation;
+import interlib.settings.SettingLocationID;
 import interlib.settings.Settings;
 
 public enum CoreSettings implements SettingID
@@ -31,7 +34,7 @@ public enum CoreSettings implements SettingID
     public static final String PREFIX = "core.strings.";
 
     @Override
-    public SettingLocation getLocation()
+    public SettingLocationID getLocation()
     {
         switch(this)
         {
@@ -55,6 +58,16 @@ public enum CoreSettings implements SettingID
     public String getName()
     {
         return PREFIX + this.toString();
+    }
+
+    @Override
+    public SettingLocationID getFileWithDefaultValues()
+    {
+        return () ->
+        {
+            new ResourceFile("/convertron/res/stdData/default.settings").copyIfNotExists(System.getProperty("java.io.tmpdir") + "/convertron/core");
+            return new TextFile(System.getProperty("java.io.tmpdir") + "/convertron/core/default.settings");
+        };
     }
 
     public String load()

@@ -1,7 +1,10 @@
 package convertron.settings;
 
+import interlib.io.ResourceFile;
+import interlib.io.TextFile;
 import interlib.settings.SettingID;
 import interlib.settings.SettingLocation;
+import interlib.settings.SettingLocationID;
 import interlib.settings.Settings;
 
 public enum CoreArraySettings implements SettingID
@@ -14,7 +17,7 @@ public enum CoreArraySettings implements SettingID
     public static final String PREFIX = "core.arrays.";
 
     @Override
-    public SettingLocation getLocation()
+    public SettingLocationID getLocation()
     {
         switch(this)
         {
@@ -30,6 +33,16 @@ public enum CoreArraySettings implements SettingID
     public String getName()
     {
         return PREFIX + this.toString();
+    }
+
+    @Override
+    public SettingLocationID getFileWithDefaultValues()
+    {
+        return () ->
+        {
+            new ResourceFile("/convertron/res/stdData/default.settings").copyIfNotExists(System.getProperty("java.io.tmpdir") + "/convertron/core");
+            return new TextFile(System.getProperty("java.io.tmpdir") + "/convertron/core/default.settings");
+        };
     }
 
     public void saveArray(String... values)

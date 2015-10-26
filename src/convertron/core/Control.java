@@ -9,7 +9,7 @@ import convertron.tabs.settings.SettingsControl;
 import interlib.data.Lesson;
 import interlib.filter.TableOptions;
 import interlib.interfaces.View;
-import interlib.io.RessourceFile;
+import interlib.io.ResourceFile;
 import interlib.logging.Logger;
 import interlib.logging.messages.LogPriority;
 import java.awt.EventQueue;
@@ -167,10 +167,7 @@ public class Control
      */
     private static void copyFilesFromPackage()
     {
-        copyFileFromPackage("local.settings", "./");
-
         String destPath = CoreSettings.pathData.load();
-        copyFileFromPackage("global.settings", destPath);
         copyFileFromPackage("antonianumLogo.png", destPath);
         copyFileFromPackage("TEMPLATE style.css", destPath);
         copyFileFromPackage("VERTRETUNGSPLAN.html", destPath);
@@ -182,7 +179,7 @@ public class Control
 
     private static void copyFileFromPackage(String fileName, String destPath)
     {
-        RessourceFile resourceFile = new RessourceFile("/convertron/res/stdData", fileName);
+        ResourceFile resourceFile = new ResourceFile("/convertron/res/stdData", fileName);
         resourceFile.copyIfNotExists(destPath);
     }
 
