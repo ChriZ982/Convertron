@@ -1,9 +1,9 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package convertron.core;
+package convertron.settings;
 
 import interlib.settings.SettingID;
 import interlib.settings.SettingLocation;
@@ -15,17 +15,18 @@ public enum CoreSettings implements SettingID
     pathBackup,
     positionX,
     positionY,
-    motdText,
     activeInput,
-    useCutHours,
     autoMode,
     autoImport,
     autoExport,
     autoBackup,
+
+    motdText,
+    useCutHours,
     useCustomDate,
     customDateToday,
     customDateTomorrow,
-    flatWeekChar;
+    evenWeekChar;
 
     public static final String PREFIX = "core.strings.";
 

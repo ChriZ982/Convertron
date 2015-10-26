@@ -1,4 +1,4 @@
-package convertron.tabs.modules;
+package convertron.modules;
 
 import java.io.File;
 import java.net.MalformedURLException;

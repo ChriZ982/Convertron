@@ -1,14 +1,17 @@
 package convertron.core;
 
-import convertron.tabs.modules.ModuleManager;
+import convertron.data.CsvStorage;
+import convertron.data.Storage;
+import convertron.settings.CoreSettings;
+import convertron.tabs.modules.ModuleControl;
 import convertron.tabs.overview.OverviewControl;
 import convertron.tabs.settings.SettingsControl;
 import interlib.data.Lesson;
 import interlib.filter.TableOptions;
 import interlib.interfaces.View;
-import interlib.io.FileIO;
-import interlib.logging.messages.LogPriority;
+import interlib.io.RessourceFile;
 import interlib.logging.Logger;
+import interlib.logging.messages.LogPriority;
 import java.awt.EventQueue;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
@@ -41,7 +44,7 @@ public class Control
 
     private static OverviewControl overview;
     private static SettingsControl settings;
-    private static ModuleManager moduleManager;
+    private static ModuleControl moduleManager;
 
     private static Storage storage;
 
@@ -59,13 +62,13 @@ public class Control
     {
         try
         {
-            setFileEncoding("ISO-8859-1");
-
-            initializeStorage();
+            setFileEncoding("UTF-8");
 
             setJavaLookAndFeel();
 
             copyFilesFromPackage();
+
+            initializeStorage();
 
             createAndFillWindow();
 
@@ -112,7 +115,7 @@ public class Control
 
         overview = new OverviewControl();
         settings = new SettingsControl();
-        moduleManager = new ModuleManager();
+        moduleManager = new ModuleControl();
 
         window.addWindowListener(new WindowAdapter()
         {
@@ -164,23 +167,23 @@ public class Control
      */
     private static void copyFilesFromPackage()
     {
-        String packagePath = "/convertron/res/stdData/";
-        copyFileFromPackage(packagePath, "local.settings", "./");
+        copyFileFromPackage("local.settings", "./");
 
         String destPath = CoreSettings.pathData.load();
-        copyFileFromPackage(packagePath, "global.settings", destPath);
-        copyFileFromPackage(packagePath, "antonianumLogo.png", destPath);
-        copyFileFromPackage(packagePath, "TEMPLATE style.css", destPath);
-        copyFileFromPackage(packagePath, "VERTRETUNGSPLAN.html", destPath);
-        copyFileFromPackage(packagePath, "TEMPLATE laufschrift.html", destPath);
-        copyFileFromPackage(packagePath, "TEMPLATE heute morgen.html", destPath);
+        copyFileFromPackage("global.settings", destPath);
+        copyFileFromPackage("antonianumLogo.png", destPath);
+        copyFileFromPackage("TEMPLATE style.css", destPath);
+        copyFileFromPackage("VERTRETUNGSPLAN.html", destPath);
+        copyFileFromPackage("TEMPLATE laufschrift.html", destPath);
+        copyFileFromPackage("TEMPLATE heute morgen.html", destPath);
+
         Logger.logMessage(LogPriority.INFO, "Alle Dateien wurden erstellt oder überprüft");
     }
 
-    private static void copyFileFromPackage(String packagePath, String fileName, String destPath)
+    private static void copyFileFromPackage(String fileName, String destPath)
     {
-        FileIO file = new FileIO(packagePath + fileName);
-        file.copyFromPackage(destPath);
+        RessourceFile resourceFile = new RessourceFile("/convertron/res/stdData", fileName);
+        resourceFile.copyIfNotExists(destPath);
     }
 
     public static void loadWindowPosition()

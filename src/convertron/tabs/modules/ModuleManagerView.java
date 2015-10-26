@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package convertron.tabs.modules;
 
+import convertron.modules.ClassLocation;
 import interlib.interfaces.View;
 import java.io.File;
 import java.util.ArrayList;
@@ -14,15 +10,11 @@ import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
-/**
- *
- * @author Mirko
- */
-public class ModuleManageView extends View
+public class ModuleManagerView extends View
 {
     private static final long serialVersionUID = 1L;
 
-    public ModuleManageView(ClassLocation[] allModules)
+    public ModuleManagerView(ClassLocation[] allModules)
     {
         allModulesListModel = new DefaultListModel<>();
         for(ClassLocation loc : allModules)
@@ -59,61 +51,61 @@ public class ModuleManageView extends View
     {
 
         jarFileChooser = new javax.swing.JFileChooser();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        modulesInJarScrollPane = new javax.swing.JScrollPane();
         modulesInJarList = new javax.swing.JList<ClassLocation>(modulesInJarListModel);
-        jarFileTxt = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        chooseJarBtn = new javax.swing.JButton();
-        openJarBtn = new javax.swing.JButton();
-        importModuleBtn = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        jarFileTextField = new javax.swing.JTextField();
+        openJarLabel = new javax.swing.JLabel();
+        chooseJarButton = new javax.swing.JButton();
+        openJarButton = new javax.swing.JButton();
+        importModuleButton = new javax.swing.JButton();
+        separator1 = new javax.swing.JSeparator();
+        allModulesScrollPane = new javax.swing.JScrollPane();
         allModulesList = new javax.swing.JList<ClassLocation>(allModulesListModel);
-        removeModuleBtn = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        saveBtn = new javax.swing.JButton();
+        removeModuleButton = new javax.swing.JButton();
+        allModulesLabel = new javax.swing.JLabel();
+        saveButton = new javax.swing.JButton();
 
         modulesInJarList.setEnabled(false);
-        jScrollPane1.setViewportView(modulesInJarList);
+        modulesInJarScrollPane.setViewportView(modulesInJarList);
 
-        jLabel1.setText(".jar Datei öffnen");
+        openJarLabel.setText(".jar Datei öffnen");
 
-        chooseJarBtn.addActionListener(new java.awt.event.ActionListener()
+        chooseJarButton.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                chooseJarBtnActionPerformed(evt);
+                chooseJarButtonActionPerformed(evt);
             }
         });
 
-        openJarBtn.setText("öffnen");
+        openJarButton.setText("öffnen");
 
-        importModuleBtn.setText("importieren");
-        importModuleBtn.setEnabled(false);
-        importModuleBtn.addActionListener(new java.awt.event.ActionListener()
+        importModuleButton.setText("importieren");
+        importModuleButton.setEnabled(false);
+        importModuleButton.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                importModuleBtnActionPerformed(evt);
+                importModuleButtonActionPerformed(evt);
             }
         });
 
-        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        separator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jScrollPane2.setViewportView(allModulesList);
+        allModulesScrollPane.setViewportView(allModulesList);
 
-        removeModuleBtn.setText("entfernen");
-        removeModuleBtn.addActionListener(new java.awt.event.ActionListener()
+        removeModuleButton.setText("entfernen");
+        removeModuleButton.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                removeModuleBtnActionPerformed(evt);
+                removeModuleButtonActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("Alle Module");
+        allModulesLabel.setText("Alle Module");
 
-        saveBtn.setText("speichern");
+        saveButton.setText("speichern");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -122,24 +114,24 @@ public class ModuleManageView extends View
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(saveBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(saveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jarFileTxt)
+                                .addComponent(jarFileTextField)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(chooseJarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(openJarBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(importModuleBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(chooseJarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(openJarButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(importModuleButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
+                            .addComponent(modulesInJarScrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(openJarLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(separator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(removeModuleBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(allModulesScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(removeModuleButton, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+                            .addComponent(allModulesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -148,73 +140,67 @@ public class ModuleManageView extends View
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(openJarLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jarFileTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(chooseJarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jarFileTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(chooseJarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(openJarBtn)
+                        .addComponent(openJarButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(modulesInJarScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(importModuleBtn))
-                    .addComponent(jSeparator1)
+                        .addComponent(importModuleButton))
+                    .addComponent(separator1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addComponent(allModulesLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2)
+                        .addComponent(allModulesScrollPane)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(removeModuleBtn)))
+                        .addComponent(removeModuleButton)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(saveBtn)
+                .addComponent(saveButton)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void chooseJarBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chooseJarBtnActionPerformed
-    {//GEN-HEADEREND:event_chooseJarBtnActionPerformed
+    private void chooseJarButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chooseJarButtonActionPerformed
+    {//GEN-HEADEREND:event_chooseJarButtonActionPerformed
         if(jarFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
-            jarFileTxt.setText(jarFileChooser.getSelectedFile().getPath());
-    }//GEN-LAST:event_chooseJarBtnActionPerformed
+            jarFileTextField.setText(jarFileChooser.getSelectedFile().getPath());
+    }//GEN-LAST:event_chooseJarButtonActionPerformed
 
-    private void importModuleBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_importModuleBtnActionPerformed
-    {//GEN-HEADEREND:event_importModuleBtnActionPerformed
+    private void importModuleButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_importModuleButtonActionPerformed
+    {//GEN-HEADEREND:event_importModuleButtonActionPerformed
         for(ClassLocation loc : modulesInJarList.getSelectedValuesList())
         {
             allModulesListModel.addElement(loc);
             modulesInJarListModel.removeElement(loc);
         }
-    }//GEN-LAST:event_importModuleBtnActionPerformed
+    }//GEN-LAST:event_importModuleButtonActionPerformed
 
-    private void removeModuleBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_removeModuleBtnActionPerformed
-    {//GEN-HEADEREND:event_removeModuleBtnActionPerformed
+    private void removeModuleButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_removeModuleButtonActionPerformed
+    {//GEN-HEADEREND:event_removeModuleButtonActionPerformed
         for(ClassLocation loc : allModulesList.getSelectedValuesList())
         {
             allModulesListModel.removeElement(loc);
         }
-    }//GEN-LAST:event_removeModuleBtnActionPerformed
-
-    @Override
-    public String getTabTitle()
-    {
-        return "Module verwalten";
-    }
+    }//GEN-LAST:event_removeModuleButtonActionPerformed
 
     public void setFileOpened(boolean opened)
     {
-        importModuleBtn.setEnabled(opened);
+        importModuleButton.setEnabled(opened);
         modulesInJarList.setEnabled(opened);
     }
 
     public void addSaveListener(Runnable task)
     {
-        saveBtn.addActionListener(getActionListenerToRunnable(task));
+        saveButton.addActionListener(getActionListenerToRunnable(task));
     }
 
     public void addOpenJarListener(Runnable task)
     {
-        openJarBtn.addActionListener(getActionListenerToRunnable(task));
+        openJarButton.addActionListener(getActionListenerToRunnable(task));
     }
 
     public ArrayList<ClassLocation> getAllModules()
@@ -233,25 +219,31 @@ public class ModuleManageView extends View
 
     public String getJarFile()
     {
-        return jarFileTxt.getText();
+        return jarFileTextField.getText();
+    }
+
+    @Override
+    public String getTabTitle()
+    {
+        return "Module verwalten";
     }
 
     private javax.swing.DefaultListModel<ClassLocation> allModulesListModel;
     private javax.swing.DefaultListModel<ClassLocation> modulesInJarListModel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel allModulesLabel;
     private javax.swing.JList<ClassLocation> allModulesList;
-    private javax.swing.JButton chooseJarBtn;
-    private javax.swing.JButton importModuleBtn;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JScrollPane allModulesScrollPane;
+    private javax.swing.JButton chooseJarButton;
+    private javax.swing.JButton importModuleButton;
     private javax.swing.JFileChooser jarFileChooser;
-    private javax.swing.JTextField jarFileTxt;
+    private javax.swing.JTextField jarFileTextField;
     private javax.swing.JList<ClassLocation> modulesInJarList;
-    private javax.swing.JButton openJarBtn;
-    private javax.swing.JButton removeModuleBtn;
-    private javax.swing.JButton saveBtn;
+    private javax.swing.JScrollPane modulesInJarScrollPane;
+    private javax.swing.JButton openJarButton;
+    private javax.swing.JLabel openJarLabel;
+    private javax.swing.JButton removeModuleButton;
+    private javax.swing.JButton saveButton;
+    private javax.swing.JSeparator separator1;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,12 +1,12 @@
 package convertron.tabs.overview;
 
 import convertron.core.Control;
-import convertron.tabs.settings.SettingHandler;
+import convertron.settings.ComponentSetting;
 
 public class OverviewControl
 {
     private OverviewView view;
-    private SettingHandler motdHandler;
+    private ComponentSetting motdHandler;
 
     public OverviewControl()
     {

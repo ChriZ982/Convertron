@@ -1,15 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package convertron.tabs.modules;
 
+import convertron.modules.ClassLocation;
+import convertron.modules.ClassLocation;
+import convertron.tabs.modules.ModuleManagerControl;
 import interlib.interfaces.Input;
 import interlib.interfaces.Module;
 import interlib.interfaces.Output;
 import interlib.interfaces.View;
-import interlib.io.FileIO;
+import interlib.io.TextFile;
 import interlib.settings.SettingLocation;
 import interlib.settings.Settings;
 import java.io.File;
@@ -21,27 +19,23 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
-/**
- *
- * @author Mirko
- */
 public class ModuleLoaderTest
 {
     public ModuleLoaderTest() throws IOException
     {
-        FileIO file = new FileIO("./local.settings");
+        TextFile file = new TextFile("./local.settings");
         file.create();
         file.writeLines("pathBackup: \".\\TestBackup\"",
                         "pathData: ",
                         "pathDests: {\".\\TestZiel1\",\".\\TestZiel2\",\".\\TestZiel3\"}",
                         "pathSource: \".\\TestDateien\"",
                         "position: {\"335\",\"101\"}");
-        String[] imported = Settings.loadArray(SettingLocation.LOCAL, "locationOfImportedModules");
+        String[] imported = Settings.loadArray(SettingLocation.LOCAL.getFile(), "locationOfImportedModules");
         System.out.println(imported.length);
     }
 
     /**
-     * Test of getAvailableModules method, of class ModuleLoader.
+     * Test of getAvailableModules method, of class ModuleManagerControl.
      * @throws java.io.IOException
      */
     @Test
@@ -49,7 +43,7 @@ public class ModuleLoaderTest
     {
         System.out.println("getAvailableModules");
         File jarFile = new File("test/testRessources/TestModules.jar");
-        ModuleLoader instance = new ModuleLoader();
+        ModuleManagerControl instance = new ModuleManagerControl();
         ClassLocation[] expResult =
         {
             new ClassLocation(jarFile, "testmodules.main.ModuleI"),
@@ -62,7 +56,7 @@ public class ModuleLoaderTest
     }
 
     /**
-     * Test of loadClass method, of class ModuleLoader.
+     * Test of loadClass method, of class ModuleManagerControl.
      * @throws java.net.MalformedURLException
      */
     @Test
@@ -71,7 +65,7 @@ public class ModuleLoaderTest
         System.out.println("loadClass");
         ClassLocation loc = new ClassLocation(new File("test/testRessources/TestModules.jar"), "testmodules.main.ModuleIO");
 
-        ModuleLoader instance = new ModuleLoader();
+        ModuleManagerControl instance = new ModuleManagerControl();
 
         Module m = instance.loadModule(loc);
 
@@ -81,14 +75,14 @@ public class ModuleLoaderTest
     }
 
     /**
-     * Test of parseClassName method, of class ModuleLoader.
+     * Test of parseClassName method, of class ModuleManagerControl.
      */
     @Test
     public void testParseClassName()
     {
         System.out.println("parseClassName");
 
-        ModuleLoader instance = new ModuleLoader();
+        ModuleManagerControl instance = new ModuleManagerControl();
 
         String jarEntryName = "package/anotherpackage/testclass.class";
         String expResult = "package.anotherpackage.testclass";
@@ -97,14 +91,14 @@ public class ModuleLoaderTest
     }
 
     /**
-     * Test of validateJarEntryAsClass method, of class ModuleLoader.
+     * Test of validateJarEntryAsClass method, of class ModuleManagerControl.
      */
     @Test
     public void testValidateJarEntryAsClass()
     {
         System.out.println("validateJarEntryAsClass");
 
-        ModuleLoader instance = new ModuleLoader();
+        ModuleManagerControl instance = new ModuleManagerControl();
 
         JarEntry e = new JarEntry("package/classname.class");
         boolean expResult = true;
@@ -113,14 +107,14 @@ public class ModuleLoaderTest
     }
 
     /**
-     * Test of validateJarEntryAsClass method, of class ModuleLoader.
+     * Test of validateJarEntryAsClass method, of class ModuleManagerControl.
      */
     @Test
     public void testValidateJarEntryAsClass2()
     {
         System.out.println("validateJarEntryAsClass");
 
-        ModuleLoader instance = new ModuleLoader();
+        ModuleManagerControl instance = new ModuleManagerControl();
 
         JarEntry e = new JarEntry("package/classname.notclass");
         boolean expResult = false;
@@ -129,14 +123,14 @@ public class ModuleLoaderTest
     }
 
     /**
-     * Test of isModule method, of class ModuleLoader.
+     * Test of isModule method, of class ModuleManagerControl.
      */
     @Test
     public void testIsModule()
     {
         System.out.println("isModule");
 
-        ModuleLoader instance = new ModuleLoader();
+        ModuleManagerControl instance = new ModuleManagerControl();
 
         Class c = new interlib.interfaces.Module()
         {
@@ -158,14 +152,14 @@ public class ModuleLoaderTest
     }
 
     /**
-     * Test of isModule method, of class ModuleLoader.
+     * Test of isModule method, of class ModuleManagerControl.
      */
     @Test
     public void testIsModule2()
     {
         System.out.println("isModule");
 
-        ModuleLoader instance = new ModuleLoader();
+        ModuleManagerControl instance = new ModuleManagerControl();
 
         Class c = new Object().getClass();
         boolean expResult = false;
@@ -174,7 +168,7 @@ public class ModuleLoaderTest
     }
 
     /**
-     * Test of isModule method, of class ModuleLoader.
+     * Test of isModule method, of class ModuleManagerControl.
      */
     @Test
     public void testIsModule3()
@@ -188,7 +182,7 @@ public class ModuleLoaderTest
 
         System.out.println("isModule");
 
-        ModuleLoader instance = new ModuleLoader();
+        ModuleManagerControl instance = new ModuleManagerControl();
 
         Class c = new Module().getClass();
         boolean expResult = false;
@@ -197,13 +191,13 @@ public class ModuleLoaderTest
     }
 
     /**
-     * Test of isModule method, of class ModuleLoader.
+     * Test of isModule method, of class ModuleManagerControl.
      */
     public void testIsModule4()
     {
         System.out.println("isModule");
 
-        ModuleLoader instance = new ModuleLoader();
+        ModuleManagerControl instance = new ModuleManagerControl();
 
         Class c = null;
         boolean expResult = false;

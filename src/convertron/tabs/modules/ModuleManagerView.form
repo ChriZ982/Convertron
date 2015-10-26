@@ -23,26 +23,26 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="saveBtn" alignment="0" max="32767" attributes="0"/>
+                  <Component id="saveButton" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="jarFileTxt" max="32767" attributes="0"/>
+                              <Component id="jarFileTextField" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="chooseJarBtn" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="chooseJarButton" min="-2" pref="33" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="openJarBtn" alignment="0" max="32767" attributes="0"/>
-                          <Component id="importModuleBtn" alignment="0" pref="184" max="32767" attributes="0"/>
-                          <Component id="jScrollPane1" alignment="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="jLabel1" alignment="1" max="32767" attributes="0"/>
+                          <Component id="openJarButton" alignment="0" max="32767" attributes="0"/>
+                          <Component id="importModuleButton" alignment="0" pref="384" max="32767" attributes="0"/>
+                          <Component id="modulesInJarScrollPane" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="openJarLabel" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                      <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
+                      <Component id="separator1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane2" alignment="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="removeModuleBtn" alignment="0" pref="178" max="32767" attributes="0"/>
-                          <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
+                          <Component id="allModulesScrollPane" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="removeModuleButton" alignment="0" pref="378" max="32767" attributes="0"/>
+                          <Component id="allModulesLabel" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -56,37 +56,37 @@
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="openJarLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jarFileTxt" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="chooseJarBtn" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="jarFileTextField" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="chooseJarButton" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="openJarBtn" min="-2" max="-2" attributes="0"/>
+                      <Component id="openJarButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
+                      <Component id="modulesInJarScrollPane" pref="445" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="importModuleBtn" min="-2" max="-2" attributes="0"/>
+                      <Component id="importModuleButton" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
+                  <Component id="separator1" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <Component id="allModulesLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" max="32767" attributes="0"/>
+                      <Component id="allModulesScrollPane" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="removeModuleBtn" min="-2" max="-2" attributes="0"/>
+                      <Component id="removeModuleButton" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="saveBtn" min="-2" max="-2" attributes="0"/>
+              <Component id="saveButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+    <Container class="javax.swing.JScrollPane" name="modulesInJarScrollPane">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
@@ -107,38 +107,38 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JTextField" name="jarFileTxt">
+    <Component class="javax.swing.JTextField" name="jarFileTextField">
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="openJarLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value=".jar Datei &#xf6;ffnen"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="chooseJarBtn">
+    <Component class="javax.swing.JButton" name="chooseJarButton">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chooseJarBtnActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chooseJarButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="openJarBtn">
+    <Component class="javax.swing.JButton" name="openJarButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xf6;ffnen"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="importModuleBtn">
+    <Component class="javax.swing.JButton" name="importModuleButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="importieren"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="importModuleBtnActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="importModuleButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JSeparator" name="jSeparator1">
+    <Component class="javax.swing.JSeparator" name="separator1">
       <Properties>
         <Property name="orientation" type="int" value="1"/>
       </Properties>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+    <Container class="javax.swing.JScrollPane" name="allModulesScrollPane">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
@@ -158,20 +158,20 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="removeModuleBtn">
+    <Component class="javax.swing.JButton" name="removeModuleButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="entfernen"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removeModuleBtnActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removeModuleButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
+    <Component class="javax.swing.JLabel" name="allModulesLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Alle Module"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="saveBtn">
+    <Component class="javax.swing.JButton" name="saveButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="speichern"/>
       </Properties>

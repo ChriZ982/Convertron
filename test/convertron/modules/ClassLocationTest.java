@@ -1,20 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package convertron.tabs.modules;
+package convertron.modules;
 
+import convertron.modules.ClassLocation;
 import java.io.File;
 import java.net.URL;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import org.junit.Test;
 
-/**
- *
- * @author Mirko
- */
 @SuppressWarnings("javadoc")
 public class ClassLocationTest
 {
@@ -96,7 +88,7 @@ public class ClassLocationTest
     public void testForSaving() throws Exception
     {
         System.out.println("forSaving");
-        ClassLocation instance = new ClassLocation(new File("/path1/path2/file.name").toURI().toURL(), "package1.package2.className");
+        ClassLocation instance = new ClassLocation(new File("C:/path1/path2/file.name").toURI().toURL(), "package1.package2.className");
         String expResult = "package1.package2.className@file:/C:/path1/path2/file.name";
         String result = instance.forSaving();
         assertEquals(expResult, result);

@@ -1,19 +1,19 @@
-package convertron.tabs.settings;
+package convertron.settings;
 
 import interlib.settings.SettingID;
 import javax.swing.AbstractButton;
 
-public class CheckBoxHandler extends SettingHandler
+public class CheckBoxSetting extends ComponentSetting
 {
     private AbstractButton comp;
 
-    public CheckBoxHandler(AbstractButton comp, SettingID setting)
+    public CheckBoxSetting(AbstractButton comp, SettingID setting)
     {
         super(setting);
         this.comp = comp;
     }
 
-    public CheckBoxHandler(AbstractButton comp, SettingID arraySetting, int index)
+    public CheckBoxSetting(AbstractButton comp, SettingID arraySetting, int index)
     {
         super(arraySetting, index);
         this.comp = comp;
