@@ -1,0 +1,187 @@
+package eu.convertron.core.tabs.modules;
+
+import eu.convertron.core.Control;
+import eu.convertron.core.settings.CoreArraySettings;
+import eu.convertron.core.settings.CoreSettings;
+import eu.convertron.interlib.data.Lesson;
+import eu.convertron.interlib.interfaces.Input;
+import eu.convertron.interlib.interfaces.Module;
+import eu.convertron.interlib.interfaces.Output;
+import java.util.ArrayList;
+
+/**
+ * Der ModuleControl ist für das im- und exportieren mithilfe der Module zuständig.
+ * Außerdem ist er für das aktivieren und deaktivieren von Modulen zuständig,
+ * nicht jedoch für das importieren von Modulen.
+ *
+ * @see eu.convertron.core.tabs.modules.ModuleManagerControl
+ */
+public class ModuleControl implements Input, Output
+{
+    private ArrayList<Output> allOutputs;
+    private ArrayList<Output> activeOutputs;
+    private ArrayList<Input> allInputs;
+    private Input activeInput;
+
+    private ModuleView view;
+    private ModuleManagerControl loader;
+
+    public ModuleControl()
+    {
+        allOutputs = new ArrayList<Output>();
+        activeOutputs = new ArrayList<Output>();
+
+        allInputs = new ArrayList<Input>();
+        activeInput = null;
+
+        loader = new ModuleManagerControl();
+
+        Module[] modules = loader.loadAllImportedModules();
+
+        for(Module module : modules)
+        {
+            if(module instanceof Output)
+                allOutputs.add((Output)module);
+            if(module instanceof Input)
+                allInputs.add((Input)module);
+        }
+
+        loadActive();
+
+        view = new ModuleView(allOutputs.toArray(),
+                              activeOutputs.toArray(),
+                              allInputs.toArray(),
+                              activeInput);
+        Control.addViewToWindow(view);
+
+        for(Module module : modules)
+        {
+            if(module.getView() != null)
+                Control.addViewToWindow(module.getView());
+        }
+
+        initializeListeners();
+    }
+
+    private void initializeListeners()
+    {
+        view.addSaveListener(() ->
+        {
+            saveAction();
+        });
+    }
+
+    private void saveAction()
+    {
+        activeOutputs.clear();
+
+        Module[] outputsMarkedAsActive = view.getActiveOutputModules();
+        for(Module out : outputsMarkedAsActive)
+        {
+            if(out instanceof Output)
+                activeOutputs.add((Output)out);
+        }
+
+        activeInput = null;
+        Module inputMarkedAsActive = view.getActiveInputModule();
+        if(inputMarkedAsActive instanceof Input)
+            activeInput = (Input)inputMarkedAsActive;
+
+        saveActive();
+    }
+
+    @Override
+    public Lesson[] in()
+    {
+        return activeInput.in();
+    }
+
+    @Override
+    public void out(Lesson[] types)
+    {
+        for(Output out : activeOutputs)
+        {
+            Lesson[] copy = new Lesson[types.length];
+            for(int i = 0; i < types.length; i++)
+                copy[i] = new Lesson(types[i]);
+
+            out.out(copy);
+        }
+    }
+
+    @Override
+    public void motdOut(String motd)
+    {
+        for(Output out : activeOutputs)
+            out.motdOut(motd);
+    }
+
+    protected void saveActive()
+    {
+        String[] forSaving = new String[activeOutputs.size()];
+        for(int i = 0; i < forSaving.length; i++)
+        {
+            forSaving[i] = forSaving(activeOutputs.get(i));
+        }
+        CoreArraySettings.activeOutputs.saveArray(forSaving);
+
+        CoreSettings.activeInput.save(forSaving(activeInput));
+    }
+
+    protected void loadActive()
+    {
+        activeOutputs.clear();
+        String[] fromSaving = CoreArraySettings.activeOutputs.loadArray();
+        for(String className : fromSaving)
+        {
+            Module m = fromSaving(className);
+            if(m != null && m instanceof Output)
+                activeOutputs.add((Output)m);
+        }
+
+        activeInput = null;
+        Module m = fromSaving(CoreSettings.activeInput.load());
+
+        if(m != null && m instanceof Input)
+            activeInput = (Input)m;
+    }
+
+    protected String forSaving(Object module)
+    {
+        if(module instanceof Module)
+            return module.getClass().getName();
+        return null;
+    }
+
+    protected Module fromSaving(String className)
+    {
+        if(className == null || className.isEmpty())
+            return null;
+
+        Module module = getModuleByNameFromList(allInputs, className);
+        if(module == null)
+            module = getModuleByNameFromList(allOutputs, className);
+
+        return module;
+    }
+
+    protected Module getModuleByNameFromList(ArrayList<? extends Object> list, String className)
+    {
+        Module module = null;
+
+        for(Object o : list)
+        {
+            if(o instanceof Module)
+            {
+                Module current = (Module)o;
+                if(current.getClass().getName().equals(className))
+                {
+                    module = current;
+                    break;
+                }
+            }
+        }
+
+        return module;
+    }
+}
