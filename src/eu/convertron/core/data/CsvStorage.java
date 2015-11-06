@@ -64,28 +64,33 @@ public class CsvStorage implements Storage
     @Override
     public Lesson[] load()
     {
-        String fileAsString = csvFile.readAllToString().trim();
-        assertValidFile(fileAsString);
-
         ArrayList<Lesson> result = new ArrayList<>();
-
-        fileAsString = fileAsString.substring(cellBorders.length(),
-                                              fileAsString.length() - cellBorders.length());
-
-        String[] rows = fileAsString.split((cellBorders + lineSpliterator + cellBorders)
-                .replaceAll("\\\\", "\\\\"));
-
-        String[] columnNames = getColumns(rows[0]);
-
-        for(int i = 1; i < rows.length; i++)
+        try
         {
-            String[] columns = getColumns(rows[i]);
+            String fileAsString = csvFile.readAllToString().trim();
+            assertValidFile(fileAsString);
 
-            TreeMap<String, String> content = new TreeMap<>();
-            putAll(content, columnNames, columns);
-            result.add(new Lesson(content));
+            fileAsString = fileAsString.substring(cellBorders.length(),
+                                                  fileAsString.length() - cellBorders.length());
+
+            String[] rows = fileAsString.split((cellBorders + lineSpliterator + cellBorders)
+                    .replaceAll("\\\\", "\\\\"));
+
+            String[] columnNames = getColumns(rows[0]);
+
+            for(int i = 1; i < rows.length; i++)
+            {
+                String[] columns = getColumns(rows[i]);
+
+                TreeMap<String, String> content = new TreeMap<>();
+                putAll(content, columnNames, columns);
+                result.add(new Lesson(content));
+            }
         }
-
+        catch(Exception ex)
+        {
+            Logger.logError(LogPriority.ERROR, "Fehler beim Laden der Vertretungsplaninformationen", ex);
+        }
         return result.toArray(new Lesson[result.size()]);
     }
 
@@ -136,6 +141,8 @@ public class CsvStorage implements Storage
 
     protected String toCsvCell(String s)
     {
+        if(s == null)
+            return cellBorders + cellBorders;
         return cellBorders + (s.replaceAll("\"", "'")) + cellBorders;
     }
 
@@ -167,7 +174,7 @@ public class CsvStorage implements Storage
 
             for(String column : columns)
             {
-                if(lesson.containsKeyAndValueNotNullOrEmpty(column))
+                if(lesson.contains(column))
                     result.add(new Entry(getIndexOfColumnByName(columnNames, column), lesson.get(column)));
             }
 
@@ -190,7 +197,7 @@ public class CsvStorage implements Storage
             Entry(int index, String content)
             {
                 this.index = index;
-                this.content = content;
+                this.content = content == null ? "" : content;
             }
         }
     }

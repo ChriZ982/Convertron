@@ -3,7 +3,6 @@ package eu.convertron.core.tabs.modules;
 import eu.convertron.core.Control;
 import eu.convertron.core.modules.ClassLocation;
 import eu.convertron.core.settings.CoreArraySettings;
-import eu.convertron.core.tabs.modules.ModuleManagerView;
 import eu.convertron.interlib.interfaces.Module;
 import eu.convertron.interlib.logging.Logger;
 import eu.convertron.interlib.logging.messages.LogPriority;
@@ -196,7 +195,7 @@ public class ModuleManagerControl
 
         for(Class interf : interfaces)
         {
-            if(interf.equals(eu.convertron.interlib.interfaces.Module.class))
+            if(interf.equals(eu.convertron.interlib.interfaces.Module.class) || isModule(interf))
                 return true;
         }
         return false;

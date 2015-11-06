@@ -3,6 +3,7 @@ package eu.convertron.core.tabs.modules;
 import eu.convertron.core.modules.ModuleListRenderer;
 import eu.convertron.interlib.interfaces.Module;
 import eu.convertron.interlib.interfaces.View;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -18,7 +19,7 @@ public class ModuleView extends View
 
     public ModuleView(Object[] allOutputs, Object[] activeOutputs, Object[] allInputs, Object activeInput)
     {
-        List<Object> availableOutputs = Arrays.asList(allOutputs);
+        ArrayList<Object> availableOutputs = new ArrayList<>(Arrays.asList(allOutputs));
         availableOutputs.removeAll(Arrays.asList(activeOutputs));
 
         activeOutputModulesListModel = new DefaultListModel<>();

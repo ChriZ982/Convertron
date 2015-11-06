@@ -4,9 +4,13 @@ import eu.convertron.core.Control;
 import eu.convertron.core.settings.CoreArraySettings;
 import eu.convertron.core.settings.CoreSettings;
 import eu.convertron.interlib.data.Lesson;
+import eu.convertron.interlib.filter.DefaultTableOptions;
+import eu.convertron.interlib.filter.TableOptions;
 import eu.convertron.interlib.interfaces.Input;
 import eu.convertron.interlib.interfaces.Module;
 import eu.convertron.interlib.interfaces.Output;
+import eu.convertron.interlib.logging.Logger;
+import eu.convertron.interlib.logging.messages.LogPriority;
 import java.util.ArrayList;
 
 /**
@@ -16,7 +20,7 @@ import java.util.ArrayList;
  *
  * @see eu.convertron.core.tabs.modules.ModuleManagerControl
  */
-public class ModuleControl implements Input, Output
+public class ModuleControl
 {
     private ArrayList<Output> allOutputs;
     private ArrayList<Output> activeOutputs;
@@ -90,30 +94,74 @@ public class ModuleControl implements Input, Output
         saveActive();
     }
 
-    @Override
-    public Lesson[] in()
+    public Lesson[] importLessons()
     {
-        return activeInput.in();
+        try
+        {
+            Logger.logMessage(LogPriority.INFO, "Versuche die Vertretungeinträge zu importieren. Modul: " + getModuleName(activeInput));
+            return format(activeInput.in());
+        }
+        catch(Exception ex)
+        {
+            Logger.logError(LogPriority.ERROR, "Fehler beim Einlesen der Vertretungseinträge mit dem Modul: "
+                                               + getModuleName(activeInput), ex);
+        }
+        return null;
     }
 
-    @Override
-    public void out(Lesson[] types)
+    private Lesson[] format(Lesson[] source)
+    {
+        if(source == null)
+            return null;
+
+        source = TableOptions.unify(source);
+        source = TableOptions.sort(source, DefaultTableOptions.FIRSTHOUR);
+        source = TableOptions.compress(source);
+
+        return source;
+    }
+
+    public void exportLessons(Lesson[] types)
     {
         for(Output out : activeOutputs)
         {
-            Lesson[] copy = new Lesson[types.length];
-            for(int i = 0; i < types.length; i++)
-                copy[i] = new Lesson(types[i]);
+            try
+            {
+                Logger.logMessage(LogPriority.INFO, "Versuche die Vertretungseinträge zu exportieren. Modul: " + getModuleName(out));
+                Lesson[] copy = new Lesson[types.length];
+                for(int i = 0; i < types.length; i++)
+                    copy[i] = new Lesson(types[i]);
 
-            out.out(copy);
+                out.out(copy);
+            }
+            catch(Exception ex)
+            {
+                Logger.logError(LogPriority.WARNING, "Fehler beim exportieren der Vertretungseinträge mit dem Modul: "
+                                                     + getModuleName(out), ex);
+            }
         }
     }
 
-    @Override
-    public void motdOut(String motd)
+    public void exportMotd(String motd)
     {
         for(Output out : activeOutputs)
-            out.motdOut(motd);
+        {
+            try
+            {
+                Logger.logMessage(LogPriority.INFO, "Versuche die Laufschrift zu exportieren. Modul: " + getModuleName(out));
+                out.motdOut(motd);
+            }
+            catch(Exception ex)
+            {
+                Logger.logError(LogPriority.WARNING, "Fehler beim exportieren der Laufschrift mit dem Modul: "
+                                                     + getModuleName(out), ex);
+            }
+        }
+    }
+
+    private String getModuleName(Module m)
+    {
+        return m == null ? "null" : m.getName();
     }
 
     protected void saveActive()

@@ -9,9 +9,11 @@ import eu.convertron.core.tabs.settings.SettingsControl;
 import eu.convertron.interlib.data.Lesson;
 import eu.convertron.interlib.filter.TableOptions;
 import eu.convertron.interlib.interfaces.View;
+import eu.convertron.interlib.io.Folder;
 import eu.convertron.interlib.io.ResourceFile;
 import eu.convertron.interlib.logging.Logger;
 import eu.convertron.interlib.logging.messages.LogPriority;
+import eu.convertron.interlib.settings.SettingLocation;
 import java.awt.EventQueue;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
@@ -29,6 +31,7 @@ import java.nio.charset.UnsupportedCharsetException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -53,6 +56,8 @@ public class Control
      */
     private static TrayIcon trayIcon;
 
+    private static Timer autoTimer;
+
     /**
      * Ruft die "main-Methode" der Anwendung auf.
      *
@@ -75,6 +80,8 @@ public class Control
             loadWindowPosition();
 
             initTray();
+
+            initAutoTimer();
 
             Logger.logMessage(LogPriority.HINT, "Anwendung gestartet");
         }
@@ -107,6 +114,17 @@ public class Control
     private static void initializeStorage()
     {
         storage = new CsvStorage();
+    }
+
+    private static void initAutoTimer()
+    {
+        autoTimer = new Timer(60000,
+                              (ActionEvent e) ->
+                              {
+                                  if(CoreSettings.autoMode.load().equals("true"))
+                                      genAll();
+                              });
+        autoTimer.start();
     }
 
     private static void createAndFillWindow()
@@ -179,7 +197,7 @@ public class Control
 
     private static void copyFileFromPackage(String fileName, String destPath)
     {
-        ResourceFile resourceFile = new ResourceFile(Resources.RESOURCEPATH + "stdData", fileName);
+        ResourceFile resourceFile = new ResourceFile(Resources.RESOURCEPATH + "stdData", fileName, Control.class);
         resourceFile.copyIfNotExists(destPath);
     }
 
@@ -301,6 +319,7 @@ public class Control
     {
         try
         {
+            autoTimer.stop();
             //ToDo Exit Tabs -> Pending Changes?!
 
             CoreSettings.positionX.save(String.valueOf((int)window.getLocation().getX()));
@@ -339,21 +358,38 @@ public class Control
 
     public static void importLessons()
     {
-        Lesson[] in = moduleManager.in();
+        Lesson[] in = moduleManager.importLessons();
         if(in != null)
+        {
             storage.save(TableOptions.compress(in));
+            Logger.logMessage(LogPriority.HINT, "Vertretungseinträge aktualisiert");
+        }
+        else
+        {
+            Logger.logMessage(LogPriority.INFO, "Import lieferte keine neuen Vertretungeinträge, keine Änderungen vorgenommen");
+        }
     }
 
     public static void exportLessonsAndMotd()
     {
-        moduleManager.out(storage.load());
+        moduleManager.exportLessons(storage.load());
 
-        moduleManager.motdOut(CoreSettings.motdText.load());
+        moduleManager.exportMotd(CoreSettings.motdText.load());
+
+        Logger.logMessage(LogPriority.HINT, "Exportieren abgeschlossen");
     }
 
     public static void createBackup()
     {
-        //ToDo implement (FolderIO missing)
-        Logger.logMessage(LogPriority.HINT, "Backup wurde versucht zu erstellen, jedoch wird dieses Feature noch nicht unterstützt");
+        try
+        {
+            String backupPath = CoreSettings.pathBackup.load();
+            new Folder(CoreSettings.pathData.load()).copyContent(backupPath);
+            SettingLocation.LOCAL.getFile().copy(backupPath);
+        }
+        catch(Exception ex)
+        {
+            Logger.logError(LogPriority.WARNING, "Fehler beim erstellen eines Backups", ex);
+        }
     }
 }

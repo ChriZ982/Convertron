@@ -66,8 +66,8 @@ public enum CoreSettings implements SettingID
     {
         return () ->
         {
-            new ResourceFile(Resources.RESOURCEPATH + "/stdData/default.settings").copyIfNotExists(System.getProperty("java.io.tmpdir") + "/convertron/core");
-            return new TextFile(System.getProperty("java.io.tmpdir") + "/convertron/core/default.settings");
+            new ResourceFile(Resources.RESOURCEPATH + "/stdData/default.settings", getClass()).copyIfNotExists(System.getProperty("java.io.tmpdir") + "convertron\\core");
+            return new TextFile(System.getProperty("java.io.tmpdir") + "convertron\\core\\default.settings");
         };
     }
 
