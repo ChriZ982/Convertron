@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>Vertretungsplan - Laufschrift</title>
+        <link rel="stylesheet" type="text/css" href="style.css">                
+        <meta charset="UTF-8">
+        <!--<meta http-equiv="refresh" content="12">-->
+    </head>
+    <body id="motd">    
+        <div>
+            <span><img src="antonianumLogo.png" alt="Gymnasium Antonianum - Logo" />Dies ist ein Text</span>
+            <span><img src="antonianumLogo.png" alt="Gymnasium Antonianum - Logo" />Dies ist ein Text</span>
+            <span><img src="antonianumLogo.png" alt="Gymnasium Antonianum - Logo" />Dies ist ein Text</span>
+            <span><img src="antonianumLogo.png" alt="Gymnasium Antonianum - Logo" />Dies ist ein Text</span>
+            <span><img src="antonianumLogo.png" alt="Gymnasium Antonianum - Logo" />Dies ist ein Text</span>
+            <span><img src="antonianumLogo.png" alt="Gymnasium Antonianum - Logo" />Dies ist ein Text</span>
+            <span><img src="antonianumLogo.png" alt="Gymnasium Antonianum - Logo" />Dies ist ein Text</span>
+            <span><img src="antonianumLogo.png" alt="Gymnasium Antonianum - Logo" />Dies ist ein Text</span>
+            <span><img src="antonianumLogo.png" alt="Gymnasium Antonianum - Logo" />Dies ist ein Text</span>
+            <span><img src="antonianumLogo.png" alt="Gymnasium Antonianum - Logo" />Dies ist ein Text</span>
+        </div>
+    </body>
+</html>
