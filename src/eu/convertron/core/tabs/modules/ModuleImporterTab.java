@@ -3,6 +3,8 @@ package eu.convertron.core.tabs.modules;
 import eu.convertron.core.Resources;
 import eu.convertron.core.modules.ClassLocation;
 import eu.convertron.interlib.interfaces.View;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,11 +13,11 @@ import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
-public class ModuleImporterView extends View
+public class ModuleImporterTab extends View
 {
     private static final long serialVersionUID = 1L;
 
-    public ModuleImporterView(ClassLocation[] allModules)
+    public ModuleImporterTab(ClassLocation[] allModules)
     {
         allModulesListModel = new DefaultListModel<>();
         for(ClassLocation loc : allModules)
@@ -64,12 +66,12 @@ public class ModuleImporterView extends View
         allModulesList = new javax.swing.JList<ClassLocation>(allModulesListModel);
         removeModuleButton = new javax.swing.JButton();
         allModulesLabel = new javax.swing.JLabel();
-        saveButton = new javax.swing.JButton();
+        changesInfoLabel = new javax.swing.JLabel();
 
         modulesInJarList.setEnabled(false);
         modulesInJarScrollPane.setViewportView(modulesInJarList);
 
-        openJarLabel.setText(".jar Datei öffnen");
+        openJarLabel.setText("Jar-Datei öffnen");
 
         chooseJarButton.setIcon(new javax.swing.ImageIcon(Resources.get("ordner.png")));
         chooseJarButton.addActionListener(new java.awt.event.ActionListener()
@@ -80,9 +82,9 @@ public class ModuleImporterView extends View
             }
         });
 
-        openJarButton.setText("öffnen");
+        openJarButton.setText("Öffnen");
 
-        importModuleButton.setText("importieren");
+        importModuleButton.setText("Importieren");
         importModuleButton.setEnabled(false);
         importModuleButton.addActionListener(new java.awt.event.ActionListener()
         {
@@ -96,7 +98,7 @@ public class ModuleImporterView extends View
 
         allModulesScrollPane.setViewportView(allModulesList);
 
-        removeModuleButton.setText("entfernen");
+        removeModuleButton.setText("Entfernen");
         removeModuleButton.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -107,7 +109,8 @@ public class ModuleImporterView extends View
 
         allModulesLabel.setText("Alle Module");
 
-        saveButton.setText("speichern");
+        changesInfoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        changesInfoLabel.setText("<html><font color=\"red\">Hinweis: Änderungen werden erst nach einem Neustart der Anwendung wirksam</font></html>");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -116,7 +119,7 @@ public class ModuleImporterView extends View
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(saveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(changesInfoLabel)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -124,7 +127,7 @@ public class ModuleImporterView extends View
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(chooseJarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(openJarButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(importModuleButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
+                            .addComponent(importModuleButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(modulesInJarScrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(openJarLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -132,7 +135,7 @@ public class ModuleImporterView extends View
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(allModulesScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(removeModuleButton, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+                            .addComponent(removeModuleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(allModulesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -150,7 +153,7 @@ public class ModuleImporterView extends View
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(openJarButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(modulesInJarScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
+                        .addComponent(modulesInJarScrollPane)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(importModuleButton))
                     .addComponent(separator1)
@@ -161,8 +164,8 @@ public class ModuleImporterView extends View
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(removeModuleButton)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(saveButton)
-                .addContainerGap())
+                .addComponent(changesInfoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -195,14 +198,15 @@ public class ModuleImporterView extends View
         modulesInJarList.setEnabled(opened);
     }
 
-    public void addSaveListener(Runnable task)
+    public void addChangesMadeListener(Runnable task)
     {
-        saveButton.addActionListener(getActionListenerToRunnable(task));
+        importModuleButton.addActionListener((ActionEvent e) -> EventQueue.invokeLater(task));
+        removeModuleButton.addActionListener((ActionEvent e) -> EventQueue.invokeLater(task));
     }
 
     public void addOpenJarListener(Runnable task)
     {
-        openJarButton.addActionListener(getActionListenerToRunnable(task));
+        openJarButton.addActionListener((ActionEvent e) -> EventQueue.invokeLater(task));
     }
 
     public ArrayList<ClassLocation> getAllModules()
@@ -227,7 +231,7 @@ public class ModuleImporterView extends View
     @Override
     public String getTabTitle()
     {
-        return "Module verwalten";
+        return "Module importieren";
     }
 
     private javax.swing.DefaultListModel<ClassLocation> allModulesListModel;
@@ -236,6 +240,7 @@ public class ModuleImporterView extends View
     private javax.swing.JLabel allModulesLabel;
     private javax.swing.JList<ClassLocation> allModulesList;
     private javax.swing.JScrollPane allModulesScrollPane;
+    private javax.swing.JLabel changesInfoLabel;
     private javax.swing.JButton chooseJarButton;
     private javax.swing.JButton importModuleButton;
     private javax.swing.JFileChooser jarFileChooser;
@@ -245,7 +250,6 @@ public class ModuleImporterView extends View
     private javax.swing.JButton openJarButton;
     private javax.swing.JLabel openJarLabel;
     private javax.swing.JButton removeModuleButton;
-    private javax.swing.JButton saveButton;
     private javax.swing.JSeparator separator1;
     // End of variables declaration//GEN-END:variables
 }

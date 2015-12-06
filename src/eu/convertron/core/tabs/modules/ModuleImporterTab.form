@@ -23,8 +23,8 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="saveButton" alignment="0" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
+                  <Component id="changesInfoLabel" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jarFileTextField" max="32767" attributes="0"/>
@@ -32,7 +32,7 @@
                               <Component id="chooseJarButton" min="-2" pref="33" max="-2" attributes="0"/>
                           </Group>
                           <Component id="openJarButton" alignment="0" max="32767" attributes="0"/>
-                          <Component id="importModuleButton" alignment="0" pref="384" max="32767" attributes="0"/>
+                          <Component id="importModuleButton" alignment="0" max="32767" attributes="0"/>
                           <Component id="modulesInJarScrollPane" alignment="0" pref="0" max="32767" attributes="0"/>
                           <Component id="openJarLabel" alignment="1" max="32767" attributes="0"/>
                       </Group>
@@ -41,7 +41,7 @@
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="allModulesScrollPane" alignment="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="removeModuleButton" alignment="0" pref="378" max="32767" attributes="0"/>
+                          <Component id="removeModuleButton" alignment="0" max="32767" attributes="0"/>
                           <Component id="allModulesLabel" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -65,7 +65,7 @@
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="openJarButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="modulesInJarScrollPane" pref="445" max="32767" attributes="0"/>
+                      <Component id="modulesInJarScrollPane" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="importModuleButton" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -79,8 +79,8 @@
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="saveButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="changesInfoLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -111,7 +111,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="openJarLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value=".jar Datei &#xf6;ffnen"/>
+        <Property name="text" type="java.lang.String" value="Jar-Datei &#xf6;ffnen"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="chooseJarButton">
@@ -126,12 +126,12 @@
     </Component>
     <Component class="javax.swing.JButton" name="openJarButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&#xf6;ffnen"/>
+        <Property name="text" type="java.lang.String" value="&#xd6;ffnen"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="importModuleButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="importieren"/>
+        <Property name="text" type="java.lang.String" value="Importieren"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
@@ -165,7 +165,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="removeModuleButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="entfernen"/>
+        <Property name="text" type="java.lang.String" value="Entfernen"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removeModuleButtonActionPerformed"/>
@@ -176,9 +176,10 @@
         <Property name="text" type="java.lang.String" value="Alle Module"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="saveButton">
+    <Component class="javax.swing.JLabel" name="changesInfoLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="speichern"/>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;font color=&quot;red&quot;&gt;Hinweis: &#xc4;nderungen werden erst nach einem Neustart der Anwendung wirksam&lt;/font&gt;&lt;/html&gt;"/>
       </Properties>
     </Component>
   </SubComponents>

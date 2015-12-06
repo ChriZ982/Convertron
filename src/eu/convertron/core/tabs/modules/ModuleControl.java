@@ -11,6 +11,7 @@ import eu.convertron.interlib.interfaces.Module;
 import eu.convertron.interlib.interfaces.Output;
 import eu.convertron.interlib.logging.Logger;
 import eu.convertron.interlib.logging.messages.LogPriority;
+import eu.convertron.interlib.util.SubTabView;
 import java.util.ArrayList;
 
 /**
@@ -27,7 +28,7 @@ public class ModuleControl
     private ArrayList<Input> allInputs;
     private Input activeInput;
 
-    private ModuleView view;
+    private ModuleTab view;
     private ModuleImporter loader;
 
     public ModuleControl()
@@ -52,11 +53,12 @@ public class ModuleControl
 
         loadActive();
 
-        view = new ModuleView(allOutputs.toArray(),
-                              activeOutputs.toArray(),
-                              allInputs.toArray(),
-                              activeInput);
-        Control.addViewToWindow(view);
+        view = new ModuleTab(allOutputs.toArray(),
+                             activeOutputs.toArray(),
+                             allInputs.toArray(),
+                             activeInput);
+
+        Control.addViewToWindow(new SubTabView("Module", view, loader.getView()));
 
         for(Module module : modules)
         {

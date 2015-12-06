@@ -1,6 +1,5 @@
 package eu.convertron.core.tabs.modules;
 
-import eu.convertron.core.Control;
 import eu.convertron.core.modules.ClassLocation;
 import eu.convertron.core.settings.CoreArraySettings;
 import eu.convertron.interlib.interfaces.Module;
@@ -11,7 +10,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -26,32 +24,23 @@ public class ModuleImporter
 {
     private ArrayList<ClassLocation> locationOfImportedModules;
 
-    private ModuleImporterView view;
+    private ModuleImporterTab view;
 
     public ModuleImporter()
     {
         locationOfImportedModules = new ArrayList<>();
         loadImported();
 
-        view = new ModuleImporterView(locationOfImportedModules.toArray(
+        view = new ModuleImporterTab(locationOfImportedModules.toArray(
                 new ClassLocation[locationOfImportedModules.size()]));
-
-        Control.addViewToWindow(view);
 
         initializeListeners();
     }
 
     private void initializeListeners()
     {
-        view.addSaveListener(() ->
-        {
-            saveAction();
-        });
-
-        view.addOpenJarListener(() ->
-        {
-            openJarAction();
-        });
+        view.addChangesMadeListener(() -> saveAction());
+        view.addOpenJarListener(() -> openJarAction());
     }
 
     private void saveAction()
@@ -60,8 +49,6 @@ public class ModuleImporter
         locationOfImportedModules.addAll(view.getAllModules());
 
         saveImported();
-
-        JOptionPane.showMessageDialog(null, "Die Änderungen werden erst nach einem Neustart der Anwendung wirksam!");
     }
 
     private void openJarAction()
@@ -73,7 +60,21 @@ public class ModuleImporter
             File jarFile = new File(view.getJarFile());
             ClassLocation[] foundModules = getAvailableModules(jarFile);
 
-            view.setModulesInJar(Arrays.asList(foundModules));
+            ArrayList<ClassLocation> foundAndNotImportedModules = new ArrayList<>();
+
+            for(ClassLocation loc : foundModules)
+            {
+                if(!locationOfImportedModules.contains(loc))
+                    foundAndNotImportedModules.add(loc);
+            }
+
+            if(foundAndNotImportedModules.isEmpty())
+            {
+                JOptionPane.showMessageDialog(null, "In der Jar konnten keine neuen Module gefunden werden!", "Keine Module gefunden", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+            view.setModulesInJar(foundAndNotImportedModules);
 
             view.setFileOpened(true);
         }
@@ -225,5 +226,10 @@ public class ModuleImporter
                 Logger.logError(LogPriority.INFO, "Konnte das Modul " + locationAsString + " nicht laden", ex);
             }
         }
+    }
+
+    public ModuleImporterTab getView()
+    {
+        return view;
     }
 }
