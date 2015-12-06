@@ -18,22 +18,22 @@ import java.util.jar.JarFile;
 import javax.swing.JOptionPane;
 
 /**
- * Der ModuleManagerControl ist für das importieren und laden (Instanz erzeugen) der Module zuständig.
+ * Der ModuleImporter ist für das importieren und laden (Instanz erzeugen) der Module zuständig.
  *
  * @see convertron.tabs.modules.ModuleManager
  */
-public class ModuleManagerControl
+public class ModuleImporter
 {
     private ArrayList<ClassLocation> locationOfImportedModules;
 
-    private ModuleManagerView view;
+    private ModuleImporterView view;
 
-    public ModuleManagerControl()
+    public ModuleImporter()
     {
         locationOfImportedModules = new ArrayList<>();
         loadImported();
 
-        view = new ModuleManagerView(locationOfImportedModules.toArray(
+        view = new ModuleImporterView(locationOfImportedModules.toArray(
                 new ClassLocation[locationOfImportedModules.size()]));
 
         Control.addViewToWindow(view);

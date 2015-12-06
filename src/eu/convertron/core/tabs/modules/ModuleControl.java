@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * Außerdem ist er für das aktivieren und deaktivieren von Modulen zuständig,
  * nicht jedoch für das importieren von Modulen.
  *
- * @see eu.convertron.core.tabs.modules.ModuleManagerControl
+ * @see eu.convertron.core.tabs.modules.ModuleImporter
  */
 public class ModuleControl
 {
@@ -28,7 +28,7 @@ public class ModuleControl
     private Input activeInput;
 
     private ModuleView view;
-    private ModuleManagerControl loader;
+    private ModuleImporter loader;
 
     public ModuleControl()
     {
@@ -38,7 +38,7 @@ public class ModuleControl
         allInputs = new ArrayList<Input>();
         activeInput = null;
 
-        loader = new ModuleManagerControl();
+        loader = new ModuleImporter();
 
         Module[] modules = loader.loadAllImportedModules();
 

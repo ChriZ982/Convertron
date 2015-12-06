@@ -11,11 +11,11 @@ import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
-public class ModuleManagerView extends View
+public class ModuleImporterView extends View
 {
     private static final long serialVersionUID = 1L;
 
-    public ModuleManagerView(ClassLocation[] allModules)
+    public ModuleImporterView(ClassLocation[] allModules)
     {
         allModulesListModel = new DefaultListModel<>();
         for(ClassLocation loc : allModules)
