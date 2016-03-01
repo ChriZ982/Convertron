@@ -187,10 +187,12 @@ public class Control
     {
         String destPath = CoreSettings.pathData.load();
         copyFileFromPackage("antonianumLogo.png", destPath);
-        copyFileFromPackage("TEMPLATE style.css", destPath);
+        copyFileFromPackage("template - style.txt", destPath);
         copyFileFromPackage("VERTRETUNGSPLAN.html", destPath);
-        copyFileFromPackage("TEMPLATE laufschrift.html", destPath);
-        copyFileFromPackage("TEMPLATE heute morgen.html", destPath);
+        copyFileFromPackage("template - motd.txt", destPath);
+        copyFileFromPackage("template - day.txt", destPath);
+        copyFileFromPackage("template - class.txt", destPath);
+        copyFileFromPackage("template - lesson.txt", destPath);
 
         Logger.logMessage(LogPriority.INFO, "Alle Dateien wurden erstellt oder überprüft");
     }

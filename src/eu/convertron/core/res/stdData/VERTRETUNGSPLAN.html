@@ -4,11 +4,10 @@
         <link rel="stylesheet" type="text/css" href="style.css">
         <meta charset="UTF-8">
     </head>
-    <frameset class="frames" frameborder="0" rows="90%,10%">
-        <frameset cols="50%,50%">
-            <frame scrolling="no" src="heute.html" />
-            <frame scrolling="no" src="morgen.html" />
-        </frameset>
-        <frame scrolling="no" src="laufschrift.html">
-    </frameset>
+    <body id="plan">
+        <iframe class="day" src="heute.html" ></iframe>
+        <iframe class="day" src="morgen.html" ></iframe>
+        <br>
+        <iframe id="motd" src="laufschrift.html" ></iframe>
+    </body>
 </html>
