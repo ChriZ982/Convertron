@@ -9,15 +9,7 @@
 <!-- in the project's Project Properties dialog box.-->
 <project name="Facharbeit" default="default" basedir=".">
     <description>Builds, tests, and runs the project Facharbeit.</description>
-    <import file="nbproject/build-impl.xml"/>
-	
-	<target name="-post-compile">
-		<copy todir="${dist.dir}">
-			<fileset dir="./copytodist">
-				<include name="**/**"/>
-			</fileset>
-		</copy>
-	</target>
+    <import file="nbproject/build-impl.xml"/>	
 	
     <!--
 
