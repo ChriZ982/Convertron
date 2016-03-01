@@ -1,7 +1,7 @@
-# **Convertron - CoreApp** #
-**2000 lines**
+# **Convertron** #
+**4000 lines**
 ## [Last stable version v4.2](https://bitbucket.org/ChriZ98/convertron-coreapp/get/v4.2.zip) ##
-This is the main application of Convertron.
+This is the Convertron repository, including the main application, the plugin libary and some basic plugins.
 ### Changelog: ###
 **[Version 5.0](https://bitbucket.org/ChriZ98/convertron-coreapp/get/v5.0.zip)**
 
