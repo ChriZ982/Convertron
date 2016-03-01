@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.6" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="customDesignItemsScrollPane" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <Component id="customNameLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <Component id="customNameTextField" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <Component id="customValueLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <Component id="customValueTextField" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <Component id="customChangeValueButton" min="-2" pref="80" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="customChangeValueLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="529" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="customFormat" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <Component id="formatColumnLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <Component id="formatColumnTextField" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <Component id="formatNameLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <Component id="formatNameTextField" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <Component id="newFormatButton" min="-2" pref="80" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <Component id="deleteFormatButton" min="-2" pref="80" max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <Component id="customFormat" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="formatNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="formatNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="newFormatButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="deleteFormatButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="formatColumnTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="formatColumnLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <Component id="customDesignItemsScrollPane" pref="27" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <Component id="customChangeValueLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="customNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="customValueTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="customNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="customValueLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="customChangeValueButton" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JLabel" name="customFormat">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Benutzerdefiniertes Format:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="formatColumnLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Spaltenbezeichnung"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="formatColumnTextField">
+    </Component>
+    <Component class="javax.swing.JLabel" name="formatNameLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Spaltenwert"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="formatNameTextField">
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="customDesignItemsScrollPane">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTable" name="customDesignItemsTable">
+          <Properties>
+            <Property name="autoCreateRowSorter" type="boolean" value="true"/>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+              <Table columnCount="7" rowCount="0">
+                <Column editable="false" title="ID" type="java.lang.Object"/>
+                <Column editable="false" title="Spaltenname" type="java.lang.Object"/>
+                <Column editable="false" title="Spaltenwert" type="java.lang.Object"/>
+                <Column editable="false" title="Bezeichnung" type="java.lang.Object"/>
+                <Column editable="false" title="Art" type="java.lang.Object"/>
+                <Column editable="false" title="Wert" type="java.lang.Object"/>
+                <Column editable="false" title="Beispiel" type="java.lang.Object"/>
+              </Table>
+            </Property>
+            <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+              <JTableSelectionModel selectionMode="0"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="customDesignItemsTableMouseReleased"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="customDesignItemsTableKeyReleased"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JButton" name="newFormatButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Neu"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newFormatButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="deleteFormatButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="L&#xf6;schen"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteFormatButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="customChangeValueLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Wert &#xe4;ndern:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="customNameLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="ID"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="customNameTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="customValueLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Wert"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="customValueTextField">
+    </Component>
+    <Component class="javax.swing.JButton" name="customChangeValueButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#xc4;ndern"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="customChangeValueButtonActionPerformed"/>
+      </Events>
+    </Component>
+  </SubComponents>
+</Form>
