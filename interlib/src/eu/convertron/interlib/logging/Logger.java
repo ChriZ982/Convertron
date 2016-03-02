@@ -58,10 +58,10 @@ public class Logger
     {
         try
         {
-            for(LogOutput out : output)
+            for(int i = 0; i < output.size(); i++)
             {
                 Thread.sleep(10);
-                logSingle(out, logMessage);
+                logSingle(output.get(i), logMessage);
             }
         }
         catch(InterruptedException ex)

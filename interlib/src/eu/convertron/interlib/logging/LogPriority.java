@@ -25,9 +25,9 @@ public enum LogPriority
             case INFO:
                 return "INFO";
             case WARNING:
-                return "HINT";
-            case HINT:
                 return "WARN";
+            case HINT:
+                return "HINT";
             case ERROR:
                 return "ERRO";
             default:
