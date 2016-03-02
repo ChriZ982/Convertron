@@ -1,0 +1,223 @@
+<DesignConfiguration>
+<Columns>
+<Column ImportName="Raum">
+<Name>Raum</Name>
+<Position>3</Position>
+<Width>11.0</Width>
+</Column>
+<Column ImportName="(Lehrer)">
+<Name>Lehrer</Name>
+<Position>6</Position>
+<Width>10.0</Width>
+</Column>
+<Column ImportName="Std">
+<Name>Std</Name>
+<Position>1</Position>
+<Width>7.0</Width>
+</Column>
+<Column ImportName="Verl. von">
+<Name>Verl. von</Name>
+<Position>7</Position>
+<Width>11.0</Width>
+</Column>
+<Column ImportName="Hinweise">
+<Name>Hinweise</Name>
+<Position>8</Position>
+<Width>30.0</Width>
+</Column>
+<Column ImportName="Vertretungsart">
+<Name>Art</Name>
+<Position>4</Position>
+<Width>12.0</Width>
+</Column>
+<Column ImportName="(Fach)">
+<Name>Fach</Name>
+<Position>5</Position>
+<Width>9.0</Width>
+</Column>
+<Column ImportName="Vertreter">
+<Name>Vertreter</Name>
+<Position>2</Position>
+<Width>10.0</Width>
+</Column>
+</Columns>
+<DesignItems>
+<DesignItem ID="DAY_CLASS_FONT_FAMILY">
+<Name>Klassenname Schriftart</Name>
+<Type>FONTFAMILY</Type>
+<Value>calibri</Value>
+</DesignItem>
+<DesignItem ID="MOTD_FONT_STYLE">
+<Name>Laufschrift Schriftstil</Name>
+<Type>FONTSTYLE</Type>
+<Value>bold</Value>
+</DesignItem>
+<DesignItem ID="DAY_TABLE_INNER_BORDER_WIDTH">
+<Name>Tabelle innere Rahmenbreite</Name>
+<Type>NUMBER</Type>
+<Value>1px</Value>
+</DesignItem>
+<DesignItem ID="MOTD_FONT_SIZE">
+<Name>Laufschrift Schrifgröße</Name>
+<Type>FONTSIZE</Type>
+<Value>60px</Value>
+</DesignItem>
+<DesignItem ID="DAY_HEADER_OPACITY">
+<Name>Tag Überschrift Deckkraft</Name>
+<Type>NUMBER</Type>
+<Value>0.9</Value>
+</DesignItem>
+<DesignItem ID="MOTD_HEIGHT">
+<Name>Laufschrift Höhe</Name>
+<Type>NUMBER</Type>
+<Value>80px</Value>
+</DesignItem>
+<DesignItem ID="MOTD_FONT_FAMILY">
+<Name>Laufschrift Schriftart</Name>
+<Type>FONTFAMILY</Type>
+<Value>calibri</Value>
+</DesignItem>
+<DesignItem ID="DAY_CLASS_FONT_STYLE">
+<Name>Klassenname Schriftstil</Name>
+<Type>FONTSTYLE</Type>
+<Value>bold</Value>
+</DesignItem>
+<DesignItem ID="DAY_HEADER_HEIGHT">
+<Name>Tag Überschrift Höhe</Name>
+<Type>NUMBER</Type>
+<Value>80px</Value>
+</DesignItem>
+<DesignItem ID="DAY_DATE_FONT_STYLE">
+<Name>Überschrift Schriftstil</Name>
+<Type>FONTSTYLE</Type>
+<Value>bold</Value>
+</DesignItem>
+<DesignItem ID="DAY_TABLE_FONT_FAMILY">
+<Name>Tabelle Schriftart</Name>
+<Type>FONTFAMILY</Type>
+<Value>calibri</Value>
+</DesignItem>
+<DesignItem ID="DAY_CLASS_FONT_SIZE">
+<Name>Klassenname Schrifgröße</Name>
+<Type>FONTSIZE</Type>
+<Value>30px</Value>
+</DesignItem>
+<DesignItem ID="DAY_TABLE_INNER_BORDER_COLOR">
+<Name>Tabelle innere Rahmenfarbe</Name>
+<Type>FONTCOLOR</Type>
+<Value>#000000</Value>
+</DesignItem>
+<DesignItem ID="FRAME_BORDER_COLOR">
+<Name>Plan Rahmenfarbe</Name>
+<Type>COLOR</Type>
+<Value>#004A80</Value>
+</DesignItem>
+<DesignItem ID="DAY_SPEED">
+<Name>Tag Geschwindigkeit</Name>
+<Type>NUMBER</Type>
+<Value>3s</Value>
+</DesignItem>
+<DesignItem ID="DAY_TABLE_FONT_COLOR">
+<Name>Tabelle Schriftfarbe</Name>
+<Type>FONTCOLOR</Type>
+<Value>#000000</Value>
+</DesignItem>
+<DesignItem ID="MOTD_TEXT_LEFT_SPACE">
+<Name>Laufschrift linker Textabstand</Name>
+<Type>NUMBER</Type>
+<Value>50px</Value>
+</DesignItem>
+<DesignItem ID="DAY_TABLE_FONT_SIZE">
+<Name>Tabelle Schrifgröße</Name>
+<Type>FONTSIZE</Type>
+<Value>16px</Value>
+</DesignItem>
+<DesignItem ID="DAY_TABLES_SPACE">
+<Name>Tabelle Abstand</Name>
+<Type>NUMBER</Type>
+<Value>10px</Value>
+</DesignItem>
+<DesignItem ID="DAY_HEADER_BACK_COLOR">
+<Name>Tag Überschrift Hintergrundfarbe</Name>
+<Type>COLOR</Type>
+<Value>#517C94</Value>
+</DesignItem>
+<DesignItem ID="DAY_DATE_TEXT_SPACE">
+<Name>Überschrift Textabstand</Name>
+<Type>NUMBER</Type>
+<Value>50px</Value>
+</DesignItem>
+<DesignItem ID="DAY_TABLE_FONT_STYLE">
+<Name>Tabelle Schriftstil</Name>
+<Type>FONTSTYLE</Type>
+<Value/>
+</DesignItem>
+<DesignItem ID="DAY_CLASS_FONT_COLOR">
+<Name>Klassenname Schriftfarbe</Name>
+<Type>FONTCOLOR</Type>
+<Value>#000000</Value>
+</DesignItem>
+<DesignItem ID="MOTD_OPACITY">
+<Name>Laufschrift Deckkraft</Name>
+<Type>NUMBER</Type>
+<Value>0.9</Value>
+</DesignItem>
+<DesignItem ID="DAY_DATE_FONT_FAMILY">
+<Name>Überschrift Schriftart</Name>
+<Type>FONTFAMILY</Type>
+<Value>calibri</Value>
+</DesignItem>
+<DesignItem ID="MOTD_BACK_COLOR">
+<Name>Laufschrift Hintergrundfarbe</Name>
+<Type>COLOR</Type>
+<Value>#517C94</Value>
+</DesignItem>
+<DesignItem ID="MOTD_SPEED">
+<Name>Laufschrift Geschwindigkeit</Name>
+<Type>NUMBER</Type>
+<Value>2s</Value>
+</DesignItem>
+<DesignItem ID="DAY_TABLE_BORDER_WIDTH">
+<Name>Tabelle Rahmenbreite</Name>
+<Type>NUMBER</Type>
+<Value>3px</Value>
+</DesignItem>
+<DesignItem ID="DAY_DATE_FONT_SIZE">
+<Name>Überschrift Schrifgröße</Name>
+<Type>FONTSIZE</Type>
+<Value>30px</Value>
+</DesignItem>
+<DesignItem ID="DAY_SIDE_SPACE">
+<Name>Tag Seitenabstand</Name>
+<Type>NUMBER</Type>
+<Value>3px</Value>
+</DesignItem>
+<DesignItem ID="MOTD_TEXT_RIGHT_SPACE">
+<Name>Laufschrift rechter Textabstand</Name>
+<Type>NUMBER</Type>
+<Value>200px</Value>
+</DesignItem>
+<DesignItem ID="DAY_TABLE_BACK_COLOR">
+<Name>Tabelle Hintergrundfarbe</Name>
+<Type>COLOR</Type>
+<Value>#e7e7e7</Value>
+</DesignItem>
+<DesignItem ID="DAY_TABLE_BORDER_COLOR">
+<Name>Tabelle Rahmenfarbe</Name>
+<Type>COLOR</Type>
+<Value>#474747</Value>
+</DesignItem>
+<DesignItem ID="DAY_TABLES_BOTTOM_SPACE">
+<Name>Tabellen unterer Abstand</Name>
+<Type>NUMBER</Type>
+<Value>200px</Value>
+</DesignItem>
+<DesignItem ID="DAY_BACK_COLOR">
+<Name>Tag Hintergrundfarbe</Name>
+<Type>COLOR</Type>
+<Value>#026398</Value>
+</DesignItem>
+</DesignItems>
+<CustomDesignGroups>
+</CustomDesignGroups>
+</DesignConfiguration>
