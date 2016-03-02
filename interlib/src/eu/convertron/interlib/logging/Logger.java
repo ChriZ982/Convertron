@@ -3,10 +3,18 @@ package eu.convertron.interlib.logging;
 import eu.convertron.interlib.logging.messages.LogErrorMessage;
 import eu.convertron.interlib.logging.messages.LogMessage;
 import eu.convertron.interlib.logging.messages.LogPriority;
+import java.util.ArrayList;
 
 /** Registriert alle Aktionen und gibt diese sowohl im Programm als auch in einer Datei aus. */
 public class Logger
 {
+    private static ArrayList<LogOutput> output;
+
+    static
+    {
+        output = new ArrayList<>();
+    }
+
     /**
      * Zur Ausgabe von Informationen.
      * Schreibt wichtige Nachrichten in das Statusfenster der Anwendung.
@@ -32,6 +40,19 @@ public class Logger
         log(new LogErrorMessage(priority, message, exception));
     }
 
+    public static boolean addLogOutput(LogOutput out)
+    {
+        if(output.contains(out))
+            return false;
+        output.add(out);
+        return true;
+    }
+
+    public static boolean removeLogOutput(LogOutput out)
+    {
+        return output.remove(out);
+    }
+
     /**
      * Zur Ausgabe von Nachrichten und Fehlern.
      * @param logMessage Nachricht oder Fehler
@@ -40,13 +61,34 @@ public class Logger
     {
         try
         {
-            Thread.sleep(1);
-            LogTable.addLogMessage(logMessage);
-            LogFile.addLogMessage(logMessage);
+            for(LogOutput out : output)
+            {
+                Thread.sleep(10);
+                logSingle(out, logMessage);
+            }
         }
         catch(InterruptedException ex)
         {
             throw new RuntimeException("Thread could not sleep", ex);
         }
+    }
+
+    private static void logSingle(LogOutput out, LogMessage message)
+    {
+        try
+        {
+            out.addLogMessage(message);
+        }
+        catch(Exception ex)
+        {
+            output.remove(out);
+            logMessage(LogPriority.ERROR, "A LogOutput of type "
+                                          + (out == null ? "null" : out.getClass().getName())
+                                          + " threw an exception while logging.");
+        }
+    }
+
+    private Logger()
+    {
     }
 }

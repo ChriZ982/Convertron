@@ -7,33 +7,29 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /** Verwaltet die Tabelle mit der Fehler und Nachrichten in der Anwendung ausgegeben werden. */
-public class LogTable
+public class LogTable extends DefaultTableModel implements LogOutput
 {
-    /** Das Datenmodell, mit dem die Tabelle gefüllt wird. */
-    private static final DefaultTableModel logModel = new DefaultTableModel(0, 2)
-    {
-        private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 135453575L;
 
-        @Override
-        public boolean isCellEditable(int rowIndex, int columnIndex)
-        {
-            return false;
-        }
-    };
+    public LogTable()
+    {
+        super(0, 2);
+    }
 
     /** Enthält temporär ausgeblendete unwichtige Nachrichten */
-    private static final ArrayList<LogMessage> hiddenLogMessages = new ArrayList<LogMessage>();
+    private final ArrayList<LogMessage> hiddenLogMessages = new ArrayList<>();
 
     /** Sollen weniger wichtige Nachrichten und Fehler eingeblendet werden? */
-    private static boolean logInfos = false;
+    private boolean logInfos = false;
     /** Sollen weitere kurze Informationen zu Fehlern eingeblendet werden? */
-    private static boolean logDevInfos = false;
+    private boolean logDevInfos = false;
 
     /**
      * Fügt Nachrichten an die Tabelle oder versteckt sie direkt falls eigestellt.
      * @param logMessage Nachricht zum Anhängen
      */
-    public static void addLogMessage(LogMessage logMessage)
+    @Override
+    public void addLogMessage(LogMessage logMessage)
     {
         logMessage.setLogDevInfos(logDevInfos);
         if(logMessage.getPriority() == LogPriority.INFO && !logInfos)
@@ -46,45 +42,47 @@ public class LogTable
      * Zeigt oder Versteckt weniger wichtige Nachrichten und Fehler.
      * @param logInfos Anzeigen oder Verstecken?
      */
-    public static void setLogInfos(boolean logInfos)
+    public void setLogInfos(boolean logInfos)
     {
-        LogTable.logInfos = logInfos;
+        this.logInfos = logInfos;
         if(logInfos)
         {
-            EventQueue.invokeLater(() ->
-            {
-                showInformation();
+            EventQueue.invokeLater(()
+                    ->
+                    {
+                        showInformation();
             });
         }
         else
         {
-            EventQueue.invokeLater(() ->
-            {
-                hideInformation();
+            EventQueue.invokeLater(()
+                    ->
+                    {
+                        hideInformation();
             });
         }
     }
 
     /** Zeigt weniger wichtige Nachrichten und Fehler. */
-    private static void showInformation()
+    private void showInformation()
     {
         for(LogMessage logMessage : hiddenLogMessages)
         {
-            if(logModel.getRowCount() == 0)
+            if(this.getRowCount() == 0)
             {
                 addRow(logMessage);
                 continue;
             }
 
-            for(int i = 0; i < logModel.getRowCount(); i++)
+            for(int i = 0; i < this.getRowCount(); i++)
             {
-                LogMessage logMessage2 = (LogMessage)logModel.getValueAt(i, 0);
+                LogMessage logMessage2 = (LogMessage)this.getValueAt(i, 0);
                 if(logMessage2.getTime().after(logMessage.getTime()))
                 {
                     insertRow(logMessage, i);
                     break;
                 }
-                else if(i + 1 == logModel.getRowCount())
+                else if(i + 1 == this.getRowCount())
                 {
                     addRow(logMessage);
                     break;
@@ -95,16 +93,16 @@ public class LogTable
     }
 
     /** Versteckt weniger wichtige Nachrichten und Fehler. */
-    private static void hideInformation()
+    private void hideInformation()
     {
-        for(int i = 0; i < logModel.getRowCount(); i++)
+        for(int i = 0; i < this.getRowCount(); i++)
         {
-            LogMessage logMessage = (LogMessage)logModel.getValueAt(i, 0);
+            LogMessage logMessage = (LogMessage)this.getValueAt(i, 0);
             while(logMessage.getPriority() == LogPriority.INFO && !logInfos)
             {
                 hiddenLogMessages.add(logMessage);
-                logModel.removeRow(i);
-                logMessage = (LogMessage)logModel.getValueAt(i, 0);
+                this.removeRow(i);
+                logMessage = (LogMessage)this.getValueAt(i, 0);
             }
         }
     }
@@ -113,32 +111,33 @@ public class LogTable
      * Zeigt oder Versteckt weitere kurze Informationen zu Fehlern.
      * @param logDevInfos Anzeigen oder Verstecken?
      */
-    public static void setLogDevInfos(boolean logDevInfos)
+    public void setLogDevInfos(boolean logDevInfos)
     {
-        LogTable.logDevInfos = logDevInfos;
-        EventQueue.invokeLater(() ->
-        {
-            showOrHideDeveloperInformation();
+        this.logDevInfos = logDevInfos;
+        EventQueue.invokeLater(()
+                ->
+                {
+                    showOrHideDeveloperInformation();
         });
     }
 
     /** Zeigt oder Versteckt weitere kurze Informationen zu Fehlern. */
-    private static void showOrHideDeveloperInformation()
+    private void showOrHideDeveloperInformation()
     {
         for(LogMessage logMessage : hiddenLogMessages)
             logMessage.setLogDevInfos(logDevInfos);
-        for(int i = 0; i < logModel.getRowCount(); i++)
-            ((LogMessage)logModel.getValueAt(i, 0)).setLogDevInfos(logDevInfos);
-        logModel.fireTableDataChanged();
+        for(int i = 0; i < this.getRowCount(); i++)
+            ((LogMessage)this.getValueAt(i, 0)).setLogDevInfos(logDevInfos);
+        this.fireTableDataChanged();
     }
 
     /**
      * Fügt eine Nachricht oder einen Fehler an die Tabelle an.
      * @param logMessage Nachricht oder Fehler
      */
-    private static void addRow(LogMessage logMessage)
+    private void addRow(LogMessage logMessage)
     {
-        logModel.addRow(
+        this.addRow(
                 new Object[]
                 {
                     logMessage, logMessage
@@ -150,21 +149,18 @@ public class LogTable
      * @param logMessage Nachricht oder Fehler
      * @param i          Stelle zum Einfügen
      */
-    private static void insertRow(LogMessage logMessage, int i)
+    private void insertRow(LogMessage logMessage, int i)
     {
-        logModel.insertRow(i,
-                           new Object[]
-                           {
-                               logMessage, logMessage
-                           });
+        this.insertRow(i,
+                       new Object[]
+                       {
+                           logMessage, logMessage
+                       });
     }
 
-    /**
-     * Gets the model.
-     * @return TableModel
-     */
-    public static DefaultTableModel getLogModel()
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex)
     {
-        return logModel;
+        return false;
     }
 }
