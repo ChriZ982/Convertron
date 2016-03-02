@@ -1,12 +1,12 @@
 package eu.convertron.core.tabs.overview;
 
+import eu.convertron.applib.LogRenderer;
+import eu.convertron.applib.LogTable;
 import eu.convertron.core.Resources;
 import eu.convertron.core.settings.ComponentSetting;
 import eu.convertron.core.settings.CoreSettings;
 import eu.convertron.core.settings.TextFieldSetting;
 import eu.convertron.interlib.interfaces.View;
-import eu.convertron.interlib.logging.LogRenderer;
-import eu.convertron.interlib.logging.LogTable;
 import eu.convertron.interlib.logging.Logger;
 
 @SuppressWarnings("serial")

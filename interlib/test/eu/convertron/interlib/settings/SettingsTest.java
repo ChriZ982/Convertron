@@ -1,12 +1,11 @@
 package eu.convertron.interlib.settings;
 
-import eu.convertron.interlib.settings.Settings;
 import eu.convertron.interlib.io.TextFile;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import org.junit.BeforeClass;
-import org.junit.Test;
 
 public class SettingsTest
 {

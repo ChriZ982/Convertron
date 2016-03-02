@@ -1,11 +1,10 @@
 package eu.convertron.core.modules;
 
-import eu.convertron.core.modules.ClassLocation;
 import java.io.File;
 import java.net.URL;
+import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import org.junit.Test;
 
 @SuppressWarnings("javadoc")
 public class ClassLocationTest

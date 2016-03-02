@@ -1,7 +1,8 @@
-package eu.convertron.interlib.logging;
+package eu.convertron.applib;
 
-import eu.convertron.interlib.logging.messages.LogMessage;
-import eu.convertron.interlib.logging.messages.LogPriority;
+import eu.convertron.interlib.logging.LogMessage;
+import eu.convertron.interlib.logging.LogOutput;
+import eu.convertron.interlib.logging.LogPriority;
 import java.awt.EventQueue;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -16,7 +17,7 @@ public class LogTable extends DefaultTableModel implements LogOutput
         super(0, 2);
     }
 
-    /** EnthÃ¤lt temporÃ¤r ausgeblendete unwichtige Nachrichten */
+    /** Enthält temporär ausgeblendete unwichtige Nachrichten */
     private final ArrayList<LogMessage> hiddenLogMessages = new ArrayList<>();
 
     /** Sollen weniger wichtige Nachrichten und Fehler eingeblendet werden? */
@@ -25,8 +26,8 @@ public class LogTable extends DefaultTableModel implements LogOutput
     private boolean logDevInfos = false;
 
     /**
-     * FÃ¼gt Nachrichten an die Tabelle oder versteckt sie direkt falls eigestellt.
-     * @param logMessage Nachricht zum AnhÃ¤ngen
+     * Fügt Nachrichten an die Tabelle oder versteckt sie direkt falls eigestellt.
+     * @param logMessage Nachricht zum Anhängen
      */
     @Override
     public void addLogMessage(LogMessage logMessage)
@@ -132,7 +133,7 @@ public class LogTable extends DefaultTableModel implements LogOutput
     }
 
     /**
-     * FÃ¼gt eine Nachricht oder einen Fehler an die Tabelle an.
+     * Fügt eine Nachricht oder einen Fehler an die Tabelle an.
      * @param logMessage Nachricht oder Fehler
      */
     private void addRow(LogMessage logMessage)
@@ -145,9 +146,9 @@ public class LogTable extends DefaultTableModel implements LogOutput
     }
 
     /**
-     * FÃ¼gt eine Nachricht oder einen Fehler in die Tabelle ein.
+     * Fügt eine Nachricht oder einen Fehler in die Tabelle ein.
      * @param logMessage Nachricht oder Fehler
-     * @param i          Stelle zum EinfÃ¼gen
+     * @param i          Stelle zum Einfügen
      */
     private void insertRow(LogMessage logMessage, int i)
     {

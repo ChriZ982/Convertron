@@ -1,8 +1,6 @@
 package eu.convertron.core.tabs.modules;
 
 import eu.convertron.core.modules.ClassLocation;
-import eu.convertron.core.modules.ClassLocation;
-import eu.convertron.core.tabs.modules.ModuleImporter;
 import eu.convertron.interlib.interfaces.Input;
 import eu.convertron.interlib.interfaces.Module;
 import eu.convertron.interlib.interfaces.Output;
@@ -14,10 +12,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.jar.JarEntry;
+import org.junit.Test;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import org.junit.Test;
 
 public class ModuleLoaderTest
 {

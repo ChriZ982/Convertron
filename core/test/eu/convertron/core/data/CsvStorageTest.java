@@ -5,7 +5,6 @@
  */
 package eu.convertron.core.data;
 
-import eu.convertron.core.data.CsvStorage;
 import eu.convertron.interlib.data.Lesson;
 import eu.convertron.interlib.io.TextFile;
 import java.util.ArrayList;

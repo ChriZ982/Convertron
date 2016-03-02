@@ -1,4 +1,4 @@
-package eu.convertron.interlib.logging.messages;
+package eu.convertron.interlib.logging;
 
 import eu.convertron.interlib.util.Time;
 import java.util.Date;

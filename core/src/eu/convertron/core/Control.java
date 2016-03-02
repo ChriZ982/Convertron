@@ -1,5 +1,6 @@
 package eu.convertron.core;
 
+import eu.convertron.applib.LogFile;
 import eu.convertron.core.data.CsvStorage;
 import eu.convertron.core.data.Storage;
 import eu.convertron.core.settings.CoreSettings;
@@ -11,26 +12,16 @@ import eu.convertron.interlib.filter.TableOptions;
 import eu.convertron.interlib.interfaces.View;
 import eu.convertron.interlib.io.Folder;
 import eu.convertron.interlib.io.ResourceFile;
-import eu.convertron.interlib.logging.LogFile;
+import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
-import eu.convertron.interlib.logging.messages.LogPriority;
 import eu.convertron.interlib.settings.SettingLocation;
-import java.awt.EventQueue;
-import java.awt.MenuItem;
-import java.awt.PopupMenu;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.UIManager;
@@ -78,10 +69,6 @@ public class Control
             initializeStorage();
 
             createAndFillWindow();
-
-            loadWindowPosition();
-
-            initTray();
 
             initAutoTimer();
 
@@ -138,24 +125,6 @@ public class Control
         settings = new SettingsControl();
         moduleManager = new ModuleControl();
 
-        window.addWindowListener(new WindowAdapter()
-        {
-            @Override
-            public void windowClosing(WindowEvent e)
-            {
-                exit();
-            }
-
-            @Override
-            public void windowIconified(WindowEvent e)
-            {
-                if(trayIcon != null)
-                {
-                    window.setVisible(false);
-                }
-            }
-        });
-
         window.setVisible(true);
         Logger.logMessage(LogPriority.INFO, "Fenster wurde erstellt und gefüllt");
     }
@@ -204,124 +173,6 @@ public class Control
     {
         ResourceFile resourceFile = new ResourceFile(Resources.RESOURCEPATH + "stdData", fileName, Control.class);
         resourceFile.copyIfNotExists(destPath);
-    }
-
-    public static void loadWindowPosition()
-    {
-        String x = CoreSettings.positionX.load();
-        String y = CoreSettings.positionY.load();
-        try
-        {
-            window.setLocation(Integer.parseInt(x), Integer.parseInt(y));
-            Logger.logMessage(LogPriority.INFO, "Fenster Position wurde geladen");
-        }
-        catch(NumberFormatException ex)
-        {
-            Logger.logMessage(LogPriority.INFO, "Fenster Position konnte nicht geladen werden");
-        }
-    }
-
-    /**
-     * Initialisiert den Tray.
-     */
-    private static void initTray()
-    {
-        trayIcon = null;
-        try
-        {
-            if(SystemTray.isSupported())
-            {
-                SystemTray tray = SystemTray.getSystemTray();
-
-                BufferedImage icon = ImageIO.read(Resources.get("trayLogo.png"));
-                trayIcon = new TrayIcon(icon);
-
-                PopupMenu popup = new PopupMenu();
-
-                initTrayMenuItem("Alles generieren", popup,
-                                 ()
-                                 ->
-                                 {
-                                     Control.genAll();
-                         });
-
-                initTrayMenuItem("Backup erstellen", popup,
-                                 ()
-                                 ->
-                                 {
-                                     Control.createBackup();
-                         });
-
-                popup.addSeparator();
-
-                initTrayMenuItem("Maximieren", popup,
-                                 (java.awt.event.ActionEvent evt)
-                                 ->
-                                 {
-                                     window.setExtendedState(JFrame.NORMAL);
-                                     window.setVisible(true);
-                                     window.toFront();
-                                     window.requestFocus();
-                         });
-
-                initTrayMenuItem("Minimieren", popup,
-                                 (java.awt.event.ActionEvent evt)
-                                 ->
-                                 {
-                                     window.setVisible(false);
-                         });
-
-                popup.addSeparator();
-
-                initTrayMenuItem("Beenden", popup,
-                                 (java.awt.event.ActionEvent evt)
-                                 ->
-                                 {
-                                     Control.exit();
-                         });
-
-                trayIcon.setPopupMenu(popup);
-                trayIcon.setToolTip("Vertretungsplan-Generator");
-
-                trayIcon.addActionListener((ActionEvent e)
-                        ->
-                        {
-                            window.setExtendedState(JFrame.NORMAL);
-                            window.setVisible(true);
-                            window.toFront();
-                            window.requestFocus();
-                });
-
-                tray.add(trayIcon);
-            }
-            else
-            {
-                Logger.logMessage(LogPriority.INFO, "Das Betriebssystem unterstützt kein Tray, "
-                                                    + "es wurde kein Tray initialisiert");
-            }
-        }
-        catch(Exception ex)
-        {
-            Logger.logError(LogPriority.WARNING, "Tray konnte nicht initialisiert werden", ex);
-        }
-    }
-
-    private static void initTrayMenuItem(String text, PopupMenu menu, Runnable task)
-    {
-        initTrayMenuItem(text, menu,
-                         (ActionEvent e)
-                         ->
-                         {
-                             EventQueue.invokeLater(task);
-                 });
-    }
-
-    private static void initTrayMenuItem(String text, PopupMenu menu, ActionListener listener)
-    {
-        MenuItem item = new MenuItem(text);
-        item.addActionListener(listener);
-
-        menu.add(item);
     }
 
     /**

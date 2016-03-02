@@ -1,8 +1,5 @@
 package eu.convertron.interlib.logging;
 
-import eu.convertron.interlib.logging.messages.LogErrorMessage;
-import eu.convertron.interlib.logging.messages.LogMessage;
-import eu.convertron.interlib.logging.messages.LogPriority;
 import java.util.ArrayList;
 
 /** Registriert alle Aktionen und gibt diese sowohl im Programm als auch in einer Datei aus. */

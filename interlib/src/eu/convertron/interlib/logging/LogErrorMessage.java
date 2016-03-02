@@ -1,4 +1,4 @@
-package eu.convertron.interlib.logging.messages;
+package eu.convertron.interlib.logging;
 
 /** Stellt die Fehlernachrichten für den Logger da. */
 public class LogErrorMessage extends LogMessage

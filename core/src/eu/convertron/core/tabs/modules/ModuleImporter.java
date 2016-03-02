@@ -3,8 +3,8 @@ package eu.convertron.core.tabs.modules;
 import eu.convertron.core.modules.ClassLocation;
 import eu.convertron.core.settings.CoreArraySettings;
 import eu.convertron.interlib.interfaces.Module;
+import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
-import eu.convertron.interlib.logging.messages.LogPriority;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -120,7 +120,7 @@ public class ModuleImporter
             {
                 ClassLocation location = new ClassLocation(url, parseClassName(e.getName()));
 
-                Class cl = loadClass(location);
+                Class<?> cl = loadClass(location);
                 if(isModule(cl))
                     moduleClasses.add(location);
             }
@@ -153,7 +153,7 @@ public class ModuleImporter
         }
     }
 
-    protected Class loadClass(ClassLocation location)
+    protected Class<?> loadClass(ClassLocation location)
     {
         String logPart = location.getClassName()
                          + " from Jar " + location.getJarFileUrl();
@@ -162,7 +162,7 @@ public class ModuleImporter
         {
             Logger.logMessage(LogPriority.INFO, "Try to load " + logPart);
 
-            Class clazz = new URLClassLoader(new URL[]
+            Class<?> clazz = new URLClassLoader(new URL[]
             {
                 location.getJarFileUrl()
             }).loadClass(location.getClassName());
@@ -187,14 +187,14 @@ public class ModuleImporter
         return e.getName().endsWith(".class");
     }
 
-    protected boolean isModule(Class c)
+    protected boolean isModule(Class<?> c)
     {
         if(c == null)
             return false;
 
-        Class[] interfaces = c.getInterfaces();
+        Class<?>[] interfaces = c.getInterfaces();
 
-        for(Class interf : interfaces)
+        for(Class<?> interf : interfaces)
         {
             if(interf.equals(eu.convertron.interlib.interfaces.Module.class) || isModule(interf))
                 return true;

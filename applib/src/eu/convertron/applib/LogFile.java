@@ -1,13 +1,14 @@
-package eu.convertron.interlib.logging;
+package eu.convertron.applib;
 
 import eu.convertron.interlib.io.TextFile;
-import eu.convertron.interlib.logging.messages.LogMessage;
+import eu.convertron.interlib.logging.LogMessage;
+import eu.convertron.interlib.logging.LogOutput;
 import eu.convertron.interlib.util.Time;
 
 /** Gibt Fehler und Nachrichten in einer Datein aus. */
 public class LogFile implements LogOutput
 {
-    /** Datei fÃ¼r den Log. */
+    /** Datei für den Log. */
     protected TextFile logFile;
 
     public LogFile()
@@ -21,7 +22,7 @@ public class LogFile implements LogOutput
     }
 
     /**
-     * HÃ¤ngt Nachrichten oder Fehler an die Datei an.
+     * Hängt Nachrichten oder Fehler an die Datei an.
      * @param logMessage Nachricht oder Fehler
      */
     @Override

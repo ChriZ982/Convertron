@@ -1,10 +1,9 @@
 package eu.convertron.interlib.util;
 
-import eu.convertron.interlib.util.Time;
 import java.util.Date;
+import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import org.junit.Test;
 
 public class TimeTest
 {

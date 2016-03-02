@@ -10,4 +10,8 @@ public class Resources
     {
         return Resources.class.getResource(RESOURCEPATH + name);
     }
+
+    private Resources()
+    {
+    }
 }

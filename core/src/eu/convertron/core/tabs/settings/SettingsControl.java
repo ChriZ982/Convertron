@@ -1,7 +1,7 @@
 package eu.convertron.core.tabs.settings;
 
-import eu.convertron.core.settings.ComponentSetting;
 import eu.convertron.core.Control;
+import eu.convertron.core.settings.ComponentSetting;
 
 public class SettingsControl
 {

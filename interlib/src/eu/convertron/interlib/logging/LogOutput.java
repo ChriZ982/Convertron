@@ -1,7 +1,5 @@
 package eu.convertron.interlib.logging;
 
-import eu.convertron.interlib.logging.messages.LogMessage;
-
 /**
  * The interface to define LogOutputs.
  */

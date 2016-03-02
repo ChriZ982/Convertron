@@ -1,14 +1,12 @@
 package eu.convertron.interlib.filter;
 
-import eu.convertron.interlib.filter.FilterOption;
-import eu.convertron.interlib.filter.TableOptions;
 import eu.convertron.interlib.data.Lesson;
 import java.util.HashMap;
 import java.util.TreeMap;
 import org.junit.Assert;
+import org.junit.Test;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import org.junit.Test;
 
 public class TableOptionsTest
 {

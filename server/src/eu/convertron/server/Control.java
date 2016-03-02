@@ -1,7 +1,7 @@
 package eu.convertron.server;
 
+import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
-import eu.convertron.interlib.logging.messages.LogPriority;
 import java.awt.GridLayout;
 import java.awt.TrayIcon;
 import java.awt.event.WindowAdapter;
