@@ -11,6 +11,7 @@ import eu.convertron.interlib.filter.TableOptions;
 import eu.convertron.interlib.interfaces.View;
 import eu.convertron.interlib.io.Folder;
 import eu.convertron.interlib.io.ResourceFile;
+import eu.convertron.interlib.logging.LogFile;
 import eu.convertron.interlib.logging.Logger;
 import eu.convertron.interlib.logging.messages.LogPriority;
 import eu.convertron.interlib.settings.SettingLocation;
@@ -68,6 +69,7 @@ public class Control
         try
         {
             setFileEncoding("UTF-8");
+            Logger.addLogOutput(new LogFile());
 
             setJavaLookAndFeel();
 
@@ -119,11 +121,12 @@ public class Control
     private static void initAutoTimer()
     {
         autoTimer = new Timer(60000,
-                              (ActionEvent e) ->
+                              (ActionEvent e)
+                              ->
                               {
                                   if(CoreSettings.autoMode.load().equals("true"))
                                       genAll();
-                              });
+                      });
         autoTimer.start();
     }
 
@@ -236,51 +239,57 @@ public class Control
                 PopupMenu popup = new PopupMenu();
 
                 initTrayMenuItem("Alles generieren", popup,
-                                 () ->
+                                 ()
+                                 ->
                                  {
                                      Control.genAll();
-                                 });
+                         });
 
                 initTrayMenuItem("Backup erstellen", popup,
-                                 () ->
+                                 ()
+                                 ->
                                  {
                                      Control.createBackup();
-                                 });
+                         });
 
                 popup.addSeparator();
 
                 initTrayMenuItem("Maximieren", popup,
-                                 (java.awt.event.ActionEvent evt) ->
+                                 (java.awt.event.ActionEvent evt)
+                                 ->
                                  {
                                      window.setExtendedState(JFrame.NORMAL);
                                      window.setVisible(true);
                                      window.toFront();
                                      window.requestFocus();
-                                 });
+                         });
 
                 initTrayMenuItem("Minimieren", popup,
-                                 (java.awt.event.ActionEvent evt) ->
+                                 (java.awt.event.ActionEvent evt)
+                                 ->
                                  {
                                      window.setVisible(false);
-                                 });
+                         });
 
                 popup.addSeparator();
 
                 initTrayMenuItem("Beenden", popup,
-                                 (java.awt.event.ActionEvent evt) ->
+                                 (java.awt.event.ActionEvent evt)
+                                 ->
                                  {
                                      Control.exit();
-                                 });
+                         });
 
                 trayIcon.setPopupMenu(popup);
                 trayIcon.setToolTip("Vertretungsplan-Generator");
 
-                trayIcon.addActionListener((ActionEvent e) ->
-                {
-                    window.setExtendedState(JFrame.NORMAL);
-                    window.setVisible(true);
-                    window.toFront();
-                    window.requestFocus();
+                trayIcon.addActionListener((ActionEvent e)
+                        ->
+                        {
+                            window.setExtendedState(JFrame.NORMAL);
+                            window.setVisible(true);
+                            window.toFront();
+                            window.requestFocus();
                 });
 
                 tray.add(trayIcon);
@@ -300,10 +309,11 @@ public class Control
     private static void initTrayMenuItem(String text, PopupMenu menu, Runnable task)
     {
         initTrayMenuItem(text, menu,
-                         (ActionEvent e) ->
+                         (ActionEvent e)
+                         ->
                          {
                              EventQueue.invokeLater(task);
-                         });
+                 });
     }
 
     private static void initTrayMenuItem(String text, PopupMenu menu, ActionListener listener)

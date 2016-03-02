@@ -7,6 +7,7 @@ import eu.convertron.core.settings.TextFieldSetting;
 import eu.convertron.interlib.interfaces.View;
 import eu.convertron.interlib.logging.LogRenderer;
 import eu.convertron.interlib.logging.LogTable;
+import eu.convertron.interlib.logging.Logger;
 
 @SuppressWarnings("serial")
 public class OverviewView extends View
@@ -20,7 +21,10 @@ public class OverviewView extends View
 
     private void initTable()
     {
-        statusTable.setModel(LogTable.getLogModel());
+        logTable = new LogTable();
+        Logger.addLogOutput(logTable);
+
+        statusTable.setModel(logTable);
         statusTable.getColumnModel().getColumn(0).setMaxWidth(50);
 
         LogRenderer logRenderer = new LogRenderer();
@@ -194,12 +198,12 @@ public class OverviewView extends View
 
     private void showInfosCheckBoxItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_showInfosCheckBoxItemStateChanged
     {//GEN-HEADEREND:event_showInfosCheckBoxItemStateChanged
-        LogTable.setLogInfos(showInfosCheckBox.isSelected());
+        logTable.setLogInfos(showInfosCheckBox.isSelected());
     }//GEN-LAST:event_showInfosCheckBoxItemStateChanged
 
     private void showDevInfosCheckBoxItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_showDevInfosCheckBoxItemStateChanged
     {//GEN-HEADEREND:event_showDevInfosCheckBoxItemStateChanged
-        LogTable.setLogDevInfos(showDevInfosCheckBox.isSelected());
+        logTable.setLogDevInfos(showDevInfosCheckBox.isSelected());
     }//GEN-LAST:event_showDevInfosCheckBoxItemStateChanged
 
     public void addGenAllListener(Runnable task)
@@ -238,6 +242,7 @@ public class OverviewView extends View
         return "Übersicht";
     }
 
+    private LogTable logTable;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton createBackupButton;
     private javax.swing.JButton exportLessonsButton;
