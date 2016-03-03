@@ -1,7 +1,12 @@
 package eu.convertron.basicmodules.html;
 
+import eu.convertron.basicmodules.html.serialization.DesignConfiguration;
+import eu.convertron.basicmodules.html.serialization.DesignDeserilization;
+import eu.convertron.basicmodules.html.serialization.DesignSerialization;
 import eu.convertron.interlib.interfaces.View;
+import eu.convertron.interlib.io.TextFile;
 import java.awt.EventQueue;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import javax.swing.table.DefaultTableModel;
@@ -23,55 +28,11 @@ public class DesignPanel extends View
 
     private void loadDesign()
     {
-        designItems.put("FRAME_BORDER_COLOR", new DesignItem("Plan Rahmenfarbe", DesignItemType.COLOR, "#004A80"));
+        TextFile textFile = new TextFile("design.xml");
+        DesignDeserilization deserilization = new DesignDeserilization(textFile.readAllToString().replaceAll("\n", ""));
+        DesignConfiguration config = deserilization.getDesign();
 
-        designItems.put("MOTD_HEIGHT", new DesignItem("Laufschrift Höhe", DesignItemType.NUMBER, "80px"));
-
-        designItems.put("MOTD_FONT_STYLE", new DesignItem("Laufschrift Schriftstil", DesignItemType.FONTSTYLE, "bold"));
-        designItems.put("MOTD_FONT_SIZE", new DesignItem("Laufschrift Schrifgröße", DesignItemType.FONTSIZE, "60px"));
-        designItems.put("MOTD_FONT_FAMILY", new DesignItem("Laufschrift Schriftart", DesignItemType.FONTFAMILY, "calibri"));
-        designItems.put("MOTD_BACK_COLOR", new DesignItem("Laufschrift Hintergrundfarbe", DesignItemType.COLOR, "#517C94"));
-        designItems.put("MOTD_OPACITY", new DesignItem("Laufschrift Deckkraft", DesignItemType.NUMBER, "0.9"));
-
-        designItems.put("MOTD_SPEED", new DesignItem("Laufschrift Geschwindigkeit", DesignItemType.NUMBER, "2s"));
-
-        designItems.put("MOTD_TEXT_RIGHT_SPACE", new DesignItem("Laufschrift rechter Textabstand", DesignItemType.NUMBER, "200px"));
-
-        designItems.put("MOTD_TEXT_LEFT_SPACE", new DesignItem("Laufschrift linker Textabstand", DesignItemType.NUMBER, "50px"));
-
-        designItems.put("DAY_BACK_COLOR", new DesignItem("Tag Hintergrundfarbe", DesignItemType.COLOR, "#026398"));
-        designItems.put("DAY_SIDE_SPACE", new DesignItem("Tag Seitenabstand", DesignItemType.NUMBER, "3px"));
-
-        designItems.put("DAY_SPEED", new DesignItem("Tag Geschwindigkeit", DesignItemType.NUMBER, "3s"));
-
-        designItems.put("DAY_HEADER_HEIGHT", new DesignItem("Tag Überschrift Höhe", DesignItemType.NUMBER, "80px"));
-
-        designItems.put("DAY_TABLES_BOTTOM_SPACE", new DesignItem("Tabellen unterer Abstand", DesignItemType.NUMBER, "200px"));
-
-        designItems.put("DAY_HEADER_BACK_COLOR", new DesignItem("Tag Überschrift Hintergrundfarbe", DesignItemType.COLOR, "#517C94"));
-        designItems.put("DAY_HEADER_OPACITY", new DesignItem("Tag Überschrift Deckkraft", DesignItemType.NUMBER, "0.9"));
-
-        designItems.put("DAY_DATE_FONT_STYLE", new DesignItem("Überschrift Schriftstil", DesignItemType.FONTSTYLE, "bold"));
-        designItems.put("DAY_DATE_FONT_SIZE", new DesignItem("Überschrift Schrifgröße", DesignItemType.FONTSIZE, "30px"));
-        designItems.put("DAY_DATE_FONT_FAMILY", new DesignItem("Überschrift Schriftart", DesignItemType.FONTFAMILY, "calibri"));
-        designItems.put("DAY_DATE_TEXT_SPACE", new DesignItem("Überschrift Textabstand", DesignItemType.NUMBER, "50px"));
-
-        designItems.put("DAY_TABLE_FONT_STYLE", new DesignItem("Tabelle Schriftstil", DesignItemType.FONTSTYLE, ""));
-        designItems.put("DAY_TABLE_FONT_SIZE", new DesignItem("Tabelle Schrifgröße", DesignItemType.FONTSIZE, "16px"));
-        designItems.put("DAY_TABLE_FONT_FAMILY", new DesignItem("Tabelle Schriftart", DesignItemType.FONTFAMILY, "calibri"));
-        designItems.put("DAY_TABLE_FONT_COLOR", new DesignItem("Tabelle Schriftfarbe", DesignItemType.FONTCOLOR, "#000000"));
-        designItems.put("DAY_TABLE_BORDER_WIDTH", new DesignItem("Tabelle Rahmenbreite", DesignItemType.NUMBER, "3px"));
-        designItems.put("DAY_TABLE_BORDER_COLOR", new DesignItem("Tabelle Rahmenfarbe", DesignItemType.COLOR, "#474747"));
-        designItems.put("DAY_TABLE_BACK_COLOR", new DesignItem("Tabelle Hintergrundfarbe", DesignItemType.COLOR, "#e7e7e7"));
-        designItems.put("DAY_TABLES_SPACE", new DesignItem("Tabelle Abstand", DesignItemType.NUMBER, "10px"));
-
-        designItems.put("DAY_CLASS_FONT_STYLE", new DesignItem("Klassenname Schriftstil", DesignItemType.FONTSTYLE, "bold"));
-        designItems.put("DAY_CLASS_FONT_SIZE", new DesignItem("Klassenname Schrifgröße", DesignItemType.FONTSIZE, "30px"));
-        designItems.put("DAY_CLASS_FONT_FAMILY", new DesignItem("Klassenname Schriftart", DesignItemType.FONTFAMILY, "calibri"));
-        designItems.put("DAY_CLASS_FONT_COLOR", new DesignItem("Klassenname Schriftfarbe", DesignItemType.FONTCOLOR, "#000000"));
-
-        designItems.put("DAY_TABLE_INNER_BORDER_WIDTH", new DesignItem("Tabelle innere Rahmenbreite", DesignItemType.NUMBER, "1px"));
-        designItems.put("DAY_TABLE_INNER_BORDER_COLOR", new DesignItem("Tabelle innere Rahmenfarbe", DesignItemType.FONTCOLOR, "#000000"));
+        designItems.putAll(config.getDesignItems());
     }
 
     @SuppressWarnings("unchecked")
@@ -200,19 +161,28 @@ public class DesignPanel extends View
 
     private void reloadTable()
     {
-        EventQueue.invokeLater(() ->
-        {
-            DefaultTableModel model = (DefaultTableModel)designItemsTable.getModel();
-            model.setRowCount(0);
+        TextFile textFile = new TextFile("design.xml");
+        DesignDeserilization deserilization = new DesignDeserilization(textFile.readAllToString().replaceAll("\n", ""));
+        DesignConfiguration config = deserilization.getDesign();
+        config.setDesignItems(designItems);
 
-            for(Entry<String, DesignItem> design : designItems.entrySet())
-            {
-                String[] designRow = design.getValue().toRow();
-                String[] row = new String[designRow.length + 1];
-                row[0] = design.getKey();
-                System.arraycopy(designRow, 0, row, 1, designRow.length);
-                model.addRow(row);
-            }
+        DesignSerialization serialization = new DesignSerialization(config);
+        serialization.copyTo(new File("design.xml"));
+
+        EventQueue.invokeLater(()
+                ->
+                {
+                    DefaultTableModel model = (DefaultTableModel)designItemsTable.getModel();
+                    model.setRowCount(0);
+
+                    for(Entry<String, DesignItem> design : designItems.entrySet())
+                    {
+                        String[] designRow = design.getValue().toRow();
+                        String[] row = new String[designRow.length + 1];
+                        row[0] = design.getKey();
+                        System.arraycopy(designRow, 0, row, 1, designRow.length);
+                        model.addRow(row);
+                    }
         });
     }
 

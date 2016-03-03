@@ -1,12 +1,12 @@
 package eu.convertron.core.tabs.settings;
 
+import eu.convertron.applib.settings.CheckBoxSetting;
+import eu.convertron.applib.settings.ComboBoxSetting;
+import eu.convertron.applib.settings.ComponentSetting;
+import eu.convertron.applib.settings.TextFieldSetting;
+import eu.convertron.core.CoreArraySettings;
+import eu.convertron.core.CoreSettings;
 import eu.convertron.core.Resources;
-import eu.convertron.core.settings.CheckBoxSetting;
-import eu.convertron.core.settings.ComboBoxSetting;
-import eu.convertron.core.settings.ComponentSetting;
-import eu.convertron.core.settings.CoreArraySettings;
-import eu.convertron.core.settings.CoreSettings;
-import eu.convertron.core.settings.TextFieldSetting;
 import eu.convertron.interlib.interfaces.View;
 import java.io.File;
 import javax.swing.JComponent;

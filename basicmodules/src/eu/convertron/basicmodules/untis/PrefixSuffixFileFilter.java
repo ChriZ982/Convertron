@@ -1,8 +1,8 @@
 package eu.convertron.basicmodules.untis;
 
+import eu.convertron.basicmodules.settings.BasicSettings;
 import java.io.File;
 import java.io.FileFilter;
-import eu.convertron.basicmodules.settings.BasicSettings;
 
 public class PrefixSuffixFileFilter implements FileFilter
 {

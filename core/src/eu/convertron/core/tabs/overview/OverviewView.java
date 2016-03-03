@@ -1,12 +1,11 @@
 package eu.convertron.core.tabs.overview;
 
+import eu.convertron.applib.LogPanel;
+import eu.convertron.applib.settings.ComponentSetting;
+import eu.convertron.applib.settings.TextFieldSetting;
+import eu.convertron.core.CoreSettings;
 import eu.convertron.core.Resources;
-import eu.convertron.core.settings.ComponentSetting;
-import eu.convertron.core.settings.CoreSettings;
-import eu.convertron.core.settings.TextFieldSetting;
 import eu.convertron.interlib.interfaces.View;
-import eu.convertron.interlib.logging.LogRenderer;
-import eu.convertron.interlib.logging.LogTable;
 
 @SuppressWarnings("serial")
 public class OverviewView extends View
@@ -14,18 +13,8 @@ public class OverviewView extends View
     /** Creates new form View */
     public OverviewView()
     {
+        logPanel = new LogPanel();
         initComponents();
-        initTable();
-    }
-
-    private void initTable()
-    {
-        statusTable.setModel(LogTable.getLogModel());
-        statusTable.getColumnModel().getColumn(0).setMaxWidth(50);
-
-        LogRenderer logRenderer = new LogRenderer();
-        statusTable.getColumnModel().getColumn(0).setCellRenderer(logRenderer);
-        statusTable.getColumnModel().getColumn(1).setCellRenderer(logRenderer);
     }
 
     /** This method is called from within the constructor to
@@ -50,12 +39,11 @@ public class OverviewView extends View
         showDevInfosCheckBox = new javax.swing.JCheckBox();
         saveMotdButton = new javax.swing.JButton();
         showInfosCheckBox = new javax.swing.JCheckBox();
-        statusScrollPane = new javax.swing.JScrollPane();
-        statusTable = new javax.swing.JTable();
         separator1 = new javax.swing.JSeparator();
         separator2 = new javax.swing.JSeparator();
         separator3 = new javax.swing.JSeparator();
         separator4 = new javax.swing.JSeparator();
+        logScrollPane = new javax.swing.JScrollPane(logPanel);
 
         statusLabel.setText("Status:");
 
@@ -109,20 +97,6 @@ public class OverviewView extends View
             }
         });
 
-        statusTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
-
-            },
-            new String []
-            {
-
-            }
-        ));
-        statusTable.setShowVerticalLines(false);
-        statusTable.setTableHeader(null);
-        statusScrollPane.setViewportView(statusTable);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -149,7 +123,7 @@ public class OverviewView extends View
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(statusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(statusScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
+                        .addComponent(logScrollPane)
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -186,20 +160,20 @@ public class OverviewView extends View
                         .addComponent(showDevInfosCheckBox))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(statusLabel)
-                        .addGap(10, 10, 10)
-                        .addComponent(statusScrollPane)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(logScrollPane)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void showInfosCheckBoxItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_showInfosCheckBoxItemStateChanged
     {//GEN-HEADEREND:event_showInfosCheckBoxItemStateChanged
-        LogTable.setLogInfos(showInfosCheckBox.isSelected());
+        logPanel.setLogInfos(showInfosCheckBox.isSelected());
     }//GEN-LAST:event_showInfosCheckBoxItemStateChanged
 
     private void showDevInfosCheckBoxItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_showDevInfosCheckBoxItemStateChanged
     {//GEN-HEADEREND:event_showDevInfosCheckBoxItemStateChanged
-        LogTable.setLogDevInfos(showDevInfosCheckBox.isSelected());
+        logPanel.setLogDevInfos(showDevInfosCheckBox.isSelected());
     }//GEN-LAST:event_showDevInfosCheckBoxItemStateChanged
 
     public void addGenAllListener(Runnable task)
@@ -238,11 +212,13 @@ public class OverviewView extends View
         return "Übersicht";
     }
 
+    private LogPanel logPanel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton createBackupButton;
     private javax.swing.JButton exportLessonsButton;
     private javax.swing.JButton generateAllButton;
     private javax.swing.JButton importLessonsButton;
+    private javax.swing.JScrollPane logScrollPane;
     private javax.swing.JLabel logoLabel;
     private javax.swing.JScrollPane motdScrollPane;
     private javax.swing.JTextField motdTextField;
@@ -255,7 +231,5 @@ public class OverviewView extends View
     private javax.swing.JCheckBox showDevInfosCheckBox;
     private javax.swing.JCheckBox showInfosCheckBox;
     private javax.swing.JLabel statusLabel;
-    private javax.swing.JScrollPane statusScrollPane;
-    private javax.swing.JTable statusTable;
     // End of variables declaration//GEN-END:variables
 }

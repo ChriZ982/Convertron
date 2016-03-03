@@ -1,7 +1,12 @@
 package eu.convertron.basicmodules.html;
 
+import eu.convertron.basicmodules.html.serialization.DesignConfiguration;
+import eu.convertron.basicmodules.html.serialization.DesignDeserilization;
+import eu.convertron.basicmodules.html.serialization.DesignSerialization;
 import eu.convertron.interlib.interfaces.View;
+import eu.convertron.interlib.io.TextFile;
 import java.awt.EventQueue;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.table.DefaultTableModel;
@@ -16,8 +21,18 @@ public class CustomDesignPanel extends View
         initComponents();
 
         designItems = new HashMap<String, HashMap<String, CustomDesignItem>>();
+        loadDesign();
 
         reloadTable();
+    }
+
+    private void loadDesign()
+    {
+        TextFile textFile = new TextFile("design.xml");
+        DesignDeserilization deserilization = new DesignDeserilization(textFile.readAllToString().replaceAll("\n", ""));
+        DesignConfiguration config = deserilization.getDesign();
+
+        designItems.putAll(config.getCustomDesigns());
     }
 
     @SuppressWarnings("unchecked")
@@ -236,22 +251,31 @@ public class CustomDesignPanel extends View
 
     private void reloadTable()
     {
-        EventQueue.invokeLater(() ->
-        {
-            DefaultTableModel model = (DefaultTableModel)customDesignItemsTable.getModel();
-            model.setRowCount(0);
+        TextFile textFile = new TextFile("design.xml");
+        DesignDeserilization deserilization = new DesignDeserilization(textFile.readAllToString().replaceAll("\n", ""));
+        DesignConfiguration config = deserilization.getDesign();
+        config.setCustomDesigns(designItems);
 
-            for(HashMap<String, CustomDesignItem> head : designItems.values())
-            {
-                for(Map.Entry<String, CustomDesignItem> design : head.entrySet())
+        DesignSerialization serialization = new DesignSerialization(config);
+        serialization.copyTo(new File("design.xml"));
+
+        EventQueue.invokeLater(()
+                ->
                 {
-                    String[] designRow = design.getValue().toRow();
-                    String[] row = new String[designRow.length + 1];
-                    row[0] = design.getKey();
-                    System.arraycopy(designRow, 0, row, 1, designRow.length);
-                    model.addRow(row);
-                }
-            }
+                    DefaultTableModel model = (DefaultTableModel)customDesignItemsTable.getModel();
+                    model.setRowCount(0);
+
+                    for(HashMap<String, CustomDesignItem> head : designItems.values())
+                    {
+                        for(Map.Entry<String, CustomDesignItem> design : head.entrySet())
+                        {
+                            String[] designRow = design.getValue().toRow();
+                            String[] row = new String[designRow.length + 1];
+                            row[0] = design.getKey();
+                            System.arraycopy(designRow, 0, row, 1, designRow.length);
+                            model.addRow(row);
+                        }
+                    }
         });
     }
 

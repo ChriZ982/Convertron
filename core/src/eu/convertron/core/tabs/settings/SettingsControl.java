@@ -1,6 +1,6 @@
 package eu.convertron.core.tabs.settings;
 
-import eu.convertron.core.settings.ComponentSetting;
+import eu.convertron.applib.settings.ComponentSetting;
 import eu.convertron.core.Control;
 
 public class SettingsControl

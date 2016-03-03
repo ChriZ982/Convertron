@@ -1,6 +1,5 @@
 package eu.convertron.core.tabs.modules;
 
-import eu.convertron.core.modules.ModuleListRenderer;
 import eu.convertron.interlib.interfaces.Module;
 import eu.convertron.interlib.interfaces.View;
 import java.awt.EventQueue;

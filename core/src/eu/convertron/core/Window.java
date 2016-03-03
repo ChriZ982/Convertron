@@ -1,11 +1,15 @@
 package eu.convertron.core;
 
+import eu.convertron.applib.ApplicationFrame;
 import eu.convertron.interlib.interfaces.View;
+import eu.convertron.interlib.logging.LogPriority;
+import eu.convertron.interlib.logging.Logger;
+import java.awt.MenuItem;
 
 /**
  * Anzeige-Fenster der Anwendung.
  */
-public class Window extends javax.swing.JFrame
+public class Window extends ApplicationFrame
 {
     /**
      * Zufallsgenerierter Schlüssel
@@ -16,10 +20,39 @@ public class Window extends javax.swing.JFrame
      * Erstellt ein neues Fenster.
      *
      *
+     * @param exitListener
+     * @param trayImg
+     * @param trayToolTip
+     * @param additionalMenuItems
+     * @throws java.io.IOException
      */
     public Window()
     {
+        super(Resources.get("trayLogo.png"), "Vertretungsplan-Generator Client",
+              new MenuItem[]
+              {
+                  createMenuItem("Alles generieren", (e) -> Control.genAll()),
+                  createMenuItem("Backup erstellen", (e) -> Control.createBackup())
+              });
         initComponents();
+
+        String x = CoreSettings.positionX.load();
+        String y = CoreSettings.positionY.load();
+        try
+        {
+            setLocation(Integer.parseInt(x), Integer.parseInt(y));
+            Logger.logMessage(LogPriority.INFO, "Fenster Position wurde geladen");
+        }
+        catch(NumberFormatException ex)
+        {
+            Logger.logMessage(LogPriority.INFO, "Fenster Position konnte nicht geladen werden");
+        }
+    }
+
+    @Override
+    public void exit()
+    {
+        Control.exit();
     }
 
     @SuppressWarnings("unchecked")

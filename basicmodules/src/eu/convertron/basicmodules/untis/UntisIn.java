@@ -6,9 +6,10 @@ import eu.convertron.interlib.interfaces.Input;
 import eu.convertron.interlib.interfaces.View;
 import eu.convertron.interlib.io.Folder;
 import eu.convertron.interlib.io.TextFile;
+import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
-import eu.convertron.interlib.logging.messages.LogPriority;
 import java.io.File;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.TreeMap;
@@ -75,12 +76,9 @@ public class UntisIn implements Input
                 result.addAll(Arrays.asList(getFiles(subFile, filter)));
             }
         }
-        else
+        else if(filter.accept(file))
         {
-            if(filter.accept(file))
-            {
-                result.add(file);
-            }
+            result.add(file);
         }
 
         return result.toArray(new File[result.size()]);
@@ -88,7 +86,7 @@ public class UntisIn implements Input
 
     private Lesson[] readFromHtmlFile(File f)
     {
-        String source = new TextFile(f).readAllToString();
+        String source = new TextFile(f, Charset.forName("ISO-8859-1")).readAllToString();
         String schoolClass = getSchoolClass(source);
         HtmlTable table = new HtmlTable(getTable(source));
 

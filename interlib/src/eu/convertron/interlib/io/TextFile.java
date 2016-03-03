@@ -14,13 +14,15 @@ import java.util.List;
 /** Verwaltet, Erstellt und Löscht Textdateien. */
 public class TextFile extends GeneralFile
 {
+    private Charset charset;
+
     /**
      * Kontruktor.
      * @param path Pfad zur Datei
      */
     public TextFile(File path)
     {
-        super(path);
+        this(path, Charset.forName("UTF-8"));
     }
 
     /**
@@ -29,7 +31,7 @@ public class TextFile extends GeneralFile
      */
     public TextFile(URI path)
     {
-        super(path);
+        this(path, Charset.forName("UTF-8"));
     }
 
     /**
@@ -38,7 +40,7 @@ public class TextFile extends GeneralFile
      */
     public TextFile(String path)
     {
-        super(path);
+        this(path, Charset.forName("UTF-8"));
     }
 
     /**
@@ -48,7 +50,7 @@ public class TextFile extends GeneralFile
      */
     public TextFile(String folder, String fileName)
     {
-        super(folder, fileName);
+        this(folder, fileName, Charset.forName("UTF-8"));
     }
 
     /**
@@ -57,7 +59,63 @@ public class TextFile extends GeneralFile
      */
     public TextFile(Path path)
     {
+        this(path, Charset.forName("UTF-8"));
+    }
+
+    /**
+     * Kontruktor.
+     * @param path    Pfad zur Datei
+     * @param charset
+     */
+    public TextFile(File path, Charset charset)
+    {
         super(path);
+        this.charset = charset;
+    }
+
+    /**
+     * Kontruktor.
+     * @param path    Pfad zur Datei
+     * @param charset
+     */
+    public TextFile(URI path, Charset charset)
+    {
+        super(path);
+        this.charset = charset;
+    }
+
+    /**
+     * Kontruktor.
+     * @param path    Pfad zur Datei
+     * @param charset
+     */
+    public TextFile(String path, Charset charset)
+    {
+        super(path);
+        this.charset = charset;
+    }
+
+    /**
+     * Kontruktor.
+     * @param folder   Ordner der Daten
+     * @param fileName Dateiname der Daten
+     * @param charset
+     */
+    public TextFile(String folder, String fileName, Charset charset)
+    {
+        super(folder, fileName);
+        this.charset = charset;
+    }
+
+    /**
+     * Kontruktor.
+     * @param path    Pfad zur Datei
+     * @param charset
+     */
+    public TextFile(Path path, Charset charset)
+    {
+        super(path);
+        this.charset = charset;
     }
 
     /**
@@ -93,7 +151,7 @@ public class TextFile extends GeneralFile
     {
         try
         {
-            return Files.readAllLines(getPath(), Charset.forName("ISO-8859-1"));
+            return Files.readAllLines(getPath(), charset);
         }
         catch(IOException ex)
         {

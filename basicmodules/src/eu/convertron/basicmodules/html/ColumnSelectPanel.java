@@ -1,7 +1,12 @@
 package eu.convertron.basicmodules.html;
 
+import eu.convertron.basicmodules.html.serialization.DesignConfiguration;
+import eu.convertron.basicmodules.html.serialization.DesignDeserilization;
+import eu.convertron.basicmodules.html.serialization.DesignSerialization;
 import eu.convertron.interlib.interfaces.View;
+import eu.convertron.interlib.io.TextFile;
 import java.awt.EventQueue;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.table.DefaultTableModel;
@@ -23,14 +28,11 @@ public class ColumnSelectPanel extends View
 
     private void loadDesign()
     {
-        columns.put("Std", new Column("Std", 1, 7));
-        columns.put("Vertreter", new Column("Vertreter", 2, 10));
-        columns.put("Raum", new Column("Raum", 3, 11));
-        columns.put("Vertretungsart", new Column("Art", 4, 12));
-        columns.put("(Fach)", new Column("Fach", 5, 9));
-        columns.put("(Lehrer)", new Column("Lehrer", 6, 10));
-        columns.put("Verl. von", new Column("Verl. von", 7, 11));
-        columns.put("Hinweise", new Column("Hinweise", 8, 30));
+        TextFile textFile = new TextFile("design.xml");
+        DesignDeserilization deserilization = new DesignDeserilization(textFile.readAllToString().replaceAll("\n", ""));
+        DesignConfiguration config = deserilization.getDesign();
+
+        columns.putAll(config.getColums());
     }
 
     @SuppressWarnings("unchecked")
@@ -274,19 +276,28 @@ public class ColumnSelectPanel extends View
 
     private void reloadTable()
     {
-        EventQueue.invokeLater(() ->
-        {
-            DefaultTableModel model = (DefaultTableModel)columnTable.getModel();
-            model.setRowCount(0);
+        TextFile textFile = new TextFile("design.xml");
+        DesignDeserilization deserilization = new DesignDeserilization(textFile.readAllToString().replaceAll("\n", ""));
+        DesignConfiguration config = deserilization.getDesign();
+        config.setColums(columns);
 
-            for(Map.Entry<String, Column> column : columns.entrySet())
-            {
-                String[] columnRow = column.getValue().toRow();
-                String[] row = new String[columnRow.length + 1];
-                row[0] = column.getKey();
-                System.arraycopy(columnRow, 0, row, 1, columnRow.length);
-                model.addRow(row);
-            }
+        DesignSerialization serialization = new DesignSerialization(config);
+        serialization.copyTo(new File("design.xml"));
+
+        EventQueue.invokeLater(()
+                ->
+                {
+                    DefaultTableModel model = (DefaultTableModel)columnTable.getModel();
+                    model.setRowCount(0);
+
+                    for(Map.Entry<String, Column> column : columns.entrySet())
+                    {
+                        String[] columnRow = column.getValue().toRow();
+                        String[] row = new String[columnRow.length + 1];
+                        row[0] = column.getKey();
+                        System.arraycopy(columnRow, 0, row, 1, columnRow.length);
+                        model.addRow(row);
+                    }
         });
 
         checkSum();

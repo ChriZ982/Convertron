@@ -1,7 +1,7 @@
 package eu.convertron.core.tabs.modules;
 
+import eu.convertron.applib.modules.ClassLocation;
 import eu.convertron.core.Resources;
-import eu.convertron.core.modules.ClassLocation;
 import eu.convertron.interlib.interfaces.View;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
