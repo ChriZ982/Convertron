@@ -1,10 +1,10 @@
 package eu.convertron.core.tabs.overview;
 
 import eu.convertron.applib.LogPanel;
+import eu.convertron.applib.settings.ComponentSetting;
+import eu.convertron.applib.settings.TextFieldSetting;
+import eu.convertron.core.CoreSettings;
 import eu.convertron.core.Resources;
-import eu.convertron.core.settings.ComponentSetting;
-import eu.convertron.core.settings.CoreSettings;
-import eu.convertron.core.settings.TextFieldSetting;
 import eu.convertron.interlib.interfaces.View;
 
 @SuppressWarnings("serial")

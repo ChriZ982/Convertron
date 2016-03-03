@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eu.convertron.core.settings;
+package eu.convertron.core;
 
-import eu.convertron.core.Resources;
 import eu.convertron.interlib.io.ResourceFile;
 import eu.convertron.interlib.io.TextFile;
 import eu.convertron.interlib.settings.SettingID;

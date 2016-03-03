@@ -1,6 +1,5 @@
-package eu.convertron.core.tabs.modules;
+package eu.convertron.applib.modules;
 
-import eu.convertron.core.modules.ClassLocation;
 import eu.convertron.interlib.interfaces.Input;
 import eu.convertron.interlib.interfaces.Module;
 import eu.convertron.interlib.interfaces.Output;
@@ -33,7 +32,7 @@ public class ModuleLoaderTest
     }
 
     /**
-     * Test of getAvailableModules method, of class ModuleImporter.
+     * Test of getAvailableModules method, of class ModuleLoader.
      * @throws java.io.IOException
      */
     @Test
@@ -41,7 +40,7 @@ public class ModuleLoaderTest
     {
         System.out.println("getAvailableModules");
         File jarFile = new File("test/testRessources/TestModules.jar");
-        ModuleImporter instance = new ModuleImporter();
+        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class);
         ClassLocation[] expResult =
         {
             new ClassLocation(jarFile, "testmodules.main.ModuleI"),
@@ -54,7 +53,7 @@ public class ModuleLoaderTest
     }
 
     /**
-     * Test of loadClass method, of class ModuleImporter.
+     * Test of loadClass method, of class ModuleLoader.
      * @throws java.net.MalformedURLException
      */
     @Test
@@ -63,7 +62,7 @@ public class ModuleLoaderTest
         System.out.println("loadClass");
         ClassLocation loc = new ClassLocation(new File("test/testRessources/TestModules.jar"), "testmodules.main.ModuleIO");
 
-        ModuleImporter instance = new ModuleImporter();
+        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class);
 
         Module m = instance.loadModule(loc);
 
@@ -73,14 +72,14 @@ public class ModuleLoaderTest
     }
 
     /**
-     * Test of parseClassName method, of class ModuleImporter.
+     * Test of parseClassName method, of class ModuleLoader.
      */
     @Test
     public void testParseClassName()
     {
         System.out.println("parseClassName");
 
-        ModuleImporter instance = new ModuleImporter();
+        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class);
 
         String jarEntryName = "package/anotherpackage/testclass.class";
         String expResult = "package.anotherpackage.testclass";
@@ -89,14 +88,14 @@ public class ModuleLoaderTest
     }
 
     /**
-     * Test of validateJarEntryAsClass method, of class ModuleImporter.
+     * Test of validateJarEntryAsClass method, of class ModuleLoader.
      */
     @Test
     public void testValidateJarEntryAsClass()
     {
         System.out.println("validateJarEntryAsClass");
 
-        ModuleImporter instance = new ModuleImporter();
+        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class);
 
         JarEntry e = new JarEntry("package/classname.class");
         boolean expResult = true;
@@ -105,14 +104,14 @@ public class ModuleLoaderTest
     }
 
     /**
-     * Test of validateJarEntryAsClass method, of class ModuleImporter.
+     * Test of validateJarEntryAsClass method, of class ModuleLoader.
      */
     @Test
     public void testValidateJarEntryAsClass2()
     {
         System.out.println("validateJarEntryAsClass");
 
-        ModuleImporter instance = new ModuleImporter();
+        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class);
 
         JarEntry e = new JarEntry("package/classname.notclass");
         boolean expResult = false;
@@ -121,16 +120,16 @@ public class ModuleLoaderTest
     }
 
     /**
-     * Test of isModule method, of class ModuleImporter.
+     * Test of isModule method, of class ModuleLoader.
      */
     @Test
     public void testIsModule()
     {
         System.out.println("isModule");
 
-        ModuleImporter instance = new ModuleImporter();
+        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class);
 
-        Class c = new eu.convertron.interlib.interfaces.Module()
+        Class<?> c = new eu.convertron.interlib.interfaces.Module()
         {
             @Override
             public String getName()
@@ -150,23 +149,23 @@ public class ModuleLoaderTest
     }
 
     /**
-     * Test of isModule method, of class ModuleImporter.
+     * Test of isModule method, of class ModuleLoader.
      */
     @Test
     public void testIsModule2()
     {
         System.out.println("isModule");
 
-        ModuleImporter instance = new ModuleImporter();
+        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class);
 
-        Class c = new Object().getClass();
+        Class<?> c = Object.class;
         boolean expResult = false;
         boolean result = instance.isModule(c);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of isModule method, of class ModuleImporter.
+     * Test of isModule method, of class ModuleLoader.
      */
     @Test
     public void testIsModule3()
@@ -180,24 +179,24 @@ public class ModuleLoaderTest
 
         System.out.println("isModule");
 
-        ModuleImporter instance = new ModuleImporter();
+        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class);
 
-        Class c = new Module().getClass();
+        Class<?> c = Module.class;
         boolean expResult = false;
         boolean result = instance.isModule(c);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of isModule method, of class ModuleImporter.
+     * Test of isModule method, of class ModuleLoader.
      */
     public void testIsModule4()
     {
         System.out.println("isModule");
 
-        ModuleImporter instance = new ModuleImporter();
+        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class);
 
-        Class c = null;
+        Class<?> c = null;
         boolean expResult = false;
         boolean result = instance.isModule(c);
         assertEquals(expResult, result);

@@ -1,4 +1,4 @@
-package eu.convertron.core.modules;
+package eu.convertron.applib.modules;
 
 import java.io.File;
 import java.net.URL;

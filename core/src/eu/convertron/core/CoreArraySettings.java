@@ -1,6 +1,5 @@
-package eu.convertron.core.settings;
+package eu.convertron.core;
 
-import eu.convertron.core.Resources;
 import eu.convertron.interlib.io.ResourceFile;
 import eu.convertron.interlib.io.TextFile;
 import eu.convertron.interlib.settings.SettingID;

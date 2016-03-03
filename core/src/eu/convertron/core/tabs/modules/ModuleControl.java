@@ -1,8 +1,9 @@
 package eu.convertron.core.tabs.modules;
 
+import eu.convertron.applib.modules.ModuleLoader;
 import eu.convertron.core.Control;
-import eu.convertron.core.settings.CoreArraySettings;
-import eu.convertron.core.settings.CoreSettings;
+import eu.convertron.core.CoreArraySettings;
+import eu.convertron.core.CoreSettings;
 import eu.convertron.interlib.data.Lesson;
 import eu.convertron.interlib.filter.DefaultTableOptions;
 import eu.convertron.interlib.filter.TableOptions;
@@ -13,6 +14,7 @@ import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import eu.convertron.interlib.util.SubTabView;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Der ModuleControl ist für das im- und exportieren mithilfe der Module zuständig.
@@ -29,7 +31,8 @@ public class ModuleControl
     private Input activeInput;
 
     private ModuleTab view;
-    private ModuleImporter loader;
+    private ModuleImporter importer;
+    private ModuleLoader<Module> loader;
 
     public ModuleControl()
     {
@@ -39,9 +42,10 @@ public class ModuleControl
         allInputs = new ArrayList<Input>();
         activeInput = null;
 
-        loader = new ModuleImporter();
+        loader = new ModuleLoader<>(Module.class);
+        importer = new ModuleImporter(loader);
 
-        Module[] modules = loader.loadAllImportedModules();
+        List<Module> modules = importer.loadModules();
 
         for(Module module : modules)
         {
@@ -58,7 +62,7 @@ public class ModuleControl
                              allInputs.toArray(),
                              activeInput);
 
-        Control.addViewToWindow(new SubTabView("Module", view, loader.getView()));
+        Control.addViewToWindow(new SubTabView("Module", view, importer.getView()));
 
         for(Module module : modules)
         {
@@ -104,7 +108,7 @@ public class ModuleControl
             Logger.logMessage(LogPriority.INFO, "Versuche die Vertretungeinträge zu importieren. Modul: " + getModuleName(activeInput));
             return format(activeInput.in());
         }
-        catch(Exception ex)
+        catch(Throwable ex)
         {
             Logger.logError(LogPriority.ERROR, "Fehler beim Einlesen der Vertretungseinträge mit dem Modul: "
                                                + getModuleName(activeInput), ex);
@@ -117,11 +121,12 @@ public class ModuleControl
         if(source == null)
             return null;
 
-        source = TableOptions.unify(source);
-        source = TableOptions.sort(source, DefaultTableOptions.FIRSTHOUR);
-        source = TableOptions.compress(source);
+        Lesson[] result = source;
+        result = TableOptions.unify(result);
+        result = TableOptions.sort(result, DefaultTableOptions.FIRSTHOUR);
+        result = TableOptions.compress(result);
 
-        return source;
+        return result;
     }
 
     public void exportLessons(Lesson[] types)
@@ -137,7 +142,7 @@ public class ModuleControl
 
                 out.out(copy);
             }
-            catch(Exception ex)
+            catch(Throwable ex)
             {
                 Logger.logError(LogPriority.WARNING, "Fehler beim exportieren der Vertretungseinträge mit dem Modul: "
                                                      + getModuleName(out), ex);
@@ -216,7 +221,7 @@ public class ModuleControl
         return module;
     }
 
-    protected Module getModuleByNameFromList(ArrayList<? extends Object> list, String className)
+    protected Module getModuleByNameFromList(ArrayList<?> list, String className)
     {
         Module module = null;
 

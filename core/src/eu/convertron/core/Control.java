@@ -1,9 +1,8 @@
 package eu.convertron.core;
 
 import eu.convertron.applib.LogFile;
-import eu.convertron.core.data.CsvStorage;
-import eu.convertron.core.data.Storage;
-import eu.convertron.core.settings.CoreSettings;
+import eu.convertron.applib.storage.CsvStorage;
+import eu.convertron.applib.storage.Storage;
 import eu.convertron.core.tabs.modules.ModuleControl;
 import eu.convertron.core.tabs.overview.OverviewControl;
 import eu.convertron.core.tabs.settings.SettingsControl;
@@ -102,7 +101,7 @@ public class Control
 
     private static void initializeStorage()
     {
-        storage = new CsvStorage();
+        storage = new CsvStorage(CoreSettings.pathData.load() + "/data.csv");
     }
 
     private static void initAutoTimer()

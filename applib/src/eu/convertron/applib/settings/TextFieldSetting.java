@@ -1,4 +1,4 @@
-package eu.convertron.core.settings;
+package eu.convertron.applib.settings;
 
 import eu.convertron.interlib.settings.SettingID;
 import javax.swing.text.JTextComponent;

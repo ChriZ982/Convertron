@@ -1,7 +1,6 @@
 package eu.convertron.core;
 
 import eu.convertron.applib.ApplicationFrame;
-import eu.convertron.core.settings.CoreSettings;
 import eu.convertron.interlib.interfaces.View;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;

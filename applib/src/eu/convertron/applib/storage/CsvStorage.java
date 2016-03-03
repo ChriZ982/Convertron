@@ -1,6 +1,5 @@
-package eu.convertron.core.data;
+package eu.convertron.applib.storage;
 
-import eu.convertron.core.settings.CoreSettings;
 import eu.convertron.interlib.data.Lesson;
 import eu.convertron.interlib.io.TextFile;
 import eu.convertron.interlib.logging.LogPriority;
@@ -14,15 +13,15 @@ import java.util.TreeMap;
  */
 public class CsvStorage implements Storage
 {
-    private static final String lineSpliterator = "\n";
-    private static final String columnSpliterator = ";";
-    private static final String cellBorders = "\"";
+    private static final String LINESPERATOR = "\n";
+    private static final String COLUMNSEPERATOR = ";";
+    private static final String CELLBORDERS = "\"";
 
     private TextFile csvFile;
 
-    public CsvStorage()
+    public CsvStorage(String path)
     {
-        this(new TextFile(CoreSettings.pathData.load() + "/data.csv"));
+        this(new TextFile(path));
     }
 
     public CsvStorage(TextFile csvFile)
@@ -51,7 +50,7 @@ public class CsvStorage implements Storage
                 rowsAsStringArray.add(row.toArray());
             }
 
-            String toWrite = toCsvText(rowsAsStringArray.toArray(new String[0][]));
+            String toWrite = toCsvText(rowsAsStringArray.toArray(new String[rowsAsStringArray.size()][]));
 
             csvFile.writeLines(toWrite);
         }
@@ -70,10 +69,10 @@ public class CsvStorage implements Storage
             String fileAsString = csvFile.readAllToString().trim();
             assertValidFile(fileAsString);
 
-            fileAsString = fileAsString.substring(cellBorders.length(),
-                                                  fileAsString.length() - cellBorders.length());
+            fileAsString = fileAsString.substring(CELLBORDERS.length(),
+                                                  fileAsString.length() - CELLBORDERS.length());
 
-            String[] rows = fileAsString.split((cellBorders + lineSpliterator + cellBorders)
+            String[] rows = fileAsString.split((CELLBORDERS + LINESPERATOR + CELLBORDERS)
                     .replaceAll("\\\\", "\\\\"));
 
             String[] columnNames = getColumns(rows[0]);
@@ -96,7 +95,7 @@ public class CsvStorage implements Storage
 
     protected String[] getColumns(String row)
     {
-        return row.split((cellBorders + columnSpliterator + cellBorders)
+        return row.split((CELLBORDERS + COLUMNSEPERATOR + CELLBORDERS)
                 .replaceAll("\\\\", "\\\\"));
     }
 
@@ -113,15 +112,15 @@ public class CsvStorage implements Storage
 
     protected void assertValidFile(String fileAsString)
     {
-        if(!fileAsString.startsWith(cellBorders) || !fileAsString.endsWith(cellBorders))
-            throw new RuntimeException("Malformed Csv-File: The File must start and end with " + cellBorders);
+        if(!fileAsString.startsWith(CELLBORDERS) || !fileAsString.endsWith(CELLBORDERS))
+            throw new RuntimeException("Malformed Csv-File: The File must start and end with " + CELLBORDERS);
     }
 
     protected String toCsvText(String[][] table)
     {
         String result = "";
         for(String[] row : table)
-            result += toCsvLine(row) + lineSpliterator;
+            result += toCsvLine(row) + LINESPERATOR;
 
         return result;
     }
@@ -131,10 +130,10 @@ public class CsvStorage implements Storage
         String result = "";
         for(String cell : row)
         {
-            result += toCsvCell(cell) + columnSpliterator;
+            result += toCsvCell(cell) + COLUMNSEPERATOR;
         }
-        if(result.endsWith(columnSpliterator))
-            result = result.substring(0, result.length() - columnSpliterator.length());
+        if(result.endsWith(COLUMNSEPERATOR))
+            result = result.substring(0, result.length() - COLUMNSEPERATOR.length());
 
         return result;
     }
@@ -142,8 +141,8 @@ public class CsvStorage implements Storage
     protected String toCsvCell(String s)
     {
         if(s == null)
-            return cellBorders + cellBorders;
-        return cellBorders + (s.replaceAll("\"", "'")) + cellBorders;
+            return CELLBORDERS + CELLBORDERS;
+        return CELLBORDERS + (s.replaceAll("\"", "'")) + CELLBORDERS;
     }
 
     protected int getIndexOfColumnByName(ArrayList<String> columms, String colummName)
