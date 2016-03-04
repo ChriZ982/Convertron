@@ -1,0 +1,5 @@
+#day NAME .class
+{
+    font: NAME_FONT_STYLE NAME_FONT_SIZEpx NAME_FONT_FAMILY;
+    color: #NAME_FONT_COLOR;
+}

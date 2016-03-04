@@ -196,6 +196,7 @@ public class Control
         copyFileFromPackage("template - day.txt", destPath);
         copyFileFromPackage("template - class.txt", destPath);
         copyFileFromPackage("template - lesson.txt", destPath);
+        copyFileFromPackage("design.xml", destPath);
 
         Logger.logMessage(LogPriority.INFO, "Alle Dateien wurden erstellt oder überprüft");
     }

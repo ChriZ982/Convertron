@@ -46,6 +46,8 @@ public class HtmlOut implements Output
         String templateClass = new TextFile(dataPath, "template - class.txt").readAllToString();
         String templateDay = new TextFile(dataPath, "template - day.txt").readAllToString();
 
+        templateDay = templateDay.replace("DAY_SPEED", getValue("DAY_SPEED"));
+
         templateClass = addColumnsToClassTemplate(templateClass);
         String[] columnNames = getColumnNames();
 
@@ -159,8 +161,7 @@ public class HtmlOut implements Output
 
     private String getValue(String name)
     {
-        return null;
-//        return designer.getDesign().getDesignItems().get(designer.getDesign().getDesignItems().indexOf(new DesignItem(name))).getValue();
+        return designPanel.getDesignItems().get(name).getValue();
     }
 
     private void styleOut(double lineCount)
