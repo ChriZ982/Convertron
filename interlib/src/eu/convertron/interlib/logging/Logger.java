@@ -5,11 +5,14 @@ import java.util.ArrayList;
 /** Registriert alle Aktionen und gibt diese sowohl im Programm als auch in einer Datei aus. */
 public class Logger
 {
-    private static ArrayList<LogOutput> output;
+    private final static ArrayList<LogOutput> output;
+    private final static LogBuffer buffer;
 
     static
     {
         output = new ArrayList<>();
+        buffer = new LogBuffer();
+        output.add(buffer);
     }
 
     /**
@@ -39,8 +42,17 @@ public class Logger
 
     public static boolean addLogOutput(LogOutput out)
     {
+        return addLogOutput(out, true);
+    }
+
+    public static boolean addLogOutput(LogOutput out, boolean insertBuffer)
+    {
         if(output.contains(out))
             return false;
+
+        if(insertBuffer && !buffer.copyTo(out))
+            return false;
+
         output.add(out);
         return true;
     }
@@ -87,5 +99,36 @@ public class Logger
 
     private Logger()
     {
+    }
+
+    private static class LogBuffer implements LogOutput
+    {
+        private ArrayList<LogMessage> messages;
+
+        private LogBuffer()
+        {
+            messages = new ArrayList<>();
+        }
+
+        @Override
+        public void addLogMessage(LogMessage message)
+        {
+            messages.add(message);
+        }
+
+        public boolean copyTo(LogOutput out)
+        {
+            try
+            {
+                for(LogMessage message : messages)
+                    out.addLogMessage(message);
+                return true;
+            }
+            catch(Throwable t)
+            {
+                Logger.logError(LogPriority.WARNING, "Failed to copy Buffer to LogOutput.", t);
+                return false;
+            }
+        }
     }
 }
