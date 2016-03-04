@@ -10,6 +10,7 @@ import eu.convertron.interlib.settings.Settings;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.jar.JarEntry;
 import org.junit.Test;
 import static org.junit.Assert.assertArrayEquals;
@@ -48,8 +49,8 @@ public class ModuleLoaderTest
             new ClassLocation(jarFile, "testmodules.main.ModuleO"),
             new ClassLocation(jarFile, "testmodules.main.RawModule"),
         };
-        ClassLocation[] result = instance.getAvailableModules(jarFile);
-        assertArrayEquals(expResult, result);
+        ArrayList<ClassLocation> result = instance.getAvailableModules(jarFile);
+        assertArrayEquals(expResult, result.toArray());
     }
 
     /**

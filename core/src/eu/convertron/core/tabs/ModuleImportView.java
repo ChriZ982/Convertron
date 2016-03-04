@@ -1,4 +1,4 @@
-package eu.convertron.core.tabs.modules;
+package eu.convertron.core.tabs;
 
 import eu.convertron.applib.modules.ClassLocation;
 import eu.convertron.core.Resources;
@@ -13,14 +13,14 @@ import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
-public class ModuleImporterTab extends View
+public class ModuleImportView extends View
 {
     private static final long serialVersionUID = 1L;
 
-    public ModuleImporterTab(ClassLocation[] allModules)
+    public ModuleImportView(Collection<ClassLocation> locationOfImportedModules)
     {
         allModulesListModel = new DefaultListModel<>();
-        for(ClassLocation loc : allModules)
+        for(ClassLocation loc : locationOfImportedModules)
             allModulesListModel.addElement(loc);
 
         modulesInJarListModel = new DefaultListModel<>();

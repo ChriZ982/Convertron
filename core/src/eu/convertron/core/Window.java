@@ -1,10 +1,22 @@
 package eu.convertron.core;
 
-import eu.convertron.applib.ApplicationFrame;
+import eu.convertron.applib.etc.LogFile;
+import eu.convertron.applib.gui.ApplicationFrame;
+import eu.convertron.core.tabs.ModuleControl;
+import eu.convertron.core.tabs.ModuleImportControl;
+import eu.convertron.core.tabs.OverviewControl;
+import eu.convertron.core.tabs.SettingsControl;
 import eu.convertron.interlib.interfaces.View;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
+import eu.convertron.interlib.util.SubTabView;
 import java.awt.MenuItem;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
+import java.util.Collection;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 /**
  * Anzeige-Fenster der Anwendung.
@@ -15,6 +27,13 @@ public class Window extends ApplicationFrame
      * Zufallsgenerierter Schlüssel
      */
     private static final long serialVersionUID = 1841024231;
+
+    private OverviewControl overviewControl;
+    private SettingsControl settingsControl;
+    private ModuleControl moduleControl;
+    private ModuleImportControl moduleImportControl;
+
+    private Control control;
 
     /**
      * Erstellt ein neues Fenster.
@@ -28,31 +47,40 @@ public class Window extends ApplicationFrame
      */
     public Window()
     {
-        super(Resources.get("trayLogo.png"), "Vertretungsplan-Generator Client",
-              new MenuItem[]
-              {
-                  createMenuItem("Alles generieren", (e) -> Control.genAll()),
-                  createMenuItem("Backup erstellen", (e) -> Control.createBackup())
-              });
+        control = new Control();
+        overviewControl = new OverviewControl(control);
+        settingsControl = new SettingsControl();
+        moduleControl = new ModuleControl(control.getModuleManager());
+        moduleImportControl = new ModuleImportControl(control.getModuleManager());
+
+        super.init(Resources.get("trayLogo.png"), "Vertretungsplan-Generator Client",
+                   new MenuItem[]
+                   {
+                       createMenuItem("Alles generieren", (e) -> control.genAll()),
+                       createMenuItem("Backup erstellen", (e) -> control.createBackup()),
+                       null,
+                       createMenuItem("Plan importieren", (e) -> control.importLessons()),
+                       createMenuItem("Plan exportieren", (e) -> control.exportLessonsAndMotd())
+                   });
+
         initComponents();
 
-        String x = CoreSettings.positionX.load();
-        String y = CoreSettings.positionY.load();
-        try
-        {
-            setLocation(Integer.parseInt(x), Integer.parseInt(y));
-            Logger.logMessage(LogPriority.INFO, "Fenster Position wurde geladen");
-        }
-        catch(NumberFormatException ex)
-        {
-            Logger.logMessage(LogPriority.INFO, "Fenster Position konnte nicht geladen werden");
-        }
+        addTab(overviewControl.getView());
+        addTab(settingsControl.getView());
+        addTab(new SubTabView("Module", moduleControl.getView(), moduleImportControl.getView()));
+
+        addTabs(moduleControl.getModuleViews());
+
+        loadPos();
     }
 
     @Override
     public void exit()
     {
-        Control.exit();
+        CoreSettings.positionX.save(String.valueOf((int)this.getLocation().getX()));
+        CoreSettings.positionY.save(String.valueOf((int)this.getLocation().getY()));
+
+        System.exit(control.stop() ? 0 : -1);
     }
 
     @SuppressWarnings("unchecked")
@@ -72,6 +100,12 @@ public class Window extends ApplicationFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void addTabs(Collection<? extends View> views)
+    {
+        for(View view : views)
+            addTab(view);
+    }
+
     public void addTab(View view)
     {
         tabsPane.add(view);
@@ -81,6 +115,57 @@ public class Window extends ApplicationFrame
     private int tabCount()
     {
         return tabsPane.getTabCount();
+    }
+
+    private void loadPos()
+    {
+        String x = CoreSettings.positionX.load();
+        String y = CoreSettings.positionY.load();
+        try
+        {
+            setLocation(Integer.parseInt(x), Integer.parseInt(y));
+            Logger.logMessage(LogPriority.INFO, "Fenster Position wurde geladen");
+        }
+        catch(NumberFormatException ex)
+        {
+            Logger.logMessage(LogPriority.INFO, "Fenster Position konnte nicht geladen werden");
+        }
+    }
+
+    public static void main(String[] args)
+    {
+        try
+        {
+            System.setProperty("file.encoding", StandardCharsets.UTF_8.name());
+            Logger.addLogOutput(new LogFile());
+            setLookAndFeel();
+            new Window().setVisible(true);
+        }
+        catch(Exception ex)
+        {
+            Logger.logError(LogPriority.ERROR, "Fehler beim initialisieren der Anwendung", ex);
+            StringWriter writer = new StringWriter();
+            ex.printStackTrace(new PrintWriter(writer));
+            JOptionPane.showMessageDialog(null,
+                                          "Fehler beim initialisieren der Anwendung!\n"
+                                          + writer.toString(),
+                                          "Schwerwiegender Fehler",
+                                          JOptionPane.ERROR_MESSAGE);
+            System.exit(-1);
+        }
+    }
+
+    private static void setLookAndFeel()
+    {
+        try
+        {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            Logger.logMessage(LogPriority.INFO, "Look and Feel set to " + UIManager.getSystemLookAndFeelClassName());
+        }
+        catch(Exception ex)
+        {
+            Logger.logError(LogPriority.WARNING, "Das Design der Anwendung konnte nicht geändert werden", ex);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

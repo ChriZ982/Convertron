@@ -9,7 +9,6 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
-import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -22,7 +21,7 @@ public class ModuleLoader<T>
         this.moduleClass = moduleClass;
     }
 
-    public List<T> loadAll(Collection<ClassLocation> locations)
+    public ArrayList<T> loadAll(Collection<ClassLocation> locations)
     {
         ArrayList<T> modules = new ArrayList<>();
 
@@ -40,7 +39,7 @@ public class ModuleLoader<T>
         return modules;
     }
 
-    public ClassLocation[] getAvailableModules(File jarFile) throws IOException
+    public ArrayList<ClassLocation> getAvailableModules(File jarFile) throws IOException
     {
         ArrayList<ClassLocation> moduleClasses = new ArrayList<>();
 
@@ -69,7 +68,7 @@ public class ModuleLoader<T>
             }
         }
 
-        return moduleClasses.toArray(new ClassLocation[moduleClasses.size()]);
+        return moduleClasses;
     }
 
     @SuppressWarnings("unchecked")

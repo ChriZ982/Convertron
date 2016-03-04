@@ -1,4 +1,4 @@
-package eu.convertron.applib;
+package eu.convertron.applib.gui;
 
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
@@ -29,7 +29,17 @@ public abstract class ApplicationFrame extends JFrame
         return item;
     }
 
+    public ApplicationFrame()
+    {
+    }
+
     public ApplicationFrame(URL trayLocation, String trayToolTip, MenuItem... additionalMenuItems)
+    {
+        this();
+        init(trayLocation, trayToolTip, additionalMenuItems);
+    }
+
+    protected void init(URL trayLocation, String trayToolTip, MenuItem... additionalMenuItems)
     {
         trayIcon = initTray(trayLocation, trayToolTip, additionalMenuItems);
         appendWindowListener(trayIcon != null);

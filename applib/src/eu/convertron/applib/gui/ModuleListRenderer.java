@@ -1,4 +1,4 @@
-package eu.convertron.core.tabs.modules;
+package eu.convertron.applib.gui;
 
 import eu.convertron.interlib.interfaces.Module;
 import java.awt.Component;

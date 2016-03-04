@@ -1,4 +1,4 @@
-package eu.convertron.applib;
+package eu.convertron.applib.etc;
 
 import eu.convertron.interlib.io.TextFile;
 import eu.convertron.interlib.logging.LogMessage;

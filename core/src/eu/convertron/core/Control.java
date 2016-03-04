@@ -1,212 +1,82 @@
 package eu.convertron.core;
 
-import eu.convertron.applib.LogFile;
 import eu.convertron.applib.storage.CsvStorage;
 import eu.convertron.applib.storage.Storage;
-import eu.convertron.core.tabs.modules.ModuleControl;
-import eu.convertron.core.tabs.overview.OverviewControl;
-import eu.convertron.core.tabs.settings.SettingsControl;
 import eu.convertron.interlib.data.Lesson;
 import eu.convertron.interlib.filter.TableOptions;
-import eu.convertron.interlib.interfaces.View;
 import eu.convertron.interlib.io.Folder;
-import eu.convertron.interlib.io.ResourceFile;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import eu.convertron.interlib.settings.SettingLocation;
-import java.awt.SystemTray;
-import java.awt.TrayIcon;
-import java.awt.event.ActionEvent;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.nio.charset.Charset;
-import java.nio.charset.UnsupportedCharsetException;
-import javax.swing.JOptionPane;
 import javax.swing.Timer;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * Verwaltet alle Aktionen, die im Programm geschehen sollen.
  */
 public class Control
 {
-    /**
-     * Das Fenster des Programms.
-     */
-    private static Window window;
+    private final Storage storage;
+    private final ModuleManager moduleManager;
+    private final Timer autoTimer;
 
-    private static OverviewControl overview;
-    private static SettingsControl settings;
-    private static ModuleControl moduleManager;
-
-    private static Storage storage;
-
-    /**
-     * Das Symbol der Anwendung im Tray.
-     */
-    private static TrayIcon trayIcon;
-
-    private static Timer autoTimer;
-
-    /**
-     * Ruft die "main-Methode" der Anwendung auf.
-     *
-     * @param args Parameter, die beim Aufruf des Programms übergeben wurden
-     */
-    public static void main(String[] args)
+    public Control()
     {
-        try
-        {
-            setFileEncoding("UTF-8");
-            Logger.addLogOutput(new LogFile());
+        copyFilesFromPackage();
 
-            setJavaLookAndFeel();
+        moduleManager = new ModuleManager();
 
-            copyFilesFromPackage();
-
-            initializeStorage();
-
-            createAndFillWindow();
-
-            initAutoTimer();
-
-            Logger.logMessage(LogPriority.HINT, "Anwendung gestartet");
-        }
-        catch(Exception ex)
-        {
-            Logger.logError(LogPriority.ERROR, "Fehler beim initialisieren der Anwendung", ex);
-            StringWriter writer = new StringWriter();
-            ex.printStackTrace(new PrintWriter(writer));
-            JOptionPane.showMessageDialog(null,
-                                          "Fehler beim initialisieren der Anwendung!\n"
-                                          + writer.toString(),
-                                          "Schwerwiegender Fehler",
-                                          JOptionPane.ERROR_MESSAGE);
-            System.exit(-1);
-        }
-    }
-
-    private static void setJavaLookAndFeel()
-    {
-        try
-        {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        }
-        catch(ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex)
-        {
-            Logger.logError(LogPriority.ERROR, "Das Design der Anwendung konnte nicht geändert werden", ex);
-        }
-    }
-
-    private static void initializeStorage()
-    {
         storage = new CsvStorage(CoreSettings.pathData.load() + "/data.csv");
-    }
 
-    private static void initAutoTimer()
-    {
-        autoTimer = new Timer(60000,
-                              (ActionEvent e)
-                              ->
-                              {
-                                  if(CoreSettings.autoMode.load().equals("true"))
-                                      genAll();
-                      });
+        autoTimer = new Timer(60000, (e) -> timerTick());
         autoTimer.start();
+
+        Logger.logMessage(LogPriority.HINT, "Anwendung gestartet");
     }
 
-    private static void createAndFillWindow()
+    private void timerTick()
     {
-        window = new Window();
-
-        overview = new OverviewControl();
-        settings = new SettingsControl();
-        moduleManager = new ModuleControl();
-
-        window.setVisible(true);
-        Logger.logMessage(LogPriority.INFO, "Fenster wurde erstellt und gefüllt");
-    }
-
-    private static void setFileEncoding(String charsetName)
-    {
-        try
-        {
-            if(Charset.isSupported(charsetName))
-            {
-                System.setProperty("file.encoding", charsetName);
-                Logger.logMessage(LogPriority.INFO, "File Encoding wurde konfiguriert");
-            }
-            else
-            {
-                throw new UnsupportedCharsetException(charsetName);
-            }
-        }
-        catch(Exception ex)
-        {
-            JOptionPane.showMessageDialog(null, "Das File Encoding konnte nicht auf ISO-8859-1 umgestellt werden.\n"
-                                                + "Es kann zu Anzeigeproblemen kommen.\n"
-                                                + "Bitte prüfen Sie die Sicherheitseinstellungen und installierte Charsets.",
-                                          "Warnung", JOptionPane.OK_OPTION);
-        }
+        if(CoreSettings.autoMode.load().equals("true"))
+            genAll();
     }
 
     /**
      * Initialisiert den Data-Ordner.
      */
-    private static void copyFilesFromPackage()
+    private void copyFilesFromPackage()
     {
         String destPath = CoreSettings.pathData.load();
-        copyFileFromPackage("antonianumLogo.png", destPath);
-        copyFileFromPackage("template - style.txt", destPath);
-        copyFileFromPackage("VERTRETUNGSPLAN.html", destPath);
-        copyFileFromPackage("template - motd.txt", destPath);
-        copyFileFromPackage("template - day.txt", destPath);
-        copyFileFromPackage("template - class.txt", destPath);
-        copyFileFromPackage("template - lesson.txt", destPath);
+        Resources.copyRes("stdData/antonianumLogo.png", destPath);
+        Resources.copyRes("stdData/template - style.txt", destPath);
+        Resources.copyRes("stdData/VERTRETUNGSPLAN.html", destPath);
+        Resources.copyRes("stdData/template - motd.txt", destPath);
+        Resources.copyRes("stdData/template - day.txt", destPath);
+        Resources.copyRes("stdData/template - class.txt", destPath);
+        Resources.copyRes("stdData/template - lesson.txt", destPath);
 
         Logger.logMessage(LogPriority.INFO, "Alle Dateien wurden erstellt oder überprüft");
     }
 
-    private static void copyFileFromPackage(String fileName, String destPath)
-    {
-        ResourceFile resourceFile = new ResourceFile(Resources.RESOURCEPATH + "stdData", fileName, Control.class);
-        resourceFile.copyIfNotExists(destPath);
-    }
-
     /**
-     * Beendet das Programm.
+     * Beendet die Logic des Programms.
+     * @return success
      */
-    public static void exit()
+    public boolean stop()
     {
         try
         {
             autoTimer.stop();
-            //ToDo Exit Tabs -> Pending Changes?!
+            //Flush Storage when needed, etc
 
-            CoreSettings.positionX.save(String.valueOf((int)window.getLocation().getX()));
-            CoreSettings.positionY.save(String.valueOf((int)window.getLocation().getY()));
-
-            if(trayIcon != null)
-                SystemTray.getSystemTray().remove(trayIcon);
-
-            window.dispose();
-            System.exit(0);
+            return true;
         }
         catch(Exception ex)
         {
             Logger.logError(LogPriority.ERROR, "Fehler beim Beenden", ex);
-            System.exit(-1);
+            return false;
         }
     }
 
-    public static void addViewToWindow(View view)
-    {
-        if(window != null)
-            window.addTab(view);
-    }
-
-    public static void genAll()
+    public void genAll()
     {
         if(CoreSettings.autoBackup.load().equals("true"))
             createBackup();
@@ -218,7 +88,7 @@ public class Control
             exportLessonsAndMotd();
     }
 
-    public static void importLessons()
+    public void importLessons()
     {
         Lesson[] in = moduleManager.importLessons();
         if(in != null)
@@ -232,16 +102,15 @@ public class Control
         }
     }
 
-    public static void exportLessonsAndMotd()
+    public void exportLessonsAndMotd()
     {
         moduleManager.exportLessons(storage.load());
-
         moduleManager.exportMotd(CoreSettings.motdText.load());
 
         Logger.logMessage(LogPriority.HINT, "Exportieren abgeschlossen");
     }
 
-    public static void createBackup()
+    public void createBackup()
     {
         try
         {
@@ -253,5 +122,10 @@ public class Control
         {
             Logger.logError(LogPriority.WARNING, "Fehler beim erstellen eines Backups", ex);
         }
+    }
+
+    public ModuleManager getModuleManager()
+    {
+        return moduleManager;
     }
 }

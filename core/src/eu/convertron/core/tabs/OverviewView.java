@@ -1,6 +1,6 @@
-package eu.convertron.core.tabs.overview;
+package eu.convertron.core.tabs;
 
-import eu.convertron.applib.LogPanel;
+import eu.convertron.applib.gui.LogPanel;
 import eu.convertron.applib.settings.ComponentSetting;
 import eu.convertron.applib.settings.TextFieldSetting;
 import eu.convertron.core.CoreSettings;

@@ -1,4 +1,4 @@
-package eu.convertron.applib;
+package eu.convertron.applib.gui;
 
 import eu.convertron.interlib.logging.Logger;
 import java.awt.GridLayout;

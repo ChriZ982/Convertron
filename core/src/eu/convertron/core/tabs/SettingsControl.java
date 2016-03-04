@@ -1,7 +1,6 @@
-package eu.convertron.core.tabs.settings;
+package eu.convertron.core.tabs;
 
 import eu.convertron.applib.settings.ComponentSetting;
-import eu.convertron.core.Control;
 
 public class SettingsControl
 {
@@ -15,14 +14,14 @@ public class SettingsControl
         load();
 
         initializeListeners();
-        Control.addViewToWindow(view);
     }
 
     private void initializeListeners()
     {
-        view.addSaveListener(() ->
-        {
-            save();
+        view.addSaveListener(()
+                ->
+                {
+                    save();
         });
     }
 
@@ -36,5 +35,10 @@ public class SettingsControl
     {
         for(ComponentSetting handler : settingHandlers)
             handler.load();
+    }
+
+    public SettingsView getView()
+    {
+        return view;
     }
 }

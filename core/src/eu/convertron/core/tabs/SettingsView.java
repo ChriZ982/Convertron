@@ -1,4 +1,4 @@
-package eu.convertron.core.tabs.settings;
+package eu.convertron.core.tabs;
 
 import eu.convertron.applib.settings.CheckBoxSetting;
 import eu.convertron.applib.settings.ComboBoxSetting;
@@ -99,7 +99,7 @@ public class SettingsView extends View
         automaticModeCheckBox = new javax.swing.JCheckBox();
         autoImportCheckBox = new javax.swing.JCheckBox();
         autoExportCheckBox = new javax.swing.JCheckBox();
-        evenWeekComboBox = new javax.swing.JComboBox<String>();
+        evenWeekComboBox = new javax.swing.JComboBox<>();
         generateAllLabel = new javax.swing.JLabel();
         pathsLabel = new javax.swing.JLabel();
         dataPathLabel = new javax.swing.JLabel();
@@ -219,7 +219,7 @@ public class SettingsView extends View
 
         autoExportCheckBox.setText("Vertretungsplan exportieren");
 
-        evenWeekComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "B" }));
+        evenWeekComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B" }));
 
         generateAllLabel.setText("Alles generieren:");
 
