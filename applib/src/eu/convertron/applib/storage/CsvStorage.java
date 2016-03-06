@@ -32,6 +32,9 @@ public class CsvStorage implements Storage
     @Override
     public void save(Lesson[] lessons)
     {
+        if(lessons == null)
+            throw new IllegalArgumentException();
+
         try
         {
             ArrayList<String> columnNames = new ArrayList<>();

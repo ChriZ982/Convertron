@@ -1,10 +1,11 @@
 package eu.convertron.server.gui;
 
-import eu.convertron.applib.ApplicationFrame;
-import eu.convertron.applib.LogFile;
-import eu.convertron.applib.LogPanel;
+import eu.convertron.applib.etc.LogFile;
+import eu.convertron.applib.gui.ApplicationFrame;
+import eu.convertron.applib.gui.LogPanel;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
+import eu.convertron.server.ConsoleMain;
 import eu.convertron.server.Control;
 import java.awt.EventQueue;
 import java.util.Arrays;
@@ -25,7 +26,7 @@ public class Window extends ApplicationFrame
     @Override
     public void exit()
     {
-        Control.exit();
+
     }
 
     public static void main(String[] args)
@@ -33,7 +34,7 @@ public class Window extends ApplicationFrame
         List<String> argsList = Arrays.asList(args);
         if(argsList.contains("--no-gui"))
         {
-            Control.main(args);
+            ConsoleMain.main(args);
             return;
         }
 
@@ -49,7 +50,7 @@ public class Window extends ApplicationFrame
             JOptionPane.showMessageDialog(null, "Fehler beim erstellen des Fensters, siehe Logdatei");
         }
 
-        Control.startServer();
+        new Control();
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

@@ -3,6 +3,7 @@ package eu.convertron.applib.console;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class ConsoleScanner
@@ -12,10 +13,10 @@ public class ConsoleScanner
 
     private HashMap<String, Operation> commands;
 
-    public ConsoleScanner(HashMap<String, Operation> commands)
+    public ConsoleScanner(Map<String, Operation> commands)
     {
         scanner = new Scanner(System.in);
-        this.commands = commands;
+        this.commands = new HashMap<>(this.commands);
     }
 
     public void startScanning()

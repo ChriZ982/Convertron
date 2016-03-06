@@ -1,11 +1,10 @@
- /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package eu.convertron.core;
 
-import eu.convertron.interlib.io.ResourceFile;
 import eu.convertron.interlib.io.TextFile;
 import eu.convertron.interlib.settings.SettingID;
 import eu.convertron.interlib.settings.SettingLocation;
@@ -63,10 +62,11 @@ public enum CoreSettings implements SettingID
     @Override
     public SettingLocationID getFileWithDefaultValues()
     {
-        return () ->
-        {
-            new ResourceFile(Resources.RESOURCEPATH + "/stdData/default.settings", getClass()).copyIfNotExists(System.getProperty("java.io.tmpdir") + "convertron\\core");
-            return new TextFile(System.getProperty("java.io.tmpdir") + "convertron\\core\\default.settings");
+        return ()
+                ->
+                {
+                    Resources.copyRes("stdData/default.settings", System.getProperty("java.io.tmpdir") + "convertron/core");
+                    return new TextFile(System.getProperty("java.io.tmpdir") + "convertron/core/default.settings");
         };
     }
 

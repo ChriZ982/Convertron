@@ -1,31 +1,20 @@
-package eu.convertron.core;
+package eu.convertron.server;
 
 import eu.convertron.interlib.io.TextFile;
 import eu.convertron.interlib.settings.SettingID;
-import eu.convertron.interlib.settings.SettingLocation;
 import eu.convertron.interlib.settings.SettingLocationID;
 import eu.convertron.interlib.settings.Settings;
 
-public enum CoreArraySettings implements SettingID
+public enum ServerSettings implements SettingID
 {
-    locationOfImportedModules,
-    activeOutputs,
+    motdText;
 
-    cutHours;
-
-    public static final String PREFIX = "core.arrays.";
+    public static final String PREFIX = "server.strings.";
 
     @Override
     public SettingLocationID getLocation()
     {
-        switch(this)
-        {
-            case locationOfImportedModules:
-            case activeOutputs:
-                return SettingLocation.LOCAL;
-            default:
-                return SettingLocation.GLOBAL;
-        }
+        return () -> new TextFile("./local.settings");
     }
 
     @Override
@@ -45,13 +34,13 @@ public enum CoreArraySettings implements SettingID
         };
     }
 
-    public void saveArray(String... values)
+    public String load()
     {
-        Settings.saveArray(this, values);
+        return Settings.load(this);
     }
 
-    public String[] loadArray()
+    public void save(String value)
     {
-        return Settings.loadArray(this);
+        Settings.save(this, value);
     }
 }

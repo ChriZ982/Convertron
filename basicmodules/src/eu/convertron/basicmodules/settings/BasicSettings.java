@@ -38,10 +38,11 @@ public enum BasicSettings implements SettingID
     @Override
     public SettingLocationID getFileWithDefaultValues()
     {
-        return () ->
-        {
-            new ResourceFile("/eu/convertron/basicmodules/res/default.settings", getClass()).copyIfNotExists(System.getProperty("java.io.tmpdir") + "convertron\\basicmodules");
-            return new TextFile(System.getProperty("java.io.tmpdir") + "convertron\\basicmodules\\default.settings");
+        return ()
+                ->
+                {
+                    new ResourceFile("/eu/convertron/basicmodules/res/default.settings", getClass()).copyIfNotExists(System.getProperty("java.io.tmpdir") + "convertron/basicmodules");
+                    return new TextFile(System.getProperty("java.io.tmpdir") + "convertron/basicmodules/default.settings");
         };
     }
 

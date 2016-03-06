@@ -1,42 +1,45 @@
 package eu.convertron.server;
 
-import eu.convertron.applib.LogFile;
-import eu.convertron.interlib.logging.LogMessage;
+import eu.convertron.applib.storage.CsvStorage;
+import eu.convertron.applib.storage.Storage;
+import eu.convertron.interlib.data.Lesson;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import javax.xml.ws.Endpoint;
 
-/**
- *
- * @author Mirko Ruether
- */
 public class Control
 {
-    public static void main(String[] args)
+    private ModuleManager moduleManager;
+    private Storage storage;
+
+    public Control()
     {
-        Logger.addLogOutput(new LogFile());
-        Logger.addLogOutput((LogMessage message)
-                -> System.out.println("[" + message.getPriority().getNameString() + "] ["
-                                      + message.getTimeStringDetailed() + "]: "
-                                      + message.getMessageDetailed())
-        );
-        new ConsoleScanner().startScanning();
-        Logger.logMessage(LogPriority.HINT, "Anwendung im no-gui Modus gestartet.");
-        startServer();
+        this.moduleManager = new ModuleManager();
+        this.storage = new CsvStorage("./data.csv");
     }
 
-    public static void startServer()
+    public void setData(Lesson[] data)
     {
-        throw new UnsupportedOperationException("Not implemented yet.");
+        storage.save(data);
     }
 
-    private static void publishWebService(String address)
+    public Lesson[] getData()
     {
-        Endpoint.publish(address, new ConvertronWS());
+        return storage.load();
+    }
+
+    public void export()
+    {
+        moduleManager.export(getData(), ServerSettings.motdText.load());
+    }
+
+    private void publishWebService(String address)
+    {
+        Endpoint.publish(address, new ConvertronWS(this));
         Logger.logMessage(LogPriority.HINT, "WebService gestart, Adresse: " + address);
     }
 
-    public static void exit()
+    public void exit()
     {
         try
         {

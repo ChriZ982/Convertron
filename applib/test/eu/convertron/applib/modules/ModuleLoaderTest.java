@@ -23,10 +23,10 @@ public class ModuleLoaderTest
     {
         TextFile file = new TextFile("./local.settings");
         file.create();
-        file.writeLines("pathBackup: \".\\TestBackup\"",
+        file.writeLines("pathBackup: \"./TestBackup\"",
                         "pathData: ",
-                        "pathDests: {\".\\TestZiel1\",\".\\TestZiel2\",\".\\TestZiel3\"}",
-                        "pathSource: \".\\TestDateien\"",
+                        "pathDests: {\"./TestZiel1\",\"./TestZiel2\",\"./TestZiel3\"}",
+                        "pathSource: \"./TestDateien\"",
                         "position: {\"335\",\"101\"}");
         String[] imported = Settings.loadArray(SettingLocation.LOCAL.getFile(), "locationOfImportedModules");
         System.out.println(imported.length);
