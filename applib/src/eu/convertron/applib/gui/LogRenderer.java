@@ -14,7 +14,7 @@ import javax.swing.table.TableCellRenderer;
 @SuppressWarnings("serial")
 public class LogRenderer extends JTextArea implements TableCellRenderer
 {
-    /** Enthält die Höhen der Zellen um Zeilenumbrüche anzuzeigen. */
+    /** EnthÃ¤lt die HÃ¶hen der Zellen um ZeilenumbrÃ¼che anzuzeigen. */
     private final List<List<Integer>> rowColHeight;
 
     /** Konstruktor */
@@ -31,7 +31,7 @@ public class LogRenderer extends JTextArea implements TableCellRenderer
      * Wird automatisch aufgerufen und Visualisiert die Nachrichten.
      * @param table      Tabelle, auf der die Operationen stattfinden
      * @param value      Wert der aktuellen Zelle
-     * @param isSelected Ist die Zelle ausgewählt?
+     * @param isSelected Ist die Zelle ausgewÃ¤hlt?
      * @param hasFocus   Ist die zelle fokussiert
      * @param row        Zeilennumer der Zelle
      * @param column     Spaltennummer der Zelle
@@ -55,7 +55,7 @@ public class LogRenderer extends JTextArea implements TableCellRenderer
     }
 
     /**
-     * Führt Berechnungen durch um die Zeilenhöhe bei mehrzeiligen Texten zu bestimmen.
+     * FÃ¼hrt Berechnungen durch um die ZeilenhÃ¶he bei mehrzeiligen Texten zu bestimmen.
      * @param table  Tabelle, auf der die Operationen stattfinden
      * @param row    Zeilennumer der Zelle
      * @param column Spaltennummer der Zelle

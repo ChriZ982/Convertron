@@ -100,7 +100,7 @@ public class Window extends ApplicationFrame
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Übersicht", overviewTab);
+        jTabbedPane1.addTab("Ãœbersicht", overviewTab);
 
         javax.swing.GroupLayout configTabLayout = new javax.swing.GroupLayout(configTab);
         configTab.setLayout(configTabLayout);

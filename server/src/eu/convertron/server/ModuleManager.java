@@ -58,7 +58,7 @@ public class ModuleManager
             }
             catch(MalformedURLException ex)
             {
-                Logger.logError(LogPriority.WARNING, "Modul konnte nicht geladen werden: Ungültige ClassLocation " + s, ex);
+                Logger.logError(LogPriority.WARNING, "Modul konnte nicht geladen werden: UngÃ¼ltige ClassLocation " + s, ex);
             }
         }
         return result;

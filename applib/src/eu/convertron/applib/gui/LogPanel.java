@@ -5,10 +5,6 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
-/**
- *
- * @author Mirko Ruether
- */
 public class LogPanel extends JPanel
 {
     private static final long serialVersionUID = 233225335911707914L;

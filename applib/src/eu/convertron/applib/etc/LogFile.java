@@ -8,7 +8,7 @@ import eu.convertron.interlib.util.Time;
 /** Gibt Fehler und Nachrichten in einer Datein aus. */
 public class LogFile implements LogOutput
 {
-    /** Datei für den Log. */
+    /** Datei fÃ¼r den Log. */
     protected TextFile logFile;
 
     public LogFile()
@@ -22,7 +22,7 @@ public class LogFile implements LogOutput
     }
 
     /**
-     * Hängt Nachrichten oder Fehler an die Datei an.
+     * HÃ¤ngt Nachrichten oder Fehler an die Datei an.
      * @param logMessage Nachricht oder Fehler
      */
     @Override

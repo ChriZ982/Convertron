@@ -13,10 +13,6 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-/**
- *
- * @author Mirko Ruether
- */
 public abstract class ApplicationFrame extends JFrame
 {
     private static final long serialVersionUID = 7773116682310690513L;
@@ -78,7 +74,7 @@ public abstract class ApplicationFrame extends JFrame
             }
             else
             {
-                Logger.logMessage(LogPriority.INFO, "Das Betriebssystem unterstützt kein Tray, "
+                Logger.logMessage(LogPriority.INFO, "Das Betriebssystem unterstÃ¼tzt kein Tray, "
                                                     + "es wurde kein Tray initialisiert");
             }
         }

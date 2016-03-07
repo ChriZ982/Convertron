@@ -17,7 +17,7 @@ public class LogTable extends DefaultTableModel implements LogOutput
         super(0, 2);
     }
 
-    /** Enthält temporär ausgeblendete unwichtige Nachrichten */
+    /** EnthÃ¤lt temporÃ¤r ausgeblendete unwichtige Nachrichten */
     private final ArrayList<LogMessage> hiddenLogMessages = new ArrayList<>();
 
     /** Sollen weniger wichtige Nachrichten und Fehler eingeblendet werden? */
@@ -26,8 +26,8 @@ public class LogTable extends DefaultTableModel implements LogOutput
     private boolean logDevInfos = false;
 
     /**
-     * Fügt Nachrichten an die Tabelle oder versteckt sie direkt falls eigestellt.
-     * @param logMessage Nachricht zum Anhängen
+     * FÃ¼gt Nachrichten an die Tabelle oder versteckt sie direkt falls eigestellt.
+     * @param logMessage Nachricht zum AnhÃ¤ngen
      */
     @Override
     public void addLogMessage(LogMessage logMessage)
@@ -133,7 +133,7 @@ public class LogTable extends DefaultTableModel implements LogOutput
     }
 
     /**
-     * Fügt eine Nachricht oder einen Fehler an die Tabelle an.
+     * FÃ¼gt eine Nachricht oder einen Fehler an die Tabelle an.
      * @param logMessage Nachricht oder Fehler
      */
     private void addRow(LogMessage logMessage)
@@ -146,9 +146,9 @@ public class LogTable extends DefaultTableModel implements LogOutput
     }
 
     /**
-     * Fügt eine Nachricht oder einen Fehler in die Tabelle ein.
+     * FÃ¼gt eine Nachricht oder einen Fehler in die Tabelle ein.
      * @param logMessage Nachricht oder Fehler
-     * @param i          Stelle zum Einfügen
+     * @param i          Stelle zum EinfÃ¼gen
      */
     private void insertRow(LogMessage logMessage, int i)
     {
