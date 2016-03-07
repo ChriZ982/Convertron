@@ -1,11 +1,10 @@
 package eu.convertron.server;
 
+import eu.convertron.applib.etc.CsvLessonSerializer;
 import eu.convertron.interlib.data.Lesson;
+import eu.convertron.interlib.data.LessonValidator;
 import eu.convertron.interlib.filter.TableOptions;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.jws.WebMethod;
-import javax.jws.WebParam;
 import javax.jws.WebService;
 
 @WebService
@@ -19,15 +18,24 @@ public class ConvertronWS
     }
 
     @WebMethod
-    public Lesson[] getAllLessonsForDate(@WebParam Date date)
+    public String getAllLessonsForDate(String date)
     {
-        Lesson[] lessons = control.getData();
-        return TableOptions.onlyDate(lessons, new SimpleDateFormat("dd.mm.").format(date));
+        LessonValidator.validateDateString(date);
+        Lesson[] lessons = TableOptions.onlyDate(control.getData(), date);
+        return new CsvLessonSerializer().serializeMultiple(lessons);
     }
 
     @WebMethod
-    public void setConfiguration(String moduleName, String configurationName, byte[] value)
+    public String getData()
     {
+        Lesson[] lessons = control.getData();
+        return new CsvLessonSerializer().serializeMultiple(lessons);
+    }
 
+    @WebMethod
+    public void setData(String lessonSerialization)
+    {
+        Lesson[] lessons = new CsvLessonSerializer().deserializeMultiple(lessonSerialization);
+        control.setData(lessons);
     }
 }

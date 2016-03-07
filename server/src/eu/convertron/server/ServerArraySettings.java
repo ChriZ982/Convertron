@@ -9,7 +9,7 @@ public enum ServerArraySettings implements SettingID
 {
     locationOfImportedOutputs;
 
-    public static final String PREFIX = "server.strings.";
+    public static final String PREFIX = "server.arrays.";
 
     @Override
     public SettingLocationID getLocation()

@@ -16,7 +16,7 @@ public class ConsoleScanner
     public ConsoleScanner(Map<String, Operation> commands)
     {
         scanner = new Scanner(System.in);
-        this.commands = new HashMap<>(this.commands);
+        this.commands = new HashMap<>(commands);
     }
 
     public void startScanning()

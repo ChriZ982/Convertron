@@ -16,11 +16,14 @@ public class Control
     {
         this.moduleManager = new ModuleManager();
         this.storage = new CsvStorage("./data.csv");
+
+        publishWebService("http://127.0.0.1:8023/_convertron");
     }
 
     public void setData(Lesson[] data)
     {
         storage.save(data);
+        export();
     }
 
     public Lesson[] getData()

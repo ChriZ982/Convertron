@@ -50,6 +50,8 @@ public class ModuleManager
 
         for(String s : saved)
         {
+            if(s == null || s.trim().isEmpty())
+                continue;
             try
             {
                 result.add(new ClassLocation(s));
