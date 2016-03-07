@@ -1,114 +1,136 @@
-#plan
+*
 {
-    background-color: #FRAME_BORDER_COLOR;
-    margin: 3px;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
     overflow: hidden;
 }
 
-#plan iframe
+#plan
 {
-    border: 0px;
+    background-color: FRAME_BORDER_COLOR;
 }
 
 #plan .day
 {
+    height: 100%;
     width: calc(50% - 2px);
-    height: calc(100% - 10px - MOTD_HEIGHTpx);
 }
 
 #plan #motd
 {
+    left: 0px;
+    bottom: 0px;
     width: 100%;
-    height: MOTD_HEIGHTpx;
+    position: fixed;
+ 
+    height: MOTD_HEIGHT;
 }
 
 #motd
 {
-    font: MOTD_FONT_STYLE MOTD_FONT_SIZEpx MOTD_FONT_FAMILY;
-    background-color: #MOTD_BACK_COLOR;
-    overflow: hidden;
     white-space: nowrap;
-    margin: 0px;
+ 
+    opacity: MOTD_OPACITY;
+    background-color: MOTD_BACK_COLOR;
+    font: MOTD_FONT_STYLE MOTD_FONT_SIZE MOTD_FONT_FAMILY;
 
 }
 
-#motd div
+#motd #moving
 {
-    animation: scrollright MOTD_SPEEDs infinite linear;
     width: fit-content;
 }
 
 #motd span
 {
-    margin-right: MOTD_TEXT_SPACEpx;
+    margin-right: MOTD_TEXT_RIGHT_SPACE;
 }
 
 #motd img
 {
-    height: MOTD_HEIGHTpx;
     vertical-align: bottom;
+ 
+    height: MOTD_HEIGHT;
+    margin-right: MOTD_TEXT_LEFT_SPACE;
 }
 
 @keyframes scrollright {
-    0% {  transform: translateX(0%);    }
-    100% {  transform: translateX(-10%);  }
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-10%); }
 }
 
 #day
 {
-    background-color: #DAY_BACK_COLOR;
-    margin: 3px;
-    overflow: hidden;
-
-    animation: scrolldown DAY_SPEEDs infinite linear;
+    margin: DAY_SIDE_SPACE;
+    background-color: DAY_BACK_COLOR;
 }
 
 #day img
 {
-    height: DAY_IMAGE_HEIGHTpx;
+    height: DAY_HEADER_HEIGHT;
 }
 
 #day .footer
 {
-    height: DAY_TABLES_BOTTOM_SPACEpx;
+    height: DAY_TABLES_BOTTOM_SPACE;
 }
 
 #day .header
 {
-    margin-bottom: DAY_TABLES_TOP_SPACEpx;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    width: 100%;
+    position: fixed;
+ 
+    height: DAY_HEADER_HEIGHT;
+    opacity: DAY_HEADER_OPACITY;
+    background-color: DAY_HEADER_BACK_COLOR;
 }
 
 #day .header .date
 {
-    font: DAY_DATE_FONT_STYLE DAY_DATE_FONT_SIZEpx DAY_DATE_FONT_FAMILY;
-    padding-left: DAY_DATE_TEXT_SPACEpx;
+    padding-left: DAY_DATE_TEXT_SPACE;
+    font: DAY_DATE_FONT_STYLE DAY_DATE_FONT_SIZE DAY_DATE_FONT_FAMILY;
 }
 
 #day .classTable
 {
-    font: DAY_TABLE_FONT_STYLE DAY_TABLE_FONT_SIZEpx DAY_TABLE_FONT_FAMILY;
-    color: #DAY_TABLE_FONT_COLOR;
-    width: 99.6%;
-    border-width: 3px;
-    border-style: solid;
-    border-color: #474747;
-    background-color: #e7e7e7;
+    width: 100%;
+    border-collapse: collapse;
+ 
+    color: DAY_TABLE_FONT_COLOR;
+    margin-bottom: DAY_TABLES_SPACE;
+    border: DAY_TABLE_BORDER_WIDTH solid;
+    border-color: DAY_TABLE_BORDER_COLOR;
+    background-color: DAY_TABLE_BACK_COLOR;
+    font: DAY_TABLE_FONT_STYLE DAY_TABLE_FONT_SIZE DAY_TABLE_FONT_FAMILY;
 }
 
 #day .classTable .class
 {
-    font: DAY_CLASS_FONT_STYLE DAY_CLASS_FONT_SIZEpx DAY_CLASS_FONT_FAMILY;
-    color: #DAY_CLASS_FONT_COLOR;
+    color: DAY_CLASS_FONT_COLOR;
+    font: DAY_CLASS_FONT_STYLE DAY_CLASS_FONT_SIZE DAY_CLASS_FONT_FAMILY;
 }
 
-#day .classTable tr td
+#day .classTable th
+{
+    font-weight: bold;
+ 
+    border: DAY_TABLE_INNER_BORDER_WIDTH solid DAY_TABLE_INNER_BORDER_COLOR;
+}
+
+#day .classTable td
 {
     text-align: center;
+ 
+    border: DAY_TABLE_INNER_BORDER_WIDTH solid DAY_TABLE_INNER_BORDER_COLOR;
 }
 
 @keyframes scrolldown {
-    0% {  transform: translateY(0%);    }
-    100% {  transform: translateY(-50%);  }
+    0% { transform: translateY(0%); }
+    100% { transform: translateY(-50%); }
 }
 
 DAY_EXTRA_FORMATS

@@ -19,3 +19,4 @@ hs_err_pid*
 */nbdist/
 */nbactions.xml
 */nb-configuration.xml
+!/applib/test/testRessources/TestModules.jar

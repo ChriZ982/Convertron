@@ -28,7 +28,7 @@ public class DesignPanel extends View
 
     private void loadDesign()
     {
-        TextFile textFile = new TextFile("design.xml");
+        TextFile textFile = new TextFile("./debug./Data/design.xml");
         DesignDeserilization deserilization = new DesignDeserilization(textFile.readAllToString().replaceAll("\n", ""));
         DesignConfiguration config = deserilization.getDesign();
 
@@ -161,13 +161,13 @@ public class DesignPanel extends View
 
     private void reloadTable()
     {
-        TextFile textFile = new TextFile("design.xml");
+        TextFile textFile = new TextFile("./debug./Data/design.xml");
         DesignDeserilization deserilization = new DesignDeserilization(textFile.readAllToString().replaceAll("\n", ""));
         DesignConfiguration config = deserilization.getDesign();
         config.setDesignItems(designItems);
 
         DesignSerialization serialization = new DesignSerialization(config);
-        serialization.copyTo(new File("design.xml"));
+        serialization.copyTo(new File("./debug./Data/design.xml"));
 
         EventQueue.invokeLater(()
                 ->

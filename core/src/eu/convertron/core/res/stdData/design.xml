@@ -115,7 +115,7 @@
 <DesignItem ID="DAY_SPEED">
 <Name>Tag Geschwindigkeit</Name>
 <Type>NUMBER</Type>
-<Value>3s</Value>
+<Value>4</Value>
 </DesignItem>
 <DesignItem ID="DAY_TABLE_FONT_COLOR">
 <Name>Tabelle Schriftfarbe</Name>
@@ -175,7 +175,7 @@
 <DesignItem ID="MOTD_SPEED">
 <Name>Laufschrift Geschwindigkeit</Name>
 <Type>NUMBER</Type>
-<Value>2s</Value>
+<Value>4</Value>
 </DesignItem>
 <DesignItem ID="DAY_TABLE_BORDER_WIDTH">
 <Name>Tabelle Rahmenbreite</Name>
