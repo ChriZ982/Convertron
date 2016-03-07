@@ -52,6 +52,7 @@ public class Control
         Resources.copyRes("stdData/template - day.txt", destPath);
         Resources.copyRes("stdData/template - class.txt", destPath);
         Resources.copyRes("stdData/template - lesson.txt", destPath);
+        Resources.copyRes("stdData/design.xml", destPath);
 
         Logger.logMessage(LogPriority.INFO, "Alle Dateien wurden erstellt oder überprüft");
     }
