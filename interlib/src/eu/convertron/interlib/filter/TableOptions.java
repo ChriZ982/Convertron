@@ -98,6 +98,7 @@ public class TableOptions
      * @param source Das unkomprimierte Stunden-Array
      * @return Das komprimierte Stunden-Array
      */
+    @SuppressWarnings("AssignmentToForLoopParameter")
     public static Lesson[] compress(Lesson[] source)
     {
         ArrayList<Lesson> asList = new ArrayList<>(Arrays.asList(
@@ -279,6 +280,10 @@ public class TableOptions
             lastLessonAccepted[i] = Time.isInFuture(cutHours[i]);
         }
 
-        return filterRows(source, (FilterOption)(Lesson lesson) -> lastLessonAccepted[lesson.getLastHour() - 1]);
+        return filterRows(source, (Lesson lesson) -> lastLessonAccepted[lesson.getLastHour() - 1]);
+    }
+
+    private TableOptions()
+    {
     }
 }

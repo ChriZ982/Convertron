@@ -8,11 +8,11 @@ import java.util.Map;
 
 public abstract class Configuration
 {
-    protected abstract void save(String name, byte[] value);
+    protected abstract void save(String name, byte[] value) throws Exception;
 
-    protected abstract byte[] load(String name);
+    protected abstract byte[] load(String name) throws Exception;
 
-    protected abstract void remove(String name);
+    protected abstract void remove(String name) throws Exception;
 
     private ArrayList<String> configFiles;
     private ArrayList<ConfigurationListener> listeners;
@@ -79,7 +79,7 @@ public abstract class Configuration
 
     public void setConfig(String name, byte[] value)
     {
-        save(name, value);
+        trySave(name, value);
         configChanged(name, value);
     }
 
@@ -89,7 +89,7 @@ public abstract class Configuration
         while(it.hasNext())
         {
             Map.Entry<String, byte[]> entry = it.next();
-            save(entry.getKey(), entry.getValue());
+            trySave(entry.getKey(), entry.getValue());
         }
         configChanged(config);
     }
@@ -98,7 +98,7 @@ public abstract class Configuration
     {
         if(!configFiles.contains(name))
             throw new IllegalArgumentException("No such config");
-        return load(name);
+        return tryLoad(name);
     }
 
     public HashMap<String, byte[]> getAllConfigs()
@@ -106,19 +106,55 @@ public abstract class Configuration
         HashMap<String, byte[]> result = new HashMap<>();
         for(String key : configFiles)
         {
-            result.put(key, load(key));
+            result.put(key, tryLoad(key));
         }
         return result;
     }
 
     public boolean removeConfig(String name)
     {
-        remove(name);
+        tryRemove(name);
         return configFiles.remove(name);
     }
 
     public String[] getConfigFiles()
     {
         return configFiles.toArray(new String[configFiles.size()]);
+    }
+
+    private void trySave(String name, byte[] value)
+    {
+        try
+        {
+            save(name, value);
+        }
+        catch(Exception ex)
+        {
+            throw new RuntimeException("Unable to save Configuration " + name, ex);
+        }
+    }
+
+    private byte[] tryLoad(String name)
+    {
+        try
+        {
+            return load(name);
+        }
+        catch(Exception ex)
+        {
+            throw new RuntimeException("Unable to load Configuration " + name, ex);
+        }
+    }
+
+    private void tryRemove(String name)
+    {
+        try
+        {
+            remove(name);
+        }
+        catch(Exception ex)
+        {
+            throw new RuntimeException("Unable to remove Configuration " + name, ex);
+        }
     }
 }

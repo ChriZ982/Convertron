@@ -1,5 +1,6 @@
 package eu.convertron.applib.modules;
 
+import eu.convertron.interlib.interfaces.Configurable;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import java.io.File;
@@ -15,10 +16,17 @@ import java.util.jar.JarFile;
 public class ModuleLoader<T>
 {
     private Class<T> moduleClass;
+    private ConfigurationProvider provider;
 
     public ModuleLoader(Class<T> moduleClass)
     {
         this.moduleClass = moduleClass;
+    }
+
+    public ModuleLoader(Class<T> moduleClass, ConfigurationProvider provider)
+    {
+        this.moduleClass = moduleClass;
+        this.provider = provider;
     }
 
     public ArrayList<T> loadAll(Collection<ClassLocation> locations)
@@ -76,7 +84,9 @@ public class ModuleLoader<T>
     {
         try
         {
-            return (T)loadClass(location).newInstance();
+            T instance = (T)loadClass(location).newInstance();
+            configureModule(instance);
+            return instance;
         }
         catch(ClassCastException ex)
         {
@@ -89,6 +99,27 @@ public class ModuleLoader<T>
         catch(Throwable t)
         {
             throw new RuntimeException("Failed to load Module" + location.forSaving(), t);
+        }
+    }
+
+    protected void configureModule(T module)
+    {
+        if(module == null)
+            throw new IllegalArgumentException();
+
+        try
+        {
+            if(module instanceof Configurable)
+            {
+                if(provider == null)
+                    Logger.logMessage(LogPriority.WARNING, "Kein Konfigurationprovider um " + module.getClass().getName() + " zu konfigurieren");
+                else
+                    ((Configurable)module).setConfiguration(provider.getOrCreateConfiguration(module.getClass().getName()));
+            }
+        }
+        catch(Exception ex)
+        {
+            Logger.logError(LogPriority.WARNING, "Konnte Modul " + module.getClass().getName() + " nicht konfigurieren.", ex);
         }
     }
 
