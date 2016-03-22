@@ -3,7 +3,9 @@ package eu.convertron.interlib.io;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 /** Bildet Daten aus dem Java Archiv ab. */
@@ -77,6 +79,22 @@ public class ResourceFile extends GeneralData
         catch(IOException ex)
         {
             throw new RuntimeException("The file '" + getPathString() + "' could not be copied to '" + destination + "'", ex);
+        }
+    }
+
+    /**
+     * Liest die bytes einer Datei aus dem Java Archiv.
+     * @return Inhalt der Datei
+     */
+    public byte[] readAllBytes()
+    {
+        try
+        {
+            return Files.readAllBytes(Paths.get(parentObject.getResource(getNormalizedPath(getPath())).toURI()));
+        }
+        catch(IOException | URISyntaxException ex)
+        {
+            throw new RuntimeException("Unable to read resource file", ex);
         }
     }
 }

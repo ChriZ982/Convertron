@@ -14,8 +14,6 @@ public class IOConfigurationProvider implements ConfigurationProvider
 
     public IOConfigurationProvider(File folder)
     {
-        if(!folder.isDirectory())
-            throw new IllegalArgumentException();
         folder.mkdirs();
         this.folder = folder;
     }

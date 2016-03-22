@@ -1,11 +1,41 @@
 package eu.convertron.interlib.data;
 
+import eu.convertron.interlib.io.ResourceFile;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map.Entry;
 
 public class IniConfigFile
 {
+    public static HashMap<String, String> deserialize(String s)
+    {
+        HashMap<String, String> result = new HashMap<>();
+        String[] lines = s.split("\n");
+        for(String line : lines)
+        {
+            if(!line.contains(":"))
+                continue;
+
+            String[] entry = line.trim().split(":", 2);
+            result.put(entry[0], entry[1]);
+        }
+        return result;
+    }
+
+    public static String serialize(HashMap<String, String> map)
+    {
+        StringBuilder builder = new StringBuilder();
+        Iterator<Entry<String, String>> it = map.entrySet().iterator();
+        while(it.hasNext())
+        {
+            Entry<String, String> entry = it.next();
+            builder.append(entry.getKey()).append(":")
+                    .append(entry.getValue()).append("\n");
+        }
+        return builder.toString();
+    }
+
     private Configuration configuration;
     private String configName;
     private boolean autoFlush;
@@ -43,6 +73,11 @@ public class IniConfigFile
         reload();
     }
 
+    public HashMap<String, String> loadAll()
+    {
+        return new HashMap<>(content);
+    }
+
     public String load(String key)
     {
         return content.containsKey(key) ? content.get(key) : null;
@@ -74,17 +109,36 @@ public class IniConfigFile
         save(key, String.join(";", values));
     }
 
-    public void flush()
+    public void insertDefaults(HashMap<String, String> defaults)
     {
-        StringBuilder builder = new StringBuilder();
-        Iterator<HashMap.Entry<String, String>> it = content.entrySet().iterator();
+        boolean af = autoFlush;
+        autoFlush = false;
+        Iterator<Entry<String, String>> it = defaults.entrySet().iterator();
         while(it.hasNext())
         {
-            HashMap.Entry<String, String> entry = it.next();
-            builder.append(entry.getKey()).append(":")
-                    .append(entry.getValue()).append("\n");
+            Entry<String, String> entry = it.next();
+            if(!content.containsKey(entry.getKey()))
+                save(entry.getKey(), entry.getValue());
         }
-        configuration.setConfig(configName, builder.toString().getBytes(StandardCharsets.UTF_8));
+        autoFlush = af;
+        flush();
+    }
+
+    public void loadDefaultsFromResource(String resource, Class<?> parent)
+    {
+        loadDefaultsFromResource(new ResourceFile(resource, parent));
+    }
+
+    public void loadDefaultsFromResource(ResourceFile f)
+    {
+        String resource = new String(f.readAllBytes(), StandardCharsets.UTF_8);
+        HashMap<String, String> defaults = IniConfigFile.deserialize(resource);
+        insertDefaults(defaults);
+    }
+
+    public void flush()
+    {
+        configuration.setConfig(configName, serialize(content).getBytes(StandardCharsets.UTF_8));
     }
 
     public void reload()
@@ -95,15 +149,6 @@ public class IniConfigFile
     private void reload(byte[] value)
     {
         content.clear();
-        String file = new String(value, StandardCharsets.UTF_8);
-        String[] lines = file.split("\n");
-        for(String line : lines)
-        {
-            if(!line.contains(":"))
-                continue;
-
-            String[] entry = line.trim().split(":", 2);
-            content.put(entry[0], entry[1]);
-        }
+        content.putAll(deserialize(new String(value, StandardCharsets.UTF_8)));
     }
 }

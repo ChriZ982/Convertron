@@ -40,8 +40,6 @@ public class IOConfiguration extends Configuration
     private File getFile(String name) throws IOException
     {
         File f = new File(folder, name);
-        if(!f.isFile())
-            throw new IllegalArgumentException();
         if(!f.exists())
             f.createNewFile();
         return f;

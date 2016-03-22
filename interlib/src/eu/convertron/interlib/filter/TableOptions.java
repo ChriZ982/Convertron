@@ -31,7 +31,7 @@ public class TableOptions implements Configurable
         return instance;
     }
 
-    private IniConfigFile config;
+    private IniConfigFile configFile;
 
     private TableOptions()
     {
@@ -239,8 +239,8 @@ public class TableOptions implements Configurable
     public Lesson[] today(Lesson[] source)
     {
         final String today = LessonFormatter.formatDate(
-                config.load("useCustomDate").equals("true")
-                ? config.load("customDateToday")
+                configFile.load("useCustomDate").equals("true")
+                ? configFile.load("customDateToday")
                 : Time.getTodayAsDateString());
 
         return onlyDate(source, today);
@@ -253,8 +253,8 @@ public class TableOptions implements Configurable
      */
     public Lesson[] nextDayWithLessons(Lesson[] source)
     {
-        if(config.load("useCustomDate").equals("true"))
-            return onlyDate(source, config.load("customDateTomorrow"));
+        if(configFile.load("useCustomDate").equals("true"))
+            return onlyDate(source, configFile.load("customDateTomorrow"));
 
         //Only try to find Lessons 7 days in future
         for(int daysInFuture = 1; daysInFuture <= 7; daysInFuture++)
@@ -287,7 +287,10 @@ public class TableOptions implements Configurable
      */
     public Lesson[] notPast(Lesson[] source)
     {
-        String[] cutHours = config.loadArray("cutHours");
+        if(!configFile.load("useCutHours").equals("true"))
+            return source;
+
+        String[] cutHours = configFile.loadArray("cutHours");
 
         if(cutHours.length < 10)
             throw new RuntimeException("The saved 'cutHours' Array is shorter than 10");
@@ -304,6 +307,7 @@ public class TableOptions implements Configurable
     @Override
     public void setConfiguration(Configuration config)
     {
-        this.config = new IniConfigFile(config, "tableoptions.cfg");
+        configFile = new IniConfigFile(config, "tableoptions.cfg");
+        configFile.loadDefaultsFromResource("/eu/convertron/interlib/res/tableoptions.cfg", getClass());
     }
 }
