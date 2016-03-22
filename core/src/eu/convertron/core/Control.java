@@ -1,5 +1,7 @@
 package eu.convertron.core;
 
+import eu.convertron.applib.modules.ConfigurationProvider;
+import eu.convertron.applib.modules.IOConfigurationProvider;
 import eu.convertron.applib.storage.CsvStorage;
 import eu.convertron.applib.storage.Storage;
 import eu.convertron.interlib.data.Lesson;
@@ -19,11 +21,16 @@ public class Control
     private final ModuleManager moduleManager;
     private final Timer autoTimer;
 
+    private final ConfigurationProvider provider;
+
     public Control()
     {
         copyFilesFromPackage();
 
-        moduleManager = new ModuleManager();
+        //TODO remote config provider if needed
+        provider = new IOConfigurationProvider("./config");
+        TableOptions.getInstance().setConfiguration(provider.getOrCreateConfiguration(TableOptions.class));
+        moduleManager = new ModuleManager(provider);
 
         storage = new CsvStorage(CoreSettings.pathData.load() + "/data.csv");
 
@@ -94,7 +101,7 @@ public class Control
         Lesson[] in = moduleManager.importLessons();
         if(in != null)
         {
-            storage.save(TableOptions.compress(in));
+            storage.save(TableOptions.getInstance().compress(in));
             Logger.logMessage(LogPriority.HINT, "Vertretungseinträge aktualisiert");
         }
         else

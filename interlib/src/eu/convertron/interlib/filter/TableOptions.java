@@ -1,10 +1,10 @@
 package eu.convertron.interlib.filter;
 
+import eu.convertron.interlib.data.Configuration;
+import eu.convertron.interlib.data.IniConfigFile;
 import eu.convertron.interlib.data.Lesson;
 import eu.convertron.interlib.data.LessonFormatter;
-import eu.convertron.interlib.settings.Setting;
-import eu.convertron.interlib.settings.SettingLocation;
-import eu.convertron.interlib.settings.Settings;
+import eu.convertron.interlib.interfaces.Configurable;
 import eu.convertron.interlib.util.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,8 +17,26 @@ import java.util.TreeMap;
  * Diese Klasse stellt verschiedene Möglichkeiten zur Verfügung, um das Stunden-Array zu formatieren.
  * Dabei wird das als Parameter gefordete Stunden-Array 'source' oder die Objekte, die darin enthalten sind NICHT VERÄNDERT.
  */
-public class TableOptions
+public class TableOptions implements Configurable
 {
+    private static TableOptions instance;
+
+    static
+    {
+        instance = new TableOptions();
+    }
+
+    public static TableOptions getInstance()
+    {
+        return instance;
+    }
+
+    private IniConfigFile config;
+
+    private TableOptions()
+    {
+    }
+
     /**
      * Filtert die Stunden nach den angegebenen Filtern.
      * Damit eine Stunde weiterhin im Array enthalten bleibt, müssen also alle Filter die Stunde akzeptieren.
@@ -26,7 +44,7 @@ public class TableOptions
      * @param filterOptions Die Filter
      * @return Das gefilterte Array
      */
-    public static Lesson[] filterRows(Lesson[] source, FilterOption... filterOptions)
+    public Lesson[] filterRows(Lesson[] source, FilterOption... filterOptions)
     {
         ArrayList<Lesson> filteredLessons = new ArrayList<>();
         for(Lesson lesson : source)
@@ -43,7 +61,7 @@ public class TableOptions
      * @param filterOptions Die Filter die den Vertretungseintrag prüfen sollen
      * @return <code>true</code> wenn alle Filter den Vertretungseintrag akzeptiert haben, <code>false</code> wenn nicht
      */
-    protected static boolean filtersAcceptLesson(Lesson lesson, FilterOption... filterOptions)
+    protected boolean filtersAcceptLesson(Lesson lesson, FilterOption... filterOptions)
     {
         for(FilterOption filter : filterOptions)
         {
@@ -61,7 +79,7 @@ public class TableOptions
      * @param colummsToSelect Die Spalten, die nach dem Filtern noch enthalten sein sollen, 'Std' und 'Datum' bleiben immer enthalten
      * @return Ein neues Array mit neuen Stunden-Objekten, welche nurnoch die gewünschten Spalten enthalten.
      */
-    public static Lesson[] filterColumms(Lesson[] source, String... colummsToSelect)
+    public Lesson[] filterColumms(Lesson[] source, String... colummsToSelect)
     {
         Lesson[] filtered = new Lesson[source.length];
         for(int i = 0; i < filtered.length; i++)
@@ -86,7 +104,7 @@ public class TableOptions
      * @return Das sortierte Stundenarray
      * @see java.util.Comparator
      */
-    public static Lesson[] sort(Lesson[] source, Comparator<? super Lesson> sorter)
+    public Lesson[] sort(Lesson[] source, Comparator<? super Lesson> sorter)
     {
         List<Lesson> asList = Arrays.asList(source);
         Collections.sort(asList, sorter);
@@ -99,7 +117,7 @@ public class TableOptions
      * @return Das komprimierte Stunden-Array
      */
     @SuppressWarnings("AssignmentToForLoopParameter")
-    public static Lesson[] compress(Lesson[] source)
+    public Lesson[] compress(Lesson[] source)
     {
         ArrayList<Lesson> asList = new ArrayList<>(Arrays.asList(
                 sort(source, DefaultTableOptions.FIRSTHOUR)));
@@ -130,7 +148,7 @@ public class TableOptions
      * @param lesson2 Der zweite Vertretungseintrag
      * @return
      */
-    protected static boolean lessonEqualAndHoursFollowing(Lesson lesson1, Lesson lesson2)
+    protected boolean lessonEqualAndHoursFollowing(Lesson lesson1, Lesson lesson2)
     {
         for(String key : lesson1.getAllKeys())
         {
@@ -159,7 +177,7 @@ public class TableOptions
      * @param last2  letzte Stunde des zweiten Vertretungseintrags
      * @return
      */
-    protected static boolean hoursFollowing(int first1, int last1, int first2, int last2)
+    protected boolean hoursFollowing(int first1, int last1, int first2, int last2)
     {
         return ((first1 >= first2 && first1 <= last2)
                 || (last1 >= first2 && last1 <= last2)
@@ -175,7 +193,7 @@ public class TableOptions
      * @param lesson2 Der zweite Vertretungeintrag
      * @return Ein Vertretungseintrag, welcher aus den beiden übergebenen zusammengeführt wurde
      */
-    protected static Lesson compressLessons(Lesson lesson1, Lesson lesson2)
+    protected Lesson compressLessons(Lesson lesson1, Lesson lesson2)
     {
         if(lesson1.contentEquals(lesson2))
             return new Lesson(lesson1);
@@ -196,7 +214,7 @@ public class TableOptions
      * @param source Das nicht vereinheitlichte Stunden-Array
      * @return Das vereinheitlichte Stunden-Array
      */
-    public static Lesson[] unify(Lesson[] source)
+    public Lesson[] unify(Lesson[] source)
     {
         ArrayList<String> allKeys = new ArrayList<>();
 
@@ -218,11 +236,11 @@ public class TableOptions
      * @param source Alle Vertretungseinträge
      * @return Alle Vertretungseinträge in 'source' die heute gültig sind
      */
-    public static Lesson[] today(Lesson[] source)
+    public Lesson[] today(Lesson[] source)
     {
         final String today = LessonFormatter.formatDate(
-                Settings.load(new Setting("core.strings.useCustomDate", SettingLocation.GLOBAL)).equals("true")
-                ? Settings.load(new Setting("core.strings.customDateToday", SettingLocation.GLOBAL))
+                config.load("useCustomDate").equals("true")
+                ? config.load("customDateToday")
                 : Time.getTodayAsDateString());
 
         return onlyDate(source, today);
@@ -233,10 +251,10 @@ public class TableOptions
      * @param source Alle Vertretungseinträge
      * @return Alle Vertretungseinträge des nächsten Tags mit Einträgen
      */
-    public static Lesson[] nextDayWithLessons(Lesson[] source)
+    public Lesson[] nextDayWithLessons(Lesson[] source)
     {
-        if(Settings.load(new Setting("core.strings.useCustomDate", SettingLocation.GLOBAL)).equals("true"))
-            return onlyDate(source, Settings.load(new Setting("core.strings.customDateTomorrow", SettingLocation.GLOBAL)));
+        if(config.load("useCustomDate").equals("true"))
+            return onlyDate(source, config.load("customDateTomorrow"));
 
         //Only try to find Lessons 7 days in future
         for(int daysInFuture = 1; daysInFuture <= 7; daysInFuture++)
@@ -257,7 +275,7 @@ public class TableOptions
      * @param date   Das Datum für das die Einträge herausgefiltert werden sollen
      * @return Alle Vertretungseinträge des angegebenen Datums
      */
-    public static Lesson[] onlyDate(Lesson[] source, String date)
+    public Lesson[] onlyDate(Lesson[] source, String date)
     {
         return filterRows(source, DefaultTableOptions.getWhereFilter("Datum", date));
     }
@@ -267,12 +285,12 @@ public class TableOptions
      * @param source Alle Vertretungseinträge
      * @return Alle Vertretungseinträge die noch nicht abgeschnitten werden sollen
      */
-    public static Lesson[] notPast(Lesson[] source)
+    public Lesson[] notPast(Lesson[] source)
     {
-        String[] cutHours = Settings.loadArray(new Setting("core.strings.cutHours", SettingLocation.GLOBAL));
+        String[] cutHours = config.loadArray("cutHours");
 
         if(cutHours.length < 10)
-            throw new RuntimeException("The saved 'core.strings.cutHours' Array is shorter than 10");
+            throw new RuntimeException("The saved 'cutHours' Array is shorter than 10");
 
         boolean[] lastLessonAccepted = new boolean[10];
         for(int i = 0; i < 10; i++)
@@ -283,7 +301,9 @@ public class TableOptions
         return filterRows(source, (Lesson lesson) -> lastLessonAccepted[lesson.getLastHour() - 1]);
     }
 
-    private TableOptions()
+    @Override
+    public void setConfiguration(Configuration config)
     {
+        this.config = new IniConfigFile(config, "tableoptions.cfg");
     }
 }

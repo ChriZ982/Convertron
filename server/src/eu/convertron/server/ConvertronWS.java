@@ -21,7 +21,7 @@ public class ConvertronWS
     public String getAllLessonsForDate(String date)
     {
         LessonValidator.validateDateString(date);
-        Lesson[] lessons = TableOptions.onlyDate(control.getData(), date);
+        Lesson[] lessons = TableOptions.getInstance().onlyDate(control.getData(), date);
         return new CsvLessonSerializer().serializeMultiple(lessons);
     }
 

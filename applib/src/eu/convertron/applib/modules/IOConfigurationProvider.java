@@ -21,7 +21,7 @@ public class IOConfigurationProvider implements ConfigurationProvider
     }
 
     @Override
-    public Configuration getOrCreateConfiguration(String module)
+    public Configuration getOrCreateConfiguration(Class<?> module)
     {
         String dic = normalize(module);
         File subFolder = new File(folder, dic);
@@ -29,9 +29,9 @@ public class IOConfigurationProvider implements ConfigurationProvider
         return new IOConfiguration(subFolder);
     }
 
-    private String normalize(String moduleName)
+    private String normalize(Class<?> module)
     {
-        return moduleName
+        return module.getName()
                 .replaceAll("\\.", "-")
                 .replaceAll("$", ",");
     }

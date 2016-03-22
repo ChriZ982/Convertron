@@ -96,8 +96,15 @@ public abstract class Configuration
 
     public byte[] getConfig(String name)
     {
-        if(!configFiles.contains(name))
+        if(!hasConfig(name))
             throw new IllegalArgumentException("No such config");
+        return tryLoad(name);
+    }
+
+    public byte[] getOrCreateConfig(String name)
+    {
+        if(!hasConfig(name))
+            setConfig(name, new byte[0]);
         return tryLoad(name);
     }
 
@@ -115,6 +122,11 @@ public abstract class Configuration
     {
         tryRemove(name);
         return configFiles.remove(name);
+    }
+
+    public boolean hasConfig(String name)
+    {
+        return configFiles.contains(name);
     }
 
     public String[] getConfigFiles()

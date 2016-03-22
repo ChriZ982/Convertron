@@ -1,6 +1,7 @@
 package eu.convertron.core;
 
 import eu.convertron.applib.modules.ClassLocation;
+import eu.convertron.applib.modules.ConfigurationProvider;
 import eu.convertron.applib.modules.ModuleLoader;
 import eu.convertron.interlib.data.Lesson;
 import eu.convertron.interlib.filter.DefaultTableOptions;
@@ -31,7 +32,7 @@ public class ModuleManager
 
     private ModuleLoader<Module> loader;
 
-    public ModuleManager()
+    public ModuleManager(ConfigurationProvider provider)
     {
         locationOfImportedModules = new ArrayList<>();
         loadLocations();
@@ -42,7 +43,7 @@ public class ModuleManager
         allInputs = new ArrayList<>();
         activeInput = null;
 
-        loader = new ModuleLoader<>(Module.class);
+        loader = new ModuleLoader<>(Module.class, provider);
 
         List<Module> modules = loader.loadAll(locationOfImportedModules);
 
@@ -91,9 +92,10 @@ public class ModuleManager
             return null;
 
         Lesson[] result = source;
-        result = TableOptions.unify(result);
-        result = TableOptions.sort(result, DefaultTableOptions.FIRSTHOUR);
-        result = TableOptions.compress(result);
+        TableOptions to = TableOptions.getInstance();
+        result = to.unify(result);
+        result = to.sort(result, DefaultTableOptions.FIRSTHOUR);
+        result = to.compress(result);
 
         return result;
     }

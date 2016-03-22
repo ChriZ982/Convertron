@@ -41,7 +41,7 @@ public class ModuleLoaderTest
     {
         System.out.println("getAvailableModules");
         File jarFile = new File("test/testRessources/TestModules.jar");
-        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class);
+        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class, null);
         ClassLocation[] expResult =
         {
             new ClassLocation(jarFile, "testmodules.main.ModuleI"),
@@ -63,7 +63,7 @@ public class ModuleLoaderTest
         System.out.println("loadClass");
         ClassLocation loc = new ClassLocation(new File("test/testRessources/TestModules.jar"), "testmodules.main.ModuleIO");
 
-        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class);
+        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class, null);
 
         Module m = instance.loadModule(loc);
 
@@ -80,7 +80,7 @@ public class ModuleLoaderTest
     {
         System.out.println("parseClassName");
 
-        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class);
+        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class, null);
 
         String jarEntryName = "package/anotherpackage/testclass.class";
         String expResult = "package.anotherpackage.testclass";
@@ -96,7 +96,7 @@ public class ModuleLoaderTest
     {
         System.out.println("validateJarEntryAsClass");
 
-        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class);
+        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class, null);
 
         JarEntry e = new JarEntry("package/classname.class");
         boolean expResult = true;
@@ -112,7 +112,7 @@ public class ModuleLoaderTest
     {
         System.out.println("validateJarEntryAsClass");
 
-        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class);
+        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class, null);
 
         JarEntry e = new JarEntry("package/classname.notclass");
         boolean expResult = false;
@@ -128,7 +128,7 @@ public class ModuleLoaderTest
     {
         System.out.println("isModule");
 
-        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class);
+        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class, null);
 
         Class<?> c = new eu.convertron.interlib.interfaces.Module()
         {
@@ -157,7 +157,7 @@ public class ModuleLoaderTest
     {
         System.out.println("isModule");
 
-        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class);
+        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class, null);
 
         Class<?> c = Object.class;
         boolean expResult = false;
@@ -180,7 +180,7 @@ public class ModuleLoaderTest
 
         System.out.println("isModule");
 
-        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class);
+        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class, null);
 
         Class<?> c = Module.class;
         boolean expResult = false;
@@ -195,7 +195,7 @@ public class ModuleLoaderTest
     {
         System.out.println("isModule");
 
-        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class);
+        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class, null);
 
         Class<?> c = null;
         boolean expResult = false;

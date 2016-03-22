@@ -1,20 +1,27 @@
 package eu.convertron.server;
 
+import eu.convertron.applib.modules.ConfigurationProvider;
+import eu.convertron.applib.modules.IOConfigurationProvider;
 import eu.convertron.applib.storage.CsvStorage;
 import eu.convertron.applib.storage.Storage;
 import eu.convertron.interlib.data.Lesson;
+import eu.convertron.interlib.filter.TableOptions;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import javax.xml.ws.Endpoint;
 
 public class Control
 {
-    private ModuleManager moduleManager;
-    private Storage storage;
+    private final ModuleManager moduleManager;
+    private final Storage storage;
+
+    private final ConfigurationProvider provider;
 
     public Control()
     {
-        this.moduleManager = new ModuleManager();
+        this.provider = new IOConfigurationProvider("./config");
+        TableOptions.getInstance().setConfiguration(provider.getOrCreateConfiguration(TableOptions.class));
+        this.moduleManager = new ModuleManager(provider);
         this.storage = new CsvStorage("./data.csv");
 
         publishWebService("http://127.0.0.1:8023/_convertron");

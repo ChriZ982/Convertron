@@ -79,8 +79,8 @@ public class HtmlOut implements Output
     private String getClassString(String templateClass, String className, String[] columnNames, String templateLesson, Lesson[] lessons, String date)
     {
         String customClass = templateClass.replace("CLASSNAME", className);
-        Lesson[] classLessons = TableOptions.filterRows(lessons,
-                                                        (FilterOption)(Lesson lesson) -> lesson.get("Klasse").trim().equals(className) && lesson.get("Datum").equals(date));
+        Lesson[] classLessons = TableOptions.getInstance().filterRows(lessons,
+                                                                      (FilterOption)(Lesson lesson) -> lesson.get("Klasse").trim().equals(className) && lesson.get("Datum").equals(date));
         customClass = customClass.replace("NUMLESSONS", String.valueOf(classLessons.length + 1));
 
         return customClass.replace("LESSONS", getLessonsString(classLessons, columnNames, templateLesson));
@@ -110,7 +110,7 @@ public class HtmlOut implements Output
     {
         TreeSet<String> classes = new TreeSet<String>();
 
-        for(Lesson lesson : TableOptions.filterRows(lessons, (Lesson lesson) -> lesson.get("Datum").equals(date)))
+        for(Lesson lesson : TableOptions.getInstance().filterRows(lessons, (Lesson lesson) -> lesson.get("Datum").equals(date)))
         {
             classes.add(lesson.get("Klasse").trim());
         }

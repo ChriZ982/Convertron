@@ -18,11 +18,6 @@ public class ModuleLoader<T>
     private Class<T> moduleClass;
     private ConfigurationProvider provider;
 
-    public ModuleLoader(Class<T> moduleClass)
-    {
-        this.moduleClass = moduleClass;
-    }
-
     public ModuleLoader(Class<T> moduleClass, ConfigurationProvider provider)
     {
         this.moduleClass = moduleClass;
@@ -114,7 +109,7 @@ public class ModuleLoader<T>
                 if(provider == null)
                     Logger.logMessage(LogPriority.WARNING, "Kein Konfigurationprovider um " + module.getClass().getName() + " zu konfigurieren");
                 else
-                    ((Configurable)module).setConfiguration(provider.getOrCreateConfiguration(module.getClass().getName()));
+                    ((Configurable)module).setConfiguration(provider.getOrCreateConfiguration(module.getClass()));
             }
         }
         catch(Exception ex)
