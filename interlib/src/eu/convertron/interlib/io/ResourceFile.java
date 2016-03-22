@@ -3,10 +3,12 @@ package eu.convertron.interlib.io;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.HashMap;
 
 /** Bildet Daten aus dem Java Archiv ab. */
 public class ResourceFile extends GeneralData
@@ -90,9 +92,17 @@ public class ResourceFile extends GeneralData
     {
         try
         {
-            return Files.readAllBytes(Paths.get(parentObject.getResource(getNormalizedPath(getPath())).toURI()));
+            URI uri = parentObject.getResource(getNormalizedPath(getPath())).toURI();
+            if(!uri.toString().contains("!"))
+                return Files.readAllBytes(Paths.get(uri));
+
+            String[] array = uri.toString().split("!");
+            FileSystem fs = FileSystems.newFileSystem(URI.create(array[0]), new HashMap<String, String>());
+            byte[] bytes = Files.readAllBytes(fs.getPath(array[1]));
+            fs.close();
+            return bytes;
         }
-        catch(IOException | URISyntaxException ex)
+        catch(Exception ex)
         {
             throw new RuntimeException("Unable to read resource file", ex);
         }

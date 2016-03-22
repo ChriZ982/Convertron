@@ -1,7 +1,9 @@
 package eu.convertron.basicmodules.untis;
 
-import eu.convertron.basicmodules.settings.BasicSettings;
+import eu.convertron.interlib.data.Configuration;
+import eu.convertron.interlib.data.IniConfigFile;
 import eu.convertron.interlib.data.Lesson;
+import eu.convertron.interlib.interfaces.Configurable;
 import eu.convertron.interlib.interfaces.Input;
 import eu.convertron.interlib.interfaces.View;
 import eu.convertron.interlib.io.Folder;
@@ -9,6 +11,7 @@ import eu.convertron.interlib.io.TextFile;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import java.io.File;
+import java.io.FileFilter;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,8 +19,17 @@ import java.util.TreeMap;
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 
-public class UntisIn implements Input
+public class UntisIn implements Input, Configurable
 {
+    private IniConfigFile configFile;
+
+    @Override
+    public void setConfiguration(Configuration config)
+    {
+        configFile = new IniConfigFile(config, "untisin.cfg");
+        configFile.loadDefaultsFromResource("/eu/convertron/basicmodules/res/untisin.cfg", getClass());
+    }
+
     @Override
     public String getName()
     {
@@ -36,7 +48,7 @@ public class UntisIn implements Input
         try
         {
             PrefixSuffixFileFilter filter = new PrefixSuffixFileFilter();
-            File dir = new File(BasicSettings.sourcePath.load());
+            File dir = new File(configFile.load("sourcePath"));
 
             if(!dir.isDirectory() || !dir.exists())
             {
@@ -186,5 +198,34 @@ public class UntisIn implements Input
                 .replaceAll("\n", "")
                 .replaceAll("\\s", "")
                 .replaceAll("<[^>]*>", "");
+    }
+
+    private class PrefixSuffixFileFilter implements FileFilter
+    {
+        private String prefix, suffix;
+
+        private PrefixSuffixFileFilter()
+        {
+            prefix = configFile.load("filePrefix");
+            suffix = configFile.load("fileSuffix");
+        }
+
+        @Override
+        public boolean accept(File pathname)
+        {
+            if(prefix != null && !prefix.isEmpty())
+            {
+                if(!pathname.getName().startsWith(prefix))
+                    return false;
+            }
+
+            if(suffix != null && !suffix.isEmpty())
+            {
+                if(!pathname.getName().endsWith(suffix))
+                    return false;
+            }
+
+            return true;
+        }
     }
 }

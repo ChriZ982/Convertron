@@ -239,8 +239,8 @@ public class TableOptions implements Configurable
     public Lesson[] today(Lesson[] source)
     {
         final String today = LessonFormatter.formatDate(
-                configFile.load("useCustomDate").equals("true")
-                ? configFile.load("customDateToday")
+                useCustomDate()
+                ? getCustomDateToday()
                 : Time.getTodayAsDateString());
 
         return onlyDate(source, today);
@@ -253,8 +253,8 @@ public class TableOptions implements Configurable
      */
     public Lesson[] nextDayWithLessons(Lesson[] source)
     {
-        if(configFile.load("useCustomDate").equals("true"))
-            return onlyDate(source, configFile.load("customDateTomorrow"));
+        if(useCustomDate())
+            return onlyDate(source, getCustomDateTomorrow());
 
         //Only try to find Lessons 7 days in future
         for(int daysInFuture = 1; daysInFuture <= 7; daysInFuture++)
@@ -287,10 +287,10 @@ public class TableOptions implements Configurable
      */
     public Lesson[] notPast(Lesson[] source)
     {
-        if(!configFile.load("useCutHours").equals("true"))
+        if(!useCutHours())
             return source;
 
-        String[] cutHours = configFile.loadArray("cutHours");
+        String[] cutHours = getCutHours();
 
         if(cutHours.length < 10)
             throw new RuntimeException("The saved 'cutHours' Array is shorter than 10");
@@ -302,6 +302,36 @@ public class TableOptions implements Configurable
         }
 
         return filterRows(source, (Lesson lesson) -> lastLessonAccepted[lesson.getLastHour() - 1]);
+    }
+
+    public String getEvenWeekChar()
+    {
+        return configFile.load("evenWeekChar");
+    }
+
+    public String[] getCutHours()
+    {
+        return configFile.loadArray("cutHours");
+    }
+
+    public boolean useCutHours()
+    {
+        return configFile.load("useCutHours").equals("true");
+    }
+
+    public boolean useCustomDate()
+    {
+        return configFile.load("useCustomDate").equals("true");
+    }
+
+    public String getCustomDateToday()
+    {
+        return configFile.load("customDateToday");
+    }
+
+    public String getCustomDateTomorrow()
+    {
+        return configFile.load("customDateTomorrow");
     }
 
     @Override
