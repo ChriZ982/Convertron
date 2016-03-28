@@ -21,15 +21,21 @@ public class IOConfigurationProvider implements ConfigurationProvider
     @Override
     public Configuration getOrCreateConfiguration(Class<?> module)
     {
-        String dic = normalize(module);
+        return getOrCreateConfiguration(module.getName());
+    }
+
+    @Override
+    public Configuration getOrCreateConfiguration(String moduleName)
+    {
+        String dic = normalize(moduleName);
         File subFolder = new File(folder, dic);
         subFolder.mkdirs();
         return new IOConfiguration(subFolder);
     }
 
-    private String normalize(Class<?> module)
+    private String normalize(String moduleName)
     {
-        return module.getName()
+        return moduleName
                 .replaceAll("\\.", "-")
                 .replaceAll("$", ",");
     }

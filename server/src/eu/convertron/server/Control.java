@@ -4,6 +4,7 @@ import eu.convertron.applib.modules.ConfigurationProvider;
 import eu.convertron.applib.modules.IOConfigurationProvider;
 import eu.convertron.applib.storage.CsvStorage;
 import eu.convertron.applib.storage.Storage;
+import eu.convertron.interlib.data.Configuration;
 import eu.convertron.interlib.data.Lesson;
 import eu.convertron.interlib.filter.TableOptions;
 import eu.convertron.interlib.logging.LogPriority;
@@ -25,6 +26,11 @@ public class Control
         this.storage = new CsvStorage("./data.csv");
 
         publishWebService("http://127.0.0.1:8023/_convertron");
+    }
+
+    public Configuration getOrCreateConfiguration(String moduleName)
+    {
+        return provider.getOrCreateConfiguration(moduleName);
     }
 
     public void setData(Lesson[] data)
