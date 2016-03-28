@@ -20,6 +20,11 @@ public class ChangeSet implements Serializable
         entrys.clear();
     }
 
+    public synchronized boolean isEmpty()
+    {
+        return entrys.isEmpty();
+    }
+
     public synchronized void configChanged(String configName, String configPart)
     {
         getOrCreateEntry(configName).configChanged(configPart);
@@ -35,6 +40,11 @@ public class ChangeSet implements Serializable
         if(!entrys.containsKey(configName))
             entrys.put(configName, new ConfigEntry());
         return entrys.get(configName);
+    }
+
+    public synchronized HashMap<String, ConfigEntry> getEntrysCopy()
+    {
+        return new HashMap<>(entrys);
     }
 
     public synchronized byte[] serialize()
@@ -70,6 +80,16 @@ public class ChangeSet implements Serializable
         {
             if(!addedConfigParts.contains(configPart))
                 addedConfigParts.add(configPart);
+        }
+
+        public ArrayList<String> getAddedConfigParts()
+        {
+            return addedConfigParts;
+        }
+
+        public ArrayList<String> getChangedConfigsParts()
+        {
+            return changedConfigsParts;
         }
 
         public byte[] serialize()

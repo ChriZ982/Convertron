@@ -4,13 +4,49 @@
 
 <xs:element name="getAllLessonsForDateResponse" type="tns:getAllLessonsForDateResponse"></xs:element>
 
+<xs:element name="getAvailableConfigs" type="tns:getAvailableConfigs"></xs:element>
+
+<xs:element name="getAvailableConfigsResponse" type="tns:getAvailableConfigsResponse"></xs:element>
+
+<xs:element name="getChanges" type="tns:getChanges"></xs:element>
+
+<xs:element name="getChangesResponse" type="tns:getChangesResponse"></xs:element>
+
+<xs:element name="getConfigFile" type="tns:getConfigFile"></xs:element>
+
+<xs:element name="getConfigFileResponse" type="tns:getConfigFileResponse"></xs:element>
+
 <xs:element name="getData" type="tns:getData"></xs:element>
 
 <xs:element name="getDataResponse" type="tns:getDataResponse"></xs:element>
 
+<xs:element name="removeConfigFile" type="tns:removeConfigFile"></xs:element>
+
+<xs:element name="removeConfigFileResponse" type="tns:removeConfigFileResponse"></xs:element>
+
+<xs:element name="setConfigFile" type="tns:setConfigFile"></xs:element>
+
+<xs:element name="setConfigFileResponse" type="tns:setConfigFileResponse"></xs:element>
+
 <xs:element name="setData" type="tns:setData"></xs:element>
 
 <xs:element name="setDataResponse" type="tns:setDataResponse"></xs:element>
+
+<xs:element name="subscribeToConfigChanges" type="tns:subscribeToConfigChanges"></xs:element>
+
+<xs:element name="subscribeToConfigChangesResponse" type="tns:subscribeToConfigChangesResponse"></xs:element>
+
+<xs:complexType name="getAvailableConfigs">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getAvailableConfigsResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"></xs:element>
+</xs:sequence>
+</xs:complexType>
 
 <xs:complexType name="setData">
 <xs:sequence>
@@ -22,6 +58,29 @@
 <xs:sequence></xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="getChanges">
+<xs:sequence>
+<xs:element name="arg0" type="xs:base64Binary" nillable="true" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getChangesResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:base64Binary" nillable="true" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="subscribeToConfigChanges">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="arg1" type="xs:base64Binary" nillable="true" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="subscribeToConfigChangesResponse">
+<xs:sequence></xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="getData">
 <xs:sequence></xs:sequence>
 </xs:complexType>
@@ -29,6 +88,44 @@
 <xs:complexType name="getDataResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getConfigFile">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="arg1" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getConfigFileResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:base64Binary" nillable="true" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setConfigFile">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="arg1" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="arg2" type="xs:base64Binary" nillable="true" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setConfigFileResponse">
+<xs:sequence></xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="removeConfigFile">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="arg1" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="removeConfigFileResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"></xs:element>
 </xs:sequence>
 </xs:complexType>
 

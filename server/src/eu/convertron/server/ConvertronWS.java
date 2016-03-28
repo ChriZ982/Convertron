@@ -71,10 +71,14 @@ public class ConvertronWS
     @WebMethod
     public byte[] getChanges(byte[] clientId)
     {
-        if(!changes.containsKey(clientId) || changes.get(clientId) == null)
-            return new ChangeSet().serialize();
+        if(!changes.containsKey(clientId))
+            return null;
 
         ChangeSet c = changes.get(clientId);
+
+        if(c == null || c.isEmpty())
+            return null;
+
         byte[] result = c.serialize();
         c.clear();
         return result;
@@ -99,5 +103,12 @@ public class ConvertronWS
     {
         Configuration config = control.getOrCreateConfiguration(moduleName);
         return config.removeConfig(configName);
+    }
+
+    @WebMethod
+    public String[] getAvailableConfigs(String moduleName)
+    {
+        Configuration config = control.getOrCreateConfiguration(moduleName);
+        return config.getConfigFiles();
     }
 }

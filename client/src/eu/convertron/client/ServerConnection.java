@@ -1,14 +1,23 @@
 package eu.convertron.client;
 
+import eu.convertron.applib.etc.ChangeSet;
 import eu.convertron.applib.etc.CsvLessonSerializer;
+import eu.convertron.applib.modules.ConfigurationProvider;
 import eu.convertron.applib.storage.Storage;
+import eu.convertron.interlib.data.Configuration;
 import eu.convertron.interlib.data.Lesson;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Random;
+import javax.swing.Timer;
 
-public class ServerConnection implements Storage
+public class ServerConnection implements Storage, ConfigurationProvider
 {
     private ConvertronWS service;
+    private byte[] clientId;
+    private HashMap<String, RemoteConfiguration> configs;
+    private Timer timer;
 
     public ServerConnection(String ip, int port) throws MalformedURLException
     {
@@ -19,6 +28,43 @@ public class ServerConnection implements Storage
     {
         ConvertronWSService s = new ConvertronWSService(wsdl);
         service = s.getConvertronWSPort();
+        clientId = new byte[8];
+        new Random().nextBytes(clientId);
+        configs = new HashMap<>();
+        timer = new Timer(5000, (e) -> checkChanges());
+        timer.start();
+    }
+
+    private void checkChanges()
+    {
+        byte[] ser = service.getChanges(clientId);
+        if(ser == null)
+            return;
+
+        ChangeSet c = ChangeSet.deserialize(ser);
+        for(HashMap.Entry<String, ChangeSet.ConfigEntry> entry : c.getEntrysCopy().entrySet())
+        {
+            if(configs.containsKey(entry.getKey()))
+                configs.get(entry.getKey()).processChange(entry.getValue());
+        }
+    }
+
+    @Override
+    public Configuration getOrCreateConfiguration(Class<?> module)
+    {
+        return getOrCreateConfiguration(module.getName());
+    }
+
+    @Override
+    public Configuration getOrCreateConfiguration(String moduleName)
+    {
+        if(configs.containsKey(moduleName))
+            return configs.get(moduleName);
+
+        service.subscribeToConfigChanges(moduleName, clientId);
+        RemoteConfiguration conf = new RemoteConfiguration(service, moduleName);
+        configs.put(moduleName, conf);
+        return conf;
     }
 
     @Override

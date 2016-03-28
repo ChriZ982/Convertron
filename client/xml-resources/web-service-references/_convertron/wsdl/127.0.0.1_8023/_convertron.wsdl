@@ -16,6 +16,42 @@
 <message name="setDataResponse">
 <part name="parameters" element="tns:setDataResponse"></part>
 </message>
+<message name="getChanges">
+<part name="parameters" element="tns:getChanges"></part>
+</message>
+<message name="getChangesResponse">
+<part name="parameters" element="tns:getChangesResponse"></part>
+</message>
+<message name="getConfigFile">
+<part name="parameters" element="tns:getConfigFile"></part>
+</message>
+<message name="getConfigFileResponse">
+<part name="parameters" element="tns:getConfigFileResponse"></part>
+</message>
+<message name="setConfigFile">
+<part name="parameters" element="tns:setConfigFile"></part>
+</message>
+<message name="setConfigFileResponse">
+<part name="parameters" element="tns:setConfigFileResponse"></part>
+</message>
+<message name="removeConfigFile">
+<part name="parameters" element="tns:removeConfigFile"></part>
+</message>
+<message name="removeConfigFileResponse">
+<part name="parameters" element="tns:removeConfigFileResponse"></part>
+</message>
+<message name="subscribeToConfigChanges">
+<part name="parameters" element="tns:subscribeToConfigChanges"></part>
+</message>
+<message name="subscribeToConfigChangesResponse">
+<part name="parameters" element="tns:subscribeToConfigChangesResponse"></part>
+</message>
+<message name="getAvailableConfigs">
+<part name="parameters" element="tns:getAvailableConfigs"></part>
+</message>
+<message name="getAvailableConfigsResponse">
+<part name="parameters" element="tns:getAvailableConfigsResponse"></part>
+</message>
 <message name="getAllLessonsForDate">
 <part name="parameters" element="tns:getAllLessonsForDate"></part>
 </message>
@@ -30,6 +66,30 @@
 <operation name="setData">
 <input wsam:Action="http://server.convertron.eu/ConvertronWS/setDataRequest" message="tns:setData"></input>
 <output wsam:Action="http://server.convertron.eu/ConvertronWS/setDataResponse" message="tns:setDataResponse"></output>
+</operation>
+<operation name="getChanges">
+<input wsam:Action="http://server.convertron.eu/ConvertronWS/getChangesRequest" message="tns:getChanges"></input>
+<output wsam:Action="http://server.convertron.eu/ConvertronWS/getChangesResponse" message="tns:getChangesResponse"></output>
+</operation>
+<operation name="getConfigFile">
+<input wsam:Action="http://server.convertron.eu/ConvertronWS/getConfigFileRequest" message="tns:getConfigFile"></input>
+<output wsam:Action="http://server.convertron.eu/ConvertronWS/getConfigFileResponse" message="tns:getConfigFileResponse"></output>
+</operation>
+<operation name="setConfigFile">
+<input wsam:Action="http://server.convertron.eu/ConvertronWS/setConfigFileRequest" message="tns:setConfigFile"></input>
+<output wsam:Action="http://server.convertron.eu/ConvertronWS/setConfigFileResponse" message="tns:setConfigFileResponse"></output>
+</operation>
+<operation name="removeConfigFile">
+<input wsam:Action="http://server.convertron.eu/ConvertronWS/removeConfigFileRequest" message="tns:removeConfigFile"></input>
+<output wsam:Action="http://server.convertron.eu/ConvertronWS/removeConfigFileResponse" message="tns:removeConfigFileResponse"></output>
+</operation>
+<operation name="subscribeToConfigChanges">
+<input wsam:Action="http://server.convertron.eu/ConvertronWS/subscribeToConfigChangesRequest" message="tns:subscribeToConfigChanges"></input>
+<output wsam:Action="http://server.convertron.eu/ConvertronWS/subscribeToConfigChangesResponse" message="tns:subscribeToConfigChangesResponse"></output>
+</operation>
+<operation name="getAvailableConfigs">
+<input wsam:Action="http://server.convertron.eu/ConvertronWS/getAvailableConfigsRequest" message="tns:getAvailableConfigs"></input>
+<output wsam:Action="http://server.convertron.eu/ConvertronWS/getAvailableConfigsResponse" message="tns:getAvailableConfigsResponse"></output>
 </operation>
 <operation name="getAllLessonsForDate">
 <input wsam:Action="http://server.convertron.eu/ConvertronWS/getAllLessonsForDateRequest" message="tns:getAllLessonsForDate"></input>
@@ -48,6 +108,60 @@
 </output>
 </operation>
 <operation name="setData">
+<soap:operation soapAction=""></soap:operation>
+<input>
+<soap:body use="literal"></soap:body>
+</input>
+<output>
+<soap:body use="literal"></soap:body>
+</output>
+</operation>
+<operation name="getChanges">
+<soap:operation soapAction=""></soap:operation>
+<input>
+<soap:body use="literal"></soap:body>
+</input>
+<output>
+<soap:body use="literal"></soap:body>
+</output>
+</operation>
+<operation name="getConfigFile">
+<soap:operation soapAction=""></soap:operation>
+<input>
+<soap:body use="literal"></soap:body>
+</input>
+<output>
+<soap:body use="literal"></soap:body>
+</output>
+</operation>
+<operation name="setConfigFile">
+<soap:operation soapAction=""></soap:operation>
+<input>
+<soap:body use="literal"></soap:body>
+</input>
+<output>
+<soap:body use="literal"></soap:body>
+</output>
+</operation>
+<operation name="removeConfigFile">
+<soap:operation soapAction=""></soap:operation>
+<input>
+<soap:body use="literal"></soap:body>
+</input>
+<output>
+<soap:body use="literal"></soap:body>
+</output>
+</operation>
+<operation name="subscribeToConfigChanges">
+<soap:operation soapAction=""></soap:operation>
+<input>
+<soap:body use="literal"></soap:body>
+</input>
+<output>
+<soap:body use="literal"></soap:body>
+</output>
+</operation>
+<operation name="getAvailableConfigs">
 <soap:operation soapAction=""></soap:operation>
 <input>
 <soap:body use="literal"></soap:body>
