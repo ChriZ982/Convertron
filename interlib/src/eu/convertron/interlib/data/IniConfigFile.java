@@ -55,20 +55,7 @@ public class IniConfigFile
 
         this.content = new HashMap<>();
 
-        configuration.addConfigListener(new ConfigurationListener()
-        {
-            @Override
-            public void configurationChanged(HashMap<String, byte[]> changed, boolean complete)
-            {
-                if(changed.containsKey(configName))
-                    reload(changed.get(configName));
-            }
-
-            @Override
-            public void newConfigurationAdded(String name)
-            {
-            }
-        });
+        configuration.addConfigListener(new SingleConfigurationListener(configuration, configName, (v) -> reload(v)));
 
         reload();
     }

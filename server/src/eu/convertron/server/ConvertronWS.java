@@ -111,4 +111,10 @@ public class ConvertronWS
         Configuration config = control.getOrCreateConfiguration(moduleName);
         return config.getConfigFiles();
     }
+
+    @WebMethod
+    public String ping()
+    {
+        return "pong";
+    }
 }

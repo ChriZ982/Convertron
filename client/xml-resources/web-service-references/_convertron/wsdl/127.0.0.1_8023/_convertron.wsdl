@@ -22,12 +22,6 @@
 <message name="getChangesResponse">
 <part name="parameters" element="tns:getChangesResponse"></part>
 </message>
-<message name="getConfigFile">
-<part name="parameters" element="tns:getConfigFile"></part>
-</message>
-<message name="getConfigFileResponse">
-<part name="parameters" element="tns:getConfigFileResponse"></part>
-</message>
 <message name="setConfigFile">
 <part name="parameters" element="tns:setConfigFile"></part>
 </message>
@@ -40,6 +34,24 @@
 <message name="removeConfigFileResponse">
 <part name="parameters" element="tns:removeConfigFileResponse"></part>
 </message>
+<message name="ping">
+<part name="parameters" element="tns:ping"></part>
+</message>
+<message name="pingResponse">
+<part name="parameters" element="tns:pingResponse"></part>
+</message>
+<message name="getConfigFile">
+<part name="parameters" element="tns:getConfigFile"></part>
+</message>
+<message name="getConfigFileResponse">
+<part name="parameters" element="tns:getConfigFileResponse"></part>
+</message>
+<message name="getAllLessonsForDate">
+<part name="parameters" element="tns:getAllLessonsForDate"></part>
+</message>
+<message name="getAllLessonsForDateResponse">
+<part name="parameters" element="tns:getAllLessonsForDateResponse"></part>
+</message>
 <message name="subscribeToConfigChanges">
 <part name="parameters" element="tns:subscribeToConfigChanges"></part>
 </message>
@@ -51,12 +63,6 @@
 </message>
 <message name="getAvailableConfigsResponse">
 <part name="parameters" element="tns:getAvailableConfigsResponse"></part>
-</message>
-<message name="getAllLessonsForDate">
-<part name="parameters" element="tns:getAllLessonsForDate"></part>
-</message>
-<message name="getAllLessonsForDateResponse">
-<part name="parameters" element="tns:getAllLessonsForDateResponse"></part>
 </message>
 <portType name="ConvertronWS">
 <operation name="getData">
@@ -71,10 +77,6 @@
 <input wsam:Action="http://server.convertron.eu/ConvertronWS/getChangesRequest" message="tns:getChanges"></input>
 <output wsam:Action="http://server.convertron.eu/ConvertronWS/getChangesResponse" message="tns:getChangesResponse"></output>
 </operation>
-<operation name="getConfigFile">
-<input wsam:Action="http://server.convertron.eu/ConvertronWS/getConfigFileRequest" message="tns:getConfigFile"></input>
-<output wsam:Action="http://server.convertron.eu/ConvertronWS/getConfigFileResponse" message="tns:getConfigFileResponse"></output>
-</operation>
 <operation name="setConfigFile">
 <input wsam:Action="http://server.convertron.eu/ConvertronWS/setConfigFileRequest" message="tns:setConfigFile"></input>
 <output wsam:Action="http://server.convertron.eu/ConvertronWS/setConfigFileResponse" message="tns:setConfigFileResponse"></output>
@@ -83,6 +85,18 @@
 <input wsam:Action="http://server.convertron.eu/ConvertronWS/removeConfigFileRequest" message="tns:removeConfigFile"></input>
 <output wsam:Action="http://server.convertron.eu/ConvertronWS/removeConfigFileResponse" message="tns:removeConfigFileResponse"></output>
 </operation>
+<operation name="ping">
+<input wsam:Action="http://server.convertron.eu/ConvertronWS/pingRequest" message="tns:ping"></input>
+<output wsam:Action="http://server.convertron.eu/ConvertronWS/pingResponse" message="tns:pingResponse"></output>
+</operation>
+<operation name="getConfigFile">
+<input wsam:Action="http://server.convertron.eu/ConvertronWS/getConfigFileRequest" message="tns:getConfigFile"></input>
+<output wsam:Action="http://server.convertron.eu/ConvertronWS/getConfigFileResponse" message="tns:getConfigFileResponse"></output>
+</operation>
+<operation name="getAllLessonsForDate">
+<input wsam:Action="http://server.convertron.eu/ConvertronWS/getAllLessonsForDateRequest" message="tns:getAllLessonsForDate"></input>
+<output wsam:Action="http://server.convertron.eu/ConvertronWS/getAllLessonsForDateResponse" message="tns:getAllLessonsForDateResponse"></output>
+</operation>
 <operation name="subscribeToConfigChanges">
 <input wsam:Action="http://server.convertron.eu/ConvertronWS/subscribeToConfigChangesRequest" message="tns:subscribeToConfigChanges"></input>
 <output wsam:Action="http://server.convertron.eu/ConvertronWS/subscribeToConfigChangesResponse" message="tns:subscribeToConfigChangesResponse"></output>
@@ -90,10 +104,6 @@
 <operation name="getAvailableConfigs">
 <input wsam:Action="http://server.convertron.eu/ConvertronWS/getAvailableConfigsRequest" message="tns:getAvailableConfigs"></input>
 <output wsam:Action="http://server.convertron.eu/ConvertronWS/getAvailableConfigsResponse" message="tns:getAvailableConfigsResponse"></output>
-</operation>
-<operation name="getAllLessonsForDate">
-<input wsam:Action="http://server.convertron.eu/ConvertronWS/getAllLessonsForDateRequest" message="tns:getAllLessonsForDate"></input>
-<output wsam:Action="http://server.convertron.eu/ConvertronWS/getAllLessonsForDateResponse" message="tns:getAllLessonsForDateResponse"></output>
 </operation>
 </portType>
 <binding name="ConvertronWSPortBinding" type="tns:ConvertronWS">
@@ -125,15 +135,6 @@
 <soap:body use="literal"></soap:body>
 </output>
 </operation>
-<operation name="getConfigFile">
-<soap:operation soapAction=""></soap:operation>
-<input>
-<soap:body use="literal"></soap:body>
-</input>
-<output>
-<soap:body use="literal"></soap:body>
-</output>
-</operation>
 <operation name="setConfigFile">
 <soap:operation soapAction=""></soap:operation>
 <input>
@@ -152,6 +153,33 @@
 <soap:body use="literal"></soap:body>
 </output>
 </operation>
+<operation name="ping">
+<soap:operation soapAction=""></soap:operation>
+<input>
+<soap:body use="literal"></soap:body>
+</input>
+<output>
+<soap:body use="literal"></soap:body>
+</output>
+</operation>
+<operation name="getConfigFile">
+<soap:operation soapAction=""></soap:operation>
+<input>
+<soap:body use="literal"></soap:body>
+</input>
+<output>
+<soap:body use="literal"></soap:body>
+</output>
+</operation>
+<operation name="getAllLessonsForDate">
+<soap:operation soapAction=""></soap:operation>
+<input>
+<soap:body use="literal"></soap:body>
+</input>
+<output>
+<soap:body use="literal"></soap:body>
+</output>
+</operation>
 <operation name="subscribeToConfigChanges">
 <soap:operation soapAction=""></soap:operation>
 <input>
@@ -162,15 +190,6 @@
 </output>
 </operation>
 <operation name="getAvailableConfigs">
-<soap:operation soapAction=""></soap:operation>
-<input>
-<soap:body use="literal"></soap:body>
-</input>
-<output>
-<soap:body use="literal"></soap:body>
-</output>
-</operation>
-<operation name="getAllLessonsForDate">
 <soap:operation soapAction=""></soap:operation>
 <input>
 <soap:body use="literal"></soap:body>

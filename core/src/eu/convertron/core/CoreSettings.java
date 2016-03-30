@@ -22,35 +22,18 @@ public enum CoreSettings implements SettingID
     autoImport,
     autoExport,
     autoBackup,
-
-    motdText,
-    useCutHours,
-    useCustomDate,
-    customDateToday,
-    customDateTomorrow,
-    evenWeekChar;
+    useRemote,
+    useCustomWsdl,
+    remoteHost,
+    remotePort,
+    remoteWsdl;
 
     public static final String PREFIX = "core.strings.";
 
     @Override
     public SettingLocationID getLocation()
     {
-        switch(this)
-        {
-            case pathData:
-            case pathBackup:
-            case positionX:
-            case positionY:
-            case activeInput:
-            case autoMode:
-            case autoImport:
-            case autoExport:
-            case autoBackup:
-                return SettingLocation.LOCAL;
-
-            default:
-                return SettingLocation.GLOBAL;
-        }
+        return SettingLocation.LOCAL;
     }
 
     @Override
@@ -73,6 +56,11 @@ public enum CoreSettings implements SettingID
     public String load()
     {
         return Settings.load(this);
+    }
+
+    public boolean isTrue()
+    {
+        return this.load().equalsIgnoreCase("true");
     }
 
     public void save(String value)

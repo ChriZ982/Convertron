@@ -1,13 +1,17 @@
 package eu.convertron.core.tabs;
 
-import eu.convertron.applib.settings.ComponentSetting;
 import eu.convertron.core.Control;
+import eu.convertron.interlib.data.Configuration;
+import eu.convertron.interlib.data.SingleConfigurationListener;
 import eu.convertron.interlib.interfaces.View;
+import java.nio.charset.StandardCharsets;
+import javax.swing.JTextField;
 
 public class OverviewControl
 {
     private OverviewView view;
-    private ComponentSetting motdHandler;
+    private JTextField motdTxt;
+    private Configuration config;
 
     private Control control;
 
@@ -15,7 +19,12 @@ public class OverviewControl
     {
         this.control = control;
         view = new OverviewView();
-        motdHandler = view.createMotdSettingHandler();
+
+        motdTxt = view.getMotdTextField();
+        config = control.getCoreConfig();
+
+        config.addConfigListener(new SingleConfigurationListener(config, Control.MOTD_SAVEFILE, (value) -> loadMotdText()));
+
         loadMotdText();
 
         initializeListeners();
@@ -76,12 +85,12 @@ public class OverviewControl
 
     public void saveMotdText()
     {
-        motdHandler.save();
+        config.setConfig(Control.MOTD_SAVEFILE, motdTxt.getText().getBytes(StandardCharsets.UTF_8));
     }
 
     public void loadMotdText()
     {
-        motdHandler.load();
+        motdTxt.setText(new String(config.getOrCreateConfig(Control.MOTD_SAVEFILE), StandardCharsets.UTF_8));
     }
 
     public View getView()

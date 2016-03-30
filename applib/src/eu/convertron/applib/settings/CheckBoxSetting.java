@@ -28,7 +28,10 @@ public class CheckBoxSetting extends ComponentSetting
     @Override
     protected void setValue(String value)
     {
-        comp.setSelected(value.trim().equals("true"));
+        if(value == null)
+            comp.setSelected(false);
+        else
+            comp.setSelected(value.trim().equals("true"));
     }
 
 }

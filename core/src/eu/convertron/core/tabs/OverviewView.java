@@ -1,11 +1,9 @@
 package eu.convertron.core.tabs;
 
 import eu.convertron.applib.gui.LogPanel;
-import eu.convertron.applib.settings.ComponentSetting;
-import eu.convertron.applib.settings.TextFieldSetting;
-import eu.convertron.core.CoreSettings;
 import eu.convertron.core.Resources;
 import eu.convertron.interlib.interfaces.View;
+import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
 public class OverviewView extends View
@@ -201,9 +199,9 @@ public class OverviewView extends View
         saveMotdButton.addActionListener(getActionListenerToRunnable(task));
     }
 
-    public ComponentSetting createMotdSettingHandler()
+    public JTextField getMotdTextField()
     {
-        return new TextFieldSetting(motdTextField, CoreSettings.motdText);
+        return motdTextField;
     }
 
     @Override

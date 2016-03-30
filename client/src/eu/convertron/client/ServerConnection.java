@@ -19,12 +19,12 @@ public class ServerConnection implements Storage, ConfigurationProvider
     private HashMap<String, RemoteConfiguration> configs;
     private Timer timer;
 
-    public ServerConnection(String ip, int port) throws MalformedURLException
+    public ServerConnection(String ip, int port, boolean autoCheck) throws MalformedURLException
     {
-        this(new URL("http://" + ip + ":" + port + "/_convertron?WSDL"));
+        this(new URL("http://" + ip + ":" + port + "/_convertron?WSDL"), autoCheck);
     }
 
-    public ServerConnection(URL wsdl)
+    public ServerConnection(URL wsdl, boolean autoCheck)
     {
         ConvertronWSService s = new ConvertronWSService(wsdl);
         service = s.getConvertronWSPort();
@@ -32,7 +32,21 @@ public class ServerConnection implements Storage, ConfigurationProvider
         new Random().nextBytes(clientId);
         configs = new HashMap<>();
         timer = new Timer(5000, (e) -> checkChanges());
-        timer.start();
+
+        service.ping();
+
+        setCheckForChanges(true);
+    }
+
+    public void setCheckForChanges(boolean check)
+    {
+        if(check)
+        {
+            if(!timer.isRunning())
+                timer.start();
+        }
+        else if(timer.isRunning())
+            timer.stop();
     }
 
     private void checkChanges()
@@ -79,5 +93,10 @@ public class ServerConnection implements Storage, ConfigurationProvider
     {
         String serialization = new CsvLessonSerializer().serializeMultiple(lessons);
         service.setData(serialization);
+    }
+
+    public void close()
+    {
+        setCheckForChanges(false);
     }
 }

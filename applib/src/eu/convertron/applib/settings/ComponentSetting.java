@@ -1,9 +1,10 @@
 package eu.convertron.applib.settings;
 
+import eu.convertron.interlib.guiutil.GuiBridge;
 import eu.convertron.interlib.settings.SettingID;
 import eu.convertron.interlib.settings.Settings;
 
-public abstract class ComponentSetting
+public abstract class ComponentSetting implements GuiBridge
 {
     protected SettingID setting;
     protected int index;
@@ -19,6 +20,7 @@ public abstract class ComponentSetting
         this.index = index;
     }
 
+    @Override
     public void save()
     {
         if(index < 0)
@@ -27,6 +29,7 @@ public abstract class ComponentSetting
             Settings.saveArrayCell(setting, index, getValue());
     }
 
+    @Override
     public void load()
     {
         if(index < 0)

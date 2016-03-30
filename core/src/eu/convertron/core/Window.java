@@ -49,7 +49,7 @@ public class Window extends ApplicationFrame
     {
         control = new Control();
         overviewControl = new OverviewControl(control);
-        settingsControl = new SettingsControl();
+        settingsControl = new SettingsControl(control.getCoreConfig());
         moduleControl = new ModuleControl(control.getModuleManager());
         moduleImportControl = new ModuleImportControl(control.getModuleManager());
 

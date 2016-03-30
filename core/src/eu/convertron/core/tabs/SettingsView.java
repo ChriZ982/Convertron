@@ -1,12 +1,13 @@
 package eu.convertron.core.tabs;
 
 import eu.convertron.applib.settings.CheckBoxSetting;
-import eu.convertron.applib.settings.ComboBoxSetting;
-import eu.convertron.applib.settings.ComponentSetting;
 import eu.convertron.applib.settings.TextFieldSetting;
-import eu.convertron.core.CoreArraySettings;
 import eu.convertron.core.CoreSettings;
 import eu.convertron.core.Resources;
+import eu.convertron.interlib.data.IniConfigFile;
+import eu.convertron.interlib.filter.TableOptions;
+import eu.convertron.interlib.guiutil.GuiBridge;
+import eu.convertron.interlib.guiutil.GuiIniBridge;
 import eu.convertron.interlib.interfaces.View;
 import java.io.File;
 import javax.swing.JComponent;
@@ -16,10 +17,14 @@ import javax.swing.filechooser.FileFilter;
 @SuppressWarnings("serial")
 public class SettingsView extends View
 {
-    private JComponent[] useHoursComponents, customDateComponents;
+    private JComponent[] useHoursComponents, customDateComponents, useRemoteComponents;
 
-    public SettingsView()
+    private IniConfigFile configFile;
+
+    public SettingsView(IniConfigFile configFile)
     {
+        this.configFile = configFile;
+
         initComponents();
 
         folderChooser.setFileFilter(new FileFilter()
@@ -56,6 +61,16 @@ public class SettingsView extends View
             customTodayLabel, customTodayTextField,
             customTomorrowLabel, customTomorrowTextField
         };
+
+        useRemoteComponents = new JComponent[]
+        {
+            hostPortRadioBtn, httpLabel, hostTxt, hostportLabel, portTxt,
+            wsdlLabel, wsdlRadioBtn, wsdlTxt, remoteHintLabel
+        };
+
+        useHoursCheckBoxItemStateChanged(null);
+        customDateCheckBoxItemStateChanged(null);
+        useRemoteCheckBoxItemStateChanged(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -64,6 +79,7 @@ public class SettingsView extends View
     {
 
         folderChooser = new javax.swing.JFileChooser();
+        wsdlTypeRadioBtnGroup = new javax.swing.ButtonGroup();
         autoBackupCheckBox = new javax.swing.JCheckBox();
         saveSettingsButton = new javax.swing.JButton();
         hour10TextField = new javax.swing.JTextField();
@@ -108,6 +124,17 @@ public class SettingsView extends View
         backupPathTextField = new javax.swing.JTextField();
         dataPathChooseButton = new javax.swing.JButton();
         backupPathChooseButton = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        useRemoteCheckBox = new javax.swing.JCheckBox();
+        hostPortRadioBtn = new javax.swing.JRadioButton();
+        wsdlRadioBtn = new javax.swing.JRadioButton();
+        hostTxt = new javax.swing.JTextField();
+        hostportLabel = new javax.swing.JLabel();
+        wsdlLabel = new javax.swing.JLabel();
+        httpLabel = new javax.swing.JLabel();
+        wsdlTxt = new javax.swing.JTextField();
+        remoteHintLabel = new javax.swing.JLabel();
+        portTxt = new javax.swing.JTextField();
 
         autoBackupCheckBox.setText("Backup");
         autoBackupCheckBox.setToolTipText("Soll ein automatisches Backup beim Generieren erstellt werden?");
@@ -247,16 +274,42 @@ public class SettingsView extends View
             }
         });
 
+        useRemoteCheckBox.setText("Remote Modus");
+        useRemoteCheckBox.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
+                useRemoteCheckBoxItemStateChanged(evt);
+            }
+        });
+
+        wsdlTypeRadioBtnGroup.add(hostPortRadioBtn);
+        hostPortRadioBtn.setSelected(true);
+        hostPortRadioBtn.setText("Host/Port");
+
+        wsdlTypeRadioBtnGroup.add(wsdlRadioBtn);
+        wsdlRadioBtn.setText("WSDL");
+
+        hostportLabel.setText(":");
+
+        wsdlLabel.setText("/_convertron?WSDL");
+
+        httpLabel.setText("http://");
+
+        remoteHintLabel.setText("<html><font color=\"red\"><center>Änderungen am Remote Modus werden erst nach einem Neustart wirksam</center></font></html>");
+
+        portTxt.setText("0");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(saveSettingsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(separator1, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -331,7 +384,7 @@ public class SettingsView extends View
                                                         .addComponent(hour2TextField))))))
                                     .addComponent(useHoursCheckBox)))
                             .addComponent(pathsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(backupPathLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -343,7 +396,33 @@ public class SettingsView extends View
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dataPathChooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(backupPathChooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(backupPathChooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1)
+                            .addComponent(useRemoteCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(hostPortRadioBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(wsdlRadioBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(httpLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(hostTxt)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(hostportLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(portTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(wsdlLabel))
+                                    .addComponent(wsdlTxt)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(remoteHintLabel)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -412,7 +491,7 @@ public class SettingsView extends View
                     .addComponent(separator2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(separator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pathsLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -426,7 +505,25 @@ public class SettingsView extends View
                         .addComponent(backupPathLabel)
                         .addComponent(backupPathTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(backupPathChooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 270, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(useRemoteCheckBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(hostPortRadioBtn)
+                    .addComponent(hostTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(hostportLabel)
+                    .addComponent(wsdlLabel)
+                    .addComponent(httpLabel)
+                    .addComponent(portTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(wsdlRadioBtn)
+                    .addComponent(wsdlTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(remoteHintLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
                 .addComponent(saveSettingsButton)
                 .addContainerGap())
         );
@@ -456,40 +553,53 @@ public class SettingsView extends View
             backupPathTextField.setText(folderChooser.getSelectedFile().getPath());
     }//GEN-LAST:event_backupPathChooseButtonActionPerformed
 
+    private void useRemoteCheckBoxItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_useRemoteCheckBoxItemStateChanged
+    {//GEN-HEADEREND:event_useRemoteCheckBoxItemStateChanged
+        for(JComponent comp : useRemoteComponents)
+            comp.setEnabled(useRemoteCheckBox.isSelected());
+    }//GEN-LAST:event_useRemoteCheckBoxItemStateChanged
+
     public void addSaveListener(Runnable task)
     {
         saveSettingsButton.addActionListener(getActionListenerToRunnable(task));
     }
 
-    public ComponentSetting[] createHandlers()
+    public GuiBridge[] createBridges()
     {
-        return new ComponentSetting[]
+        return new GuiBridge[]
         {
             new CheckBoxSetting(automaticModeCheckBox, CoreSettings.autoMode),
             new CheckBoxSetting(autoImportCheckBox, CoreSettings.autoImport),
             new CheckBoxSetting(autoExportCheckBox, CoreSettings.autoExport),
             new CheckBoxSetting(autoBackupCheckBox, CoreSettings.autoBackup),
             //-----
-            new CheckBoxSetting(customDateCheckBox, CoreSettings.useCustomDate),
-            new TextFieldSetting(customTodayTextField, CoreSettings.customDateToday),
-            new TextFieldSetting(customTomorrowTextField, CoreSettings.customDateTomorrow),
+            new GuiIniBridge(configFile, TableOptions.TableOptionsConfig.useCustomDate.toString(), customDateCheckBox),
+            new GuiIniBridge(configFile, TableOptions.TableOptionsConfig.customDateToday.toString(), customTodayTextField),
+            new GuiIniBridge(configFile, TableOptions.TableOptionsConfig.customDateTomorrow.toString(), customTomorrowTextField),
             //-----
-            new CheckBoxSetting(useHoursCheckBox, CoreSettings.useCutHours),
-            new TextFieldSetting(hour1TextField, CoreArraySettings.cutHours, 0),
-            new TextFieldSetting(hour2TextField, CoreArraySettings.cutHours, 1),
-            new TextFieldSetting(hour3TextField, CoreArraySettings.cutHours, 2),
-            new TextFieldSetting(hour4TextField, CoreArraySettings.cutHours, 3),
-            new TextFieldSetting(hour5TextField, CoreArraySettings.cutHours, 4),
-            new TextFieldSetting(hour6TextField, CoreArraySettings.cutHours, 5),
-            new TextFieldSetting(hour7TextField, CoreArraySettings.cutHours, 6),
-            new TextFieldSetting(hour8TextField, CoreArraySettings.cutHours, 7),
-            new TextFieldSetting(hour9TextField, CoreArraySettings.cutHours, 8),
-            new TextFieldSetting(hour10TextField, CoreArraySettings.cutHours, 9),
+            new GuiIniBridge(configFile, TableOptions.TableOptionsConfig.useCutHours.toString(), useHoursCheckBox),
+            new GuiIniBridge(configFile, TableOptions.TableOptionsConfig.cutHours.toString(),
+                             hour1TextField,
+                             hour2TextField,
+                             hour3TextField,
+                             hour4TextField,
+                             hour5TextField,
+                             hour6TextField,
+                             hour7TextField,
+                             hour8TextField,
+                             hour9TextField,
+                             hour10TextField),
             //-----
-            new ComboBoxSetting(evenWeekComboBox, CoreSettings.evenWeekChar),
+            new GuiIniBridge(configFile, TableOptions.TableOptionsConfig.evenWeekChar.toString(), evenWeekComboBox),
             //-----
             new TextFieldSetting(dataPathTextField, CoreSettings.pathData),
-            new TextFieldSetting(backupPathTextField, CoreSettings.pathBackup)
+            new TextFieldSetting(backupPathTextField, CoreSettings.pathBackup),
+            //-----
+            new CheckBoxSetting(useRemoteCheckBox, CoreSettings.useRemote),
+            new CheckBoxSetting(wsdlRadioBtn, CoreSettings.useCustomWsdl),
+            new TextFieldSetting(hostTxt, CoreSettings.remoteHost),
+            new TextFieldSetting(portTxt, CoreSettings.remotePort),
+            new TextFieldSetting(wsdlTxt, CoreSettings.remoteWsdl)
         };
     }
 
@@ -519,6 +629,9 @@ public class SettingsView extends View
     private javax.swing.JLabel evenWeekLabel;
     private javax.swing.JFileChooser folderChooser;
     private javax.swing.JLabel generateAllLabel;
+    private javax.swing.JRadioButton hostPortRadioBtn;
+    private javax.swing.JTextField hostTxt;
+    private javax.swing.JLabel hostportLabel;
     private javax.swing.JLabel hour10Label;
     private javax.swing.JTextField hour10TextField;
     private javax.swing.JLabel hour1Label;
@@ -540,10 +653,19 @@ public class SettingsView extends View
     private javax.swing.JLabel hour9Label;
     private javax.swing.JTextField hour9TextField;
     private javax.swing.JLabel hoursHeadLabel;
+    private javax.swing.JLabel httpLabel;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel pathsLabel;
+    private javax.swing.JTextField portTxt;
+    private javax.swing.JLabel remoteHintLabel;
     private javax.swing.JButton saveSettingsButton;
     private javax.swing.JSeparator separator1;
     private javax.swing.JSeparator separator2;
     private javax.swing.JCheckBox useHoursCheckBox;
+    private javax.swing.JCheckBox useRemoteCheckBox;
+    private javax.swing.JLabel wsdlLabel;
+    private javax.swing.JRadioButton wsdlRadioBtn;
+    private javax.swing.JTextField wsdlTxt;
+    private javax.swing.ButtonGroup wsdlTypeRadioBtnGroup;
     // End of variables declaration//GEN-END:variables
 }

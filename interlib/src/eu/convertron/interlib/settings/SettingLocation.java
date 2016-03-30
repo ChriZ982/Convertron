@@ -5,6 +5,7 @@ import eu.convertron.interlib.io.TextFile;
 public enum SettingLocation implements SettingLocationID
 {
     LOCAL,
+    @Deprecated
     GLOBAL;
 
     @Override
