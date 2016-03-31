@@ -20,3 +20,8 @@ hs_err_pid*
 */nbactions.xml
 */nb-configuration.xml
 !/applib/test/testRessources/TestModules.jar
+
+# Convertron debugging #
+*.log
+*.settings
+*/debug

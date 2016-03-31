@@ -25,11 +25,15 @@ public class Control
 
     public Control()
     {
-        this.provider = new IOConfigurationProvider("./config");
+        String data = ServerSettings.pathData.load();
+        if(data == null || data.isEmpty())
+            data = ".";
+
+        this.provider = new IOConfigurationProvider(data + "/config");
         this.coreConfig = provider.getOrCreateConfiguration(TableOptions.class);
         TableOptions.getInstance().setConfiguration(coreConfig);
         this.moduleManager = new ModuleManager(provider);
-        this.storage = new CsvStorage("./data.csv");
+        this.storage = new CsvStorage(data + "/data.csv");
 
         this.timer = new Timer(60000, (e) -> export());
         this.timer.start();
