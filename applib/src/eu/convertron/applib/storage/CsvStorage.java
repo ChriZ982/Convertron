@@ -20,6 +20,7 @@ public class CsvStorage implements Storage
 
     public CsvStorage(TextFile csvFile)
     {
+        csvFile.createIfNotExists();
         this.csvFile = csvFile;
     }
 

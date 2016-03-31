@@ -39,7 +39,7 @@ public class Control
         provider = bundle.getA();
         storage = bundle.getB();
 
-        coreConfig = provider.getOrCreateConfiguration(Control.class);
+        coreConfig = provider.getOrCreateConfiguration(TableOptions.class);
 
         TableOptions.getInstance().setConfiguration(coreConfig);
 
@@ -69,6 +69,8 @@ public class Control
             }
             catch(Throwable t)
             {
+                if(con != null)
+                    con.close();
                 Logger.logError(LogPriority.ERROR, "Fehler beim starten im Remote Modus, versuche im Normalmodus zu starten", t);
             }
         }

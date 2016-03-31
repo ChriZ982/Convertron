@@ -2,6 +2,8 @@ package eu.convertron.client;
 
 import eu.convertron.applib.etc.ChangeSet;
 import eu.convertron.interlib.data.Configuration;
+import eu.convertron.interlib.logging.LogPriority;
+import eu.convertron.interlib.logging.Logger;
 import java.util.HashMap;
 
 public class RemoteConfiguration extends Configuration
@@ -12,6 +14,7 @@ public class RemoteConfiguration extends Configuration
     public RemoteConfiguration(ConvertronWS service, String moduleName)
     {
         super(service.getAvailableConfigs(moduleName));
+        this.moduleName = moduleName;
         this.service = service;
     }
 
@@ -39,6 +42,7 @@ public class RemoteConfiguration extends Configuration
         for(String s : entry.getChangedConfigsParts())
         {
             changedValues.put(s, getConfig(s));
+            Logger.logMessage(LogPriority.INFO, "Received changes for config '" + s + "'");
         }
 
         if(!changedValues.isEmpty())

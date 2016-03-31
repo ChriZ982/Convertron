@@ -9,6 +9,8 @@ import eu.convertron.interlib.data.Lesson;
 import eu.convertron.interlib.filter.TableOptions;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
+import java.nio.charset.StandardCharsets;
+import javax.swing.Timer;
 import javax.xml.ws.Endpoint;
 
 public class Control
@@ -17,13 +19,20 @@ public class Control
     private final Storage storage;
 
     private final ConfigurationProvider provider;
+    private final Configuration coreConfig;
+
+    private final Timer timer;
 
     public Control()
     {
         this.provider = new IOConfigurationProvider("./config");
-        TableOptions.getInstance().setConfiguration(provider.getOrCreateConfiguration(TableOptions.class));
+        this.coreConfig = provider.getOrCreateConfiguration(TableOptions.class);
+        TableOptions.getInstance().setConfiguration(coreConfig);
         this.moduleManager = new ModuleManager(provider);
         this.storage = new CsvStorage("./data.csv");
+
+        this.timer = new Timer(60000, (e) -> export());
+        this.timer.start();
 
         publishWebService("http://127.0.0.1:8023/_convertron");
     }
@@ -46,7 +55,7 @@ public class Control
 
     public void export()
     {
-        moduleManager.export(getData(), ServerSettings.motdText.load());
+        moduleManager.export(getData(), new String(coreConfig.getOrCreateConfig("motd.txt"), StandardCharsets.UTF_8));
     }
 
     private void publishWebService(String address)
