@@ -3,6 +3,7 @@ package eu.convertron.basicmodules.html;
 import eu.convertron.basicmodules.html.serialization.DesignConfiguration;
 import eu.convertron.basicmodules.html.serialization.DesignDeserilization;
 import eu.convertron.basicmodules.html.serialization.DesignSerialization;
+import eu.convertron.interlib.data.GeneralConfigFile;
 import eu.convertron.interlib.interfaces.View;
 import eu.convertron.interlib.io.TextFile;
 import java.awt.EventQueue;
@@ -15,14 +16,23 @@ import javax.swing.table.DefaultTableModel;
 public class ColumnSelectPanel extends View
 {
     private HashMap<String, Column> columns;
+    private GeneralConfigFile designXml;
 
-    public ColumnSelectPanel()
+    public ColumnSelectPanel(GeneralConfigFile designXml)
     {
         initComponents();
 
         columns = new HashMap<String, Column>();
-        loadDesign();
 
+        this.designXml = designXml;
+        designXml.addConifgFileListener((v) -> reload());
+
+        reload();
+    }
+
+    public void reload()
+    {
+        loadDesign();
         reloadTable();
     }
 

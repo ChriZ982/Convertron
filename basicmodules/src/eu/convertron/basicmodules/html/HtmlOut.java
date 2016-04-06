@@ -1,12 +1,20 @@
 package eu.convertron.basicmodules.html;
 
+import eu.convertron.basicmodules.Resources;
+import eu.convertron.interlib.data.Configuration;
+import eu.convertron.interlib.data.GeneralConfigFile;
+import eu.convertron.interlib.data.IniConfigFile;
 import eu.convertron.interlib.data.Lesson;
 import eu.convertron.interlib.filter.FilterOption;
 import eu.convertron.interlib.filter.TableOptions;
+import eu.convertron.interlib.interfaces.Configurable;
 import eu.convertron.interlib.interfaces.Output;
 import eu.convertron.interlib.interfaces.View;
 import eu.convertron.interlib.io.TextFile;
+import eu.convertron.interlib.logging.LogPriority;
+import eu.convertron.interlib.logging.Logger;
 import eu.convertron.interlib.util.SubTabView;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
@@ -16,35 +24,62 @@ import java.util.TreeSet;
 /**
  * Generiert die HTML-Dateien.
  */
-public class HtmlOut implements Output
+public class HtmlOut implements Output, Configurable
 {
-    private static String dataPath = "./debug/Data/";
-    private static String evenChar = "B";
-
     private ColumnSelectPanel columnSelectPanel;
     private DesignPanel designPanel;
     private CustomDesignPanel customDesignPanel;
 
+    private Configuration config;
+    private IniConfigFile settings;
+    private GeneralConfigFile designXml;
+
     public HtmlOut()
     {
-        columnSelectPanel = new ColumnSelectPanel();
-        designPanel = new DesignPanel();
-        customDesignPanel = new CustomDesignPanel();
+    }
+
+    @Override
+    public void setConfiguration(Configuration config)
+    {
+        this.config = config;
+        this.settings = new IniConfigFile(config, "htmlout.cfg", Resources.file("htmlout.cfg"));
+        this.designXml = new GeneralConfigFile(config, "design.xml", Resources.file("design.xml"));
+
+        this.columnSelectPanel = new ColumnSelectPanel(designXml);
+        this.designPanel = new DesignPanel(designXml);
+        this.customDesignPanel = new CustomDesignPanel(designXml);
     }
 
     //TEMP
     @Override
     public void out(Lesson[] lessons)
     {
-        export(lessons, "20.1.", "heute.html");
-        export(lessons, "21.1.", "morgen.html");
+        String[] targets = settings.loadArray("targets");
+        TableOptions t = TableOptions.getInstance();
+
+        //TODO remove date parameter in export method
+        export(t.today(lessons), t.getToday(), appendToContent(targets, "/heute.html"));
+        export(t.nextDayWithLessons(lessons), t.getNextDay(lessons), appendToContent(targets, "/morgen.html"));
+        styleOut(appendToContent(targets, "/style.css"));
     }
 
-    private void export(Lesson[] lessons, String date, String fileName)
+    private String[] appendToContent(String[] source, String toAppend)
     {
-        String templateLesson = new TextFile(dataPath, "template - lesson.txt").readAllToString();
-        String templateClass = new TextFile(dataPath, "template - class.txt").readAllToString();
-        String templateDay = new TextFile(dataPath, "template - day.txt").readAllToString();
+        String[] result = Arrays.copyOf(source, source.length);
+        for(int i = 0; i < result.length; i++)
+        {
+            result[i] += toAppend;
+        }
+        return result;
+    }
+
+    private void export(Lesson[] lessons, String date, String... files)
+    {
+        String templateLesson = new GeneralConfigFile(config, "template - lesson.txt", Resources.file("templates/lesson.txt")).loadString();
+        String templateClass = new GeneralConfigFile(config, "template - class.txt", Resources.file("templates/class.txt")).loadString();
+        String templateDay = new GeneralConfigFile(config, "template - day.txt", Resources.file("templates/day.txt")).loadString();
+
+        String evenChar = TableOptions.getInstance().getEvenWeekChar();
 
         templateDay = templateDay.replace("DAY_SPEED", getValue("DAY_SPEED"));
 
@@ -70,10 +105,11 @@ public class HtmlOut implements Output
 
         templateDay = templateDay.replace("WEEK", weekChar + "-Woche (" + cal.get(Calendar.WEEK_OF_YEAR) + ". KW)");
 
-        TextFile file = new TextFile(dataPath, fileName);
-        file.writeLines(templateDay);
-
-        styleOut(templateDay.split("\n").length);
+        for(String fileName : files)
+        {
+            TextFile file = new TextFile(fileName);
+            file.writeLines(templateDay);
+        }
     }
 
     private String getClassString(String templateClass, String className, String[] columnNames, String templateLesson, Lesson[] lessons, String date)
@@ -151,12 +187,22 @@ public class HtmlOut implements Output
     @Override
     public void motdOut(String motd)
     {
-        String templateMotd = new TextFile(dataPath, "template - motd.txt").readAllToString();
+        String[] targets = settings.loadArray("targets");
 
-        TextFile motdFile = new TextFile(dataPath, "laufschrift.html");
-        motdFile.writeLines(templateMotd);
+        exportMotd(motd, appendToContent(targets, "/laufschrift.html"));
+        styleOut(appendToContent(targets, "/style.css"));
+    }
 
-        styleOut(templateMotd.split("\n").length);
+    private void exportMotd(String motd, String... files)
+    {
+        String templateMotd = new GeneralConfigFile(config, "template - motd.txt", Resources.file("templates/motd.txt")).loadString();
+        templateMotd = templateMotd.replaceAll("MOTDTEXT", motd);
+
+        for(String fileName : files)
+        {
+            TextFile motdFile = new TextFile(fileName);
+            motdFile.writeLines(templateMotd);
+        }
     }
 
     private String getValue(String name)
@@ -164,19 +210,10 @@ public class HtmlOut implements Output
         return designPanel.getDesignItems().get(name).getValue();
     }
 
-    private void styleOut(double lineCount)
+    private void styleOut(String... files)
     {
-        String templateStyle = new TextFile(dataPath, "template - style.txt").readAllToString();
-        String templateCustom = new TextFile(dataPath, "template - custom.txt").readAllToString();
-//        SerializableDesign design = designer.getDesign();
-//
-//        int style = getValue("MOTD_FONT_STYLE").equals("bold") ? 1 : getValue("MOTD_FONT_STYLE").equals("italic") ? 2 : 0;
-//        FontMetrics fontMetrics = new JFrame().getFontMetrics(new Font(getValue("MOTD_FONT_FAMILY"), style, Integer.parseInt(getValue("MOTD_FONT_SIZE"))));
-//
-//        templateStyle = templateStyle.replaceAll("MOTD_HEIGHT", String.valueOf(fontMetrics.getHeight()));
-//
-//        templateStyle = templateStyle.replaceAll("MOTD_SPEED", String.valueOf(lineCount / Double.parseDouble(getValue("MOTD_SPEED"))));
-//        templateStyle = templateStyle.replaceAll("DAY_SPPED", String.valueOf(lineCount / Double.parseDouble(getValue("DAY_SPPED"))));
+        String templateStyle = new GeneralConfigFile(config, "template - style.txt", Resources.file("templates/style.txt")).loadString();
+        String templateCustom = new GeneralConfigFile(config, "template - custom.txt", Resources.file("templates/custom.txt")).loadString();
 
         String extraFormats = "";
         for(String name : customDesignPanel.getDesignItems().keySet())
@@ -198,13 +235,21 @@ public class HtmlOut implements Output
             templateStyle = templateStyle.replaceAll(designItem.getKey(), designItem.getValue().getValue());
         }
 
-        TextFile styleFile = new TextFile(dataPath, "style.css");
-        styleFile.writeLines(templateStyle);
+        for(String fileName : files)
+        {
+            TextFile styleFile = new TextFile(fileName);
+            styleFile.writeLines(templateStyle);
+        }
     }
 
     @Override
     public View getView()
     {
+        if(columnSelectPanel == null || designPanel == null || customDesignPanel == null)
+        {
+            Logger.logMessage(LogPriority.ERROR, "Das HtmlOut Modul wurde noch nicht richtig initialisiert");
+            return null;
+        }
         return new SubTabView("HTML Export", columnSelectPanel, designPanel, customDesignPanel);
     }
 

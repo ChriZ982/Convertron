@@ -240,12 +240,7 @@ public class TableOptions implements Configurable
      */
     public Lesson[] today(Lesson[] source)
     {
-        final String today = LessonFormatter.formatDate(
-                useCustomDate()
-                ? getCustomDateToday()
-                : Time.getTodayAsDateString());
-
-        return onlyDate(source, today);
+        return onlyDate(source, getToday());
     }
 
     /**
@@ -304,6 +299,25 @@ public class TableOptions implements Configurable
         }
 
         return filterRows(source, (Lesson lesson) -> lastLessonAccepted[lesson.getLastHour() - 1]);
+    }
+
+    public String getToday()
+    {
+        return LessonFormatter.formatDate(
+                useCustomDate()
+                ? getCustomDateToday()
+                : Time.getTodayAsDateString());
+    }
+
+    public String getNextDay(Lesson[] source)
+    {
+        Lesson[] next = nextDayWithLessons(source);
+        if(next != null && next.length > 0)
+        {
+            return next[0].getDate();
+        }
+
+        return Time.getFutureDateAsDateString(1);
     }
 
     public String getEvenWeekChar()

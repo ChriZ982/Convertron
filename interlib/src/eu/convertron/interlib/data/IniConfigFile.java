@@ -47,6 +47,12 @@ public class IniConfigFile
         this(configuration, configName, true);
     }
 
+    public IniConfigFile(Configuration configuration, String configName, ResourceFile defaults)
+    {
+        this(configuration, configName);
+        loadDefaultsFromResource(defaults);
+    }
+
     public IniConfigFile(Configuration configuration, String configName, boolean autoFlush)
     {
         this.configuration = configuration;
@@ -137,5 +143,10 @@ public class IniConfigFile
     {
         content.clear();
         content.putAll(deserialize(new String(value, StandardCharsets.UTF_8)));
+    }
+
+    public void addConifgFileListener(SingleConfigurationListener.ConfigFileListener l)
+    {
+        configuration.addConfigListener(new SingleConfigurationListener(configuration, configName, l));
     }
 }

@@ -3,10 +3,9 @@ package eu.convertron.basicmodules.html;
 import eu.convertron.basicmodules.html.serialization.DesignConfiguration;
 import eu.convertron.basicmodules.html.serialization.DesignDeserilization;
 import eu.convertron.basicmodules.html.serialization.DesignSerialization;
+import eu.convertron.interlib.data.GeneralConfigFile;
 import eu.convertron.interlib.interfaces.View;
-import eu.convertron.interlib.io.TextFile;
 import java.awt.EventQueue;
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.table.DefaultTableModel;
@@ -15,21 +14,30 @@ import javax.swing.table.DefaultTableModel;
 public class CustomDesignPanel extends View
 {
     private HashMap<String, HashMap<String, CustomDesignItem>> designItems;
+    private GeneralConfigFile designXml;
 
-    public CustomDesignPanel()
+    public CustomDesignPanel(GeneralConfigFile designXml)
     {
         initComponents();
 
         designItems = new HashMap<String, HashMap<String, CustomDesignItem>>();
-        loadDesign();
 
+        this.designXml = designXml;
+        designXml.addConifgFileListener((v) -> reload());
+
+        reload();
+    }
+
+    public void reload()
+    {
+        loadDesign();
         reloadTable();
     }
 
     private void loadDesign()
     {
-        TextFile textFile = new TextFile("./debug./Data/design.xml");
-        DesignDeserilization deserilization = new DesignDeserilization(textFile.readAllToString().replaceAll("\n", ""));
+        String xml = designXml.loadString();
+        DesignDeserilization deserilization = new DesignDeserilization(xml.replaceAll("\n", ""));
         DesignConfiguration config = deserilization.getDesign();
 
         designItems.putAll(config.getCustomDesigns());
@@ -251,13 +259,13 @@ public class CustomDesignPanel extends View
 
     private void reloadTable()
     {
-        TextFile textFile = new TextFile("./debug./Data/design.xml");
-        DesignDeserilization deserilization = new DesignDeserilization(textFile.readAllToString().replaceAll("\n", ""));
+        String xml = designXml.loadString();
+        DesignDeserilization deserilization = new DesignDeserilization(xml.replaceAll("\n", ""));
         DesignConfiguration config = deserilization.getDesign();
         config.setCustomDesigns(designItems);
 
         DesignSerialization serialization = new DesignSerialization(config);
-        serialization.copyTo(new File("./debug./Data/design.xml"));
+        designXml.save(serialization.toString());
 
         EventQueue.invokeLater(()
                 ->

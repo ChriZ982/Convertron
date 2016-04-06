@@ -1,5 +1,6 @@
 package eu.convertron.basicmodules.untis;
 
+import eu.convertron.basicmodules.Resources;
 import eu.convertron.interlib.data.Configuration;
 import eu.convertron.interlib.data.IniConfigFile;
 import eu.convertron.interlib.data.Lesson;
@@ -26,8 +27,7 @@ public class UntisIn implements Input, Configurable
     @Override
     public void setConfiguration(Configuration config)
     {
-        configFile = new IniConfigFile(config, "untisin.cfg");
-        configFile.loadDefaultsFromResource("/eu/convertron/basicmodules/res/untisin.cfg", getClass());
+        configFile = new IniConfigFile(config, "untisin.cfg", Resources.file("untisin.cfg"));
     }
 
     @Override
