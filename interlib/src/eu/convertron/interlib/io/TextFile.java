@@ -183,7 +183,8 @@ public class TextFile extends GeneralFile
     {
         try
         {
-            Files.write(getPath(), Arrays.asList(text));
+            Files.createDirectories(getPath().getParent());
+            Files.write(getPath(), Arrays.asList(text), StandardOpenOption.CREATE);
         }
         catch(IOException ex)
         {
@@ -211,7 +212,8 @@ public class TextFile extends GeneralFile
     {
         try
         {
-            Files.write(getPath(), Arrays.asList(text), StandardOpenOption.APPEND);
+            Files.createDirectories(getPath().getParent());
+            Files.write(getPath(), Arrays.asList(text), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         }
         catch(IOException ex)
         {

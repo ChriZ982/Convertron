@@ -1,5 +1,6 @@
 package eu.convertron.basicmodules.html;
 
+import eu.convertron.basicmodules.LocalSettings;
 import eu.convertron.basicmodules.Resources;
 import eu.convertron.interlib.data.Configuration;
 import eu.convertron.interlib.data.GeneralConfigFile;
@@ -59,7 +60,7 @@ public class HtmlOut implements Output, Configurable
     @Override
     public void out(Lesson[] lessons)
     {
-        String[] targets = settings.loadArray("targets");
+        String[] targets = LocalSettings.targets.loadArray();
         TableOptions t = TableOptions.getInstance();
 
         //TODO remove date parameter in export method
@@ -193,7 +194,7 @@ public class HtmlOut implements Output, Configurable
     @Override
     public void motdOut(String motd)
     {
-        String[] targets = settings.loadArray("targets");
+        String[] targets = LocalSettings.targets.loadArray();
 
         exportMotd(motd, appendToContent(targets, "/laufschrift.html"));
         styleOut(appendToContent(targets, "/style.css"));
