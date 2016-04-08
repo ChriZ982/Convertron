@@ -67,7 +67,7 @@ public class DesignDeserilization
                     customDesignItemsNode = n;
                     break;
                 default:
-                    throw new IllegalMarkupException("The root element does not support an " + n.getNodeName() + " element");
+                    break;
             }
         }
 
@@ -88,7 +88,8 @@ public class DesignDeserilization
         {
             Node child = childs.item(i);
             if(!child.getNodeName().equals("Column"))
-                throw new IllegalMarkupException("The Columns element only supports Column elements");
+                continue;
+
             if(child.getAttributes().getNamedItem("ImportName") == null)
                 throw new IllegalMarkupException("The Column element does not cotain an ImportName attribute");
 
@@ -114,7 +115,8 @@ public class DesignDeserilization
         {
             Node child = childs.item(i);
             if(!child.getNodeName().equals("DesignItem"))
-                throw new IllegalMarkupException("The DesignItems element only supports DesignItem elements");
+                continue;
+
             if(child.getAttributes().getNamedItem("ID") == null)
                 throw new IllegalMarkupException("The DesignItem element does not cotain an ID attribute");
 
@@ -140,7 +142,8 @@ public class DesignDeserilization
         {
             Node child = childs.item(i);
             if(!child.getNodeName().equals("CustomDesignGroup"))
-                throw new IllegalMarkupException("The CustomDesignGroups element only supports CustomDesignGroup elements");
+                continue;
+
             if(child.getAttributes().getNamedItem("ID") == null)
                 throw new IllegalMarkupException("The CustomDesignGroup element does not cotain an ID attribute");
 
@@ -157,7 +160,8 @@ public class DesignDeserilization
         {
             Node child = childs.item(i);
             if(!child.getNodeName().equals("CustomDesignItem"))
-                throw new IllegalMarkupException("The CustomDesignGroup element only supports CustomDesignItem elements");
+                continue;
+
             if(child.getAttributes().getNamedItem("ID") == null)
                 throw new IllegalMarkupException("The CustomDesignItem element does not cotain an ID attribute");
 

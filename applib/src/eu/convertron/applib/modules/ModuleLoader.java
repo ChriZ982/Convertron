@@ -109,7 +109,14 @@ public class ModuleLoader<T>
                 if(provider == null)
                     Logger.logMessage(LogPriority.WARNING, "Kein Konfigurationprovider um " + module.getClass().getName() + " zu konfigurieren");
                 else
+                {
                     ((Configurable)module).setConfiguration(provider.getOrCreateConfiguration(module.getClass()));
+                    Logger.logMessage(LogPriority.HINT, "Modul " + module.getClass().getName() + " geladen und konfiguriert");
+                }
+            }
+            else
+            {
+                Logger.logMessage(LogPriority.HINT, "Modul " + module.getClass().getName() + " geladen");
             }
         }
         catch(Exception ex)

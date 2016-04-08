@@ -1,13 +1,9 @@
 package eu.convertron.basicmodules.html;
 
 import eu.convertron.basicmodules.html.serialization.DesignConfiguration;
-import eu.convertron.basicmodules.html.serialization.DesignDeserilization;
-import eu.convertron.basicmodules.html.serialization.DesignSerialization;
 import eu.convertron.interlib.data.GeneralConfigFile;
 import eu.convertron.interlib.interfaces.View;
-import eu.convertron.interlib.io.TextFile;
 import java.awt.EventQueue;
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.table.DefaultTableModel;
@@ -38,10 +34,7 @@ public class ColumnSelectPanel extends View
 
     private void loadDesign()
     {
-        TextFile textFile = new TextFile("./debug./Data/design.xml");
-        DesignDeserilization deserilization = new DesignDeserilization(textFile.readAllToString().replaceAll("\n", ""));
-        DesignConfiguration config = deserilization.getDesign();
-
+        DesignConfiguration config = DesignConfiguration.deserialize(designXml.loadString());
         columns.putAll(config.getColums());
     }
 
@@ -286,13 +279,9 @@ public class ColumnSelectPanel extends View
 
     private void reloadTable()
     {
-        TextFile textFile = new TextFile("./debug./Data/design.xml");
-        DesignDeserilization deserilization = new DesignDeserilization(textFile.readAllToString().replaceAll("\n", ""));
-        DesignConfiguration config = deserilization.getDesign();
+        DesignConfiguration config = DesignConfiguration.deserialize(designXml.loadString());
         config.setColums(columns);
-
-        DesignSerialization serialization = new DesignSerialization(config);
-        serialization.copyTo(new File("./debug./Data/design.xml"));
+        designXml.save(config.serialize());
 
         EventQueue.invokeLater(()
                 ->

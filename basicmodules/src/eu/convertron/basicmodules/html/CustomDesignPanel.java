@@ -1,8 +1,6 @@
 package eu.convertron.basicmodules.html;
 
 import eu.convertron.basicmodules.html.serialization.DesignConfiguration;
-import eu.convertron.basicmodules.html.serialization.DesignDeserilization;
-import eu.convertron.basicmodules.html.serialization.DesignSerialization;
 import eu.convertron.interlib.data.GeneralConfigFile;
 import eu.convertron.interlib.interfaces.View;
 import java.awt.EventQueue;
@@ -36,10 +34,7 @@ public class CustomDesignPanel extends View
 
     private void loadDesign()
     {
-        String xml = designXml.loadString();
-        DesignDeserilization deserilization = new DesignDeserilization(xml.replaceAll("\n", ""));
-        DesignConfiguration config = deserilization.getDesign();
-
+        DesignConfiguration config = DesignConfiguration.deserialize(designXml.loadString());
         designItems.putAll(config.getCustomDesigns());
     }
 
@@ -259,13 +254,10 @@ public class CustomDesignPanel extends View
 
     private void reloadTable()
     {
-        String xml = designXml.loadString();
-        DesignDeserilization deserilization = new DesignDeserilization(xml.replaceAll("\n", ""));
-        DesignConfiguration config = deserilization.getDesign();
+        DesignConfiguration config = DesignConfiguration.deserialize(designXml.loadString());
         config.setCustomDesigns(designItems);
 
-        DesignSerialization serialization = new DesignSerialization(config);
-        designXml.save(serialization.toString());
+        designXml.save(config.serialize());
 
         EventQueue.invokeLater(()
                 ->

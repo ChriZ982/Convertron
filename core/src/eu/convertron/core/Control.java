@@ -33,8 +33,6 @@ public class Control
 
     public Control()
     {
-        copyFilesFromPackage();
-
         Bundle<ConfigurationProvider, Storage> bundle = initializeConfigAndStorage();
         provider = bundle.getA();
         storage = bundle.getB();
@@ -83,24 +81,6 @@ public class Control
     {
         if(CoreSettings.autoMode.load().equals("true"))
             genAll();
-    }
-
-    /**
-     * Initialisiert den Data-Ordner.
-     */
-    private void copyFilesFromPackage()
-    {
-        String destPath = CoreSettings.pathData.load();
-        Resources.copyRes("stdData/antonianumLogo.png", destPath);
-        Resources.copyRes("stdData/template - style.txt", destPath);
-        Resources.copyRes("stdData/VERTRETUNGSPLAN.html", destPath);
-        Resources.copyRes("stdData/template - motd.txt", destPath);
-        Resources.copyRes("stdData/template - day.txt", destPath);
-        Resources.copyRes("stdData/template - class.txt", destPath);
-        Resources.copyRes("stdData/template - lesson.txt", destPath);
-        Resources.copyRes("stdData/design.xml", destPath);
-
-        Logger.logMessage(LogPriority.INFO, "Alle Dateien wurden erstellt oder überprüft");
     }
 
     /**

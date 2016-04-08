@@ -1,5 +1,0 @@
-        <table class="classTable">
-            <tr>
-                <th width="7%" rowspan="NUMLESSONS" valign="top"><div class="class">CLASSNAME</div></th>
-COLUMNS            </tr>
-LESSONS        </table>

@@ -14,6 +14,11 @@ import eu.convertron.interlib.io.TextFile;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import eu.convertron.interlib.util.SubTabView;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -61,6 +66,7 @@ public class HtmlOut implements Output, Configurable
         export(t.today(lessons), t.getToday(), appendToContent(targets, "/heute.html"));
         export(t.nextDayWithLessons(lessons), t.getNextDay(lessons), appendToContent(targets, "/morgen.html"));
         styleOut(appendToContent(targets, "/style.css"));
+        resourcesOut(targets);
     }
 
     private String[] appendToContent(String[] source, String toAppend)
@@ -191,6 +197,7 @@ public class HtmlOut implements Output, Configurable
 
         exportMotd(motd, appendToContent(targets, "/laufschrift.html"));
         styleOut(appendToContent(targets, "/style.css"));
+        resourcesOut(targets);
     }
 
     private void exportMotd(String motd, String... files)
@@ -239,6 +246,37 @@ public class HtmlOut implements Output, Configurable
         {
             TextFile styleFile = new TextFile(fileName);
             styleFile.writeLines(templateStyle);
+        }
+    }
+
+    private void resourcesOut(String... folders)
+    {
+        String[] resources = settings.loadArray("htmlResources");
+        for(String res : resources)
+        {
+            GeneralConfigFile cfg = new GeneralConfigFile(config, res);
+            if(Resources.get("htmlRes/" + res) != null)
+                cfg.loadDefaultsFromResource(Resources.file("htmlRes/" + res));
+            byte[] value = cfg.load();
+
+            for(String f : folders)
+            {
+                writeFile(f, res, value);
+            }
+        }
+    }
+
+    private void writeFile(String folder, String name, byte[] value)
+    {
+        try
+        {
+            Path p = new File(folder, name).toPath();
+            Files.deleteIfExists(p);
+            Files.write(p, value, StandardOpenOption.CREATE_NEW);
+        }
+        catch(IOException ex)
+        {
+            Logger.logError(LogPriority.WARNING, "Konnte eine Html Resource nicht kopieren (" + name + " nach " + folder + ")", ex);
         }
     }
 
