@@ -289,7 +289,7 @@ public class HtmlOut implements Output, Configurable
             Logger.logMessage(LogPriority.ERROR, "Das HtmlOut Modul wurde noch nicht richtig initialisiert");
             return null;
         }
-        return new SubTabView("HTML Export", columnSelectPanel, designPanel, customDesignPanel);
+        return new SubTabView("HTML Export", new HtmlOutSettingsView(), columnSelectPanel, designPanel, customDesignPanel);
     }
 
     @Override

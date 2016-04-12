@@ -1,4 +1,4 @@
-package eu.convertron.applib.settings;
+package eu.convertron.interlib.settings;
 
 import eu.convertron.interlib.guiutil.GuiBridge;
 import eu.convertron.interlib.settings.SettingID;

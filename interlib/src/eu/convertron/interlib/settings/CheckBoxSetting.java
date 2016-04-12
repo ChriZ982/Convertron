@@ -1,4 +1,4 @@
-package eu.convertron.applib.settings;
+package eu.convertron.interlib.settings;
 
 import eu.convertron.interlib.settings.SettingID;
 import javax.swing.AbstractButton;

@@ -1,12 +1,11 @@
 package eu.convertron.basicmodules.html;
 
-import eu.convertron.basicmodules.html.serialization.DesignConfiguration;
 import eu.convertron.interlib.data.GeneralConfigFile;
 import eu.convertron.interlib.interfaces.View;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.DefaultListModel;
-import static eu.convertron.basicmodules.html.serialization.DesignConfiguration.map;
+import static eu.convertron.basicmodules.html.DesignConfiguration.map;
 
 @SuppressWarnings("serial")
 public class CustomDesignPanel extends View

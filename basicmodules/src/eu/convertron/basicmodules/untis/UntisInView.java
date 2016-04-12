@@ -1,18 +1,29 @@
 package eu.convertron.basicmodules.untis;
 
+import eu.convertron.basicmodules.LocalSettings;
+import eu.convertron.interlib.guiutil.GuiBridge;
 import eu.convertron.interlib.interfaces.View;
+import eu.convertron.interlib.settings.TextFieldSetting;
 
-/**
- *
- * @author Mirko Ruether
- */
 public class UntisInView extends View
 {
+    private static final long serialVersionUID = 2338035174884748702L;
 
-    /** Creates new form UntisInView */
+    private GuiBridge[] bridges;
+
     public UntisInView()
     {
         initComponents();
+
+        bridges = new GuiBridge[]
+        {
+            new TextFieldSetting(sourceTxt, LocalSettings.sourcePath),
+            new TextFieldSetting(prefixTxt, LocalSettings.filePrefix),
+            new TextFieldSetting(suffixTxt, LocalSettings.fileSuffix)
+        };
+
+        for(GuiBridge b : bridges)
+            b.load();
     }
 
     @Override
@@ -31,18 +42,82 @@ public class UntisInView extends View
     private void initComponents()
     {
 
+        jLabel1 = new javax.swing.JLabel();
+        sourceTxt = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        prefixTxt = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        suffixTxt = new javax.swing.JTextField();
+        saveBtn = new javax.swing.JButton();
+
+        jLabel1.setText("Quellordner");
+
+        jLabel2.setText("Dateiformat");
+        jLabel2.setToolTipText("");
+
+        jLabel3.setText("05a");
+
+        saveBtn.setText("speichern");
+        saveBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                saveBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(saveBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                    .addComponent(sourceTxt)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(prefixTxt)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(suffixTxt)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sourceTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(prefixTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(suffixTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(saveBtn)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void saveBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_saveBtnActionPerformed
+    {//GEN-HEADEREND:event_saveBtnActionPerformed
+        for(GuiBridge b : bridges)
+            b.save();
+    }//GEN-LAST:event_saveBtnActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField prefixTxt;
+    private javax.swing.JButton saveBtn;
+    private javax.swing.JTextField sourceTxt;
+    private javax.swing.JTextField suffixTxt;
     // End of variables declaration//GEN-END:variables
 }

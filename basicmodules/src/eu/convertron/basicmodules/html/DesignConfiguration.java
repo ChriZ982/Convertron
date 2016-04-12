@@ -1,9 +1,5 @@
-package eu.convertron.basicmodules.html.serialization;
+package eu.convertron.basicmodules.html;
 
-import eu.convertron.basicmodules.html.Column;
-import eu.convertron.basicmodules.html.CustomDesignItem;
-import eu.convertron.basicmodules.html.DesignItem;
-import eu.convertron.basicmodules.html.Unique;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;

@@ -1,7 +1,5 @@
 package eu.convertron.core.tabs;
 
-import eu.convertron.applib.settings.CheckBoxSetting;
-import eu.convertron.applib.settings.TextFieldSetting;
 import eu.convertron.core.CoreSettings;
 import eu.convertron.core.Resources;
 import eu.convertron.interlib.data.IniConfigFile;
@@ -9,6 +7,8 @@ import eu.convertron.interlib.filter.TableOptions;
 import eu.convertron.interlib.guiutil.GuiBridge;
 import eu.convertron.interlib.guiutil.GuiIniBridge;
 import eu.convertron.interlib.interfaces.View;
+import eu.convertron.interlib.settings.CheckBoxSetting;
+import eu.convertron.interlib.settings.TextFieldSetting;
 import java.io.File;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;

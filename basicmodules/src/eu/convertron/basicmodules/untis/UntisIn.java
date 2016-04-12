@@ -28,7 +28,7 @@ public class UntisIn implements Input
     @Override
     public View getView()
     {
-        return null;
+        return new UntisInView();
     }
 
     @Override

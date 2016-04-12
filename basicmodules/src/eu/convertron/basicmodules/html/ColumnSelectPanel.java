@@ -1,6 +1,5 @@
 package eu.convertron.basicmodules.html;
 
-import eu.convertron.basicmodules.html.serialization.DesignConfiguration;
 import eu.convertron.interlib.data.GeneralConfigFile;
 import eu.convertron.interlib.interfaces.View;
 import java.awt.EventQueue;
@@ -8,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.table.DefaultTableModel;
-import static eu.convertron.basicmodules.html.serialization.DesignConfiguration.map;
+import static eu.convertron.basicmodules.html.DesignConfiguration.map;
 
 @SuppressWarnings("serial")
 public class ColumnSelectPanel extends View
