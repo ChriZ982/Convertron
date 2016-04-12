@@ -4,9 +4,11 @@ import eu.convertron.basicmodules.html.serialization.DesignConfiguration;
 import eu.convertron.interlib.data.GeneralConfigFile;
 import eu.convertron.interlib.interfaces.View;
 import java.awt.EventQueue;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.table.DefaultTableModel;
+import static eu.convertron.basicmodules.html.serialization.DesignConfiguration.map;
 
 @SuppressWarnings("serial")
 public class ColumnSelectPanel extends View
@@ -35,7 +37,7 @@ public class ColumnSelectPanel extends View
     private void loadDesign()
     {
         DesignConfiguration config = DesignConfiguration.deserialize(designXml.loadString());
-        columns.putAll(config.getColums());
+        columns.putAll(map(config.getColums()));
     }
 
     @SuppressWarnings("unchecked")
@@ -219,7 +221,8 @@ public class ColumnSelectPanel extends View
     private void newButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_newButtonActionPerformed
     {//GEN-HEADEREND:event_newButtonActionPerformed
         columns.put(importNameTextField.getText(),
-                    new Column(exportNameTextField.getText(),
+                    new Column(importNameTextField.getText(),
+                               exportNameTextField.getText(),
                                Integer.parseInt(positionTextField.getText()),
                                Double.parseDouble(widthTextField.getText())));
 
@@ -280,7 +283,7 @@ public class ColumnSelectPanel extends View
     private void reloadTable()
     {
         DesignConfiguration config = DesignConfiguration.deserialize(designXml.loadString());
-        config.setColums(columns);
+        config.setColums(new ArrayList<>(columns.values()));
         designXml.save(config.serialize());
 
         EventQueue.invokeLater(()

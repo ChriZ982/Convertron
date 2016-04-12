@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -88,7 +89,7 @@ public class HtmlOut implements Output, Configurable
 
         String evenChar = TableOptions.getInstance().getEvenWeekChar();
 
-        templateDay = templateDay.replace("DAY_SPEED", getValue("DAY_SPEED"));
+        templateDay = templateDay.replace("DAY_SPEED", designPanel.getValue("DAY_SPEED"));
 
         templateClass = addColumnsToClassTemplate(templateClass);
         String[] columnNames = getColumnNames();
@@ -213,34 +214,24 @@ public class HtmlOut implements Output, Configurable
         }
     }
 
-    private String getValue(String name)
-    {
-        return designPanel.getDesignItems().get(name).getValue();
-    }
-
     private void styleOut(String... files)
     {
         String templateStyle = new GeneralConfigFile(config, "template - style.txt", Resources.file("templates/style.txt")).loadString();
         String templateCustom = new GeneralConfigFile(config, "template - custom.txt", Resources.file("templates/custom.txt")).loadString();
 
+        ArrayList<CustomDesignItem> customDesignItems = customDesignPanel.getAllCustomDesignItems();
         String extraFormats = "";
-        for(String name : customDesignPanel.getDesignItems().keySet())
+        for(CustomDesignItem item : customDesignItems)
         {
-            extraFormats += templateCustom.replaceAll("NAME", name);
+            extraFormats += templateCustom
+                    .replaceAll("NAME", item.getId())
+                    .replaceAll("CUSTOMFORMATCSS", item.getFormat().toCss());
         }
         templateStyle = templateStyle.replaceAll("DAY_EXTRA_FORMATS", extraFormats);
 
-        for(HashMap<String, CustomDesignItem> head : customDesignPanel.getDesignItems().values())
+        for(DesignItem designItem : designPanel.getAllDesignItems())
         {
-            for(Map.Entry<String, CustomDesignItem> designItem : head.entrySet())
-            {
-                templateStyle = templateStyle.replaceAll(designItem.getKey(), designItem.getValue().getValue());
-            }
-        }
-
-        for(Map.Entry<String, DesignItem> designItem : designPanel.getDesignItems().entrySet())
-        {
-            templateStyle = templateStyle.replaceAll(designItem.getKey(), designItem.getValue().getValue());
+            templateStyle = templateStyle.replaceAll(designItem.getId(), designItem.getValue());
         }
 
         for(String fileName : files)

@@ -1,22 +1,32 @@
 package eu.convertron.basicmodules.html;
 
-public class DesignItem
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+
+public class DesignItem implements Unique
 {
+    private String id;
     private String name;
     private DesignItemType type;
     private String value;
 
-    public DesignItem(String name, DesignItemType type, String value)
+    public DesignItem(String id, String name, DesignItemType type, String value)
     {
+        this.id = id;
         this.name = name;
         this.type = type;
         this.value = value;
+    }
+
+    private DesignItem()
+    {
     }
 
     public String[] toRow()
     {
         return new String[]
         {
+            id,
             name,
             type.getName(),
             value,
@@ -25,6 +35,20 @@ public class DesignItem
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
+    @XmlAttribute
+    @Override
+    public String getId()
+    {
+        return id;
+    }
+
+    @Override
+    public void setId(String id)
+    {
+        this.id = id;
+    }
+
+    @XmlElement
     public String getValue()
     {
         return value;
@@ -35,6 +59,7 @@ public class DesignItem
         this.value = value;
     }
 
+    @XmlElement
     public String getName()
     {
         return name;
@@ -45,6 +70,7 @@ public class DesignItem
         this.name = name;
     }
 
+    @XmlElement
     public DesignItemType getType()
     {
         return type;

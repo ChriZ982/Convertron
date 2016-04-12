@@ -4,9 +4,11 @@ import eu.convertron.basicmodules.html.serialization.DesignConfiguration;
 import eu.convertron.interlib.data.GeneralConfigFile;
 import eu.convertron.interlib.interfaces.View;
 import java.awt.EventQueue;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import javax.swing.table.DefaultTableModel;
+import static eu.convertron.basicmodules.html.serialization.DesignConfiguration.map;
 
 @SuppressWarnings("serial")
 public class DesignPanel extends View
@@ -26,6 +28,16 @@ public class DesignPanel extends View
         reload();
     }
 
+    public String getValue(String key)
+    {
+        return designItems.get(key).getValue();
+    }
+
+    public ArrayList<DesignItem> getAllDesignItems()
+    {
+        return new ArrayList<>(designItems.values());
+    }
+
     public void reload()
     {
         loadDesign();
@@ -35,7 +47,7 @@ public class DesignPanel extends View
     private void loadDesign()
     {
         DesignConfiguration config = DesignConfiguration.deserialize(designXml.loadString());
-        designItems.putAll(config.getDesignItems());
+        designItems.putAll(map(config.getDesignItems()));
     }
 
     @SuppressWarnings("unchecked")
@@ -165,7 +177,7 @@ public class DesignPanel extends View
     private void reloadTable()
     {
         DesignConfiguration config = DesignConfiguration.deserialize(designXml.loadString());
-        config.setDesignItems(designItems);
+        config.setDesignItems(new ArrayList<>(designItems.values()));
 
         designXml.save(config.serialize());
 
@@ -192,11 +204,6 @@ public class DesignPanel extends View
 
         nameTextField.setText(String.valueOf(designItemsTable.getValueAt(row, 0)));
         valueTextField.setText(String.valueOf(designItemsTable.getValueAt(row, 3)));
-    }
-
-    public HashMap<String, DesignItem> getDesignItems()
-    {
-        return designItems;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
