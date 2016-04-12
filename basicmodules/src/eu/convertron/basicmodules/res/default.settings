@@ -1,0 +1,4 @@
+basicmodules.targets:./debug/TestZiel
+basicmodules.sourcePath:./debug/TestDateien
+basicmodules.fileSuffix:.htm
+basicmodules.filePrefix:Druck_Klasse_

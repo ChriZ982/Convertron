@@ -4,12 +4,17 @@ import eu.convertron.applib.modules.ConfigurationProvider;
 import eu.convertron.applib.modules.IOConfigurationProvider;
 import eu.convertron.applib.storage.CsvStorage;
 import eu.convertron.applib.storage.Storage;
+import eu.convertron.client.ServerConnection;
+import eu.convertron.interlib.data.Configuration;
 import eu.convertron.interlib.data.Lesson;
 import eu.convertron.interlib.filter.TableOptions;
 import eu.convertron.interlib.io.Folder;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import eu.convertron.interlib.settings.SettingLocation;
+import eu.convertron.interlib.util.Bundle;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import javax.swing.Timer;
 
 /**
@@ -17,22 +22,26 @@ import javax.swing.Timer;
  */
 public class Control
 {
+    public static final String MOTD_SAVEFILE = "motd.txt";
+
     private final Storage storage;
     private final ModuleManager moduleManager;
     private final Timer autoTimer;
 
     private final ConfigurationProvider provider;
+    private final Configuration coreConfig;
 
     public Control()
     {
-        copyFilesFromPackage();
+        Bundle<ConfigurationProvider, Storage> bundle = initializeConfigAndStorage();
+        provider = bundle.getA();
+        storage = bundle.getB();
 
-        //TODO remote config provider if needed
-        provider = new IOConfigurationProvider("./config");
-        TableOptions.getInstance().setConfiguration(provider.getOrCreateConfiguration(TableOptions.class));
+        coreConfig = provider.getOrCreateConfiguration(TableOptions.class);
+
+        TableOptions.getInstance().setConfiguration(coreConfig);
+
         moduleManager = new ModuleManager(provider);
-
-        storage = new CsvStorage(CoreSettings.pathData.load() + "/data.csv");
 
         autoTimer = new Timer(60000, (e) -> timerTick());
         autoTimer.start();
@@ -40,28 +49,38 @@ public class Control
         Logger.logMessage(LogPriority.HINT, "Anwendung gestartet");
     }
 
+    private Bundle<ConfigurationProvider, Storage> initializeConfigAndStorage()
+    {
+        if(CoreSettings.useRemote.isTrue())
+        {
+            ServerConnection con = null;
+            try
+            {
+                if(CoreSettings.useCustomWsdl.isTrue())
+                    con = new ServerConnection(new URL(CoreSettings.remoteWsdl.load()), true);
+                else
+                    con = new ServerConnection(CoreSettings.remoteHost.load(),
+                                               Integer.parseInt(CoreSettings.remotePort.load()), true);
+
+                Logger.logMessage(LogPriority.HINT, "Erfolgreich mit Server verbunden");
+                return new Bundle<>(con, con);
+            }
+            catch(Throwable t)
+            {
+                if(con != null)
+                    con.close();
+                Logger.logError(LogPriority.ERROR, "Fehler beim starten im Remote Modus, versuche im Normalmodus zu starten", t);
+            }
+        }
+        String data = CoreSettings.pathData.load();
+        return new Bundle<>(new IOConfigurationProvider(data + "/config"),
+                            new CsvStorage(data + "/data.csv"));
+    }
+
     private void timerTick()
     {
         if(CoreSettings.autoMode.load().equals("true"))
             genAll();
-    }
-
-    /**
-     * Initialisiert den Data-Ordner.
-     */
-    private void copyFilesFromPackage()
-    {
-        String destPath = CoreSettings.pathData.load();
-        Resources.copyRes("stdData/antonianumLogo.png", destPath);
-        Resources.copyRes("stdData/template - style.txt", destPath);
-        Resources.copyRes("stdData/VERTRETUNGSPLAN.html", destPath);
-        Resources.copyRes("stdData/template - motd.txt", destPath);
-        Resources.copyRes("stdData/template - day.txt", destPath);
-        Resources.copyRes("stdData/template - class.txt", destPath);
-        Resources.copyRes("stdData/template - lesson.txt", destPath);
-        Resources.copyRes("stdData/design.xml", destPath);
-
-        Logger.logMessage(LogPriority.INFO, "Alle Dateien wurden erstellt oder überprüft");
     }
 
     /**
@@ -113,7 +132,7 @@ public class Control
     public void exportLessonsAndMotd()
     {
         moduleManager.exportLessons(storage.load());
-        moduleManager.exportMotd(CoreSettings.motdText.load());
+        moduleManager.exportMotd(new String(coreConfig.getOrCreateConfig(MOTD_SAVEFILE), StandardCharsets.UTF_8));
 
         Logger.logMessage(LogPriority.HINT, "Exportieren abgeschlossen");
     }
@@ -135,5 +154,10 @@ public class Control
     public ModuleManager getModuleManager()
     {
         return moduleManager;
+    }
+
+    public Configuration getCoreConfig()
+    {
+        return coreConfig;
     }
 }

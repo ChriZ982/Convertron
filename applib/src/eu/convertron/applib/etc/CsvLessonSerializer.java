@@ -38,6 +38,9 @@ public class CsvLessonSerializer
 
     public Lesson[] deserializeMultiple(String string)
     {
+        if(string == null || string.trim().isEmpty())
+            return new Lesson[0];
+
         ArrayList<Lesson> result = new ArrayList<>();
         String serilazation = string.trim();
         assertValidFile(serilazation);

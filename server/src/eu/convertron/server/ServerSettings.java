@@ -7,7 +7,7 @@ import eu.convertron.interlib.settings.Settings;
 
 public enum ServerSettings implements SettingID
 {
-    motdText;
+    pathData;
 
     public static final String PREFIX = "server.strings.";
 

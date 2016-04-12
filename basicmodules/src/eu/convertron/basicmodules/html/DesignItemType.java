@@ -13,27 +13,33 @@ public enum DesignItemType
 
     public String getExample(String value)
     {
-        switch(this)
+        try
         {
-            case FONTFAMILY:
-                return "<html><p style=\"font-family:" + value + "\">Formatierter Text</p></html>";
-            case FONTSTYLE:
-                if(value.contains("bold") && value.contains("italic"))
-                    return "<html><p style=\"font-style:italic; font-weight:bold\">Formatierter Text</p></html>";
-                else if(value.equals("bold"))
-                    return "<html><p style=\"font-weight:bold\">Formatierter Text</p></html>";
-                else if(value.equals("italic"))
-                    return "<html><p style=\"font-style:italic\">Formatierter Text</p></html>";
-                else
+            switch(this)
+            {
+                case FONTFAMILY:
+                    return "<html><p style=\"font-family:" + value + "\">Formatierter Text</p></html>";
+                case FONTSTYLE:
+                    if(value.contains("bold") && value.contains("italic"))
+                        return "<html><p style=\"font-style:italic; font-weight:bold\">Formatierter Text</p></html>";
+                    else if(value.equals("bold"))
+                        return "<html><p style=\"font-weight:bold\">Formatierter Text</p></html>";
+                    else if(value.equals("italic"))
+                        return "<html><p style=\"font-style:italic\">Formatierter Text</p></html>";
+                    else
+                        return "";
+                case FONTCOLOR:
+                    return "<html><p style=\"color:" + value + "\">Formatierter Text</p></html>";
+                case COLOR:
+                    return "<html><p style=\"font-size:200px; color:" + value + "\">█</p></html>";
+                default:
                     return "";
-            case FONTCOLOR:
-                return "<html><p style=\"color:" + value + "\">Formatierter Text</p></html>";
-            case COLOR:
-                return "<html><p style=\"font-size:200px; color:" + value + "\">█</p></html>";
-            default:
-                return "";
+            }
         }
-
+        catch(Exception ex)
+        {
+            return "";
+        }
     }
 
     public String getName()

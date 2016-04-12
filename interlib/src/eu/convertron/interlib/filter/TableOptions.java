@@ -19,6 +19,8 @@ import java.util.TreeMap;
  */
 public class TableOptions implements Configurable
 {
+    public static final String TABLEOPTIONS_CONFIGFILE = "tableoptions.cfg";
+
     private static TableOptions instance;
 
     static
@@ -238,12 +240,7 @@ public class TableOptions implements Configurable
      */
     public Lesson[] today(Lesson[] source)
     {
-        final String today = LessonFormatter.formatDate(
-                useCustomDate()
-                ? getCustomDateToday()
-                : Time.getTodayAsDateString());
-
-        return onlyDate(source, today);
+        return onlyDate(source, getToday());
     }
 
     /**
@@ -304,40 +301,69 @@ public class TableOptions implements Configurable
         return filterRows(source, (Lesson lesson) -> lastLessonAccepted[lesson.getLastHour() - 1]);
     }
 
+    public String getToday()
+    {
+        return LessonFormatter.formatDate(
+                useCustomDate()
+                ? getCustomDateToday()
+                : Time.getTodayAsDateString());
+    }
+
+    public String getNextDay(Lesson[] source)
+    {
+        Lesson[] next = nextDayWithLessons(source);
+        if(next != null && next.length > 0)
+        {
+            return next[0].getDate();
+        }
+
+        return Time.getFutureDateAsDateString(1);
+    }
+
     public String getEvenWeekChar()
     {
-        return configFile.load("evenWeekChar");
+        return configFile.load(TableOptionsConfig.evenWeekChar.toString());
     }
 
     public String[] getCutHours()
     {
-        return configFile.loadArray("cutHours");
+        return configFile.loadArray(TableOptionsConfig.cutHours.toString());
     }
 
     public boolean useCutHours()
     {
-        return configFile.load("useCutHours").equals("true");
+        return configFile.load(TableOptionsConfig.useCutHours.toString()).equals("true");
     }
 
     public boolean useCustomDate()
     {
-        return configFile.load("useCustomDate").equals("true");
+        return configFile.load(TableOptionsConfig.useCustomDate.toString()).equals("true");
     }
 
     public String getCustomDateToday()
     {
-        return configFile.load("customDateToday");
+        return configFile.load(TableOptionsConfig.customDateToday.toString());
     }
 
     public String getCustomDateTomorrow()
     {
-        return configFile.load("customDateTomorrow");
+        return configFile.load(TableOptionsConfig.customDateTomorrow.toString());
     }
 
     @Override
     public void setConfiguration(Configuration config)
     {
-        configFile = new IniConfigFile(config, "tableoptions.cfg");
+        configFile = new IniConfigFile(config, TABLEOPTIONS_CONFIGFILE);
         configFile.loadDefaultsFromResource("/eu/convertron/interlib/res/tableoptions.cfg", getClass());
+    }
+
+    public static enum TableOptionsConfig
+    {
+        evenWeekChar,
+        useCutHours,
+        cutHours,
+        useCustomDate,
+        customDateToday,
+        customDateTomorrow
     }
 }

@@ -47,6 +47,12 @@ public class IniConfigFile
         this(configuration, configName, true);
     }
 
+    public IniConfigFile(Configuration configuration, String configName, ResourceFile defaults)
+    {
+        this(configuration, configName);
+        loadDefaultsFromResource(defaults);
+    }
+
     public IniConfigFile(Configuration configuration, String configName, boolean autoFlush)
     {
         this.configuration = configuration;
@@ -55,20 +61,7 @@ public class IniConfigFile
 
         this.content = new HashMap<>();
 
-        configuration.addConfigListener(new ConfigurationListener()
-        {
-            @Override
-            public void configurationChanged(HashMap<String, byte[]> changed, boolean complete)
-            {
-                if(changed.containsKey(configName))
-                    reload(changed.get(configName));
-            }
-
-            @Override
-            public void newConfigurationAdded(String name)
-            {
-            }
-        });
+        configuration.addConfigListener(new SingleConfigurationListener(configuration, configName, (v) -> reload(v)));
 
         reload();
     }
@@ -150,5 +143,10 @@ public class IniConfigFile
     {
         content.clear();
         content.putAll(deserialize(new String(value, StandardCharsets.UTF_8)));
+    }
+
+    public void addConifgFileListener(SingleConfigurationListener.ConfigFileListener l)
+    {
+        configuration.addConfigListener(new SingleConfigurationListener(configuration, configName, l));
     }
 }

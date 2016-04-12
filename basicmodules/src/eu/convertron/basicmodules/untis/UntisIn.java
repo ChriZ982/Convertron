@@ -1,9 +1,7 @@
 package eu.convertron.basicmodules.untis;
 
-import eu.convertron.interlib.data.Configuration;
-import eu.convertron.interlib.data.IniConfigFile;
+import eu.convertron.basicmodules.LocalSettings;
 import eu.convertron.interlib.data.Lesson;
-import eu.convertron.interlib.interfaces.Configurable;
 import eu.convertron.interlib.interfaces.Input;
 import eu.convertron.interlib.interfaces.View;
 import eu.convertron.interlib.io.Folder;
@@ -19,17 +17,8 @@ import java.util.TreeMap;
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 
-public class UntisIn implements Input, Configurable
+public class UntisIn implements Input
 {
-    private IniConfigFile configFile;
-
-    @Override
-    public void setConfiguration(Configuration config)
-    {
-        configFile = new IniConfigFile(config, "untisin.cfg");
-        configFile.loadDefaultsFromResource("/eu/convertron/basicmodules/res/untisin.cfg", getClass());
-    }
-
     @Override
     public String getName()
     {
@@ -39,7 +28,7 @@ public class UntisIn implements Input, Configurable
     @Override
     public View getView()
     {
-        return null;
+        return new UntisInView();
     }
 
     @Override
@@ -48,7 +37,7 @@ public class UntisIn implements Input, Configurable
         try
         {
             PrefixSuffixFileFilter filter = new PrefixSuffixFileFilter();
-            File dir = new File(configFile.load("sourcePath"));
+            File dir = new File(LocalSettings.sourcePath.load());
 
             if(!dir.isDirectory() || !dir.exists())
             {
@@ -206,8 +195,8 @@ public class UntisIn implements Input, Configurable
 
         private PrefixSuffixFileFilter()
         {
-            prefix = configFile.load("filePrefix");
-            suffix = configFile.load("fileSuffix");
+            prefix = LocalSettings.filePrefix.load();
+            suffix = LocalSettings.fileSuffix.load();
         }
 
         @Override

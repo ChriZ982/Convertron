@@ -1,38 +1,52 @@
 package eu.convertron.basicmodules.html;
 
-import eu.convertron.basicmodules.html.serialization.DesignConfiguration;
-import eu.convertron.basicmodules.html.serialization.DesignDeserilization;
-import eu.convertron.basicmodules.html.serialization.DesignSerialization;
+import eu.convertron.interlib.data.GeneralConfigFile;
 import eu.convertron.interlib.interfaces.View;
-import eu.convertron.interlib.io.TextFile;
 import java.awt.EventQueue;
-import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import javax.swing.table.DefaultTableModel;
+import static eu.convertron.basicmodules.html.DesignConfiguration.map;
 
 @SuppressWarnings("serial")
 public class DesignPanel extends View
 {
     private HashMap<String, DesignItem> designItems;
+    private GeneralConfigFile designXml;
 
-    public DesignPanel()
+    public DesignPanel(GeneralConfigFile designXml)
     {
         initComponents();
 
         designItems = new HashMap<String, DesignItem>();
-        loadDesign();
 
+        this.designXml = designXml;
+        designXml.addConifgFileListener((v) -> reload());
+
+        reload();
+    }
+
+    public String getValue(String key)
+    {
+        return designItems.get(key).getValue();
+    }
+
+    public ArrayList<DesignItem> getAllDesignItems()
+    {
+        return new ArrayList<>(designItems.values());
+    }
+
+    public void reload()
+    {
+        loadDesign();
         reloadTable();
     }
 
     private void loadDesign()
     {
-        TextFile textFile = new TextFile("./debug./Data/design.xml");
-        DesignDeserilization deserilization = new DesignDeserilization(textFile.readAllToString().replaceAll("\n", ""));
-        DesignConfiguration config = deserilization.getDesign();
-
-        designItems.putAll(config.getDesignItems());
+        DesignConfiguration config = DesignConfiguration.deserialize(designXml.loadString());
+        designItems.putAll(map(config.getDesignItems()));
     }
 
     @SuppressWarnings("unchecked")
@@ -161,13 +175,10 @@ public class DesignPanel extends View
 
     private void reloadTable()
     {
-        TextFile textFile = new TextFile("./debug./Data/design.xml");
-        DesignDeserilization deserilization = new DesignDeserilization(textFile.readAllToString().replaceAll("\n", ""));
-        DesignConfiguration config = deserilization.getDesign();
-        config.setDesignItems(designItems);
+        DesignConfiguration config = DesignConfiguration.deserialize(designXml.loadString());
+        config.setDesignItems(new ArrayList<>(designItems.values()));
 
-        DesignSerialization serialization = new DesignSerialization(config);
-        serialization.copyTo(new File("./debug./Data/design.xml"));
+        designXml.save(config.serialize());
 
         EventQueue.invokeLater(()
                 ->
@@ -192,11 +203,6 @@ public class DesignPanel extends View
 
         nameTextField.setText(String.valueOf(designItemsTable.getValueAt(row, 0)));
         valueTextField.setText(String.valueOf(designItemsTable.getValueAt(row, 3)));
-    }
-
-    public HashMap<String, DesignItem> getDesignItems()
-    {
-        return designItems;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

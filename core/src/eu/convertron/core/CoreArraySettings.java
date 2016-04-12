@@ -9,23 +9,14 @@ import eu.convertron.interlib.settings.Settings;
 public enum CoreArraySettings implements SettingID
 {
     locationOfImportedModules,
-    activeOutputs,
-
-    cutHours;
+    activeOutputs;
 
     public static final String PREFIX = "core.arrays.";
 
     @Override
     public SettingLocationID getLocation()
     {
-        switch(this)
-        {
-            case locationOfImportedModules:
-            case activeOutputs:
-                return SettingLocation.LOCAL;
-            default:
-                return SettingLocation.GLOBAL;
-        }
+        return SettingLocation.LOCAL;
     }
 
     @Override

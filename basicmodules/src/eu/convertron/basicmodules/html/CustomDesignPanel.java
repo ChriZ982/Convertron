@@ -1,38 +1,57 @@
 package eu.convertron.basicmodules.html;
 
-import eu.convertron.basicmodules.html.serialization.DesignConfiguration;
-import eu.convertron.basicmodules.html.serialization.DesignDeserilization;
-import eu.convertron.basicmodules.html.serialization.DesignSerialization;
+import eu.convertron.interlib.data.GeneralConfigFile;
 import eu.convertron.interlib.interfaces.View;
-import eu.convertron.interlib.io.TextFile;
-import java.awt.EventQueue;
-import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.DefaultListModel;
+import static eu.convertron.basicmodules.html.DesignConfiguration.map;
 
 @SuppressWarnings("serial")
 public class CustomDesignPanel extends View
 {
-    private HashMap<String, HashMap<String, CustomDesignItem>> designItems;
+    private HashMap<String, CustomDesignItem> designItems;
+    private GeneralConfigFile designXml;
 
-    public CustomDesignPanel()
+    private DefaultListModel<String> listModel;
+    private CustomFormatPanel panel;
+
+    public CustomDesignPanel(GeneralConfigFile designXml)
     {
+        listModel = new DefaultListModel<>();
         initComponents();
+        panel = (CustomFormatPanel)customFormatJPanel;
+        panel.init();
 
-        designItems = new HashMap<String, HashMap<String, CustomDesignItem>>();
+        designItems = new HashMap<String, CustomDesignItem>();
+
+        this.designXml = designXml;
+        designXml.addConifgFileListener((v) -> reload());
+
+        reload();
+    }
+
+    public ArrayList<CustomDesignItem> getAllCustomDesignItems()
+    {
+        return new ArrayList<>(designItems.values());
+    }
+
+    public void reload()
+    {
         loadDesign();
-
-        reloadTable();
     }
 
     private void loadDesign()
     {
-        TextFile textFile = new TextFile("./debug./Data/design.xml");
-        DesignDeserilization deserilization = new DesignDeserilization(textFile.readAllToString().replaceAll("\n", ""));
-        DesignConfiguration config = deserilization.getDesign();
+        DesignConfiguration config = DesignConfiguration.deserialize(designXml.loadString());
+        designItems.clear();
+        designItems.putAll(map(config.getCustomDesigns()));
 
-        designItems.putAll(config.getCustomDesigns());
+        listModel.clear();
+        for(String key : designItems.keySet())
+        {
+            listModel.addElement(key);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -45,61 +64,18 @@ public class CustomDesignPanel extends View
         formatColumnTextField = new javax.swing.JTextField();
         formatNameLabel = new javax.swing.JLabel();
         formatNameTextField = new javax.swing.JTextField();
-        customDesignItemsScrollPane = new javax.swing.JScrollPane();
-        customDesignItemsTable = new javax.swing.JTable();
         newFormatButton = new javax.swing.JButton();
         deleteFormatButton = new javax.swing.JButton();
-        customChangeValueLabel = new javax.swing.JLabel();
-        customNameLabel = new javax.swing.JLabel();
-        customNameTextField = new javax.swing.JTextField();
-        customValueLabel = new javax.swing.JLabel();
-        customValueTextField = new javax.swing.JTextField();
-        customChangeValueButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        list = new javax.swing.JList<>(listModel);
+        customFormatJPanel = new CustomFormatPanel();
+        saveFormat = new javax.swing.JButton();
 
         customFormat.setText("Benutzerdefiniertes Format:");
 
         formatColumnLabel.setText("Spaltenbezeichnung");
 
         formatNameLabel.setText("Spaltenwert");
-
-        customDesignItemsTable.setAutoCreateRowSorter(true);
-        customDesignItemsTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
-
-            },
-            new String []
-            {
-                "ID", "Spaltenname", "Spaltenwert", "Bezeichnung", "Art", "Wert", "Beispiel"
-            }
-        )
-        {
-            boolean[] canEdit = new boolean []
-            {
-                false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex)
-            {
-                return canEdit [columnIndex];
-            }
-        });
-        customDesignItemsTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        customDesignItemsTable.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseReleased(java.awt.event.MouseEvent evt)
-            {
-                customDesignItemsTableMouseReleased(evt);
-            }
-        });
-        customDesignItemsTable.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyReleased(java.awt.event.KeyEvent evt)
-            {
-                customDesignItemsTableKeyReleased(evt);
-            }
-        });
-        customDesignItemsScrollPane.setViewportView(customDesignItemsTable);
 
         newFormatButton.setText("Neu");
         newFormatButton.addActionListener(new java.awt.event.ActionListener()
@@ -119,20 +95,24 @@ public class CustomDesignPanel extends View
             }
         });
 
-        customChangeValueLabel.setText("Wert ändern:");
+        list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        list.addListSelectionListener(new javax.swing.event.ListSelectionListener()
+        {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt)
+            {
+                listValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(list);
 
-        customNameLabel.setText("ID");
+        customFormatJPanel.setLayout(null);
 
-        customNameTextField.setEditable(false);
-
-        customValueLabel.setText("Wert");
-
-        customChangeValueButton.setText("Ändern");
-        customChangeValueButton.addActionListener(new java.awt.event.ActionListener()
+        saveFormat.setText("Speichere Format");
+        saveFormat.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                customChangeValueButtonActionPerformed(evt);
+                saveFormatActionPerformed(evt);
             }
         });
 
@@ -140,21 +120,6 @@ public class CustomDesignPanel extends View
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(customDesignItemsScrollPane)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(customNameLabel)
-                .addGap(10, 10, 10)
-                .addComponent(customNameTextField)
-                .addGap(10, 10, 10)
-                .addComponent(customValueLabel)
-                .addGap(10, 10, 10)
-                .addComponent(customValueTextField)
-                .addGap(10, 10, 10)
-                .addComponent(customChangeValueButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(customChangeValueLabel)
-                .addGap(529, 529, 529))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(customFormat)
@@ -162,15 +127,23 @@ public class CustomDesignPanel extends View
                         .addGap(10, 10, 10)
                         .addComponent(formatColumnLabel)
                         .addGap(10, 10, 10)
-                        .addComponent(formatColumnTextField)
+                        .addComponent(formatColumnTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
                         .addGap(10, 10, 10)
                         .addComponent(formatNameLabel)
                         .addGap(10, 10, 10)
-                        .addComponent(formatNameTextField)
+                        .addComponent(formatNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
                         .addGap(10, 10, 10)
                         .addComponent(newFormatButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(10, 10, 10)
                 .addComponent(deleteFormatButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(customFormatJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(saveFormat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,17 +158,13 @@ public class CustomDesignPanel extends View
                     .addComponent(deleteFormatButton)
                     .addComponent(formatColumnTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(formatColumnLabel))
-                .addGap(10, 10, 10)
-                .addComponent(customDesignItemsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-                .addGap(10, 10, 10)
-                .addComponent(customChangeValueLabel)
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(customNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(customValueTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(customNameLabel)
-                    .addComponent(customValueLabel)
-                    .addComponent(customChangeValueButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(customFormatJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(saveFormat)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -206,18 +175,15 @@ public class CustomDesignPanel extends View
         String column = formatColumnTextField.getText();
 
         String key = "CUSTOM_" + column + "_" + name;
+        if(!designItems.containsKey(key))
+        {
+            listModel.addElement(key);
+            panel.setToDefault();
+            designItems.put(key, new CustomDesignItem(key, column, name, panel.getFormat()));
+            list.setSelectedValue(key, true);
+        }
 
-        HashMap<String, CustomDesignItem> temp = new HashMap<String, CustomDesignItem>();
-
-        temp.put(key + "_FONT_SIZE", new CustomDesignItem(column, name, name + " Schrifgröße", DesignItemType.FONTSIZE, "16"));
-        temp.put(key + "_FONT_FAMILY", new CustomDesignItem(column, name, name + " Schriftart", DesignItemType.FONTFAMILY, "calibri"));
-        temp.put(key + "_FONT_STYLE", new CustomDesignItem(column, name, name + " Schriftstil", DesignItemType.FONTSTYLE, ""));
-        temp.put(key + "_FONT_COLOR", new CustomDesignItem(column, name, name + " Schriftfarbe", DesignItemType.FONTCOLOR, "000000"));
-        temp.put(key + "_BACK_COLOR", new CustomDesignItem(column, name, name + " Hintergrundfarbe", DesignItemType.COLOR, "e7e7e7"));
-
-        designItems.put(key, temp);
-
-        reloadTable();
+        save();
     }//GEN-LAST:event_newFormatButtonActionPerformed
 
     private void deleteFormatButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deleteFormatButtonActionPerformed
@@ -227,87 +193,50 @@ public class CustomDesignPanel extends View
 
         designItems.remove("CUSTOM_" + column + "_" + name);
 
-        reloadTable();
+        save();
     }//GEN-LAST:event_deleteFormatButtonActionPerformed
 
-    private void customChangeValueButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_customChangeValueButtonActionPerformed
-    {//GEN-HEADEREND:event_customChangeValueButtonActionPerformed
-        String[] name = customNameTextField.getText().split("_");
+    private void listValueChanged(javax.swing.event.ListSelectionEvent evt)//GEN-FIRST:event_listValueChanged
+    {//GEN-HEADEREND:event_listValueChanged
+        if(list.getSelectedValue() == null)
+        {
+            panel.setFormat(null);
+        }
+        else
+        {
+            panel.setFormat(designItems.get(list.getSelectedValue()).getFormat());
+        }
+    }//GEN-LAST:event_listValueChanged
 
-        designItems.get(name[0] + "_" + name[1] + "_" + name[2]).get(customNameTextField.getText()).setValue(customValueTextField.getText());
+    private void saveFormatActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_saveFormatActionPerformed
+    {//GEN-HEADEREND:event_saveFormatActionPerformed
+        if(list.getSelectedValue() != null)
+        {
+            designItems.get(list.getSelectedValue()).setFormat(panel.getFormat());
+            save();
+        }
+    }//GEN-LAST:event_saveFormatActionPerformed
 
-        reloadTable();
-    }//GEN-LAST:event_customChangeValueButtonActionPerformed
-
-    private void customDesignItemsTableKeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_customDesignItemsTableKeyReleased
-    {//GEN-HEADEREND:event_customDesignItemsTableKeyReleased
-        select();
-    }//GEN-LAST:event_customDesignItemsTableKeyReleased
-
-    private void customDesignItemsTableMouseReleased(java.awt.event.MouseEvent evt)//GEN-FIRST:event_customDesignItemsTableMouseReleased
-    {//GEN-HEADEREND:event_customDesignItemsTableMouseReleased
-        select();
-    }//GEN-LAST:event_customDesignItemsTableMouseReleased
-
-    private void reloadTable()
+    private void save()
     {
-        TextFile textFile = new TextFile("./debug./Data/design.xml");
-        DesignDeserilization deserilization = new DesignDeserilization(textFile.readAllToString().replaceAll("\n", ""));
-        DesignConfiguration config = deserilization.getDesign();
-        config.setCustomDesigns(designItems);
+        DesignConfiguration config = DesignConfiguration.deserialize(designXml.loadString());
+        config.setCustomDesigns(new ArrayList<>(designItems.values()));
 
-        DesignSerialization serialization = new DesignSerialization(config);
-        serialization.copyTo(new File("./debug./Data/design.xml"));
-
-        EventQueue.invokeLater(()
-                ->
-                {
-                    DefaultTableModel model = (DefaultTableModel)customDesignItemsTable.getModel();
-                    model.setRowCount(0);
-
-                    for(HashMap<String, CustomDesignItem> head : designItems.values())
-                    {
-                        for(Map.Entry<String, CustomDesignItem> design : head.entrySet())
-                        {
-                            String[] designRow = design.getValue().toRow();
-                            String[] row = new String[designRow.length + 1];
-                            row[0] = design.getKey();
-                            System.arraycopy(designRow, 0, row, 1, designRow.length);
-                            model.addRow(row);
-                        }
-                    }
-        });
-    }
-
-    private void select()
-    {
-        int row = customDesignItemsTable.getSelectedRow();
-
-        customNameTextField.setText(String.valueOf(customDesignItemsTable.getValueAt(row, 0)));
-        customValueTextField.setText(String.valueOf(customDesignItemsTable.getValueAt(row, 5)));
-    }
-
-    public HashMap<String, HashMap<String, CustomDesignItem>> getDesignItems()
-    {
-        return designItems;
+        designXml.save(config.serialize());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton customChangeValueButton;
-    private javax.swing.JLabel customChangeValueLabel;
-    private javax.swing.JScrollPane customDesignItemsScrollPane;
-    private javax.swing.JTable customDesignItemsTable;
     private javax.swing.JLabel customFormat;
-    private javax.swing.JLabel customNameLabel;
-    private javax.swing.JTextField customNameTextField;
-    private javax.swing.JLabel customValueLabel;
-    private javax.swing.JTextField customValueTextField;
+    private javax.swing.JPanel customFormatJPanel;
     private javax.swing.JButton deleteFormatButton;
     private javax.swing.JLabel formatColumnLabel;
     private javax.swing.JTextField formatColumnTextField;
     private javax.swing.JLabel formatNameLabel;
     private javax.swing.JTextField formatNameTextField;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> list;
     private javax.swing.JButton newFormatButton;
+    private javax.swing.JButton saveFormat;
     // End of variables declaration//GEN-END:variables
 
     @Override

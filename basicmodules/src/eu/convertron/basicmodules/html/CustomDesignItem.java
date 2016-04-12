@@ -1,46 +1,53 @@
 package eu.convertron.basicmodules.html;
 
-public class CustomDesignItem
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+
+public class CustomDesignItem implements Unique
 {
+    private String id;
     private String columnName;
     private String columnValue;
-    private String name;
-    private DesignItemType type;
-    private String value;
+    private CustomFormat format;
 
-    public CustomDesignItem(String columnName, String columnValue, String name, DesignItemType type, String value)
+    public CustomDesignItem(String id, String columnName, String columnValue, CustomFormat format)
     {
+        this.id = id;
         this.columnName = columnName;
         this.columnValue = columnValue;
-        this.name = name;
-        this.type = type;
-        this.value = value;
+        this.format = format;
     }
 
-    public String[] toRow()
+    private CustomDesignItem()
     {
-        return new String[]
-        {
-            columnName,
-            columnValue,
-            name,
-            type.getName(),
-            value,
-            type.getExample(value)
-        };
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
-    public String getValue()
+    @XmlAttribute
+    @Override
+    public String getId()
     {
-        return value;
+        return id;
     }
 
-    public void setValue(String value)
+    @Override
+    public void setId(String id)
     {
-        this.value = value;
+        this.id = id;
     }
 
+    @XmlElement
+    public CustomFormat getFormat()
+    {
+        return format;
+    }
+
+    public void setFormat(CustomFormat format)
+    {
+        this.format = format;
+    }
+
+    @XmlElement
     public String getColumnName()
     {
         return columnName;
@@ -51,6 +58,7 @@ public class CustomDesignItem
         this.columnName = columnName;
     }
 
+    @XmlElement
     public String getColumnValue()
     {
         return columnValue;
@@ -59,26 +67,6 @@ public class CustomDesignItem
     public void setColumnValue(String columnValue)
     {
         this.columnValue = columnValue;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
-    public DesignItemType getType()
-    {
-        return type;
-    }
-
-    public void setType(DesignItemType type)
-    {
-        this.type = type;
     }
     //</editor-fold>
 }

@@ -5,7 +5,7 @@ import java.net.URL;
 
 public class Resources
 {
-    public static String RESOURCEPATH = "/eu/convertron/core/res/";
+    public static String RESOURCEPATH = "/eu/convertron/server/res/";
 
     public static URL get(String name)
     {

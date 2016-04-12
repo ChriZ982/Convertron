@@ -1,38 +1,42 @@
 package eu.convertron.basicmodules.html;
 
-import eu.convertron.basicmodules.html.serialization.DesignConfiguration;
-import eu.convertron.basicmodules.html.serialization.DesignDeserilization;
-import eu.convertron.basicmodules.html.serialization.DesignSerialization;
+import eu.convertron.interlib.data.GeneralConfigFile;
 import eu.convertron.interlib.interfaces.View;
-import eu.convertron.interlib.io.TextFile;
 import java.awt.EventQueue;
-import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.table.DefaultTableModel;
+import static eu.convertron.basicmodules.html.DesignConfiguration.map;
 
 @SuppressWarnings("serial")
 public class ColumnSelectPanel extends View
 {
     private HashMap<String, Column> columns;
+    private GeneralConfigFile designXml;
 
-    public ColumnSelectPanel()
+    public ColumnSelectPanel(GeneralConfigFile designXml)
     {
         initComponents();
 
         columns = new HashMap<String, Column>();
-        loadDesign();
 
+        this.designXml = designXml;
+        designXml.addConifgFileListener((v) -> reload());
+
+        reload();
+    }
+
+    public void reload()
+    {
+        loadDesign();
         reloadTable();
     }
 
     private void loadDesign()
     {
-        TextFile textFile = new TextFile("./debug./Data/design.xml");
-        DesignDeserilization deserilization = new DesignDeserilization(textFile.readAllToString().replaceAll("\n", ""));
-        DesignConfiguration config = deserilization.getDesign();
-
-        columns.putAll(config.getColums());
+        DesignConfiguration config = DesignConfiguration.deserialize(designXml.loadString());
+        columns.putAll(map(config.getColums()));
     }
 
     @SuppressWarnings("unchecked")
@@ -216,7 +220,8 @@ public class ColumnSelectPanel extends View
     private void newButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_newButtonActionPerformed
     {//GEN-HEADEREND:event_newButtonActionPerformed
         columns.put(importNameTextField.getText(),
-                    new Column(exportNameTextField.getText(),
+                    new Column(importNameTextField.getText(),
+                               exportNameTextField.getText(),
                                Integer.parseInt(positionTextField.getText()),
                                Double.parseDouble(widthTextField.getText())));
 
@@ -276,13 +281,9 @@ public class ColumnSelectPanel extends View
 
     private void reloadTable()
     {
-        TextFile textFile = new TextFile("./debug./Data/design.xml");
-        DesignDeserilization deserilization = new DesignDeserilization(textFile.readAllToString().replaceAll("\n", ""));
-        DesignConfiguration config = deserilization.getDesign();
-        config.setColums(columns);
-
-        DesignSerialization serialization = new DesignSerialization(config);
-        serialization.copyTo(new File("./debug./Data/design.xml"));
+        DesignConfiguration config = DesignConfiguration.deserialize(designXml.loadString());
+        config.setColums(new ArrayList<>(columns.values()));
+        designXml.save(config.serialize());
 
         EventQueue.invokeLater(()
                 ->

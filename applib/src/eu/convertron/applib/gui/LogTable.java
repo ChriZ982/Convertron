@@ -103,6 +103,8 @@ public class LogTable extends DefaultTableModel implements LogOutput
             {
                 hiddenLogMessages.add(logMessage);
                 this.removeRow(i);
+                if(i >= getRowCount())
+                    break;
                 logMessage = (LogMessage)this.getValueAt(i, 0);
             }
         }

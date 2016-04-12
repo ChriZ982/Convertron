@@ -1,4 +1,4 @@
-package eu.convertron.applib.settings;
+package eu.convertron.interlib.settings;
 
 import eu.convertron.interlib.settings.SettingID;
 import javax.swing.AbstractButton;
@@ -28,7 +28,10 @@ public class CheckBoxSetting extends ComponentSetting
     @Override
     protected void setValue(String value)
     {
-        comp.setSelected(value.trim().equals("true"));
+        if(value == null)
+            comp.setSelected(false);
+        else
+            comp.setSelected(value.trim().equals("true"));
     }
 
 }

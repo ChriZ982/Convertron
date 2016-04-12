@@ -1,5 +1,7 @@
 package eu.convertron.interlib.data;
 
+import eu.convertron.interlib.logging.LogPriority;
+import eu.convertron.interlib.logging.Logger;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -54,7 +56,14 @@ public abstract class Configuration
     {
         for(ConfigurationListener l : listeners)
         {
-            l.newConfigurationAdded(name);
+            try
+            {
+                l.newConfigurationAdded(name);
+            }
+            catch(Exception ex)
+            {
+                Logger.logError(LogPriority.WARNING, "Fehler beim Ausführen eines 'config-added' Ereignisses", ex);
+            }
         }
     }
 
@@ -68,7 +77,14 @@ public abstract class Configuration
         }
         for(ConfigurationListener l : listeners)
         {
-            l.configurationChanged(new HashMap<>(config), complete);
+            try
+            {
+                l.configurationChanged(new HashMap<>(config), complete);
+            }
+            catch(Exception ex)
+            {
+                Logger.logError(LogPriority.WARNING, "Fehler beim Ausführen eines 'config-changed' Ereignisses", ex);
+            }
         }
     }
 

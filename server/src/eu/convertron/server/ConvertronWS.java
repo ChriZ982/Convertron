@@ -7,6 +7,8 @@ import eu.convertron.interlib.data.ConfigurationListener;
 import eu.convertron.interlib.data.Lesson;
 import eu.convertron.interlib.data.LessonValidator;
 import eu.convertron.interlib.filter.TableOptions;
+import eu.convertron.interlib.logging.LogPriority;
+import eu.convertron.interlib.logging.Logger;
 import java.util.HashMap;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -43,6 +45,8 @@ public class ConvertronWS
     {
         Lesson[] lessons = new CsvLessonSerializer().deserializeMultiple(lessonSerialization);
         control.setData(lessons);
+        Logger.logMessage(LogPriority.HINT, "Neue Vertretungseinträge empfangen, Anzahl: "
+                                            + (lessons == null ? "null" : lessons.length));
     }
 
     @WebMethod
@@ -66,6 +70,7 @@ public class ConvertronWS
             }
         });
         changes.put(clientId, c);
+        Logger.logMessage(LogPriority.HINT, "Ein Client abonnierte Aenderungen am Modul '" + moduleName + "'");
     }
 
     @WebMethod
@@ -89,6 +94,7 @@ public class ConvertronWS
     {
         Configuration config = control.getOrCreateConfiguration(moduleName);
         config.setConfig(configName, value);
+        Logger.logMessage(LogPriority.HINT, "Konfigurationsdatei geaendert: " + moduleName + " -> " + configName);
     }
 
     @WebMethod
@@ -102,7 +108,9 @@ public class ConvertronWS
     public boolean removeConfigFile(String moduleName, String configName)
     {
         Configuration config = control.getOrCreateConfiguration(moduleName);
-        return config.removeConfig(configName);
+        boolean result = config.removeConfig(configName);
+        Logger.logMessage(LogPriority.HINT, "Konfigurationsdatei entfernt: " + moduleName + " -> " + configName);
+        return result;
     }
 
     @WebMethod
@@ -110,5 +118,11 @@ public class ConvertronWS
     {
         Configuration config = control.getOrCreateConfiguration(moduleName);
         return config.getConfigFiles();
+    }
+
+    @WebMethod
+    public String ping()
+    {
+        return "pong";
     }
 }
