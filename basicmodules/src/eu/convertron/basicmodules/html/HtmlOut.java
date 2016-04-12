@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TreeSet;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * Generiert die HTML-Dateien.
@@ -206,11 +207,19 @@ public class HtmlOut implements Output, Configurable
     {
         String templateMotd = new GeneralConfigFile(config, "template - motd.txt", Resources.file("templates/motd.txt")).loadString();
         templateMotd = templateMotd.replaceAll("MOTDTEXT", motd);
+        templateMotd = templateMotd.replaceAll("MOTD_SPEED", designPanel.getValue("MOTD_SPEED"));
 
         for(String fileName : files)
         {
-            TextFile motdFile = new TextFile(fileName);
-            motdFile.writeLines(templateMotd);
+            //using Textfile makes crazy mistakes
+            try
+            {
+                Files.write(new File(fileName).toPath(), templateMotd.getBytes(UTF_8));
+            }
+            catch(Exception ex)
+            {
+                Logger.logError(LogPriority.WARNING, "Konnte die Datei nicht schreiben", ex);
+            }
         }
     }
 

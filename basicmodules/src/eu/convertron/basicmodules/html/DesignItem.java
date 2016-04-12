@@ -26,7 +26,6 @@ public class DesignItem implements Unique
     {
         return new String[]
         {
-            id,
             name,
             type.getName(),
             value,

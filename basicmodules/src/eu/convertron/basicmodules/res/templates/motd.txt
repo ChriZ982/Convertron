@@ -7,19 +7,26 @@
     </head>
     <body id="motd">    
         <div id="moving">
-            <span><img src="antonianumLogo.png" alt="Gymnasium Antonianum - Logo" />Dies ist ein Text</span>
-            <span><img src="antonianumLogo.png" alt="Gymnasium Antonianum - Logo" />Dies ist ein Text</span>
-            <span><img src="antonianumLogo.png" alt="Gymnasium Antonianum - Logo" />Dies ist ein Text</span>
-            <span><img src="antonianumLogo.png" alt="Gymnasium Antonianum - Logo" />Dies ist ein Text</span>
-            <span><img src="antonianumLogo.png" alt="Gymnasium Antonianum - Logo" />Dies ist ein Text</span>
-            <span><img src="antonianumLogo.png" alt="Gymnasium Antonianum - Logo" />Dies ist ein Text</span>
-            <span><img src="antonianumLogo.png" alt="Gymnasium Antonianum - Logo" />Dies ist ein Text</span>
-            <span><img src="antonianumLogo.png" alt="Gymnasium Antonianum - Logo" />Dies ist ein Text</span>
-            <span><img src="antonianumLogo.png" alt="Gymnasium Antonianum - Logo" />Dies ist ein Text</span>
-            <span><img src="antonianumLogo.png" alt="Gymnasium Antonianum - Logo" />Dies ist ein Text</span>
+            <span><img src="antonianumLogo.png" alt="Gymnasium Antonianum - Logo" />MOTDTEXT</span>
         </div>
-		<script type="text/javascript">
-		document.getElementById("moving").style["animation"] = "scrollright "+(document.getElementById("moving").offsetHeight/100/MOTD_SPEED)+"s infinite linear";
-		</script>
+        <script type="text/javascript">
+            var moving = document.getElementById("moving");
+            var content = moving.innerHTML;
+            window.scrollBy(10, 0);
+
+            if (window.pageXOffset !== 0)
+            {
+                var time = (moving.offsetWidth/100/MOTD_SPEED);
+                moving.innerHTML=content+content+content+content+content+content+content+content+content+content; //10
+                moving.style["animation"] = "scrollright "+time+"s infinite linear";
+                setTimeout("location.reload(true);",time * 1000 * 4);
+            }
+            else
+            {
+                setTimeout("location.reload(true);", 30000);
+            }
+
+            document.documentElement.style.overflow = 'hidden';
+        </script>
     </body>
 </html>
