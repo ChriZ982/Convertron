@@ -108,8 +108,6 @@ public class UntisIn implements Input
                     content.put(keys[j], row[j]);
                 }
 
-                content.put("Klasse", schoolClass);
-
                 if(isAdditionalRow(content))
                 {
                     Lesson lastLesson = result.get(result.size() - 1);
@@ -123,6 +121,7 @@ public class UntisIn implements Input
                 }
                 else
                 {
+                    content.put("Klasse", schoolClass);
                     result.add(new Lesson(content));
                 }
             }

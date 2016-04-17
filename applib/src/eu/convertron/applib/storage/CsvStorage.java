@@ -30,7 +30,8 @@ public class CsvStorage implements Storage
         try
         {
             String serialzation = new CsvLessonSerializer().serializeMultiple(lessons);
-            csvFile.writeLines(serialzation);
+            System.out.println(serialzation);
+            csvFile.writeText(serialzation);
         }
         catch(Exception ex)
         {

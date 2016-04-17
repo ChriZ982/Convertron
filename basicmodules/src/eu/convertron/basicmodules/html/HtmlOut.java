@@ -27,7 +27,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TreeSet;
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * Generiert die HTML-Dateien.
@@ -117,7 +116,7 @@ public class HtmlOut implements Output, Configurable
         for(String fileName : files)
         {
             TextFile file = new TextFile(fileName);
-            file.writeLines(templateDay);
+            file.writeText(templateDay);
         }
     }
 
@@ -211,15 +210,8 @@ public class HtmlOut implements Output, Configurable
 
         for(String fileName : files)
         {
-            //using Textfile makes crazy mistakes
-            try
-            {
-                Files.write(new File(fileName).toPath(), templateMotd.getBytes(UTF_8));
-            }
-            catch(Exception ex)
-            {
-                Logger.logError(LogPriority.WARNING, "Konnte die Datei nicht schreiben", ex);
-            }
+            TextFile file = new TextFile(fileName);
+            file.writeText(templateMotd);
         }
     }
 
@@ -246,7 +238,7 @@ public class HtmlOut implements Output, Configurable
         for(String fileName : files)
         {
             TextFile styleFile = new TextFile(fileName);
-            styleFile.writeLines(templateStyle);
+            styleFile.writeText(templateStyle);
         }
     }
 

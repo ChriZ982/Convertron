@@ -311,6 +311,9 @@ public class TableOptions implements Configurable
 
     public String getNextDay(Lesson[] source)
     {
+        if(useCustomDate())
+            return getCustomDateTomorrow();
+
         Lesson[] next = nextDayWithLessons(source);
         if(next != null && next.length > 0)
         {

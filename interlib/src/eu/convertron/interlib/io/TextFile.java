@@ -10,6 +10,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /** Verwaltet, Erstellt und Löscht Textdateien. */
 public class TextFile extends GeneralFile
@@ -22,7 +23,7 @@ public class TextFile extends GeneralFile
      */
     public TextFile(File path)
     {
-        this(path, Charset.forName("UTF-8"));
+        this(path, UTF_8);
     }
 
     /**
@@ -31,7 +32,7 @@ public class TextFile extends GeneralFile
      */
     public TextFile(URI path)
     {
-        this(path, Charset.forName("UTF-8"));
+        this(path, UTF_8);
     }
 
     /**
@@ -40,7 +41,7 @@ public class TextFile extends GeneralFile
      */
     public TextFile(String path)
     {
-        this(path, Charset.forName("UTF-8"));
+        this(path, UTF_8);
     }
 
     /**
@@ -50,7 +51,7 @@ public class TextFile extends GeneralFile
      */
     public TextFile(String folder, String fileName)
     {
-        this(folder, fileName, Charset.forName("UTF-8"));
+        this(folder, fileName, UTF_8);
     }
 
     /**
@@ -59,7 +60,7 @@ public class TextFile extends GeneralFile
      */
     public TextFile(Path path)
     {
-        this(path, Charset.forName("UTF-8"));
+        this(path, UTF_8);
     }
 
     /**
@@ -184,7 +185,33 @@ public class TextFile extends GeneralFile
         try
         {
             Files.createDirectories(getPath().getParent());
-            Files.write(getPath(), Arrays.asList(text), StandardOpenOption.CREATE);
+            Files.write(getPath(), Arrays.asList(text), StandardOpenOption.TRUNCATE_EXISTING);
+        }
+        catch(IOException ex)
+        {
+            throw new RuntimeException("The file '" + getPathString() + "' could not be written", ex);
+        }
+    }
+
+    /**
+     * Schreibt den Text in das Dokument.
+     * @param text Inhalt der Datei
+     */
+    public void writeText(String text)
+    {
+        writeBytes(text.getBytes(charset));
+    }
+
+    /**
+     * Schreibt die bytes in das Dokument.
+     * @param bytes Inhalt der Datei
+     */
+    public void writeBytes(byte[] bytes)
+    {
+        try
+        {
+            Files.createDirectories(getPath().getParent());
+            Files.write(getPath(), bytes, StandardOpenOption.TRUNCATE_EXISTING);
         }
         catch(IOException ex)
         {
