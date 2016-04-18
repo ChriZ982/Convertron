@@ -103,11 +103,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Zeige Infos"/>
               </Properties>
+              <Events>
+                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="showInfoCheckItemStateChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JCheckBox" name="showDevInfoCheck">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Zeige Entwicklerinfos"/>
               </Properties>
+              <Events>
+                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="showDevInfoCheckItemStateChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="exportBtn">
               <Properties>

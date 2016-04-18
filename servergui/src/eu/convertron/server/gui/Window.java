@@ -84,8 +84,22 @@ public class Window extends ApplicationFrame
         jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
         showInfoCheck.setText("Zeige Infos");
+        showInfoCheck.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
+                showInfoCheckItemStateChanged(evt);
+            }
+        });
 
         showDevInfoCheck.setText("Zeige Entwicklerinfos");
+        showDevInfoCheck.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
+                showDevInfoCheckItemStateChanged(evt);
+            }
+        });
 
         exportBtn.setText("Vertretungplan exportieren");
         exportBtn.addActionListener(new java.awt.event.ActionListener()
@@ -169,6 +183,16 @@ public class Window extends ApplicationFrame
     {//GEN-HEADEREND:event_saveMotdBtnActionPerformed
         control.getCoreConfig().setConfig(MOTD_CONFIG, motdTxt.getText().getBytes(StandardCharsets.UTF_8));
     }//GEN-LAST:event_saveMotdBtnActionPerformed
+
+    private void showInfoCheckItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_showInfoCheckItemStateChanged
+    {//GEN-HEADEREND:event_showInfoCheckItemStateChanged
+        logPanel.setLogInfos(showInfoCheck.isSelected());
+    }//GEN-LAST:event_showInfoCheckItemStateChanged
+
+    private void showDevInfoCheckItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_showDevInfoCheckItemStateChanged
+    {//GEN-HEADEREND:event_showDevInfoCheckItemStateChanged
+        logPanel.setLogDevInfos(showDevInfoCheck.isSelected());
+    }//GEN-LAST:event_showDevInfoCheckItemStateChanged
 
     private LogPanel logPanel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
