@@ -2,19 +2,17 @@ package eu.convertron.interlib.settings;
 
 public class Setting implements SettingID
 {
-    private String name;
-    private SettingLocationID location, fileWithDefaultValues;
+    private String name, defaultValue;
 
-    public Setting(String name, SettingLocationID location, SettingLocationID fileWithDefaultValues)
+    public Setting(String name, String defaultValue)
     {
         this.name = name;
-        this.location = location;
-        this.fileWithDefaultValues = fileWithDefaultValues;
+        this.defaultValue = defaultValue;
     }
 
-    public Setting(String name, SettingLocation location)
+    public Setting(String name)
     {
-        this(name, location, null);
+        this(name, null);
     }
 
     @Override
@@ -24,14 +22,8 @@ public class Setting implements SettingID
     }
 
     @Override
-    public SettingLocationID getLocation()
+    public String getDefaultValue()
     {
-        return location;
-    }
-
-    @Override
-    public SettingLocationID getFileWithDefaultValues()
-    {
-        return fileWithDefaultValues;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -14,7 +14,12 @@ public class Resources
 
     public static void copyRes(String name, String dest)
     {
-        new ResourceFile(RESOURCEPATH + name, Resources.class).copyIfNotExists(dest);
+        file(name).copyIfNotExists(dest);
+    }
+
+    public static ResourceFile file(String name)
+    {
+        return new ResourceFile(RESOURCEPATH + name, Resources.class);
     }
 
     private Resources()

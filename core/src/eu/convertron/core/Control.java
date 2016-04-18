@@ -9,9 +9,10 @@ import eu.convertron.interlib.data.Configuration;
 import eu.convertron.interlib.data.Lesson;
 import eu.convertron.interlib.filter.TableOptions;
 import eu.convertron.interlib.io.Folder;
+import eu.convertron.interlib.io.TextFile;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
-import eu.convertron.interlib.settings.SettingLocation;
+import eu.convertron.interlib.settings.Settings;
 import eu.convertron.interlib.util.Bundle;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -92,7 +93,7 @@ public class Control
         try
         {
             autoTimer.stop();
-            //Flush Storage when needed, etc
+            Settings.flush();
 
             return true;
         }
@@ -143,7 +144,7 @@ public class Control
         {
             String backupPath = CoreSettings.pathBackup.load();
             new Folder(CoreSettings.pathData.load()).copyContent(backupPath);
-            SettingLocation.LOCAL.getFile().copy(backupPath);
+            new TextFile(Settings.SETTING_FILE).copy(backupPath);
         }
         catch(Exception ex)
         {

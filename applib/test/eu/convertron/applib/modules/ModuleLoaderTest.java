@@ -5,7 +5,6 @@ import eu.convertron.interlib.interfaces.Module;
 import eu.convertron.interlib.interfaces.Output;
 import eu.convertron.interlib.interfaces.View;
 import eu.convertron.interlib.io.TextFile;
-import eu.convertron.interlib.settings.SettingLocation;
 import eu.convertron.interlib.settings.Settings;
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +27,7 @@ public class ModuleLoaderTest
                         "pathDests: {\"./TestZiel1\",\"./TestZiel2\",\"./TestZiel3\"}",
                         "pathSource: \"./TestDateien\"",
                         "position: {\"335\",\"101\"}");
-        String[] imported = Settings.loadArray(SettingLocation.LOCAL.getFile(), "locationOfImportedModules");
+        String[] imported = Settings.loadArray("locationOfImportedModules");
         System.out.println(imported.length);
     }
 

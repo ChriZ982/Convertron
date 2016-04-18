@@ -5,10 +5,8 @@
  */
 package eu.convertron.core;
 
-import eu.convertron.interlib.io.TextFile;
+import eu.convertron.interlib.data.IniConfigFile;
 import eu.convertron.interlib.settings.SettingID;
-import eu.convertron.interlib.settings.SettingLocation;
-import eu.convertron.interlib.settings.SettingLocationID;
 import eu.convertron.interlib.settings.Settings;
 
 public enum CoreSettings implements SettingID
@@ -31,26 +29,15 @@ public enum CoreSettings implements SettingID
     public static final String PREFIX = "core.strings.";
 
     @Override
-    public SettingLocationID getLocation()
-    {
-        return SettingLocation.LOCAL;
-    }
-
-    @Override
     public String getName()
     {
         return PREFIX + this.toString();
     }
 
     @Override
-    public SettingLocationID getFileWithDefaultValues()
+    public String getDefaultValue()
     {
-        return ()
-                ->
-                {
-                    Resources.copyRes("stdData/default.settings", System.getProperty("java.io.tmpdir") + "convertron/core");
-                    return new TextFile(System.getProperty("java.io.tmpdir") + "convertron/core/default.settings");
-        };
+        return IniConfigFile.loadValueFromIniResource(Resources.file("stdData/default.settings"), PREFIX + this.toString());
     }
 
     public String load()

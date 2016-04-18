@@ -1,8 +1,7 @@
 package eu.convertron.server;
 
-import eu.convertron.interlib.io.TextFile;
+import eu.convertron.interlib.data.IniConfigFile;
 import eu.convertron.interlib.settings.SettingID;
-import eu.convertron.interlib.settings.SettingLocationID;
 import eu.convertron.interlib.settings.Settings;
 
 public enum ServerSettings implements SettingID
@@ -13,26 +12,15 @@ public enum ServerSettings implements SettingID
     public static final String PREFIX = "server.strings.";
 
     @Override
-    public SettingLocationID getLocation()
-    {
-        return () -> new TextFile("./local.settings");
-    }
-
-    @Override
     public String getName()
     {
         return PREFIX + this.toString();
     }
 
     @Override
-    public SettingLocationID getFileWithDefaultValues()
+    public String getDefaultValue()
     {
-        return ()
-                ->
-                {
-                    Resources.copyRes("stdData/default.settings", System.getProperty("java.io.tmpdir") + "convertron/server");
-                    return new TextFile(System.getProperty("java.io.tmpdir") + "convertron/server/default.settings");
-        };
+        return IniConfigFile.loadValueFromIniResource(Resources.file("stdData/default.settings"), PREFIX + this.toString());
     }
 
     public String load()

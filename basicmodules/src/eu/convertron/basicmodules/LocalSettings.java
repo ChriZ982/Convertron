@@ -1,9 +1,7 @@
 package eu.convertron.basicmodules;
 
-import eu.convertron.interlib.io.TextFile;
+import eu.convertron.interlib.data.IniConfigFile;
 import eu.convertron.interlib.settings.SettingID;
-import eu.convertron.interlib.settings.SettingLocation;
-import eu.convertron.interlib.settings.SettingLocationID;
 import eu.convertron.interlib.settings.Settings;
 
 public enum LocalSettings implements SettingID
@@ -16,20 +14,9 @@ public enum LocalSettings implements SettingID
     private static final String PREFIX = "basicmodules.";
 
     @Override
-    public SettingLocationID getFileWithDefaultValues()
+    public String getDefaultValue()
     {
-        return ()
-                ->
-                {
-                    Resources.copyRes("default.settings", System.getProperty("java.io.tmpdir") + "convertron/basicmodules");
-                    return new TextFile(System.getProperty("java.io.tmpdir") + "convertron/basicmodules/default.settings");
-        };
-    }
-
-    @Override
-    public SettingLocationID getLocation()
-    {
-        return SettingLocation.LOCAL;
+        return IniConfigFile.loadValueFromIniResource(Resources.file("default.settings"), PREFIX + this.toString());
     }
 
     @Override

@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class IniConfigFile
 {
@@ -34,6 +35,11 @@ public class IniConfigFile
                     .append(entry.getValue()).append("\n");
         }
         return builder.toString();
+    }
+
+    public static String loadValueFromIniResource(ResourceFile f, String key)
+    {
+        return deserialize(new String(f.readAllBytes(), UTF_8)).get(key);
     }
 
     private Configuration configuration;

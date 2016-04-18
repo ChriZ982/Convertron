@@ -185,6 +185,7 @@ public class TextFile extends GeneralFile
         try
         {
             Files.createDirectories(getPath().getParent());
+            createIfNotExists();
             Files.write(getPath(), Arrays.asList(text), StandardOpenOption.TRUNCATE_EXISTING);
         }
         catch(IOException ex)
@@ -211,6 +212,7 @@ public class TextFile extends GeneralFile
         try
         {
             Files.createDirectories(getPath().getParent());
+            createIfNotExists();
             Files.write(getPath(), bytes, StandardOpenOption.TRUNCATE_EXISTING);
         }
         catch(IOException ex)
@@ -240,6 +242,7 @@ public class TextFile extends GeneralFile
         try
         {
             Files.createDirectories(getPath().getParent());
+            createIfNotExists();
             Files.write(getPath(), Arrays.asList(text), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         }
         catch(IOException ex)

@@ -1,13 +1,78 @@
 package eu.convertron.interlib.settings;
 
+import eu.convertron.interlib.data.IniConfigFile;
 import eu.convertron.interlib.io.TextFile;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.nio.file.Files;
 import java.util.Arrays;
+import java.util.HashMap;
 
 /** Verwaltet die Einstellungen. */
 public class Settings
 {
+    public final static String SETTING_FILE = "./local.settings";
+    public final static String TEMP_SETTING_FILE = "./.tempsettings";
+
+    private static boolean autoFlush;
+    private final static MapStorage storage;
+
+    static
+    {
+        HashMap<String, String> map = load();
+
+        String useTempFile = "settings.useTempFile";
+        String aF = "settings.autoFlush";
+
+        if(!map.containsKey(useTempFile))
+            map.put(useTempFile, "true");
+
+        if(!map.containsKey(aF))
+            map.put(aF, "true");
+
+        if("true".equalsIgnoreCase(map.get(useTempFile)))
+            storage = new FileMapStorage();
+        else
+            storage = new MemoryMapStorage();
+
+        autoFlush = "true".equalsIgnoreCase(map.get(aF));
+        storage.setMap(map);
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> onShutdown()));
+    }
+
+    private static HashMap<String, String> load()
+    {
+        TextFile file = new TextFile(SETTING_FILE);
+        try
+        {
+            if(file.exists())
+                return IniConfigFile.deserialize(file.readAllToString());
+        }
+        catch(Exception ex)
+        {
+            Logger.logError(LogPriority.ERROR, "Fehler beim Laden der Einstellungen, Standardwerte werden benutzt", ex);
+        }
+        return new HashMap<>();
+    }
+
+    private static void onShutdown()
+    {
+        try
+        {
+            Settings.flush();
+            Files.deleteIfExists(new File(TEMP_SETTING_FILE).toPath());
+        }
+        catch(Exception ex)
+        {
+        }
+    }
+
     /**
      * Speichert eine Einstellung.
      * Hängt neue Einstellungen an und ersetzt alte.
@@ -16,7 +81,7 @@ public class Settings
      */
     public static void save(SettingID settingID, String settingValue)
     {
-        save(settingID.getLocation().getFile(), settingID.getName(), settingValue);
+        save(settingID.getName(), settingValue);
     }
 
     /**
@@ -29,11 +94,11 @@ public class Settings
     {
         if(hasSetting(settingID))
         {
-            return load(settingID.getLocation().getFile(), settingID.getName());
+            return load(settingID.getName());
         }
         else
         {
-            String value = load(settingID.getFileWithDefaultValues().getFile(), settingID.getName());
+            String value = settingID.getDefaultValue();
             save(settingID, value);
             return value;
         }
@@ -47,7 +112,7 @@ public class Settings
      */
     public static void saveArray(SettingID settingID, String... settingValues)
     {
-        saveArray(settingID.getLocation().getFile(), settingID.getName(), settingValues);
+        saveArray(settingID.getName(), settingValues);
     }
 
     /**
@@ -58,16 +123,10 @@ public class Settings
      */
     public static String[] loadArray(SettingID settingID)
     {
-        if(hasSetting(settingID))
-        {
-            return loadArray(settingID.getLocation().getFile(), settingID.getName());
-        }
-        else
-        {
-            String[] value = loadArray(settingID.getFileWithDefaultValues().getFile(), settingID.getName());
-            saveArray(settingID, value);
-            return value;
-        }
+        String value = load(settingID);
+        if(value == null)
+            return null;
+        return value.split(";");
     }
 
     /**
@@ -78,7 +137,7 @@ public class Settings
      */
     public static void saveArrayCell(SettingID settingID, int index, String settingValues)
     {
-        saveArrayCell(settingID.getLocation().getFile(), settingID.getName(), index, settingValues);
+        saveArrayCell(settingID.getName(), index, settingValues);
     }
 
     /**
@@ -95,131 +154,104 @@ public class Settings
     }
 
     /**
-     * Speichert eine Einstellung.
-     * Hängt neue Einstellungen an und ersetzt alte.
-     * @param file         Datei für die Einstellung
-     * @param settingName  Name der Einstellung
-     * @param settingValue Wert der Einstellung
-     */
-    public static void save(TextFile file, String settingName, String settingValue)
-    {
-        String settingLine = settingName + ":" + settingValue;
-        if(!file.containsLineStartingWith(getPrefix(settingName)))
-            file.appendLines(settingLine);
-        else
-            file.writeLineStartingWith(getPrefix(settingName), settingLine);
-
-        Logger.logMessage(LogPriority.INFO, "Einstellung " + settingName + " wurde auf den Wert " + settingValue + " gesetzt");
-    }
-
-    /**
-     * Lädt eine Einstellung.
-     * Gibt einen leeren String falls nicht vorhanden.
-     * @param file        Datei für die Einstellung
-     * @param settingName Name der Einstellung
-     * @return Wert der Einstellung
-     */
-    public static String load(TextFile file, String settingName)
-    {
-        if(!file.containsLineStartingWith(getPrefix(settingName)))
-        {
-            Logger.logMessage(LogPriority.INFO, "Einstellung " + settingName + " nicht vorhanden");
-            return null;
-        }
-        String settingLine = file.readLineStartingWith(getPrefix(settingName));
-        String settingValue = settingLine.substring((settingName + ":").length());
-
-//        Logger.logMessage(LogPriority.INFO, "Einstellung " + settingName + " wurde mit dem Wert " + settingValue + " geladen");
-        return settingValue;
-    }
-
-    /**
      * Speichert mehrere Einstellungen.
      * Hängt neue Einstellungen an und ersetzt alte.
-     * @param file          Datei für die Einstellung
      * @param settingName   Name der Einstellung
      * @param settingValues Werte der Einstellung
      */
-    public static void saveArray(TextFile file, String settingName, String... settingValues)
+    public static void saveArray(String settingName, String... settingValues)
     {
-        String settingLine = settingName + ":" + String.join(";", settingValues);
-        if(!file.containsLineStartingWith(getPrefix(settingName)))
-            file.appendLines(settingLine);
-        else
-            file.writeLineStartingWith(getPrefix(settingName), settingLine);
+        for(String v : settingValues)
+        {
+            if(v.contains(";"))
+                throw new IllegalArgumentException("The values in the array that should be saved cannot contain a ';'");
+        }
 
+        save(settingName, String.join(";", settingValues));
         Logger.logMessage(LogPriority.INFO, "Einstellung " + settingName + " wurde auf die Werte " + Arrays.toString(settingValues) + " gesetzt");
     }
 
     /**
      * Lädt mehrere Einstellungen.
      * Gibt ein leeres Array falls nicht vorhanden.
-     * @param file        Datei für die Einstellung
      * @param settingName Name der Einstellung
      * @return Werte der Einstellung
      */
-    public static String[] loadArray(TextFile file, String settingName)
+    public static String[] loadArray(String settingName)
     {
-        if(!file.containsLineStartingWith(getPrefix(settingName)))
-        {
-            Logger.logMessage(LogPriority.INFO, "Einstellung " + settingName + " nicht vorhanden");
+        String value = load(settingName);
+        if(value == null)
             return null;
-        }
-        String settingLine = file.readLineStartingWith(getPrefix(settingName));
-        settingLine = settingLine.substring((settingName + ":").length());
-        String[] settingValues = settingLine.split(";");
 
 //        Logger.logMessage(LogPriority.INFO, "Einstellung " + settingName + " wurde mit den Werten " + Arrays.toString(settingValues) + " geladen");
-        return settingValues;
+        return value.split(";");
     }
 
     /**
      * Speichert eine Einstellungen eines Arrays.
-     * @param file         Datei für die Einstellung
      * @param settingName  Name der Einstellung
      * @param index        Index der Einstellung
      * @param settingValue Wert der Einstellung
      */
-    public static void saveArrayCell(TextFile file, String settingName, int index, String settingValue)
+    public static void saveArrayCell(String settingName, int index, String settingValue)
     {
-        String[] settingArray = Settings.loadArray(file, settingName);
+        String[] settingArray = loadArray(settingName);
 
         String extendedArray[] = new String[Math.max(index + 1, settingArray.length)];
         System.arraycopy(settingArray, 0, extendedArray, 0, settingArray.length);
 
         extendedArray[index] = settingValue;
-        Settings.saveArray(file, settingName, extendedArray);
+        saveArray(settingName, extendedArray);
     }
 
     /**
      * Lädt eine Einstellungen eines Arrays.
-     * @param file        Datei für die Einstellung
      * @param settingName Name der Einstellung
      * @param index       Index der Einstellung
      * @return Wert der Einstellung
      */
-    public static String loadArrayCell(TextFile file, String settingName, int index)
+    public static String loadArrayCell(String settingName, int index)
     {
-        String[] settingArray = Settings.loadArray(file, settingName);
+        String[] settingArray = Settings.loadArray(settingName);
+        if(settingArray == null)
+            return null;
 
         return index < settingArray.length ? settingArray[index] : null;
     }
 
     /**
-     * Gibt die Namen der Einstellungen zurück die gleich beginnen.
-     * @param file             Datei für die Einstellung
-     * @param settingNameStart Anfang der Namen
-     * @return Einstellungen mit gleich beginnendem Namen
+     * Speichert eine Einstellung.
+     * Hängt neue Einstellungen an und ersetzt alte.
+     * @param settingName  Name der Einstellung
+     * @param settingValue Wert der Einstellung
      */
-    protected static String[] settingNamesStartWith(TextFile file, String settingNameStart)
+    public static void save(String settingName, String settingValue)
     {
-        String[] fileLines = file.readLinesStartingWith(settingNameStart);
-        String[] settingNames = new String[fileLines.length];
+        HashMap<String, String> map = storage.getMap();
+        map.put(settingName, settingValue);
+        storage.setMap(map);
+        if(autoFlush)
+            flush(map);
+        Logger.logMessage(LogPriority.INFO, "Einstellung " + settingName + " wurde auf den Wert " + settingValue + " gesetzt");
+    }
 
-        for(int i = 0; i < fileLines.length; i++)
-            settingNames[i] = fileLines[i].split(":")[0];
+    /**
+     * Lädt eine Einstellung.
+     * Gibt einen leeren String falls nicht vorhanden.
+     * @param settingName Name der Einstellung
+     * @return Wert der Einstellung
+     */
+    public static String load(String settingName)
+    {
+        HashMap<String, String> map = storage.getMap();
+        if(!map.containsKey(settingName))
+        {
+            Logger.logMessage(LogPriority.INFO, "Einstellung " + settingName + " nicht vorhanden");
+            return null;
+        }
 
-        return settingNames;
+//        Logger.logMessage(LogPriority.INFO, "Einstellung " + settingName + " wurde mit dem Wert " + settingValue + " geladen");
+        return map.get(settingName);
     }
 
     /**
@@ -229,21 +261,108 @@ public class Settings
      */
     public static boolean hasSetting(SettingID settingID)
     {
-        TextFile file = settingID.getLocation().getFile();
-
-        if(!file.exists())
-            file.create();
-
-        return file.containsLineStartingWith(getPrefix(settingID.getName()));
+        return storage.getMap().containsKey(settingID.getName());
     }
 
     /**
-     * Gibt den Prefix zu dem angegebenen Namen einer Einstellung.
-     * @param settingName Name der Einstellung zu dem der Prefix generiert werden soll
-     * @return Prefix zu dem angegeben Namen
+     * Schreibt die Einstellungen in die Einstellungsdatei.
      */
-    private static String getPrefix(String settingName)
+    public static void flush()
     {
-        return settingName + ":";
+        flush(storage.getMap());
+    }
+
+    private static void flush(HashMap<String, String> map)
+    {
+        TextFile file = new TextFile(SETTING_FILE);
+        file.writeText(IniConfigFile.serialize(map));
+    }
+
+    /**
+     * Gibt an ob beim Setzen der Einstellungen automatisch auch in die Einstellungsdatei geschrieben werden soll.
+     * @return
+     */
+    public static boolean isAutoFlush()
+    {
+        return autoFlush;
+    }
+
+    /**
+     * Setzt das Verhalten beim speichern von Einstellungen.
+     * @param autoFlush Soll automatisch auch in die Einstellungsdatei geschrieben werden?
+     */
+    public static void setAutoFlush(boolean autoFlush)
+    {
+        Settings.autoFlush = autoFlush;
+        save("settings.autoFlush", String.valueOf(autoFlush));
+    }
+
+    private static interface MapStorage
+    {
+        void setMap(HashMap<String, String> map);
+
+        HashMap<String, String> getMap();
+    }
+
+    private static class MemoryMapStorage implements MapStorage
+    {
+        private HashMap<String, String> map;
+
+        @Override
+        public HashMap<String, String> getMap()
+        {
+            return map;
+        }
+
+        @Override
+        public void setMap(HashMap<String, String> map)
+        {
+            this.map = map;
+        }
+    }
+
+    private static class FileMapStorage implements MapStorage
+    {
+        @Override
+        public void setMap(HashMap<String, String> map)
+        {
+            try
+            {
+                FileOutputStream s = new FileOutputStream(TEMP_SETTING_FILE);
+                ObjectOutputStream out = new ObjectOutputStream(s);
+                out.writeObject(map);
+                out.close();
+                s.close();
+            }
+            catch(Exception ex)
+            {
+                Logger.logMessage(LogPriority.ERROR, "Fehler beim Speichern der Einstellungen");
+                throw new RuntimeException("Failed to load Setting", ex);
+            }
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public HashMap<String, String> getMap()
+        {
+            try
+            {
+                FileInputStream s = new FileInputStream(TEMP_SETTING_FILE);
+                ObjectInputStream in = new ObjectInputStream(s);
+                Object o = in.readObject();
+                in.close();
+                s.close();
+                return (HashMap<String, String>)o;
+            }
+            catch(Exception ex)
+            {
+                Logger.logMessage(LogPriority.ERROR, "Fehler beim Laden der Einstellungen");
+                throw new RuntimeException("Failed to load Setting", ex);
+            }
+        }
+    }
+
+    private Settings()
+    {
     }
 }
