@@ -6,6 +6,7 @@ import eu.convertron.applib.storage.CsvStorage;
 import eu.convertron.applib.storage.Storage;
 import eu.convertron.interlib.data.Configuration;
 import eu.convertron.interlib.data.Lesson;
+import eu.convertron.interlib.data.SingleConfigurationListener;
 import eu.convertron.interlib.filter.TableOptions;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
@@ -15,6 +16,8 @@ import javax.xml.ws.Endpoint;
 
 public class Control
 {
+    public static final String MOTD_CONFIG = "motd.txt";
+
     private final ModuleManager moduleManager;
     private final Storage storage;
 
@@ -32,18 +35,24 @@ public class Control
         this.provider = new IOConfigurationProvider(data + "/config");
         this.coreConfig = provider.getOrCreateConfiguration(TableOptions.class);
         TableOptions.getInstance().setConfiguration(coreConfig);
+
         this.moduleManager = new ModuleManager(provider);
         this.storage = new CsvStorage(data + "/data.csv");
 
-        this.timer = new Timer(60000, (e) -> export());
-        this.timer.start();
+        this.timer = initializeTimer();
 
+        this.coreConfig.addConfigListener(new SingleConfigurationListener(MOTD_CONFIG, (v) -> export()));
         publishWebService("http://127.0.0.1:8023/_convertron");
     }
 
     public Configuration getOrCreateConfiguration(String moduleName)
     {
         return provider.getOrCreateConfiguration(moduleName);
+    }
+
+    public Configuration getCoreConfig()
+    {
+        return coreConfig;
     }
 
     public void setData(Lesson[] data)
@@ -59,7 +68,7 @@ public class Control
 
     public void export()
     {
-        moduleManager.export(getData(), new String(coreConfig.getOrCreateConfig("motd.txt"), StandardCharsets.UTF_8));
+        moduleManager.export(getData(), new String(coreConfig.getOrCreateConfig(MOTD_CONFIG), StandardCharsets.UTF_8));
     }
 
     private void publishWebService(String address)
@@ -68,10 +77,33 @@ public class Control
         Logger.logMessage(LogPriority.HINT, "WebService gestart, Adresse: " + address);
     }
 
+    private Timer initializeTimer()
+    {
+        int interval;
+        try
+        {
+            interval = Integer.parseInt(ServerSettings.autoInterval.load());
+        }
+        catch(Exception ex)
+        {
+            interval = 60000;
+        }
+
+        if(interval > 0)
+        {
+            Timer result = new Timer(interval, (e) -> export());
+            result.start();
+            return result;
+        }
+        return null;
+    }
+
     public void exit()
     {
         try
         {
+            if(timer != null)
+                timer.stop();
             System.exit(0);
         }
         catch(Exception ex)

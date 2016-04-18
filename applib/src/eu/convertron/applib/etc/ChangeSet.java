@@ -3,6 +3,7 @@ package eu.convertron.applib.etc;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class ChangeSet implements Serializable
 {
@@ -57,6 +58,25 @@ public class ChangeSet implements Serializable
         return SerializeUtils.deserialize(bytes);
     }
 
+    @Override
+    public boolean equals(Object obj)
+    {
+        if(obj instanceof ChangeSet)
+        {
+            ChangeSet cs = (ChangeSet)obj;
+            return cs.getEntrysCopy().equals(this.getEntrysCopy());
+        }
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 5;
+        hash = 11 * hash + Objects.hashCode(this.entrys);
+        return hash;
+    }
+
     public static class ConfigEntry implements Serializable
     {
         private static final long serialVersionUID = -3141716426452293504L;
@@ -100,6 +120,27 @@ public class ChangeSet implements Serializable
         public static ConfigEntry deserialize(byte[] bytes)
         {
             return SerializeUtils.deserialize(bytes);
+        }
+
+        @Override
+        public boolean equals(Object obj)
+        {
+            if(obj instanceof ConfigEntry)
+            {
+                ConfigEntry ce = (ConfigEntry)obj;
+                return ce.getAddedConfigParts().equals(this.getAddedConfigParts())
+                       && ce.getChangedConfigsParts().equals(this.getChangedConfigsParts());
+            }
+            return super.equals(obj);
+        }
+
+        @Override
+        public int hashCode()
+        {
+            int hash = 5;
+            hash = 47 * hash + Objects.hashCode(this.addedConfigParts);
+            hash = 47 * hash + Objects.hashCode(this.changedConfigsParts);
+            return hash;
         }
     }
 }

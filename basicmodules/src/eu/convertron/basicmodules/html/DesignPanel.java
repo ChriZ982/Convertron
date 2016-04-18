@@ -46,6 +46,7 @@ public class DesignPanel extends View
     private void loadDesign()
     {
         DesignConfiguration config = DesignConfiguration.deserialize(designXml.loadString());
+        designItems.clear();
         designItems.putAll(map(config.getDesignItems()));
     }
 
@@ -160,7 +161,7 @@ public class DesignPanel extends View
     {//GEN-HEADEREND:event_changeValueButtonActionPerformed
         designItems.get(nameTextField.getText()).setValue(valueTextField.getText());
 
-        reloadTable();
+        saveChanges();
     }//GEN-LAST:event_changeValueButtonActionPerformed
 
     private void designItemsTableKeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_designItemsTableKeyReleased
@@ -173,13 +174,15 @@ public class DesignPanel extends View
         select();
     }//GEN-LAST:event_designItemsTableMouseReleased
 
-    private void reloadTable()
+    private void saveChanges()
     {
         DesignConfiguration config = DesignConfiguration.deserialize(designXml.loadString());
         config.setDesignItems(new ArrayList<>(designItems.values()));
-
         designXml.save(config.serialize());
+    }
 
+    private void reloadTable()
+    {
         EventQueue.invokeLater(()
                 ->
                 {

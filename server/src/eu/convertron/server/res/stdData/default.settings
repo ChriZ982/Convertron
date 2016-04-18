@@ -1,2 +1,3 @@
 server.arrays.locationOfImportedOutputs:
 server.strings.pathData:.\debug\Data
+server.strings.autoInterval:60000

@@ -7,7 +7,8 @@ import eu.convertron.interlib.settings.Settings;
 
 public enum ServerSettings implements SettingID
 {
-    pathData;
+    pathData,
+    autoInterval;
 
     public static final String PREFIX = "server.strings.";
 
@@ -29,8 +30,8 @@ public enum ServerSettings implements SettingID
         return ()
                 ->
                 {
-                    Resources.copyRes("stdData/default.settings", System.getProperty("java.io.tmpdir") + "convertron/core");
-                    return new TextFile(System.getProperty("java.io.tmpdir") + "convertron/core/default.settings");
+                    Resources.copyRes("stdData/default.settings", System.getProperty("java.io.tmpdir") + "convertron/server");
+                    return new TextFile(System.getProperty("java.io.tmpdir") + "convertron/server/default.settings");
         };
     }
 

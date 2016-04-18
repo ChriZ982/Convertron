@@ -10,7 +10,6 @@ import eu.convertron.interlib.interfaces.View;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import eu.convertron.interlib.util.SubTabView;
-import java.awt.MenuItem;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
@@ -54,14 +53,11 @@ public class Window extends ApplicationFrame
         moduleImportControl = new ModuleImportControl(control.getModuleManager());
 
         super.init(Resources.get("trayLogo.png"), "Vertretungsplan-Generator Client",
-                   new MenuItem[]
-                   {
-                       createMenuItem("Alles generieren", (e) -> control.genAll()),
-                       createMenuItem("Backup erstellen", (e) -> control.createBackup()),
-                       null,
-                       createMenuItem("Plan importieren", (e) -> control.importLessons()),
-                       createMenuItem("Plan exportieren", (e) -> control.exportLessonsAndMotd())
-                   });
+                   createMenuItem("Alles generieren", (e) -> control.genAll()),
+                   createMenuItem("Backup erstellen", (e) -> control.createBackup()),
+                   null,
+                   createMenuItem("Plan importieren", (e) -> control.importLessons()),
+                   createMenuItem("Plan exportieren", (e) -> control.exportLessonsAndMotd()));
 
         initComponents();
 

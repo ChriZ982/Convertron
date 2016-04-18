@@ -23,7 +23,7 @@ public class OverviewControl
         motdTxt = view.getMotdTextField();
         config = control.getCoreConfig();
 
-        config.addConfigListener(new SingleConfigurationListener(config, Control.MOTD_SAVEFILE, (value) -> loadMotdText()));
+        config.addConfigListener(new SingleConfigurationListener(Control.MOTD_SAVEFILE, (value) -> loadMotdText()));
 
         loadMotdText();
 
@@ -32,35 +32,11 @@ public class OverviewControl
 
     private void initializeListeners()
     {
-        view.addGenAllListener(()
-                ->
-                {
-                    genAllAction();
-        });
-
-        view.addImportListener(()
-                ->
-                {
-                    importAction();
-        });
-
-        view.addExportListener(()
-                ->
-                {
-                    exportAction();
-        });
-
-        view.addBackupListener(()
-                ->
-                {
-                    backupAction();
-        });
-
-        view.addSaveMotdListener(()
-                ->
-                {
-                    saveMotdText();
-        });
+        view.addGenAllListener(() -> genAllAction());
+        view.addImportListener(() -> importAction());
+        view.addExportListener(() -> exportAction());
+        view.addBackupListener(() -> backupAction());
+        view.addSaveMotdListener(() -> saveMotdText());
     }
 
     private void genAllAction()

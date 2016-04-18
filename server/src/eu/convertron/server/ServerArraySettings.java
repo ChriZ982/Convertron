@@ -29,8 +29,8 @@ public enum ServerArraySettings implements SettingID
         return ()
                 ->
                 {
-                    Resources.copyRes("stdData/default.settings", System.getProperty("java.io.tmpdir") + "convertron/core");
-                    return new TextFile(System.getProperty("java.io.tmpdir") + "convertron/core/default.settings");
+                    Resources.copyRes("stdData/default.settings", System.getProperty("java.io.tmpdir") + "convertron/server");
+                    return new TextFile(System.getProperty("java.io.tmpdir") + "convertron/server/default.settings");
         };
     }
 

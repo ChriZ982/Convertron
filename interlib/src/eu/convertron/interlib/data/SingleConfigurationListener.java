@@ -12,10 +12,16 @@ public class SingleConfigurationListener implements ConfigurationListener
 
     public SingleConfigurationListener(Configuration config, String configFile, ConfigFileListener l)
     {
+        this(configFile, l);
+        config.addConfigListener(this);
+    }
+
+    public SingleConfigurationListener(String configFile, ConfigFileListener l)
+    {
         listeners = new ArrayList<>();
         listeners.add(l);
 
-        config.addConfigListener(this);
+        this.configFile = configFile;
     }
 
     @Override

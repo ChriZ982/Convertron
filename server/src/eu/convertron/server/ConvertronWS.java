@@ -52,8 +52,18 @@ public class ConvertronWS
     @WebMethod
     public void subscribeToConfigChanges(String moduleName, byte[] clientId)
     {
+        ChangeSet c;
+        if(!changes.containsKey(clientId))
+        {
+            c = new ChangeSet();
+            changes.put(clientId, c);
+        }
+        else
+        {
+            c = changes.get(clientId);
+        }
+
         Configuration config = control.getOrCreateConfiguration(moduleName);
-        ChangeSet c = new ChangeSet();
         config.addConfigListener(new ConfigurationListener()
         {
             @Override
@@ -69,7 +79,6 @@ public class ConvertronWS
                 c.configAdded(moduleName, name);
             }
         });
-        changes.put(clientId, c);
         Logger.logMessage(LogPriority.HINT, "Ein Client abonnierte Aenderungen am Modul '" + moduleName + "'");
     }
 

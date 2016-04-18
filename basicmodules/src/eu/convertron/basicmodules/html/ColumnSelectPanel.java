@@ -36,6 +36,7 @@ public class ColumnSelectPanel extends View
     private void loadDesign()
     {
         DesignConfiguration config = DesignConfiguration.deserialize(designXml.loadString());
+        columns.clear();
         columns.putAll(map(config.getColums()));
     }
 
@@ -225,7 +226,7 @@ public class ColumnSelectPanel extends View
                                Integer.parseInt(positionTextField.getText()),
                                Double.parseDouble(widthTextField.getText())));
 
-        reloadTable();
+        saveChanges();
     }//GEN-LAST:event_newButtonActionPerformed
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_editButtonActionPerformed
@@ -235,14 +236,14 @@ public class ColumnSelectPanel extends View
         column.setPosition(Integer.parseInt(positionTextField.getText()));
         column.setWidth(Double.parseDouble(widthTextField.getText()));
 
-        reloadTable();
+        saveChanges();
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deleteButtonActionPerformed
     {//GEN-HEADEREND:event_deleteButtonActionPerformed
         columns.remove(importNameTextField.getText());
 
-        reloadTable();
+        saveChanges();
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void columnTableKeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_columnTableKeyReleased
@@ -279,12 +280,15 @@ public class ColumnSelectPanel extends View
         }
     }
 
-    private void reloadTable()
+    private void saveChanges()
     {
         DesignConfiguration config = DesignConfiguration.deserialize(designXml.loadString());
         config.setColums(new ArrayList<>(columns.values()));
         designXml.save(config.serialize());
+    }
 
+    private void reloadTable()
+    {
         EventQueue.invokeLater(()
                 ->
                 {

@@ -61,7 +61,7 @@ public class IniConfigFile
 
         this.content = new HashMap<>();
 
-        configuration.addConfigListener(new SingleConfigurationListener(configuration, configName, (v) -> reload(v)));
+        configuration.addConfigListener(new SingleConfigurationListener(configName, (v) -> reload(v)));
 
         reload();
     }
@@ -147,6 +147,6 @@ public class IniConfigFile
 
     public void addConifgFileListener(SingleConfigurationListener.ConfigFileListener l)
     {
-        configuration.addConfigListener(new SingleConfigurationListener(configuration, configName, l));
+        configuration.addConfigListener(new SingleConfigurationListener(configName, l));
     }
 }

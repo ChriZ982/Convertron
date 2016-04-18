@@ -56,6 +56,6 @@ public class GeneralConfigFile
 
     public void addConifgFileListener(SingleConfigurationListener.ConfigFileListener l)
     {
-        configuration.addConfigListener(new SingleConfigurationListener(configuration, configName, l));
+        configuration.addConfigListener(new SingleConfigurationListener(configName, l));
     }
 }

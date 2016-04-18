@@ -18,7 +18,7 @@ public class SettingsControl
         view = new SettingsView(new IniConfigFile(config, TABLEOPTIONS_CONFIGFILE));
         bridges = view.createBridges();
 
-        config.addConfigListener(new SingleConfigurationListener(config, TABLEOPTIONS_CONFIGFILE, (v) -> load()));
+        config.addConfigListener(new SingleConfigurationListener(TABLEOPTIONS_CONFIGFILE, (v) -> load()));
 
         load();
 
@@ -27,11 +27,7 @@ public class SettingsControl
 
     private void initializeListeners()
     {
-        view.addSaveListener(()
-                ->
-                {
-                    save();
-        });
+        view.addSaveListener(() -> save());
     }
 
     public void save()

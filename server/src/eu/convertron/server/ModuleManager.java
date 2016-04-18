@@ -47,6 +47,8 @@ public class ModuleManager
     private ArrayList<ClassLocation> loadLocations()
     {
         String[] saved = ServerArraySettings.locationOfImportedOutputs.load();
+        if(saved == null)
+            saved = new String[0];
         ArrayList<ClassLocation> result = new ArrayList<>(saved.length);
 
         for(String s : saved)
