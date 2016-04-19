@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-public class IniConfigFile
+public class IniConfigFile extends AbstractConfigFile
 {
     public static HashMap<String, String> deserialize(String s)
     {
@@ -42,8 +42,6 @@ public class IniConfigFile
         return deserialize(new String(f.readAllBytes(), UTF_8)).get(key);
     }
 
-    private Configuration configuration;
-    private String configName;
     private boolean autoFlush;
 
     private HashMap<String, String> content;
@@ -61,13 +59,12 @@ public class IniConfigFile
 
     public IniConfigFile(Configuration configuration, String configName, boolean autoFlush)
     {
-        this.configuration = configuration;
-        this.configName = configName;
+        super(configuration, configName);
         this.autoFlush = autoFlush;
 
         this.content = new HashMap<>();
 
-        configuration.addConfigListener(new SingleConfigurationListener(configName, (v) -> reload(v)));
+        this.addConfigFileListener((v) -> reload(v));
 
         reload();
     }
@@ -137,22 +134,27 @@ public class IniConfigFile
 
     public void flush()
     {
-        configuration.setConfig(configName, serialize(content).getBytes(StandardCharsets.UTF_8));
+        save0(serialize(content));
+    }
+
+    public boolean isAutoFlush()
+    {
+        return autoFlush;
+    }
+
+    public void setAutoFlush(boolean autoFlush)
+    {
+        this.autoFlush = autoFlush;
     }
 
     public void reload()
     {
-        reload(configuration.getOrCreateConfig(configName));
+        reload(load0());
     }
 
     private void reload(byte[] value)
     {
         content.clear();
         content.putAll(deserialize(new String(value, StandardCharsets.UTF_8)));
-    }
-
-    public void addConifgFileListener(SingleConfigurationListener.ConfigFileListener l)
-    {
-        configuration.addConfigListener(new SingleConfigurationListener(configName, l));
     }
 }

@@ -22,7 +22,7 @@ public class DesignPanel extends View
         designItems = new HashMap<String, DesignItem>();
 
         this.designXml = designXml;
-        designXml.addConifgFileListener((v) -> reload());
+        designXml.addConfigFileListener((v) -> reload());
 
         reload();
     }

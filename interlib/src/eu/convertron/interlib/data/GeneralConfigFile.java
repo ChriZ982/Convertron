@@ -1,17 +1,12 @@
 package eu.convertron.interlib.data;
 
 import eu.convertron.interlib.io.ResourceFile;
-import static java.nio.charset.StandardCharsets.UTF_8;
 
-public class GeneralConfigFile
+public class GeneralConfigFile extends AbstractConfigFile
 {
-    private Configuration configuration;
-    private String configName;
-
     public GeneralConfigFile(Configuration configuration, String configName)
     {
-        this.configuration = configuration;
-        this.configName = configName;
+        super(configuration, configName);
     }
 
     public GeneralConfigFile(Configuration configuration, String configName, ResourceFile defaults)
@@ -28,34 +23,29 @@ public class GeneralConfigFile
     public void loadDefaultsFromResource(ResourceFile f)
     {
         if(!configuration.hasConfig(configName)
-           || new String(configuration.getConfig(configName), UTF_8).trim().isEmpty())
+           || loadString().trim().isEmpty())
         {
-            configuration.setConfig(configName, f.readAllBytes());
+            save(f.readAllBytes());
         }
     }
 
     public byte[] load()
     {
-        return configuration.getConfig(configName);
+        return super.load0();
     }
 
     public String loadString()
     {
-        return new String(load(), UTF_8);
+        return super.loadString0();
     }
 
     public void save(byte[] value)
     {
-        configuration.setConfig(configName, value);
+        super.save0(value);
     }
 
     public void save(String value)
     {
-        save(value.getBytes(UTF_8));
-    }
-
-    public void addConifgFileListener(SingleConfigurationListener.ConfigFileListener l)
-    {
-        configuration.addConfigListener(new SingleConfigurationListener(configName, l));
+        super.save0(value);
     }
 }

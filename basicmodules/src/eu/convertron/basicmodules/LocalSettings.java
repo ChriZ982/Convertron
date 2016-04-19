@@ -9,7 +9,12 @@ public enum LocalSettings implements SettingID
     targets,
     sourcePath,
     fileSuffix,
-    filePrefix;
+    filePrefix,
+
+    patternTr,
+    patternTd,
+    patternTable,
+    patternClass;
 
     private static final String PREFIX = "basicmodules.";
 

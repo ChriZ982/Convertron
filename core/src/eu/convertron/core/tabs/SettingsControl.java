@@ -11,11 +11,12 @@ public class SettingsControl
     private SettingsView view;
     private GuiBridge[] bridges;
 
-    private Configuration config;
+    private IniConfigFile iniConfig;
 
     public SettingsControl(Configuration config)
     {
-        view = new SettingsView(new IniConfigFile(config, TABLEOPTIONS_CONFIGFILE));
+        iniConfig = new IniConfigFile(config, TABLEOPTIONS_CONFIGFILE, false);
+        view = new SettingsView(iniConfig);
         bridges = view.createBridges();
 
         config.addConfigListener(new SingleConfigurationListener(TABLEOPTIONS_CONFIGFILE, (v) -> load()));
@@ -34,6 +35,7 @@ public class SettingsControl
     {
         for(GuiBridge b : bridges)
             b.save();
+        iniConfig.flush();
     }
 
     public void load()

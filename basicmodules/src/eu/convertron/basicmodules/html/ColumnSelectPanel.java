@@ -22,7 +22,7 @@ public class ColumnSelectPanel extends View
         columns = new HashMap<String, Column>();
 
         this.designXml = designXml;
-        designXml.addConifgFileListener((v) -> reload());
+        designXml.addConfigFileListener((v) -> reload());
 
         reload();
     }

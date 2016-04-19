@@ -1,15 +1,16 @@
 package eu.convertron.basicmodules.untis;
 
+import eu.convertron.basicmodules.LocalSettings;
 import java.util.regex.Pattern;
 
 public class HtmlPatterns
 {
     public static final int PATTERNFLAGS = Pattern.DOTALL + Pattern.CASE_INSENSITIVE;
 
-    public static final Pattern TR = compile("<tr.*?</tr>");
-    public static final Pattern TD = compile("<td.*?</td>");
-    public static final Pattern LESSONTABLE = compile("<br>\\s*<table.*?</table>");
-    public static final Pattern SCHOOLCLASS = compile("<br>\\s*<font size=\"6\".*?</font>\\s*<br>");
+    public static final Pattern TR = compile(LocalSettings.patternTr.load());
+    public static final Pattern TD = compile(LocalSettings.patternTd.load());
+    public static final Pattern LESSONTABLE = compile(LocalSettings.patternTable.load());
+    public static final Pattern SCHOOLCLASS = compile(LocalSettings.patternClass.load());
 
     /**
      * Kompiliert den regulären Ausdruck unter Verwendung der Flags.

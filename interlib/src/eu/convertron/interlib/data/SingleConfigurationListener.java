@@ -3,6 +3,7 @@ package eu.convertron.interlib.data;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class SingleConfigurationListener implements ConfigurationListener
@@ -10,18 +11,28 @@ public class SingleConfigurationListener implements ConfigurationListener
     private ArrayList<ConfigFileListener> listeners;
     private String configFile;
 
-    public SingleConfigurationListener(Configuration config, String configFile, ConfigFileListener l)
+    public SingleConfigurationListener(Configuration config, String configFile, ConfigFileListener... ls)
     {
-        this(configFile, l);
+        this(configFile, ls);
         config.addConfigListener(this);
     }
 
-    public SingleConfigurationListener(String configFile, ConfigFileListener l)
+    public SingleConfigurationListener(String configFile, ConfigFileListener... ls)
     {
         listeners = new ArrayList<>();
-        listeners.add(l);
+        listeners.addAll(Arrays.asList(ls));
 
         this.configFile = configFile;
+    }
+
+    public void addConfigFileListener(ConfigFileListener l)
+    {
+        listeners.add(l);
+    }
+
+    public boolean removeConfigFileListener(ConfigFileListener l)
+    {
+        return listeners.remove(l);
     }
 
     @Override
@@ -51,10 +62,5 @@ public class SingleConfigurationListener implements ConfigurationListener
                 Logger.logError(LogPriority.WARNING, "Fehler beim Ausführen eines 'configfile-changed' Ereignisses", ex);
             }
         }
-    }
-
-    public static interface ConfigFileListener
-    {
-        public void configFileChanged(byte[] value);
     }
 }

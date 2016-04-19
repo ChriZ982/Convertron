@@ -158,6 +158,7 @@ public abstract class Configuration
         }
         catch(Exception ex)
         {
+            Logger.logError(LogPriority.INFO, "Unable to save Configuration", ex);
             throw new RuntimeException("Unable to save Configuration " + name, ex);
         }
     }
@@ -170,6 +171,7 @@ public abstract class Configuration
         }
         catch(Exception ex)
         {
+            Logger.logError(LogPriority.INFO, "Unable to load Configuration", ex);
             throw new RuntimeException("Unable to load Configuration " + name, ex);
         }
     }
@@ -182,6 +184,7 @@ public abstract class Configuration
         }
         catch(Exception ex)
         {
+            Logger.logError(LogPriority.INFO, "Unable to remove Configuration", ex);
             throw new RuntimeException("Unable to remove Configuration " + name, ex);
         }
     }

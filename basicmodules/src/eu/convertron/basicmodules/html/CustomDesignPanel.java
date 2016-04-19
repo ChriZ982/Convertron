@@ -26,7 +26,7 @@ public class CustomDesignPanel extends View
         designItems = new HashMap<String, CustomDesignItem>();
 
         this.designXml = designXml;
-        designXml.addConifgFileListener((v) -> reload());
+        designXml.addConfigFileListener((v) -> reload());
 
         reload();
     }
