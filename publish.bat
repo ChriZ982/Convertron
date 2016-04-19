@@ -8,5 +8,3 @@ mkdir release
     mkdir release\%%a\lib
     copy %%a\dist\lib release\%%a\lib
 ))
-
-PAUSE
