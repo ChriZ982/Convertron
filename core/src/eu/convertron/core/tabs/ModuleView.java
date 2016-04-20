@@ -21,22 +21,26 @@ public class ModuleView extends View
 
     public ModuleView(Collection<Output> allOutputs, Collection<Output> activeOutputs, Collection<Input> allInputs, Input activeInput)
     {
-        ArrayList<Output> availableOutputs = new ArrayList<>(allOutputs);
-        availableOutputs.removeAll(activeOutputs);
-        activeOutputModulesListModel = new DefaultListModel<>();
-        availableOutputModulesListModel = new DefaultListModel<>();
-        addElementsToModel(activeOutputModulesListModel, activeOutputs);
-        addElementsToModel(availableOutputModulesListModel, availableOutputs);
+        invokeAndWait(()
+                ->
+                {
+                    ArrayList<Output> availableOutputs = new ArrayList<>(allOutputs);
+                    availableOutputs.removeAll(activeOutputs);
+                    activeOutputModulesListModel = new DefaultListModel<>();
+                    availableOutputModulesListModel = new DefaultListModel<>();
+                    addElementsToModel(activeOutputModulesListModel, activeOutputs);
+                    addElementsToModel(availableOutputModulesListModel, availableOutputs);
 
-        availableInputModulesComboModel = new DefaultComboBoxModel<>();
-        addElementsToModel(availableInputModulesComboModel, allInputs);
-        availableInputModulesComboModel.setSelectedItem(activeInput);
+                    availableInputModulesComboModel = new DefaultComboBoxModel<>();
+                    addElementsToModel(availableInputModulesComboModel, allInputs);
+                    availableInputModulesComboModel.setSelectedItem(activeInput);
 
-        initComponents();
+                    initComponents();
 
-        activeOutputModulesList.setCellRenderer(new ModuleListRenderer());
-        availableOutputModulesList.setCellRenderer(new ModuleListRenderer());
-        activeInputModuleComboBox.setRenderer(new ModuleListRenderer());
+                    activeOutputModulesList.setCellRenderer(new ModuleListRenderer());
+                    availableOutputModulesList.setCellRenderer(new ModuleListRenderer());
+                    activeInputModuleComboBox.setRenderer(new ModuleListRenderer());
+        });
     }
 
     @SuppressWarnings(
@@ -173,7 +177,7 @@ public class ModuleView extends View
 
     public void addSaveListener(Runnable task)
     {
-        saveButton.addActionListener((ActionEvent e) -> invokeLater(task));
+        saveButton.addActionListener((ActionEvent e) -> task.run());
     }
 
     public ArrayList<Output> getActiveOutputModules()

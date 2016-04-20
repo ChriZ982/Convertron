@@ -33,6 +33,7 @@ import java.util.TreeSet;
  */
 public class HtmlOut implements Output, Configurable
 {
+    private HtmlOutSettingsView settingPanel;
     private ColumnSelectPanel columnSelectPanel;
     private DesignPanel designPanel;
     private CustomDesignPanel customDesignPanel;
@@ -52,9 +53,14 @@ public class HtmlOut implements Output, Configurable
         this.settings = new IniConfigFile(config, "htmlout.cfg", Resources.file("htmlout.cfg"));
         this.designXml = new GeneralConfigFile(config, "design.xml", Resources.file("design.xml"));
 
-        this.columnSelectPanel = new ColumnSelectPanel(designXml);
-        this.designPanel = new DesignPanel(designXml);
-        this.customDesignPanel = new CustomDesignPanel(designXml);
+        View.invokeAndWait(()
+                ->
+                {
+                    this.settingPanel = new HtmlOutSettingsView();
+                    this.columnSelectPanel = new ColumnSelectPanel(designXml);
+                    this.designPanel = new DesignPanel(designXml);
+                    this.customDesignPanel = new CustomDesignPanel(designXml);
+        });
     }
 
     //TEMP
@@ -281,7 +287,7 @@ public class HtmlOut implements Output, Configurable
             Logger.logMessage(LogPriority.ERROR, "Das HtmlOut Modul wurde noch nicht richtig initialisiert");
             return null;
         }
-        return new SubTabView("HTML Export", new HtmlOutSettingsView(), columnSelectPanel, designPanel, customDesignPanel);
+        return new SubTabView("HTML Export", settingPanel, columnSelectPanel, designPanel, customDesignPanel);
     }
 
     @Override

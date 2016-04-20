@@ -3,7 +3,6 @@ package eu.convertron.core.tabs;
 import eu.convertron.applib.gui.LogPanel;
 import eu.convertron.core.Resources;
 import eu.convertron.interlib.interfaces.View;
-import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
 public class OverviewView extends View
@@ -11,8 +10,12 @@ public class OverviewView extends View
     /** Creates new form View */
     public OverviewView()
     {
-        logPanel = new LogPanel();
-        initComponents();
+        invokeAndWait(()
+                ->
+                {
+                    logPanel = new LogPanel();
+                    initComponents();
+        });
     }
 
     /** This method is called from within the constructor to
@@ -199,9 +202,14 @@ public class OverviewView extends View
         saveMotdButton.addActionListener(getActionListenerToRunnable(task));
     }
 
-    public JTextField getMotdTextField()
+    public void setMotdText(String motd)
     {
-        return motdTextField;
+        invokeLater(() -> motdTextField.setText(motd));
+    }
+
+    public String getMotdText()
+    {
+        return motdTextField.getText();
     }
 
     @Override

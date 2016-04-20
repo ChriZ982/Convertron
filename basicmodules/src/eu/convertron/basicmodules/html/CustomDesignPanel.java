@@ -47,11 +47,14 @@ public class CustomDesignPanel extends View
         designItems.clear();
         designItems.putAll(map(config.getCustomDesigns()));
 
-        listModel.clear();
-        for(String key : designItems.keySet())
-        {
-            listModel.addElement(key);
-        }
+        invokeLater(() ->
+                {
+                    listModel.clear();
+                    for(String key : designItems.keySet())
+                    {
+                        listModel.addElement(key);
+                    }
+        });
     }
 
     @SuppressWarnings("unchecked")

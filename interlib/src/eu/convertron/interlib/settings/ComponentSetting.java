@@ -1,8 +1,7 @@
 package eu.convertron.interlib.settings;
 
 import eu.convertron.interlib.guiutil.GuiBridge;
-import eu.convertron.interlib.settings.SettingID;
-import eu.convertron.interlib.settings.Settings;
+import eu.convertron.interlib.interfaces.View;
 
 public abstract class ComponentSetting implements GuiBridge
 {
@@ -32,10 +31,13 @@ public abstract class ComponentSetting implements GuiBridge
     @Override
     public void load()
     {
-        if(index < 0)
-            setValue(Settings.load(setting));
-        else
-            setValue(Settings.loadArrayCell(setting, index));
+        View.invokeLater(() ->
+                {
+                    if(index < 0)
+                        setValue(Settings.load(setting));
+                    else
+                        setValue(Settings.loadArrayCell(setting, index));
+        });
     }
 
     protected abstract void setValue(String value);

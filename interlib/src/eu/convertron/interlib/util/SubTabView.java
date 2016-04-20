@@ -19,18 +19,22 @@ public class SubTabView extends View
      */
     public SubTabView(String tabTitle, View... subViews)
     {
-        tabsPane = new JTabbedPane();
-        GridLayout layout = new GridLayout(1, 1);
-        setLayout(layout);
-        add(tabsPane);
+        invokeAndWait(()
+                ->
+                {
+                    tabsPane = new JTabbedPane();
+                    GridLayout layout = new GridLayout(1, 1);
+                    setLayout(layout);
+                    add(tabsPane);
 
-        this.tabTitle = tabTitle;
-        this.subViews = subViews;
-        for(View view : subViews)
-        {
-            tabsPane.add(view);
-            tabsPane.setTitleAt(tabsPane.getTabCount() - 1, view.getTabTitle());
-        }
+                    this.tabTitle = tabTitle;
+                    this.subViews = subViews;
+                    for(View view : subViews)
+                    {
+                        tabsPane.add(view);
+                        tabsPane.setTitleAt(tabsPane.getTabCount() - 1, view.getTabTitle());
+                    }
+        });
     }
 
     @Override

@@ -3,7 +3,6 @@ package eu.convertron.interlib.interfaces;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
@@ -22,12 +21,12 @@ public abstract class View extends JPanel
      * @param task Aufgabe
      * @return Ausführmöglichkeit der Aufgabe
      */
-    protected ActionListener getActionListenerToRunnable(Runnable task)
+    protected static ActionListener getActionListenerToRunnable(Runnable task)
     {
-        return (ActionEvent e) -> invokeLater(task);
+        return (e) -> task.run();
     }
 
-    protected void invokeLater(Runnable task)
+    public static void invokeLater(Runnable task)
     {
         EventQueue.invokeLater(()
                 ->
@@ -41,5 +40,25 @@ public abstract class View extends JPanel
                         Logger.logError(LogPriority.ERROR, "Fehler in der AWTEventQueue", t);
                     }
         });
+    }
+
+    public static void invokeAndWait(Runnable task)
+    {
+        try
+        {
+            if(EventQueue.isDispatchThread())
+            {
+                task.run();
+            }
+            else
+            {
+                EventQueue.invokeAndWait(() -> task.run());
+            }
+        }
+        catch(Throwable t)
+        {
+            Logger.logError(LogPriority.HINT, "Fehler in der AWTEventQueue", t);
+            throw new RuntimeException(t);
+        }
     }
 }

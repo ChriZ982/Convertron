@@ -38,15 +38,16 @@ public class Window extends ApplicationFrame
      * Erstellt ein neues Fenster.
      *
      *
+     * @param control
      * @param exitListener
      * @param trayImg
      * @param trayToolTip
      * @param additionalMenuItems
      * @throws java.io.IOException
      */
-    public Window()
+    public Window(Control control)
     {
-        control = new Control();
+        this.control = control;
         overviewControl = new OverviewControl(control);
         settingsControl = new SettingsControl(control.getCoreConfig());
         moduleControl = new ModuleControl(control.getModuleManager());
@@ -68,6 +69,7 @@ public class Window extends ApplicationFrame
         addTabs(moduleControl.getModuleViews());
 
         loadPos();
+        Logger.logMessage(LogPriority.HINT, "Fenster erstellt und gefüllt");
     }
 
     @Override
@@ -104,8 +106,12 @@ public class Window extends ApplicationFrame
 
     public void addTab(View view)
     {
-        tabsPane.add(view);
-        tabsPane.setTitleAt(tabCount() - 1, view.getTabTitle());
+        View.invokeLater(()
+                ->
+                {
+                    tabsPane.add(view);
+                    tabsPane.setTitleAt(tabCount() - 1, view.getTabTitle());
+        });
     }
 
     private int tabCount()
@@ -135,7 +141,12 @@ public class Window extends ApplicationFrame
             System.setProperty("file.encoding", StandardCharsets.UTF_8.name());
             Logger.addLogOutput(new LogFile());
             setLookAndFeel();
-            new Window().setVisible(true);
+            Control c = new Control();
+            View.invokeAndWait(()
+                    ->
+                    {
+                        new Window(c).setVisible(true);
+            });
         }
         catch(Exception ex)
         {

@@ -1,6 +1,5 @@
 package eu.convertron.interlib.settings;
 
-import eu.convertron.interlib.settings.SettingID;
 import javax.swing.AbstractButton;
 
 public class CheckBoxSetting extends ComponentSetting

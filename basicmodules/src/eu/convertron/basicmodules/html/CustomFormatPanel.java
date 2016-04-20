@@ -1,5 +1,6 @@
 package eu.convertron.basicmodules.html;
 
+import eu.convertron.interlib.interfaces.View;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -14,35 +15,37 @@ public class CustomFormatPanel extends javax.swing.JPanel
 
     public void init()
     {
-        initComponents();
+        View.invokeAndWait(() ->
+                {
+                    initComponents();
 
-        DocumentListener l = new DocumentListener()
-        {
-            @Override
-            public void changedUpdate(DocumentEvent e)
-            {
-                updateGui();
-            }
+                    DocumentListener l = new DocumentListener()
+                    {
+                        @Override
+                        public void changedUpdate(DocumentEvent e)
+                        {
+                            updateGui();
+                        }
 
-            @Override
-            public void insertUpdate(DocumentEvent e)
-            {
-                updateGui();
-            }
+                        @Override
+                        public void insertUpdate(DocumentEvent e)
+                        {
+                            updateGui();
+                        }
 
-            @Override
-            public void removeUpdate(DocumentEvent e)
-            {
-                updateGui();
-            }
-        };
+                        @Override
+                        public void removeUpdate(DocumentEvent e)
+                        {
+                            updateGui();
+                        }
+                    };
 
-        fontSizeTxt.getDocument().addDocumentListener(l);
-        fontFamilyTxt.getDocument().addDocumentListener(l);
-        fontStyleTxt.getDocument().addDocumentListener(l);
-        fontColorTxt.getDocument().addDocumentListener(l);
-        backColorTxt.getDocument().addDocumentListener(l);
-
+                    fontSizeTxt.getDocument().addDocumentListener(l);
+                    fontFamilyTxt.getDocument().addDocumentListener(l);
+                    fontStyleTxt.getDocument().addDocumentListener(l);
+                    fontColorTxt.getDocument().addDocumentListener(l);
+                    backColorTxt.getDocument().addDocumentListener(l);
+        });
         setFormat(null);
     }
 
@@ -62,12 +65,21 @@ public class CustomFormatPanel extends javax.swing.JPanel
         {
             format = new CustomFormat("", "", "", "", "");
         }
+        setFormatGui(format);
+    }
 
-        fontSizeTxt.setText(format.getFontSize());
-        fontFamilyTxt.setText(format.getFontFamily());
-        fontStyleTxt.setText(format.getFontStyle());
-        fontColorTxt.setText(format.getFontColor());
-        backColorTxt.setText(format.getBackColor());
+    private void setFormatGui(CustomFormat format)
+    {
+        View.invokeLater(()
+                ->
+                {
+                    fontSizeTxt.setText(format.getFontSize());
+                    fontFamilyTxt.setText(format.getFontFamily());
+                    fontStyleTxt.setText(format.getFontStyle());
+                    fontColorTxt.setText(format.getFontColor());
+                    backColorTxt.setText(format.getBackColor());
+                    updateGui();
+        });
     }
 
     public void setToDefault()
@@ -77,11 +89,15 @@ public class CustomFormatPanel extends javax.swing.JPanel
 
     private void updateGui()
     {
-        fontSizeEx.setText(DesignItemType.FONTSIZE.getExample(fontSizeTxt.getText()));
-        fontFamilyEx.setText(DesignItemType.FONTFAMILY.getExample(fontFamilyTxt.getText()));
-        fontStyleEx.setText(DesignItemType.FONTSTYLE.getExample(fontStyleTxt.getText()));
-        fontColorEx.setText(DesignItemType.FONTCOLOR.getExample(fontColorTxt.getText()));
-        backColorEx.setText(DesignItemType.COLOR.getExample(backColorTxt.getText()));
+        View.invokeLater(()
+                ->
+                {
+                    fontSizeEx.setText(DesignItemType.FONTSIZE.getExample(fontSizeTxt.getText()));
+                    fontFamilyEx.setText(DesignItemType.FONTFAMILY.getExample(fontFamilyTxt.getText()));
+                    fontStyleEx.setText(DesignItemType.FONTSTYLE.getExample(fontStyleTxt.getText()));
+                    fontColorEx.setText(DesignItemType.FONTCOLOR.getExample(fontColorTxt.getText()));
+                    backColorEx.setText(DesignItemType.COLOR.getExample(backColorTxt.getText()));
+        });
     }
 
     @SuppressWarnings("unchecked")

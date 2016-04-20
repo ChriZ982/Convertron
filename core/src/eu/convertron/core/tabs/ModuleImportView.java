@@ -18,27 +18,30 @@ public class ModuleImportView extends View
 
     public ModuleImportView(Collection<ClassLocation> locationOfImportedModules)
     {
-        allModulesListModel = new DefaultListModel<>();
-        for(ClassLocation loc : locationOfImportedModules)
-            allModulesListModel.addElement(loc);
+        invokeAndWait(() ->
+                {
+                    allModulesListModel = new DefaultListModel<>();
+                    for(ClassLocation loc : locationOfImportedModules)
+                        allModulesListModel.addElement(loc);
 
-        modulesInJarListModel = new DefaultListModel<>();
+                    modulesInJarListModel = new DefaultListModel<>();
 
-        initComponents();
+                    initComponents();
 
-        jarFileChooser.setFileFilter(new FileFilter()
-        {
-            @Override
-            public boolean accept(File f)
-            {
-                return f.isDirectory() || f.getName().endsWith(".jar");
-            }
+                    jarFileChooser.setFileFilter(new FileFilter()
+                    {
+                        @Override
+                        public boolean accept(File f)
+                        {
+                            return f.isDirectory() || f.getName().endsWith(".jar");
+                        }
 
-            @Override
-            public String getDescription()
-            {
-                return "Jar-Dateien";
-            }
+                        @Override
+                        public String getDescription()
+                        {
+                            return "Jar-Dateien";
+                        }
+                    });
         });
     }
 
@@ -193,8 +196,12 @@ public class ModuleImportView extends View
 
     public void setFileOpened(boolean opened)
     {
-        importModuleButton.setEnabled(opened);
-        modulesInJarList.setEnabled(opened);
+        invokeLater(()
+                ->
+                {
+                    importModuleButton.setEnabled(opened);
+                    modulesInJarList.setEnabled(opened);
+        });
     }
 
     public void addChangesMadeListener(Runnable task)
@@ -215,11 +222,15 @@ public class ModuleImportView extends View
 
     public void setModulesInJar(Collection<ClassLocation> modules)
     {
-        modulesInJarListModel.removeAllElements();
-        for(ClassLocation l : modules)
-        {
-            modulesInJarListModel.addElement(l);
-        }
+        invokeLater(()
+                ->
+                {
+                    modulesInJarListModel.removeAllElements();
+                    for(ClassLocation l : modules)
+                    {
+                        modulesInJarListModel.addElement(l);
+                    }
+        });
     }
 
     public String getJarFile()
