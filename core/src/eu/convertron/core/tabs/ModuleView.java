@@ -4,7 +4,6 @@ import eu.convertron.applib.gui.ModuleListRenderer;
 import eu.convertron.interlib.interfaces.Input;
 import eu.convertron.interlib.interfaces.Output;
 import eu.convertron.interlib.interfaces.View;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -174,7 +173,7 @@ public class ModuleView extends View
 
     public void addSaveListener(Runnable task)
     {
-        saveButton.addActionListener((ActionEvent e) -> EventQueue.invokeLater(task));
+        saveButton.addActionListener((ActionEvent e) -> invokeLater(task));
     }
 
     public ArrayList<Output> getActiveOutputModules()

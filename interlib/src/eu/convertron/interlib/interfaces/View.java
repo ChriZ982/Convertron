@@ -1,5 +1,7 @@
 package eu.convertron.interlib.interfaces;
 
+import eu.convertron.interlib.logging.LogPriority;
+import eu.convertron.interlib.logging.Logger;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,9 +24,22 @@ public abstract class View extends JPanel
      */
     protected ActionListener getActionListenerToRunnable(Runnable task)
     {
-        return (ActionEvent e) ->
-        {
-            EventQueue.invokeLater(task);
-        };
+        return (ActionEvent e) -> invokeLater(task);
+    }
+
+    protected void invokeLater(Runnable task)
+    {
+        EventQueue.invokeLater(()
+                ->
+                {
+                    try
+                    {
+                        task.run();
+                    }
+                    catch(Throwable t)
+                    {
+                        Logger.logError(LogPriority.ERROR, "Fehler in der AWTEventQueue", t);
+                    }
+        });
     }
 }

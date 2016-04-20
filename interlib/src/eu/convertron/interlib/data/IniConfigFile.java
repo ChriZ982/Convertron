@@ -109,15 +109,22 @@ public class IniConfigFile extends AbstractConfigFile
     {
         boolean af = autoFlush;
         autoFlush = false;
+
+        boolean changesMade = false;
         Iterator<Entry<String, String>> it = defaults.entrySet().iterator();
         while(it.hasNext())
         {
             Entry<String, String> entry = it.next();
             if(!content.containsKey(entry.getKey()))
+            {
                 save(entry.getKey(), entry.getValue());
+                changesMade = true;
+            }
         }
         autoFlush = af;
-        flush();
+
+        if(changesMade)
+            flush();
     }
 
     public void loadDefaultsFromResource(String resource, Class<?> parent)

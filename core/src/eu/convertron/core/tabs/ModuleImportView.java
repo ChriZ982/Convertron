@@ -3,7 +3,6 @@ package eu.convertron.core.tabs;
 import eu.convertron.applib.modules.ClassLocation;
 import eu.convertron.core.Resources;
 import eu.convertron.interlib.interfaces.View;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.ArrayList;
@@ -200,13 +199,13 @@ public class ModuleImportView extends View
 
     public void addChangesMadeListener(Runnable task)
     {
-        importModuleButton.addActionListener((ActionEvent e) -> EventQueue.invokeLater(task));
-        removeModuleButton.addActionListener((ActionEvent e) -> EventQueue.invokeLater(task));
+        importModuleButton.addActionListener((ActionEvent e) -> invokeLater(task));
+        removeModuleButton.addActionListener((ActionEvent e) -> invokeLater(task));
     }
 
     public void addOpenJarListener(Runnable task)
     {
-        openJarButton.addActionListener((ActionEvent e) -> EventQueue.invokeLater(task));
+        openJarButton.addActionListener((ActionEvent e) -> invokeLater(task));
     }
 
     public ArrayList<ClassLocation> getAllModules()

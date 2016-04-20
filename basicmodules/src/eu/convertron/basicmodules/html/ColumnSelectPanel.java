@@ -2,7 +2,6 @@ package eu.convertron.basicmodules.html;
 
 import eu.convertron.interlib.data.GeneralConfigFile;
 import eu.convertron.interlib.interfaces.View;
-import java.awt.EventQueue;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -289,7 +288,7 @@ public class ColumnSelectPanel extends View
 
     private void reloadTable()
     {
-        EventQueue.invokeLater(()
+        invokeLater(()
                 ->
                 {
                     DefaultTableModel model = (DefaultTableModel)columnTable.getModel();
