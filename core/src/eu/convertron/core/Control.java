@@ -132,10 +132,20 @@ public class Control
 
     public void exportLessonsAndMotd()
     {
-        moduleManager.exportLessons(storage.load());
-        moduleManager.exportMotd(new String(coreConfig.getOrCreateConfig(MOTD_SAVEFILE), StandardCharsets.UTF_8));
+        exportLessons();
+        exportMotd();
+    }
 
-        Logger.logMessage(LogPriority.HINT, "Exportieren abgeschlossen");
+    public void exportLessons()
+    {
+        moduleManager.exportLessons(storage.load());
+        Logger.logMessage(LogPriority.HINT, "Exportieren der Vertretungseintraege abgeschlossen");
+    }
+
+    public void exportMotd()
+    {
+        moduleManager.exportMotd(new String(coreConfig.getOrCreateConfig(MOTD_SAVEFILE), StandardCharsets.UTF_8));
+        Logger.logMessage(LogPriority.HINT, "Exportieren der Laufschrift abgeschlossen");
     }
 
     public void createBackup()

@@ -57,6 +57,7 @@ public class OverviewControl
     public void saveMotdText()
     {
         config.save(view.getMotdText());
+        control.exportMotd();
     }
 
     public void loadMotdText()

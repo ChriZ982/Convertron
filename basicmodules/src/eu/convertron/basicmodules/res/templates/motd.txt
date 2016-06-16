@@ -16,7 +16,7 @@
 
             if (window.pageXOffset !== 0)
             {
-                var time = (moving.offsetWidth/100/MOTD_SPEED);
+                var time = (moving.offsetWidth/150/MOTD_SPEED);
                 moving.innerHTML=content+content+content+content+content+content+content+content+content+content; //10
                 moving.style["animation"] = "scrollright "+time+"s infinite linear";
                 setTimeout("location.reload(true);",time * 1000 * 4);

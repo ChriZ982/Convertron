@@ -119,7 +119,7 @@
     <designItem id="DAY_SPEED">
         <name>Tag Geschwindigkeit</name>
         <type>NUMBER</type>
-        <value>4</value>
+        <value>1</value>
     </designItem>
     <designItem id="DAY_TABLE_FONT_COLOR">
         <name>Tabelle Schriftfarbe</name>
@@ -184,7 +184,7 @@
     <designItem id="MOTD_SPEED">
         <name>Laufschrift Geschwindigkeit</name>
         <type>NUMBER</type>
-        <value>4</value>
+        <value>1</value>
     </designItem>
     <designItem id="DAY_DATE_FONT_SIZE">
         <name>Überschrift Schrifgröße</name>
@@ -214,7 +214,7 @@
     <designItem id="DAY_TABLES_BOTTOM_SPACE">
         <name>Tabellen unterer Abstand</name>
         <type>NUMBER</type>
-        <value>200px</value>
+        <value>100px</value>
     </designItem>
     <designItem id="DAY_BACK_COLOR">
         <name>Tag Hintergrundfarbe</name>

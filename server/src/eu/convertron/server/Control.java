@@ -10,7 +10,13 @@ import eu.convertron.interlib.data.SingleConfigurationListener;
 import eu.convertron.interlib.filter.TableOptions;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import javax.swing.Timer;
 import javax.xml.ws.Endpoint;
 
@@ -42,7 +48,55 @@ public class Control
         this.timer = initializeTimer();
 
         this.coreConfig.addConfigListener(new SingleConfigurationListener(MOTD_CONFIG, (v) -> export()));
-        publishWebService("http://127.0.0.1:8023/_convertron");
+
+        publishWebService(getWsAddresses());
+    }
+
+    private String[] getWsAddresses()
+    {
+        try
+        {
+            ArrayList<String> result = new ArrayList<>();
+            Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
+            while(networkInterfaces.hasMoreElements())
+            {
+                NetworkInterface n = networkInterfaces.nextElement();
+                Enumeration<InetAddress> addresses = n.getInetAddresses();
+                while(addresses.hasMoreElements())
+                {
+                    InetAddress adr = addresses.nextElement();
+                    if(adr instanceof Inet4Address)
+                    {
+                        result.add(getWsAddress((Inet4Address)adr));
+                    }
+                }
+            }
+
+            return result.toArray(new String[result.size()]);
+        }
+        catch(SocketException ex)
+        {
+            Logger.logError(LogPriority.WARNING, "Failed to generate WebService addresses based on network ips. Only localhost used instead", ex);
+        }
+
+        return new String[]
+        {
+            "http://127.0.0.1:8023/_convertron"
+        };
+    }
+
+    private String getWsAddress(Inet4Address host)
+    {
+        String port = "8023";
+        String location = "_convertron";
+        return new StringBuilder()
+                .append("http://")
+                .append(host.getHostAddress())
+                .append(":")
+                .append(port)
+                .append("/")
+                .append(location)
+                .toString();
     }
 
     public Configuration getOrCreateConfiguration(String moduleName)
@@ -71,10 +125,15 @@ public class Control
         moduleManager.export(getData(), new String(coreConfig.getOrCreateConfig(MOTD_CONFIG), StandardCharsets.UTF_8));
     }
 
-    private void publishWebService(String address)
+    private void publishWebService(String[] addresses)
     {
-        Endpoint.publish(address, new ConvertronWS(this));
-        Logger.logMessage(LogPriority.HINT, "WebService gestart, Adresse: " + address);
+        Object ws = new ConvertronWS(this);
+
+        for(String address : addresses)
+        {
+            Endpoint.publish(address, ws);
+            Logger.logMessage(LogPriority.HINT, "WebService auf folgender Adresse veroeffentlicht: " + address);
+        }
     }
 
     private Timer initializeTimer()

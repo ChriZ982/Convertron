@@ -1,6 +1,7 @@
 package eu.convertron.interlib.util;
 
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -9,7 +10,7 @@ import java.util.Date;
  */
 public class Time
 {
-    public static final String DATESTRINGFORMAT = "dd.MM.";
+    public static final String DATESTRINGFORMAT = "dd.M.";
 
     /**
      * Formatiert das jetzige Datum.
@@ -18,7 +19,7 @@ public class Time
      */
     public static String formatNow(String formatString)
     {
-        return format(new Date(), formatString);
+        return format(Date.from(Instant.now()), formatString);
     }
 
     /**

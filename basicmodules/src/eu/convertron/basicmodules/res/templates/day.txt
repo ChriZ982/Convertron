@@ -12,9 +12,9 @@
             </tr>
         </table>
         
-        <div id="moving">
+        <div id="moving"><div class="footer"></div>
         
-CLASSES        <div class="footer"></div>
+CLASSES        
 
         </div>        
         <script type="text/javascript">
@@ -24,7 +24,7 @@ CLASSES        <div class="footer"></div>
 
             if (window.pageYOffset !== 0)
             {
-                var time = (moving.offsetHeight/100/DAY_SPEED);
+                var time = (moving.offsetHeight/20/DAY_SPEED);
                 moving.innerHTML=content+content+content+content+content+content+content+content+content+content; //10
                 moving.style["animation"] = "scrolldown "+time+"s infinite linear";
                 setTimeout("location.reload(true);",time * 1000 * 4);

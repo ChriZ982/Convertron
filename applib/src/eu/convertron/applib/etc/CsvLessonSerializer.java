@@ -42,13 +42,13 @@ public class CsvLessonSerializer
             return new Lesson[0];
 
         ArrayList<Lesson> result = new ArrayList<>();
-        String serilazation = string.trim();
-        assertValidFile(serilazation);
+        String serialization = string.trim();
+        assertValidFile(serialization);
 
-        serilazation = serilazation.substring(CELLBORDERS.length(),
-                                              serilazation.length() - CELLBORDERS.length());
+        serialization = serialization.substring(CELLBORDERS.length(),
+                                                serialization.length() - CELLBORDERS.length());
 
-        String[] rows = serilazation.split((CELLBORDERS + LINESPERATOR + CELLBORDERS)
+        String[] rows = serialization.split((CELLBORDERS + LINESPERATOR + CELLBORDERS)
                 .replaceAll("\\\\", "\\\\"));
 
         String[] columnNames = getColumns(rows[0]);
@@ -66,8 +66,21 @@ public class CsvLessonSerializer
 
     protected String[] getColumns(String row)
     {
-        return row.split((CELLBORDERS + COLUMNSEPERATOR + CELLBORDERS)
+        return splitRowCorrectly(row);
+    }
+
+    private String[] splitRowCorrectly(String row)
+    {
+        String toSplit = row + " ";
+        String[] result = toSplit.split((CELLBORDERS + COLUMNSEPERATOR + CELLBORDERS)
                 .replaceAll("\\\\", "\\\\"));
+        if(result.length > 0)
+        {
+            String last = result[result.length - 1];
+            last = last.substring(0, last.length() - 1);
+            result[result.length - 1] = last;
+        }
+        return result;
     }
 
     protected void putAll(Map<String, String> map, String[] keys, String[] values)
