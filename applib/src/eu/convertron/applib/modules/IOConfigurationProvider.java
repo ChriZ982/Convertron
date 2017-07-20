@@ -1,6 +1,6 @@
 package eu.convertron.applib.modules;
 
-import eu.convertron.interlib.data.Configuration;
+import eu.convertron.interlib.config.Configuration;
 import java.io.File;
 import java.util.HashMap;
 

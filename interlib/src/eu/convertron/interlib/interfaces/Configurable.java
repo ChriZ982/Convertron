@@ -1,6 +1,6 @@
 package eu.convertron.interlib.interfaces;
 
-import eu.convertron.interlib.data.Configuration;
+import eu.convertron.interlib.config.Configuration;
 
 public interface Configurable
 {

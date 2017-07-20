@@ -1,6 +1,6 @@
 package eu.convertron.applib.modules;
 
-import eu.convertron.interlib.data.Configuration;
+import eu.convertron.interlib.config.Configuration;
 
 public interface ConfigurationProvider
 {

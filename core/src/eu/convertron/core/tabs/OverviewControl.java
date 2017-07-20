@@ -1,7 +1,7 @@
 package eu.convertron.core.tabs;
 
 import eu.convertron.core.Control;
-import eu.convertron.interlib.data.GeneralConfigFile;
+import eu.convertron.interlib.config.GeneralConfigFile;
 import eu.convertron.interlib.interfaces.View;
 
 public class OverviewControl

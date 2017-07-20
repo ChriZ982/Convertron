@@ -1,7 +1,7 @@
 package eu.convertron.basicmodules.untis;
 
 import eu.convertron.basicmodules.LocalSettings;
-import eu.convertron.interlib.data.Lesson;
+import eu.convertron.interlib.Lesson;
 import eu.convertron.interlib.interfaces.Input;
 import eu.convertron.interlib.interfaces.View;
 import eu.convertron.interlib.io.Folder;

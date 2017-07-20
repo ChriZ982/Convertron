@@ -1,6 +1,6 @@
 package eu.convertron.core;
 
-import eu.convertron.applib.etc.LogFile;
+import eu.convertron.applib.LogFile;
 import eu.convertron.applib.gui.ApplicationFrame;
 import eu.convertron.core.tabs.ModuleControl;
 import eu.convertron.core.tabs.ModuleImportControl;

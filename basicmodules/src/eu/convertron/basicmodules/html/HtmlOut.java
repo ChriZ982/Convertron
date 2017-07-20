@@ -2,12 +2,12 @@ package eu.convertron.basicmodules.html;
 
 import eu.convertron.basicmodules.LocalSettings;
 import eu.convertron.basicmodules.Resources;
-import eu.convertron.interlib.data.Configuration;
-import eu.convertron.interlib.data.GeneralConfigFile;
-import eu.convertron.interlib.data.IniConfigFile;
-import eu.convertron.interlib.data.Lesson;
-import eu.convertron.interlib.filter.FilterOption;
-import eu.convertron.interlib.filter.TableOptions;
+import eu.convertron.interlib.config.Configuration;
+import eu.convertron.interlib.config.GeneralConfigFile;
+import eu.convertron.interlib.config.IniConfigFile;
+import eu.convertron.interlib.Lesson;
+import eu.convertron.interlib.FilterOption;
+import eu.convertron.interlib.TableOptions;
 import eu.convertron.interlib.interfaces.Configurable;
 import eu.convertron.interlib.interfaces.Output;
 import eu.convertron.interlib.interfaces.View;

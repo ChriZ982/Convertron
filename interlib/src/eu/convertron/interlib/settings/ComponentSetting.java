@@ -1,6 +1,6 @@
 package eu.convertron.interlib.settings;
 
-import eu.convertron.interlib.guiutil.GuiBridge;
+import eu.convertron.interlib.util.GuiBridge;
 import eu.convertron.interlib.interfaces.View;
 
 public abstract class ComponentSetting implements GuiBridge

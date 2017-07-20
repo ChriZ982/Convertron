@@ -1,6 +1,6 @@
 package eu.convertron.interlib.interfaces;
 
-import eu.convertron.interlib.data.Lesson;
+import eu.convertron.interlib.Lesson;
 
 public interface Output extends Module
 {

@@ -2,12 +2,12 @@ package eu.convertron.core;
 
 import eu.convertron.applib.modules.ConfigurationProvider;
 import eu.convertron.applib.modules.IOConfigurationProvider;
-import eu.convertron.applib.storage.CsvStorage;
-import eu.convertron.applib.storage.Storage;
+import eu.convertron.applib.CsvStorage;
+import eu.convertron.applib.Storage;
 import eu.convertron.client.ServerConnection;
-import eu.convertron.interlib.data.Configuration;
-import eu.convertron.interlib.data.Lesson;
-import eu.convertron.interlib.filter.TableOptions;
+import eu.convertron.interlib.config.Configuration;
+import eu.convertron.interlib.Lesson;
+import eu.convertron.interlib.TableOptions;
 import eu.convertron.interlib.io.Folder;
 import eu.convertron.interlib.io.TextFile;
 import eu.convertron.interlib.logging.LogPriority;

@@ -1,6 +1,6 @@
 package eu.convertron.interlib.settings;
 
-import eu.convertron.interlib.data.IniConfigFile;
+import eu.convertron.interlib.config.IniConfigFile;
 import eu.convertron.interlib.io.TextFile;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;

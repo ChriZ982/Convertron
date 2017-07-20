@@ -2,12 +2,12 @@ package eu.convertron.server;
 
 import eu.convertron.applib.modules.ConfigurationProvider;
 import eu.convertron.applib.modules.IOConfigurationProvider;
-import eu.convertron.applib.storage.CsvStorage;
-import eu.convertron.applib.storage.Storage;
-import eu.convertron.interlib.data.Configuration;
-import eu.convertron.interlib.data.Lesson;
-import eu.convertron.interlib.data.SingleConfigurationListener;
-import eu.convertron.interlib.filter.TableOptions;
+import eu.convertron.applib.CsvStorage;
+import eu.convertron.applib.Storage;
+import eu.convertron.interlib.config.Configuration;
+import eu.convertron.interlib.Lesson;
+import eu.convertron.interlib.config.SingleConfigurationListener;
+import eu.convertron.interlib.TableOptions;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import java.net.Inet4Address;

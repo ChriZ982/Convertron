@@ -1,6 +1,6 @@
 package eu.convertron.core;
 
-import eu.convertron.interlib.data.IniConfigFile;
+import eu.convertron.interlib.config.IniConfigFile;
 import eu.convertron.interlib.settings.SettingID;
 import eu.convertron.interlib.settings.Settings;
 

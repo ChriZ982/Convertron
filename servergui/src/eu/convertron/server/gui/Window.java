@@ -1,9 +1,9 @@
 package eu.convertron.server.gui;
 
-import eu.convertron.applib.etc.LogFile;
+import eu.convertron.applib.LogFile;
 import eu.convertron.applib.gui.ApplicationFrame;
 import eu.convertron.applib.gui.LogPanel;
-import eu.convertron.interlib.data.SingleConfigurationListener;
+import eu.convertron.interlib.config.SingleConfigurationListener;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import eu.convertron.server.ConsoleMain;

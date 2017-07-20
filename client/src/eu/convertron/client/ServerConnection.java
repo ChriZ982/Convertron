@@ -1,11 +1,11 @@
 package eu.convertron.client;
 
-import eu.convertron.applib.etc.ChangeSet;
-import eu.convertron.applib.etc.CsvLessonSerializer;
+import eu.convertron.applib.ChangeSet;
+import eu.convertron.applib.CsvLessonSerializer;
 import eu.convertron.applib.modules.ConfigurationProvider;
-import eu.convertron.applib.storage.Storage;
-import eu.convertron.interlib.data.Configuration;
-import eu.convertron.interlib.data.Lesson;
+import eu.convertron.applib.Storage;
+import eu.convertron.interlib.config.Configuration;
+import eu.convertron.interlib.Lesson;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import java.net.MalformedURLException;

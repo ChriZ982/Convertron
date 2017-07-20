@@ -3,7 +3,7 @@ package eu.convertron.server;
 import eu.convertron.applib.modules.ClassLocation;
 import eu.convertron.applib.modules.ConfigurationProvider;
 import eu.convertron.applib.modules.ModuleLoader;
-import eu.convertron.interlib.data.Lesson;
+import eu.convertron.interlib.Lesson;
 import eu.convertron.interlib.interfaces.Output;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;

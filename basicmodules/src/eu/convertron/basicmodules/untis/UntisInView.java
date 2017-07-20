@@ -1,7 +1,7 @@
 package eu.convertron.basicmodules.untis;
 
 import eu.convertron.basicmodules.LocalSettings;
-import eu.convertron.interlib.guiutil.GuiBridge;
+import eu.convertron.interlib.util.GuiBridge;
 import eu.convertron.interlib.interfaces.View;
 import eu.convertron.interlib.settings.TextFieldSetting;
 

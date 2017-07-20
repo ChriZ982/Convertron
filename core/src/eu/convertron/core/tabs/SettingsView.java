@@ -2,10 +2,10 @@ package eu.convertron.core.tabs;
 
 import eu.convertron.core.CoreSettings;
 import eu.convertron.core.Resources;
-import eu.convertron.interlib.data.IniConfigFile;
-import eu.convertron.interlib.filter.TableOptions;
-import eu.convertron.interlib.guiutil.GuiBridge;
-import eu.convertron.interlib.guiutil.GuiIniBridge;
+import eu.convertron.interlib.config.IniConfigFile;
+import eu.convertron.interlib.TableOptions;
+import eu.convertron.interlib.util.GuiBridge;
+import eu.convertron.interlib.util.GuiIniBridge;
 import eu.convertron.interlib.interfaces.View;
 import eu.convertron.interlib.settings.CheckBoxSetting;
 import eu.convertron.interlib.settings.TextFieldSetting;

@@ -1,7 +1,7 @@
 package eu.convertron.client;
 
-import eu.convertron.applib.etc.ChangeSet;
-import eu.convertron.interlib.data.Configuration;
+import eu.convertron.applib.ChangeSet;
+import eu.convertron.interlib.config.Configuration;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import java.util.HashMap;

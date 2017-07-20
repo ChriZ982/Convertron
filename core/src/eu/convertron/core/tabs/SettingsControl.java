@@ -1,10 +1,10 @@
 package eu.convertron.core.tabs;
 
-import eu.convertron.interlib.data.Configuration;
-import eu.convertron.interlib.data.IniConfigFile;
-import eu.convertron.interlib.data.SingleConfigurationListener;
-import eu.convertron.interlib.guiutil.GuiBridge;
-import static eu.convertron.interlib.filter.TableOptions.TABLEOPTIONS_CONFIGFILE;
+import eu.convertron.interlib.config.Configuration;
+import eu.convertron.interlib.config.IniConfigFile;
+import eu.convertron.interlib.config.SingleConfigurationListener;
+import eu.convertron.interlib.util.GuiBridge;
+import static eu.convertron.interlib.TableOptions.TABLEOPTIONS_CONFIGFILE;
 
 public class SettingsControl
 {

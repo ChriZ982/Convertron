@@ -1,6 +1,6 @@
 package eu.convertron.basicmodules.html;
 
-import eu.convertron.interlib.data.GeneralConfigFile;
+import eu.convertron.interlib.config.GeneralConfigFile;
 import eu.convertron.interlib.interfaces.View;
 import java.util.ArrayList;
 import java.util.HashMap;
