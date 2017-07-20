@@ -11,8 +11,8 @@ import static eu.convertron.basicmodules.html.DesignConfiguration.map;
 @SuppressWarnings("serial")
 public class DesignPanel extends View
 {
-    private HashMap<String, DesignItem> designItems;
-    private GeneralConfigFile designXml;
+    private final HashMap<String, DesignItem> designItems;
+    private final GeneralConfigFile designXml;
 
     public DesignPanel(GeneralConfigFile designXml)
     {

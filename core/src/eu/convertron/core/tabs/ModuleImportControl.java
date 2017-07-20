@@ -17,8 +17,8 @@ import javax.swing.JOptionPane;
  */
 public class ModuleImportControl
 {
-    private ModuleManager moduleManager;
-    private ModuleImportView view;
+    private final ModuleManager moduleManager;
+    private final ModuleImportView view;
 
     public ModuleImportControl(ModuleManager moduleManager)
     {

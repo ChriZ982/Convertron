@@ -9,7 +9,7 @@ public class ChangeSet implements Serializable
 {
     private static final long serialVersionUID = -2637853264138413364L;
 
-    private HashMap<String, ConfigEntry> entrys;
+    private final HashMap<String, ConfigEntry> entrys;
 
     public ChangeSet()
     {
@@ -81,8 +81,8 @@ public class ChangeSet implements Serializable
     {
         private static final long serialVersionUID = -3141716426452293504L;
 
-        private ArrayList<String> addedConfigParts;
-        private ArrayList<String> changedConfigsParts;
+        private final ArrayList<String> addedConfigParts;
+        private final ArrayList<String> changedConfigsParts;
 
         public ConfigEntry()
         {

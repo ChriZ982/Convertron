@@ -8,8 +8,8 @@ import java.util.HashMap;
 
 public class RemoteConfiguration extends Configuration
 {
-    private ConvertronWS service;
-    private String moduleName;
+    private final ConvertronWS service;
+    private final String moduleName;
 
     public RemoteConfiguration(ConvertronWS service, String moduleName)
     {

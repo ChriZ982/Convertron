@@ -11,8 +11,8 @@ import static eu.convertron.basicmodules.html.DesignConfiguration.map;
 @SuppressWarnings("serial")
 public class ColumnSelectPanel extends View
 {
-    private HashMap<String, Column> columns;
-    private GeneralConfigFile designXml;
+    private final HashMap<String, Column> columns;
+    private final GeneralConfigFile designXml;
 
     public ColumnSelectPanel(GeneralConfigFile designXml)
     {

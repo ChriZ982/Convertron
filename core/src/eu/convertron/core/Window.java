@@ -27,12 +27,12 @@ public class Window extends ApplicationFrame
      */
     private static final long serialVersionUID = 1841024231;
 
-    private OverviewControl overviewControl;
-    private SettingsControl settingsControl;
-    private ModuleControl moduleControl;
-    private ModuleImportControl moduleImportControl;
+    private final OverviewControl overviewControl;
+    private final SettingsControl settingsControl;
+    private final ModuleControl moduleControl;
+    private final ModuleImportControl moduleImportControl;
 
-    private Control control;
+    private final Control control;
 
     /**
      * Erstellt ein neues Fenster.

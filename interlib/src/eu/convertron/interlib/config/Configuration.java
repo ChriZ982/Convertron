@@ -16,8 +16,8 @@ public abstract class Configuration
 
     protected abstract void remove(String name) throws Exception;
 
-    private ArrayList<String> configFiles;
-    private ArrayList<ConfigurationListener> listeners;
+    private final ArrayList<String> configFiles;
+    private final ArrayList<ConfigurationListener> listeners;
 
     protected Configuration(Collection<String> configFiles)
     {

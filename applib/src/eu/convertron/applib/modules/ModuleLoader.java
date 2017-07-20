@@ -15,8 +15,8 @@ import java.util.jar.JarFile;
 
 public class ModuleLoader<T>
 {
-    private Class<T> moduleClass;
-    private ConfigurationProvider provider;
+    private final Class<T> moduleClass;
+    private final ConfigurationProvider provider;
 
     public ModuleLoader(Class<T> moduleClass, ConfigurationProvider provider)
     {

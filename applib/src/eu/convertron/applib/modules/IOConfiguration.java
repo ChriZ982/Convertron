@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class IOConfiguration extends Configuration
 {
-    private File folder;
+    private final File folder;
 
     public IOConfiguration(File folder)
     {

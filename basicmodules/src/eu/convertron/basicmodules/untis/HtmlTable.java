@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 
 public class HtmlTable
 {
-    private HtmlRow[] rows;
+    private final HtmlRow[] rows;
 
     public HtmlTable(String source)
     {

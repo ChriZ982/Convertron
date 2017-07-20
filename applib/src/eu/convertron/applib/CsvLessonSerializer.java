@@ -139,8 +139,8 @@ public class CsvLessonSerializer
 
     protected class Row
     {
-        private Lesson lesson;
-        private ArrayList<String> columnNames;
+        private final Lesson lesson;
+        private final ArrayList<String> columnNames;
         private Entry[] entrys;
 
         protected Row(Lesson lesson, ArrayList<String> columnNames)

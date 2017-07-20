@@ -19,7 +19,7 @@ public class TableOptions implements Configurable
 {
     public static final String TABLEOPTIONS_CONFIGFILE = "tableoptions.cfg";
 
-    private static TableOptions instance;
+    private static final TableOptions instance;
 
     static
     {

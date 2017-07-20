@@ -9,7 +9,7 @@ public class UntisInView extends View
 {
     private static final long serialVersionUID = 2338035174884748702L;
 
-    private GuiBridge[] bridges;
+    private final GuiBridge[] bridges;
 
     public UntisInView()
     {

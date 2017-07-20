@@ -15,8 +15,8 @@ import javax.jws.WebService;
 @WebService
 public class ConvertronWS
 {
-    private Control control;
-    private HashMap<byte[], ChangeSet> changes;
+    private final Control control;
+    private final HashMap<byte[], ChangeSet> changes;
 
     public ConvertronWS(Control control)
     {

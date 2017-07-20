@@ -2,7 +2,7 @@ package eu.convertron.basicmodules.untis;
 
 public class HtmlCell
 {
-    private String textContent;
+    private final String textContent;
 
     public HtmlCell(String source)
     {

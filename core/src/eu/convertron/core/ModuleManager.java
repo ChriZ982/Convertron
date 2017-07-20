@@ -30,7 +30,7 @@ public class ModuleManager
     private final ArrayList<Input> allInputs;
     private Input activeInput;
 
-    private ModuleLoader<Module> loader;
+    private final ModuleLoader<Module> loader;
 
     public ModuleManager(ConfigurationProvider provider)
     {

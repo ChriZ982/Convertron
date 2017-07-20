@@ -6,10 +6,10 @@ import eu.convertron.interlib.interfaces.View;
 
 public class OverviewControl
 {
-    private OverviewView view;
-    private GeneralConfigFile config;
+    private final OverviewView view;
+    private final GeneralConfigFile config;
 
-    private Control control;
+    private final Control control;
 
     public OverviewControl(Control control)
     {

@@ -8,10 +8,10 @@ import static eu.convertron.interlib.TableOptions.TABLEOPTIONS_CONFIGFILE;
 
 public class SettingsControl
 {
-    private SettingsView view;
-    private GuiBridge[] bridges;
+    private final SettingsView view;
+    private final GuiBridge[] bridges;
 
-    private IniConfigFile iniConfig;
+    private final IniConfigFile iniConfig;
 
     public SettingsControl(Configuration config)
     {

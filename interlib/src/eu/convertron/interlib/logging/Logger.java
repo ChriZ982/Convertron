@@ -103,7 +103,7 @@ public class Logger
 
     private static class LogBuffer implements LogOutput
     {
-        private ArrayList<LogMessage> messages;
+        private final ArrayList<LogMessage> messages;
 
         private LogBuffer()
         {

@@ -194,7 +194,7 @@ public class Window extends ApplicationFrame
         logPanel.setLogDevInfos(showDevInfoCheck.isSelected());
     }//GEN-LAST:event_showDevInfoCheckItemStateChanged
 
-    private LogPanel logPanel;
+    private final LogPanel logPanel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton exportBtn;
     private javax.swing.JScrollPane jScrollPane1;

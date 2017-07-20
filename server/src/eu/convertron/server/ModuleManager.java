@@ -12,9 +12,9 @@ import java.util.ArrayList;
 
 public class ModuleManager
 {
-    private ArrayList<Output> modules;
+    private final ArrayList<Output> modules;
 
-    private ModuleLoader<Output> loader;
+    private final ModuleLoader<Output> loader;
 
     public ModuleManager(ConfigurationProvider provider)
     {

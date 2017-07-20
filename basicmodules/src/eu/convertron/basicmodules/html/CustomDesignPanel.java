@@ -10,11 +10,11 @@ import static eu.convertron.basicmodules.html.DesignConfiguration.map;
 @SuppressWarnings("serial")
 public class CustomDesignPanel extends View
 {
-    private HashMap<String, CustomDesignItem> designItems;
-    private GeneralConfigFile designXml;
+    private final HashMap<String, CustomDesignItem> designItems;
+    private final GeneralConfigFile designXml;
 
-    private DefaultListModel<String> listModel;
-    private CustomFormatPanel panel;
+    private final DefaultListModel<String> listModel;
+    private final CustomFormatPanel panel;
 
     public CustomDesignPanel(GeneralConfigFile designXml)
     {

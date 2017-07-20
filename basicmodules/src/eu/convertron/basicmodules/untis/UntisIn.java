@@ -190,7 +190,8 @@ public class UntisIn implements Input
 
     private class PrefixSuffixFileFilter implements FileFilter
     {
-        private String prefix, suffix;
+        private final String prefix;
+        private String suffix;
 
         private PrefixSuffixFileFilter()
         {

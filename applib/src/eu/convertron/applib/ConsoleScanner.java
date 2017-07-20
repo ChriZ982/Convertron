@@ -8,10 +8,10 @@ import java.util.Scanner;
 
 public class ConsoleScanner
 {
-    private Scanner scanner;
+    private final Scanner scanner;
     private Thread scanningThread;
 
-    private HashMap<String, ConsoleOperation> commands;
+    private final HashMap<String, ConsoleOperation> commands;
 
     public ConsoleScanner(Map<String, ConsoleOperation> commands)
     {

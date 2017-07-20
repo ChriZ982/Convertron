@@ -4,9 +4,9 @@ import eu.convertron.interlib.config.IniConfigFile;
 
 public class GuiIniBridge implements GuiBridge
 {
-    private IniConfigFile ini;
-    private String settingName;
-    private Object[] comps;
+    private final IniConfigFile ini;
+    private final String settingName;
+    private final Object[] comps;
 
     public GuiIniBridge(IniConfigFile ini, String settingName, Object... comps)
     {

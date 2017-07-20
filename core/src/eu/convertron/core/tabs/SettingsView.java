@@ -17,7 +17,8 @@ import javax.swing.filechooser.FileFilter;
 @SuppressWarnings("serial")
 public class SettingsView extends View
 {
-    private JComponent[] useHoursComponents, customDateComponents, useRemoteComponents;
+    private final JComponent[] useHoursComponents;
+    private JComponent[] customDateComponents, useRemoteComponents;
 
     private IniConfigFile configFile;
 

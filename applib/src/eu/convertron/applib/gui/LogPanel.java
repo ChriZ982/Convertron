@@ -9,8 +9,8 @@ public class LogPanel extends JPanel
 {
     private static final long serialVersionUID = 233225335911707914L;
 
-    private JTable table;
-    private LogTable tableModel;
+    private final JTable table;
+    private final LogTable tableModel;
 
     public LogPanel()
     {

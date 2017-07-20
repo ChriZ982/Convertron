@@ -16,8 +16,8 @@ import java.util.ArrayList;
  */
 public class ModuleControl
 {
-    private ModuleManager moduleManager;
-    private ModuleView view;
+    private final ModuleManager moduleManager;
+    private final ModuleView view;
 
     public ModuleControl(ModuleManager moduleManager)
     {
