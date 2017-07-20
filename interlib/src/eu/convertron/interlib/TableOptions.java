@@ -2,8 +2,6 @@ package eu.convertron.interlib;
 
 import eu.convertron.interlib.config.Configuration;
 import eu.convertron.interlib.config.IniConfigFile;
-import eu.convertron.interlib.Lesson;
-import eu.convertron.interlib.LessonFormatter;
 import eu.convertron.interlib.interfaces.Configurable;
 import eu.convertron.interlib.util.Time;
 import java.util.ArrayList;
@@ -303,7 +301,7 @@ public class TableOptions implements Configurable
 
     public String getToday()
     {
-        return LessonFormatter.formatDate(
+        return Lesson.FormatActions.formatDate(
                 useCustomDate()
                 ? getCustomDateToday()
                 : Time.getTodayAsDateString());

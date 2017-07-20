@@ -36,7 +36,7 @@ public class ModuleLoader<T>
             }
             catch(RuntimeException ex)
             {
-                Logger.logError(LogPriority.WARNING, "Laden des Modules " + loc.toString() + " fehlgeschlagen", ex);
+                Logger.logError(LogPriority.WARNING, "Laden des Modules der Klasse '" + loc.toString() + "' fehlgeschlagen", ex);
             }
         }
         return modules;

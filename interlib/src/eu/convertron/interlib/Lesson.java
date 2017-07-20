@@ -1,5 +1,6 @@
 package eu.convertron.interlib;
 
+import eu.convertron.interlib.util.Validators;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -50,7 +51,7 @@ public class Lesson
      */
     public Lesson(int firstHour, int lastHour, String date, Map<String, String> content)
     {
-        this(LessonFormatter.hoursToString(firstHour, lastHour), date, content);
+        this(FormatActions.hoursToString(firstHour, lastHour), date, content);
     }
 
     /**
@@ -74,7 +75,7 @@ public class Lesson
      */
     private void validateAndFormat()
     {
-        LessonValidator.validateMap(this.columns);
+        ValidateActions.validateMap(this.columns);
 
         put("Std", get("Std"));
         put("Datum", get("Datum"));
@@ -97,7 +98,7 @@ public class Lesson
      */
     public int getFirstHour()
     {
-        return LessonFormatter.parseFirstHour(get("Std"));
+        return FormatActions.parseFirstHour(get("Std"));
     }
 
     /**
@@ -107,7 +108,7 @@ public class Lesson
      */
     public int getLastHour()
     {
-        return LessonFormatter.parseLastHour(get("Std"));
+        return FormatActions.parseLastHour(get("Std"));
     }
 
     /**
@@ -135,7 +136,7 @@ public class Lesson
      */
     public void setHours(int first, int last)
     {
-        put("Std", LessonFormatter.hoursToString(first, last));
+        put("Std", FormatActions.hoursToString(first, last));
     }
 
     /**
@@ -167,12 +168,12 @@ public class Lesson
         switch(key)
         {
             case "Datum":
-                LessonValidator.validateDateString(value);
-                columns.put("Datum", LessonFormatter.formatDate(value));
+                ValidateActions.validateDateString(value);
+                columns.put("Datum", FormatActions.formatDate(value));
                 break;
             case "Std":
-                LessonValidator.validateHourString(value);
-                columns.put("Std", LessonFormatter.formatHours(value));
+                ValidateActions.validateHourString(value);
+                columns.put("Std", FormatActions.formatHours(value));
                 break;
             default:
                 columns.put(key, value);
@@ -260,5 +261,141 @@ public class Lesson
         }
 
         return true;
+    }
+
+    public static class ValidateActions
+    {
+        private ValidateActions()
+        {
+        }
+
+        /**
+         * Prüft die Map die zum initialisieren eines Vertretungseintrags verwendet wird.
+         * @param map Die zu prüfende Map
+         */
+        public static void validateMap(Map<String, String> map)
+        {
+            if(!map.containsKey("Std"))
+                throw new IllegalArgumentException("The map does not contain the key 'Std'");
+
+            if(!map.containsKey("Datum"))
+                throw new IllegalArgumentException("The map does not contain the key 'Datum'");
+        }
+
+        /**
+         * Prüft, ob das übergebene Datum richtig formatiert ist.
+         * @param date Das zu prüfende Datum
+         */
+        public static void validateDateString(String date)
+        {
+            if(date == null)
+                throw new IllegalArgumentException("'Std' can not be null");
+
+            if(!Validators.isValidDate(date))
+                throw new IllegalArgumentException("The key 'Datum' with value '" + date + "' is not formatted like 'dd.mm.'");
+        }
+
+        /**
+         * Prüft, ob der übergebene Stunden-String richtig formatiert ist.
+         * @param hour Der zu prüfende Stunden-String
+         */
+        public static void validateHourString(String hour)
+        {
+            if(hour == null)
+                throw new IllegalArgumentException("'Std' can not be null");
+
+            if(!Validators.isValidNumberAndChars(hour, ' ', '-'))
+                throw new IllegalArgumentException("The key 'Std' with value '" + hour + "' has to represent one number or two numbers seperated with a '-'");
+
+            if(hour.contains("-"))
+            {
+                String[] split = hour.split("-");
+                if(split.length > 2)
+                    throw new IllegalArgumentException("The key 'Std' with value '" + hour + "' can not contain more than one '-'");
+
+                if(!Validators.isValidNumberAndChars(split[0], ' ')
+                   || !Validators.isValidNumberAndChars(split[1], ' '))
+                    throw new IllegalArgumentException("The key 'Std' with value '" + hour + "' contains a wrong formatted start or end lesson");
+            }
+        }
+    }
+
+    public static class FormatActions
+    {
+        private FormatActions()
+        {
+        }
+
+        /**
+         * Gibt einen Stunden-String zurück, welcher aus zwei ints zusammengesetzt wurde.
+         * @param first erste Stunde
+         * @param last  letzte Stunde
+         * @return Den Stunden-String aus den beiden Zahlen
+         */
+        public static String hoursToString(int first, int last)
+        {
+            return first == last ? String.valueOf(first) : first + "-" + last;
+        }
+
+        /**
+         * Extrahiert eine Stunde aus dem Stunden-String.
+         * @param first       Gibt an on die erste oder letzte Stunde zurückgegeben werden soll
+         * @param hoursString Der Stunden-String
+         * @return Das erste oder letzte Datum aus dem Stunden-String
+         */
+        protected static int parseHour(boolean first, String hoursString)
+        {
+            if(!hoursString.contains("-"))
+                return Integer.parseInt(hoursString);
+
+            String[] lessons = hoursString.replaceAll(" ", "").split("-");
+            return Integer.parseInt(lessons[first ? 0 : 1]);
+        }
+
+        /**
+         * Extrahiert die erste Stunde aus dem Stunden-String.
+         * @param hoursString Der Stunden-String
+         * @return Die erste Stunde oder die einzige Stunde, die von diesem Stunden-String reprÃ€sentiert wird
+         */
+        public static int parseFirstHour(String hoursString)
+        {
+            return parseHour(true, hoursString);
+        }
+
+        /**
+         * Extrahiert die letzte Stunde aus dem Stunden-String.
+         * @param hoursString Der Stunden-String
+         * @return Die letzte Stunde oder die einzige Stunde, die von diesem Stunden-String reprÃ€sentiert wird
+         */
+        public static int parseLastHour(String hoursString)
+        {
+            return parseHour(false, hoursString);
+        }
+
+        /**
+         * Formatiert das Datum. Dieses Datum muss jedoch von <code>LessonValidator.validateDateString</code> akzeptiert werden
+         * @param date Das unformatierte Datum
+         * @return Das formatierte Datum
+         */
+        public static String formatDate(String date)
+        {
+            return date;
+        }
+
+        /**
+         * Formatiert den Stunden-String. Dieser muss jedoch von <code>LessonValidator.validateHourString</code> akzeptiert werden
+         * @param hoursString Der unformatierte Stunden-String
+         * @return Der formatierte Stunden-String
+         */
+        public static String formatHours(String hoursString)
+        {
+            int first = parseFirstHour(hoursString);
+            int last = parseLastHour(hoursString);
+
+            if(last == first)
+                return String.valueOf(first);
+
+            return last > first ? first + "-" + last : last + "-" + first;
+        }
     }
 }

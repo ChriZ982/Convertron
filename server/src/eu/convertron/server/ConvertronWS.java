@@ -2,11 +2,10 @@ package eu.convertron.server;
 
 import eu.convertron.applib.ChangeSet;
 import eu.convertron.applib.CsvLessonSerializer;
+import eu.convertron.interlib.Lesson;
+import eu.convertron.interlib.TableOptions;
 import eu.convertron.interlib.config.Configuration;
 import eu.convertron.interlib.config.ConfigurationListener;
-import eu.convertron.interlib.Lesson;
-import eu.convertron.interlib.LessonValidator;
-import eu.convertron.interlib.TableOptions;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import java.util.HashMap;
@@ -28,7 +27,7 @@ public class ConvertronWS
     @WebMethod
     public String getAllLessonsForDate(String date)
     {
-        LessonValidator.validateDateString(date);
+        Lesson.ValidateActions.validateDateString(date);
         Lesson[] lessons = TableOptions.getInstance().onlyDate(control.getData(), date);
         return new CsvLessonSerializer().serializeMultiple(lessons);
     }

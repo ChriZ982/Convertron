@@ -3,6 +3,8 @@ package eu.convertron.core.tabs;
 import eu.convertron.core.ModuleManager;
 import eu.convertron.interlib.interfaces.Module;
 import eu.convertron.interlib.interfaces.View;
+import eu.convertron.interlib.logging.LogPriority;
+import eu.convertron.interlib.logging.Logger;
 import java.util.ArrayList;
 
 /**
@@ -55,7 +57,24 @@ public class ModuleControl
 
         for(Module module : modules)
         {
-            View moduleView = module == null ? null : module.getView();
+            View moduleView = null;
+            try
+            {
+                moduleView = module.getView();
+            }
+            catch(Throwable t)
+            {
+                String moduleName = "!Fehler beim Lesen des Modulnamens!";
+                try
+                {
+                    moduleName = module.getName();
+                }
+                catch(Throwable t2)
+                {
+                }
+                Logger.logError(LogPriority.WARNING, "Laden der Benutzeroberfläche des Modules " + moduleName + " fehlgeschlagen. "
+                                                     + "Unter Umständen wird das Modul nicht funktionieren.", t);
+            }
             if(moduleView != null && !result.contains(moduleView))
                 result.add(moduleView);
         }
