@@ -1,6 +1,6 @@
 package eu.convertron.applib.gui;
 
-import eu.convertron.interlib.interfaces.Module;
+import eu.convertron.applib.modules.LoadedModule;
 import java.awt.Component;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
@@ -13,8 +13,8 @@ public class ModuleListRenderer extends DefaultListCellRenderer
     {
         Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
-        if(value != null)
-            setText(((Module)value).getName());
+        if(value != null && value instanceof LoadedModule)
+            setText(((LoadedModule)value).getName());
 
         return c;
     }

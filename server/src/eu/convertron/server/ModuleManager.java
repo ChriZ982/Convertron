@@ -1,10 +1,11 @@
 package eu.convertron.server;
 
 import eu.convertron.applib.modules.ClassLocation;
+import eu.convertron.applib.modules.LoadedModule;
 import eu.convertron.applib.modules.ModuleConfigurationProvider;
 import eu.convertron.applib.modules.ModuleLoader;
 import eu.convertron.interlib.Lesson;
-import eu.convertron.interlib.interfaces.Output;
+import eu.convertron.interlib.config.LoadingContext;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import java.net.MalformedURLException;
@@ -12,26 +13,26 @@ import java.util.ArrayList;
 
 public class ModuleManager
 {
-    private final ArrayList<Output> modules;
+    private final ArrayList<LoadedModule> modules;
 
-    private final ModuleLoader<Output> loader;
+    private final ModuleLoader loader;
 
     public ModuleManager(ModuleConfigurationProvider provider)
     {
-        loader = new ModuleLoader<>(Output.class, provider);
-        modules = loader.loadAll(loadLocations());
+        loader = new ModuleLoader(eu.convertron.interlib.interfaces.Output.class, provider);
+        modules = loader.loadAll(loadLocations(), new LoadingContext(LoadingContext.Purpose.Excecution, LoadingContext.Location.Server));
     }
 
     public void export(Lesson[] lessons, String motd)
     {
-        for(Output out : modules)
+        for(LoadedModule out : modules)
         {
             exportSingle(out, lessons, motd);
         }
         Logger.logMessage(LogPriority.HINT, "Export abgeschlossen");
     }
 
-    private void exportSingle(Output out, Lesson[] lessons, String motd)
+    private void exportSingle(LoadedModule out, Lesson[] lessons, String motd)
     {
         try
         {

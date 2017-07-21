@@ -1,7 +1,7 @@
 package eu.convertron.core.tabs;
 
+import eu.convertron.applib.modules.LoadedModule;
 import eu.convertron.core.ModuleManager;
-import eu.convertron.interlib.interfaces.Module;
 import eu.convertron.interlib.interfaces.View;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
@@ -51,11 +51,11 @@ public class ModuleControl
     {
         ArrayList<View> result = new ArrayList<>();
 
-        ArrayList<Module> modules = new ArrayList<>();
+        ArrayList<LoadedModule> modules = new ArrayList<>();
         modules.addAll(moduleManager.getAllInputs());
         modules.addAll(moduleManager.getAllOutputs());
 
-        for(Module module : modules)
+        for(LoadedModule module : modules)
         {
             View moduleView = null;
             try

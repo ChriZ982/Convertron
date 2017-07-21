@@ -7,8 +7,9 @@ import eu.convertron.interlib.TableOptions;
 import eu.convertron.interlib.config.ConfigurationSource;
 import eu.convertron.interlib.config.GeneralConfigFile;
 import eu.convertron.interlib.config.IniConfigFile;
+import eu.convertron.interlib.config.LoadingContext;
 import eu.convertron.interlib.config.ModuleConfiguration;
-import eu.convertron.interlib.interfaces.Configurable;
+import eu.convertron.interlib.config.ModuleInitializationResult;
 import eu.convertron.interlib.interfaces.Output;
 import eu.convertron.interlib.interfaces.View;
 import eu.convertron.interlib.io.TextFile;
@@ -31,7 +32,7 @@ import java.util.TreeSet;
 /**
  * Generiert die HTML-Dateien.
  */
-public class HtmlOut implements Output, Configurable
+public class HtmlOut implements Output
 {
     public final static String TARGETS = "targets";
 
@@ -51,7 +52,7 @@ public class HtmlOut implements Output, Configurable
     }
 
     @Override
-    public void setConfiguration(ModuleConfiguration moduleconfig)
+    public ModuleInitializationResult init(ModuleConfiguration moduleconfig, LoadingContext context)
     {
         this.globalConfig = moduleconfig.global;
         this.globalSettings = new IniConfigFile(globalConfig, "htmlout.cfg", Resources.file("htmlout.cfg"));
@@ -67,6 +68,18 @@ public class HtmlOut implements Output, Configurable
             this.designPanel = new DesignPanel(designXml);
             this.customDesignPanel = new CustomDesignPanel(designXml);
         });
+
+        return new ModuleInitializationResult(getView(), "HTML Export V1.0");
+    }
+
+    public View getView()
+    {
+        if(columnSelectPanel == null || designPanel == null || customDesignPanel == null)
+        {
+            Logger.logMessage(LogPriority.ERROR, "Das HtmlOut Modul wurde noch nicht richtig initialisiert");
+            return null;
+        }
+        return new SubTabView("HTML Export", settingPanel, columnSelectPanel, designPanel, customDesignPanel);
     }
 
     //TEMP
@@ -283,22 +296,5 @@ public class HtmlOut implements Output, Configurable
         {
             Logger.logError(LogPriority.WARNING, "Konnte eine Html Resource nicht kopieren (" + name + " nach " + folder + ")", ex);
         }
-    }
-
-    @Override
-    public View getView()
-    {
-        if(columnSelectPanel == null || designPanel == null || customDesignPanel == null)
-        {
-            Logger.logMessage(LogPriority.ERROR, "Das HtmlOut Modul wurde noch nicht richtig initialisiert");
-            return null;
-        }
-        return new SubTabView("HTML Export", settingPanel, columnSelectPanel, designPanel, customDesignPanel);
-    }
-
-    @Override
-    public String getName()
-    {
-        return "HTML Export V1.0";
     }
 }

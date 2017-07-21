@@ -1,8 +1,7 @@
 package eu.convertron.core.tabs;
 
 import eu.convertron.applib.gui.ModuleListRenderer;
-import eu.convertron.interlib.interfaces.Input;
-import eu.convertron.interlib.interfaces.Output;
+import eu.convertron.applib.modules.LoadedModule;
 import eu.convertron.interlib.interfaces.View;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -15,31 +14,31 @@ import javax.swing.DefaultListModel;
 @SuppressWarnings("serial")
 public class ModuleView extends View
 {
-    private DefaultListModel<Output> activeOutputModulesListModel;
-    private DefaultListModel<Output> availableOutputModulesListModel;
-    private DefaultComboBoxModel<Input> availableInputModulesComboModel;
+    private DefaultListModel<LoadedModule> activeOutputModulesListModel;
+    private DefaultListModel<LoadedModule> availableOutputModulesListModel;
+    private DefaultComboBoxModel<LoadedModule> availableInputModulesComboModel;
 
-    public ModuleView(Collection<Output> allOutputs, Collection<Output> activeOutputs, Collection<Input> allInputs, Input activeInput)
+    public ModuleView(Collection<LoadedModule> allOutputs, Collection<LoadedModule> activeOutputs, Collection<LoadedModule> allInputs, LoadedModule activeInput)
     {
         invokeAndWait(()
                 ->
-                {
-                    ArrayList<Output> availableOutputs = new ArrayList<>(allOutputs);
-                    availableOutputs.removeAll(activeOutputs);
-                    activeOutputModulesListModel = new DefaultListModel<>();
-                    availableOutputModulesListModel = new DefaultListModel<>();
-                    addElementsToModel(activeOutputModulesListModel, activeOutputs);
-                    addElementsToModel(availableOutputModulesListModel, availableOutputs);
+        {
+            ArrayList<LoadedModule> availableOutputs = new ArrayList<>(allOutputs);
+            availableOutputs.removeAll(activeOutputs);
+            activeOutputModulesListModel = new DefaultListModel<>();
+            availableOutputModulesListModel = new DefaultListModel<>();
+            addElementsToModel(activeOutputModulesListModel, activeOutputs);
+            addElementsToModel(availableOutputModulesListModel, availableOutputs);
 
-                    availableInputModulesComboModel = new DefaultComboBoxModel<>();
-                    addElementsToModel(availableInputModulesComboModel, allInputs);
-                    availableInputModulesComboModel.setSelectedItem(activeInput);
+            availableInputModulesComboModel = new DefaultComboBoxModel<>();
+            addElementsToModel(availableInputModulesComboModel, allInputs);
+            availableInputModulesComboModel.setSelectedItem(activeInput);
 
-                    initComponents();
+            initComponents();
 
-                    activeOutputModulesList.setCellRenderer(new ModuleListRenderer());
-                    availableOutputModulesList.setCellRenderer(new ModuleListRenderer());
-                    activeInputModuleComboBox.setRenderer(new ModuleListRenderer());
+            activeOutputModulesList.setCellRenderer(new ModuleListRenderer());
+            availableOutputModulesList.setCellRenderer(new ModuleListRenderer());
+            activeInputModuleComboBox.setRenderer(new ModuleListRenderer());
         });
     }
 
@@ -157,8 +156,8 @@ public class ModuleView extends View
 
     private void deactivateButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deactivateButtonActionPerformed
     {//GEN-HEADEREND:event_deactivateButtonActionPerformed
-        List<Output> selected = activeOutputModulesList.getSelectedValuesList();
-        for(Output out : selected)
+        List<LoadedModule> selected = activeOutputModulesList.getSelectedValuesList();
+        for(LoadedModule out : selected)
         {
             availableOutputModulesListModel.addElement(out);
             activeOutputModulesListModel.removeElement(out);
@@ -167,8 +166,8 @@ public class ModuleView extends View
 
     private void activateButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_activateButtonActionPerformed
     {//GEN-HEADEREND:event_activateButtonActionPerformed
-        List<Output> selected = availableOutputModulesList.getSelectedValuesList();
-        for(Output out : selected)
+        List<LoadedModule> selected = availableOutputModulesList.getSelectedValuesList();
+        for(LoadedModule out : selected)
         {
             activeOutputModulesListModel.addElement(out);
             availableOutputModulesListModel.removeElement(out);
@@ -180,14 +179,14 @@ public class ModuleView extends View
         saveButton.addActionListener((ActionEvent e) -> task.run());
     }
 
-    public ArrayList<Output> getActiveOutputModules()
+    public ArrayList<LoadedModule> getActiveOutputModules()
     {
         return new ArrayList<>(Collections.list(activeOutputModulesListModel.elements()));
     }
 
-    public Input getActiveInputModule()
+    public LoadedModule getActiveInputModule()
     {
-        return (Input)availableInputModulesComboModel.getSelectedItem();
+        return (LoadedModule)availableInputModulesComboModel.getSelectedItem();
     }
 
     @Override
@@ -214,13 +213,13 @@ public class ModuleView extends View
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton activateButton;
-    private javax.swing.JComboBox<Input> activeInputModuleComboBox;
+    private javax.swing.JComboBox<LoadedModule> activeInputModuleComboBox;
     private javax.swing.JLabel activeInputModuleLabel;
     private javax.swing.JLabel activeOutputModulesLabel;
-    private javax.swing.JList<Output> activeOutputModulesList;
+    private javax.swing.JList<LoadedModule> activeOutputModulesList;
     private javax.swing.JScrollPane activeOutputModulesScrollPane;
     private javax.swing.JLabel availableOutputModulesLabel;
-    private javax.swing.JList<Output> availableOutputModulesList;
+    private javax.swing.JList<LoadedModule> availableOutputModulesList;
     private javax.swing.JScrollPane availableOutputModulesScrollPane;
     private javax.swing.JButton deactivateButton;
     private javax.swing.JSeparator jSeparator1;

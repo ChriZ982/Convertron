@@ -1,11 +1,13 @@
 package eu.convertron.applib.modules;
 
+import eu.convertron.applib.settings.Settings;
+import eu.convertron.interlib.config.LoadingContext;
+import eu.convertron.interlib.config.ModuleConfiguration;
+import eu.convertron.interlib.config.ModuleInitializationResult;
 import eu.convertron.interlib.interfaces.Input;
 import eu.convertron.interlib.interfaces.Module;
 import eu.convertron.interlib.interfaces.Output;
-import eu.convertron.interlib.interfaces.View;
 import eu.convertron.interlib.io.TextFile;
-import eu.convertron.applib.settings.Settings;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -40,7 +42,7 @@ public class ModuleLoaderTest
     {
         System.out.println("getAvailableModules");
         File jarFile = new File("test/testRessources/TestModules.jar");
-        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class, null);
+        ModuleLoader instance = new ModuleLoader(Module.class, null);
         ClassLocation[] expResult =
         {
             new ClassLocation(jarFile, "testmodules.main.ModuleI"),
@@ -62,9 +64,9 @@ public class ModuleLoaderTest
         System.out.println("loadClass");
         ClassLocation loc = new ClassLocation(new File("test/testRessources/TestModules.jar"), "testmodules.main.ModuleIO");
 
-        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class, null);
+        ModuleLoader instance = new ModuleLoader(Module.class, null);
 
-        Module m = instance.loadModule(loc);
+        LoadedModule m = instance.loadModule(loc, null);
 
         assertEquals("testmodules.main.ModuleIO", m.getClass().getName());
         assertTrue(m instanceof Input);
@@ -79,7 +81,7 @@ public class ModuleLoaderTest
     {
         System.out.println("parseClassName");
 
-        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class, null);
+        ModuleLoader instance = new ModuleLoader(Module.class, null);
 
         String jarEntryName = "package/anotherpackage/testclass.class";
         String expResult = "package.anotherpackage.testclass";
@@ -95,7 +97,7 @@ public class ModuleLoaderTest
     {
         System.out.println("validateJarEntryAsClass");
 
-        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class, null);
+        ModuleLoader instance = new ModuleLoader(Module.class, null);
 
         JarEntry e = new JarEntry("package/classname.class");
         boolean expResult = true;
@@ -111,7 +113,7 @@ public class ModuleLoaderTest
     {
         System.out.println("validateJarEntryAsClass");
 
-        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class, null);
+        ModuleLoader instance = new ModuleLoader(Module.class, null);
 
         JarEntry e = new JarEntry("package/classname.notclass");
         boolean expResult = false;
@@ -127,21 +129,16 @@ public class ModuleLoaderTest
     {
         System.out.println("isModule");
 
-        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class, null);
+        ModuleLoader instance = new ModuleLoader(Module.class, null);
 
         Class<?> c = new eu.convertron.interlib.interfaces.Module()
         {
             @Override
-            public String getName()
+            public ModuleInitializationResult init(ModuleConfiguration config, LoadingContext context)
             {
-                throw new RuntimeException("Dummy here");
+                throw new UnsupportedOperationException("DUMMY.");
             }
 
-            @Override
-            public View getView()
-            {
-                throw new RuntimeException("Dummy here");
-            }
         }.getClass();
         boolean expResult = true;
         boolean result = instance.isModule(c);
@@ -156,32 +153,9 @@ public class ModuleLoaderTest
     {
         System.out.println("isModule");
 
-        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class, null);
+        ModuleLoader instance = new ModuleLoader(Module.class, null);
 
         Class<?> c = Object.class;
-        boolean expResult = false;
-        boolean result = instance.isModule(c);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of isModule method, of class ModuleLoader.
-     */
-    @Test
-    public void testIsModule3()
-    {
-        class Module
-        {
-            public void doSomething()
-            {
-            }
-        }
-
-        System.out.println("isModule");
-
-        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class, null);
-
-        Class<?> c = Module.class;
         boolean expResult = false;
         boolean result = instance.isModule(c);
         assertEquals(expResult, result);
@@ -194,7 +168,7 @@ public class ModuleLoaderTest
     {
         System.out.println("isModule");
 
-        ModuleLoader<Module> instance = new ModuleLoader<>(Module.class, null);
+        ModuleLoader instance = new ModuleLoader(Module.class, null);
 
         Class<?> c = null;
         boolean expResult = false;

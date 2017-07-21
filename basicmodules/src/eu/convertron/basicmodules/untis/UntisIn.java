@@ -3,10 +3,10 @@ package eu.convertron.basicmodules.untis;
 import eu.convertron.basicmodules.Resources;
 import eu.convertron.interlib.Lesson;
 import eu.convertron.interlib.config.IniConfigFile;
+import eu.convertron.interlib.config.LoadingContext;
 import eu.convertron.interlib.config.ModuleConfiguration;
-import eu.convertron.interlib.interfaces.Configurable;
+import eu.convertron.interlib.config.ModuleInitializationResult;
 import eu.convertron.interlib.interfaces.Input;
-import eu.convertron.interlib.interfaces.View;
 import eu.convertron.interlib.io.Folder;
 import eu.convertron.interlib.io.TextFile;
 import eu.convertron.interlib.logging.LogPriority;
@@ -20,7 +20,7 @@ import java.util.TreeMap;
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 
-public class UntisIn implements Input, Configurable
+public class UntisIn implements Input
 {
     private IniConfigFile configFile;
 
@@ -34,21 +34,10 @@ public class UntisIn implements Input, Configurable
     public static final String PATTERN_CLASS = "patternClass";
 
     @Override
-    public void setConfiguration(ModuleConfiguration config)
+    public ModuleInitializationResult init(ModuleConfiguration moduleconfig, LoadingContext context)
     {
-        this.configFile = new IniConfigFile(config.local, "untisinlocal.cfg", Resources.file("untisinlocal.cfg"));
-    }
-
-    @Override
-    public String getName()
-    {
-        return "Untis Import V1.0";
-    }
-
-    @Override
-    public View getView()
-    {
-        return new UntisInView(configFile);
+        this.configFile = new IniConfigFile(moduleconfig.local, "untisinlocal.cfg", Resources.file("untisinlocal.cfg"));
+        return new ModuleInitializationResult(new UntisInView(configFile), "Untis Import V1.0");
     }
 
     @Override

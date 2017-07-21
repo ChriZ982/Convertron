@@ -1,13 +1,13 @@
 package eu.convertron.core;
 
 import eu.convertron.applib.modules.ClassLocation;
+import eu.convertron.applib.modules.LoadedModule;
+import eu.convertron.applib.modules.ModuleConfigurationProvider;
 import eu.convertron.applib.modules.ModuleLoader;
 import eu.convertron.interlib.DefaultTableOptions;
 import eu.convertron.interlib.Lesson;
 import eu.convertron.interlib.TableOptions;
-import eu.convertron.interlib.interfaces.Input;
-import eu.convertron.interlib.interfaces.Module;
-import eu.convertron.interlib.interfaces.Output;
+import eu.convertron.interlib.config.LoadingContext;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import java.io.File;
@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import eu.convertron.applib.modules.ModuleConfigurationProvider;
 
 /**
  *
@@ -25,12 +24,12 @@ public class ModuleManager
 {
     private final ArrayList<ClassLocation> locationOfImportedModules;
 
-    private final ArrayList<Output> allOutputs;
-    private final ArrayList<Output> activeOutputs;
-    private final ArrayList<Input> allInputs;
-    private Input activeInput;
+    private final ArrayList<LoadedModule> allOutputs;
+    private final ArrayList<LoadedModule> activeOutputs;
+    private final ArrayList<LoadedModule> allInputs;
+    private LoadedModule activeInput;
 
-    private final ModuleLoader<Module> loader;
+    private final ModuleLoader loader;
 
     public ModuleManager(ModuleConfigurationProvider provider)
     {
@@ -43,16 +42,20 @@ public class ModuleManager
         allInputs = new ArrayList<>();
         activeInput = null;
 
-        loader = new ModuleLoader<>(Module.class, provider);
+        loader = new ModuleLoader(eu.convertron.interlib.interfaces.Module.class, provider);
 
-        List<Module> modules = loader.loadAll(locationOfImportedModules);
+        LoadingContext context = new LoadingContext(LoadingContext.Purpose.Excecution,
+                                                    CoreSettings.useRemote.isTrue()
+                                                    ? LoadingContext.Location.Client_Remote_Mode
+                                                    : LoadingContext.Location.Client_Standalone_Mode);
+        List<LoadedModule> modules = loader.loadAll(locationOfImportedModules, context);
 
-        for(Module module : modules)
+        for(LoadedModule module : modules)
         {
-            if(module instanceof Output)
-                allOutputs.add((Output)module);
-            if(module instanceof Input)
-                allInputs.add((Input)module);
+            if(module.isOutput())
+                allOutputs.add(module);
+            if(module.isInput())
+                allInputs.add(module);
         }
 
         loadActive();
@@ -102,7 +105,7 @@ public class ModuleManager
 
     public void exportLessons(Lesson[] types)
     {
-        for(Output out : activeOutputs)
+        for(LoadedModule out : activeOutputs)
         {
             try
             {
@@ -123,7 +126,7 @@ public class ModuleManager
 
     public void exportMotd(String motd)
     {
-        for(Output out : activeOutputs)
+        for(LoadedModule out : activeOutputs)
         {
             try
             {
@@ -138,7 +141,7 @@ public class ModuleManager
         }
     }
 
-    private String getModuleName(Module m)
+    private String getModuleName(LoadedModule m)
     {
         return m == null ? "null" : m.getName();
     }
@@ -190,55 +193,45 @@ public class ModuleManager
         String[] fromSaving = CoreArraySettings.activeOutputs.loadArray();
         for(String className : fromSaving)
         {
-            Module m = fromSaving(className);
-            if(m != null && m instanceof Output)
-                activeOutputs.add((Output)m);
+            LoadedModule m = fromSaving(className);
+            if(m != null && m.isOutput())
+                activeOutputs.add(m);
         }
 
         activeInput = null;
-        Module m = fromSaving(CoreSettings.activeInput.load());
+        LoadedModule m = fromSaving(CoreSettings.activeInput.load());
 
-        if(m != null && m instanceof Input)
-            activeInput = (Input)m;
+        if(m != null && m.isInput())
+            activeInput = m;
     }
 
-    protected String forSaving(Object module)
+    protected String forSaving(LoadedModule module)
     {
-        if(module instanceof Module)
-            return module.getClass().getName();
-        return null;
+        return module.getModuleClassName();
     }
 
-    protected Module fromSaving(String className)
+    protected LoadedModule fromSaving(String className)
     {
         if(className == null || className.isEmpty())
             return null;
 
-        Module module = getModuleByNameFromList(allInputs, className);
+        LoadedModule module = getModuleByNameFromList(allInputs, className);
         if(module == null)
             module = getModuleByNameFromList(allOutputs, className);
 
         return module;
     }
 
-    protected Module getModuleByNameFromList(ArrayList<?> list, String className)
+    protected LoadedModule getModuleByNameFromList(ArrayList<LoadedModule> list, String className)
     {
-        Module module = null;
-
-        for(Object o : list)
+        for(LoadedModule m : list)
         {
-            if(o instanceof Module)
+            if(m.getModuleClassName().equals(className))
             {
-                Module current = (Module)o;
-                if(current.getClass().getName().equals(className))
-                {
-                    module = current;
-                    break;
-                }
+                return m;
             }
         }
-
-        return module;
+        return null;
     }
 
     public ArrayList<ClassLocation> getLocationOfImportedModules()
@@ -254,17 +247,17 @@ public class ModuleManager
         saveLocations();
     }
 
-    public ArrayList<Output> getAllOutputs()
+    public ArrayList<LoadedModule> getAllOutputs()
     {
         return allOutputs;
     }
 
-    public ArrayList<Output> getActiveOutputs()
+    public ArrayList<LoadedModule> getActiveOutputs()
     {
         return activeOutputs;
     }
 
-    public void updateActiveOutputs(Collection<Output> active)
+    public void updateActiveOutputs(Collection<LoadedModule> active)
     {
         activeOutputs.clear();
         activeOutputs.addAll(active);
@@ -272,17 +265,17 @@ public class ModuleManager
         saveActiveOutputs();
     }
 
-    public ArrayList<Input> getAllInputs()
+    public ArrayList<LoadedModule> getAllInputs()
     {
         return allInputs;
     }
 
-    public Input getActiveInput()
+    public LoadedModule getActiveInput()
     {
         return activeInput;
     }
 
-    public void updateActiveInput(Input active)
+    public void updateActiveInput(LoadedModule active)
     {
         this.activeInput = active;
 

@@ -1,6 +1,9 @@
 package eu.convertron.applib.modules;
 
-import eu.convertron.interlib.interfaces.Configurable;
+import eu.convertron.interlib.config.LoadingContext;
+import eu.convertron.interlib.config.ModuleConfiguration;
+import eu.convertron.interlib.config.ModuleInitializationResult;
+import eu.convertron.interlib.interfaces.Module;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import java.io.File;
@@ -13,33 +16,33 @@ import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-public class ModuleLoader<T>
+public class ModuleLoader
 {
-    private final Class<T> moduleClass;
+    private final Class<? extends Module> moduleClass;
     private final ModuleConfigurationProvider provider;
 
-    public ModuleLoader(Class<T> moduleClass, ModuleConfigurationProvider provider)
+    public ModuleLoader(Class<? extends Module> moduleClass, ModuleConfigurationProvider provider)
     {
         this.moduleClass = moduleClass;
         this.provider = provider;
     }
 
-    public ArrayList<T> loadAll(Collection<ClassLocation> locations)
+    public ArrayList<LoadedModule> loadAll(Collection<ClassLocation> locations, LoadingContext context)
     {
-        ArrayList<T> modules = new ArrayList<>();
+        ArrayList<LoadedModule> loadedModules = new ArrayList<>();
 
         for(ClassLocation loc : locations)
         {
             try
             {
-                modules.add(loadModule(loc));
+                loadedModules.add(loadModule(loc, context));
             }
             catch(RuntimeException ex)
             {
                 Logger.logError(LogPriority.WARNING, "Laden des Modules der Klasse '" + loc.toString() + "' fehlgeschlagen", ex);
             }
         }
-        return modules;
+        return loadedModules;
     }
 
     public ArrayList<ClassLocation> getAvailableModules(File jarFile) throws IOException
@@ -74,14 +77,12 @@ public class ModuleLoader<T>
         return moduleClasses;
     }
 
-    @SuppressWarnings("unchecked")
-    public T loadModule(ClassLocation location)
+    public LoadedModule loadModule(ClassLocation location, LoadingContext context)
     {
+        Module instance;
         try
         {
-            T instance = (T)loadClass(location).newInstance();
-            configureModule(instance);
-            return instance;
+            instance = (Module)loadClass(location).newInstance();
         }
         catch(ClassCastException ex)
         {
@@ -95,34 +96,23 @@ public class ModuleLoader<T>
         {
             throw new RuntimeException("Failed to load Module" + location.forSaving(), t);
         }
-    }
 
-    protected void configureModule(T module)
-    {
-        if(module == null)
-            throw new IllegalArgumentException();
-
+        ModuleInitializationResult result;
+        ModuleConfiguration config;
         try
         {
-            if(module instanceof Configurable)
-            {
-                if(provider == null)
-                    Logger.logMessage(LogPriority.WARNING, "Kein Konfigurationprovider um " + module.getClass().getName() + " zu konfigurieren");
-                else
-                {
-                    ((Configurable)module).setConfiguration(provider.provideConfig(module.getClass()));
-                    Logger.logMessage(LogPriority.HINT, "Modul " + module.getClass().getName() + " geladen und konfiguriert");
-                }
-            }
-            else
-            {
-                Logger.logMessage(LogPriority.HINT, "Modul " + module.getClass().getName() + " geladen");
-            }
+            config = provider.provideConfig(instance.getClass());
+            result = instance.init(config, context);
+            Logger.logMessage(LogPriority.HINT, "Modul " + instance.getClass().getName() + " geladen und konfiguriert");
         }
-        catch(Exception ex)
+        catch(Throwable t)
         {
-            Logger.logError(LogPriority.WARNING, "Konnte Modul " + module.getClass().getName() + " nicht konfigurieren.", ex);
+            throw new RuntimeException("Exception while initializing Module "
+                                       + (instance != null ? instance.getClass() : "null")
+                                       + " at location " + location.forSaving());
         }
+
+        return new LoadedModule(location, result, instance, context, config);
     }
 
     protected Class<?> loadClass(ClassLocation location)

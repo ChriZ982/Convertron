@@ -2,7 +2,6 @@ package eu.convertron.interlib;
 
 import eu.convertron.interlib.config.IniConfigFile;
 import eu.convertron.interlib.config.ModuleConfiguration;
-import eu.convertron.interlib.interfaces.Configurable;
 import eu.convertron.interlib.util.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +14,7 @@ import java.util.TreeMap;
  * Diese Klasse stellt verschiedene Möglichkeiten zur Verfügung, um das Stunden-Array zu formatieren.
  * Dabei wird das als Parameter gefordete Stunden-Array 'source' oder die Objekte, die darin enthalten sind NICHT VERÄNDERT.
  */
-public class TableOptions implements Configurable
+public class TableOptions
 {
     public static final String TABLEOPTIONS_CONFIGFILE = "tableoptions.cfg";
 
@@ -351,7 +350,6 @@ public class TableOptions implements Configurable
         return configFile.load(TableOptionsConfig.customDateTomorrow.toString());
     }
 
-    @Override
     public void setConfiguration(ModuleConfiguration config)
     {
         configFile = new IniConfigFile(config.global, TABLEOPTIONS_CONFIGFILE);
