@@ -16,9 +16,9 @@ import java.util.jar.JarFile;
 public class ModuleLoader<T>
 {
     private final Class<T> moduleClass;
-    private final ConfigurationProvider provider;
+    private final ModuleConfigurationProvider provider;
 
-    public ModuleLoader(Class<T> moduleClass, ConfigurationProvider provider)
+    public ModuleLoader(Class<T> moduleClass, ModuleConfigurationProvider provider)
     {
         this.moduleClass = moduleClass;
         this.provider = provider;
@@ -110,7 +110,7 @@ public class ModuleLoader<T>
                     Logger.logMessage(LogPriority.WARNING, "Kein Konfigurationprovider um " + module.getClass().getName() + " zu konfigurieren");
                 else
                 {
-                    ((Configurable)module).setConfiguration(provider.getOrCreateConfiguration(module.getClass()));
+                    ((Configurable)module).setConfiguration(provider.provideConfig(module.getClass()));
                     Logger.logMessage(LogPriority.HINT, "Modul " + module.getClass().getName() + " geladen und konfiguriert");
                 }
             }

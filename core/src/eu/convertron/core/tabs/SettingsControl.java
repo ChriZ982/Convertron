@@ -1,6 +1,6 @@
 package eu.convertron.core.tabs;
 
-import eu.convertron.interlib.config.Configuration;
+import eu.convertron.interlib.config.ConfigurationSource;
 import eu.convertron.interlib.config.IniConfigFile;
 import eu.convertron.interlib.config.SingleConfigurationListener;
 import eu.convertron.interlib.util.GuiBridge;
@@ -13,7 +13,7 @@ public class SettingsControl
 
     private final IniConfigFile iniConfig;
 
-    public SettingsControl(Configuration config)
+    public SettingsControl(ConfigurationSource config)
     {
         iniConfig = new IniConfigFile(config, TABLEOPTIONS_CONFIGFILE, false);
         view = new SettingsView(iniConfig);

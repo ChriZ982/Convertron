@@ -1,7 +1,7 @@
 package eu.convertron.interlib;
 
-import eu.convertron.interlib.config.Configuration;
 import eu.convertron.interlib.config.IniConfigFile;
+import eu.convertron.interlib.config.ModuleConfiguration;
 import eu.convertron.interlib.interfaces.Configurable;
 import eu.convertron.interlib.util.Time;
 import java.util.ArrayList;
@@ -352,9 +352,9 @@ public class TableOptions implements Configurable
     }
 
     @Override
-    public void setConfiguration(Configuration config)
+    public void setConfiguration(ModuleConfiguration config)
     {
-        configFile = new IniConfigFile(config, TABLEOPTIONS_CONFIGFILE);
+        configFile = new IniConfigFile(config.global, TABLEOPTIONS_CONFIGFILE);
         configFile.loadDefaultsFromResource("/eu/convertron/interlib/res/tableoptions.cfg", getClass());
     }
 

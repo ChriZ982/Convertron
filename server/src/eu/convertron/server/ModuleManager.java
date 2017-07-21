@@ -1,7 +1,7 @@
 package eu.convertron.server;
 
 import eu.convertron.applib.modules.ClassLocation;
-import eu.convertron.applib.modules.ConfigurationProvider;
+import eu.convertron.applib.modules.ModuleConfigurationProvider;
 import eu.convertron.applib.modules.ModuleLoader;
 import eu.convertron.interlib.Lesson;
 import eu.convertron.interlib.interfaces.Output;
@@ -16,7 +16,7 @@ public class ModuleManager
 
     private final ModuleLoader<Output> loader;
 
-    public ModuleManager(ConfigurationProvider provider)
+    public ModuleManager(ModuleConfigurationProvider provider)
     {
         loader = new ModuleLoader<>(Output.class, provider);
         modules = loader.loadAll(loadLocations());

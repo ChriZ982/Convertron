@@ -11,7 +11,7 @@ public class SingleConfigurationListener implements ConfigurationListener
     private ArrayList<ConfigFileListener> listeners;
     private String configFile;
 
-    public SingleConfigurationListener(Configuration config, String configFile, ConfigFileListener... ls)
+    public SingleConfigurationListener(ConfigurationSource config, String configFile, ConfigFileListener... ls)
     {
         this(configFile, ls);
         config.addConfigListener(this);

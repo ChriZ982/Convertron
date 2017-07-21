@@ -1,10 +1,9 @@
 package eu.convertron.core;
 
 import eu.convertron.applib.modules.ClassLocation;
-import eu.convertron.applib.modules.ConfigurationProvider;
 import eu.convertron.applib.modules.ModuleLoader;
-import eu.convertron.interlib.Lesson;
 import eu.convertron.interlib.DefaultTableOptions;
+import eu.convertron.interlib.Lesson;
 import eu.convertron.interlib.TableOptions;
 import eu.convertron.interlib.interfaces.Input;
 import eu.convertron.interlib.interfaces.Module;
@@ -16,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import eu.convertron.applib.modules.ModuleConfigurationProvider;
 
 /**
  *
@@ -32,7 +32,7 @@ public class ModuleManager
 
     private final ModuleLoader<Module> loader;
 
-    public ModuleManager(ConfigurationProvider provider)
+    public ModuleManager(ModuleConfigurationProvider provider)
     {
         locationOfImportedModules = new ArrayList<>();
         loadLocations();

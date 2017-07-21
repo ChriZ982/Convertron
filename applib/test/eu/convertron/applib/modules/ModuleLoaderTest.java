@@ -5,7 +5,7 @@ import eu.convertron.interlib.interfaces.Module;
 import eu.convertron.interlib.interfaces.Output;
 import eu.convertron.interlib.interfaces.View;
 import eu.convertron.interlib.io.TextFile;
-import eu.convertron.interlib.settings.Settings;
+import eu.convertron.applib.settings.Settings;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;

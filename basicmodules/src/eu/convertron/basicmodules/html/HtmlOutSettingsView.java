@@ -1,17 +1,21 @@
 package eu.convertron.basicmodules.html;
 
-import eu.convertron.basicmodules.LocalSettings;
+import eu.convertron.interlib.config.IniConfigFile;
 import eu.convertron.interlib.interfaces.View;
+import static eu.convertron.basicmodules.html.HtmlOut.TARGETS;
 
 public class HtmlOutSettingsView extends View
 {
     private static final long serialVersionUID = 3376419245994761218L;
 
-    public HtmlOutSettingsView()
+    private final IniConfigFile localConfig;
+
+    public HtmlOutSettingsView(IniConfigFile localConfig)
     {
+        this.localConfig = localConfig;
         initComponents();
 
-        targetsArea.setText(String.join("\n", LocalSettings.targets.loadArray()));
+        targetsArea.setText(String.join("\n", localConfig.loadArray(TARGETS)));
     }
 
     @Override
@@ -72,7 +76,7 @@ public class HtmlOutSettingsView extends View
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_saveBtnActionPerformed
     {//GEN-HEADEREND:event_saveBtnActionPerformed
-        LocalSettings.targets.saveArray(targetsArea.getText().trim().replaceAll("\r", "").split("\n"));
+        localConfig.saveArray(TARGETS, targetsArea.getText().trim().replaceAll("\r", "").split("\n"));
     }//GEN-LAST:event_saveBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

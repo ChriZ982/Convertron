@@ -1,18 +1,20 @@
 package eu.convertron.core;
 
-import eu.convertron.applib.modules.ConfigurationProvider;
-import eu.convertron.applib.modules.IOConfigurationProvider;
 import eu.convertron.applib.CsvStorage;
 import eu.convertron.applib.Storage;
+import eu.convertron.applib.modules.ConfigurationSourceProvider;
+import eu.convertron.applib.modules.IOConfigurationProvider;
+import eu.convertron.applib.modules.ModuleConfigurationProvider;
+import eu.convertron.applib.settings.Settings;
 import eu.convertron.client.ServerConnection;
-import eu.convertron.interlib.config.Configuration;
 import eu.convertron.interlib.Lesson;
 import eu.convertron.interlib.TableOptions;
+import eu.convertron.interlib.config.ConfigurationSource;
+import eu.convertron.interlib.config.ModuleConfiguration;
 import eu.convertron.interlib.io.Folder;
 import eu.convertron.interlib.io.TextFile;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
-import eu.convertron.interlib.settings.Settings;
 import eu.convertron.interlib.util.Bundle;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -29,16 +31,19 @@ public class Control
     private final ModuleManager moduleManager;
     private final Timer autoTimer;
 
-    private final ConfigurationProvider provider;
-    private final Configuration coreConfig;
+    private final ModuleConfigurationProvider provider;
+    private final ModuleConfiguration coreConfig;
 
     public Control()
     {
-        Bundle<ConfigurationProvider, Storage> bundle = initializeConfigAndStorage();
-        provider = bundle.getA();
+        Bundle<ConfigurationSourceProvider, Storage> bundle = initializeConfigAndStorage();
+        ConfigurationSourceProvider globalProv = bundle.getA();
         storage = bundle.getB();
 
-        coreConfig = provider.getOrCreateConfiguration(TableOptions.class);
+        provider = new ModuleConfigurationProvider(new IOConfigurationProvider(CoreSettings.pathData.load() + "/localconfig"),
+                                                   globalProv);
+
+        coreConfig = provider.provideConfig(TableOptions.class);
 
         TableOptions.getInstance().setConfiguration(coreConfig);
 
@@ -50,7 +55,7 @@ public class Control
         Logger.logMessage(LogPriority.HINT, "Anwendung gestartet");
     }
 
-    private Bundle<ConfigurationProvider, Storage> initializeConfigAndStorage()
+    private Bundle<ConfigurationSourceProvider, Storage> initializeConfigAndStorage()
     {
         if(CoreSettings.useRemote.isTrue())
         {
@@ -74,8 +79,7 @@ public class Control
             }
         }
         String data = CoreSettings.pathData.load();
-        return new Bundle<>(new IOConfigurationProvider(data + "/config"),
-                            new CsvStorage(data + "/data.csv"));
+        return new Bundle<>(new IOConfigurationProvider(data + "/globalconfig"), new CsvStorage(data + "/data.csv"));
     }
 
     private void timerTick()
@@ -144,7 +148,7 @@ public class Control
 
     public void exportMotd()
     {
-        moduleManager.exportMotd(new String(coreConfig.getOrCreateConfig(MOTD_SAVEFILE), StandardCharsets.UTF_8));
+        moduleManager.exportMotd(new String(coreConfig.global.getOrCreateConfig(MOTD_SAVEFILE), StandardCharsets.UTF_8));
         Logger.logMessage(LogPriority.HINT, "Exportieren der Laufschrift abgeschlossen");
     }
 
@@ -167,8 +171,8 @@ public class Control
         return moduleManager;
     }
 
-    public Configuration getCoreConfig()
+    public ConfigurationSource getGlobalCoreConfig()
     {
-        return coreConfig;
+        return coreConfig.global;
     }
 }

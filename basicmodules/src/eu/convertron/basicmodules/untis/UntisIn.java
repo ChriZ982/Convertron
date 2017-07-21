@@ -1,7 +1,10 @@
 package eu.convertron.basicmodules.untis;
 
-import eu.convertron.basicmodules.LocalSettings;
+import eu.convertron.basicmodules.Resources;
 import eu.convertron.interlib.Lesson;
+import eu.convertron.interlib.config.IniConfigFile;
+import eu.convertron.interlib.config.ModuleConfiguration;
+import eu.convertron.interlib.interfaces.Configurable;
 import eu.convertron.interlib.interfaces.Input;
 import eu.convertron.interlib.interfaces.View;
 import eu.convertron.interlib.io.Folder;
@@ -17,8 +20,25 @@ import java.util.TreeMap;
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 
-public class UntisIn implements Input
+public class UntisIn implements Input, Configurable
 {
+    private IniConfigFile configFile;
+
+    public static final String SOURCEPATH = "sourcePath";
+    public static final String FILESUFFIX = "fileSuffix";
+    public static final String FILEPREFIX = "filePrefix";
+
+    public static final String PATTERN_TR = "patternTr";
+    public static final String PATTERN_TD = "patternTd";
+    public static final String PATTERN_TABLE = "patternTable";
+    public static final String PATTERN_CLASS = "patternClass";
+
+    @Override
+    public void setConfiguration(ModuleConfiguration config)
+    {
+        this.configFile = new IniConfigFile(config.local, "untisinlocal.cfg", Resources.file("untisinlocal.cfg"));
+    }
+
     @Override
     public String getName()
     {
@@ -28,7 +48,7 @@ public class UntisIn implements Input
     @Override
     public View getView()
     {
-        return new UntisInView();
+        return new UntisInView(configFile);
     }
 
     @Override
@@ -37,7 +57,7 @@ public class UntisIn implements Input
         try
         {
             PrefixSuffixFileFilter filter = new PrefixSuffixFileFilter();
-            File dir = new File(LocalSettings.sourcePath.load());
+            File dir = new File(configFile.load(SOURCEPATH));
 
             if(!dir.isDirectory() || !dir.exists())
             {
@@ -191,12 +211,12 @@ public class UntisIn implements Input
     private class PrefixSuffixFileFilter implements FileFilter
     {
         private final String prefix;
-        private String suffix;
+        private final String suffix;
 
         private PrefixSuffixFileFilter()
         {
-            prefix = LocalSettings.filePrefix.load();
-            suffix = LocalSettings.fileSuffix.load();
+            prefix = configFile.load(FILEPREFIX);
+            suffix = configFile.load(FILESUFFIX);
         }
 
         @Override

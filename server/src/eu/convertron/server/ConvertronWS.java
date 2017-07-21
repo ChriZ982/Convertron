@@ -4,7 +4,7 @@ import eu.convertron.applib.ChangeSet;
 import eu.convertron.applib.CsvLessonSerializer;
 import eu.convertron.interlib.Lesson;
 import eu.convertron.interlib.TableOptions;
-import eu.convertron.interlib.config.Configuration;
+import eu.convertron.interlib.config.ConfigurationSource;
 import eu.convertron.interlib.config.ConfigurationListener;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
@@ -62,7 +62,7 @@ public class ConvertronWS
             c = changes.get(clientId);
         }
 
-        Configuration config = control.getOrCreateConfiguration(moduleName);
+        ConfigurationSource config = control.getOrCreateGlobalConfiguration(moduleName);
         config.addConfigListener(new ConfigurationListener()
         {
             @Override
@@ -100,7 +100,7 @@ public class ConvertronWS
     @WebMethod
     public void setConfigFile(String moduleName, String configName, byte[] value)
     {
-        Configuration config = control.getOrCreateConfiguration(moduleName);
+        ConfigurationSource config = control.getOrCreateGlobalConfiguration(moduleName);
         config.setConfig(configName, value);
         Logger.logMessage(LogPriority.HINT, "Konfigurationsdatei geaendert: " + moduleName + " -> " + configName);
     }
@@ -108,14 +108,14 @@ public class ConvertronWS
     @WebMethod
     public byte[] getConfigFile(String moduleName, String configName)
     {
-        Configuration config = control.getOrCreateConfiguration(moduleName);
+        ConfigurationSource config = control.getOrCreateGlobalConfiguration(moduleName);
         return config.getConfig(configName);
     }
 
     @WebMethod
     public boolean removeConfigFile(String moduleName, String configName)
     {
-        Configuration config = control.getOrCreateConfiguration(moduleName);
+        ConfigurationSource config = control.getOrCreateGlobalConfiguration(moduleName);
         boolean result = config.removeConfig(configName);
         Logger.logMessage(LogPriority.HINT, "Konfigurationsdatei entfernt: " + moduleName + " -> " + configName);
         return result;
@@ -124,7 +124,7 @@ public class ConvertronWS
     @WebMethod
     public String[] getAvailableConfigs(String moduleName)
     {
-        Configuration config = control.getOrCreateConfiguration(moduleName);
+        ConfigurationSource config = control.getOrCreateGlobalConfiguration(moduleName);
         return config.getConfigFiles();
     }
 

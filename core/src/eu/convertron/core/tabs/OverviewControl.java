@@ -16,7 +16,7 @@ public class OverviewControl
         this.control = control;
         view = new OverviewView();
 
-        config = new GeneralConfigFile(control.getCoreConfig(), Control.MOTD_SAVEFILE);
+        config = new GeneralConfigFile(control.getGlobalCoreConfig(), Control.MOTD_SAVEFILE);
 
         config.addConfigFileListener((val) -> loadMotdText());
 

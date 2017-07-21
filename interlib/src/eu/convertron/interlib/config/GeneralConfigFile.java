@@ -4,12 +4,12 @@ import eu.convertron.interlib.io.ResourceFile;
 
 public class GeneralConfigFile extends AbstractConfigFile
 {
-    public GeneralConfigFile(Configuration configuration, String configName)
+    public GeneralConfigFile(ConfigurationSource configuration, String configName)
     {
         super(configuration, configName);
     }
 
-    public GeneralConfigFile(Configuration configuration, String configName, ResourceFile defaults)
+    public GeneralConfigFile(ConfigurationSource configuration, String configName, ResourceFile defaults)
     {
         this(configuration, configName);
         loadDefaultsFromResource(defaults);

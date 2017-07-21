@@ -1,4 +1,4 @@
-package eu.convertron.interlib.settings;
+package eu.convertron.applib.settings;
 
 import eu.convertron.interlib.config.IniConfigFile;
 import eu.convertron.interlib.io.TextFile;

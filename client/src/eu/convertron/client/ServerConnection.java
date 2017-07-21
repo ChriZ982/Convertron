@@ -2,10 +2,9 @@ package eu.convertron.client;
 
 import eu.convertron.applib.ChangeSet;
 import eu.convertron.applib.CsvLessonSerializer;
-import eu.convertron.applib.modules.ConfigurationProvider;
 import eu.convertron.applib.Storage;
-import eu.convertron.interlib.config.Configuration;
 import eu.convertron.interlib.Lesson;
+import eu.convertron.interlib.config.ConfigurationSource;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import java.net.MalformedURLException;
@@ -13,8 +12,9 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Random;
 import javax.swing.Timer;
+import eu.convertron.applib.modules.ConfigurationSourceProvider;
 
-public class ServerConnection implements Storage, ConfigurationProvider
+public class ServerConnection implements Storage, ConfigurationSourceProvider
 {
     private ConvertronWS service;
     private byte[] clientId;
@@ -82,13 +82,13 @@ public class ServerConnection implements Storage, ConfigurationProvider
     }
 
     @Override
-    public Configuration getOrCreateConfiguration(Class<?> module)
+    public ConfigurationSource getOrCreateConfiguration(Class<?> module)
     {
         return getOrCreateConfiguration(module.getName());
     }
 
     @Override
-    public Configuration getOrCreateConfiguration(String moduleName)
+    public ConfigurationSource getOrCreateConfiguration(String moduleName)
     {
         try
         {

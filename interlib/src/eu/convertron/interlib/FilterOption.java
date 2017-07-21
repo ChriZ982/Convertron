@@ -1,7 +1,5 @@
 package eu.convertron.interlib;
 
-import eu.convertron.interlib.Lesson;
-
 /**
  * Die Optionen für die Filter-Klasse.
  */

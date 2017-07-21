@@ -1,12 +1,12 @@
 package eu.convertron.client;
 
 import eu.convertron.applib.ChangeSet;
-import eu.convertron.interlib.config.Configuration;
+import eu.convertron.interlib.config.ConfigurationSource;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import java.util.HashMap;
 
-public class RemoteConfiguration extends Configuration
+public class RemoteConfiguration extends ConfigurationSource
 {
     private final ConvertronWS service;
     private final String moduleName;

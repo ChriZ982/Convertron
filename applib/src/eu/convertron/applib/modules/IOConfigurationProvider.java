@@ -1,13 +1,13 @@
 package eu.convertron.applib.modules;
 
-import eu.convertron.interlib.config.Configuration;
+import eu.convertron.interlib.config.ConfigurationSource;
 import java.io.File;
 import java.util.HashMap;
 
-public class IOConfigurationProvider implements ConfigurationProvider
+public class IOConfigurationProvider implements ConfigurationSourceProvider
 {
     private File folder;
-    private HashMap<String, IOConfiguration> configs;
+    private HashMap<String, IOConfigurationSource> configs;
 
     public IOConfigurationProvider(String path)
     {
@@ -22,13 +22,13 @@ public class IOConfigurationProvider implements ConfigurationProvider
     }
 
     @Override
-    public Configuration getOrCreateConfiguration(Class<?> module)
+    public ConfigurationSource getOrCreateConfiguration(Class<?> module)
     {
         return getOrCreateConfiguration(module.getName());
     }
 
     @Override
-    public Configuration getOrCreateConfiguration(String moduleName)
+    public ConfigurationSource getOrCreateConfiguration(String moduleName)
     {
         String dic = normalize(moduleName);
         if(configs.containsKey(dic))
@@ -36,7 +36,7 @@ public class IOConfigurationProvider implements ConfigurationProvider
 
         File subFolder = new File(folder, dic);
         subFolder.mkdirs();
-        IOConfiguration conf = new IOConfiguration(subFolder);
+        IOConfigurationSource conf = new IOConfigurationSource(subFolder);
         configs.put(dic, conf);
         return conf;
     }

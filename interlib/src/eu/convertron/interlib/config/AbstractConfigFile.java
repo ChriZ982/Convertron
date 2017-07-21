@@ -5,18 +5,18 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 public abstract class AbstractConfigFile
 {
-    protected Configuration configuration;
+    protected ConfigurationSource configuration;
     protected String configName;
     protected Charset charset;
 
     private SingleConfigurationListener listener;
 
-    protected AbstractConfigFile(Configuration configuration, String configName)
+    protected AbstractConfigFile(ConfigurationSource configuration, String configName)
     {
         this(configuration, configName, UTF_8);
     }
 
-    public AbstractConfigFile(Configuration configuration, String configName, Charset charset)
+    public AbstractConfigFile(ConfigurationSource configuration, String configName, Charset charset)
     {
         this.configuration = configuration;
         this.configName = configName;
@@ -36,7 +36,7 @@ public abstract class AbstractConfigFile
         return listener.removeConfigFileListener(l);
     }
 
-    public Configuration getConfiguration()
+    public ConfigurationSource getConfiguration()
     {
         return configuration;
     }

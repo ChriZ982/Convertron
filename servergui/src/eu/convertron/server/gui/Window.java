@@ -28,9 +28,9 @@ public class Window extends ApplicationFrame
         logPanel = new LogPanel();
         initComponents();
 
-        control.getCoreConfig().addConfigListener(
+        control.getGlobalCoreConfig().addConfigListener(
                 new SingleConfigurationListener(MOTD_CONFIG, (v) -> motdTxt.setText(new String(v, StandardCharsets.UTF_8))));
-        motdTxt.setText(new String(control.getCoreConfig().getOrCreateConfig(MOTD_CONFIG), StandardCharsets.UTF_8));
+        motdTxt.setText(new String(control.getGlobalCoreConfig().getOrCreateConfig(MOTD_CONFIG), StandardCharsets.UTF_8));
     }
 
     @Override
@@ -181,7 +181,7 @@ public class Window extends ApplicationFrame
 
     private void saveMotdBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_saveMotdBtnActionPerformed
     {//GEN-HEADEREND:event_saveMotdBtnActionPerformed
-        control.getCoreConfig().setConfig(MOTD_CONFIG, motdTxt.getText().getBytes(StandardCharsets.UTF_8));
+        control.getGlobalCoreConfig().setConfig(MOTD_CONFIG, motdTxt.getText().getBytes(StandardCharsets.UTF_8));
     }//GEN-LAST:event_saveMotdBtnActionPerformed
 
     private void showInfoCheckItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_showInfoCheckItemStateChanged

@@ -1,13 +1,13 @@
 package eu.convertron.basicmodules.html;
 
-import eu.convertron.basicmodules.LocalSettings;
 import eu.convertron.basicmodules.Resources;
-import eu.convertron.interlib.config.Configuration;
+import eu.convertron.interlib.FilterOption;
+import eu.convertron.interlib.Lesson;
+import eu.convertron.interlib.TableOptions;
+import eu.convertron.interlib.config.ConfigurationSource;
 import eu.convertron.interlib.config.GeneralConfigFile;
 import eu.convertron.interlib.config.IniConfigFile;
-import eu.convertron.interlib.Lesson;
-import eu.convertron.interlib.FilterOption;
-import eu.convertron.interlib.TableOptions;
+import eu.convertron.interlib.config.ModuleConfiguration;
 import eu.convertron.interlib.interfaces.Configurable;
 import eu.convertron.interlib.interfaces.Output;
 import eu.convertron.interlib.interfaces.View;
@@ -33,13 +33,17 @@ import java.util.TreeSet;
  */
 public class HtmlOut implements Output, Configurable
 {
+    public final static String TARGETS = "targets";
+
     private HtmlOutSettingsView settingPanel;
     private ColumnSelectPanel columnSelectPanel;
     private DesignPanel designPanel;
     private CustomDesignPanel customDesignPanel;
 
-    private Configuration config;
-    private IniConfigFile settings;
+    private ConfigurationSource globalConfig;
+
+    private IniConfigFile globalSettings;
+    private IniConfigFile localSettings;
     private GeneralConfigFile designXml;
 
     public HtmlOut()
@@ -47,19 +51,21 @@ public class HtmlOut implements Output, Configurable
     }
 
     @Override
-    public void setConfiguration(Configuration config)
+    public void setConfiguration(ModuleConfiguration moduleconfig)
     {
-        this.config = config;
-        this.settings = new IniConfigFile(config, "htmlout.cfg", Resources.file("htmlout.cfg"));
-        this.designXml = new GeneralConfigFile(config, "design.xml", Resources.file("design.xml"));
+        this.globalConfig = moduleconfig.global;
+        this.globalSettings = new IniConfigFile(globalConfig, "htmlout.cfg", Resources.file("htmlout.cfg"));
+        this.designXml = new GeneralConfigFile(globalConfig, "design.xml", Resources.file("design.xml"));
+
+        this.localSettings = new IniConfigFile(moduleconfig.local, "htmloutlocal.cfg", Resources.file("htmloutlocal.cfg"));
 
         View.invokeAndWait(()
                 ->
-                {
-                    this.settingPanel = new HtmlOutSettingsView();
-                    this.columnSelectPanel = new ColumnSelectPanel(designXml);
-                    this.designPanel = new DesignPanel(designXml);
-                    this.customDesignPanel = new CustomDesignPanel(designXml);
+        {
+            this.settingPanel = new HtmlOutSettingsView(localSettings);
+            this.columnSelectPanel = new ColumnSelectPanel(designXml);
+            this.designPanel = new DesignPanel(designXml);
+            this.customDesignPanel = new CustomDesignPanel(designXml);
         });
     }
 
@@ -67,7 +73,7 @@ public class HtmlOut implements Output, Configurable
     @Override
     public void out(Lesson[] lessons)
     {
-        String[] targets = LocalSettings.targets.loadArray();
+        String[] targets = localSettings.loadArray(TARGETS);
         TableOptions t = TableOptions.getInstance();
 
         //TODO remove date parameter in export method
@@ -89,9 +95,9 @@ public class HtmlOut implements Output, Configurable
 
     private void export(Lesson[] lessons, String date, String... files)
     {
-        String templateLesson = new GeneralConfigFile(config, "template - lesson.txt", Resources.file("templates/lesson.txt")).loadString();
-        String templateClass = new GeneralConfigFile(config, "template - class.txt", Resources.file("templates/class.txt")).loadString();
-        String templateDay = new GeneralConfigFile(config, "template - day.txt", Resources.file("templates/day.txt")).loadString();
+        String templateLesson = new GeneralConfigFile(globalConfig, "template - lesson.txt", Resources.file("templates/lesson.txt")).loadString();
+        String templateClass = new GeneralConfigFile(globalConfig, "template - class.txt", Resources.file("templates/class.txt")).loadString();
+        String templateDay = new GeneralConfigFile(globalConfig, "template - day.txt", Resources.file("templates/day.txt")).loadString();
 
         String evenChar = TableOptions.getInstance().getEvenWeekChar();
 
@@ -201,7 +207,7 @@ public class HtmlOut implements Output, Configurable
     @Override
     public void motdOut(String motd)
     {
-        String[] targets = LocalSettings.targets.loadArray();
+        String[] targets = localSettings.loadArray(TARGETS);
 
         exportMotd(motd, appendToContent(targets, "/laufschrift.html"));
         styleOut(appendToContent(targets, "/style.css"));
@@ -210,7 +216,7 @@ public class HtmlOut implements Output, Configurable
 
     private void exportMotd(String motd, String... files)
     {
-        String templateMotd = new GeneralConfigFile(config, "template - motd.txt", Resources.file("templates/motd.txt")).loadString();
+        String templateMotd = new GeneralConfigFile(globalConfig, "template - motd.txt", Resources.file("templates/motd.txt")).loadString();
         templateMotd = templateMotd.replaceAll("MOTDTEXT", motd);
         templateMotd = templateMotd.replaceAll("MOTD_SPEED", designPanel.getValue("MOTD_SPEED"));
 
@@ -223,8 +229,8 @@ public class HtmlOut implements Output, Configurable
 
     private void styleOut(String... files)
     {
-        String templateStyle = new GeneralConfigFile(config, "template - style.txt", Resources.file("templates/style.txt")).loadString();
-        String templateCustom = new GeneralConfigFile(config, "template - custom.txt", Resources.file("templates/custom.txt")).loadString();
+        String templateStyle = new GeneralConfigFile(globalConfig, "template - style.txt", Resources.file("templates/style.txt")).loadString();
+        String templateCustom = new GeneralConfigFile(globalConfig, "template - custom.txt", Resources.file("templates/custom.txt")).loadString();
 
         ArrayList<CustomDesignItem> customDesignItems = customDesignPanel.getAllCustomDesignItems();
         String extraFormats = "";
@@ -250,10 +256,10 @@ public class HtmlOut implements Output, Configurable
 
     private void resourcesOut(String... folders)
     {
-        String[] resources = settings.loadArray("htmlResources");
+        String[] resources = globalSettings.loadArray("htmlResources");
         for(String res : resources)
         {
-            GeneralConfigFile cfg = new GeneralConfigFile(config, res);
+            GeneralConfigFile cfg = new GeneralConfigFile(globalConfig, res);
             if(Resources.get("htmlRes/" + res) != null)
                 cfg.loadDefaultsFromResource(Resources.file("htmlRes/" + res));
             byte[] value = cfg.load();

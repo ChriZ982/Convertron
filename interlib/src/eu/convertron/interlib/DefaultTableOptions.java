@@ -1,6 +1,5 @@
 package eu.convertron.interlib;
 
-import eu.convertron.interlib.Lesson;
 import java.util.Arrays;
 import java.util.Comparator;
 

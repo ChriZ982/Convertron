@@ -1,4 +1,4 @@
-package eu.convertron.interlib.settings;
+package eu.convertron.applib.settings;
 
 public class Setting implements SettingID
 {

@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public abstract class Configuration
+public abstract class ConfigurationSource
 {
     protected abstract void save(String name, byte[] value) throws Exception;
 
@@ -19,7 +19,7 @@ public abstract class Configuration
     private final ArrayList<String> configFiles;
     private final ArrayList<ConfigurationListener> listeners;
 
-    protected Configuration(Collection<String> configFiles)
+    protected ConfigurationSource(Collection<String> configFiles)
     {
         this.configFiles = new ArrayList<>(configFiles);
         this.listeners = new ArrayList<>();

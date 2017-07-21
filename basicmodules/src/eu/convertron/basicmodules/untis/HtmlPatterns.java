@@ -1,16 +1,21 @@
 package eu.convertron.basicmodules.untis;
 
-import eu.convertron.basicmodules.LocalSettings;
+import eu.convertron.interlib.config.IniConfigFile;
 import java.util.regex.Pattern;
 
 public class HtmlPatterns
 {
     public static final int PATTERNFLAGS = Pattern.DOTALL + Pattern.CASE_INSENSITIVE;
 
-    public static final Pattern TR = compile(LocalSettings.patternTr.load());
-    public static final Pattern TD = compile(LocalSettings.patternTd.load());
-    public static final Pattern LESSONTABLE = compile(LocalSettings.patternTable.load());
-    public static final Pattern SCHOOLCLASS = compile(LocalSettings.patternClass.load());
+    public static void loadConfig(IniConfigFile config)
+    {
+
+    }
+
+    public static Pattern TR;
+    public static Pattern TD;
+    public static Pattern LESSONTABLE;
+    public static Pattern SCHOOLCLASS;
 
     /**
      * Kompiliert den regulären Ausdruck unter Verwendung der Flags.
@@ -20,5 +25,9 @@ public class HtmlPatterns
     public static Pattern compile(String regex)
     {
         return Pattern.compile(regex, PATTERNFLAGS);
+    }
+
+    private HtmlPatterns()
+    {
     }
 }

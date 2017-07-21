@@ -1,12 +1,12 @@
 package eu.convertron.server;
 
+import eu.convertron.applib.ConsoleOperation;
 import eu.convertron.applib.ConsoleScanner;
 import eu.convertron.applib.LogFile;
 import eu.convertron.interlib.logging.LogMessage;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import java.util.HashMap;
-import eu.convertron.applib.ConsoleOperation;
 
 public class ConsoleMain
 {

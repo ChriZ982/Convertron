@@ -1,8 +1,0 @@
-basicmodules.targets:./debug/TestZiel
-basicmodules.sourcePath:./debug/TestDateien
-basicmodules.fileSuffix:.htm
-basicmodules.filePrefix:Druck_Klasse_
-basicmodules.patternTr:<tr.*?</tr>
-basicmodules.patternTd:<td.*?</td>
-basicmodules.patternTable:<br>\s*<table.*?</table>
-basicmodules.patternClass:<br>\s*<font size="6".*?</font>\s*<br>

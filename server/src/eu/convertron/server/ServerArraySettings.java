@@ -1,8 +1,8 @@
 package eu.convertron.server;
 
 import eu.convertron.interlib.config.IniConfigFile;
-import eu.convertron.interlib.settings.SettingID;
-import eu.convertron.interlib.settings.Settings;
+import eu.convertron.applib.settings.SettingID;
+import eu.convertron.applib.settings.Settings;
 
 public enum ServerArraySettings implements SettingID
 {

@@ -46,18 +46,18 @@ public class IniConfigFile extends AbstractConfigFile
 
     private HashMap<String, String> content;
 
-    public IniConfigFile(Configuration configuration, String configName)
+    public IniConfigFile(ConfigurationSource configuration, String configName)
     {
         this(configuration, configName, true);
     }
 
-    public IniConfigFile(Configuration configuration, String configName, ResourceFile defaults)
+    public IniConfigFile(ConfigurationSource configuration, String configName, ResourceFile defaults)
     {
         this(configuration, configName);
         loadDefaultsFromResource(defaults);
     }
 
-    public IniConfigFile(Configuration configuration, String configName, boolean autoFlush)
+    public IniConfigFile(ConfigurationSource configuration, String configName, boolean autoFlush)
     {
         super(configuration, configName);
         this.autoFlush = autoFlush;

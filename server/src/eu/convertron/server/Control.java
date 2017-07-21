@@ -1,13 +1,14 @@
 package eu.convertron.server;
 
-import eu.convertron.applib.modules.ConfigurationProvider;
-import eu.convertron.applib.modules.IOConfigurationProvider;
 import eu.convertron.applib.CsvStorage;
 import eu.convertron.applib.Storage;
-import eu.convertron.interlib.config.Configuration;
+import eu.convertron.applib.modules.IOConfigurationProvider;
+import eu.convertron.applib.modules.ModuleConfigurationProvider;
 import eu.convertron.interlib.Lesson;
-import eu.convertron.interlib.config.SingleConfigurationListener;
 import eu.convertron.interlib.TableOptions;
+import eu.convertron.interlib.config.ConfigurationSource;
+import eu.convertron.interlib.config.ModuleConfiguration;
+import eu.convertron.interlib.config.SingleConfigurationListener;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import java.net.Inet4Address;
@@ -27,8 +28,8 @@ public class Control
     private final ModuleManager moduleManager;
     private final Storage storage;
 
-    private final ConfigurationProvider provider;
-    private final Configuration coreConfig;
+    private final ModuleConfigurationProvider provider;
+    private final ModuleConfiguration coreConfig;
 
     private final Timer timer;
 
@@ -38,8 +39,9 @@ public class Control
         if(data == null || data.isEmpty())
             data = ".";
 
-        this.provider = new IOConfigurationProvider(data + "/config");
-        this.coreConfig = provider.getOrCreateConfiguration(TableOptions.class);
+        this.provider = new ModuleConfigurationProvider(new IOConfigurationProvider(data + "/localconfig"),
+                                                        new IOConfigurationProvider(data + "/globalconfig"));
+        this.coreConfig = provider.provideConfig(TableOptions.class);
         TableOptions.getInstance().setConfiguration(coreConfig);
 
         this.moduleManager = new ModuleManager(provider);
@@ -47,7 +49,7 @@ public class Control
 
         this.timer = initializeTimer();
 
-        this.coreConfig.addConfigListener(new SingleConfigurationListener(MOTD_CONFIG, (v) -> export()));
+        this.coreConfig.global.addConfigListener(new SingleConfigurationListener(MOTD_CONFIG, (v) -> export()));
 
         publishWebService(getWsAddresses());
     }
@@ -99,14 +101,14 @@ public class Control
                 .toString();
     }
 
-    public Configuration getOrCreateConfiguration(String moduleName)
+    public ConfigurationSource getOrCreateGlobalConfiguration(String moduleName)
     {
-        return provider.getOrCreateConfiguration(moduleName);
+        return provider.provideConfig(moduleName).global;
     }
 
-    public Configuration getCoreConfig()
+    public ConfigurationSource getGlobalCoreConfig()
     {
-        return coreConfig;
+        return coreConfig.global;
     }
 
     public void setData(Lesson[] data)
@@ -122,7 +124,7 @@ public class Control
 
     public void export()
     {
-        moduleManager.export(getData(), new String(coreConfig.getOrCreateConfig(MOTD_CONFIG), StandardCharsets.UTF_8));
+        moduleManager.export(getData(), new String(coreConfig.global.getOrCreateConfig(MOTD_CONFIG), StandardCharsets.UTF_8));
     }
 
     private void publishWebService(String[] addresses)

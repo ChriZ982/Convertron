@@ -1,9 +1,9 @@
 package eu.convertron.basicmodules.untis;
 
-import eu.convertron.basicmodules.LocalSettings;
-import eu.convertron.interlib.util.GuiBridge;
+import eu.convertron.interlib.config.IniConfigFile;
 import eu.convertron.interlib.interfaces.View;
-import eu.convertron.interlib.settings.TextFieldSetting;
+import eu.convertron.interlib.util.GuiBridge;
+import eu.convertron.interlib.util.GuiIniBridge;
 
 public class UntisInView extends View
 {
@@ -11,15 +11,15 @@ public class UntisInView extends View
 
     private final GuiBridge[] bridges;
 
-    public UntisInView()
+    public UntisInView(IniConfigFile config)
     {
         initComponents();
 
         bridges = new GuiBridge[]
         {
-            new TextFieldSetting(sourceTxt, LocalSettings.sourcePath),
-            new TextFieldSetting(prefixTxt, LocalSettings.filePrefix),
-            new TextFieldSetting(suffixTxt, LocalSettings.fileSuffix)
+            new GuiIniBridge(config, UntisIn.SOURCEPATH, sourceTxt),
+            new GuiIniBridge(config, UntisIn.FILEPREFIX, prefixTxt),
+            new GuiIniBridge(config, UntisIn.FILESUFFIX, suffixTxt)
         };
 
         for(GuiBridge b : bridges)

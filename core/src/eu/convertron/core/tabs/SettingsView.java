@@ -1,14 +1,13 @@
 package eu.convertron.core.tabs;
 
+import eu.convertron.applib.settings.GuiSettingBridge;
 import eu.convertron.core.CoreSettings;
 import eu.convertron.core.Resources;
-import eu.convertron.interlib.config.IniConfigFile;
 import eu.convertron.interlib.TableOptions;
+import eu.convertron.interlib.config.IniConfigFile;
+import eu.convertron.interlib.interfaces.View;
 import eu.convertron.interlib.util.GuiBridge;
 import eu.convertron.interlib.util.GuiIniBridge;
-import eu.convertron.interlib.interfaces.View;
-import eu.convertron.interlib.settings.CheckBoxSetting;
-import eu.convertron.interlib.settings.TextFieldSetting;
 import java.io.File;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
@@ -569,10 +568,10 @@ public class SettingsView extends View
     {
         return new GuiBridge[]
         {
-            new CheckBoxSetting(automaticModeCheckBox, CoreSettings.autoMode),
-            new CheckBoxSetting(autoImportCheckBox, CoreSettings.autoImport),
-            new CheckBoxSetting(autoExportCheckBox, CoreSettings.autoExport),
-            new CheckBoxSetting(autoBackupCheckBox, CoreSettings.autoBackup),
+            new GuiSettingBridge(CoreSettings.autoMode, automaticModeCheckBox),
+            new GuiSettingBridge(CoreSettings.autoImport, autoImportCheckBox),
+            new GuiSettingBridge(CoreSettings.autoExport, autoExportCheckBox),
+            new GuiSettingBridge(CoreSettings.autoBackup, autoBackupCheckBox),
             //-----
             new GuiIniBridge(configFile, TableOptions.TableOptionsConfig.useCustomDate.toString(), customDateCheckBox),
             new GuiIniBridge(configFile, TableOptions.TableOptionsConfig.customDateToday.toString(), customTodayTextField),
@@ -593,14 +592,14 @@ public class SettingsView extends View
             //-----
             new GuiIniBridge(configFile, TableOptions.TableOptionsConfig.evenWeekChar.toString(), evenWeekComboBox),
             //-----
-            new TextFieldSetting(dataPathTextField, CoreSettings.pathData),
-            new TextFieldSetting(backupPathTextField, CoreSettings.pathBackup),
+            new GuiSettingBridge(CoreSettings.pathData, dataPathTextField),
+            new GuiSettingBridge(CoreSettings.pathBackup, backupPathTextField),
             //-----
-            new CheckBoxSetting(useRemoteCheckBox, CoreSettings.useRemote),
-            new CheckBoxSetting(wsdlRadioBtn, CoreSettings.useCustomWsdl),
-            new TextFieldSetting(hostTxt, CoreSettings.remoteHost),
-            new TextFieldSetting(portTxt, CoreSettings.remotePort),
-            new TextFieldSetting(wsdlTxt, CoreSettings.remoteWsdl)
+            new GuiSettingBridge(CoreSettings.useRemote, useRemoteCheckBox),
+            new GuiSettingBridge(CoreSettings.useCustomWsdl, wsdlRadioBtn),
+            new GuiSettingBridge(CoreSettings.remoteHost, hostTxt),
+            new GuiSettingBridge(CoreSettings.remotePort, portTxt),
+            new GuiSettingBridge(CoreSettings.remoteWsdl, wsdlTxt)
         };
     }
 

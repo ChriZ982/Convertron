@@ -1,16 +1,16 @@
 package eu.convertron.applib.modules;
 
-import eu.convertron.interlib.config.Configuration;
+import eu.convertron.interlib.config.ConfigurationSource;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
-public class IOConfiguration extends Configuration
+public class IOConfigurationSource extends ConfigurationSource
 {
     private final File folder;
 
-    public IOConfiguration(File folder)
+    public IOConfigurationSource(File folder)
     {
         super(getChilds(folder));
         this.folder = folder;

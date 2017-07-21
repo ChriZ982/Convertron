@@ -1,6 +1,5 @@
 package eu.convertron.applib;
 
-import eu.convertron.applib.CsvLessonSerializer;
 import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
