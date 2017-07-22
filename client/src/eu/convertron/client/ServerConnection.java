@@ -20,17 +20,17 @@ public class ServerConnection implements ConfigurationSourceProvider
 
     public ServerConnection(String ip, int port, boolean autoCheck) throws MalformedURLException
     {
-        this(new URL("http://" + ip + ":" + port + "/_convertron?WSDL"), autoCheck);
+        this("http://" + ip + ":" + port + "/_convertron?WSDL", autoCheck);
     }
 
-    public ServerConnection(URL wsdl, boolean autoCheck)
+    public ServerConnection(String wsdl, boolean autoCheck) throws MalformedURLException
     {
-        ConvertronWSService s = new ConvertronWSService(wsdl);
+        ConvertronWSService s = new ConvertronWSService(new URL(wsdl));
         service = s.getConvertronWSPort();
         clientId = new byte[8];
         new Random().nextBytes(clientId);
         configs = new HashMap<>();
-        timer = new Timer(5000, (e) -> checkChanges());
+        timer = new Timer(10000, (e) -> checkForChanges());
 
         try
         {
@@ -38,25 +38,28 @@ public class ServerConnection implements ConfigurationSourceProvider
         }
         catch(Exception ex)
         {
-            Logger.logError(LogPriority.INFO, "Fehler beim pingen", ex);
             throw new RuntimeException("Failed to ping server", ex);
         }
 
-        setCheckForChanges(true);
+        setAutoCheckForChanges(autoCheck);
     }
 
-    public void setCheckForChanges(boolean check)
+    public void setAutoCheckForChanges(boolean autoCheck)
     {
-        if(check)
+        if(autoCheck)
         {
             if(!timer.isRunning())
                 timer.start();
         }
-        else if(timer.isRunning())
-            timer.stop();
+        else
+        {
+            if(timer.isRunning())
+                timer.stop();
+        }
+
     }
 
-    private void checkChanges()
+    public void checkForChanges()
     {
         try
         {
@@ -73,8 +76,9 @@ public class ServerConnection implements ConfigurationSourceProvider
         }
         catch(Exception ex)
         {
-            Logger.logError(LogPriority.ERROR, "Fehler beim überprüfen auf Änderungen, prüfen eingestellt", ex);
-            setCheckForChanges(false);
+            Logger.logError(LogPriority.ERROR, "Fehler beim Überprüfen auf Änderungen, "
+                                               + "Automatisches Prüfen alle 10 Sekunden ausgeschaltet", ex);
+            setAutoCheckForChanges(false);
         }
     }
 
@@ -100,6 +104,6 @@ public class ServerConnection implements ConfigurationSourceProvider
 
     public void close()
     {
-        setCheckForChanges(false);
+        setAutoCheckForChanges(false);
     }
 }

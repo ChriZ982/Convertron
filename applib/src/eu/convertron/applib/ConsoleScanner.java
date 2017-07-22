@@ -17,6 +17,7 @@ public class ConsoleScanner
     {
         scanner = new Scanner(System.in);
         this.commands = new HashMap<>(commands);
+        Logger.logMessage(LogPriority.INFO, "Folgende Konsolenbefehle wurden registriert: " + String.join(", ", commands.keySet()));
     }
 
     public void startScanning()

@@ -1,12 +1,13 @@
 package eu.convertron.server;
 
-import eu.convertron.interlib.config.IniConfigFile;
 import eu.convertron.applib.settings.SettingID;
 import eu.convertron.applib.settings.Settings;
+import eu.convertron.interlib.config.IniConfigFile;
 
 public enum ServerSettings implements SettingID
 {
-    pathData,
+    pathGlobalData,
+    pathLocalData,
     autoInterval;
 
     public static final String PREFIX = "server.strings.";

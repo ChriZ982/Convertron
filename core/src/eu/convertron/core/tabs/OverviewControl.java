@@ -42,7 +42,7 @@ public class OverviewControl
 
     private void exportAction()
     {
-        control.exportLessonsAndMotd();
+        control.export();
     }
 
     private void backupAction()

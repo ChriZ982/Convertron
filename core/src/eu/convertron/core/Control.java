@@ -16,7 +16,6 @@ import eu.convertron.interlib.io.Folder;
 import eu.convertron.interlib.io.TextFile;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
-import java.net.URL;
 import javax.swing.Timer;
 
 /**
@@ -39,12 +38,14 @@ public class Control
                                                    createGlobalConfigurationSourceProvider(),
                                                    createMoveConflictUserCallback());
 
-        coreConfig = provider.provideConfig(Control.class);
+        coreConfig = provider.provideConfig("core");
         storage = new CsvStorage(coreConfig, "lessondata.csv");
+        storage.addConfigFileListener((newValue) -> exportLessons());
 
         TableOptions.getInstance().setConfiguration(coreConfig);
 
         motdConfigFile = new GeneralConfigFile(coreConfig, "motd.txt", DesiredLocation.ForceGlobalAndDiscardLocal);
+        motdConfigFile.addConfigFileListener((newValue) -> exportMotd());
 
         moduleManager = new ModuleManager(provider);
 
@@ -68,7 +69,7 @@ public class Control
             try
             {
                 if(CoreSettings.useCustomWsdl.isTrue())
-                    con = new ServerConnection(new URL(CoreSettings.remoteWsdl.load()), true);
+                    con = new ServerConnection(CoreSettings.remoteWsdl.load(), true);
                 else
                     con = new ServerConnection(CoreSettings.remoteHost.load(),
                                                Integer.parseInt(CoreSettings.remotePort.load()), true);
@@ -80,7 +81,7 @@ public class Control
             {
                 if(con != null)
                     con.close();
-                Logger.logError(LogPriority.ERROR, "Fehler beim starten im Remote Modus, versuche im Normalmodus zu starten", t);
+                Logger.logError(LogPriority.ERROR, "Fehler beim Starten im Remote Modus, versuche im Normalmodus zu starten", t);
             }
         }
         return new IOConfigurationProvider(CoreSettings.pathGlobalData.load());
@@ -117,7 +118,7 @@ public class Control
             importLessons();
 
         if(CoreSettings.autoExport.load().equals("true"))
-            exportLessonsAndMotd();
+            export();
     }
 
     public void importLessons()
@@ -134,7 +135,7 @@ public class Control
         }
     }
 
-    public void exportLessonsAndMotd()
+    public void export()
     {
         exportLessons();
         exportMotd();

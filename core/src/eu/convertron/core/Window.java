@@ -61,7 +61,7 @@ public class Window extends ApplicationFrame
                    createMenuItem("Backup erstellen", (e) -> control.createBackup()),
                    null,
                    createMenuItem("Plan importieren", (e) -> control.importLessons()),
-                   createMenuItem("Plan exportieren", (e) -> control.exportLessonsAndMotd()));
+                   createMenuItem("Plan exportieren", (e) -> control.export()));
 
         initComponents();
 

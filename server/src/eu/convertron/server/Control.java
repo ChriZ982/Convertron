@@ -3,7 +3,6 @@ package eu.convertron.server;
 import eu.convertron.applib.CsvStorage;
 import eu.convertron.applib.modules.IOConfigurationProvider;
 import eu.convertron.applib.modules.ModuleConfigurationProvider;
-import eu.convertron.interlib.Lesson;
 import eu.convertron.interlib.TableOptions;
 import eu.convertron.interlib.config.ConfigurationSource;
 import eu.convertron.interlib.config.DesiredLocation;
@@ -34,24 +33,22 @@ public class Control
 
     public Control()
     {
-        String data = ServerSettings.pathData.load();
-        if(data == null || data.isEmpty())
-            data = ".";
-
-        this.provider = new ModuleConfigurationProvider(new IOConfigurationProvider(data + "/localconfig"),
-                                                        new IOConfigurationProvider(data + "/globalconfig"),
+        this.provider = new ModuleConfigurationProvider(new IOConfigurationProvider(ServerSettings.pathLocalData.load()),
+                                                        new IOConfigurationProvider(ServerSettings.pathGlobalData.load()),
                                                         null);
 
-        this.coreConfig = provider.provideConfig(Control.class);
+        this.coreConfig = provider.provideConfig("core");
         TableOptions.getInstance().setConfiguration(coreConfig);
 
         this.moduleManager = new ModuleManager(provider);
+
         this.storage = new CsvStorage(coreConfig, "lessondata.csv");
+        this.storage.addConfigFileListener((newValue) -> exportLessons());
 
         this.timer = initializeTimer();
 
         this.motdConfigFile = new GeneralConfigFile(coreConfig, "motd.txt", DesiredLocation.ForceGlobalAndDiscardLocal);
-        this.motdConfigFile.addConfigFileListener((newValue) -> export());
+        this.motdConfigFile.addConfigFileListener((newValue) -> exportMotd());
 
         publishWebService(getWsAddresses());
     }
@@ -118,20 +115,22 @@ public class Control
         return motdConfigFile;
     }
 
-    public void setData(Lesson[] data)
-    {
-        storage.saveLessons(data);
-        export();
-    }
-
-    public Lesson[] getData()
-    {
-        return storage.loadLessons();
-    }
-
     public void export()
     {
-        moduleManager.export(getData(), motdConfigFile.loadString());
+        exportLessons();
+        exportMotd();
+    }
+
+    public void exportLessons()
+    {
+        moduleManager.exportLessons(storage.loadLessons());
+        Logger.logMessage(LogPriority.HINT, "Exportieren der Vertretungseintraege abgeschlossen");
+    }
+
+    public void exportMotd()
+    {
+        moduleManager.exportMotd(motdConfigFile.loadString());
+        Logger.logMessage(LogPriority.HINT, "Exportieren der Laufschrift abgeschlossen");
     }
 
     private void publishWebService(String[] addresses)

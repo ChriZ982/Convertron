@@ -28,7 +28,6 @@ public class ConsoleMain
         commands.put("quit", exit);
         commands.put("close", exit);
         commands.put("stop", exit);
-        commands.put("abort", exit);
         commands.put("export", export);
         commands.put("generate", export);
         commands.put("genall", export);

@@ -23,26 +23,47 @@ public class ModuleManager
         modules = loader.loadAll(loadLocations(), new LoadingContext(LoadingContext.Purpose.Excecution, LoadingContext.Location.Server));
     }
 
-    public void export(Lesson[] lessons, String motd)
+    public void exportLessons(Lesson[] types)
     {
         for(LoadedModule out : modules)
         {
-            exportSingle(out, lessons, motd);
+            try
+            {
+                Logger.logMessage(LogPriority.INFO, "Versuche die Vertretungseinträge zu exportieren. Modul: " + getModuleName(out));
+                Lesson[] copy = new Lesson[types.length];
+                for(int i = 0; i < types.length; i++)
+                    copy[i] = new Lesson(types[i]);
+
+                out.out(copy);
+            }
+            catch(Throwable ex)
+            {
+                Logger.logError(LogPriority.WARNING, "Fehler beim exportieren der Vertretungseinträge mit dem Modul: "
+                                                     + getModuleName(out), ex);
+            }
         }
-        Logger.logMessage(LogPriority.HINT, "Export abgeschlossen");
     }
 
-    private void exportSingle(LoadedModule out, Lesson[] lessons, String motd)
+    public void exportMotd(String motd)
     {
-        try
+        for(LoadedModule out : modules)
         {
-            out.out(lessons);
-            out.motdOut(motd);
+            try
+            {
+                Logger.logMessage(LogPriority.INFO, "Versuche die Laufschrift zu exportieren. Modul: " + getModuleName(out));
+                out.motdOut(motd);
+            }
+            catch(Exception ex)
+            {
+                Logger.logError(LogPriority.WARNING, "Fehler beim exportieren der Laufschrift mit dem Modul: "
+                                                     + getModuleName(out), ex);
+            }
         }
-        catch(Throwable t)
-        {
-            Logger.logError(LogPriority.ERROR, "Fehler beim exportieren mit dem Modul " + out.getClass().getName(), t);
-        }
+    }
+
+    private String getModuleName(LoadedModule m)
+    {
+        return m == null ? "null" : m.getName();
     }
 
     private ArrayList<ClassLocation> loadLocations()
