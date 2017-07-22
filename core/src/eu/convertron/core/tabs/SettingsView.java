@@ -17,14 +17,11 @@ import javax.swing.filechooser.FileFilter;
 public class SettingsView extends View
 {
     private final JComponent[] useHoursComponents;
-    private JComponent[] customDateComponents, useRemoteComponents;
+    private final JComponent[] customDateComponents;
+    private final JComponent[] useRemoteComponents;
 
-    private IniConfigFile configFile;
-
-    public SettingsView(IniConfigFile configFile)
+    public SettingsView()
     {
-        this.configFile = configFile;
-
         initComponents();
 
         folderChooser.setFileFilter(new FileFilter()
@@ -566,6 +563,8 @@ public class SettingsView extends View
 
     public GuiBridge[] createBridges()
     {
+        IniConfigFile configFile = TableOptions.getInstance().getConfigFile();
+
         return new GuiBridge[]
         {
             new GuiSettingBridge(CoreSettings.autoMode, automaticModeCheckBox),

@@ -3,7 +3,6 @@ package eu.convertron.server.gui;
 import eu.convertron.applib.LogFile;
 import eu.convertron.applib.gui.ApplicationFrame;
 import eu.convertron.applib.gui.LogPanel;
-import eu.convertron.interlib.config.SingleConfigurationListener;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import eu.convertron.server.ConsoleMain;
@@ -13,7 +12,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JOptionPane;
-import static eu.convertron.server.Control.MOTD_CONFIG;
 
 public class Window extends ApplicationFrame
 {
@@ -28,9 +26,9 @@ public class Window extends ApplicationFrame
         logPanel = new LogPanel();
         initComponents();
 
-        control.getGlobalCoreConfig().addConfigListener(
-                new SingleConfigurationListener(MOTD_CONFIG, (v) -> motdTxt.setText(new String(v, StandardCharsets.UTF_8))));
-        motdTxt.setText(new String(control.getGlobalCoreConfig().getOrCreateConfig(MOTD_CONFIG), StandardCharsets.UTF_8));
+        control.getMotdConfigFile().addConfigFileListener((newValue) -> motdTxt.setText(new String(newValue, StandardCharsets.UTF_8)));
+
+        motdTxt.setText(control.getMotdConfigFile().loadString());
     }
 
     @Override
@@ -181,7 +179,7 @@ public class Window extends ApplicationFrame
 
     private void saveMotdBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_saveMotdBtnActionPerformed
     {//GEN-HEADEREND:event_saveMotdBtnActionPerformed
-        control.getGlobalCoreConfig().setConfig(MOTD_CONFIG, motdTxt.getText().getBytes(StandardCharsets.UTF_8));
+        control.getMotdConfigFile().save(motdTxt.getText());
     }//GEN-LAST:event_saveMotdBtnActionPerformed
 
     private void showInfoCheckItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_showInfoCheckItemStateChanged

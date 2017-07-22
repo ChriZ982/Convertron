@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public abstract class ConfigurationSource
+public abstract class ConfigurationSource implements Configuration
 {
     protected abstract void save(String name, byte[] value) throws Exception;
 
@@ -25,6 +25,7 @@ public abstract class ConfigurationSource
         this.listeners = new ArrayList<>();
     }
 
+    @Override
     public void addConfigListener(ConfigurationListener l)
     {
         listeners.add(l);
@@ -88,17 +89,20 @@ public abstract class ConfigurationSource
         }
     }
 
+    @Override
     public boolean removeConfigListener(ConfigurationListener l)
     {
         return listeners.remove(l);
     }
 
+    @Override
     public void setConfig(String name, byte[] value)
     {
         trySave(name, value);
         configChanged(name, value);
     }
 
+    @Override
     public void setMultipleConfigs(Map<String, byte[]> config)
     {
         Iterator<Map.Entry<String, byte[]>> it = config.entrySet().iterator();
@@ -110,6 +114,7 @@ public abstract class ConfigurationSource
         configChanged(config);
     }
 
+    @Override
     public byte[] getConfig(String name)
     {
         if(!hasConfig(name))
@@ -117,13 +122,7 @@ public abstract class ConfigurationSource
         return tryLoad(name);
     }
 
-    public byte[] getOrCreateConfig(String name)
-    {
-        if(!hasConfig(name))
-            setConfig(name, new byte[0]);
-        return tryLoad(name);
-    }
-
+    @Override
     public HashMap<String, byte[]> getAllConfigs()
     {
         HashMap<String, byte[]> result = new HashMap<>();
@@ -134,17 +133,20 @@ public abstract class ConfigurationSource
         return result;
     }
 
+    @Override
     public boolean removeConfig(String name)
     {
         tryRemove(name);
         return configFiles.remove(name);
     }
 
+    @Override
     public boolean hasConfig(String name)
     {
         return configFiles.contains(name);
     }
 
+    @Override
     public String[] getConfigFiles()
     {
         return configFiles.toArray(new String[configFiles.size()]);

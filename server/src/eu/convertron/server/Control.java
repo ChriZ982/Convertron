@@ -7,15 +7,15 @@ import eu.convertron.applib.modules.ModuleConfigurationProvider;
 import eu.convertron.interlib.Lesson;
 import eu.convertron.interlib.TableOptions;
 import eu.convertron.interlib.config.ConfigurationSource;
+import eu.convertron.interlib.config.DesiredLocation;
+import eu.convertron.interlib.config.GeneralConfigFile;
 import eu.convertron.interlib.config.ModuleConfiguration;
-import eu.convertron.interlib.config.SingleConfigurationListener;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import javax.swing.Timer;
@@ -23,7 +23,7 @@ import javax.xml.ws.Endpoint;
 
 public class Control
 {
-    public static final String MOTD_CONFIG = "motd.txt";
+    private final GeneralConfigFile motdConfigFile;
 
     private final ModuleManager moduleManager;
     private final Storage storage;
@@ -40,7 +40,9 @@ public class Control
             data = ".";
 
         this.provider = new ModuleConfigurationProvider(new IOConfigurationProvider(data + "/localconfig"),
-                                                        new IOConfigurationProvider(data + "/globalconfig"));
+                                                        new IOConfigurationProvider(data + "/globalconfig"),
+                                                        null);
+
         this.coreConfig = provider.provideConfig(TableOptions.class);
         TableOptions.getInstance().setConfiguration(coreConfig);
 
@@ -49,7 +51,8 @@ public class Control
 
         this.timer = initializeTimer();
 
-        this.coreConfig.global.addConfigListener(new SingleConfigurationListener(MOTD_CONFIG, (v) -> export()));
+        this.motdConfigFile = new GeneralConfigFile(coreConfig, "motd.txt", DesiredLocation.ForceGlobalAndOverrideExisting);
+        this.motdConfigFile.addConfigFileListener((newValue) -> export());
 
         publishWebService(getWsAddresses());
     }
@@ -103,12 +106,17 @@ public class Control
 
     public ConfigurationSource getOrCreateGlobalConfiguration(String moduleName)
     {
-        return provider.provideConfig(moduleName).global;
+        return provider.provideConfig(moduleName).getGlobal();
     }
 
-    public ConfigurationSource getGlobalCoreConfig()
+    public ModuleConfiguration getCoreConfig()
     {
-        return coreConfig.global;
+        return coreConfig;
+    }
+
+    public GeneralConfigFile getMotdConfigFile()
+    {
+        return motdConfigFile;
     }
 
     public void setData(Lesson[] data)
@@ -124,7 +132,7 @@ public class Control
 
     public void export()
     {
-        moduleManager.export(getData(), new String(coreConfig.global.getOrCreateConfig(MOTD_CONFIG), StandardCharsets.UTF_8));
+        moduleManager.export(getData(), motdConfigFile.loadString());
     }
 
     private void publishWebService(String[] addresses)

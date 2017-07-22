@@ -3,6 +3,7 @@ package eu.convertron.client;
 import eu.convertron.applib.ChangeSet;
 import eu.convertron.applib.CsvLessonSerializer;
 import eu.convertron.applib.Storage;
+import eu.convertron.applib.modules.ConfigurationSourceProvider;
 import eu.convertron.interlib.Lesson;
 import eu.convertron.interlib.config.ConfigurationSource;
 import eu.convertron.interlib.logging.LogPriority;
@@ -12,7 +13,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Random;
 import javax.swing.Timer;
-import eu.convertron.applib.modules.ConfigurationSourceProvider;
 
 public class ServerConnection implements Storage, ConfigurationSourceProvider
 {
@@ -79,12 +79,6 @@ public class ServerConnection implements Storage, ConfigurationSourceProvider
             Logger.logError(LogPriority.ERROR, "Fehler beim überprüfen auf Änderungen, prüfen eingestellt", ex);
             setCheckForChanges(false);
         }
-    }
-
-    @Override
-    public ConfigurationSource getOrCreateConfiguration(Class<?> module)
-    {
-        return getOrCreateConfiguration(module.getName());
     }
 
     @Override

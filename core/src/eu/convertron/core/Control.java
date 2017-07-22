@@ -9,15 +9,16 @@ import eu.convertron.applib.settings.Settings;
 import eu.convertron.client.ServerConnection;
 import eu.convertron.interlib.Lesson;
 import eu.convertron.interlib.TableOptions;
-import eu.convertron.interlib.config.ConfigurationSource;
+import eu.convertron.interlib.config.DesiredLocation;
+import eu.convertron.interlib.config.GeneralConfigFile;
 import eu.convertron.interlib.config.ModuleConfiguration;
+import eu.convertron.interlib.config.MoveConflictUserCallback;
 import eu.convertron.interlib.io.Folder;
 import eu.convertron.interlib.io.TextFile;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import eu.convertron.interlib.util.Bundle;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import javax.swing.Timer;
 
 /**
@@ -25,12 +26,13 @@ import javax.swing.Timer;
  */
 public class Control
 {
-    public static final String MOTD_SAVEFILE = "motd.txt";
+    private final GeneralConfigFile motdConfigFile;
 
     private final Storage storage;
     private final ModuleManager moduleManager;
     private final Timer autoTimer;
 
+    private final MoveConflictUserCallback callback;
     private final ModuleConfigurationProvider provider;
     private final ModuleConfiguration coreConfig;
 
@@ -40,12 +42,18 @@ public class Control
         ConfigurationSourceProvider globalProv = bundle.getA();
         storage = bundle.getB();
 
+        //TODO Implement
+        callback = null;
+
         provider = new ModuleConfigurationProvider(new IOConfigurationProvider(CoreSettings.pathData.load() + "/localconfig"),
-                                                   globalProv);
+                                                   globalProv,
+                                                   callback);
 
         coreConfig = provider.provideConfig(TableOptions.class);
 
         TableOptions.getInstance().setConfiguration(coreConfig);
+
+        motdConfigFile = new GeneralConfigFile(coreConfig, "motd.txt", DesiredLocation.ForceGlobalAndOverrideExisting);
 
         moduleManager = new ModuleManager(provider);
 
@@ -148,7 +156,7 @@ public class Control
 
     public void exportMotd()
     {
-        moduleManager.exportMotd(new String(coreConfig.global.getOrCreateConfig(MOTD_SAVEFILE), StandardCharsets.UTF_8));
+        moduleManager.exportMotd(motdConfigFile.loadString());
         Logger.logMessage(LogPriority.HINT, "Exportieren der Laufschrift abgeschlossen");
     }
 
@@ -171,8 +179,13 @@ public class Control
         return moduleManager;
     }
 
-    public ConfigurationSource getGlobalCoreConfig()
+    public ModuleConfiguration getCoreConfig()
     {
-        return coreConfig.global;
+        return coreConfig;
+    }
+
+    public GeneralConfigFile getMotdConfigFile()
+    {
+        return motdConfigFile;
     }
 }

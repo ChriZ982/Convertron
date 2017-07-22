@@ -16,8 +16,6 @@ import java.util.TreeMap;
  */
 public class TableOptions
 {
-    public static final String TABLEOPTIONS_CONFIGFILE = "tableoptions.cfg";
-
     private static final TableOptions instance;
 
     static
@@ -350,9 +348,14 @@ public class TableOptions
         return configFile.load(TableOptionsConfig.customDateTomorrow.toString());
     }
 
+    public IniConfigFile getConfigFile()
+    {
+        return configFile;
+    }
+
     public void setConfiguration(ModuleConfiguration config)
     {
-        configFile = new IniConfigFile(config.global, TABLEOPTIONS_CONFIGFILE);
+        configFile = new IniConfigFile(config, "tableoptions.cfg");
         configFile.loadDefaultsFromResource("/eu/convertron/interlib/res/tableoptions.cfg", getClass());
     }
 

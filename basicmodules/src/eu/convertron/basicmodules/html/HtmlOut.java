@@ -4,7 +4,7 @@ import eu.convertron.basicmodules.Resources;
 import eu.convertron.interlib.FilterOption;
 import eu.convertron.interlib.Lesson;
 import eu.convertron.interlib.TableOptions;
-import eu.convertron.interlib.config.ConfigurationSource;
+import eu.convertron.interlib.config.DesiredLocation;
 import eu.convertron.interlib.config.GeneralConfigFile;
 import eu.convertron.interlib.config.IniConfigFile;
 import eu.convertron.interlib.config.LoadingContext;
@@ -41,7 +41,7 @@ public class HtmlOut implements Output
     private DesignPanel designPanel;
     private CustomDesignPanel customDesignPanel;
 
-    private ConfigurationSource globalConfig;
+    private ModuleConfiguration config;
 
     private IniConfigFile globalSettings;
     private IniConfigFile localSettings;
@@ -52,13 +52,17 @@ public class HtmlOut implements Output
     }
 
     @Override
-    public ModuleInitializationResult init(ModuleConfiguration moduleconfig, LoadingContext context)
+    public ModuleInitializationResult init(ModuleConfiguration config, LoadingContext context)
     {
-        this.globalConfig = moduleconfig.global;
-        this.globalSettings = new IniConfigFile(globalConfig, "htmlout.cfg", Resources.file("htmlout.cfg"));
-        this.designXml = new GeneralConfigFile(globalConfig, "design.xml", Resources.file("design.xml"));
+        this.config = config;
+        this.globalSettings = new IniConfigFile(config, "htmlout.cfg", DesiredLocation.Global,
+                                                Resources.file("htmlout.cfg"));
 
-        this.localSettings = new IniConfigFile(moduleconfig.local, "htmloutlocal.cfg", Resources.file("htmloutlocal.cfg"));
+        this.designXml = new GeneralConfigFile(config, "design.xml", DesiredLocation.Global,
+                                               Resources.file("design.xml"));
+
+        this.localSettings = new IniConfigFile(config, "htmloutlocal.cfg", DesiredLocation.ForceLocal,
+                                               Resources.file("htmloutlocal.cfg"));
 
         View.invokeAndWait(()
                 ->
@@ -108,9 +112,12 @@ public class HtmlOut implements Output
 
     private void export(Lesson[] lessons, String date, String... files)
     {
-        String templateLesson = new GeneralConfigFile(globalConfig, "template - lesson.txt", Resources.file("templates/lesson.txt")).loadString();
-        String templateClass = new GeneralConfigFile(globalConfig, "template - class.txt", Resources.file("templates/class.txt")).loadString();
-        String templateDay = new GeneralConfigFile(globalConfig, "template - day.txt", Resources.file("templates/day.txt")).loadString();
+        String templateLesson = new GeneralConfigFile(config, "template - lesson.txt", DesiredLocation.Global,
+                                                      Resources.file("templates/lesson.txt")).loadString();
+        String templateClass = new GeneralConfigFile(config, "template - class.txt", DesiredLocation.Global,
+                                                     Resources.file("templates/class.txt")).loadString();
+        String templateDay = new GeneralConfigFile(config, "template - day.txt", DesiredLocation.Global,
+                                                   Resources.file("templates/day.txt")).loadString();
 
         String evenChar = TableOptions.getInstance().getEvenWeekChar();
 
@@ -148,8 +155,10 @@ public class HtmlOut implements Output
     private String getClassString(String templateClass, String className, String[] columnNames, String templateLesson, Lesson[] lessons, String date)
     {
         String customClass = templateClass.replace("CLASSNAME", className);
-        Lesson[] classLessons = TableOptions.getInstance().filterRows(lessons,
-                                                                      (FilterOption)(Lesson lesson) -> lesson.get("Klasse").trim().equals(className) && lesson.get("Datum").equals(date));
+        FilterOption filter = (Lesson lesson)
+                -> lesson.get("Klasse").trim().equals(className) && lesson.get("Datum").equals(date);
+
+        Lesson[] classLessons = TableOptions.getInstance().filterRows(lessons, filter);
         customClass = customClass.replace("NUMLESSONS", String.valueOf(classLessons.length + 1));
 
         return customClass.replace("LESSONS", getLessonsString(classLessons, columnNames, templateLesson));
@@ -229,7 +238,8 @@ public class HtmlOut implements Output
 
     private void exportMotd(String motd, String... files)
     {
-        String templateMotd = new GeneralConfigFile(globalConfig, "template - motd.txt", Resources.file("templates/motd.txt")).loadString();
+        String templateMotd = new GeneralConfigFile(config, "template - motd.txt", DesiredLocation.Global,
+                                                    Resources.file("templates/motd.txt")).loadString();
         templateMotd = templateMotd.replaceAll("MOTDTEXT", motd);
         templateMotd = templateMotd.replaceAll("MOTD_SPEED", designPanel.getValue("MOTD_SPEED"));
 
@@ -242,8 +252,10 @@ public class HtmlOut implements Output
 
     private void styleOut(String... files)
     {
-        String templateStyle = new GeneralConfigFile(globalConfig, "template - style.txt", Resources.file("templates/style.txt")).loadString();
-        String templateCustom = new GeneralConfigFile(globalConfig, "template - custom.txt", Resources.file("templates/custom.txt")).loadString();
+        String templateStyle = new GeneralConfigFile(config, "template - style.txt", DesiredLocation.Global,
+                                                     Resources.file("templates/style.txt")).loadString();
+        String templateCustom = new GeneralConfigFile(config, "template - custom.txt", DesiredLocation.Global,
+                                                      Resources.file("templates/custom.txt")).loadString();
 
         ArrayList<CustomDesignItem> customDesignItems = customDesignPanel.getAllCustomDesignItems();
         String extraFormats = "";
@@ -272,7 +284,7 @@ public class HtmlOut implements Output
         String[] resources = globalSettings.loadArray("htmlResources");
         for(String res : resources)
         {
-            GeneralConfigFile cfg = new GeneralConfigFile(globalConfig, res);
+            GeneralConfigFile cfg = new GeneralConfigFile(config, res);
             if(Resources.get("htmlRes/" + res) != null)
                 cfg.loadDefaultsFromResource(Resources.file("htmlRes/" + res));
             byte[] value = cfg.load();

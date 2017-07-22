@@ -1,25 +1,20 @@
 package eu.convertron.core.tabs;
 
-import eu.convertron.interlib.config.ConfigurationSource;
-import eu.convertron.interlib.config.IniConfigFile;
-import eu.convertron.interlib.config.SingleConfigurationListener;
+import eu.convertron.interlib.TableOptions;
+import eu.convertron.interlib.config.ModuleConfiguration;
 import eu.convertron.interlib.util.GuiBridge;
-import static eu.convertron.interlib.TableOptions.TABLEOPTIONS_CONFIGFILE;
 
 public class SettingsControl
 {
     private final SettingsView view;
     private final GuiBridge[] bridges;
 
-    private final IniConfigFile iniConfig;
-
-    public SettingsControl(ConfigurationSource config)
+    public SettingsControl(ModuleConfiguration config)
     {
-        iniConfig = new IniConfigFile(config, TABLEOPTIONS_CONFIGFILE, false);
-        view = new SettingsView(iniConfig);
+        view = new SettingsView();
         bridges = view.createBridges();
 
-        config.addConfigListener(new SingleConfigurationListener(TABLEOPTIONS_CONFIGFILE, (v) -> load()));
+        TableOptions.getInstance().getConfigFile().addConfigFileListener((v) -> load());
 
         load();
 
@@ -35,7 +30,7 @@ public class SettingsControl
     {
         for(GuiBridge b : bridges)
             b.save();
-        iniConfig.flush();
+        TableOptions.getInstance().getConfigFile().flush();
     }
 
     public void load()

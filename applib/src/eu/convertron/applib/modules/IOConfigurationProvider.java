@@ -22,12 +22,6 @@ public class IOConfigurationProvider implements ConfigurationSourceProvider
     }
 
     @Override
-    public ConfigurationSource getOrCreateConfiguration(Class<?> module)
-    {
-        return getOrCreateConfiguration(module.getName());
-    }
-
-    @Override
     public ConfigurationSource getOrCreateConfiguration(String moduleName)
     {
         String dic = normalize(moduleName);

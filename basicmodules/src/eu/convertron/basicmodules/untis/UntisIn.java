@@ -2,6 +2,7 @@ package eu.convertron.basicmodules.untis;
 
 import eu.convertron.basicmodules.Resources;
 import eu.convertron.interlib.Lesson;
+import eu.convertron.interlib.config.DesiredLocation;
 import eu.convertron.interlib.config.IniConfigFile;
 import eu.convertron.interlib.config.LoadingContext;
 import eu.convertron.interlib.config.ModuleConfiguration;
@@ -36,7 +37,9 @@ public class UntisIn implements Input
     @Override
     public ModuleInitializationResult init(ModuleConfiguration moduleconfig, LoadingContext context)
     {
-        this.configFile = new IniConfigFile(moduleconfig.local, "untisinlocal.cfg", Resources.file("untisinlocal.cfg"));
+        this.configFile = new IniConfigFile(moduleconfig, "untisinlocal.cfg", DesiredLocation.ForceLocal,
+                                            Resources.file("untisinlocal.cfg"));
+
         return new ModuleInitializationResult(new UntisInView(configFile), "Untis Import V1.0");
     }
 

@@ -1,13 +1,11 @@
 package eu.convertron.core.tabs;
 
 import eu.convertron.core.Control;
-import eu.convertron.interlib.config.GeneralConfigFile;
 import eu.convertron.interlib.interfaces.View;
 
 public class OverviewControl
 {
     private final OverviewView view;
-    private final GeneralConfigFile config;
 
     private final Control control;
 
@@ -16,9 +14,7 @@ public class OverviewControl
         this.control = control;
         view = new OverviewView();
 
-        config = new GeneralConfigFile(control.getGlobalCoreConfig(), Control.MOTD_SAVEFILE);
-
-        config.addConfigFileListener((val) -> loadMotdText());
+        control.getMotdConfigFile().addConfigFileListener((val) -> loadMotdText());
 
         loadMotdText();
 
@@ -56,13 +52,13 @@ public class OverviewControl
 
     public void saveMotdText()
     {
-        config.save(view.getMotdText());
+        control.getMotdConfigFile().save(view.getMotdText());
         control.exportMotd();
     }
 
     public void loadMotdText()
     {
-        view.setMotdText(config.loadString());
+        view.setMotdText(control.getMotdConfigFile().loadString());
     }
 
     public View getView()

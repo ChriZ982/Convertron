@@ -46,20 +46,24 @@ public class IniConfigFile extends AbstractConfigFile
 
     private HashMap<String, String> content;
 
-    public IniConfigFile(ConfigurationSource configuration, String configName)
+    public IniConfigFile(ModuleConfiguration configuration, String configName)
     {
-        this(configuration, configName, true);
+        this(configuration, configName, DesiredLocation.Local);
     }
 
-    public IniConfigFile(ConfigurationSource configuration, String configName, ResourceFile defaults)
+    public IniConfigFile(ModuleConfiguration configuration, String configName, DesiredLocation location)
     {
-        this(configuration, configName);
-        loadDefaultsFromResource(defaults);
+        this(configuration, configName, location, null);
     }
 
-    public IniConfigFile(ConfigurationSource configuration, String configName, boolean autoFlush)
+    public IniConfigFile(ModuleConfiguration configuration, String configName, DesiredLocation location, ResourceFile defaults)
     {
-        super(configuration, configName);
+        this(configuration, configName, location, defaults, true);
+    }
+
+    public IniConfigFile(ModuleConfiguration configuration, String configName, DesiredLocation location, ResourceFile defaults, boolean autoFlush)
+    {
+        super(configuration, configName, location);
         this.autoFlush = autoFlush;
 
         this.content = new HashMap<>();
@@ -67,6 +71,9 @@ public class IniConfigFile extends AbstractConfigFile
         this.addConfigFileListener((v) -> reload(v));
 
         reload();
+
+        if(defaults != null)
+            loadDefaultsFromResource(defaults);
     }
 
     public HashMap<String, String> loadAll()

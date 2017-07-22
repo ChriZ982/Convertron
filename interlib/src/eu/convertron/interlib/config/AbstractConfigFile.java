@@ -5,18 +5,19 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 public abstract class AbstractConfigFile
 {
-    protected ConfigurationSource configuration;
+    protected ModuleConfiguration configuration;
     protected String configName;
     protected Charset charset;
+    protected DesiredLocation location;
 
     private SingleConfigurationListener listener;
 
-    protected AbstractConfigFile(ConfigurationSource configuration, String configName)
+    protected AbstractConfigFile(ModuleConfiguration configuration, String configName, DesiredLocation location)
     {
-        this(configuration, configName, UTF_8);
+        this(configuration, configName, location, UTF_8);
     }
 
-    public AbstractConfigFile(ConfigurationSource configuration, String configName, Charset charset)
+    public AbstractConfigFile(ModuleConfiguration configuration, String configName, DesiredLocation location, Charset charset)
     {
         this.configuration = configuration;
         this.configName = configName;
@@ -24,6 +25,7 @@ public abstract class AbstractConfigFile
 
         this.listener = new SingleConfigurationListener(configName);
         this.configuration.addConfigListener(listener);
+
     }
 
     public void addConfigFileListener(ConfigFileListener l)
@@ -36,7 +38,7 @@ public abstract class AbstractConfigFile
         return listener.removeConfigFileListener(l);
     }
 
-    public ConfigurationSource getConfiguration()
+    public ModuleConfiguration getConfiguration()
     {
         return configuration;
     }
@@ -63,6 +65,6 @@ public abstract class AbstractConfigFile
 
     protected byte[] load0()
     {
-        return configuration.getOrCreateConfig(configName);
+        return configuration.getOrCreateConfig(configName, location);
     }
 }
