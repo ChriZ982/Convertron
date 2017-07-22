@@ -1,7 +1,6 @@
 package eu.convertron.server;
 
 import eu.convertron.applib.CsvStorage;
-import eu.convertron.applib.Storage;
 import eu.convertron.applib.modules.IOConfigurationProvider;
 import eu.convertron.applib.modules.ModuleConfigurationProvider;
 import eu.convertron.interlib.Lesson;
@@ -26,7 +25,7 @@ public class Control
     private final GeneralConfigFile motdConfigFile;
 
     private final ModuleManager moduleManager;
-    private final Storage storage;
+    private final CsvStorage storage;
 
     private final ModuleConfigurationProvider provider;
     private final ModuleConfiguration coreConfig;
@@ -43,15 +42,15 @@ public class Control
                                                         new IOConfigurationProvider(data + "/globalconfig"),
                                                         null);
 
-        this.coreConfig = provider.provideConfig(TableOptions.class);
+        this.coreConfig = provider.provideConfig(Control.class);
         TableOptions.getInstance().setConfiguration(coreConfig);
 
         this.moduleManager = new ModuleManager(provider);
-        this.storage = new CsvStorage(data + "/data.csv");
+        this.storage = new CsvStorage(coreConfig, "lessondata.csv");
 
         this.timer = initializeTimer();
 
-        this.motdConfigFile = new GeneralConfigFile(coreConfig, "motd.txt", DesiredLocation.ForceGlobalAndOverrideExisting);
+        this.motdConfigFile = new GeneralConfigFile(coreConfig, "motd.txt", DesiredLocation.ForceGlobalAndDiscardLocal);
         this.motdConfigFile.addConfigFileListener((newValue) -> export());
 
         publishWebService(getWsAddresses());
@@ -121,13 +120,13 @@ public class Control
 
     public void setData(Lesson[] data)
     {
-        storage.save(data);
+        storage.saveLessons(data);
         export();
     }
 
     public Lesson[] getData()
     {
-        return storage.load();
+        return storage.loadLessons();
     }
 
     public void export()

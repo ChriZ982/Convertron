@@ -6,6 +6,7 @@ import eu.convertron.core.tabs.ModuleControl;
 import eu.convertron.core.tabs.ModuleImportControl;
 import eu.convertron.core.tabs.OverviewControl;
 import eu.convertron.core.tabs.SettingsControl;
+import eu.convertron.core.tabs.SystemSettingsControl;
 import eu.convertron.interlib.interfaces.View;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
@@ -29,6 +30,7 @@ public class Window extends ApplicationFrame
 
     private final OverviewControl overviewControl;
     private final SettingsControl settingsControl;
+    private final SystemSettingsControl systemSettingsControl;
     private final ModuleControl moduleControl;
     private final ModuleImportControl moduleImportControl;
 
@@ -49,9 +51,10 @@ public class Window extends ApplicationFrame
     {
         this.control = control;
         overviewControl = new OverviewControl(control);
+        systemSettingsControl = new SystemSettingsControl(this);
         settingsControl = new SettingsControl(control.getCoreConfig());
         moduleControl = new ModuleControl(control.getModuleManager());
-        moduleImportControl = new ModuleImportControl(control.getModuleManager());
+        moduleImportControl = new ModuleImportControl(control.getModuleManager(), this);
 
         super.init(Resources.get("trayLogo.png"), "Vertretungsplan-Generator Client",
                    createMenuItem("Alles generieren", (e) -> control.genAll()),
@@ -63,6 +66,7 @@ public class Window extends ApplicationFrame
         initComponents();
 
         addTab(overviewControl.getView());
+        addTab(systemSettingsControl.getView());
         addTab(settingsControl.getView());
         addTab(new SubTabView("Module", moduleControl.getView(), moduleImportControl.getView()));
 
@@ -108,9 +112,9 @@ public class Window extends ApplicationFrame
     {
         View.invokeLater(()
                 ->
-                {
-                    tabsPane.add(view);
-                    tabsPane.setTitleAt(tabCount() - 1, view.getTabTitle());
+        {
+            tabsPane.add(view);
+            tabsPane.setTitleAt(tabCount() - 1, view.getTabTitle());
         });
     }
 
@@ -144,8 +148,8 @@ public class Window extends ApplicationFrame
             Control c = new Control();
             View.invokeAndWait(()
                     ->
-                    {
-                        new Window(c).setVisible(true);
+            {
+                new Window(c).setVisible(true);
             });
         }
         catch(Exception ex)

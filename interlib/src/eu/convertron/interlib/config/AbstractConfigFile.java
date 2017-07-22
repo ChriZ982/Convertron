@@ -21,6 +21,7 @@ public abstract class AbstractConfigFile
     {
         this.configuration = configuration;
         this.configName = configName;
+        this.location = location;
         this.charset = charset;
 
         this.listener = new SingleConfigurationListener(configName);

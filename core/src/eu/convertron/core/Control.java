@@ -1,7 +1,6 @@
 package eu.convertron.core;
 
 import eu.convertron.applib.CsvStorage;
-import eu.convertron.applib.Storage;
 import eu.convertron.applib.modules.ConfigurationSourceProvider;
 import eu.convertron.applib.modules.IOConfigurationProvider;
 import eu.convertron.applib.modules.ModuleConfigurationProvider;
@@ -17,7 +16,6 @@ import eu.convertron.interlib.io.Folder;
 import eu.convertron.interlib.io.TextFile;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
-import eu.convertron.interlib.util.Bundle;
 import java.net.URL;
 import javax.swing.Timer;
 
@@ -28,32 +26,25 @@ public class Control
 {
     private final GeneralConfigFile motdConfigFile;
 
-    private final Storage storage;
+    private final CsvStorage storage;
     private final ModuleManager moduleManager;
     private final Timer autoTimer;
 
-    private final MoveConflictUserCallback callback;
     private final ModuleConfigurationProvider provider;
     private final ModuleConfiguration coreConfig;
 
     public Control()
     {
-        Bundle<ConfigurationSourceProvider, Storage> bundle = initializeConfigAndStorage();
-        ConfigurationSourceProvider globalProv = bundle.getA();
-        storage = bundle.getB();
+        provider = new ModuleConfigurationProvider(new IOConfigurationProvider(CoreSettings.pathLocalData.load()),
+                                                   createGlobalConfigurationSourceProvider(),
+                                                   createMoveConflictUserCallback());
 
-        //TODO Implement
-        callback = null;
-
-        provider = new ModuleConfigurationProvider(new IOConfigurationProvider(CoreSettings.pathData.load() + "/localconfig"),
-                                                   globalProv,
-                                                   callback);
-
-        coreConfig = provider.provideConfig(TableOptions.class);
+        coreConfig = provider.provideConfig(Control.class);
+        storage = new CsvStorage(coreConfig, "lessondata.csv");
 
         TableOptions.getInstance().setConfiguration(coreConfig);
 
-        motdConfigFile = new GeneralConfigFile(coreConfig, "motd.txt", DesiredLocation.ForceGlobalAndOverrideExisting);
+        motdConfigFile = new GeneralConfigFile(coreConfig, "motd.txt", DesiredLocation.ForceGlobalAndDiscardLocal);
 
         moduleManager = new ModuleManager(provider);
 
@@ -63,7 +54,13 @@ public class Control
         Logger.logMessage(LogPriority.HINT, "Anwendung gestartet");
     }
 
-    private Bundle<ConfigurationSourceProvider, Storage> initializeConfigAndStorage()
+    private MoveConflictUserCallback createMoveConflictUserCallback()
+    {
+        //TODO
+        return null;
+    }
+
+    private ConfigurationSourceProvider createGlobalConfigurationSourceProvider()
     {
         if(CoreSettings.useRemote.isTrue())
         {
@@ -77,7 +74,7 @@ public class Control
                                                Integer.parseInt(CoreSettings.remotePort.load()), true);
 
                 Logger.logMessage(LogPriority.HINT, "Erfolgreich mit Server verbunden");
-                return new Bundle<>(con, con);
+                return con;
             }
             catch(Throwable t)
             {
@@ -86,8 +83,7 @@ public class Control
                 Logger.logError(LogPriority.ERROR, "Fehler beim starten im Remote Modus, versuche im Normalmodus zu starten", t);
             }
         }
-        String data = CoreSettings.pathData.load();
-        return new Bundle<>(new IOConfigurationProvider(data + "/globalconfig"), new CsvStorage(data + "/data.csv"));
+        return new IOConfigurationProvider(CoreSettings.pathGlobalData.load());
     }
 
     private void timerTick()
@@ -96,10 +92,6 @@ public class Control
             genAll();
     }
 
-    /**
-     * Beendet die Logic des Programms.
-     * @return success
-     */
     public boolean stop()
     {
         try
@@ -133,7 +125,7 @@ public class Control
         Lesson[] in = moduleManager.importLessons();
         if(in != null)
         {
-            storage.save(TableOptions.getInstance().compress(in));
+            storage.saveLessons(TableOptions.getInstance().compress(in));
             Logger.logMessage(LogPriority.HINT, "Vertretungseinträge aktualisiert");
         }
         else
@@ -150,7 +142,7 @@ public class Control
 
     public void exportLessons()
     {
-        moduleManager.exportLessons(storage.load());
+        moduleManager.exportLessons(storage.loadLessons());
         Logger.logMessage(LogPriority.HINT, "Exportieren der Vertretungseintraege abgeschlossen");
     }
 
@@ -165,7 +157,7 @@ public class Control
         try
         {
             String backupPath = CoreSettings.pathBackup.load();
-            new Folder(CoreSettings.pathData.load()).copyContent(backupPath);
+            new Folder(CoreSettings.pathGlobalData.load()).copyContent(backupPath);
             new TextFile(Settings.SETTING_FILE).copy(backupPath);
         }
         catch(Exception ex)

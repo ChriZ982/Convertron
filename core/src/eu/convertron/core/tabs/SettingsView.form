@@ -31,150 +31,94 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="separator1" alignment="1" max="32767" attributes="0"/>
-                          <Group type="102" alignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="customTodayLabel" alignment="0" min="-2" pref="36" max="-2" attributes="0"/>
-                                          <Component id="customTomorrowLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="customTodayTextField" max="32767" attributes="0"/>
-                                          <Component id="customTomorrowTextField" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Component id="customDateCheckBox" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="automaticModeCheckBox" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="generateAllLabel" alignment="0" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="autoImportCheckBox" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="autoExportCheckBox" alignment="0" pref="340" max="32767" attributes="0"/>
-                                          <Component id="autoBackupCheckBox" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                                  <Component id="customTodayLabel" alignment="0" min="-2" pref="36" max="-2" attributes="0"/>
+                                  <Component id="customTomorrowLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                              <Component id="separator2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="evenWeekLabel" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="evenWeekComboBox" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                                  <Component id="customTodayTextField" max="32767" attributes="0"/>
+                                  <Component id="customTomorrowTextField" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="customDateCheckBox" alignment="0" max="32767" attributes="0"/>
+                          <Component id="automaticModeCheckBox" alignment="0" max="32767" attributes="0"/>
+                          <Component id="generateAllLabel" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="autoImportCheckBox" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="autoExportCheckBox" alignment="0" pref="340" max="32767" attributes="0"/>
+                                  <Component id="autoBackupCheckBox" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                      <Component id="separator2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="evenWeekLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="evenWeekComboBox" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="hoursHeadLabel" alignment="0" min="-2" pref="209" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="hoursHeadLabel" alignment="0" min="-2" pref="209" max="-2" attributes="0"/>
-                                          <Group type="102" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                                      <Component id="hour9Label" alignment="1" max="32767" attributes="0"/>
-                                                      <Component id="hour7Label" alignment="1" max="32767" attributes="0"/>
-                                                      <Component id="hour5Label" alignment="1" max="32767" attributes="0"/>
-                                                      <Component id="hour3Label" alignment="1" max="32767" attributes="0"/>
-                                                  </Group>
-                                                  <Component id="hour1Label" alignment="0" min="-2" pref="53" max="-2" attributes="0"/>
-                                              </Group>
+                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                              <Component id="hour9Label" alignment="1" max="32767" attributes="0"/>
+                                              <Component id="hour7Label" alignment="1" max="32767" attributes="0"/>
+                                              <Component id="hour5Label" alignment="1" max="32767" attributes="0"/>
+                                              <Component id="hour3Label" alignment="1" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Component id="hour1Label" alignment="0" min="-2" pref="53" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="hour7TextField" alignment="0" pref="135" max="32767" attributes="0"/>
+                                          <Component id="hour5TextField" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="hour3TextField" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="hour1TextField" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="hour9TextField" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="hour10Label" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="hour10TextField" pref="134" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="hour8Label" min="-2" pref="53" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="hour8TextField" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="hour6Label" min="-2" pref="53" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="hour6TextField" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="hour4Label" min="-2" pref="53" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="hour4TextField" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="hour2Label" min="-2" pref="53" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="hour7TextField" alignment="0" pref="135" max="32767" attributes="0"/>
-                                                  <Component id="hour5TextField" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="hour3TextField" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="hour1TextField" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="hour9TextField" max="32767" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="-2" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="1" attributes="0">
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="hour10Label" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="hour10TextField" pref="134" max="32767" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="hour8Label" min="-2" pref="53" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="hour8TextField" max="32767" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="hour6Label" min="-2" pref="53" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="hour6TextField" max="32767" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="hour4Label" min="-2" pref="53" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="hour4TextField" max="32767" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="hour2Label" min="-2" pref="53" max="-2" attributes="0"/>
-                                                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                                                      <Component id="hour2TextField" max="32767" attributes="0"/>
-                                                  </Group>
-                                              </Group>
+                                              <Component id="hour2TextField" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <Component id="useHoursCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="pathsLabel" alignment="0" max="32767" attributes="0"/>
+                          <Component id="useHoursCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="backupPathLabel" max="32767" attributes="0"/>
-                          <Component id="dataPathLabel" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="dataPathTextField" max="32767" attributes="0"/>
-                          <Component id="backupPathTextField" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="dataPathChooseButton" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="backupPathChooseButton" min="-2" pref="30" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jSeparator1" max="32767" attributes="0"/>
-                          <Component id="useRemoteCheckBox" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="hostPortRadioBtn" max="32767" attributes="0"/>
-                                  <Component id="wsdlRadioBtn" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="httpLabel" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="hostTxt" max="32767" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="hostportLabel" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="portTxt" min="-2" pref="100" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="wsdlLabel" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="wsdlTxt" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="remoteHintLabel" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -256,47 +200,7 @@
                   </Group>
                   <Component id="separator2" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="separator1" min="-2" pref="2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="pathsLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="dataPathChooseButton" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="dataPathLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="dataPathTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="backupPathLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="backupPathTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="backupPathChooseButton" min="-2" pref="20" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="useRemoteCheckBox" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="hostPortRadioBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="hostTxt" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="hostportLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="wsdlLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="httpLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="portTxt" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="wsdlRadioBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="wsdlTxt" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="remoteHintLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="89" max="32767" attributes="0"/>
+              <EmptySpace pref="287" max="32767" attributes="0"/>
               <Component id="saveSettingsButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -493,8 +397,6 @@
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JSeparator" name="separator1">
-    </Component>
     <Component class="javax.swing.JCheckBox" name="automaticModeCheckBox">
       <Properties>
         <Property name="text" type="java.lang.String" value="Automatikmodus"/>
@@ -526,101 +428,6 @@
     <Component class="javax.swing.JLabel" name="generateAllLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Alles generieren:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="pathsLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Pfade:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="dataPathLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Data"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="backupPathLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Backup"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="dataPathTextField">
-    </Component>
-    <Component class="javax.swing.JTextField" name="backupPathTextField">
-    </Component>
-    <Component class="javax.swing.JButton" name="dataPathChooseButton">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new javax.swing.ImageIcon(Resources.get(&quot;ordner.png&quot;))" type="code"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dataPathChooseButtonActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="backupPathChooseButton">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new javax.swing.ImageIcon(Resources.get(&quot;ordner.png&quot;))" type="code"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="backupPathChooseButtonActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JSeparator" name="jSeparator1">
-    </Component>
-    <Component class="javax.swing.JCheckBox" name="useRemoteCheckBox">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Remote Modus"/>
-      </Properties>
-      <Events>
-        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="useRemoteCheckBoxItemStateChanged"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JRadioButton" name="hostPortRadioBtn">
-      <Properties>
-        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="wsdlTypeRadioBtnGroup"/>
-        </Property>
-        <Property name="selected" type="boolean" value="true"/>
-        <Property name="text" type="java.lang.String" value="Host/Port"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JRadioButton" name="wsdlRadioBtn">
-      <Properties>
-        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="wsdlTypeRadioBtnGroup"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="WSDL"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="hostTxt">
-    </Component>
-    <Component class="javax.swing.JLabel" name="hostportLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value=":"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="wsdlLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="/_convertron?WSDL"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="httpLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="http://"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="wsdlTxt">
-    </Component>
-    <Component class="javax.swing.JLabel" name="remoteHintLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;font color=&quot;red&quot;&gt;&lt;center&gt;&#xc4;nderungen am Remote Modus werden erst nach einem Neustart wirksam&lt;/center&gt;&lt;/font&gt;&lt;/html&gt;"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="portTxt">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
     </Component>
   </SubComponents>

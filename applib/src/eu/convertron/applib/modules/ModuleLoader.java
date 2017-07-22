@@ -109,7 +109,7 @@ public class ModuleLoader
         {
             throw new RuntimeException("Exception while initializing Module "
                                        + (instance != null ? instance.getClass() : "null")
-                                       + " at location " + location.forSaving());
+                                       + " at location " + location.forSaving(), t);
         }
 
         return new LoadedModule(location, result, instance, context, config);

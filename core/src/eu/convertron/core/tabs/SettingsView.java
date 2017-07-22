@@ -2,7 +2,6 @@ package eu.convertron.core.tabs;
 
 import eu.convertron.applib.settings.GuiSettingBridge;
 import eu.convertron.core.CoreSettings;
-import eu.convertron.core.Resources;
 import eu.convertron.interlib.TableOptions;
 import eu.convertron.interlib.config.IniConfigFile;
 import eu.convertron.interlib.interfaces.View;
@@ -10,7 +9,6 @@ import eu.convertron.interlib.util.GuiBridge;
 import eu.convertron.interlib.util.GuiIniBridge;
 import java.io.File;
 import javax.swing.JComponent;
-import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
 @SuppressWarnings("serial")
@@ -18,7 +16,6 @@ public class SettingsView extends View
 {
     private final JComponent[] useHoursComponents;
     private final JComponent[] customDateComponents;
-    private final JComponent[] useRemoteComponents;
 
     public SettingsView()
     {
@@ -59,15 +56,8 @@ public class SettingsView extends View
             customTomorrowLabel, customTomorrowTextField
         };
 
-        useRemoteComponents = new JComponent[]
-        {
-            hostPortRadioBtn, httpLabel, hostTxt, hostportLabel, portTxt,
-            wsdlLabel, wsdlRadioBtn, wsdlTxt, remoteHintLabel
-        };
-
         useHoursCheckBoxItemStateChanged(null);
         customDateCheckBoxItemStateChanged(null);
-        useRemoteCheckBoxItemStateChanged(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -108,30 +98,11 @@ public class SettingsView extends View
         customTodayTextField = new javax.swing.JTextField();
         customTomorrowLabel = new javax.swing.JLabel();
         customTomorrowTextField = new javax.swing.JTextField();
-        separator1 = new javax.swing.JSeparator();
         automaticModeCheckBox = new javax.swing.JCheckBox();
         autoImportCheckBox = new javax.swing.JCheckBox();
         autoExportCheckBox = new javax.swing.JCheckBox();
         evenWeekComboBox = new javax.swing.JComboBox<>();
         generateAllLabel = new javax.swing.JLabel();
-        pathsLabel = new javax.swing.JLabel();
-        dataPathLabel = new javax.swing.JLabel();
-        backupPathLabel = new javax.swing.JLabel();
-        dataPathTextField = new javax.swing.JTextField();
-        backupPathTextField = new javax.swing.JTextField();
-        dataPathChooseButton = new javax.swing.JButton();
-        backupPathChooseButton = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        useRemoteCheckBox = new javax.swing.JCheckBox();
-        hostPortRadioBtn = new javax.swing.JRadioButton();
-        wsdlRadioBtn = new javax.swing.JRadioButton();
-        hostTxt = new javax.swing.JTextField();
-        hostportLabel = new javax.swing.JLabel();
-        wsdlLabel = new javax.swing.JLabel();
-        httpLabel = new javax.swing.JLabel();
-        wsdlTxt = new javax.swing.JTextField();
-        remoteHintLabel = new javax.swing.JLabel();
-        portTxt = new javax.swing.JTextField();
 
         autoBackupCheckBox.setText("Backup");
         autoBackupCheckBox.setToolTipText("Soll ein automatisches Backup beim Generieren erstellt werden?");
@@ -247,56 +218,6 @@ public class SettingsView extends View
 
         generateAllLabel.setText("Alles generieren:");
 
-        pathsLabel.setText("Pfade:");
-
-        dataPathLabel.setText("Data");
-
-        backupPathLabel.setText("Backup");
-
-        dataPathChooseButton.setIcon(new javax.swing.ImageIcon(Resources.get("ordner.png")));
-        dataPathChooseButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                dataPathChooseButtonActionPerformed(evt);
-            }
-        });
-
-        backupPathChooseButton.setIcon(new javax.swing.ImageIcon(Resources.get("ordner.png")));
-        backupPathChooseButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                backupPathChooseButtonActionPerformed(evt);
-            }
-        });
-
-        useRemoteCheckBox.setText("Remote Modus");
-        useRemoteCheckBox.addItemListener(new java.awt.event.ItemListener()
-        {
-            public void itemStateChanged(java.awt.event.ItemEvent evt)
-            {
-                useRemoteCheckBoxItemStateChanged(evt);
-            }
-        });
-
-        wsdlTypeRadioBtnGroup.add(hostPortRadioBtn);
-        hostPortRadioBtn.setSelected(true);
-        hostPortRadioBtn.setText("Host/Port");
-
-        wsdlTypeRadioBtnGroup.add(wsdlRadioBtn);
-        wsdlRadioBtn.setText("WSDL");
-
-        hostportLabel.setText(":");
-
-        wsdlLabel.setText("/_convertron?WSDL");
-
-        httpLabel.setText("http://");
-
-        remoteHintLabel.setText("<html><font color=\"red\"><center>Änderungen am Remote Modus werden erst nach einem Neustart wirksam</center></font></html>");
-
-        portTxt.setText("0");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -309,117 +230,74 @@ public class SettingsView extends View
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(separator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(21, 21, 21)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(customTodayLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(customTomorrowLabel))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(customTodayTextField)
-                                            .addComponent(customTomorrowTextField)))
-                                    .addComponent(customDateCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(automaticModeCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(generateAllLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(autoImportCheckBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(autoExportCheckBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
-                                            .addComponent(autoBackupCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(separator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(evenWeekLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(evenWeekComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(21, 21, 21)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(hoursHeadLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                        .addComponent(hour9Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(hour7Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(hour5Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(hour3Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                    .addComponent(hour1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(hour7TextField, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-                                                    .addComponent(hour5TextField)
-                                                    .addComponent(hour3TextField)
-                                                    .addComponent(hour1TextField)
-                                                    .addComponent(hour9TextField))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                        .addComponent(hour10Label)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(hour10TextField, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))
-                                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                        .addComponent(hour8Label, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(hour8TextField))
-                                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                        .addComponent(hour6Label, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(hour6TextField))
-                                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                        .addComponent(hour4Label, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(hour4TextField))
-                                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                        .addComponent(hour2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(hour2TextField))))))
-                                    .addComponent(useHoursCheckBox)))
-                            .addComponent(pathsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(backupPathLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(dataPathLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dataPathTextField)
-                            .addComponent(backupPathTextField))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dataPathChooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(backupPathChooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator1)
-                            .addComponent(useRemoteCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(21, 21, 21)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(hostPortRadioBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(wsdlRadioBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(customTodayLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(customTomorrowLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(customTodayTextField)
+                                    .addComponent(customTomorrowTextField)))
+                            .addComponent(customDateCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(automaticModeCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(generateAllLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(autoImportCheckBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(autoExportCheckBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                                    .addComponent(autoBackupCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(separator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(evenWeekLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(evenWeekComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(hoursHeadLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(httpLabel)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(hour9Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(hour7Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(hour5Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(hour3Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addComponent(hour1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(hostTxt)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(hour7TextField, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                                            .addComponent(hour5TextField)
+                                            .addComponent(hour3TextField)
+                                            .addComponent(hour1TextField)
+                                            .addComponent(hour9TextField))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(hostportLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(portTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(wsdlLabel))
-                                    .addComponent(wsdlTxt)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(remoteHintLabel)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                .addComponent(hour10Label)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(hour10TextField, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                .addComponent(hour8Label, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(hour8TextField))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                .addComponent(hour6Label, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(hour6TextField))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                .addComponent(hour4Label, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(hour4TextField))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                .addComponent(hour2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(hour2TextField))))))
+                            .addComponent(useHoursCheckBox))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -486,41 +364,7 @@ public class SettingsView extends View
                             .addComponent(customTomorrowTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(customTomorrowLabel)))
                     .addComponent(separator2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(separator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pathsLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dataPathChooseButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(dataPathLabel)
-                        .addComponent(dataPathTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(backupPathLabel)
-                        .addComponent(backupPathTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(backupPathChooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(useRemoteCheckBox)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(hostPortRadioBtn)
-                    .addComponent(hostTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(hostportLabel)
-                    .addComponent(wsdlLabel)
-                    .addComponent(httpLabel)
-                    .addComponent(portTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(wsdlRadioBtn)
-                    .addComponent(wsdlTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(remoteHintLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 287, Short.MAX_VALUE)
                 .addComponent(saveSettingsButton)
                 .addContainerGap())
         );
@@ -537,24 +381,6 @@ public class SettingsView extends View
         for(JComponent comp : customDateComponents)
             comp.setEnabled(customDateCheckBox.isSelected());
     }//GEN-LAST:event_customDateCheckBoxItemStateChanged
-
-    private void dataPathChooseButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_dataPathChooseButtonActionPerformed
-    {//GEN-HEADEREND:event_dataPathChooseButtonActionPerformed
-        if(folderChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
-            dataPathTextField.setText(folderChooser.getSelectedFile().getPath());
-    }//GEN-LAST:event_dataPathChooseButtonActionPerformed
-
-    private void backupPathChooseButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_backupPathChooseButtonActionPerformed
-    {//GEN-HEADEREND:event_backupPathChooseButtonActionPerformed
-        if(folderChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
-            backupPathTextField.setText(folderChooser.getSelectedFile().getPath());
-    }//GEN-LAST:event_backupPathChooseButtonActionPerformed
-
-    private void useRemoteCheckBoxItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_useRemoteCheckBoxItemStateChanged
-    {//GEN-HEADEREND:event_useRemoteCheckBoxItemStateChanged
-        for(JComponent comp : useRemoteComponents)
-            comp.setEnabled(useRemoteCheckBox.isSelected());
-    }//GEN-LAST:event_useRemoteCheckBoxItemStateChanged
 
     public void addSaveListener(Runnable task)
     {
@@ -590,15 +416,6 @@ public class SettingsView extends View
                              hour10TextField),
             //-----
             new GuiIniBridge(configFile, TableOptions.TableOptionsConfig.evenWeekChar.toString(), evenWeekComboBox),
-            //-----
-            new GuiSettingBridge(CoreSettings.pathData, dataPathTextField),
-            new GuiSettingBridge(CoreSettings.pathBackup, backupPathTextField),
-            //-----
-            new GuiSettingBridge(CoreSettings.useRemote, useRemoteCheckBox),
-            new GuiSettingBridge(CoreSettings.useCustomWsdl, wsdlRadioBtn),
-            new GuiSettingBridge(CoreSettings.remoteHost, hostTxt),
-            new GuiSettingBridge(CoreSettings.remotePort, portTxt),
-            new GuiSettingBridge(CoreSettings.remoteWsdl, wsdlTxt)
         };
     }
 
@@ -613,24 +430,15 @@ public class SettingsView extends View
     private javax.swing.JCheckBox autoExportCheckBox;
     private javax.swing.JCheckBox autoImportCheckBox;
     private javax.swing.JCheckBox automaticModeCheckBox;
-    private javax.swing.JButton backupPathChooseButton;
-    private javax.swing.JLabel backupPathLabel;
-    private javax.swing.JTextField backupPathTextField;
     private javax.swing.JCheckBox customDateCheckBox;
     private javax.swing.JLabel customTodayLabel;
     private javax.swing.JTextField customTodayTextField;
     private javax.swing.JLabel customTomorrowLabel;
     private javax.swing.JTextField customTomorrowTextField;
-    private javax.swing.JButton dataPathChooseButton;
-    private javax.swing.JLabel dataPathLabel;
-    private javax.swing.JTextField dataPathTextField;
     private javax.swing.JComboBox<String> evenWeekComboBox;
     private javax.swing.JLabel evenWeekLabel;
     private javax.swing.JFileChooser folderChooser;
     private javax.swing.JLabel generateAllLabel;
-    private javax.swing.JRadioButton hostPortRadioBtn;
-    private javax.swing.JTextField hostTxt;
-    private javax.swing.JLabel hostportLabel;
     private javax.swing.JLabel hour10Label;
     private javax.swing.JTextField hour10TextField;
     private javax.swing.JLabel hour1Label;
@@ -652,19 +460,9 @@ public class SettingsView extends View
     private javax.swing.JLabel hour9Label;
     private javax.swing.JTextField hour9TextField;
     private javax.swing.JLabel hoursHeadLabel;
-    private javax.swing.JLabel httpLabel;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel pathsLabel;
-    private javax.swing.JTextField portTxt;
-    private javax.swing.JLabel remoteHintLabel;
     private javax.swing.JButton saveSettingsButton;
-    private javax.swing.JSeparator separator1;
     private javax.swing.JSeparator separator2;
     private javax.swing.JCheckBox useHoursCheckBox;
-    private javax.swing.JCheckBox useRemoteCheckBox;
-    private javax.swing.JLabel wsdlLabel;
-    private javax.swing.JRadioButton wsdlRadioBtn;
-    private javax.swing.JTextField wsdlTxt;
     private javax.swing.ButtonGroup wsdlTypeRadioBtnGroup;
     // End of variables declaration//GEN-END:variables
 }

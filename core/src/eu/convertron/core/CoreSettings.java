@@ -5,13 +5,14 @@
  */
 package eu.convertron.core;
 
-import eu.convertron.interlib.config.IniConfigFile;
 import eu.convertron.applib.settings.SettingID;
 import eu.convertron.applib.settings.Settings;
+import eu.convertron.interlib.config.IniConfigFile;
 
 public enum CoreSettings implements SettingID
 {
-    pathData,
+    pathGlobalData,
+    pathLocalData,
     pathBackup,
     positionX,
     positionY,

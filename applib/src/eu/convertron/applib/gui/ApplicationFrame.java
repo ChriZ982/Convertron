@@ -9,7 +9,9 @@ import java.awt.TrayIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
@@ -117,6 +119,41 @@ public abstract class ApplicationFrame extends JFrame
     public void hideFrame()
     {
         setVisible(false);
+    }
+
+    public void restart()
+    {
+        try
+        {
+            Runtime.getRuntime().addShutdownHook(new Thread(() ->
+            {
+                try
+                {
+                    String javaBin = System.getProperty("java.home") + File.separator + "bin" + File.separator + "java";
+                    File currentJar = new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI());
+
+                    if(!currentJar.getName().endsWith(".jar"))
+                        return;
+
+                    ArrayList<String> command = new ArrayList<String>();
+                    command.add(javaBin);
+                    command.add("-jar");
+                    command.add(currentJar.getPath());
+
+                    ProcessBuilder builder = new ProcessBuilder(command);
+                    builder.start();
+                }
+                catch(Throwable t)
+                {
+                }
+            }));
+        }
+        catch(Exception ex)
+        {
+            Logger.logError(LogPriority.ERROR, "Fehler beim Vorbereiten des automatischen Neustarts", ex);
+        }
+
+        exit();
     }
 
     public abstract void exit();

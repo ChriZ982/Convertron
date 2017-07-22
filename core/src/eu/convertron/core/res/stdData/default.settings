@@ -1,7 +1,8 @@
-core.strings.pathData:.\debug\Data
-core.strings.pathBackup:.\debug\TestBackup
-core.strings.pathSource:.\debug\TestDateien
-core.strings.pathDests:.\debug\TestZiel1;.\debug\TestZiel2
+core.strings.pathGlobalData:./debug/GlobalData
+core.strings.pathLocalData:./debug/LocalData
+core.strings.pathBackup:./debug/Backup
+core.strings.pathSource:./debug/TestDateien
+core.strings.pathDests:./debug/TestZiel;./debug/TestZiel2
 core.strings.positionX:200
 core.strings.positionY:200
 core.strings.activeInput:

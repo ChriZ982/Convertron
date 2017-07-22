@@ -1,10 +1,7 @@
 package eu.convertron.client;
 
 import eu.convertron.applib.ChangeSet;
-import eu.convertron.applib.CsvLessonSerializer;
-import eu.convertron.applib.Storage;
 import eu.convertron.applib.modules.ConfigurationSourceProvider;
-import eu.convertron.interlib.Lesson;
 import eu.convertron.interlib.config.ConfigurationSource;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
@@ -14,7 +11,7 @@ import java.util.HashMap;
 import java.util.Random;
 import javax.swing.Timer;
 
-public class ServerConnection implements Storage, ConfigurationSourceProvider
+public class ServerConnection implements ConfigurationSourceProvider
 {
     private ConvertronWS service;
     private byte[] clientId;
@@ -96,37 +93,8 @@ public class ServerConnection implements Storage, ConfigurationSourceProvider
         }
         catch(Exception ex)
         {
-            Logger.logError(LogPriority.ERROR, "Konnte nicht die Konfiguration vom Server laden", ex);
+            Logger.logError(LogPriority.ERROR, "Konnte die Konfiguration nicht vom Server laden", ex);
             return null;
-        }
-    }
-
-    @Override
-    public Lesson[] load()
-    {
-        try
-        {
-            String serialization = service.getData();
-            return new CsvLessonSerializer().deserializeMultiple(serialization);
-        }
-        catch(Exception ex)
-        {
-            Logger.logError(LogPriority.ERROR, "Fehler beim Laden der Vertretungseinträge vom Server", ex);
-            return new Lesson[0];
-        }
-    }
-
-    @Override
-    public void save(Lesson[] lessons)
-    {
-        try
-        {
-            String serialization = new CsvLessonSerializer().serializeMultiple(lessons);
-            service.setData(serialization);
-        }
-        catch(Exception ex)
-        {
-            Logger.logError(LogPriority.ERROR, "Fehler beim Speichern der Vertretungseinträge auf dem Server", ex);
         }
     }
 

@@ -1,5 +1,6 @@
 package eu.convertron.interlib;
 
+import eu.convertron.interlib.config.DesiredLocation;
 import eu.convertron.interlib.config.IniConfigFile;
 import eu.convertron.interlib.config.ModuleConfiguration;
 import eu.convertron.interlib.util.Time;
@@ -355,7 +356,7 @@ public class TableOptions
 
     public void setConfiguration(ModuleConfiguration config)
     {
-        configFile = new IniConfigFile(config, "tableoptions.cfg");
+        configFile = new IniConfigFile(config, "tableoptions.cfg", DesiredLocation.ForceGlobalAndDiscardLocal);
         configFile.loadDefaultsFromResource("/eu/convertron/interlib/res/tableoptions.cfg", getClass());
     }
 

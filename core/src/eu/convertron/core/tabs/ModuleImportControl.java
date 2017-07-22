@@ -2,6 +2,7 @@ package eu.convertron.core.tabs;
 
 import eu.convertron.applib.modules.ClassLocation;
 import eu.convertron.core.ModuleManager;
+import eu.convertron.core.Window;
 import eu.convertron.interlib.interfaces.View;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
@@ -19,10 +20,12 @@ public class ModuleImportControl
 {
     private final ModuleManager moduleManager;
     private final ModuleImportView view;
+    private final Window window;
 
-    public ModuleImportControl(ModuleManager moduleManager)
+    public ModuleImportControl(ModuleManager moduleManager, Window window)
     {
         this.moduleManager = moduleManager;
+        this.window = window;
         view = new ModuleImportView(moduleManager.getLocationOfImportedModules());
 
         initializeListeners();
@@ -32,6 +35,7 @@ public class ModuleImportControl
     {
         view.addChangesMadeListener(() -> changesMadeAction());
         view.addOpenJarListener(() -> openJarAction());
+        view.addRestartListener(() -> window.restart());
     }
 
     private void changesMadeAction()

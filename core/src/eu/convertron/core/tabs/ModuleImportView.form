@@ -20,7 +20,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="changesInfoLabel" max="32767" attributes="0"/>
@@ -45,6 +45,7 @@
                           <Component id="allModulesLabel" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
+                  <Component id="restartBtn" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -65,7 +66,7 @@
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="openJarButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="modulesInJarScrollPane" max="32767" attributes="0"/>
+                      <Component id="modulesInJarScrollPane" pref="120" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="importModuleButton" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -80,7 +81,9 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="changesInfoLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="restartBtn" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -180,6 +183,11 @@
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;font color=&quot;red&quot;&gt;Hinweis: &#xc4;nderungen werden erst nach einem Neustart der Anwendung wirksam&lt;/font&gt;&lt;/html&gt;"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="restartBtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Jetzt neustarten"/>
       </Properties>
     </Component>
   </SubComponents>

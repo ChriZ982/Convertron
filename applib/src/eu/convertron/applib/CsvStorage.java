@@ -1,36 +1,28 @@
 package eu.convertron.applib;
 
 import eu.convertron.interlib.Lesson;
-import eu.convertron.interlib.io.TextFile;
+import eu.convertron.interlib.config.DesiredLocation;
+import eu.convertron.interlib.config.GeneralConfigFile;
+import eu.convertron.interlib.config.ModuleConfiguration;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 
 /**
  * Die Klasse zum Zwischenspeichern von Stunden-Array und Laufschrift mithilfe von Csv-Dateien.
  */
-public class CsvStorage implements Storage
+public class CsvStorage extends GeneralConfigFile
 {
-    private TextFile csvFile;
-
-    public CsvStorage(String path)
+    public CsvStorage(ModuleConfiguration config, String configName)
     {
-        this(new TextFile(path));
+        super(config, configName, DesiredLocation.ForceGlobalAndDiscardLocal);
     }
 
-    public CsvStorage(TextFile csvFile)
-    {
-        csvFile.createIfNotExists();
-        this.csvFile = csvFile;
-    }
-
-    @Override
-    public void save(Lesson[] lessons)
+    public void saveLessons(Lesson[] lessons)
     {
         try
         {
             String serialzation = new CsvLessonSerializer().serializeMultiple(lessons);
-            System.out.println(serialzation);
-            csvFile.writeText(serialzation);
+            save(serialzation);
         }
         catch(Exception ex)
         {
@@ -38,12 +30,11 @@ public class CsvStorage implements Storage
         }
     }
 
-    @Override
-    public Lesson[] load()
+    public Lesson[] loadLessons()
     {
         try
         {
-            String serialzation = csvFile.readAllToString().trim();
+            String serialzation = loadString().trim();
             return new CsvLessonSerializer().deserializeMultiple(serialzation);
         }
         catch(Exception ex)

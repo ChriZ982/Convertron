@@ -6,5 +6,5 @@ import eu.convertron.interlib.config.ModuleInitializationResult;
 
 public interface Module
 {
-    public ModuleInitializationResult init(ModuleConfiguration moduleconfig, LoadingContext context);
+    public ModuleInitializationResult init(ModuleConfiguration config, LoadingContext context);
 }

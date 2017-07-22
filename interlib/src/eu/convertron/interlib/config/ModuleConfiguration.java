@@ -125,8 +125,8 @@ public class ModuleConfiguration implements Configuration
                     case None:
                         global.setConfig(name, new byte[0]);
                         break;
-                    case Global:
-                        moveToGlobal(name, OverwriteStrategy.Force_DiscardLocal);
+                    case Local:
+                        moveToGlobal(name, OverwriteStrategy.DiscardLocal);
                         break;
                 }
                 break;
@@ -137,8 +137,8 @@ public class ModuleConfiguration implements Configuration
                     case None:
                         global.setConfig(name, new byte[0]);
                         break;
-                    case Global:
-                        moveToGlobal(name, OverwriteStrategy.Force_OverwriteGlobal);
+                    case Local:
+                        moveToGlobal(name, OverwriteStrategy.OverwriteGlobal);
                         break;
                 }
                 break;
@@ -202,18 +202,37 @@ public class ModuleConfiguration implements Configuration
 
     public boolean moveToGlobal(String configName, OverwriteStrategy strategy)
     {
-        if(getLocation(module) != CurrentConfigFileLocation.Local)
+        boolean result = true;
+        if(getLocation(configName) != CurrentConfigFileLocation.Local)
         {
             throw new UnsupportedOperationException(configName + " isnt a local config file");
         }
-
-        else if(strategy == OverwriteStrategy.Force_DiscardLocal
-                || (callback == null && strategy == OverwriteStrategy.Ask_DefaultDiscard))
+        else if(!global.hasConfig(configName))
+        {
+            global.setConfig(configName, local.getConfig(configName));
+        }
+        else if(Arrays.equals(global.getConfig(configName), local.getConfig(configName)))
         {
             //Do nothing
         }
-        else if(strategy == OverwriteStrategy.Force_OverwriteGlobal
-                || (callback == null && strategy == OverwriteStrategy.Ask_DefaultOverwrite))
+        else
+        {
+            result = applyStrategy(configName, strategy);
+        }
+
+        local.removeConfig(configName);
+        return result;
+    }
+
+    private boolean applyStrategy(String configName, OverwriteStrategy strategy)
+    {
+        if(strategy == OverwriteStrategy.DiscardLocal
+           || (callback == null && strategy == OverwriteStrategy.Ask_DefaultDiscardLocal))
+        {
+            //Do nothing
+        }
+        else if(strategy == OverwriteStrategy.OverwriteGlobal
+                || (callback == null && strategy == OverwriteStrategy.Ask_DefaultOverwriteGlobal))
         {
             global.setConfig(configName, local.getConfig(configName));
         }
@@ -230,7 +249,6 @@ public class ModuleConfiguration implements Configuration
 
             global.setConfig(configName, callbackResult);
         }
-        local.removeConfig(configName);
         return true;
     }
 

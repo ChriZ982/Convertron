@@ -1,11 +1,8 @@
 package eu.convertron.server;
 
 import eu.convertron.applib.ChangeSet;
-import eu.convertron.applib.CsvLessonSerializer;
-import eu.convertron.interlib.Lesson;
-import eu.convertron.interlib.TableOptions;
-import eu.convertron.interlib.config.ConfigurationSource;
 import eu.convertron.interlib.config.ConfigurationListener;
+import eu.convertron.interlib.config.ConfigurationSource;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import java.util.HashMap;
@@ -22,30 +19,6 @@ public class ConvertronWS
     {
         this.control = control;
         this.changes = new HashMap<>();
-    }
-
-    @WebMethod
-    public String getAllLessonsForDate(String date)
-    {
-        Lesson.ValidateActions.validateDateString(date);
-        Lesson[] lessons = TableOptions.getInstance().onlyDate(control.getData(), date);
-        return new CsvLessonSerializer().serializeMultiple(lessons);
-    }
-
-    @WebMethod
-    public String getData()
-    {
-        Lesson[] lessons = control.getData();
-        return new CsvLessonSerializer().serializeMultiple(lessons);
-    }
-
-    @WebMethod
-    public void setData(String lessonSerialization)
-    {
-        Lesson[] lessons = new CsvLessonSerializer().deserializeMultiple(lessonSerialization);
-        control.setData(lessons);
-        Logger.logMessage(LogPriority.HINT, "Neue Vertretungseinträge empfangen, Anzahl: "
-                                            + (lessons == null ? "null" : lessons.length));
     }
 
     @WebMethod

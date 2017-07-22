@@ -39,7 +39,7 @@ public class IOConfigurationProvider implements ConfigurationSourceProvider
     {
         return moduleName
                 .replaceAll("\\.", "-")
-                .replaceAll("$", ",");
+                .replaceAll("\\$", ",");
     }
 
 }

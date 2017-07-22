@@ -96,10 +96,10 @@ public abstract class ConfigurationSource implements Configuration
     }
 
     @Override
-    public void setConfig(String name, byte[] value)
+    public void setConfig(String configName, byte[] value)
     {
-        trySave(name, value);
-        configChanged(name, value);
+        trySave(configName, value);
+        configChanged(configName, value);
     }
 
     @Override
@@ -115,11 +115,11 @@ public abstract class ConfigurationSource implements Configuration
     }
 
     @Override
-    public byte[] getConfig(String name)
+    public byte[] getConfig(String configName)
     {
-        if(!hasConfig(name))
-            throw new IllegalArgumentException("No such config");
-        return tryLoad(name);
+        if(!hasConfig(configName))
+            throw new IllegalArgumentException("No such config: '" + configName + "'");
+        return tryLoad(configName);
     }
 
     @Override
@@ -134,16 +134,16 @@ public abstract class ConfigurationSource implements Configuration
     }
 
     @Override
-    public boolean removeConfig(String name)
+    public boolean removeConfig(String configName)
     {
-        tryRemove(name);
-        return configFiles.remove(name);
+        tryRemove(configName);
+        return configFiles.remove(configName);
     }
 
     @Override
-    public boolean hasConfig(String name)
+    public boolean hasConfig(String configName)
     {
-        return configFiles.contains(name);
+        return configFiles.contains(configName);
     }
 
     @Override
