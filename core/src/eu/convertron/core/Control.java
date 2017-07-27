@@ -6,17 +6,22 @@ import eu.convertron.applib.modules.IOConfigurationProvider;
 import eu.convertron.applib.modules.ModuleConfigurationProvider;
 import eu.convertron.applib.settings.Settings;
 import eu.convertron.client.ServerConnection;
+import eu.convertron.core.usercallback.UserCallback;
 import eu.convertron.interlib.Lesson;
 import eu.convertron.interlib.TableOptions;
 import eu.convertron.interlib.config.DesiredLocation;
 import eu.convertron.interlib.config.GeneralConfigFile;
 import eu.convertron.interlib.config.ModuleConfiguration;
-import eu.convertron.interlib.config.MoveConflictUserCallback;
 import eu.convertron.interlib.io.Folder;
 import eu.convertron.interlib.io.TextFile;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.UUID;
 import javax.swing.Timer;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * Verwaltet alle Aktionen, die im Programm geschehen sollen.
@@ -32,11 +37,11 @@ public class Control
     private final ModuleConfigurationProvider provider;
     private final ModuleConfiguration coreConfig;
 
-    public Control()
+    public Control(UserCallback callback)
     {
         provider = new ModuleConfigurationProvider(new IOConfigurationProvider(CoreSettings.pathLocalData.load()),
                                                    createGlobalConfigurationSourceProvider(),
-                                                   createMoveConflictUserCallback());
+                                                   callback);
 
         coreConfig = provider.provideConfig("core");
         storage = new CsvStorage(coreConfig, "lessondata.csv");
@@ -53,12 +58,6 @@ public class Control
         autoTimer.start();
 
         Logger.logMessage(LogPriority.HINT, "Anwendung gestartet");
-    }
-
-    private MoveConflictUserCallback createMoveConflictUserCallback()
-    {
-        //TODO
-        return null;
     }
 
     private ConfigurationSourceProvider createGlobalConfigurationSourceProvider()
@@ -180,5 +179,52 @@ public class Control
     public GeneralConfigFile getMotdConfigFile()
     {
         return motdConfigFile;
+    }
+
+    public TextFile startMeld(String file1Name, byte[] file1, String file2Name, byte[] file2)
+    {
+        final String resultFileName = "MERGE_RESULT";
+        if(resultFileName.equals(file1Name) || resultFileName.equals(file2Name))
+        {
+            throw new IllegalArgumentException("Filename reserved.");
+        }
+
+        Folder folder = new Folder(System.getProperty("java.io.tmpdir"))
+                .createChild(UUID.randomUUID().toString());
+
+        TextFile f1 = new TextFile(folder, file1Name, UTF_8);
+        f1.writeBytes(file1);
+
+        TextFile f2 = new TextFile(folder, file2Name, UTF_8);
+        f2.writeBytes(file2);
+
+        TextFile result = new TextFile(folder, resultFileName, UTF_8);
+        result.writeBytes(file1);
+
+        startMeldProcess(f1.getFileName(), result.getFileName(), f2.getFileName());
+
+        return result;
+    }
+
+    private void startMeldProcess(String... args)
+    {
+        try
+        {
+            ArrayList<String> arguments = new ArrayList<>(Arrays.asList(CoreSettings.pathMeld.load()));
+            arguments.addAll(Arrays.asList(args));
+
+            Process p = new ProcessBuilder(arguments).start();
+        }
+        catch(IOException ex)
+        {
+            throw new RuntimeException("Failed to start meld process.", ex);
+        }
+    }
+
+    public byte[] finishMeld(TextFile mergeResult)
+    {
+        byte[] data = mergeResult.readAllBytes();
+        mergeResult.getFolder().delete();
+        return data;
     }
 }

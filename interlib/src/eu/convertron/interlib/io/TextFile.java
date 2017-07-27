@@ -108,6 +108,12 @@ public class TextFile extends GeneralFile
         this.charset = charset;
     }
 
+    public TextFile(Folder folder, String fileName, Charset charset)
+    {
+        this(folder.getFileName(), fileName);
+        this.charset = charset;
+    }
+
     /**
      * Kontruktor.
      * @param path    Pfad zur Datei
@@ -168,12 +174,45 @@ public class TextFile extends GeneralFile
     }
 
     /**
-     * Liest alle Zeilen als String ein.
+     * Liest die gesamte Datei als String mit normalisierten Line-Endings ein.
      * @return Alle Zeilen als String
      */
     public String readAllToString()
     {
-        return String.join("\n", readAllToArray());
+        return readAllToString(true);
+    }
+
+    /**
+     * Liest die gesamte Datei als String ein.
+     * @param normalizeLineEndings Sollen alle Line-Endings zu Unix (nur \n) konvertiert werden?
+     * @return Alle Zeilen als String
+     */
+    public String readAllToString(boolean normalizeLineEndings)
+    {
+        if(normalizeLineEndings)
+        {
+            return String.join("\n", readAllToArray());
+        }
+        else
+        {
+            return new String(readAllBytes(), charset);
+        }
+    }
+
+    /**
+     * Liest die Datei als byte-Array ein.
+     * @return Inhalt der Datei als byte-Array
+     */
+    public byte[] readAllBytes()
+    {
+        try
+        {
+            return Files.readAllBytes(getPath());
+        }
+        catch(IOException ex)
+        {
+            throw new RuntimeException("The file '" + getPathString() + "' could not be read", ex);
+        }
     }
 
     /**

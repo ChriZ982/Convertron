@@ -14,6 +14,7 @@ public enum CoreSettings implements SettingID
     pathGlobalData,
     pathLocalData,
     pathBackup,
+    pathMeld,
     positionX,
     positionY,
     activeInput,

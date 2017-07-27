@@ -1,10 +1,13 @@
 package eu.convertron.interlib.config;
 
+import eu.convertron.interlib.logging.LogPriority;
+import eu.convertron.interlib.logging.Logger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class ModuleConfiguration implements Configuration
 {
@@ -126,7 +129,7 @@ public class ModuleConfiguration implements Configuration
                         global.setConfig(name, new byte[0]);
                         break;
                     case Local:
-                        moveToGlobal(name, OverwriteStrategy.DiscardLocal);
+                        forceMoveToGlobal(name, OverwriteStrategy.DiscardLocal);
                         break;
                 }
                 break;
@@ -138,7 +141,7 @@ public class ModuleConfiguration implements Configuration
                         global.setConfig(name, new byte[0]);
                         break;
                     case Local:
-                        moveToGlobal(name, OverwriteStrategy.OverwriteGlobal);
+                        forceMoveToGlobal(name, OverwriteStrategy.OverwriteGlobal);
                         break;
                 }
                 break;
@@ -200,9 +203,8 @@ public class ModuleConfiguration implements Configuration
         }
     }
 
-    public boolean moveToGlobal(String configName, OverwriteStrategy strategy)
+    public void forceMoveToGlobal(String configName, OverwriteStrategy strategy)
     {
-        boolean result = true;
         if(getLocation(configName) != CurrentConfigFileLocation.Local)
         {
             throw new UnsupportedOperationException(configName + " isnt a local config file");
@@ -211,45 +213,95 @@ public class ModuleConfiguration implements Configuration
         {
             global.setConfig(configName, local.getConfig(configName));
         }
-        else if(Arrays.equals(global.getConfig(configName), local.getConfig(configName)))
+        else if(strategy == OverwriteStrategy.DiscardLocal
+                || Arrays.equals(global.getConfig(configName), local.getConfig(configName)))
         {
             //Do nothing
         }
-        else
-        {
-            result = applyStrategy(configName, strategy);
-        }
-
-        local.removeConfig(configName);
-        return result;
-    }
-
-    private boolean applyStrategy(String configName, OverwriteStrategy strategy)
-    {
-        if(strategy == OverwriteStrategy.DiscardLocal
-           || (callback == null && strategy == OverwriteStrategy.Ask_DefaultDiscardLocal))
-        {
-            //Do nothing
-        }
-        else if(strategy == OverwriteStrategy.OverwriteGlobal
-                || (callback == null && strategy == OverwriteStrategy.Ask_DefaultOverwriteGlobal))
+        else if(strategy == OverwriteStrategy.OverwriteGlobal)
         {
             global.setConfig(configName, local.getConfig(configName));
         }
+
+        local.removeConfig(configName);
+    }
+
+    public void askMoveToGlobal(Consumer<MoveResult> resultAcceptor, String configName, OverwriteStrategy defaultStrategy)
+    {
+        if(callback == null)
+        {
+            forceMoveToGlobal(configName, defaultStrategy);
+
+            MoveResult mr;
+            switch(defaultStrategy)
+            {
+                case DiscardLocal:
+                    mr = MoveResult.LocalDiscarded;
+                    break;
+                case OverwriteGlobal:
+                    mr = MoveResult.GlobalOverrided;
+                    break;
+                default:
+                    mr = MoveResult.Aborted;
+                    break;
+            }
+
+            try
+            {
+                if(resultAcceptor != null)
+                    resultAcceptor.accept(mr);
+            }
+            catch(Throwable t)
+            {
+                Logger.logError(LogPriority.ERROR, "Fehler beim Move-Conflict-Result-Acceptor von Modul " + module + " beim Verschieben von " + configName, t);
+            }
+        }
         else
         {
-            if(callback == null)
-                throw new RuntimeException("Illegal Strategy");
-
-            byte[] callbackResult = callback.resolveConflict(module, configName,
-                                                             local.getConfig(configName),
-                                                             global.getConfig(configName));
-            if(callbackResult == null)
-                return false;
-
-            global.setConfig(configName, callbackResult);
+            ConflictInfo conflict = new ConflictInfo(module, configName, local.getConfig(configName), global.getConfig(configName));
+            Consumer<byte[]> resultConsumer = createResultConsumer(resultAcceptor, conflict);
+            callback.resolveConflict(resultConsumer, conflict);
         }
-        return true;
+    }
+
+    private Consumer<byte[]> createResultConsumer(Consumer<MoveResult> resultAcceptor, ConflictInfo conflict)
+    {
+        return (result) ->
+        {
+            MoveResult mr;
+            if(result == null)
+            {
+                mr = MoveResult.Aborted;
+            }
+            else if(Arrays.equals(conflict.getLocalVersion(), result))
+            {
+                mr = MoveResult.GlobalOverrided;
+            }
+            else if(Arrays.equals(conflict.getGlobalVersion(), result))
+            {
+                mr = MoveResult.LocalDiscarded;
+            }
+            else
+            {
+                mr = MoveResult.Customized;
+            }
+
+            if(result != null)
+            {
+                global.setConfig(conflict.getConfigName(), result);
+                local.removeConfig(conflict.getConfigName());
+            }
+
+            try
+            {
+                if(resultAcceptor != null)
+                    resultAcceptor.accept(mr);
+            }
+            catch(Throwable t)
+            {
+                Logger.logError(LogPriority.ERROR, "Fehler beim Move-Conflict-Result-Acceptor von Modul " + module + " beim Verschieben von " + conflict.getConfigName(), t);
+            }
+        };
     }
 
     public void moveToLocal(String configName)

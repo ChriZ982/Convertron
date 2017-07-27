@@ -12,7 +12,7 @@ public class IniConfigFile extends AbstractConfigFile
     public static HashMap<String, String> deserialize(String s)
     {
         HashMap<String, String> result = new HashMap<>();
-        String[] lines = s.split("\n");
+        String[] lines = s.replaceAll("\r", "").split("\n");
         for(String line : lines)
         {
             if(!line.contains(":"))

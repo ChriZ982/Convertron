@@ -136,4 +136,13 @@ public class GeneralFile extends GeneralData
             throw new RuntimeException("The file '" + getPathString() + "' could not be copied to '" + destination + "'", ex);
         }
     }
+
+    /**
+     * Gibt den Ordner, in dem sich die Datei befindet.
+     * @return Ordner
+     */
+    public Folder getFolder()
+    {
+        return new Folder(getPath().getParent());
+    }
 }

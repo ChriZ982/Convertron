@@ -7,6 +7,9 @@ import eu.convertron.core.tabs.ModuleImportControl;
 import eu.convertron.core.tabs.OverviewControl;
 import eu.convertron.core.tabs.SettingsControl;
 import eu.convertron.core.tabs.SystemSettingsControl;
+import eu.convertron.core.usercallback.MoveConflictControl;
+import eu.convertron.core.usercallback.UserCallback;
+import eu.convertron.interlib.config.ConflictInfo;
 import eu.convertron.interlib.interfaces.View;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
@@ -15,6 +18,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
+import java.util.function.Consumer;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -47,9 +51,10 @@ public class Window extends ApplicationFrame
      * @param additionalMenuItems
      * @throws java.io.IOException
      */
-    public Window(Control control)
+    public Window()
     {
-        this.control = control;
+        this.control = new Control(new UserCallbackImpl());
+
         overviewControl = new OverviewControl(control);
         systemSettingsControl = new SystemSettingsControl(this);
         settingsControl = new SettingsControl(control.getCoreConfig());
@@ -145,11 +150,10 @@ public class Window extends ApplicationFrame
             System.setProperty("file.encoding", StandardCharsets.UTF_8.name());
             Logger.addLogOutput(new LogFile());
             setLookAndFeel();
-            Control c = new Control();
             View.invokeAndWait(()
                     ->
             {
-                new Window(c).setVisible(true);
+                new Window().setVisible(true);
             });
         }
         catch(Exception ex)
@@ -176,6 +180,28 @@ public class Window extends ApplicationFrame
         catch(Exception ex)
         {
             Logger.logError(LogPriority.WARNING, "Das Design der Anwendung konnte nicht geändert werden", ex);
+        }
+    }
+
+    private class UserCallbackImpl implements UserCallback
+    {
+        @Override
+        public void resolveConflict(Consumer<byte[]> resultConsumer, ConflictInfo conflict)
+        {
+            new MoveConflictControl(resultConsumer, conflict, Window.this, control).showDialog();
+        }
+
+        @Override
+        public byte[] resolveConflictSynchron(ConflictInfo conflict)
+        {
+            try
+            {
+                return new MoveConflictControl(null, conflict, Window.this, control).showDialog().waitForResult();
+            }
+            catch(InterruptedException ex)
+            {
+                throw new RuntimeException("Unexpected exception while waiting for move conflict top be resolved by user.", ex);
+            }
         }
     }
 

@@ -1,6 +1,10 @@
 package eu.convertron.interlib.config;
 
+import java.util.function.Consumer;
+
 public interface MoveConflictUserCallback
 {
-    public byte[] resolveConflict(String module, String configName, byte[] localVersion, byte[] globalVersion);
+    public byte[] resolveConflictSynchron(ConflictInfo conflict);
+
+    public void resolveConflict(Consumer<byte[]> resultConsumer, ConflictInfo conflict);
 }

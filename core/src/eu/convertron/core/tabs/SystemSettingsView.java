@@ -4,7 +4,11 @@ import eu.convertron.applib.settings.GuiSettingBridge;
 import eu.convertron.core.CoreSettings;
 import eu.convertron.core.Resources;
 import eu.convertron.interlib.interfaces.View;
+import eu.convertron.interlib.logging.LogPriority;
+import eu.convertron.interlib.logging.Logger;
 import eu.convertron.interlib.util.GuiBridge;
+import java.awt.Desktop;
+import java.net.URI;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 
@@ -44,6 +48,7 @@ public class SystemSettingsView extends View
             new GuiSettingBridge(CoreSettings.pathGlobalData, globalDataPathTextField),
             new GuiSettingBridge(CoreSettings.pathLocalData, localDataPathTextField),
             new GuiSettingBridge(CoreSettings.pathBackup, backupPathTextField),
+            new GuiSettingBridge(CoreSettings.pathMeld, meldPathTextField),
         };
     }
 
@@ -65,6 +70,7 @@ public class SystemSettingsView extends View
 
         folderChooser = new javax.swing.JFileChooser();
         wsdlTypeRadioBtnGroup = new javax.swing.ButtonGroup();
+        fileChooser = new javax.swing.JFileChooser();
         wsdlRadioBtn = new javax.swing.JRadioButton();
         wsdlTxt = new javax.swing.JTextField();
         wsdlLabel = new javax.swing.JLabel();
@@ -86,6 +92,14 @@ public class SystemSettingsView extends View
         localDataPathTextField = new javax.swing.JTextField();
         localDataPathChooseButton = new javax.swing.JButton();
         saveAndRestartBtn = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        meldPathTextField = new javax.swing.JTextField();
+        meldPathChooseBtn = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        meldWebsiteButton = new javax.swing.JButton();
+
+        folderChooser.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
 
         wsdlTypeRadioBtnGroup.add(wsdlRadioBtn);
         wsdlRadioBtn.setText("WSDL");
@@ -137,7 +151,40 @@ public class SystemSettingsView extends View
 
         localDataPathLabel.setText("Lokale Daten");
 
+        localDataPathChooseButton.setIcon(new javax.swing.ImageIcon(Resources.get("ordner.png")));
+        localDataPathChooseButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                localDataPathChooseButtonActionPerformed(evt);
+            }
+        });
+
         saveAndRestartBtn.setText("Speichern und Neustarten");
+
+        jLabel1.setText("Meld.exe");
+
+        meldPathChooseBtn.setIcon(new javax.swing.ImageIcon(Resources.get("ordner.png")));
+        meldPathChooseBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                meldPathChooseBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Meld ist ein Open-Source Programm zum Vergleichen und Zusammenführen (\"merge\") von Dateien.");
+
+        jLabel3.setText("Die Installation von Meld ist optional. Alle Infos:");
+
+        meldWebsiteButton.setText("http://meldmerge.org/");
+        meldWebsiteButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                meldWebsiteButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -159,7 +206,7 @@ public class SystemSettingsView extends View
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(httpLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(hostTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                                .addComponent(hostTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(hostportLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -171,21 +218,29 @@ public class SystemSettingsView extends View
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(backupPathLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(localDataPathLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(globalDataPathLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(backupPathTextField)
-                            .addComponent(globalDataPathTextField)
-                            .addComponent(localDataPathTextField))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(globalDataPathChooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(localDataPathChooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                            .addComponent(backupPathChooseButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(meldWebsiteButton))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(backupPathLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(localDataPathLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(globalDataPathLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(backupPathTextField)
+                                    .addComponent(globalDataPathTextField)
+                                    .addComponent(localDataPathTextField)
+                                    .addComponent(meldPathTextField))
+                                .addGap(9, 9, 9)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(globalDataPathChooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(localDataPathChooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                    .addComponent(backupPathChooseButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(meldPathChooseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -227,7 +282,19 @@ public class SystemSettingsView extends View
                         .addComponent(backupPathLabel)
                         .addComponent(backupPathTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(backupPathChooseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(meldPathTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1))
+                    .addComponent(meldPathChooseBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(meldWebsiteButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addComponent(saveAndRestartBtn)
                 .addContainerGap())
         );
@@ -251,10 +318,35 @@ public class SystemSettingsView extends View
             backupPathTextField.setText(folderChooser.getSelectedFile().getPath());
     }//GEN-LAST:event_backupPathChooseButtonActionPerformed
 
+    private void localDataPathChooseButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_localDataPathChooseButtonActionPerformed
+    {//GEN-HEADEREND:event_localDataPathChooseButtonActionPerformed
+        if(folderChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+            localDataPathTextField.setText(folderChooser.getSelectedFile().getPath());
+    }//GEN-LAST:event_localDataPathChooseButtonActionPerformed
+
+    private void meldPathChooseBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_meldPathChooseBtnActionPerformed
+    {//GEN-HEADEREND:event_meldPathChooseBtnActionPerformed
+        if(fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+            meldPathTextField.setText(fileChooser.getSelectedFile().getPath());
+    }//GEN-LAST:event_meldPathChooseBtnActionPerformed
+
+    private void meldWebsiteButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_meldWebsiteButtonActionPerformed
+    {//GEN-HEADEREND:event_meldWebsiteButtonActionPerformed
+        try
+        {
+            Desktop.getDesktop().browse(new URI("http://meldmerge.org/"));
+        }
+        catch(Exception ex)
+        {
+            Logger.logError(LogPriority.WARNING, "Fehler beim Aufrufen der Meld Website", ex);
+        }
+    }//GEN-LAST:event_meldWebsiteButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backupPathChooseButton;
     private javax.swing.JLabel backupPathLabel;
     private javax.swing.JTextField backupPathTextField;
+    private javax.swing.JFileChooser fileChooser;
     private javax.swing.JFileChooser folderChooser;
     private javax.swing.JButton globalDataPathChooseButton;
     private javax.swing.JLabel globalDataPathLabel;
@@ -263,10 +355,16 @@ public class SystemSettingsView extends View
     private javax.swing.JTextField hostTxt;
     private javax.swing.JLabel hostportLabel;
     private javax.swing.JLabel httpLabel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton localDataPathChooseButton;
     private javax.swing.JLabel localDataPathLabel;
     private javax.swing.JTextField localDataPathTextField;
+    private javax.swing.JButton meldPathChooseBtn;
+    private javax.swing.JTextField meldPathTextField;
+    private javax.swing.JButton meldWebsiteButton;
     private javax.swing.JLabel pathsLabel;
     private javax.swing.JTextField portTxt;
     private javax.swing.JButton saveAndRestartBtn;

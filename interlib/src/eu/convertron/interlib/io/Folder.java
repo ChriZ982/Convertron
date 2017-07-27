@@ -161,4 +161,25 @@ public class Folder extends GeneralData
             throw new RuntimeException("The content of the folder '" + getPath().toString() + "' could not be found", ex);
         }
     }
+
+    /**
+     * Gibt den übergeordneten Ordner zurück.
+     * @return Parent Folder
+     */
+    public Folder getParent()
+    {
+        return new Folder(getPath().getParent());
+    }
+
+    /**
+     * Erstellt einen Unterordner.
+     * @param name Name des Unterordners
+     * @return Den Unterordner
+     */
+    public Folder createChild(String name)
+    {
+        Folder child = new Folder(getPath().getFileName() + "/" + name);
+        child.createIfNotExists();
+        return child;
+    }
 }
