@@ -2,5 +2,5 @@ package eu.convertron.interlib.config;
 
 public interface ConfigFileListener
 {
-    public void configFileChanged(byte[] value);
+    public abstract void configFileChanged(ConfigFileChangeInfo changeInfo);
 }

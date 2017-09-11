@@ -26,7 +26,7 @@ public class Window extends ApplicationFrame
         logPanel = new LogPanel();
         initComponents();
 
-        control.getMotdConfigFile().addConfigFileListener((newValue) -> motdTxt.setText(new String(newValue, StandardCharsets.UTF_8)));
+        control.getMotdConfigFile().addConfigFileListener((info) -> motdTxt.setText(new String(info.getNewValue(), StandardCharsets.UTF_8)));
 
         motdTxt.setText(control.getMotdConfigFile().loadString());
     }

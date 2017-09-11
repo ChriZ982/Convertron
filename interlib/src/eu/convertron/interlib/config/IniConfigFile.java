@@ -68,7 +68,7 @@ public class IniConfigFile extends AbstractConfigFile
 
         this.content = new HashMap<>();
 
-        this.addConfigFileListener((v) -> reload(v));
+        this.addConfigFileListener((info) -> reload(info.getNewValue()));
 
         reload();
 

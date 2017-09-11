@@ -1,6 +1,9 @@
 package eu.convertron.interlib.config;
 
+import eu.convertron.interlib.logging.LogPriority;
+import eu.convertron.interlib.logging.Logger;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public abstract class AbstractConfigFile
@@ -10,7 +13,7 @@ public abstract class AbstractConfigFile
     protected Charset charset;
     protected DesiredLocation location;
 
-    private SingleConfigurationListener listener;
+    protected final ArrayList<ConfigFileListener> listeners;
 
     protected AbstractConfigFile(ModuleConfiguration configuration, String configName, DesiredLocation location)
     {
@@ -24,19 +27,41 @@ public abstract class AbstractConfigFile
         this.location = location;
         this.charset = charset;
 
-        this.listener = new SingleConfigurationListener(configName);
-        this.configuration.addConfigListener(listener);
+        listeners = new ArrayList<>();
+        configuration.addConfigListener((changed)
+                ->
+                {
+                    if(changed.containsKey(configName))
+                    {
+                        fireConfigFileChanged(changed.get(configName));
+                    }
+        }
+        );
+    }
 
+    protected void fireConfigFileChanged(ConfigFileChangeInfo info)
+    {
+        for(ConfigFileListener l : listeners)
+        {
+            try
+            {
+                l.configFileChanged(info);
+            }
+            catch(Exception ex)
+            {
+                Logger.logError(LogPriority.WARNING, "Fehler beim Ausführen eines 'config-file-changed' Ereignisses", ex);
+            }
+        }
     }
 
     public void addConfigFileListener(ConfigFileListener l)
     {
-        listener.addConfigFileListener(l);
+        listeners.add(l);
     }
 
     public boolean removeConfigFileListener(ConfigFileListener l)
     {
-        return listener.removeConfigFileListener(l);
+        return listeners.remove(l);
     }
 
     public ModuleConfiguration getConfiguration()

@@ -5,7 +5,6 @@ import eu.convertron.interlib.logging.Logger;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public abstract class ConfigurationSource implements Configuration
@@ -31,56 +30,20 @@ public abstract class ConfigurationSource implements Configuration
         listeners.add(l);
     }
 
-    protected void configChanged(String name, byte[] value)
+    protected void fireConfigChanged(String configName, ConfigFileChangeInfo info)
     {
-        HashMap<String, byte[]> map = new HashMap<>();
-        map.put(name, value);
-        configChanged(map);
+        Map<String, ConfigFileChangeInfo> changed = new HashMap<>(1);
+        changed.put(configName, info);
+        fireConfigChanged(changed);
     }
 
-    protected void configChanged(Map<String, byte[]> values)
-    {
-        Iterator<String> it = values.keySet().iterator();
-        while(it.hasNext())
-        {
-            String name = it.next();
-            if(!configFiles.contains(name))
-            {
-                fireConfigAdded(name);
-                configFiles.add(name);
-            }
-        }
-        fireConfigChanged(values);
-    }
-
-    private void fireConfigAdded(String name)
+    protected void fireConfigChanged(Map<String, ConfigFileChangeInfo> changed)
     {
         for(ConfigurationListener l : listeners)
         {
             try
             {
-                l.newConfigurationAdded(name);
-            }
-            catch(Exception ex)
-            {
-                Logger.logError(LogPriority.WARNING, "Fehler beim Ausführen eines 'config-added' Ereignisses", ex);
-            }
-        }
-    }
-
-    private void fireConfigChanged(Map<String, byte[]> config)
-    {
-        boolean complete = true;
-        for(String key : configFiles)
-        {
-            if(!config.containsKey(key))
-                complete = false;
-        }
-        for(ConfigurationListener l : listeners)
-        {
-            try
-            {
-                l.configurationChanged(new HashMap<>(config), complete);
+                l.configurationChanged(new HashMap<>(changed));
             }
             catch(Exception ex)
             {
@@ -98,28 +61,35 @@ public abstract class ConfigurationSource implements Configuration
     @Override
     public void setConfig(String configName, byte[] value)
     {
-        trySave(configName, value);
-        configChanged(configName, value);
+        Map<String, byte[]> config = new HashMap<>();
+        config.put(configName, value);
+        setMultipleConfigs(config);
     }
 
     @Override
     public void setMultipleConfigs(Map<String, byte[]> config)
     {
-        Iterator<Map.Entry<String, byte[]>> it = config.entrySet().iterator();
-        while(it.hasNext())
+        Map<String, ConfigFileChangeInfo> changed = new HashMap<>(config.size());
+        for(Map.Entry<String, byte[]> entry : config.entrySet())
         {
-            Map.Entry<String, byte[]> entry = it.next();
-            trySave(entry.getKey(), entry.getValue());
+            String configName = entry.getKey();
+            byte[] newValue = entry.getValue();
+
+            ConfigFileChangeInfo info = createInfo(configName, newValue);
+            if(info.getChangeType() == ConfigFileChangeType.ADDED)
+            {
+                configFiles.add(configName);
+            }
+            trySave(configName, newValue);
+            changed.put(configName, info);
         }
-        configChanged(config);
+        fireConfigChanged(changed);
     }
 
     @Override
     public byte[] getConfig(String configName)
     {
-        if(!hasConfig(configName))
-            throw new IllegalArgumentException("No such config: '" + configName + "'");
-        return tryLoad(configName);
+        return hasConfig(configName) ? tryLoad(configName) : null;
     }
 
     @Override
@@ -136,7 +106,13 @@ public abstract class ConfigurationSource implements Configuration
     @Override
     public boolean removeConfig(String configName)
     {
+        if(!configFiles.contains(configName))
+        {
+            return false;
+        }
+        ConfigFileChangeInfo info = createInfo(configName, null);
         tryRemove(configName);
+        fireConfigChanged(configName, info);
         return configFiles.remove(configName);
     }
 
@@ -150,6 +126,31 @@ public abstract class ConfigurationSource implements Configuration
     public String[] getConfigFiles()
     {
         return configFiles.toArray(new String[configFiles.size()]);
+    }
+
+    private ConfigFileChangeInfo createInfo(String configName, byte[] newValue)
+    {
+        byte[] oldValue = getConfig(configName);
+        ConfigFileChangeType type;
+
+        if(oldValue != null && newValue != null)
+        {
+            type = ConfigFileChangeType.MODIFIED;
+        }
+        else if(oldValue == null && newValue != null)
+        {
+            type = ConfigFileChangeType.ADDED;
+        }
+        else if(oldValue != null && newValue == null)
+        {
+            type = ConfigFileChangeType.REMOVED;
+        }
+        else
+        {
+            throw new RuntimeException("Removing a non-existing config file is not allowed");
+        }
+
+        return new ConfigFileChangeInfo(configName, oldValue, newValue, type);
     }
 
     private void trySave(String name, byte[] value)
