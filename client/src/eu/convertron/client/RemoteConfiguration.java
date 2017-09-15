@@ -1,10 +1,11 @@
 package eu.convertron.client;
 
-import eu.convertron.applib.ChangeSet;
+import eu.convertron.applib.ModuleChangeSet;
+import eu.convertron.client.gen.ConvertronWS;
+import eu.convertron.interlib.config.ConfigFileChangeInfo;
 import eu.convertron.interlib.config.ConfigurationSource;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
-import java.util.HashMap;
 
 public class RemoteConfiguration extends ConfigurationSource
 {
@@ -36,16 +37,14 @@ public class RemoteConfiguration extends ConfigurationSource
         service.setConfigFile(moduleName, name, value);
     }
 
-    public void processChange(ChangeSet.ConfigEntry entry)
+    public void processChange(ModuleChangeSet entry)
     {
-        HashMap<String, byte[]> changedValues = new HashMap<>();
-        for(String s : entry.getChangedConfigsParts())
+        for(ConfigFileChangeInfo info : entry.getConfigChangeInfos())
         {
-            changedValues.put(s, getConfig(s));
-            Logger.logMessage(LogPriority.INFO, "Received changes for config '" + s + "'");
+            Logger.logMessage(LogPriority.INFO, "Received changes from server for module + '"
+                                                + moduleName + "', config file '" + info.getConfigName() + "'");
         }
 
-        if(!changedValues.isEmpty())
-            configChanged(changedValues);
+        fireConfigChanged(entry.getConfigChangeInfos());
     }
 }

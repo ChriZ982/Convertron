@@ -5,6 +5,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.io.StringWriter;
+import javax.xml.bind.JAXB;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class SerializeUtils
@@ -30,20 +32,19 @@ public class SerializeUtils
         }
     }
 
-    public static <T> T deserialize(String s)
+    public static <T> T deserialize(String s, Class<T> clazz)
     {
-        return deserialize(s.getBytes(UTF_8));
+        return deserialize(s.getBytes(UTF_8), clazz);
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T> T deserialize(byte[] buf)
+    public static <T> T deserialize(byte[] buf, Class<T> clazz)
     {
         try
         {
             ByteArrayInputStream in = new ByteArrayInputStream(buf);
             ObjectInputStream objStream = new ObjectInputStream(in);
             Object o = objStream.readObject();
-            return (T)o;
+            return clazz.cast(o);
         }
         catch(ClassCastException ex)
         {
@@ -53,6 +54,18 @@ public class SerializeUtils
         {
             throw new RuntimeException("Failed to deserialize ChangeSet Entry", ex);
         }
+    }
+
+    public static String toXml(Object jaxbObject)
+    {
+        StringWriter sw = new StringWriter();
+        JAXB.marshal(jaxbObject, sw);
+        return sw.toString();
+    }
+
+    public static <T> T fromXml(String xml, Class<T> clazz)
+    {
+        return JAXB.unmarshal(xml, clazz);
     }
 
     private SerializeUtils()

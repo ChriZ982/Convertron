@@ -1,7 +1,6 @@
 package eu.convertron.server;
 
 import eu.convertron.applib.ChangeSet;
-import eu.convertron.interlib.config.ConfigurationListener;
 import eu.convertron.interlib.config.ConfigurationSource;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
@@ -24,50 +23,34 @@ public class ConvertronWS
     @WebMethod
     public void subscribeToConfigChanges(String moduleName, byte[] clientId)
     {
-        ChangeSet c;
+        ChangeSet cs;
         if(!changes.containsKey(clientId))
         {
-            c = new ChangeSet();
-            changes.put(clientId, c);
+            cs = new ChangeSet();
+            changes.put(clientId, cs);
         }
         else
         {
-            c = changes.get(clientId);
+            cs = changes.get(clientId);
         }
 
         ConfigurationSource config = control.getOrCreateGlobalConfiguration(moduleName);
-        config.addConfigListener(new ConfigurationListener()
-        {
-            @Override
-            public void configurationChanged(HashMap<String, byte[]> changed, boolean complete)
-            {
-                for(String configPart : changed.keySet())
-                    c.configChanged(moduleName, configPart);
-            }
-
-            @Override
-            public void newConfigurationAdded(String name)
-            {
-                c.configAdded(moduleName, name);
-            }
-        });
+        config.addConfigListener((map) -> cs.registerConfigChange(map));
         Logger.logMessage(LogPriority.HINT, "Ein Client abonnierte Aenderungen am Modul '" + moduleName + "'");
     }
 
     @WebMethod
-    public byte[] getChanges(byte[] clientId)
+    public ChangeSet getChanges(byte[] clientId)
     {
         if(!changes.containsKey(clientId))
             return null;
 
-        ChangeSet c = changes.get(clientId);
+        ChangeSet cs = changes.get(clientId);
 
-        if(c == null || c.isEmpty())
+        if(cs == null || cs.isEmpty())
             return null;
 
-        byte[] result = c.serialize();
-        c.clear();
-        return result;
+        return cs;
     }
 
     @WebMethod

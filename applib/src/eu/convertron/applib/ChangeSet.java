@@ -1,146 +1,63 @@
 package eu.convertron.applib;
 
-import java.io.Serializable;
+import eu.convertron.interlib.config.ConfigFileChangeInfo;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.List;
+import java.util.Map;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
-public class ChangeSet implements Serializable
+@XmlRootElement
+public class ChangeSet
 {
-    private static final long serialVersionUID = -2637853264138413364L;
-
-    private final HashMap<String, ConfigEntry> entrys;
+    private List<ModuleChangeSet> moduleChangeSets = new ArrayList<>();
 
     public ChangeSet()
     {
-        entrys = new HashMap<>();
     }
 
-    public synchronized void clear()
+    @XmlElement
+    public List<ModuleChangeSet> getModuleChangeSets()
     {
-        entrys.clear();
+        return moduleChangeSets;
     }
 
-    public synchronized boolean isEmpty()
+    public void setModuleChangeSets(List<ModuleChangeSet> moduleChangeSets)
     {
-        return entrys.isEmpty();
+        this.moduleChangeSets = moduleChangeSets;
     }
 
-    public synchronized void configChanged(String configName, String configPart)
+    public void registerConfigChange(Map<String, ConfigFileChangeInfo> changes)
     {
-        getOrCreateEntry(configName).configChanged(configPart);
-    }
-
-    public synchronized void configAdded(String configName, String configPart)
-    {
-        getOrCreateEntry(configName).configAdded(configPart);
-    }
-
-    private ConfigEntry getOrCreateEntry(String configName)
-    {
-        if(!entrys.containsKey(configName))
-            entrys.put(configName, new ConfigEntry());
-        return entrys.get(configName);
-    }
-
-    public synchronized HashMap<String, ConfigEntry> getEntrysCopy()
-    {
-        return new HashMap<>(entrys);
-    }
-
-    public synchronized byte[] serialize()
-    {
-        return SerializeUtils.serialize(this);
-    }
-
-    public static ChangeSet deserialize(byte[] bytes)
-    {
-        return SerializeUtils.deserialize(bytes);
-    }
-
-    @Override
-    public boolean equals(Object obj)
-    {
-        if(obj instanceof ChangeSet)
+        for(Map.Entry<String, ConfigFileChangeInfo> change : changes.entrySet())
         {
-            ChangeSet cs = (ChangeSet)obj;
-            return cs.getEntrysCopy().equals(this.getEntrysCopy());
+            registerConfigChange(change.getKey(), change.getValue());
         }
-        return super.equals(obj);
     }
 
-    @Override
-    public int hashCode()
+    public void registerConfigChange(String moduleName, ConfigFileChangeInfo info)
     {
-        int hash = 5;
-        hash = 11 * hash + Objects.hashCode(this.entrys);
-        return hash;
-    }
-
-    public static class ConfigEntry implements Serializable
-    {
-        private static final long serialVersionUID = -3141716426452293504L;
-
-        private final ArrayList<String> addedConfigParts;
-        private final ArrayList<String> changedConfigsParts;
-
-        public ConfigEntry()
+        for(ModuleChangeSet cs : moduleChangeSets)
         {
-            addedConfigParts = new ArrayList<>();
-            changedConfigsParts = new ArrayList<>();
-        }
-
-        public void configChanged(String configPart)
-        {
-            if(!changedConfigsParts.contains(configPart))
-                changedConfigsParts.add(configPart);
-        }
-
-        public void configAdded(String configPart)
-        {
-            if(!addedConfigParts.contains(configPart))
-                addedConfigParts.add(configPart);
-        }
-
-        public ArrayList<String> getAddedConfigParts()
-        {
-            return addedConfigParts;
-        }
-
-        public ArrayList<String> getChangedConfigsParts()
-        {
-            return changedConfigsParts;
-        }
-
-        public byte[] serialize()
-        {
-            return SerializeUtils.serialize(this);
-        }
-
-        public static ConfigEntry deserialize(byte[] bytes)
-        {
-            return SerializeUtils.deserialize(bytes);
-        }
-
-        @Override
-        public boolean equals(Object obj)
-        {
-            if(obj instanceof ConfigEntry)
+            if(moduleName.equals(cs.getModuleName()))
             {
-                ConfigEntry ce = (ConfigEntry)obj;
-                return ce.getAddedConfigParts().equals(this.getAddedConfigParts())
-                       && ce.getChangedConfigsParts().equals(this.getChangedConfigsParts());
+                cs.registerConfigChange(info);
+                return;
             }
-            return super.equals(obj);
         }
 
-        @Override
-        public int hashCode()
-        {
-            int hash = 5;
-            hash = 47 * hash + Objects.hashCode(this.addedConfigParts);
-            hash = 47 * hash + Objects.hashCode(this.changedConfigsParts);
-            return hash;
-        }
+        ModuleChangeSet cs = new ModuleChangeSet(moduleName);
+        cs.registerConfigChange(info);
+        moduleChangeSets.add(cs);
+    }
+
+    public void clear()
+    {
+        moduleChangeSets.clear();
+    }
+
+    public boolean isEmpty()
+    {
+        return moduleChangeSets.isEmpty();
     }
 }

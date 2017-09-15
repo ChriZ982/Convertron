@@ -3,8 +3,10 @@ package eu.convertron.interlib.config;
 import eu.convertron.interlib.logging.LogPriority;
 import eu.convertron.interlib.logging.Logger;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public abstract class ConfigurationSource implements Configuration
@@ -30,20 +32,24 @@ public abstract class ConfigurationSource implements Configuration
         listeners.add(l);
     }
 
-    protected void fireConfigChanged(String configName, ConfigFileChangeInfo info)
+    protected void fireConfigChanged(ConfigFileChangeInfo info)
     {
-        Map<String, ConfigFileChangeInfo> changed = new HashMap<>(1);
-        changed.put(configName, info);
-        fireConfigChanged(changed);
+        fireConfigChanged(Arrays.asList(info));
     }
 
-    protected void fireConfigChanged(Map<String, ConfigFileChangeInfo> changed)
+    protected void fireConfigChanged(List<ConfigFileChangeInfo> changed)
     {
+        HashMap<String, ConfigFileChangeInfo> changeMap = new HashMap<>(changed.size());
+        for(ConfigFileChangeInfo info : changed)
+        {
+            changeMap.put(info.getConfigName(), info);
+        }
+
         for(ConfigurationListener l : listeners)
         {
             try
             {
-                l.configurationChanged(new HashMap<>(changed));
+                l.configurationChanged(new HashMap<>(changeMap));
             }
             catch(Exception ex)
             {
@@ -69,7 +75,7 @@ public abstract class ConfigurationSource implements Configuration
     @Override
     public void setMultipleConfigs(Map<String, byte[]> config)
     {
-        Map<String, ConfigFileChangeInfo> changed = new HashMap<>(config.size());
+        List<ConfigFileChangeInfo> changed = new ArrayList<>(config.size());
         for(Map.Entry<String, byte[]> entry : config.entrySet())
         {
             String configName = entry.getKey();
@@ -81,7 +87,7 @@ public abstract class ConfigurationSource implements Configuration
                 configFiles.add(configName);
             }
             trySave(configName, newValue);
-            changed.put(configName, info);
+            changed.add(info);
         }
         fireConfigChanged(changed);
     }
@@ -112,7 +118,7 @@ public abstract class ConfigurationSource implements Configuration
         }
         ConfigFileChangeInfo info = createInfo(configName, null);
         tryRemove(configName);
-        fireConfigChanged(configName, info);
+        fireConfigChanged(info);
         return configFiles.remove(configName);
     }
 

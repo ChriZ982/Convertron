@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is JAX-WS RI 2.2.9-b130926.1035 svn-revision#5f6196f2b90e9460065a4c2f4e30e065b245e51e. --><xs:schema xmlns:tns="http://server.convertron.eu/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://server.convertron.eu/">
 
+<xs:element name="changeSet" type="tns:changeSet"></xs:element>
+
+<xs:element name="configFileChangeInfo" type="tns:configFileChangeInfo"></xs:element>
+
 <xs:element name="getAvailableConfigs" type="tns:getAvailableConfigs"></xs:element>
 
 <xs:element name="getAvailableConfigsResponse" type="tns:getAvailableConfigsResponse"></xs:element>
@@ -11,6 +15,8 @@
 <xs:element name="getConfigFile" type="tns:getConfigFile"></xs:element>
 
 <xs:element name="getConfigFileResponse" type="tns:getConfigFileResponse"></xs:element>
+
+<xs:element name="moduleChangeSet" type="tns:moduleChangeSet"></xs:element>
 
 <xs:element name="ping" type="tns:ping"></xs:element>
 
@@ -58,7 +64,29 @@
 
 <xs:complexType name="getChangesResponse">
 <xs:sequence>
-<xs:element name="return" type="xs:base64Binary" nillable="true" minOccurs="0"></xs:element>
+<xs:element name="return" type="tns:changeSet" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="changeSet">
+<xs:sequence>
+<xs:element name="moduleChangeSets" type="tns:moduleChangeSet" minOccurs="0" maxOccurs="unbounded"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="moduleChangeSet">
+<xs:sequence>
+<xs:element name="configChangeInfos" type="tns:configFileChangeInfo" minOccurs="0" maxOccurs="unbounded"></xs:element>
+<xs:element name="moduleName" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="configFileChangeInfo">
+<xs:sequence>
+<xs:element name="changeType" type="tns:configFileChangeType" minOccurs="0"></xs:element>
+<xs:element name="configName" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="newValue" type="xs:base64Binary" minOccurs="0"></xs:element>
+<xs:element name="oldValue" type="xs:base64Binary" minOccurs="0"></xs:element>
 </xs:sequence>
 </xs:complexType>
 
@@ -71,6 +99,19 @@
 
 <xs:complexType name="subscribeToConfigChangesResponse">
 <xs:sequence></xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getConfigFile">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="arg1" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getConfigFileResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:base64Binary" nillable="true" minOccurs="0"></xs:element>
+</xs:sequence>
 </xs:complexType>
 
 <xs:complexType name="setConfigFile">
@@ -98,16 +139,11 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getConfigFile">
-<xs:sequence>
-<xs:element name="arg0" type="xs:string" minOccurs="0"></xs:element>
-<xs:element name="arg1" type="xs:string" minOccurs="0"></xs:element>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="getConfigFileResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:base64Binary" nillable="true" minOccurs="0"></xs:element>
-</xs:sequence>
-</xs:complexType>
+<xs:simpleType name="configFileChangeType">
+<xs:restriction base="xs:string">
+<xs:enumeration value="ADDED"></xs:enumeration>
+<xs:enumeration value="MODIFIED"></xs:enumeration>
+<xs:enumeration value="REMOVED"></xs:enumeration>
+</xs:restriction>
+</xs:simpleType>
 </xs:schema>
