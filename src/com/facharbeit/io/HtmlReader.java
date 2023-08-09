@@ -20,7 +20,7 @@ public class HtmlReader
     /**
      * Letzte Stufe
      */
-    public static final int lastGrade = 9;
+    public static final int lastGrade = 10;
 
     /**
      * Zusätzliche Stufen, die es gibt.
